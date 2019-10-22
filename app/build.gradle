@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.matrixm.tpv"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding.enabled = true
+
+    packagingOptions {
+        pickFirst("META-INF/atomicfu.kotlin_module") //https://github.com/Kotlin/kotlinx.coroutines/issues/1064
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0-alpha04'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
+
+    // design
+    implementation 'com.google.android.material:material:1.0.0'
+
+    // android-kotlin utils
+    implementation 'com.github.kirtan403.k4kotlin:k4kotlin-core:1.0.0-beta1'
+    implementation 'com.github.kirtan403.k4kotlin:k4kotlin-androidx:1.0.0-beta1'
+    implementation 'com.github.kirtan403.k4kotlin:k4kotlin-databinding:1.0.0-beta1'
+
+    // image loading
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+
+    // ViewModel and LiveData
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+    // Paging library for pagination
+    implementation "androidx.paging:paging-runtime:2.1.0"
+
+    // navigation fragments
+    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
+    implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
+
+    //Retrofit for network call
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    // K4Kotlin Extensions for Retrofit
+    implementation 'com.github.kirtan403.k4kotlin:k4kotlin-retrofit:1.0.0-beta1'
+
+    // shared preference helper
+    implementation 'com.chibatching.kotpref:kotpref:2.6.0'
+
+    // coroutines for async programming
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
+
+
+}
