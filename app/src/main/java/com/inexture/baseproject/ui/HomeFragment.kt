@@ -38,12 +38,11 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        mBinding.lifecycleOwner = viewLifecycleOwner
         return mBinding.root
     }
 
@@ -54,69 +53,6 @@ class HomeFragment : Fragment() {
 
     private fun initialize() {
 
-//        initSearchInputListener()
-//
-//        doSearch()
-
-        // set resource for progress bar state and empty view state
-//        @Suppress("UNCHECKED_CAST")
-//        mBinding.resource = mHomeViewModel.results as LiveData<Resource<Any>>
-
-        /*mBinding.setRetryCallBack {
-            doSearch() // retry search
-        }*/
-
-        val diffCallback = object : DiffUtil.ItemCallback<Repo>() {
-            override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
-                return oldItem == newItem
-            }
-
-            override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
-                return oldItem == newItem
-            }
-        }
-
-        mHomeViewModel.getUsers().observe(viewLifecycleOwner, Observer {
-            if (it.state == Resource.State.SUCCESS) {
-                Log.d(TAG, "initialize: ${it.data?.data?.toString()}")
-            }
-        })
-
-
-        /*val repoAdapter = RepoListAdapter(diffCallback)
-
-        mBinding.repoList.adapter = repoAdapter
-
-        mHomeViewModel.repoList.observe(viewLifecycleOwner, Observer { repoAdapter.submitList(it) })*/
-
-        /*mBinding.btnRefresh.onClick {
-            //            mHomeViewModel.refreshRepos()
-        }*/
     }
 
-    /*private fun initSearchInputListener() {
-        mBinding.input.setOnEditorActionListener { view: View, actionId: Int, _: KeyEvent? ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                doSearch()
-                true
-            } else {
-                false
-            }
-        }
-        mBinding.input.setOnKeyListener { view: View, keyCode: Int, event: KeyEvent ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                doSearch()
-                true
-            } else {
-                false
-            }
-        }
-    }*/
-
-    /*private fun doSearch() {
-        val query = mBinding.input.text.toString()
-        // Dismiss keyboard
-        hideKeyboard()
-//        mHomeViewModel.setQuery(query)
-    }*/
 }
