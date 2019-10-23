@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.startActivity
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLoginBinding
+import com.tpv.android.ui.MainActivity
 
 /**
  * A simple [Fragment] subclass.
@@ -23,5 +26,13 @@ class LoginFragment : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mBinding.btnStart.onClick {
+            context.startActivity<MainActivity>()
+            activity?.finish()
+        }
+    }
 
 }

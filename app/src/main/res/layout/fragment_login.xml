@@ -78,6 +78,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/btnStart"
             style="@style/ButtonPrimary"
             android:text="@string/get_started" />
 
