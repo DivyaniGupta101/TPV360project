@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="28dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_company_logo" />
+
+            <TextView
+                style="@style/DarkBoldText"
+                android:text="@string/welcome" />
+
+            <TextView
+                style="@style/LightNormalText"
+                android:layout_marginTop="8dp"
+                android:text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley " />
+
+            <TextView
+                style="@style/LightNormalText"
+                android:layout_marginTop="60dp"
+                android:text="@string/email_address" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                style="@style/LightNormalText"
+                android:layout_marginTop="8dp"
+                android:text="@string/password" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorImageTint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                style="@style/LightNormalText"
+                android:layout_gravity="end"
+                android:text="@string/forgot_password" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/ButtonPrimary"
+            android:layout_marginBottom="32dp"
+            android:text="@string/get_started" />
+
+    </LinearLayout>
+
+
+</layout>

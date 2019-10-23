@@ -8,10 +8,58 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:editTextStyle">@style/DefaultEditText</item>
     </style>
 
-    <style name="AppTheme.Spash">
+    <style name="AppTheme.Splash">
         <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 
+    <style name="DarkBoldText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LightNormalText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="DarkNormalText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="DefaultEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="ButtonPrimary">
+        <item name="android:foreground">@drawable/rounded_ripple_effect</item>
+        <item name="android:background">@drawable/bg_gradient_button</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorButtonText</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+    </style>
 </resources>

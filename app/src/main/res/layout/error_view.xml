@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.inexture.baseproject.network.resources.Resource" />
+        <import type="com.tpv.android.network.resources.Resource" />
 
         <import type="android.view.View" />
 
@@ -14,7 +14,7 @@
 
         <variable
             name="retryCallBack"
-            type="com.inexture.baseproject.network.resources.RetryCallBack" />
+            type="com.tpv.android.network.resources.RetryCallBack" />
 
     </data>
 

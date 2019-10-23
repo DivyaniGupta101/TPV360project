@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.inexture.baseproject.network.resources.Resource" />
+        <import type="com.tpv.android.network.resources.Resource" />
 
         <variable
             name="resource"
@@ -13,7 +13,7 @@
 
         <variable
             name="retryCallBack"
-            type="com.inexture.baseproject.network.resources.RetryCallBack" />
+            type="com.tpv.android.network.resources.RetryCallBack" />
 
         <variable
             name="showEmptyView"
@@ -26,7 +26,6 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/repo_list"
-            tools:listitem="@layout/repo_item"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"

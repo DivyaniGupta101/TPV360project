@@ -1,15 +1,22 @@
 package com.tpv.android
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import com.tpv.android.R
+import androidx.appcompat.app.AppCompatActivity
+import com.livinglifetechway.k4kotlin.core.startActivity
+import com.livinglifetechway.k4kotlin.databinding.setBindingView
+import com.tpv.android.ui.auth.AuthActivity
+import com.tpv.android.databinding.ActivitySplashBinding
 
 
 class SplashActivity : AppCompatActivity() {
+    lateinit var mBinding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        mBinding = setBindingView(R.layout.activity_splash)
+        startActivity<AuthActivity>()
+        finish()
+
     }
 }
 

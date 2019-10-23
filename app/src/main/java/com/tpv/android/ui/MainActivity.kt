@@ -2,7 +2,9 @@ package com.tpv.android.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.inexture.baseproject.databinding.ActivityMainBinding
+import com.livinglifetechway.k4kotlin.databinding.setBindingView
+import com.tpv.android.R
+import com.tpv.android.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -12,8 +14,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setTheme(R.style.AppTheme)
-//        mBinding = setBindingView(R.layout.activity_main) // bind view
+        setTheme(R.style.AppTheme)
+        mBinding = setBindingView(R.layout.activity_main) // bind view
     }
 
 }

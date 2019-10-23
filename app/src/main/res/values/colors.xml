@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#4e30b6</color>
+    <color name="colorPrimaryDark">#4e30b6</color>
+    <color name="colorAccent">#9440b5</color>
+
+    <color name="colorGray">#D05B5B5B</color>
+    <color name="colorWhite">#ffffff</color>
+
+
+    <color name="colorBlack">#000000</color>
+    <color name="colorSky">#1FA4DE</color>
+    <color name="colorGreen">#5d9757</color>
+    <color name="colorLGrey">#1A757575</color>
+    <color name="colorRed">#E35252</color>
+    <color name="colorGreenn">#0f8503</color>
+    <color name="accent">#FFC107</color>
+    <color name="primary_dark">#D32F2F</color>
+
+
+    <color name="colorPrimaryGradientStart">@color/colorAccent</color>
+    <color name="colorPrimaryGradientEnd">@color/colorPrimary</color>
+    <color name="colorRippleEffect">@color/colorAccent</color>
+    <color name="colorPrimaryText">@color/colorBlack</color>
+    <color name="colorSecondaryText">@color/colorGray</color>
+    <color name="colorDivider">@color/colorGray</color>
+    <color name="colorButtonText">@color/colorWhite</color>
+    <color name="colorImageTint">@color/colorGray</color>
+
+
 </resources>
