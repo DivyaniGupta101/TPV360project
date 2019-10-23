@@ -6,12 +6,12 @@
 
     <color name="colorGray">#D05B5B5B</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorLightGrey">#1A757575</color>
 
 
     <color name="colorBlack">#000000</color>
     <color name="colorSky">#1FA4DE</color>
     <color name="colorGreen">#5d9757</color>
-    <color name="colorLGrey">#1A757575</color>
     <color name="colorRed">#E35252</color>
     <color name="colorGreenn">#0f8503</color>
     <color name="accent">#FFC107</color>
@@ -23,9 +23,10 @@
     <color name="colorRippleEffect">@color/colorAccent</color>
     <color name="colorPrimaryText">@color/colorBlack</color>
     <color name="colorSecondaryText">@color/colorGray</color>
-    <color name="colorDivider">@color/colorGray</color>
+    <color name="colorDivider">@color/colorLightGrey</color>
     <color name="colorButtonText">@color/colorWhite</color>
     <color name="colorImageTint">@color/colorGray</color>
+    <color name="colorToolbarBg">@color/colorWhite</color>
 
 
 </resources>
