@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="28dp">
+        android:padding="@dimen/_24sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,8 +21,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
                 android:src="@drawable/ic_company_logo" />
 
             <TextView
@@ -31,12 +31,12 @@
 
             <TextView
                 style="@style/LightNormalText"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley " />
 
             <TextView
                 style="@style/LightNormalText"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="@dimen/_50sdp"
                 android:text="@string/email_address" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -53,7 +53,7 @@
 
             <TextView
                 style="@style/LightNormalText"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:text="@string/password" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -79,7 +79,6 @@
 
         <TextView
             style="@style/ButtonPrimary"
-            android:layout_marginBottom="32dp"
             android:text="@string/get_started" />
 
     </LinearLayout>

@@ -18,7 +18,7 @@
     <style name="DarkBoldText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">@dimen/_24sdp</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -26,7 +26,7 @@
     <style name="LightNormalText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:textColor">@color/colorSecondaryText</item>
         <item name="android:textStyle">normal</item>
     </style>
@@ -34,7 +34,7 @@
     <style name="DarkNormalText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textStyle">normal</item>
     </style>
@@ -42,7 +42,7 @@
     <style name="DefaultEditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:inputType">text</item>
     </style>
@@ -56,10 +56,11 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorButtonText</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
-        <item name="android:layout_marginStart">32dp</item>
-        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:paddingTop">@dimen/_12sdp</item>
+        <item name="android:paddingBottom">@dimen/_12sdp</item>
+<!--        <item name="android:layout_marginStart">@dimen/_28sdp</item>-->
+<!--        <item name="android:layout_marginEnd">@dimen/_28sdp</item>-->
+        <item name="android:layout_marginBottom">@dimen/_20sdp</item>
     </style>
 </resources>
