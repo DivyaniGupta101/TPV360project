@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.tpv.android.ui.HomeFragment"
+        android:name="com.tpv.android.ui.DashBoardFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_dash_board" >
         <action
             android:id="@+id/action_homeFragment_to_leadListingFragment"
             app:destination="@id/leadListingFragment" />

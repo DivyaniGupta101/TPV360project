@@ -10,9 +10,7 @@
     <color name="colorYellow">#FFC107</color>
     <color name="colorGreen">#0f8503</color>
     <color name="colorRed">#E35252</color>
-
-
-
+    <color name="colorLightPink">#2C9440B5</color>
 
 
     <color name="colorBlack">#000000</color>
@@ -33,6 +31,8 @@
     <color name="colorPendingText">@color/colorYellow</color>
     <color name="colorVerifiedText">@color/colorGreen</color>
     <color name="colorDeclienText">@color/colorRed</color>
+    <color name="colorMenuHighLight">@color/colorAccent</color>
+    <color name="colorMenuLightHighLight">@color/colorLightPink</color>
 
 
 </resources>

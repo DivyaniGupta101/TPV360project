@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object>>" />
+
+        <variable
+            name="retryCallBack"
+            type="com.tpv.android.network.resources.RetryCallBack" />
+
+        <variable
+            name="showEmptyView"
+            type="Boolean" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_24sdp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/pendingContainer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_24sdp">
+
+                            <ImageView
+                                style="@style/DashboardMenuItemImage"
+                                android:src="@drawable/ic_pending" />
+
+                            <TextView
+                                style="@style/DashboardMenuItemCountPrimaryBoldText"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="90" />
+
+                            <TextView
+                                style="@style/SecondaryNormalText"
+                                android:text="@string/pending_leads" />
+                        </LinearLayout>
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_48sdp" />
+
+                        <LinearLayout
+                            android:id="@+id/verifiedContainer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_24sdp">
+
+                            <ImageView
+                                style="@style/DashboardMenuItemImage"
+                                android:src="@drawable/ic_verified" />
+
+                            <TextView
+                                style="@style/DashboardMenuItemCountPrimaryBoldText"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="18" />
+
+                            <TextView
+                                style="@style/SecondaryNormalText"
+                                android:text="@string/verified_leads" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        android:layout_marginStart="@dimen/_32sdp"
+                        android:layout_marginEnd="@dimen/_32sdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/declinendContainer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_24sdp">
+
+
+                            <ImageView
+                                style="@style/DashboardMenuItemImage"
+                                android:src="@drawable/ic_declined" />
+
+                            <TextView
+                                style="@style/DashboardMenuItemCountPrimaryBoldText"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="02" />
+
+                            <TextView
+                                style="@style/SecondaryNormalText"
+                                android:text="@string/declined_leads" />
+                        </LinearLayout>
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/_48sdp" />
+
+                        <LinearLayout
+                            android:id="@+id/hangUpContainer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_24sdp">
+
+
+                            <ImageView
+                                style="@style/DashboardMenuItemImage"
+                                android:src="@drawable/ic_hang_up" />
+
+                            <TextView
+                                style="@style/DashboardMenuItemCountPrimaryBoldText"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="05" />
+
+                            <TextView
+                                style="@style/SecondaryNormalText"
+                                android:text="@string/hang_up_calls" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="@dimen/_16sdp"
+                    android:background="@drawable/bg_gradient_fab"
+                    android:padding="@dimen/_12sdp"
+                    android:src="@drawable/ic_register" />
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

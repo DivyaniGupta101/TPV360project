@@ -12,15 +12,15 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
-import com.tpv.android.databinding.FragmentHomeBinding
+import com.tpv.android.databinding.FragmentDashBoardBinding
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class HomeFragment : Fragment() {
+class DashBoardFragment : Fragment() {
 
-    private lateinit var mBinding: FragmentHomeBinding
+    private lateinit var mBinding: FragmentDashBoardBinding
     private lateinit var mHomeViewModel: HomeViewModel
     private lateinit var mNavController: NavController
 
@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dash_board, container, false)
         return mBinding.root
     }
 

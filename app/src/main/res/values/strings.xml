@@ -19,4 +19,8 @@
     <string name="hang_up">Hang up</string>
     <string name="date">Date:</string>
     <string name="time">Time:</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="start_enrollment">Start Enrollment</string>
 </resources>
