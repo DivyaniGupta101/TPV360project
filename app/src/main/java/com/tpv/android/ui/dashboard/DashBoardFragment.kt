@@ -1,4 +1,4 @@
-package com.tpv.android.ui
+package com.tpv.android.ui.dashboard
 
 
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
+import com.tpv.android.ui.HomeViewModel
 
 /**
  * A simple [Fragment] subclass.

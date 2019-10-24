@@ -5,15 +5,10 @@
 
     </data>
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_menu_white"
             android:orientation="vertical">
 
             <FrameLayout
@@ -22,19 +17,20 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_240sdp"
+                    android:layout_height="@dimen/_220sdp"
                     android:scaleType="fitXY"
                     android:src="@drawable/bg_menu" />
 
                 <LinearLayout
+                    android:padding="@dimen/_4sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_40sdp"
+                    android:layout_margin="@dimen/_30sdp"
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
                         android:src="@drawable/dummy_person" />
 
                     <LinearLayout
@@ -142,5 +138,4 @@
             </LinearLayout>
 
         </LinearLayout>
-    </com.google.android.material.navigation.NavigationView>
 </layout>

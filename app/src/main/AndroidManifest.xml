@@ -15,9 +15,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.tpv.android.ui.auth.AuthActivity"/>
+        <activity
+            android:name=".ui.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ui.auth.AuthActivity" />
         <activity android:name=".ui.MainActivity" />
-
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.Splash">
