@@ -12,6 +12,7 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLeadListingBinding
 import com.tpv.android.databinding.ItemLeadListBinding
+import com.tpv.android.utils.setupToolbar
 
 /**
  * A simple [Fragment] subclass.
@@ -31,9 +32,9 @@ class LeadListingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupToolbar(mBinding.toolbar.toolbarContainer, getString(R.string.pending_leads), showMenuIcon = true)
 
         setRecyclerView()
-
     }
 
     private fun setRecyclerView() {

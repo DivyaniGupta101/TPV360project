@@ -11,8 +11,7 @@ import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.startActivity
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLoginBinding
-import com.tpv.android.ui.HomeActivity
-import com.tpv.android.ui.MainActivity
+import com.tpv.android.ui.home.HomeActivity
 
 /**
  * A simple [Fragment] subclass.

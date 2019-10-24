@@ -42,8 +42,8 @@
     <!--    Toolbar-->
 
     <style name="ToolbarImage">
-        <item name="android:layout_width">@dimen/_30sdp</item>
-        <item name="android:layout_height">@dimen/_30sdp</item>
+        <item name="android:layout_width">@dimen/_34sdp</item>
+        <item name="android:layout_height">@dimen/_34sdp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:padding">@dimen/_6sdp</item>

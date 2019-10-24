@@ -27,7 +27,7 @@
                     android:id="@+id/imageToolbarBack"
                     style="@style/ToolbarImage"
                     android:src="@drawable/ic_arrow_black"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     tools:visibility="visible" />
 
 
@@ -39,7 +39,7 @@
 
 
                 <ImageView
-                    android:id="@+id/imageToolbarNotification"
+                    android:id="@+id/imageToolbarMenu"
                     style="@style/ToolbarImage"
                     android:src="@drawable/ic_menu_black"
                     android:visibility="visible" />
@@ -50,7 +50,8 @@
                 android:id="@+id/textToolbarTitle"
                 style="@style/ToolbarTitle"
                 android:layout_gravity="center"
-                android:text="Home"/>
+                android:text="Home"
+                />
 
 
         </FrameLayout>

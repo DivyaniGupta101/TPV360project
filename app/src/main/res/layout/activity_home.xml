@@ -7,21 +7,13 @@
 
     </data>
 
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:openDrawer="end">
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:background="@drawable/bg_menu_white"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/item_menu" />
 
         <fragment
             android:id="@+id/navHostFragment"
@@ -30,6 +22,20 @@
             android:layout_height="match_parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_graph" />
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_menu_white"
+            android:fitsSystemWindows="true">
+
+            <include
+                android:id="@+id/navMenu"
+                layout="@layout/item_menu" />
+        </com.google.android.material.navigation.NavigationView>
+
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

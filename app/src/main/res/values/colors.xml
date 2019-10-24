@@ -26,7 +26,7 @@
     <color name="colorSecondaryText">@color/colorGray</color>
     <color name="colorDivider">@color/colorLightGrey</color>
     <color name="colorButtonText">@color/colorWhite</color>
-    <color name="colorImageTint">@color/colorGray</color>
+    <color name="colorSecondaryImageTint">@color/colorGray</color>
     <color name="colorToolbarBg">@color/colorWhite</color>
     <color name="colorPendingText">@color/colorYellow</color>
     <color name="colorVerifiedText">@color/colorGreen</color>

@@ -1,4 +1,4 @@
-package com.tpv.android.ui.dashboard
+package com.tpv.android.ui.home.dashboard
 
 
 import android.os.Bundle
@@ -13,7 +13,8 @@ import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
-import com.tpv.android.ui.HomeViewModel
+import com.tpv.android.ui.home.HomeViewModel
+import com.tpv.android.utils.setupToolbar
 
 /**
  * A simple [Fragment] subclass.
@@ -46,6 +47,8 @@ class DashBoardFragment : Fragment() {
     }
 
     private fun initialize() {
+
+        setupToolbar(mBinding.toolbar.toolbarContainer, getString(R.string.dashboard), showMenuIcon = true)
 
         mBinding.pendingContainer.onClick {
             mNavController.navigate(R.id.action_homeFragment_to_leadListingFragment)
