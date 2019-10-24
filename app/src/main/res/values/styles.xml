@@ -46,7 +46,7 @@
         <item name="android:layout_height">@dimen/_34sdp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-        <item name="android:padding">@dimen/_6sdp</item>
+        <item name="android:padding">@dimen/_8sdp</item>
     </style>
 
     <style name="ToolbarTitle" parent="PrimaryBoldText">

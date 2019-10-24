@@ -32,14 +32,14 @@ class LeadListingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupToolbar(mBinding.toolbar.toolbarContainer, getString(R.string.pending_leads), showMenuIcon = true)
+        setupToolbar(mBinding.toolbar.toolbarContainer, getString(R.string.pending_leads), showMenuIcon = true, showBackIcon = true)
 
         setRecyclerView()
     }
 
     private fun setRecyclerView() {
         LiveAdapter(mList, BR.item)
-                .map<Int,ItemLeadListBinding>(R.layout.item_lead_list)
+                .map<Int, ItemLeadListBinding>(R.layout.item_lead_list)
                 .into(mBinding.listLead)
     }
 
