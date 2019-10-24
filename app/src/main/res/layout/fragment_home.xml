@@ -45,6 +45,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/pendingContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -57,12 +58,12 @@
                             android:src="@drawable/ic_pending" />
 
                         <TextView
-                            style="@style/DarkBoldText.DashboardMenuCountTitle"
+                            style="@style/DashboardMenuItemCountPrimaryBoldText"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:text="90" />
 
                         <TextView
-                            style="@style/LightNormalText"
+                            style="@style/SecondaryNormalText"
                             android:text="@string/pending_leads" />
                     </LinearLayout>
 
@@ -72,6 +73,7 @@
                         android:layout_marginTop="@dimen/_48sdp" />
 
                     <LinearLayout
+                        android:id="@+id/verifiedContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -84,13 +86,13 @@
                             android:src="@drawable/ic_verified" />
 
                         <TextView
-                            style="@style/DarkBoldText.DashboardMenuCountTitle"
+                            style="@style/DashboardMenuItemCountPrimaryBoldText"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:text="18" />
 
                         <TextView
-                            style="@style/LightNormalText"
-                            android:text="@string/pending_leads" />
+                            style="@style/SecondaryNormalText"
+                            android:text="@string/verified_leads" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -107,6 +109,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/declinendContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -120,12 +123,12 @@
                             android:src="@drawable/ic_declined" />
 
                         <TextView
-                            style="@style/DarkBoldText.DashboardMenuCountTitle"
+                            style="@style/DashboardMenuItemCountPrimaryBoldText"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:text="02" />
 
                         <TextView
-                            style="@style/LightNormalText"
+                            style="@style/SecondaryNormalText"
                             android:text="@string/declined_leads" />
                     </LinearLayout>
 
@@ -135,6 +138,7 @@
                         android:layout_marginBottom="@dimen/_48sdp" />
 
                     <LinearLayout
+                        android:id="@+id/hangUpContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -148,12 +152,12 @@
                             android:src="@drawable/ic_hang_up" />
 
                         <TextView
-                            style="@style/DarkBoldText.DashboardMenuCountTitle"
+                            style="@style/DashboardMenuItemCountPrimaryBoldText"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:text="05" />
 
                         <TextView
-                            style="@style/LightNormalText"
+                            style="@style/SecondaryNormalText"
                             android:text="@string/hang_up_calls" />
                     </LinearLayout>
 

@@ -15,42 +15,6 @@
         <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 
-    <style name="DarkBoldText">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/_24sdp</item>
-        <item name="android:textColor">@color/colorBlack</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="DarkBoldText.DashboardMenuCountTitle">
-        <item name="android:textSize">@dimen/_20sdp</item>
-    </style>
-
-    <style name="LightNormalText">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/_10sdp</item>
-        <item name="android:textColor">@color/colorSecondaryText</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
-
-    <style name="DarkNormalText">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/_10sdp</item>
-        <item name="android:textColor">@color/colorBlack</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <style name="DefaultEditText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/_10sdp</item>
-        <item name="android:textColor">@color/colorBlack</item>
-        <item name="android:inputType">text</item>
-    </style>
 
     <style name="ButtonPrimary">
         <item name="android:foreground">@drawable/rounded_ripple_effect</item>
@@ -64,25 +28,18 @@
         <item name="android:textSize">@dimen/_14sdp</item>
         <item name="android:paddingTop">@dimen/_12sdp</item>
         <item name="android:paddingBottom">@dimen/_12sdp</item>
-        <!--        <item name="android:layout_marginStart">@dimen/_28sdp</item>-->
-        <!--        <item name="android:layout_marginEnd">@dimen/_28sdp</item>-->
         <item name="android:layout_marginBottom">@dimen/_20sdp</item>
 
     </style>
 
-    <style name="ToolbarTitle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/_16sdp</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 
     <style name="Divider">
         <item name="android:layout_width">@dimen/_2sdp</item>
         <item name="android:layout_height">@dimen/_2sdp</item>
         <item name="android:background">@color/colorDivider</item>
     </style>
+
+    <!--    Toolbar-->
 
     <style name="ToolbarImage">
         <item name="android:layout_width">@dimen/_30sdp</item>
@@ -92,10 +49,17 @@
         <item name="android:padding">@dimen/_6sdp</item>
     </style>
 
+    <style name="ToolbarTitle" parent="PrimaryBoldText">
+        <item name="android:textSize">@dimen/_14sdp</item>
+    </style>
+
+    <!--    Dashboard-->
     <style name="DashboardMenuItemImage">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-
+    <style name="DashboardMenuItemCountPrimaryBoldText" parent="PrimaryBigBoldText">
+        <item name="android:textSize">@dimen/_20sdp</item>
+    </style>
 </resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="PrimaryNormalText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="SecondaryNormalText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="PrimaryBoldText" parent="PrimaryNormalText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SecondaryBoldText" parent="SecondaryNormalText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PrimaryBigBoldText" parent="PrimaryBoldText">
+        <item name="android:textSize">@dimen/_24sdp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="DefaultEditText" parent="PrimaryNormalText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+
+</resources>

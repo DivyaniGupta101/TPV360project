@@ -26,16 +26,16 @@
                 android:src="@drawable/ic_company_logo" />
 
             <TextView
-                style="@style/DarkBoldText"
+                style="@style/PrimaryBigBoldText"
                 android:text="@string/welcome" />
 
             <TextView
-                style="@style/LightNormalText"
+                style="@style/SecondaryNormalText"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley " />
 
             <TextView
-                style="@style/LightNormalText"
+                style="@style/SecondaryNormalText"
                 android:layout_marginTop="@dimen/_50sdp"
                 android:text="@string/email_address" />
 
@@ -52,7 +52,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                style="@style/LightNormalText"
+                style="@style/SecondaryNormalText"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="@string/password" />
 
@@ -71,7 +71,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                style="@style/LightNormalText"
+                style="@style/SecondaryNormalText"
                 android:layout_gravity="end"
                 android:text="@string/forgot_password" />
 

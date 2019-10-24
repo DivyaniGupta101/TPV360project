@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentHomeBinding
 
@@ -18,7 +21,8 @@ import com.tpv.android.databinding.FragmentHomeBinding
 class HomeFragment : Fragment() {
 
     private lateinit var mBinding: FragmentHomeBinding
-    private lateinit var mHomeViewModel:HomeViewModel
+    private lateinit var mHomeViewModel: HomeViewModel
+    private lateinit var mNavController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +40,27 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mNavController = Navigation.findNavController(mBinding.root)
         initialize()
     }
 
     private fun initialize() {
+
+        mBinding.pendingContainer.onClick {
+            mNavController.navigate(R.id.action_homeFragment_to_leadListingFragment)
+        }
+
+        mBinding.verifiedContainer.onClick {
+            mNavController.navigate(R.id.action_homeFragment_to_leadListingFragment)
+        }
+
+        mBinding.declinendContainer.onClick {
+            mNavController.navigate(R.id.action_homeFragment_to_leadListingFragment)
+        }
+
+        mBinding.hangUpContainer.onClick {
+            mNavController.navigate(R.id.action_homeFragment_to_leadListingFragment)
+        }
 
     }
 
