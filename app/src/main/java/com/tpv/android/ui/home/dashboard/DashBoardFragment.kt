@@ -48,7 +48,7 @@ class DashBoardFragment : Fragment() {
 
     private fun initialize() {
 
-        setupToolbar(mBinding.toolbar.toolbarContainer, getString(R.string.dashboard), showMenuIcon = true)
+        setupToolbar(mBinding.toolbar, getString(R.string.dashboard), showMenuIcon = true)
 
         mBinding.pendingContainer.onClick {
             mNavController.navigate(R.id.action_homeFragment_to_leadListingFragment)

@@ -32,7 +32,7 @@ class LeadListingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupToolbar(mBinding.toolbar.toolbarContainer, getString(R.string.pending_leads), showMenuIcon = true, showBackIcon = true)
+        setupToolbar(mBinding.toolbar, getString(R.string.pending_leads), showMenuIcon = true, showBackIcon = true)
 
         setRecyclerView()
     }
