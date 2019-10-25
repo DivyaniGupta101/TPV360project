@@ -49,6 +49,7 @@ class HomeActivity : AppCompatActivity() {
 
         mBinding.navMenu?.profileContainer?.onClick {
             handleItemMenu(PROFILE)
+            mNavController.navigate(R.id.action_global_profileFragment)
         }
 
         mBinding.navMenu?.enrollmentContainer?.onClick {

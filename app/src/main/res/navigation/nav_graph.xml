@@ -26,10 +26,20 @@
             android:name="item"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.tpv.android.ui.home.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+
     <action
         android:id="@+id/action_global_dashboardFragment"
         app:destination="@+id/dashBoardFragment"
         app:launchSingleTop="true" />
 
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@+id/profileFragment"
+        app:launchSingleTop="true" />
 
 </navigation>
