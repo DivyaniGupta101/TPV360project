@@ -50,7 +50,8 @@
                     android:enabled="false"
                     android:focusable="false"
                     android:inputType="textEmailAddress"
-                    android:text="Patricia Davidson" />
+                    android:text="Patricia Davidson"
+                    android:textColor="@color/colorPrimaryText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,7 +73,8 @@
                     android:enabled="false"
                     android:focusable="false"
                     android:inputType="textEmailAddress"
-                    android:text="patricia24@gmail.com" />
+                    android:text="patricia24@gmail.com"
+                    android:textColor="@color/colorPrimaryText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
