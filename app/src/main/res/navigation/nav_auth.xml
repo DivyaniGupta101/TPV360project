@@ -21,5 +21,17 @@
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.tpv.android.ui.auth.forogtpassword.ForgotPasswordFragment"
-        android:label="ForgotPasswordFragment" />
+        android:label="ForgotPasswordFragment" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
+    </fragment>
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.tpv.android.ui.home.newpassword.NewPasswordFragment"
+        android:label="NewPasswordFragment" />
 </navigation>

@@ -28,6 +28,10 @@ class ForgotPasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mBinding.btnSubmit?.onClick {
+            //            Navigation.findNavController(mBinding.root).navigate(R.id.action_forgotPasswordFragment_to_newPasswordFragment)
+        }
+
         mBinding.textReturnToLogin?.onClick {
             Navigation.findNavController(mBinding.root).navigateUp()
         }

@@ -45,4 +45,6 @@
     <string name="submit">Submit</string>
     <string name="return_to_login">Return to Login</string>
     <string name="username">User Name</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
