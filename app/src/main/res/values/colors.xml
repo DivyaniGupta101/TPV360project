@@ -34,6 +34,7 @@
     <color name="colorMenuHighLight">@color/colorAccent</color>
     <color name="colorMenuLightHighLight">@color/colorLightPink</color>
     <color name="colorScreenBg">@color/colorWhite</color>
-
+    <color name="colorCancelButtonBorder">@color/colorAccent</color>
+    <color name="colorCancelButtonBg">@color/colorWhite</color>
 
 </resources>

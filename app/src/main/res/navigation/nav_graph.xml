@@ -20,6 +20,10 @@
         android:id="@+id/leadListingFragment"
         android:name="com.tpv.android.ui.leadlisting.LeadListingFragment"
         android:label="LeadListingFragment" />
+    <action
+        android:id="@+id/action_global_dashboardFragment"
+        app:destination="@+id/dashBoardFragment"
+        app:launchSingleTop="true" />
 
 
 </navigation>
