@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -20,9 +19,9 @@
     </data>
 
     <FrameLayout
-        android:background="@color/colorScreenBg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorScreenBg">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,12 +51,9 @@
 
                         <LinearLayout
                             android:id="@+id/pendingContainer"
+                            style="@style/DashboardItem"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="@dimen/_24sdp">
+                            android:layout_height="wrap_content">
 
                             <ImageView
                                 style="@style/DashboardMenuItemImage"
@@ -80,12 +76,9 @@
 
                         <LinearLayout
                             android:id="@+id/verifiedContainer"
+                            style="@style/DashboardItem"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="@dimen/_24sdp">
+                            android:layout_height="wrap_content">
 
                             <ImageView
                                 style="@style/DashboardMenuItemImage"
@@ -116,12 +109,9 @@
 
                         <LinearLayout
                             android:id="@+id/declinendContainer"
+                            style="@style/DashboardItem"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="@dimen/_24sdp">
+                            android:layout_height="wrap_content">
 
 
                             <ImageView
@@ -145,12 +135,9 @@
 
                         <LinearLayout
                             android:id="@+id/hangUpContainer"
+                            style="@style/DashboardItem"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="@dimen/_24sdp">
+                            android:layout_height="wrap_content">
 
 
                             <ImageView
@@ -171,12 +158,12 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:foreground="@drawable/rounded_ripple_effect"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="@dimen/_16sdp"
                     android:background="@drawable/bg_gradient_fab"
+                    android:foreground="@drawable/rounded_ripple_effect"
                     android:padding="@dimen/_12sdp"
                     android:src="@drawable/ic_register" />
 
