@@ -46,3 +46,11 @@ fun Fragment.setupToolbar(
 
 
 }
+
+fun Fragment.setItemSelection(item: Int) {
+    when (activity) {
+        is HomeActivity -> {
+            (activity as HomeActivity).handleItemMenu(item)
+        }
+    }
+}

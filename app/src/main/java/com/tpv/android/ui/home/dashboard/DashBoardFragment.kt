@@ -13,8 +13,10 @@ import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
+import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.HomeViewModel
 import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 
 /**
@@ -69,4 +71,8 @@ class DashBoardFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        setItemSelection(HomeActivity.DASHBOARD)
+    }
 }
