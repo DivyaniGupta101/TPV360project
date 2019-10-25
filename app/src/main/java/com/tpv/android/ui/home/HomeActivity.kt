@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.hide
@@ -33,6 +34,9 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = setBindingView(R.layout.activity_home)
         mNavController = Navigation.findNavController(this, R.id.navHostFragment)
+
+        mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
         mBinding.navMenu?.dashboardContainer?.onClick {
             handleItemMenu(DASHBOARD)
         }

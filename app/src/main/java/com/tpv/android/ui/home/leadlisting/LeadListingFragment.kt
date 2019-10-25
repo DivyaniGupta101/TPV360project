@@ -51,7 +51,7 @@ class LeadListingFragment : Fragment() {
             }
         }
 
-        setupToolbar(mBinding.toolbar, toolBarTitle, showMenuIcon = true, showBackIcon = true)
+        setupToolbar(mBinding.toolbar, toolBarTitle, showMenuIcon = false, showBackIcon = true)
 
         setRecyclerView()
     }
