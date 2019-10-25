@@ -48,8 +48,8 @@
 
 
     <style name="Divider">
-        <item name="android:layout_width">@dimen/_2sdp</item>
-        <item name="android:layout_height">@dimen/_2sdp</item>
+        <item name="android:layout_width">@dimen/_1sdp</item>
+        <item name="android:layout_height">@dimen/_1sdp</item>
         <item name="android:background">@color/colorDivider</item>
     </style>
 
