@@ -33,6 +33,7 @@
     <color name="colorDeclienText">@color/colorRed</color>
     <color name="colorMenuHighLight">@color/colorAccent</color>
     <color name="colorMenuLightHighLight">@color/colorLightPink</color>
+    <color name="colorScreenBg">@color/colorWhite</color>
 
 
 </resources>
