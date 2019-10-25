@@ -36,5 +36,6 @@
     <color name="colorScreenBg">@color/colorWhite</color>
     <color name="colorCancelButtonBorder">@color/colorAccent</color>
     <color name="colorCancelButtonBg">@color/colorWhite</color>
+    <color name="colorTertiaryText">@color/colorAccent</color>
 
 </resources>
