@@ -1,6 +1,8 @@
 package com.tpv.android.utils
 
-object AppConstant{
+object AppConstant {
     const val PENDING = "pending"
-//    const val
+    const val VERIFIED = "verified"
+    const val DECLINED = "decline"
+    const val HANGUP = "hangup"
 }

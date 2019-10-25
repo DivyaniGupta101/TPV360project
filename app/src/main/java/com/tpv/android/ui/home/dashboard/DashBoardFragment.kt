@@ -14,6 +14,7 @@ import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
 import com.tpv.android.ui.home.HomeViewModel
+import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.setupToolbar
 
 /**
@@ -51,19 +52,19 @@ class DashBoardFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.dashboard), showMenuIcon = true)
 
         mBinding.pendingContainer.onClick {
-            mNavController.navigate(R.id.action_homeFragment_to_leadListingFragment)
+            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(AppConstant.PENDING))
         }
 
         mBinding.verifiedContainer.onClick {
-            mNavController.navigate(R.id.action_homeFragment_to_leadListingFragment)
+            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(AppConstant.VERIFIED))
         }
 
         mBinding.declinendContainer.onClick {
-            mNavController.navigate(R.id.action_homeFragment_to_leadListingFragment)
+            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(AppConstant.DECLINED))
         }
 
         mBinding.hangUpContainer.onClick {
-            mNavController.navigate(R.id.action_homeFragment_to_leadListingFragment)
+            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(AppConstant.HANGUP))
         }
 
     }

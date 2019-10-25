@@ -12,6 +12,7 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLeadListingBinding
 import com.tpv.android.databinding.ItemLeadListBinding
+import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.setupToolbar
 
 /**
@@ -19,6 +20,7 @@ import com.tpv.android.utils.setupToolbar
  */
 class LeadListingFragment : Fragment() {
     lateinit var mBinding: FragmentLeadListingBinding
+    var toolBarTitle = ""
     var mList = arrayListOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +34,24 @@ class LeadListingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupToolbar(mBinding.toolbar, getString(R.string.pending_leads), showMenuIcon = true, showBackIcon = true)
+        val leadStatus = arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item
+
+        when (leadStatus) {
+            AppConstant.PENDING -> {
+                toolBarTitle = getString(R.string.pending_leads)
+            }
+            AppConstant.VERIFIED -> {
+                toolBarTitle = getString(R.string.verified_leads)
+            }
+            AppConstant.DECLINED -> {
+                toolBarTitle = getString(R.string.declined_leads)
+            }
+            AppConstant.HANGUP -> {
+                toolBarTitle = getString(R.string.hang_up_calls)
+            }
+        }
+
+        setupToolbar(mBinding.toolbar, toolBarTitle, showMenuIcon = true, showBackIcon = true)
 
         setRecyclerView()
     }
