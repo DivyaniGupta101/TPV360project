@@ -18,6 +18,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.LeadStatus
 import com.tpv.android.utils.setItemSelection
@@ -84,19 +85,21 @@ class DashBoardFragment : Fragment() {
 
         val liveData = mViewModel.getDashBoardDetail()
         liveData.observe(viewLifecycleOwner, Observer {
-            it?.data?.forEach { dashboard ->
+            it.ifSuccess {
+                it?.forEach { dashboard ->
 
-                if (dashboard.status?.equals(LeadStatus.PENDING.value).orFalse()) {
-                    mBinding.textPending.setText(dashboard.value.toString())
-                }
-                if (dashboard.status?.equals(LeadStatus.VERIFIED.value).orFalse()) {
-                    mBinding.textVerified.setText(dashboard.value.toString())
-                }
-                if (dashboard.status?.equals(LeadStatus.DECLINED.value).orFalse()) {
-                    mBinding.textDeclined.setText(dashboard.value.toString())
-                }
-                if (dashboard.status?.equals(LeadStatus.HANGUP.value).orFalse()) {
-                    mBinding.textHangUp.setText(dashboard.value.toString())
+                    if (dashboard.status?.equals(LeadStatus.PENDING.value).orFalse()) {
+                        mBinding.textPending.setText(dashboard.value.toString())
+                    }
+                    if (dashboard.status?.equals(LeadStatus.VERIFIED.value).orFalse()) {
+                        mBinding.textVerified.setText(dashboard.value.toString())
+                    }
+                    if (dashboard.status?.equals(LeadStatus.DECLINED.value).orFalse()) {
+                        mBinding.textDeclined.setText(dashboard.value.toString())
+                    }
+                    if (dashboard.status?.equals(LeadStatus.HANGUP.value).orFalse()) {
+                        mBinding.textHangUp.setText(dashboard.value.toString())
+                    }
                 }
             }
         })

@@ -14,6 +14,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentProfileBinding
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
@@ -45,8 +46,9 @@ class ProfileFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         val liveData = mViewModel.getProfile()
         liveData.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                mBinding.item = it.data
+            it.ifSuccess {
+                mBinding.item = it
+
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any>>
