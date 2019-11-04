@@ -1,5 +1,6 @@
 package com.tpv.android.network
 
+import com.tpv.android.BuildConfig
 import com.tpv.android.helper.UserPref
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -51,7 +52,7 @@ object ApiClient {
         }
         client.addInterceptor(interceptor)
 
-        if (com.tpv.android.BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             client.addInterceptor(loggingInterceptor)

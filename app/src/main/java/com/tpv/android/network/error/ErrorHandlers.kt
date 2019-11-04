@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogErrorBinding
+import com.tpv.android.network.resources.APIError
 import com.tpv.android.network.resources.Resource
 
 
@@ -68,7 +69,6 @@ class AlertErrorHandler(
         private val func: (() -> Unit)? = null
 ) : ErrorHandler {
     override fun onError(resource: Resource<*>) {
-
 
         val binding = DataBindingUtil.inflate<DialogErrorBinding>(LayoutInflater.from(view.context), R.layout.dialog_error, null, false)
         val dialog = AlertDialog.Builder(view.context)
