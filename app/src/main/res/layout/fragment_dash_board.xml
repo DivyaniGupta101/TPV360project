@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
 
         <variable
             name="resource"
             type="androidx.lifecycle.LiveData&lt;Resource&lt;Object>>" />
 
         <variable
-            name="retryCallBack"
-            type="com.tpv.android.network.resources.RetryCallBack" />
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
 
-        <variable
-            name="showEmptyView"
-            type="Boolean" />
     </data>
 
     <FrameLayout
@@ -60,9 +61,10 @@
                                 android:src="@drawable/ic_pending" />
 
                             <TextView
+                                android:id="@+id/textPending"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
-                                android:text="90" />
+                                tools:text="90" />
 
                             <TextView
                                 style="@style/SecondaryNormalText"
@@ -85,9 +87,10 @@
                                 android:src="@drawable/ic_verified" />
 
                             <TextView
+                                android:id="@+id/textVerified"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
-                                android:text="18" />
+                                tools:text="18" />
 
                             <TextView
                                 style="@style/SecondaryNormalText"
@@ -119,9 +122,10 @@
                                 android:src="@drawable/ic_declined" />
 
                             <TextView
+                                android:id="@+id/textDeclined"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
-                                android:text="02" />
+                                tools:text="02" />
 
                             <TextView
                                 style="@style/SecondaryNormalText"
@@ -145,9 +149,10 @@
                                 android:src="@drawable/ic_hang_up" />
 
                             <TextView
+                                android:id="@+id/textHangUp"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
-                                android:text="05" />
+                                tools:text="05" />
 
                             <TextView
                                 style="@style/SecondaryNormalText"
@@ -173,5 +178,12 @@
 
         </LinearLayout>
 
+        <include
+            android:id="@+id/incProgressBar"
+            layout="@layout/progress_bar"
+            app:errorHandler="@{errorHandler}"
+            app:resource="@{resource}"
+            app:useBlockingProgress="@{true}"
+            tools:visibility="visible" />
     </FrameLayout>
 </layout>

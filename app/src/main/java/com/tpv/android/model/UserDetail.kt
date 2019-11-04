@@ -41,5 +41,4 @@ data class UserDetail(
         var deactivationreason: String?,
         @SerializedName("hire_options")
         var hireOptions: String?
-
 )

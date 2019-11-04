@@ -7,5 +7,4 @@ data class Dashboard(
         var status: String?,
         @SerializedName("value")
         var value: Int?
-
 )

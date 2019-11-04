@@ -1,5 +1,6 @@
 package com.tpv.android.network
 
+import com.tpv.android.helper.UserPref
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit
 object ApiClient {
     lateinit var retrofit: Retrofit
     private val BASE_URL: String = if (com.tpv.android.BuildConfig.DEBUG) {
-        " "
+        "https://dev.tpv.plus/api/"
     } else {
         "https://spark.tpv.plus/api/"
     }
@@ -18,8 +19,8 @@ object ApiClient {
 
     val service: com.tpv.android.network.ApiInterface by lazy {
         val builder = Retrofit.Builder()
-            .baseUrl(com.tpv.android.network.ApiClient.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(com.tpv.android.network.ApiClient.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
         val client = OkHttpClient.Builder()
         client.connectTimeout(30, TimeUnit.SECONDS)
         client.readTimeout(30, TimeUnit.SECONDS)
@@ -30,14 +31,17 @@ object ApiClient {
 
             try {
                 val newBuilder = request.newBuilder()
-                newBuilder.addHeader(
-                    "Authorization",
-                    "Bearer ${com.tpv.android.helper.UserPref.token}"
-                )
-                newBuilder.addHeader(
-                        "Accept",
-                        "application/json"
-                )
+
+                if (!UserPref.token.isNullOrEmpty()) {
+                    newBuilder.addHeader(
+                            "Authorization",
+                            "Bearer ${UserPref.token}"
+                    )
+                    newBuilder.addHeader(
+                            "Accept",
+                            "application/json"
+                    )
+                }
                 request = newBuilder.build()
             } catch (e: Exception) {
             }

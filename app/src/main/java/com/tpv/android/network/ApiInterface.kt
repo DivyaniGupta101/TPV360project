@@ -1,80 +1,67 @@
 package com.tpv.android.network
 
+import com.tpv.android.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Field
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface ApiInterface {
-    @FormUrlEncoded
     @POST("login")
-    fun login(@Field("email") email: String, @Field("password") password: String): Call<com.tpv.android.model.CommonResponse<com.tpv.android.model.LogInResp>>
+    fun login(@Field("email") email: String, @Field("password") password: String): Call<CommonResponse<LogInResp>>
 
     @POST("logout")
-    fun logout(): Call<com.tpv.android.model.CommonResponse<Unit>>
+    fun logout(): Call<CommonResponse<Unit>>
 
     @POST("details")
-    fun getUserDetail(): Call<com.tpv.android.model.CommonResponse<com.tpv.android.model.UserDetail>>
+    fun getProfile(): Call<CommonResponse<UserDetail>>
 
     @POST("dashboard")
-    fun getDashboardDetail(): Call<com.tpv.android.model.CommonResponse<List<com.tpv.android.model.Dashboard>>>
+    fun getDashboardDetail(): Call<CommonResponse<List<Dashboard>>>
 
-    @FormUrlEncoded
+
     @POST("zipautocomplete")
-    fun zipAutoCompleteApi(@Field("zipcode") zipcode: String): Call<com.tpv.android.model.CommonResponse<List<com.tpv.android.model.ZipCodeComplete>>>
+    fun zipAutoCompleteApi(@Field("zipcode") zipcode: String): Call<CommonResponse<List<ZipCodeComplete>>>
 
-    @FormUrlEncoded
+
     @POST("myleads")
-    fun getMyLeadList(@Field("leadstatus") leadstatus: String, @Field("page") page: Int): Call<com.tpv.android.model.PaginateCommonResp<List<com.tpv.android.model.MyLead>>>
+    fun getMyLeadList(@Field("leadstatus") leadstatus: String, @Field("page") page: Int): Call<PaginateCommonResp<List<MyLead>>>
 
-    @FormUrlEncoded
+
     @POST("getprograms")
-    fun getPrograms(@Field("utility_id") utility_id: String, @Field("page") page: Int): Call<com.tpv.android.model.PaginateCommonResp<List<com.tpv.android.model.Programs>>>
+    fun getPrograms(@Field("utility_id") utility_id: String, @Field("page") page: Int): Call<PaginateCommonResp<List<Programs>>>
 
-    @FormUrlEncoded
+
     @POST("sendcontract")
-    fun sendContract(@Field("leadid") leadId: String): Call<com.tpv.android.model.CommonResponse<Unit>>
+    fun sendContract(@Field("leadid") leadId: String): Call<CommonResponse<Unit>>
 
-    @FormUrlEncoded
+
     @POST("validatezipcode")
-    fun validateZipCode(@Field("zipcode") zipcode: String, @Field("commodity") commodity: String): Call<com.tpv.android.model.CommonResponse<List<com.tpv.android.model.ValidateZipCode>>>
-
-    @FormUrlEncoded
-    @POST("getform")
-    fun getForm(@Field("clientid") clientid: String, @Field("commodity") commodity: String, @Field("programid") programid: String): Call<com.tpv.android.model.CommonResponse<List<com.tpv.android.model.GetForm>>>
-
-    @FormUrlEncoded
-    @POST("getform")
-    fun getFormDuelForm(@Field("clientid") clientid: String, @Field("commodity") commodity: String, @Field("programid") programid: String): Call<com.tpv.android.model.CommonResponse<List<com.tpv.android.model.DuelFuel>>>
+    fun validateZipCode(@Field("zipcode") zipcode: String, @Field("commodity") commodity: String): Call<CommonResponse<List<CommonResponse<List<DuelFuel>>>>>
 
     @Multipart
     @POST("leadmedia")
-    fun leadMedia(@Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<com.tpv.android.model.CommonResponse<Unit>>
+    fun leadMedia(@Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<CommonResponse<Unit>>
 
-    @FormUrlEncoded
+
     @POST("saveleaddata")
     fun saveLeadData(@Field("clientid") clientid: String, @Field("commodity") commodity: String, @Field("utility_id") utility_id: String,
                      @Field("programid") programid: String, @Field("fields") fields: String, @Field("zipcode") zipcode: String
-    ): Call<com.tpv.android.model.CommonResponse<com.tpv.android.model.SaveData>>
+    ): Call<CommonResponse<SaveData>>
 
-    @FormUrlEncoded
-    @POST("saveleaddata")
-    fun saveDuelData(@Field("clientid") clientid: String, @Field("commodity") commodity: String,
-                     @Field("gasutility_id") gasutility_id: String,
-                     @Field("gasprogramid") gasprogramid: String, @Field("electricutility_id") electricutility_id: String,
-                     @Field("electricprogramid") electricprogramid: String, @Field("fields") fields: String, @Field("zipcode") zipcode: String
-    ): Call<com.tpv.android.model.CommonResponse<com.tpv.android.model.SaveData>>
 
-    @FormUrlEncoded
     @POST("generateotp")
-    fun sendOtp(@Field("phonenumber") phonenumber: String): Call<com.tpv.android.model.CommonResponse<Unit>>
+    fun sendOtp(@Field("phonenumber") phonenumber: String): Call<CommonResponse<Unit>>
 
-    @FormUrlEncoded
+
     @POST("verifyotp")
-    fun verifyOtp(@Field("phonenumber") phonenumber: String, @Field("otp") otp: String): Call<com.tpv.android.model.CommonResponse<Unit>>
+    fun verifyOtp(@Field("phonenumber") phonenumber: String, @Field("otp") otp: String): Call<CommonResponse<Unit>>
 
-    @FormUrlEncoded
+
     @POST("selfverify")
-    fun selfVerify(@Field("verification_mode") verification_mode: String, @Field("leadid") leadid: String): Call<com.tpv.android.model.CommonResponse<Unit>>
+    fun selfVerify(@Field("verification_mode") verification_mode: String, @Field("leadid") leadid: String): Call<CommonResponse<Unit>>
 
 }

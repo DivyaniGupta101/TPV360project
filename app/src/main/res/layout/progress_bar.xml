@@ -1,27 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="androidx.lifecycle.LiveData" />
+        <import type="android.view.View" />
+
         <import type="com.tpv.android.network.resources.Resource" />
 
-        <import type="android.view.View" />
+        <import type="com.tpv.android.network.resources.Resource.State" />
+
+        <variable
+            name="useBlockingProgress"
+            type="boolean" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+
+
 
         <variable
             name="resource"
             type="androidx.lifecycle.LiveData&lt;Resource&lt;Object>>" />
+
+
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        app:visibleIf="@{resource != null}">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            android:visibility="@{resource.state==Resource.State.LOADING ? View.VISIBLE:View.GONE }" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_data_found"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:showIfEmptyDataCheck="@{resource}"
+            tools:visibility="visible" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBlockingProgressBar"
+            android:clickable="true"
+            android:focusable="true"
+            app:visibleIf="@{useBlockingProgress &amp;&amp; resource.state == State.LOADING}">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:visibility="@{resource.state==Resource.State.LOADING ? View.VISIBLE:View.GONE }" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:errorHandler="@{errorHandler}"
+                app:resource="@{resource}" />
+        </FrameLayout>
 
     </FrameLayout>
 </layout>

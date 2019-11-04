@@ -12,6 +12,7 @@
     <color name="colorRed">#F64346</color>
     <color name="colorLightPink">#2C9440B5</color>
     <color name="colorSky">#2FBFFF</color>
+    <color name="colorLightBlack">#41000000</color>
 
 
     <color name="colorBlack">#000000</color>
@@ -39,5 +40,6 @@
     <color name="colorCancelButtonBg">@color/colorWhite</color>
     <color name="colorTertiaryText">@color/colorAccent</color>
     <color name="colorPlansDivider">@color/colorAccent</color>
+    <color name="colorBlockingProgressBar">@color/colorLightBlack</color>
 
 </resources>

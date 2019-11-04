@@ -1,6 +1,7 @@
 package com.tpv.android.utils
 
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -8,7 +9,13 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.livinglifetechway.k4kotlin.core.androidx.color
+import com.livinglifetechway.k4kotlin.core.hide
+import com.livinglifetechway.k4kotlin.core.orFalse
+import com.livinglifetechway.k4kotlin.core.orZero
+import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
+import com.tpv.android.network.error.ErrorHandler
+import com.tpv.android.network.resources.Resource
 
 object BindingAdapter {
 
@@ -74,4 +81,57 @@ object BindingAdapter {
             }
         }
     }
+
+
+    /**
+     * shows the view if resource data is empty
+     */
+    @JvmStatic
+    @BindingAdapter("showIfEmptyDataCheck")
+    fun showIfEmptyDataCheck(container: View, resource: Resource<*>?) {
+        val data = resource?.data
+        if (data is List<*> && data.size.orZero() == 0 && resource.state == Resource.State.SUCCESS) {
+            container.show()
+        } else {
+            container.hide()
+        }
+    }
+
+
+    /**
+     * Api error handler binding adaptor
+     */
+    @JvmStatic
+    @BindingAdapter(value = ["resource", "errorHandler"], requireAll = true)
+    fun handleErrors(view: View, resource: Resource<*>?, errorHandler: ErrorHandler?) {
+        resource?.let {
+            if (resource.state == Resource.State.ERROR) {
+                if (errorHandler == null) {
+                    if (view is TextView) {
+                        view.text = resource.message
+                        view.show()
+                    }
+                } else {
+                    view.hide()
+                    errorHandler.onError(resource)
+                }
+            }
+        }
+    }
+
+
+    /**
+     * binding adapter for hide/show views.
+     * @param shouldBeVisible is true then show the view and if false then hide the view.
+     */
+    @JvmStatic
+    @BindingAdapter("visibleIf")
+    fun setVisibleIf(view: View, shouldBeVisible: Boolean?) {
+        if (shouldBeVisible.orFalse()) {
+            view.show()
+        } else {
+            view.hide()
+        }
+    }
 }
+
