@@ -77,6 +77,17 @@
         <argument
             android:name="item"
             app:argType="string" />
+        <action
+            android:id="@+id/action_plansZipcodeFragment_to_programsListingFragment"
+            app:destination="@id/programsListingFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
+    <fragment
+        android:id="@+id/programsListingFragment"
+        android:name="com.tpv.android.ui.home.programs.ProgramsListingFragment"
+        android:label="ProgramsListingFragment" />
 
 </navigation>

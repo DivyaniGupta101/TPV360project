@@ -53,6 +53,14 @@
         <item name="android:background">@color/colorDivider</item>
     </style>
 
+    <style name="DividerPrimary">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">@dimen/_2sdp</item>
+        <item name="android:background">@color/colorPlansDivider</item>
+        <item name="android:layout_marginStart">@dimen/_16sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_16sdp</item>
+    </style>
+
     <!--    Toolbar-->
 
     <style name="ToolbarImage">

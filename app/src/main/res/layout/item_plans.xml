@@ -39,11 +39,7 @@
                     tools:src="@drawable/ic_idea_gray" />
 
                 <View
-                    android:layout_width="3dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:background="@color/colorPlansDivider" />
+                   style="@style/DividerPrimary"/>
 
                 <TextView
                     style="@style/PrimaryBoldText"

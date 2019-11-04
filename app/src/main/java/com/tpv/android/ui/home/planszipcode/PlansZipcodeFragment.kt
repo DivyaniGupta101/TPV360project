@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.setItems
@@ -59,6 +60,7 @@ class PlansZipcodeFragment : Fragment() {
 
         mBinding.btnNext?.onClick {
             hideKeyboard()
+            Navigation.findNavController(mBinding.root).navigate(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
 
     }
