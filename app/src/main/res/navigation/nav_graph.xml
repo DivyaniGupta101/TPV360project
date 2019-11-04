@@ -50,4 +50,17 @@
         app:popEnterAnim="@anim/fragment_fade_enter"
         app:popExitAnim="@anim/fragment_fade_exit" />
 
+    <action
+        android:id="@+id/action_global_plansListFragment"
+        app:destination="@+id/plansListingFragment"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@anim/fragment_fade_enter"
+        app:popExitAnim="@anim/fragment_fade_exit"/>
+    <fragment
+        android:id="@+id/plansListingFragment"
+        android:name="com.tpv.android.ui.home.plans.PlansListingFragment"
+        android:label="PlansListingFragment" />
+
 </navigation>

@@ -38,5 +38,6 @@
     <color name="colorCancelButtonBorder">@color/colorAccent</color>
     <color name="colorCancelButtonBg">@color/colorWhite</color>
     <color name="colorTertiaryText">@color/colorAccent</color>
+    <color name="colorPlansDivider">@color/colorAccent</color>
 
 </resources>

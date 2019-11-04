@@ -47,4 +47,8 @@
     <string name="username">User Name</string>
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="dual_fuel">Dual Fuel</string>
+    <string name="electricity">Electricity</string>
+    <string name="natural_gas">Natural Gas</string>
+    <string name="plans">Plans</string>
 </resources>

@@ -69,6 +69,10 @@ class DashBoardFragment : Fragment() {
             mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(AppConstant.HANGUP))
         }
 
+        mBinding.imageEnroll.onClick {
+            mNavController.navigate(R.id.action_global_plansListFragment)
+        }
+
     }
 
     override fun onResume() {

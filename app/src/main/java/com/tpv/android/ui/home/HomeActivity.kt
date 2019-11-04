@@ -54,6 +54,7 @@ class HomeActivity : AppCompatActivity() {
 
         mBinding.navMenu?.enrollmentContainer?.onClick {
             handleItemMenu(ENROLL)
+            mNavController.navigate(R.id.action_global_plansListFragment)
         }
 
         mBinding.navMenu?.logoutContainer?.onClick {
