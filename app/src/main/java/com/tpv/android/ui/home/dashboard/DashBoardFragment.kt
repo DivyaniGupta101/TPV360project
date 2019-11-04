@@ -15,7 +15,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.HomeViewModel
-import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.LeadStatus
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 
@@ -54,19 +54,19 @@ class DashBoardFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.dashboard), showMenuIcon = true)
 
         mBinding.pendingContainer.onClick {
-            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(AppConstant.PENDING))
+            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.PENDING.value))
         }
 
         mBinding.verifiedContainer.onClick {
-            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(AppConstant.VERIFIED))
+            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.VERIFIED.value))
         }
 
         mBinding.declinendContainer.onClick {
-            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(AppConstant.DECLINED))
+            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.DECLINED.value))
         }
 
         mBinding.hangUpContainer.onClick {
-            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(AppConstant.HANGUP))
+            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.HANGUP.value))
         }
 
         mBinding.imageEnroll.onClick {

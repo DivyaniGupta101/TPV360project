@@ -12,7 +12,7 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLeadListingBinding
 import com.tpv.android.databinding.ItemLeadListBinding
-import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.LeadStatus
 import com.tpv.android.utils.setupToolbar
 
 /**
@@ -37,16 +37,16 @@ class LeadListingFragment : Fragment() {
         val leadStatus = arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item
 
         when (leadStatus) {
-            AppConstant.PENDING -> {
+            LeadStatus.PENDING.value -> {
                 toolBarTitle = getString(R.string.pending_leads)
             }
-            AppConstant.VERIFIED -> {
+            LeadStatus.VERIFIED.value -> {
                 toolBarTitle = getString(R.string.verified_leads)
             }
-            AppConstant.DECLINED -> {
+            LeadStatus.DECLINED.value -> {
                 toolBarTitle = getString(R.string.declined_leads)
             }
-            AppConstant.HANGUP -> {
+            LeadStatus.HANGUP.value -> {
                 toolBarTitle = getString(R.string.hang_up_calls)
             }
         }

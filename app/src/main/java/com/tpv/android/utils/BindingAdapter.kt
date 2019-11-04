@@ -54,21 +54,21 @@ object BindingAdapter {
     fun setLeadStatus(textView: TextView, status: String) {
         val context = textView.context
         when (status) {
-            AppConstant.PENDING -> {
+            LeadStatus.PENDING.value -> {
                 textView.setText(context?.getString(R.string.pending))
                 textView.setTextColor(context.color(R.color.colorPendingText))
             }
-            AppConstant.VERIFIED -> {
+            LeadStatus.VERIFIED.value -> {
                 textView.setText(context?.getString(R.string.verified))
                 textView.setTextColor(context.color(R.color.colorVerifiedText))
             }
 
-            AppConstant.DECLINED -> {
+            LeadStatus.DECLINED.value -> {
                 textView.setText(context?.getString(R.string.decline))
                 textView.setTextColor(context.color(R.color.colorDecliendText))
             }
 
-            AppConstant.HANGUP -> {
+            LeadStatus.HANGUP.value -> {
                 textView.setText(context?.getString(R.string.hang_up))
                 textView.setTextColor(context.color(R.color.colorHangUpText))
             }
