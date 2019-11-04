@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansListingBinding
-import com.tpv.android.databinding.ItemLeadListBinding
+import com.tpv.android.databinding.ItemPlansBinding
 import com.tpv.android.model.Plans
+import com.tpv.android.utils.Plan
 import com.tpv.android.utils.setupToolbar
 
 /**
@@ -37,12 +39,17 @@ class PlansListingFragment : Fragment() {
 
     private fun setRecyclerView() {
 
-        mList.add(Plans(context?.getDrawable(R.drawable.ic_fire_gray), getString(R.string.dual_fuel)))
-        mList.add(Plans(context?.getDrawable(R.drawable.ic_idea_gray), getString(R.string.electricity)))
-        mList.add(Plans(context?.getDrawable(R.drawable.ic_natural_gas_gray), getString(R.string.natural_gas)))
+        mList.clear()
+        mList.add(Plans(context?.getDrawable(R.drawable.ic_fire_gray), getString(R.string.dual_fuel), Plan.DUALFUEL.value))
+        mList.add(Plans(context?.getDrawable(R.drawable.ic_idea_gray), getString(R.string.electricity), Plan.ELECTRICFUEL.value))
+        mList.add(Plans(context?.getDrawable(R.drawable.ic_natural_gas_gray), getString(R.string.natural_gas), Plan.GASFUEL.value))
 
         LiveAdapter(mList, BR.item)
-                .map<Plans, ItemLeadListBinding>(R.layout.item_plans)
+                .map<Plans, ItemPlansBinding>(R.layout.item_plans) {
+                    onClick { holder ->
+                        Navigation.findNavController(mBinding.root).navigate(PlansListingFragmentDirections.actionPlansListingFragmentToPlansZipcodeFragment(holder.binding.item?.plansId.orEmpty()))
+                    }
+                }
                 .into(mBinding.listPlans)
     }
 

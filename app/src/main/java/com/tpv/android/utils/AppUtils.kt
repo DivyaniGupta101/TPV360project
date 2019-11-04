@@ -54,3 +54,9 @@ fun Fragment.setItemSelection(item: Int) {
         }
     }
 }
+
+enum class Plan(val value: String) {
+    DUALFUEL("dualfuel"),
+    GASFUEL("gasfuel"),
+    ELECTRICFUEL("electricityfuel")
+}

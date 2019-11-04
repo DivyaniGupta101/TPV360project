@@ -57,10 +57,26 @@
         app:exitAnim="@anim/fragment_fade_exit"
         app:launchSingleTop="true"
         app:popEnterAnim="@anim/fragment_fade_enter"
-        app:popExitAnim="@anim/fragment_fade_exit"/>
+        app:popExitAnim="@anim/fragment_fade_exit" />
     <fragment
         android:id="@+id/plansListingFragment"
         android:name="com.tpv.android.ui.home.plans.PlansListingFragment"
-        android:label="PlansListingFragment" />
+        android:label="PlansListingFragment">
+        <action
+            android:id="@+id/action_plansListingFragment_to_plansZipcodeFragment"
+            app:destination="@id/plansZipcodeFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/plansZipcodeFragment"
+        android:name="com.tpv.android.ui.home.planszipcode.PlansZipcodeFragment"
+        android:label="PlansZipcodeFragment">
+        <argument
+            android:name="item"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
