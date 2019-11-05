@@ -18,3 +18,17 @@ fun <T, F> Resource<T, F>.ifFailure(func: (throwable: Throwable?, errorData: F?)
         func.invoke(this.exception, this.errorData)
     }
 }
+
+
+//fun <T, F> PaginatedResource<T, F>.ifSuccess(func: (data: List<T>?, paginatedMataData: PaginatedMataData?) -> Unit) {
+//    if (state == PaginatedResource.STATE_SUCCESS) {
+//        func.invoke(this.data, this.paginatedMataData)
+//    }
+//}
+//
+
+//fun <T, F> PaginatedResource<T, F>.ifFailure(func: (message: String?, throwable: Throwable?) -> Unit) {
+//    if (state == PaginatedResource.STATE_ERROR) {
+//        func.invoke(this.message, this.throwable)
+//    }
+//}

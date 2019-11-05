@@ -24,12 +24,12 @@ interface ApiInterface {
     fun zipAutoCompleteApi(@Field("zipcode") zipcode: String): Call<CommonResponse<List<ZipCodeComplete>>>
 
 
-    @POST("myleads")
-    fun getMyLeadList(@Field("leadstatus") leadstatus: String, @Field("page") page: Int): Call<PaginateCommonResp<List<MyLead>>>
-
-
     @POST("getprograms")
     fun getPrograms(@Field("utility_id") utility_id: String, @Field("page") page: Int): Call<PaginateCommonResp<List<Programs>>>
+
+
+    @POST("myleads")
+    fun getMyLeadList(@Body leadReq: LeadReq): Call<PaginateCommonResp<List<LeadResp>>>
 
 
     @POST("sendcontract")

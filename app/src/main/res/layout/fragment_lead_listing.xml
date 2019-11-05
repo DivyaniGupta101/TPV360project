@@ -3,24 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="com.tpv.android.network.resources.Resource" />
-
-        <import type="com.tpv.android.network.error.ErrorHandler" />
-
-        <import type="com.tpv.android.network.resources.APIError" />
-
-        <variable
-            name="resource"
-            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
-
-        <variable
-            name="errorHandler"
-            type="com.tpv.android.network.error.ErrorHandler" />
-
-    </data>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -50,11 +32,7 @@
         </LinearLayout>
 
         <include
-            android:id="@+id/incProgressBar"
-            layout="@layout/progress_bar"
-            app:errorHandler="@{errorHandler}"
-            app:resource="@{resource}"
-            app:useBlockingProgress="@{true}"
-            tools:visibility="visible" />
+            android:id="@+id/paginated_layout"
+            layout="@layout/paginated_layout" />
     </FrameLayout>
 </layout>

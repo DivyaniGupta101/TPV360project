@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="item"
+            type="com.tpv.android.model.LeadResp" />
+
     </data>
 
     <LinearLayout
@@ -48,7 +52,8 @@
                             style="@style/PrimaryBoldText"
                             android:layout_width="0dp"
                             android:layout_weight="8"
-                            android:text="It-it-ios-12657" />
+                            android:text="@{item.id}"
+                            tools:text="It-it-ios-12657" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -94,9 +99,10 @@
                     style="@style/PrimaryBoldText"
                     android:layout_gravity="center_vertical"
                     android:padding="@dimen/_8sdp"
-                    android:text="@string/pending"
                     android:textColor="@color/colorPendingText"
                     android:visibility="visible"
+                    app:leadStatus="@{item.status}"
+                    tools:text="@string/pending"
                     tools:visibility="visible" />
 
 

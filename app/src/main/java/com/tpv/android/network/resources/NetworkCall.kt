@@ -2,6 +2,7 @@ package com.tpv.android.network.resources
 
 import android.util.Log
 import com.livinglifetechway.k4kotlin.core.TAG
+import com.livinglifetechway.k4kotlin_retrofit.enqueueAwait
 import com.livinglifetechway.k4kotlin_retrofit.enqueueDeferredResponse
 import retrofit2.Call
 
@@ -12,7 +13,9 @@ import retrofit2.Call
  */
 suspend fun <T : Any> Call<T>.getResult(): Result<T, APIError> {
     return try {
+        this.enqueueAwait().
         val response = this.enqueueDeferredResponse().await()
+
         if (response.isSuccessful) {
             Success(response.body())
         } else {
@@ -26,6 +29,17 @@ suspend fun <T : Any> Call<T>.getResult(): Result<T, APIError> {
     }
 }
 
+/**
+ * This extension method enqueues the call using the coroutine and
+ * return the Result instance with Success or Failure
+ */
+suspend fun <T : Any, S : Call<T>> Call<S>.getResult(): Result<T> = try {
+    this.enqueueAwait().
+            mapResult()
+} catch (error: Throwable) {
+    Log.e("getResult()", " Something went wrong ", error)
+    Failure("Something went wrong", error)
+}
 
 
 

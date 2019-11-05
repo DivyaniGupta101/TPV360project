@@ -1,10 +1,7 @@
 package com.tpv.android.data
 
 import com.tpv.android.helper.UserPref
-import com.tpv.android.model.Dashboard
-import com.tpv.android.model.LogInResp
-import com.tpv.android.model.LoginReq
-import com.tpv.android.model.UserDetail
+import com.tpv.android.model.*
 import com.tpv.android.network.ApiClient
 import com.tpv.android.network.resources.APIError
 import com.tpv.android.network.resources.dataApi
@@ -37,5 +34,8 @@ object AppRepository {
             ApiClient.service.getProfile().getResult().map { it?.data }
         }
     }
+
+
+    suspend fun getLeads(leadReq: LeadReq) = ApiClient.service.getMyLeadList(leadReq).getResult()
 
 }

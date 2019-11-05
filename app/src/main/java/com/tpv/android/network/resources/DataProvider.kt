@@ -3,6 +3,7 @@ package com.tpv.android.network.resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.livinglifetechway.k4kotlin.core.orFalse
+import com.livinglifetechway.k4kotlin.core.orZero
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -123,3 +124,9 @@ class DataResource<R, F> {
         }
     }
 }
+
+//
+//data class success<T : Any>(val data: T?, val message: String?, val paginatedMataData: PaginatedMataData? = null) : Result<T>()
+//data class failure<T, F>(val throwable: Throwable?, val error: F?) :Result<T, F>()
+
+
