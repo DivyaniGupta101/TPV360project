@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.livinglifetechway.k4kotlin.core.show
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -37,7 +38,12 @@ class ProgramsListingFragment : Fragment() {
 
     private fun setRecyclerView() {
         LiveAdapter(mList, BR.item)
-                .map<Int, ItemProgramsBinding>(R.layout.item_programs)
+                .map<Int, ItemProgramsBinding>(R.layout.item_programs) {
+                    onClick {
+                        it.binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_program_border)
+                        it.binding.imageEnroll.show()
+                    }
+                }
                 .map<String, ItemProgramsBinding>(R.layout.item_title_programs)
                 .into(mBinding.listPrograms)
 
