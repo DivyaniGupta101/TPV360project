@@ -61,8 +61,7 @@ enum class Plan(val value: String) {
     ELECTRICFUEL("electricityfuel")
 }
 
-enum class LeadStatus(val value:String)
-{
+enum class LeadStatus(val value: String) {
     PENDING("pending"),
     VERIFIED("verified"),
     DECLINED("decline"),

@@ -28,6 +28,8 @@ data class Programs(
         @SerializedName("AccountNumberTypeName")
         var accountNumberTypeName: String?,
         @SerializedName("AccountNumberLength")
-        var accountNumberLength: String?
+        var accountNumberLength: String?,
+        var isSelcected: Boolean? = false,
+        var utilityType: String?
 
 )
