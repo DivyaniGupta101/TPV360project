@@ -6,11 +6,14 @@
     <data>
 
         <import type="androidx.lifecycle.LiveData" />
+
         <import type="android.view.View" />
 
         <import type="com.tpv.android.network.resources.Resource" />
 
         <import type="com.tpv.android.network.resources.Resource.State" />
+
+        <import type="com.tpv.android.network.resources.APIError" />
 
         <variable
             name="useBlockingProgress"
@@ -21,10 +24,9 @@
             type="com.tpv.android.network.error.ErrorHandler" />
 
 
-
         <variable
             name="resource"
-            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object>>" />
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
 
 
     </data>

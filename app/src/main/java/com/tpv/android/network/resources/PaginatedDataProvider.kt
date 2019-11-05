@@ -15,9 +15,9 @@ import kotlinx.coroutines.withContext
  * [DataResource] class have the functions for get and store data
  */
 fun <R, F> CoroutineScope.paginatedDataApi(
-    data: R? = null,
-    from: PaginatedDataResource<R, F>.() -> Unit
-): LiveData<Resource<R>> {
+        data: R? = null,
+        from: PaginatedDataResource<R, F>.() -> Unit
+): LiveData<Resource<R, F>> {
     val dataResource = PaginatedDataResource<R, F>()
     from.invoke(dataResource)
     launch(Dispatchers.IO) {
@@ -32,7 +32,7 @@ fun <R, F> CoroutineScope.paginatedDataApi(
  * Network and local db and insert the data in local db
  */
 class PaginatedDataResource<R, F> {
-    val result = MutableLiveData<Resource<R>>()
+    val result = MutableLiveData<Resource<R, F>>()
 
     private var initialData: R? = null
     private var funcFromNetwork: (suspend () -> Result<R, F>)? = null
@@ -117,10 +117,10 @@ class PaginatedDataResource<R, F> {
      * this is the extension function of result, it maps the result to
      * their appropriate resource
      */
-    private fun Result<R, F>.mapToResource(): Resource<R> {
+    private fun Result<R, F>.mapToResource(): Resource<R, F> {
         return when (this) {
             is Success -> Resource.success(data)
-            is Failure -> Resource.error(null, error.toString())
+            is Failure -> Resource.error(null, throwable, error)
         }
     }
 }

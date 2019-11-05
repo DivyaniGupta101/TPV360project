@@ -15,6 +15,7 @@ import com.livinglifetechway.k4kotlin.core.orZero
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.network.error.ErrorHandler
+import com.tpv.android.network.resources.APIError
 import com.tpv.android.network.resources.Resource
 
 object BindingAdapter {
@@ -88,7 +89,7 @@ object BindingAdapter {
      */
     @JvmStatic
     @BindingAdapter("showIfEmptyDataCheck")
-    fun showIfEmptyDataCheck(container: View, resource: Resource<*>?) {
+    fun showIfEmptyDataCheck(container: View, resource: Resource<*,APIError>?) {
         val data = resource?.data
         if (data is List<*> && data.size.orZero() == 0 && resource.state == Resource.State.SUCCESS) {
             container.show()
@@ -103,12 +104,12 @@ object BindingAdapter {
      */
     @JvmStatic
     @BindingAdapter(value = ["resource", "errorHandler"], requireAll = true)
-    fun handleErrors(view: View, resource: Resource<*>?, errorHandler: ErrorHandler?) {
+    fun handleErrors(view: View, resource: Resource<*,APIError>?, errorHandler: ErrorHandler?) {
         resource?.let {
             if (resource.state == Resource.State.ERROR) {
                 if (errorHandler == null) {
                     if (view is TextView) {
-                        view.text = resource.message
+                        view.text = resource.errorData?.message
                         view.show()
                     }
                 } else {

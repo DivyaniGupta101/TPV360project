@@ -65,7 +65,8 @@
                         android:id="@+id/btnYes"
                         style="@style/DialogButton"
                         android:layout_marginStart="8dp"
-                        android:text="@string/ok" />
+                        android:text="@string/ok"
+                        android:textAllCaps="true" />
 
                 </LinearLayout>
 

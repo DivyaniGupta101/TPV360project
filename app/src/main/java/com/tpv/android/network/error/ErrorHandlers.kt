@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
@@ -18,7 +17,7 @@ import com.tpv.android.network.resources.Resource
 
 
 interface ErrorHandler {
-    fun onError(resource: Resource<*>)
+    fun onError(resource: Resource<*, APIError>)
 }
 
 //interface PaginatedErrorHandler {
@@ -46,11 +45,11 @@ interface ErrorHandler {
 //}
 
 class SnackbarErrorHandler(private val parentView: View) : ErrorHandler {
-    override fun onError(resource: Resource<*>) {
+    override fun onError(resource: Resource<*, APIError>) {
         val snackbar =
                 Snackbar.make(
                         parentView,
-                        resource.message ?: "Unknown Error",
+                        resource.errorData?.message ?: "Unknown Error",
                         Snackbar.LENGTH_INDEFINITE
                 )
         val textView =
@@ -68,29 +67,30 @@ class AlertErrorHandler(
         private val isCancelable: Boolean = false,
         private val func: (() -> Unit)? = null
 ) : ErrorHandler {
-    override fun onError(resource: Resource<*>) {
+    override fun onError(resource: Resource<*, APIError>) {
 
         val binding = DataBindingUtil.inflate<DialogErrorBinding>(LayoutInflater.from(view.context), R.layout.dialog_error, null, false)
         val dialog = AlertDialog.Builder(view.context)
                 .setView(binding.root).show()
 
-        binding.item = resource.message
+        binding.item = resource.errorData?.message
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
 
         binding?.btnYes?.onClick {
             dialog.dismiss()
-            Navigation.findNavController(view).navigateUp()
+//            TODO  Remove function invoke
+            func?.invoke()
         }
     }
 }
 
 class ToastErrorHandler(private val view: View) : ErrorHandler {
-    override fun onError(resource: Resource<*>) {
+    override fun onError(resource: Resource<*, APIError>) {
         Toast.makeText(
                 view.context,
-                resource.message ?: "Unknown Error",
+                resource.errorData?.message ?: "Unknown Error",
                 Toast.LENGTH_SHORT
         ).show()
     }

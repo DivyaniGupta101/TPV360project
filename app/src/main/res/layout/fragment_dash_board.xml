@@ -9,9 +9,11 @@
 
         <import type="com.tpv.android.network.error.ErrorHandler" />
 
+        <import type="com.tpv.android.network.resources.APIError" />
+
         <variable
             name="resource"
-            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object>>" />
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
 
         <variable
             name="errorHandler"

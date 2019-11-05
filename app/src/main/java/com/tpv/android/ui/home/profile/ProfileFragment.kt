@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentProfileBinding
 import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.APIError
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
@@ -51,7 +52,7 @@ class ProfileFragment : Fragment() {
 
             }
         })
-        mBinding.resource = liveData as LiveData<Resource<Any>>
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
 
     }
 

@@ -19,6 +19,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLoginBinding
 import com.tpv.android.model.LoginReq
 import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.APIError
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
@@ -59,16 +60,18 @@ class LoginFragment : Fragment() {
 
     private fun signInApi() {
 
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+            //TODO Remove redirection of Home screen from here and replace it in success call
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root) {
+            context.startActivity<HomeActivity>()
+            activity?.finish()
+        }
         val liveData = mViewModel.logInApi(LoginReq(mBinding.textEmail.value, mBinding.textPassword.value))
         liveData.observe(this, Observer {
             it.ifSuccess {
-                context.startActivity<HomeActivity>()
-                activity?.finish()
+
             }
         })
-        mBinding.resource = liveData as LiveData<Resource<Any>>
-
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
 }

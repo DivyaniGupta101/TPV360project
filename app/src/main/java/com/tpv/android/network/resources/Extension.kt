@@ -1,16 +1,20 @@
 package com.tpv.android.network.resources
 
-fun <T> Resource<T>.isEndState() = (state == Resource.State.ERROR) or (state == Resource.State.SUCCESS)
+/**
+ * return true if the network call is in completed state
+ * * @return boolean
+ */
+fun <T, F> Resource<T, F>.isEndState() = (state == Resource.State.ERROR) or (state == Resource.State.SUCCESS)
 
-fun <T> Resource<T>.ifSuccess(func: (data: T?) -> Unit) {
+fun <T, F> Resource<T, F>.ifSuccess(func: (data: T?) -> Unit) {
     if (state == Resource.State.SUCCESS) {
         func.invoke(this.data)
     }
 }
 
 
-fun <T> Resource<T>.ifFailure(func: (message: String?) -> Unit) {
+fun <T, F> Resource<T, F>.ifFailure(func: (throwable: Throwable?, errorData: F?) -> Unit) {
     if (state == Resource.State.ERROR) {
-        func.invoke(this.message.orEmpty())
+        func.invoke(this.exception, this.errorData)
     }
 }

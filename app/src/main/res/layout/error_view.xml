@@ -8,9 +8,11 @@
 
         <import type="android.view.View" />
 
+        <import type="com.tpv.android.network.resources.APIError" />
+
         <variable
             name="resource"
-            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object>>" />
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
 
         <variable
             name="retryCallBack"
@@ -20,9 +22,9 @@
 
 
     <LinearLayout
-        android:background="@color/colorScreenBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorScreenBg"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="@{resource.state==Resource.State.ERROR?View.VISIBLE:View.GONE }">

@@ -17,6 +17,7 @@ import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
 import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.APIError
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
@@ -103,7 +104,7 @@ class DashBoardFragment : Fragment() {
                 }
             }
         })
-        mBinding.resource = liveData as LiveData<Resource<Any>>
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
 
     }
 

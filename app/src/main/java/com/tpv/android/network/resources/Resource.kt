@@ -1,31 +1,32 @@
 package com.tpv.android.network.resources
 
 
-class Resource<out T> private constructor(
-    val state: State = State.NONE,
-    val data: T?,
-    val message: String? = null
+class Resource<T, F> private constructor(
+        var state: State = State.NONE,
+        var data: T? = null,
+        var exception: Throwable? = null,
+        var errorData: F? = null
 ) {
     companion object {
         /**
          * Creates an empty resource with no state
          * This can be useful while a request is yet to be made to network
          */
-        fun <T> empty() = Resource<T>(data = null)
+        fun <T, F> empty() = Resource<T, F>()
 
         /**
          * Creates a new resource with the loading state and the given data
          * @param data Excepts the data of the given type T (Optional)
          * @return Resource object with state loading
          */
-        fun <T> loading(data: T? = null) = Resource<T>(state = State.LOADING, data = data)
+        fun <T, F> loading(data: T? = null) = Resource<T, F>(state = State.LOADING, data = data)
 
         /**
          * Creates the new resource with the success state and given data
          * @param data Excepts the data of the given type T
          * @return Resource object with state success
          */
-        fun <T> success(data: T?) = Resource<T>(state = State.SUCCESS, data = data)
+        fun <T, F> success(data: T?) = Resource<T, F>(state = State.SUCCESS, data = data)
 
         /**
          * Creates the new resource with the error state and message
@@ -34,10 +35,9 @@ class Resource<out T> private constructor(
          * @param throwable The error object (Optional)
          * @return Resource object with state error
          */
-        fun <T> error(data: T? = null, message: String? = null) =
-            Resource(state = State.ERROR, data = data, message = message)
+        fun <T, F> error(data: T? = null, throwable: Throwable? = null, errorData: F? = null) =
+                Resource(state = State.ERROR, data = data, exception = throwable, errorData = errorData)
     }
 
-    enum class State { NONE, LOADING, LOADING_MORE, SUCCESS, ERROR }
+    enum class State { NONE, LOADING, SUCCESS, ERROR, LOADING_MORE }
 }
-
