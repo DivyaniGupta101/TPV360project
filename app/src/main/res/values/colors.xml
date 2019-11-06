@@ -41,5 +41,7 @@
     <color name="colorTertiaryText">@color/colorAccent</color>
     <color name="colorPlansDivider">@color/colorAccent</color>
     <color name="colorBlockingProgressBar">@color/colorLightBlack</color>
+    <color name="colorProfileImageBg">@color/colorAccent</color>
+    <color name="colorProfileImageText">@color/colorWhite</color>
 
 </resources>

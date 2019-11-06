@@ -17,6 +17,7 @@ import com.tpv.android.R
 import com.tpv.android.network.error.ErrorHandler
 import com.tpv.android.network.resources.APIError
 import com.tpv.android.network.resources.Resource
+import com.tpv.android.utils.textdrawable.TextDrawable
 
 object BindingAdapter {
 
@@ -89,7 +90,7 @@ object BindingAdapter {
      */
     @JvmStatic
     @BindingAdapter("showIfEmptyDataCheck")
-    fun showIfEmptyDataCheck(container: View, resource: Resource<*,APIError>?) {
+    fun showIfEmptyDataCheck(container: View, resource: Resource<*, APIError>?) {
         val data = resource?.data
         if (data is List<*> && data.size.orZero() == 0 && resource.state == Resource.State.SUCCESS) {
             container.show()
@@ -104,7 +105,7 @@ object BindingAdapter {
      */
     @JvmStatic
     @BindingAdapter(value = ["resource", "errorHandler"], requireAll = true)
-    fun handleErrors(view: View, resource: Resource<*,APIError>?, errorHandler: ErrorHandler?) {
+    fun handleErrors(view: View, resource: Resource<*, APIError>?, errorHandler: ErrorHandler?) {
         resource?.let {
             if (resource.state == Resource.State.ERROR) {
                 if (errorHandler == null) {
@@ -132,6 +133,27 @@ object BindingAdapter {
             view.show()
         } else {
             view.hide()
+        }
+    }
+
+
+    @JvmStatic
+    @BindingAdapter(value = ["url", "name"], requireAll = false)
+    fun loadImageOrTextDrawable(image: ImageView, url: String?, name: String?) {
+        if (url.isNullOrBlank()) {
+
+            val letterImage: String? = name?.split(" ")?.joinToString("") { it.take(1).toUpperCase() }
+            val drawable = TextDrawable.builder()
+                    .beginConfig()
+                    .height(200)
+                    .width(200)
+                    .textColor(image.context?.color(R.color.colorProfileImageText).orZero())
+                    .bold()
+                    .endConfig()
+                    .buildRect(letterImage, image.context?.color(R.color.colorProfileImageBg).orZero())
+            image.setImageDrawable(drawable)
+        } else {
+            setImage(image, url, null)
         }
     }
 }

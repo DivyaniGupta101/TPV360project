@@ -54,7 +54,8 @@
                     android:layout_height="@dimen/_120sdp"
                     android:layout_marginTop="@dimen/_24sdp"
                     android:elevation="2dp"
-                    android:src="@drawable/dummy_person" />
+                    tools:src="@drawable/dummy_person"
+                    name="@{item.firstName + ' ' + item.lastName}" />
 
                 <TextView
                     style="@style/SecondaryNormalText"
