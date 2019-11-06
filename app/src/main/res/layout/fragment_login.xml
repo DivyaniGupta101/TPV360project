@@ -78,16 +78,15 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
+                    style="@style/InputTopSpacing"
                     android:text="@string/password" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     app:passwordToggleEnabled="true"
-                    android:id="@+id/textInputPassword"
                     app:passwordToggleTint="@color/colorSecondaryImageTint">
 
                     <com.google.android.material.textfield.TextInputEditText

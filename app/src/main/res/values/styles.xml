@@ -114,4 +114,8 @@
         <item name="android:orientation">vertical</item>
         <item name="android:padding">@dimen/_24sdp</item>
     </style>
+
+    <style name="InputTopSpacing" parent="SecondaryNormalText">
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+    </style>
 </resources>
