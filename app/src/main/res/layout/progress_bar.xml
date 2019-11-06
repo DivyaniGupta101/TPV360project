@@ -13,7 +13,7 @@
 
         <import type="com.tpv.android.network.resources.Resource.State" />
 
-        <import type="com.tpv.android.network.resources.APIError" />
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
 
         <variable
             name="useBlockingProgress"

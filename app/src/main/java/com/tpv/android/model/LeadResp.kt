@@ -18,5 +18,5 @@ data class LeadResp(
     @SerializedName("leadstatus")
     val leadstatus: String?,
     @SerializedName("page")
-    val page: String?
+    val page: Int?
 )

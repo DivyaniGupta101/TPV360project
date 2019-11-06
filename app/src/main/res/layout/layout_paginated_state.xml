@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <variable
+            name="resource"
+            type="LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.AlertErrorHandler" />
+
+        <variable
+            name="showEmptyView"
+            type="LiveData&lt;Boolean>" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:visibleIf="@{resource != null}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/no_data_found"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:visibleIf="@{showEmptyView &amp;&amp; resource.state == Resource.State.SUCCESS}"
+                tools:visibility="visible" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:visibleIf="@{resource.state == Resource.State.LOADING}"
+                tools:visibility="visible" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@{resource.errorData.message}"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:errorHandler="@{errorHandler}"
+                app:resource="@{resource}" />
+
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:visibleIf="@{resource.state == Resource.State.LOADING_MORE}"
+                tools:visibility="visible" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+</layout>

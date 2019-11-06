@@ -2,24 +2,23 @@ package com.tpv.android.ui.leadlisting
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLeadListingBinding
 import com.tpv.android.databinding.ItemLeadListBinding
+import com.tpv.android.helper.setPagination
 import com.tpv.android.model.LeadResp
 import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.network.resources.APIError
-import com.tpv.android.network.resources.PaginatedResource
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.ui.home.leadlisting.LeadListingViewModel
 import com.tpv.android.utils.LeadStatus
 import com.tpv.android.utils.setupToolbar
@@ -66,21 +65,16 @@ class LeadListingFragment : Fragment() {
         setupToolbar(mBinding.toolbar, toolBarTitle, showMenuIcon = false, showBackIcon = true)
 
         mBinding.paginatedLayout.errorHandler = AlertErrorHandler(mBinding.root)
-
-        val liveData = mViewModel.leadsPaginatedResourceLiveData
-        liveData.observe(this, Observer {
-            Log.d("TAG", it.state.toString())
-            //            it.ifSuccess { data, paginatedMataData ->
-
-
-//            }
-        })
-
-        mBinding.paginatedLayout.resource = liveData as LiveData<PaginatedResource<Any, APIError>>
+        mBinding.paginatedLayout.resource = mViewModel.leadsPaginatedResourceLiveData as LiveData<Resource<Any, APIError>>
+        mBinding.paginatedLayout.showEmptyView = mViewModel.showEmptyView
 
         LiveAdapter(mViewModel.leadsLiveData, BR.item)
                 .map<LeadResp, ItemLeadListBinding>(R.layout.item_lead_list)
                 .into(mBinding.listLead)
+
+        mBinding.listLead.setPagination(mViewModel.leadsPaginatedResourceLiveData) { page ->
+            mViewModel.getLeadList(leadStatus, page)
+        }
 
     }
 

@@ -1,4 +1,4 @@
-package com.tpv.android.network.resources
+package com.tpv.android.network.resources.apierror
 
 data class APIError(
     val message: String? = null,

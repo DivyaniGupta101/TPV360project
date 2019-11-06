@@ -1,9 +1,9 @@
-package com.tpv.android.network.resources
+package com.tpv.android.network.resources.dataproviders
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.livinglifetechway.k4kotlin.core.orFalse
-import com.livinglifetechway.k4kotlin.core.orZero
+import com.tpv.android.network.resources.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

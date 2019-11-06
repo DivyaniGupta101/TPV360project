@@ -42,7 +42,7 @@ sealed class Result<T, F> {
     }
 }
 
-data class Success<T, F> internal constructor(val data: T?, val message: String? = "", val paginatedMataData: PaginatedMataData? = null) : Result<T, F>()
+data class Success<T, F> internal constructor(val data: T?, val message: String? = "") : Result<T, F>()
 data class Failure<T, F> internal constructor(val throwable: Throwable?, val error: F?) :
         Result<T, F>()
 
@@ -95,68 +95,3 @@ suspend fun <T, F, R> Result<T, F>.suspendableMap(transform: suspend (T?) -> R):
         } catch (e: Exception) {
             Result.failure(e)
         }
-
-
-class PaginatedMataData(var currentPage: Int?, // 1
-                        var lastPage: Int?, // 1
-                        var perPage: Int?, // 10
-                        var total: Int? // 6
-) {
-    constructor(paginatedMataData: PaginatedMataData?) : this(
-            paginatedMataData?.currentPage,
-            paginatedMataData?.lastPage,
-            paginatedMataData?.perPage,
-            paginatedMataData?.total
-    )
-
-    var hasNext: Boolean = false
-        get() = lastPage.orZero() > currentPage.orZero()
-    var hasPrevious: Boolean = false
-        get() = 1 < currentPage.orZero()
-
-    companion object {
-        const val PAGE_SIZE = 10
-    }
-}
-
-
-fun <T : Any, F : Any> CoroutineScope.paginatedDataCall(
-        exposeLiveData: MutableLiveData<PaginatedResource<T, F>>?,
-        func: suspend (page: Int) -> Result<PaginateCommonResp<List<T>>, F>
-): MutableLiveData<PaginatedResource<T, F>> {
-    val liveData = exposeLiveData ?: MutableLiveData()
-    if (liveData.value?.isLoading().orFalse() || liveData.value?.isLastPage().orFalse()) {
-        return liveData
-    }
-    liveData.value = (liveData.value ?: PaginatedResource.getInstance()).loading()
-    launch {
-        val resource = liveData.value ?: PaginatedResource.getInstance()
-        liveData.value = resource.loading()
-        val result = func.invoke(liveData.value?.nextPage.orZero())
-        if (result is Success) {
-            liveData.value = resource.success(result.data?.data, result.paginatedMataData)
-        }
-        if (result is Failure) {
-            liveData.value = resource.failure(result.error.toString(), result.throwable)
-        }
-    }
-
-    return liveData
-}
-
-//fun PaginatedResource<Any>.ifSuccess(func: (PaginatedResource<Any>) -> Unit) {
-//    if (state == PaginatedResource.STATE_SUCCESS) {
-//        func.invoke(this)
-//    }
-//}
-
-
-//fun <T , J > Result<T, J>.map(function: (T?) -> J?): Result<T, J> {
-//    return when (this) {
-//        is Success -> {
-//            success(function.invoke(this.data), this.message, this.paginatedMataData)
-//        }
-//        is Failure ->
-//            failure(this.message, this.error)
-//    }
-//}

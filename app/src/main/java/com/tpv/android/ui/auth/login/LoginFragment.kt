@@ -19,9 +19,9 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLoginBinding
 import com.tpv.android.model.LoginReq
 import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.network.resources.APIError
+import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.Resource
-import com.tpv.android.network.resources.ifSuccess
+import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator

@@ -17,9 +17,9 @@ import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
 import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.network.resources.APIError
+import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.Resource
-import com.tpv.android.network.resources.ifSuccess
+import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.LeadStatus
 import com.tpv.android.utils.setItemSelection

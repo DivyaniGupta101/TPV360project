@@ -1,4 +1,6 @@
-package com.tpv.android.network.resources
+package com.tpv.android.network.resources.extensions
+
+import com.tpv.android.network.resources.Resource
 
 /**
  * return true if the network call is in completed state

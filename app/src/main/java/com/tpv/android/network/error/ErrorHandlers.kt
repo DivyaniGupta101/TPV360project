@@ -13,7 +13,7 @@ import com.livinglifetechway.k4kotlin.core.isNetworkAvailable
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogErrorBinding
-import com.tpv.android.network.resources.APIError
+import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.Resource
 
 
@@ -21,29 +21,10 @@ interface ErrorHandler {
     fun onError(resource: Resource<*, APIError>)
 }
 
-//interface PaginatedErrorHandler {
-//    fun onInitialError(paginatedResource: PaginatedResource<*>)
-//    fun onPageLoadingError(paginatedResource: PaginatedResource<*>)
-//}
-
-
-//class SnackbarPaginatedErrorHandler(private val parentView: View) : PaginatedErrorHandler {
-//    override fun onInitialError(paginatedResource: PaginatedResource<*>) {
-//        showError(paginatedResource)
-//    }
-//
-//    override fun onPageLoadingError(paginatedResource: PaginatedResource<*>) {
-//        showError(paginatedResource)
-//    }
-
-//    private fun showError(resource: PaginatedResource<*>) {
-//        val snackbar = Snackbar.make(parentView, resource.message ?: "Unknown Error", Snackbar.LENGTH_INDEFINITE)
-//        snackbar.setAction("OK") {
-//            snackbar.dismiss()
-//        }
-//        snackbar.show()
-//    }
-//}
+interface PaginatedErrorHandler {
+    fun onInitialError(paginatedResource: Resource<*, APIError>)
+    fun onPageLoadingError(paginatedResource: Resource<*, APIError>)
+}
 
 class SnackbarErrorHandler(private val parentView: View) : ErrorHandler {
     override fun onError(resource: Resource<*, APIError>) {

@@ -15,8 +15,8 @@ import com.livinglifetechway.k4kotlin.core.orZero
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.network.error.ErrorHandler
-import com.tpv.android.network.resources.APIError
 import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.utils.textdrawable.TextDrawable
 
 object BindingAdapter {

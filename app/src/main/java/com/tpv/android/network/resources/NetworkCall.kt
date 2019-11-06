@@ -3,6 +3,8 @@ package com.tpv.android.network.resources
 import android.util.Log
 import com.livinglifetechway.k4kotlin.core.TAG
 import com.livinglifetechway.k4kotlin_retrofit.enqueueDeferredResponse
+import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.apierror.APIErrorUtils
 import retrofit2.Call
 
 

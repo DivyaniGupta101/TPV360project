@@ -13,9 +13,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentProfileBinding
 import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.network.resources.APIError
 import com.tpv.android.network.resources.Resource
-import com.tpv.android.network.resources.ifSuccess
+import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
@@ -53,7 +53,6 @@ class ProfileFragment : Fragment() {
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-
     }
 
     override fun onResume() {

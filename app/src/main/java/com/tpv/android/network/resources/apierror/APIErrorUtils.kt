@@ -1,4 +1,4 @@
-package com.tpv.android.network.resources
+package com.tpv.android.network.resources.apierror
 
 import okhttp3.ResponseBody
 import retrofit2.Converter
