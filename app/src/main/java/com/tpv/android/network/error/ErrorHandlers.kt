@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.snackbar.Snackbar
+import com.livinglifetechway.k4kotlin.core.isNetworkAvailable
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogErrorBinding
@@ -73,15 +74,30 @@ class AlertErrorHandler(
         val dialog = AlertDialog.Builder(view.context)
                 .setView(binding.root).show()
 
-        binding.item = resource.errorData?.message
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
 
         binding?.btnYes?.onClick {
-            dialog.dismiss()
-//            TODO  Remove function invoke
-            func?.invoke()
+            if (func == null) {
+                dialog.dismiss()
+            } else {
+                dialog.dismiss()
+                func.invoke()
+            }
+        }
+
+        //handle error which is come from api or no internet connection or poor connection
+
+        val errorData = resource.errorData
+        if (errorData is APIError) {
+            binding.item = errorData.message ?: view.context?.getString(R.string.unknown_error)
+        } else {
+            if (!view.context.isNetworkAvailable()) {
+                binding.item = view.context.getString(R.string.no_internet_connection_message)
+            } else {
+                binding.item = view.context.getString(R.string.something_went_wrong)
+            }
         }
     }
 }
