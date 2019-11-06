@@ -23,6 +23,10 @@ import com.tpv.android.network.resources.APIError
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
+import com.tpv.android.utils.validation.EmailValidator
+import com.tpv.android.utils.validation.EmptyValidator
+import com.tpv.android.utils.validation.TextInputValidationErrorHandler
+import com.tpv.android.utils.validation.Validator
 
 /**
  * A simple [Fragment] subclass.
@@ -44,13 +48,15 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (BuildConfig.DEBUG) {
-            mBinding.textEmail.setText("testingusermm@mailinator.com")
-            mBinding.textPassword.setText("Admin1!")
+            mBinding.editEmail.setText("rinal.shah@contactpoint360.com")
+            mBinding.editPassword.setText("Rinal0211")
 
         }
 
         mBinding.btnStart.onClick {
-            signInApi()
+            if (isValid()) {
+                signInApi()
+            }
         }
 
         mBinding.textForgotPassword?.onClick {
@@ -58,17 +64,39 @@ class LoginFragment : Fragment() {
         }
     }
 
+
+    /**
+     * Validate input
+     */
+    private fun isValid(): Boolean {
+        return Validator(TextInputValidationErrorHandler()) {
+            addValidate(
+                    mBinding.editEmail,
+                    EmptyValidator(),
+                    getString(R.string.enter_email)
+            )
+            addValidate(
+                    mBinding.editPassword,
+                    EmptyValidator(),
+                    getString(R.string.enter_password)
+            )
+            addValidate(
+                    mBinding.editEmail,
+                    EmailValidator(),
+                    getString(R.string.enter_valid_email)
+            )
+        }.validate()
+    }
+
+
     private fun signInApi() {
 
-            //TODO Remove redirection of Home screen from here and replace it in success call
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root) {
-            context.startActivity<HomeActivity>()
-            activity?.finish()
-        }
-        val liveData = mViewModel.logInApi(LoginReq(mBinding.textEmail.value, mBinding.textPassword.value))
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+        val liveData = mViewModel.logInApi(LoginReq(mBinding.editEmail.value, mBinding.editPassword.value))
         liveData.observe(this, Observer {
             it.ifSuccess {
-
+                context.startActivity<HomeActivity>()
+                activity?.finish()
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>

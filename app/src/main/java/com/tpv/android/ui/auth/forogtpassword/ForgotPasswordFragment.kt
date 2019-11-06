@@ -8,9 +8,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentForgotPasswordBinding
+import com.tpv.android.utils.validation.EmailValidator
+import com.tpv.android.utils.validation.EmptyValidator
+import com.tpv.android.utils.validation.TextInputValidationErrorHandler
+import com.tpv.android.utils.validation.Validator
 
 /**
  * A simple [Fragment] subclass.
@@ -29,6 +34,9 @@ class ForgotPasswordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mBinding.btnSubmit?.onClick {
+            if (isValid()) {
+                toastNow("Coming soon!!")
+            }
             //            Navigation.findNavController(mBinding.root).navigate(R.id.action_forgotPasswordFragment_to_newPasswordFragment)
         }
 
@@ -36,5 +44,24 @@ class ForgotPasswordFragment : Fragment() {
             Navigation.findNavController(mBinding.root).navigateUp()
         }
     }
+
+    /**
+     * Validate input
+     */
+    private fun isValid(): Boolean {
+        return Validator(TextInputValidationErrorHandler()) {
+            addValidate(
+                    mBinding.editEmail,
+                    EmptyValidator(),
+                    getString(R.string.enter_email)
+            )
+            addValidate(
+                    mBinding.editEmail,
+                    EmailValidator(),
+                    getString(R.string.enter_valid_email)
+            )
+        }.validate()
+    }
+
 
 }
