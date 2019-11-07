@@ -14,10 +14,14 @@ import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
+import com.tpv.android.helper.formatDate
 import com.tpv.android.network.error.ErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.utils.textdrawable.TextDrawable
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 object BindingAdapter {
 
@@ -73,7 +77,7 @@ object BindingAdapter {
             }
 
             LeadStatus.DECLINED.value -> {
-                textView.setText(context?.getString(R.string.decline))
+                textView.setText(context?.getString(R.string.declined))
                 textView.setTextColor(context.color(R.color.colorDecliendText))
             }
 
@@ -97,6 +101,23 @@ object BindingAdapter {
         } else {
             container.hide()
         }
+    }
+
+    /**
+     * set date 'yyyy-MM-dd to dd/MM/yyyy'
+     */
+    @JvmStatic
+    @BindingAdapter("setDate")
+    fun setDate(textView: TextView, date: String?) {
+        textView.text = SimpleDateFormat("MM-dd-yyyy HH:mm:ss", Locale.US).parse(date).formatDate("dd / MM / yyyy")
+
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("time")
+    fun setTimeFormate(textView: TextView, time: String?) {
+        textView.text = SimpleDateFormat("MM-dd-yyyy HH:mm:ss", Locale.US).parse(time).formatDate("hh:mm:ss")
     }
 
 

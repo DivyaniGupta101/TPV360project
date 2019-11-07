@@ -71,7 +71,8 @@
                             style="@style/SecondaryBoldText"
                             android:layout_width="0dp"
                             android:layout_weight="15"
-                            android:text="27/08/2018" />
+                            app:setDate="@{item.createTime}"
+                            tools:text="27/08/2018" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -89,7 +90,8 @@
                             style="@style/SecondaryBoldText"
                             android:layout_width="0dp"
                             android:layout_weight="16"
-                            android:text="09:36:06" />
+                            app:time="@{item.createTime}"
+                            tools:text="09:36:06" />
                     </LinearLayout>
                 </LinearLayout>
 

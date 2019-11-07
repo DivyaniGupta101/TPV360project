@@ -40,7 +40,6 @@
                             android:visibility="invisible"
                             tools:visibility="visible" />
 
-
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_2sdp"
