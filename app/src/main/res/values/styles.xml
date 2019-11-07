@@ -27,7 +27,7 @@
         <item name="android:paddingTop">@dimen/_12sdp</item>
         <item name="android:paddingBottom">@dimen/_12sdp</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
-        <item name="android:layout_marginBottom">@dimen/_20sdp</item>
+        <item name="android:layout_marginBottom">@dimen/_5sdp</item>
 
     </style>
 

@@ -163,4 +163,14 @@ class HomeActivity : AppCompatActivity() {
         mBinding.drawerLayout.openDrawer(GravityCompat.END)
     }
 
+    override fun onBackPressed() {
+        if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            mBinding.drawerLayout.closeDrawer(GravityCompat.END)
+        } else {
+            super.onBackPressed()
+
+        }
+
+    }
+
 }

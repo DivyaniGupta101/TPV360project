@@ -54,13 +54,15 @@
                     android:text="@string/welcome" />
 
                 <TextView
+                    tools:visibility="visible"
+                    android:visibility="gone"
                     style="@style/SecondaryNormalText"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley " />
 
                 <TextView
                     style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:text="@string/email_address" />
 
                 <com.google.android.material.textfield.TextInputLayout

@@ -13,223 +13,229 @@
 
     </data>
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_220sdp"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg_menu" />
+                android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_50sdp"
-                android:layout_marginEnd="@dimen/_30sdp"
-                android:orientation="horizontal"
-                android:padding="@dimen/_4sdp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    app:name="@{item.firstName + ' ' + item.lastName}"
-                    tools:src="@drawable/dummy_person" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bg_menu" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_50sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_4sdp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        app:name="@{item.firstName + ' ' + item.lastName}"
+                        tools:src="@drawable/dummy_person" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/PrimaryNormalText"
+                            android:singleLine="true"
+                            android:text="@{item.firstName +' ' + item.lastName}"
+                            tools:text="Patrcia Davison" />
+
+                        <TextView
+                            style="@style/SecondaryNormalText"
+                            android:singleLine="true"
+                            android:text="@{item.email}"
+                            tools:text="patrcia24@gmail.com" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:id="@+id/dashboardContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:background="@drawable/rounded_ripple_effect">
+
+                <View
+                    android:id="@+id/darkViewDashBoard"
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorMenuHighLight"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/lightViewDashBoard"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorMenuLightHighLight"
+                    android:visibility="gone" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_14sdp">
+
+                    <ImageView
+                        style="@style/SlideMenuItemImage"
+                        android:src="@drawable/ic_menu_dashboard_pink"
+                        app:dynamicTintColor="@{R.color.colorMenuHighLight}" />
 
                     <TextView
-                        style="@style/PrimaryNormalText"
-                        android:text="@{item.firstName +' ' + item.lastName}"
-                        tools:text="Patrcia Davison"
-                        android:singleLine="true"/>
-
-                    <TextView
-                        style="@style/SecondaryNormalText"
-                        android:text="@{item.email}"
-                        android:singleLine="true"
-                        tools:text="patrcia24@gmail.com" />
+                        style="@style/SlideMenuItemText"
+                        android:text="@string/dashboard" />
                 </LinearLayout>
 
-            </LinearLayout>
-        </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/dashboardContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_32sdp"
-            android:background="@drawable/rounded_ripple_effect">
+            </FrameLayout>
 
-            <View
-                android:id="@+id/darkViewDashBoard"
-                android:layout_width="@dimen/_8sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorMenuHighLight"
-                android:visibility="gone" />
-
-            <View
-                android:id="@+id/lightViewDashBoard"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorMenuLightHighLight"
-                android:visibility="gone" />
-
-
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/profileContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/_14sdp">
+                android:background="@drawable/rounded_ripple_effect">
 
-                <ImageView
-                    style="@style/SlideMenuItemImage"
-                    android:src="@drawable/ic_menu_dashboard_pink"
-                    app:dynamicTintColor="@{R.color.colorMenuHighLight}" />
+                <View
+                    android:id="@+id/darkViewProfile"
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorMenuHighLight"
+                    android:visibility="gone" />
 
-                <TextView
-                    style="@style/SlideMenuItemText"
-                    android:text="@string/dashboard" />
-            </LinearLayout>
+                <View
+                    android:id="@+id/lightViewProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorMenuLightHighLight"
+                    android:visibility="gone" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_14sdp">
 
-        </FrameLayout>
+                    <ImageView
+                        style="@style/SlideMenuItemImage"
+                        android:src="@drawable/ic_menu_profile_pink"
+                        app:dynamicTintColor="@{R.color.colorMenuHighLight}" />
 
-        <FrameLayout
-            android:id="@+id/profileContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_ripple_effect">
+                    <TextView
+                        style="@style/SlideMenuItemText"
+                        android:text="@string/profile" />
 
-            <View
-                android:id="@+id/darkViewProfile"
-                android:layout_width="@dimen/_8sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorMenuHighLight"
-                android:visibility="gone" />
+                </LinearLayout>
+            </FrameLayout>
 
-            <View
-                android:id="@+id/lightViewProfile"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorMenuLightHighLight"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/_14sdp">
-
-                <ImageView
-                    style="@style/SlideMenuItemImage"
-                    android:src="@drawable/ic_menu_profile_pink"
-                    app:dynamicTintColor="@{R.color.colorMenuHighLight}" />
-
-                <TextView
-                    style="@style/SlideMenuItemText"
-                    android:text="@string/profile" />
-
-            </LinearLayout>
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/enrollmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_ripple_effect">
-
-            <View
-                android:id="@+id/darkViewEnrollment"
-                android:layout_width="@dimen/_8sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorMenuHighLight"
-                android:visibility="gone" />
-
-            <View
-                android:id="@+id/lightViewEnrollment"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorMenuLightHighLight"
-                android:visibility="gone" />
-
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/enrollmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/_14sdp">
+                android:background="@drawable/rounded_ripple_effect">
 
-                <ImageView
-                    style="@style/SlideMenuItemImage"
-                    android:src="@drawable/ic_register"
-                    app:dynamicTintColor="@{R.color.colorMenuHighLight}" />
+                <View
+                    android:id="@+id/darkViewEnrollment"
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorMenuHighLight"
+                    android:visibility="gone" />
 
-                <TextView
-                    style="@style/SlideMenuItemText"
-                    android:layout_weight="3"
-                    android:text="@string/start_enrollment" />
+                <View
+                    android:id="@+id/lightViewEnrollment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorMenuLightHighLight"
+                    android:visibility="gone" />
 
-            </LinearLayout>
-        </FrameLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_14sdp">
 
-        <FrameLayout
-            android:id="@+id/logoutContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_ripple_effect">
+                    <ImageView
+                        style="@style/SlideMenuItemImage"
+                        android:src="@drawable/ic_register"
+                        app:dynamicTintColor="@{R.color.colorMenuHighLight}" />
 
-            <View
-                android:id="@+id/darkViewLogout"
-                android:layout_width="@dimen/_8sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorMenuHighLight"
-                android:visibility="gone" />
+                    <TextView
+                        style="@style/SlideMenuItemText"
+                        android:layout_weight="3"
+                        android:text="@string/start_enrollment" />
 
-            <View
-                android:id="@+id/lightViewLogout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorMenuLightHighLight"
-                android:visibility="gone" />
+                </LinearLayout>
+            </FrameLayout>
 
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/logoutContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/_14sdp">
+                android:background="@drawable/rounded_ripple_effect">
 
-                <ImageView
-                    style="@style/SlideMenuItemImage"
-                    android:src="@drawable/ic_menu_logout_pink"
-                    app:dynamicTintColor="@{R.color.colorMenuHighLight}" />
+                <View
+                    android:id="@+id/darkViewLogout"
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorMenuHighLight"
+                    android:visibility="gone" />
 
-                <TextView
-                    style="@style/SlideMenuItemText"
-                    android:text="@string/logout" />
+                <View
+                    android:id="@+id/lightViewLogout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorMenuLightHighLight"
+                    android:visibility="gone" />
 
-            </LinearLayout>
-        </FrameLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_14sdp">
 
-    </LinearLayout>
+                    <ImageView
+                        style="@style/SlideMenuItemImage"
+                        android:src="@drawable/ic_menu_logout_pink"
+                        app:dynamicTintColor="@{R.color.colorMenuHighLight}" />
+
+                    <TextView
+                        style="@style/SlideMenuItemText"
+                        android:text="@string/logout" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </layout>

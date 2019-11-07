@@ -2,6 +2,7 @@ package com.tpv.android.utils
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.invisible
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
@@ -29,7 +30,7 @@ fun Fragment.setupToolbar(
                     Navigation.findNavController(toolbarContainer.root).navigateUp()
                 }
             } else {
-                backImage?.invisible()
+                backImage?.hide()
             }
 
             val menuImage = toolbarContainer.imageToolbarMenu
