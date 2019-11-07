@@ -36,7 +36,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar(mBinding.toolbar, getString(R.string.profile), false, true)
+        setupToolbar(mBinding.toolbar, getString(R.string.profile), true, true)
         mBinding.item = Pref.user
 
 
