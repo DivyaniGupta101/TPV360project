@@ -31,86 +31,92 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorScreenBg"
-            android:orientation="vertical"
-            android:padding="@dimen/_24sdp">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:background="@color/colorScreenBg"
+                android:orientation="vertical"
+                android:padding="@dimen/_24sdp">
 
-                <ImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:src="@drawable/ic_company_logo" />
-
-                <TextView
-                    style="@style/PrimaryBigBoldText"
-                    android:text="@string/welcome" />
-
-                <TextView
-                    tools:visibility="visible"
-                    android:visibility="gone"
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley " />
-
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:text="@string/email_address" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputEmail"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword">
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editEmail"
-                        style="@style/DefaultEditText"
-                        android:inputType="textEmailAddress" />
+                    <ImageView
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:src="@drawable/ic_company_logo" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        style="@style/PrimaryBigBoldText"
+                        android:text="@string/welcome" />
+
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley "
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:text="@string/email_address" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editEmail"
+                            style="@style/DefaultEditText"
+                            android:inputType="textEmailAddress" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/password" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/colorSecondaryImageTint">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editPassword"
+                            style="@style/DefaultEditText"
+                            android:inputType="textPassword" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/textForgotPassword"
+                        style="@style/SecondaryNormalText"
+                        android:layout_gravity="end"
+                        android:text="@string/forgot_password" />
+
+                </LinearLayout>
 
                 <TextView
-                    style="@style/SecondaryNormalTextWithTopSpacing"
-                    android:text="@string/password" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/colorSecondaryImageTint">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editPassword"
-                        style="@style/DefaultEditText"
-                        android:inputType="textPassword" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/textForgotPassword"
-                    style="@style/SecondaryNormalText"
-                    android:layout_gravity="end"
-                    android:text="@string/forgot_password" />
+                    android:id="@+id/btnStart"
+                    style="@style/ButtonPrimary"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:text="@string/get_started" />
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/btnStart"
-                style="@style/ButtonPrimary"
-                android:text="@string/get_started" />
-
-        </LinearLayout>
+        </ScrollView>
 
         <include
             android:id="@+id/incProgressBar"
