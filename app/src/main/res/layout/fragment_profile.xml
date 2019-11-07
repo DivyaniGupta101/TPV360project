@@ -5,19 +5,6 @@
 
     <data>
 
-        <import type="com.tpv.android.network.resources.Resource" />
-
-        <import type="com.tpv.android.network.error.ErrorHandler" />
-
-        <import type="com.tpv.android.network.resources.apierror.APIError" />
-
-        <variable
-            name="resource"
-            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
-
-        <variable
-            name="errorHandler"
-            type="com.tpv.android.network.error.ErrorHandler" />
 
         <variable
             name="item"
@@ -55,7 +42,7 @@
                     android:layout_marginTop="@dimen/_24sdp"
                     android:elevation="2dp"
                     tools:src="@drawable/dummy_person"
-                    name="@{item.firstName + ' ' + item.lastName}" />
+                    app:name="@{item.firstName + ' ' + item.lastName}" />
 
                 <TextView
                     style="@style/SecondaryNormalText"
@@ -106,13 +93,5 @@
 
             </LinearLayout>
         </LinearLayout>
-
-        <include
-            android:id="@+id/incProgressBar"
-            layout="@layout/progress_bar"
-            app:errorHandler="@{errorHandler}"
-            app:resource="@{resource}"
-            app:useBlockingProgress="@{true}"
-            tools:visibility="visible" />
     </FrameLayout>
 </layout>

@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.hide
@@ -18,6 +20,8 @@ import com.livinglifetechway.k4kotlin.databinding.setBindingView
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivityHomeBinding
 import com.tpv.android.databinding.DialogLogoutBinding
+import com.tpv.android.helper.Pref
+import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
 
 class HomeActivity : AppCompatActivity() {
@@ -32,13 +36,25 @@ class HomeActivity : AppCompatActivity() {
 
     lateinit var mBinding: ActivityHomeBinding
     lateinit var mNavController: NavController
+    lateinit var mViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = setBindingView(R.layout.activity_home)
+        mBinding.lifecycleOwner = this
+        mViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         mNavController = Navigation.findNavController(this, R.id.navHostFragment)
 
         mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
+
+        if (Pref.user == null) {
+            mViewModel.getProfile().observe(this, Observer {
+                it.ifSuccess { userDetail ->
+                    mBinding.navMenu.item = Pref.user
+                }
+            })
+        }
 
         handleItemMenu(DASHBOARD)
 
@@ -62,6 +78,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    fun updateProfileData() {
+        mBinding.navMenu.item = Pref.user
+    }
 
     fun handleItemMenu(item: Int) {
 

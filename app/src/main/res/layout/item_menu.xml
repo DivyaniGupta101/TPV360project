@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="com.tpv.android.R" />
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.UserDetail" />
 
     </data>
 
@@ -36,23 +41,27 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/dummy_person" />
+                    app:name="@{item.firstName + ' ' + item.lastName}"
+                    tools:src="@drawable/dummy_person" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
                         style="@style/PrimaryNormalText"
-                        android:text="Patrcia Davison" />
+                        android:text="@{item.firstName +' ' + item.lastName}"
+                        tools:text="Patrcia Davison"
+                        android:singleLine="true"/>
 
                     <TextView
                         style="@style/SecondaryNormalText"
-                        android:text="patrcia24@gmail.com" />
+                        android:text="@{item.email}"
+                        android:singleLine="true"
+                        tools:text="patrcia24@gmail.com" />
                 </LinearLayout>
 
             </LinearLayout>

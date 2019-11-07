@@ -1,7 +1,7 @@
 package com.tpv.android.network
 
 import com.tpv.android.BuildConfig
-import com.tpv.android.helper.UserPref
+import com.tpv.android.helper.Pref
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,10 +33,10 @@ object ApiClient {
             try {
                 val newBuilder = request.newBuilder()
 
-                if (!UserPref.token.isNullOrEmpty()) {
+                if (!Pref.token.isNullOrEmpty()) {
                     newBuilder.addHeader(
                             "Authorization",
-                            "Bearer ${UserPref.token}"
+                            "Bearer ${Pref.token}"
                     )
                     newBuilder.addHeader(
                             "Accept",

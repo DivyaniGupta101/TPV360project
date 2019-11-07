@@ -55,6 +55,14 @@ fun Fragment.setItemSelection(item: Int) {
     }
 }
 
+fun Fragment.updateProfileInMenu() {
+    when (activity) {
+        is HomeActivity -> {
+            (activity as HomeActivity).updateProfileData()
+        }
+    }
+}
+
 enum class Plan(val value: String) {
     DUALFUEL("dualfuel"),
     GASFUEL("gasfuel"),

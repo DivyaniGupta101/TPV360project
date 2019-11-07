@@ -2,7 +2,7 @@ package com.tpv.android.model
 
 import com.google.gson.annotations.SerializedName
 
-data class User(
+data class LoginResp(
         @SerializedName("first_name")
         var firstName: String? = null,
         @SerializedName("last_name")

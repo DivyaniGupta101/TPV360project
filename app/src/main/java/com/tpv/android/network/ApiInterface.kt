@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface ApiInterface {
     @POST("login")
-    fun logIn(@Body loginReq: LoginReq): Call<CommonResponse<LogInResp>>
+    fun logIn(@Body loginReq: LoginReq): Call<CommonResponse<LoginResp>>
 
     @POST("logout")
     fun logout(): Call<CommonResponse<Unit>>

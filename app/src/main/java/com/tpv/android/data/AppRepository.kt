@@ -1,7 +1,7 @@
 package com.tpv.android.data
 
 import androidx.lifecycle.LiveData
-import com.tpv.android.helper.UserPref
+import com.tpv.android.helper.Pref
 import com.tpv.android.model.*
 import com.tpv.android.network.ApiClient
 import com.tpv.android.network.resources.Resource
@@ -15,11 +15,11 @@ import kotlinx.coroutines.CoroutineScope
 
 object AppRepository {
 
-    fun CoroutineScope.logIn(loginReq: LoginReq) = dataApi<LogInResp?, APIError> {
+    fun CoroutineScope.logIn(loginReq: LoginReq) = dataApi<LoginResp?, APIError> {
         fromNetwork {
             ApiClient.service.logIn(loginReq).getResult().map {
                 val logInResp = it?.data
-                UserPref.token = logInResp?.token
+                Pref.token =it?.token
                 logInResp
             }
         }
@@ -34,7 +34,11 @@ object AppRepository {
 
     fun CoroutineScope.getProfileDetail() = dataApi<UserDetail?, APIError> {
         fromNetwork {
-            ApiClient.service.getProfile().getResult().map { it?.data }
+            ApiClient.service.getProfile().getResult().map {
+                val profileResp = it?.data
+                Pref.user = profileResp
+                profileResp
+            }
         }
     }
 

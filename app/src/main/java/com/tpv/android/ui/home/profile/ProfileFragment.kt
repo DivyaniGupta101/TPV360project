@@ -7,18 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentProfileBinding
-import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.network.resources.Resource
-import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.helper.Pref
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
+import com.tpv.android.utils.updateProfileInMenu
 
 /**
  * A simple [Fragment] subclass.
@@ -39,20 +37,15 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(mBinding.toolbar, getString(R.string.profile), false, true)
-        getUserProfile()
-    }
+        mBinding.item = Pref.user
 
-    private fun getUserProfile() {
 
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
-        val liveData = mViewModel.getProfile()
-        liveData.observe(viewLifecycleOwner, Observer {
+        mViewModel.getProfile().observe(viewLifecycleOwner, Observer {
             it.ifSuccess {
-                mBinding.item = it
-
+                updateProfileInMenu()
             }
         })
-        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
     }
 
     override fun onResume() {

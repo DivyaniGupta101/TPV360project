@@ -8,5 +8,8 @@ data class CommonResponse<T>(
         @SerializedName("message")
         var message: String?,
         @SerializedName("data")
-        var data: T?
+        var data: T?,
+        @SerializedName("token")
+        var token: String?
+
 )
