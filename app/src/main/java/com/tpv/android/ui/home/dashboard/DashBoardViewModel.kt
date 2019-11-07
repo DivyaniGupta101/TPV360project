@@ -6,7 +6,7 @@ import com.tpv.android.network.resources.CoroutineScopedViewModel
 class DashBoardViewModel : CoroutineScopedViewModel() {
 
     fun getDashBoardDetail() = with(AppRepository){
-        getDashBoard()
+        getDashBoardCall()
     }
 
 }

@@ -24,7 +24,7 @@ class LeadListingViewModel : CoroutineScopedViewModel() {
 
 
     fun getLeadList(leadstatus: String?, page: Int? = 1) = with(AppRepository) {
-        getLeads(leadsLiveData.value.orEmpty(), LeadReq(leadstatus, page = page))
+        getLeadsCall(leadsLiveData.value.orEmpty(), LeadReq(leadstatus, page = page))
                 .observeForever { leadsPaginatedResourceMutableLiveData.value = it }
     }
 }

@@ -6,6 +6,6 @@ import com.tpv.android.network.resources.CoroutineScopedViewModel
 
 class LoginViewModel : CoroutineScopedViewModel() {
     fun logInApi(loginReq: LoginReq) = with(AppRepository) {
-        logIn(loginReq)
+        logInCall(loginReq)
     }
 }

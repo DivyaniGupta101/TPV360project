@@ -5,6 +5,6 @@ import com.tpv.android.network.resources.CoroutineScopedViewModel
 
 class ProfileViewModel : CoroutineScopedViewModel() {
     fun getProfile() = with(AppRepository) {
-        getProfileDetail()
+        getProfileDetailCall()
     }
 }

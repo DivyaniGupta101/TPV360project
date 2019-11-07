@@ -15,24 +15,24 @@ import kotlinx.coroutines.CoroutineScope
 
 object AppRepository {
 
-    fun CoroutineScope.logIn(loginReq: LoginReq) = dataApi<LoginResp?, APIError> {
+    fun CoroutineScope.logInCall(loginReq: LoginReq) = dataApi<LoginResp?, APIError> {
         fromNetwork {
             ApiClient.service.logIn(loginReq).getResult().map {
                 val logInResp = it?.data
-                Pref.token =it?.token
+                Pref.token = it?.token
                 logInResp
             }
         }
     }
 
-    fun CoroutineScope.getDashBoard() = dataApi<List<Dashboard>, APIError> {
+    fun CoroutineScope.getDashBoardCall() = dataApi<List<Dashboard>, APIError> {
         fromNetwork {
             ApiClient.service.getDashboardDetail().getResult().map { it?.data.orEmpty() }
         }
     }
 
 
-    fun CoroutineScope.getProfileDetail() = dataApi<UserDetail?, APIError> {
+    fun CoroutineScope.getProfileDetailCall() = dataApi<UserDetail?, APIError> {
         fromNetwork {
             ApiClient.service.getProfile().getResult().map {
                 val profileResp = it?.data
@@ -43,9 +43,20 @@ object AppRepository {
     }
 
 
-    fun CoroutineScope.getLeads(leadList: List<LeadResp>, leadReq: LeadReq): LiveData<Resource<List<LeadResp>, APIError>> = paginatedDataApi(leadList) {
+    fun CoroutineScope.getLeadsCall(leadList: List<LeadResp>, leadReq: LeadReq): LiveData<Resource<List<LeadResp>, APIError>> = paginatedDataApi(leadList) {
         fromNetwork {
             ApiClient.service.getMyLeadList(leadReq).getResult().map { it?.data.orEmpty() }
+        }
+    }
+
+
+    fun CoroutineScope.logoutCall() = dataApi<Unit?, APIError> {
+        fromNetwork {
+            ApiClient.service.logout().getResult().map {
+                val result = it?.data
+                Pref.clear()
+                result
+            }
         }
     }
 

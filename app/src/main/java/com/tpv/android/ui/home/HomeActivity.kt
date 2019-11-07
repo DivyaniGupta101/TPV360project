@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -21,6 +22,10 @@ import com.tpv.android.R
 import com.tpv.android.databinding.ActivityHomeBinding
 import com.tpv.android.databinding.DialogLogoutBinding
 import com.tpv.android.helper.Pref
+import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
 
@@ -47,7 +52,7 @@ class HomeActivity : AppCompatActivity() {
 
         mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
-
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         if (Pref.user == null) {
             mViewModel.getProfile().observe(this, Observer {
@@ -134,10 +139,23 @@ class HomeActivity : AppCompatActivity() {
             dialog.dismiss()
         }
         binding?.btnYes?.onClick {
+            val liveData = mViewModel.logout()
+            liveData.observe(this@HomeActivity, Observer {
+                it?.ifSuccess {
+                    context.startActivity<AuthActivity>()
+                    finish()
+                }
+                it?.ifFailure { throwable, errorData ->
+                    context.startActivity<AuthActivity>()
+                    finish()
+                }
+
+            })
+
+            mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
             dialog.dismiss()
-            Pref.clear()
-            context.startActivity<AuthActivity>()
-            finish()
+
+
         }
     }
 
