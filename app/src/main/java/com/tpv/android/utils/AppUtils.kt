@@ -40,6 +40,7 @@ fun Fragment.setupToolbar(
                     (activity as HomeActivity).openMenu()
                 }
             } else {
+                (activity as HomeActivity).lockSwipeModeMenu()
                 menuImage?.invisible()
             }
         }

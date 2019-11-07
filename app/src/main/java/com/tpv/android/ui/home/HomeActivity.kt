@@ -50,7 +50,6 @@ class HomeActivity : AppCompatActivity() {
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         mNavController = Navigation.findNavController(this, R.id.navHostFragment)
 
-        mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
@@ -161,6 +160,12 @@ class HomeActivity : AppCompatActivity() {
 
     fun openMenu() {
         mBinding.drawerLayout.openDrawer(GravityCompat.END)
+    }
+
+
+    fun lockSwipeModeMenu()
+    {
+        mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
     override fun onBackPressed() {
