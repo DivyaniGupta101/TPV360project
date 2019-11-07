@@ -37,8 +37,8 @@
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_120sdp"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
                     android:layout_marginTop="@dimen/_24sdp"
                     android:elevation="@dimen/_1sdp"
                     app:name="@{item.firstName + ' ' + item.lastName}"
@@ -47,7 +47,7 @@
                 <TextView
                     style="@style/SecondaryNormalText"
                     android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_40sdp"
                     android:text="@string/username" />
 
                 <com.google.android.material.textfield.TextInputLayout
