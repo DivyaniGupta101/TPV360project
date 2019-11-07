@@ -48,12 +48,15 @@ class HomeActivity : AppCompatActivity() {
         mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
 
+
         if (Pref.user == null) {
             mViewModel.getProfile().observe(this, Observer {
                 it.ifSuccess { userDetail ->
                     mBinding.navMenu.item = Pref.user
                 }
             })
+        } else {
+            setMenuProfileData()
         }
 
         handleItemMenu(DASHBOARD)
@@ -78,7 +81,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun updateProfileData() {
+    fun setMenuProfileData() {
         mBinding.navMenu.item = Pref.user
     }
 
@@ -132,6 +135,7 @@ class HomeActivity : AppCompatActivity() {
         }
         binding?.btnYes?.onClick {
             dialog.dismiss()
+            Pref.clear()
             context.startActivity<AuthActivity>()
             finish()
         }

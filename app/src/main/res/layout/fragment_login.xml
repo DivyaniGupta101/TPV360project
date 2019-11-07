@@ -71,14 +71,13 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/DefaultEditText"
                         android:inputType="textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    style="@style/InputTopSpacing"
+                    style="@style/SecondaryNormalTextWithTopSpacing"
                     android:text="@string/password" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -91,8 +90,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/DefaultEditText"
                         android:inputType="textPassword" />
 
                 </com.google.android.material.textfield.TextInputLayout>

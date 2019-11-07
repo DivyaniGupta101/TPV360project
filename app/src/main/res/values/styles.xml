@@ -26,7 +26,7 @@
         <item name="android:textSize">@dimen/_14sdp</item>
         <item name="android:paddingTop">@dimen/_12sdp</item>
         <item name="android:paddingBottom">@dimen/_12sdp</item>
-        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:layout_marginBottom">@dimen/_20sdp</item>
 
     </style>
@@ -115,7 +115,7 @@
         <item name="android:padding">@dimen/_24sdp</item>
     </style>
 
-    <style name="InputTopSpacing" parent="SecondaryNormalText">
+    <style name="SecondaryNormalTextWithTopSpacing" parent="SecondaryNormalText">
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
 </resources>

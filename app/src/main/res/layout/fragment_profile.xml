@@ -40,9 +40,9 @@
                     android:layout_width="@dimen/_120sdp"
                     android:layout_height="@dimen/_120sdp"
                     android:layout_marginTop="@dimen/_24sdp"
-                    android:elevation="2dp"
-                    tools:src="@drawable/dummy_person"
-                    app:name="@{item.firstName + ' ' + item.lastName}" />
+                    android:elevation="@dimen/_1sdp"
+                    app:name="@{item.firstName + ' ' + item.lastName}"
+                    tools:src="@drawable/dummy_person" />
 
                 <TextView
                     style="@style/SecondaryNormalText"
@@ -56,22 +56,19 @@
                     android:inputType="textPassword">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/DefaultEditText"
                         android:enabled="false"
                         android:focusable="false"
                         android:inputType="textEmailAddress"
                         android:text="@{item.firstName + ' ' + item.lastName}"
-                        android:textColor="@color/colorPrimaryText"
                         tools:text="Patricia Davidson" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
 
                 <TextView
-                    style="@style/SecondaryNormalText"
+                    style="@style/SecondaryNormalTextWithTopSpacing"
                     android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/_4sdp"
                     android:text="@string/email_address" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -80,13 +77,11 @@
                     android:inputType="textPassword">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/DefaultEditText"
                         android:enabled="false"
                         android:focusable="false"
                         android:inputType="textEmailAddress"
                         android:text="@{item.email}"
-                        android:textColor="@color/colorPrimaryText"
                         tools:text="patricia24@gmail.com" />
 
                 </com.google.android.material.textfield.TextInputLayout>

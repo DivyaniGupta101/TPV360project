@@ -1,5 +1,6 @@
 package com.tpv.android.utils
 
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
@@ -169,6 +170,8 @@ object BindingAdapter {
                     .height(200)
                     .width(200)
                     .textColor(image.context?.color(R.color.colorProfileImageText).orZero())
+                    .fontSize(56)
+                    .useFont(Typeface.DEFAULT_BOLD)
                     .bold()
                     .endConfig()
                     .buildRect(letterImage, image.context?.color(R.color.colorProfileImageBg).orZero())

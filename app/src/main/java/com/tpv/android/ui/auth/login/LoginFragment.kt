@@ -17,10 +17,11 @@ import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.BuildConfig
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLoginBinding
+import com.tpv.android.helper.Pref
 import com.tpv.android.model.LoginReq
 import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.validation.EmailValidator
@@ -47,6 +48,10 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (Pref.token != null) {
+            context.startActivity<HomeActivity>()
+            activity?.finish()
+        }
         if (BuildConfig.DEBUG) {
             mBinding.editEmail.setText("rinal.shah@contactpoint360.com")
             mBinding.editPassword.setText("Rinal0211")

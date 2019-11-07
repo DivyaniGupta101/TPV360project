@@ -69,6 +69,7 @@
                                 tools:text="90" />
 
                             <TextView
+                                android:singleLine="true"
                                 style="@style/SecondaryNormalText"
                                 android:text="@string/pending_leads" />
                         </LinearLayout>
