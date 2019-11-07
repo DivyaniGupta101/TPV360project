@@ -168,6 +168,10 @@ class HomeActivity : AppCompatActivity() {
         mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
+    fun unLockSwipeModeMenu()
+    {
+        mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+    }
     override fun onBackPressed() {
         if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
             mBinding.drawerLayout.closeDrawer(GravityCompat.END)

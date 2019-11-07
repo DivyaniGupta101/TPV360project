@@ -36,6 +36,7 @@ fun Fragment.setupToolbar(
             val menuImage = toolbarContainer.imageToolbarMenu
             if (showMenuIcon) {
                 menuImage?.show()
+                (activity as HomeActivity).unLockSwipeModeMenu()
                 menuImage?.onClick {
                     (activity as HomeActivity).openMenu()
                 }
