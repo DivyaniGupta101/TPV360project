@@ -33,7 +33,7 @@
     <color name="colorVerifiedText">@color/colorGreen</color>
     <color name="colorDecliendText">@color/colorRed</color>
     <color name="colorHangUpText">@color/colorSky</color>
-    <color name="colorMenuHighLight">@color/colorAccent</color>
+    <color name="colorMenuDarkHighLight">@color/colorAccent</color>
     <color name="colorMenuLightHighLight">@color/colorLightPink</color>
     <color name="colorScreenBg">@color/colorWhite</color>
     <color name="colorCancelButtonBorder">@color/colorAccent</color>

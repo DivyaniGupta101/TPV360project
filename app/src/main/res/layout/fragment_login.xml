@@ -40,7 +40,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorScreenBg"
                 android:orientation="vertical"
-                android:padding="@dimen/_24sdp">
+                android:padding="@dimen/_18sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -59,14 +59,14 @@
 
                     <TextView
                         style="@style/SecondaryNormalText"
-                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginTop="4dp"
                         android:text="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley "
                         android:visibility="gone"
                         tools:visibility="visible" />
 
                     <TextView
                         style="@style/SecondaryNormalText"
-                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_30sdp"
                         android:text="@string/email_address" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -112,7 +112,7 @@
                 <TextView
                     android:id="@+id/btnStart"
                     style="@style/ButtonPrimary"
-                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginTop="40dp"
                     android:text="@string/get_started" />
 
             </LinearLayout>

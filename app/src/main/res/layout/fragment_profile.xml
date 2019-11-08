@@ -32,22 +32,22 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="@dimen/_24sdp"
+                android:padding="24dp"
                 tools:context=".ui.home.profile.ProfileFragment">
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_80sdp"
-                    android:layout_marginTop="@dimen/_24sdp"
-                    android:elevation="@dimen/_1sdp"
+                    android:layout_marginTop="24dp"
+                    android:elevation="@dimen/_2sdp"
                     app:name="@{item.firstName + ' ' + item.lastName}"
                     tools:src="@drawable/dummy_person" />
 
                 <TextView
                     style="@style/SecondaryNormalText"
                     android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginTop="40dp"
                     android:text="@string/username" />
 
                 <com.google.android.material.textfield.TextInputLayout

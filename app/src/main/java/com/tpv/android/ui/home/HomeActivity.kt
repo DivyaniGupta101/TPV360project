@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.androidx.color
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
@@ -92,35 +93,36 @@ class HomeActivity : AppCompatActivity() {
     fun handleItemMenu(item: Int) {
 
         mBinding.navMenu?.darkViewDashBoard?.hide()
-        mBinding.navMenu?.lightViewDashBoard?.hide()
+        mBinding.navMenu?.dashboardContainer?.background = null
         mBinding.navMenu?.darkViewProfile?.hide()
-        mBinding.navMenu?.lightViewProfile?.hide()
+        mBinding.navMenu?.profileContainer?.background = null
         mBinding.navMenu?.darkViewEnrollment?.hide()
-        mBinding.navMenu?.lightViewEnrollment?.hide()
+        mBinding.navMenu?.enrollmentContainer?.background = null
         mBinding.navMenu?.darkViewLogout?.hide()
-        mBinding.navMenu?.lightViewLogout?.hide()
+        mBinding.navMenu?.logoutContainer?.background = null
 
         when (item) {
             DASHBOARD -> {
                 mBinding.navMenu?.darkViewDashBoard?.show()
-                mBinding.navMenu?.lightViewDashBoard?.show()
+                mBinding.navMenu?.dashboardContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
                 mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
             PROFILE -> {
                 mBinding.navMenu?.darkViewProfile?.show()
-                mBinding.navMenu?.lightViewProfile?.show()
+                mBinding.navMenu?.profileContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
                 mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
             ENROLL -> {
                 mBinding.navMenu?.darkViewEnrollment?.show()
-                mBinding.navMenu?.lightViewEnrollment?.show()
+                mBinding.navMenu?.enrollmentContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
                 mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
             LOGOUT -> {
                 mBinding.drawerLayout.closeDrawer(GravityCompat.END)
+                mBinding.navMenu?.logoutContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
                 openLogOutDialog()
             }
         }
@@ -163,15 +165,14 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    fun lockSwipeModeMenu()
-    {
+    fun lockSwipeModeMenu() {
         mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
-    fun unLockSwipeModeMenu()
-    {
+    fun unLockSwipeModeMenu() {
         mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
+
     override fun onBackPressed() {
         if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
             mBinding.drawerLayout.closeDrawer(GravityCompat.END)
