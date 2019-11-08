@@ -94,8 +94,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/colorSecondaryImageTint">
+                        app:passwordToggleDrawable="@drawable/password_toggle_button"
+                        app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editPassword"
