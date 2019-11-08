@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data></data>
@@ -12,7 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorToolbarBg"
-            android:elevation="@dimen/_8sdp">
+            android:elevation="@dimen/_8sdp"
+            app:contentInsetStart="0dp">
 
             <LinearLayout
                 android:id="@+id/toolbarContainer"

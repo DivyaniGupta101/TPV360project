@@ -11,6 +11,10 @@
 
         <import type="com.tpv.android.network.resources.apierror.APIError" />
 
+        <import type="com.tpv.android.model.DashBoardStatusCount" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
         <variable
             name="resource"
             type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
@@ -18,6 +22,10 @@
         <variable
             name="errorHandler"
             type="com.tpv.android.network.error.ErrorHandler" />
+
+        <variable
+            name="item"
+            type="LiveData&lt;DashBoardStatusCount>" />
 
     </data>
 
@@ -66,6 +74,7 @@
                                 android:id="@+id/textPending"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@{item.pending}"
                                 tools:text="90" />
 
                             <TextView
@@ -93,6 +102,7 @@
                                 android:id="@+id/textVerified"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@{item.verified}"
                                 tools:text="18" />
 
                             <TextView
@@ -128,6 +138,7 @@
                                 android:id="@+id/textDeclined"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@{item.decliend}"
                                 tools:text="02" />
 
                             <TextView
@@ -155,6 +166,7 @@
                                 android:id="@+id/textHangUp"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@{item.hangUp}"
                                 tools:text="05" />
 
                             <TextView

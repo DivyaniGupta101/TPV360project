@@ -7,19 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
 import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.network.resources.apierror.APIError
-import com.tpv.android.network.resources.Resource
-import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.LeadStatus
 import com.tpv.android.utils.setItemSelection
@@ -43,7 +37,7 @@ class DashBoardFragment : Fragment() {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dash_board, container, false)
         mBinding.lifecycleOwner = this
-        mViewModel = ViewModelProviders.of(this).get(DashBoardViewModel::class.java)
+        activity?.let { mViewModel = ViewModelProviders.of(it).get(DashBoardViewModel::class.java) }
         return mBinding.root
     }
 
@@ -57,7 +51,10 @@ class DashBoardFragment : Fragment() {
 
         setupToolbar(mBinding.toolbar, getString(R.string.dashboard), showMenuIcon = true)
 
-        getDashBoardData()
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+
+        mBinding.item = mViewModel.dashBoardCount
+
 
         mBinding.pendingContainer.onClick {
             mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.PENDING.value))
@@ -81,32 +78,6 @@ class DashBoardFragment : Fragment() {
 
     }
 
-    private fun getDashBoardData() {
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
-
-        val liveData = mViewModel.getDashBoardDetail()
-        liveData.observe(viewLifecycleOwner, Observer {
-            it.ifSuccess {
-                it?.forEach { dashboard ->
-
-                    if (dashboard.status?.equals(LeadStatus.PENDING.value).orFalse()) {
-                        mBinding.textPending.setText(dashboard.value.toString())
-                    }
-                    if (dashboard.status?.equals(LeadStatus.VERIFIED.value).orFalse()) {
-                        mBinding.textVerified.setText(dashboard.value.toString())
-                    }
-                    if (dashboard.status?.equals(LeadStatus.DECLINED.value).orFalse()) {
-                        mBinding.textDeclined.setText(dashboard.value.toString())
-                    }
-                    if (dashboard.status?.equals(LeadStatus.HANGUP.value).orFalse()) {
-                        mBinding.textHangUp.setText(dashboard.value.toString())
-                    }
-                }
-            }
-        })
-        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-
-    }
 
     override fun onResume() {
         super.onResume()
