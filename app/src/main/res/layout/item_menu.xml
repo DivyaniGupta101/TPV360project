@@ -99,7 +99,7 @@
 
                     <ImageView
                         style="@style/SlideMenuItemImage"
-                        android:src="@drawable/ic_menu_dashboard_pink"
+                        android:src="@drawable/ic_menu_dashboard_white"
                         app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}" />
 
                     <TextView
@@ -137,7 +137,7 @@
 
                     <ImageView
                         style="@style/SlideMenuItemImage"
-                        android:src="@drawable/ic_menu_profile_pink"
+                        android:src="@drawable/ic_menu_profile_white"
                         app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}" />
 
                     <TextView
@@ -209,7 +209,7 @@
 
                     <ImageView
                         style="@style/SlideMenuItemImage"
-                        android:src="@drawable/ic_menu_logout_pink"
+                        android:src="@drawable/ic_menu_logout_white"
                         app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}" />
 
                     <TextView
