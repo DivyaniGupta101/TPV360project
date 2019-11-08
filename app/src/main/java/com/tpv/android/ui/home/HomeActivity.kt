@@ -3,8 +3,10 @@ package com.tpv.android.ui.home
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -30,6 +32,7 @@ import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
 
+
 class HomeActivity : AppCompatActivity() {
 
 
@@ -50,6 +53,10 @@ class HomeActivity : AppCompatActivity() {
         mBinding.lifecycleOwner = this
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         mNavController = Navigation.findNavController(this, R.id.navHostFragment)
+
+
+        handleStatusBarColor()
+
 
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
@@ -84,6 +91,20 @@ class HomeActivity : AppCompatActivity() {
         mBinding.navMenu?.logoutContainer?.onClick {
             handleItemMenu(LOGOUT)
         }
+    }
+
+    private fun handleStatusBarColor() {
+        val window = getWindow()
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this@HomeActivity, R.color.colorStatusBarColor))
+
     }
 
     fun setMenuProfileData() {

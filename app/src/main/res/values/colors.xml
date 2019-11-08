@@ -21,6 +21,7 @@
 
 
     <color name="colorPrimaryGradientStart">@color/colorAccent</color>
+    <color name="colorStatusBarColor">@color/colorPrimary</color>
     <color name="colorPrimaryGradientEnd">@color/colorPrimary</color>
     <color name="colorRippleEffect">@color/colorAccent</color>
     <color name="colorPrimaryText">@color/colorBlack</color>

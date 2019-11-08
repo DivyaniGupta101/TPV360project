@@ -39,7 +39,9 @@
         app:exitAnim="@anim/fragment_fade_exit"
         app:launchSingleTop="true"
         app:popEnterAnim="@anim/fragment_fade_enter"
-        app:popExitAnim="@anim/fragment_fade_exit" />
+        app:popExitAnim="@anim/fragment_fade_exit"
+        app:popUpTo="@id/dashBoardFragment"
+        app:popUpToInclusive="false" />
 
     <action
         android:id="@+id/action_global_profileFragment"
@@ -48,7 +50,9 @@
         app:exitAnim="@anim/fragment_fade_exit"
         app:launchSingleTop="true"
         app:popEnterAnim="@anim/fragment_fade_enter"
-        app:popExitAnim="@anim/fragment_fade_exit" />
+        app:popExitAnim="@anim/fragment_fade_exit"
+        app:popUpTo="@id/dashBoardFragment"
+        app:popUpToInclusive="false" />
 
     <action
         android:id="@+id/action_global_plansListFragment"
@@ -57,7 +61,10 @@
         app:exitAnim="@anim/fragment_fade_exit"
         app:launchSingleTop="true"
         app:popEnterAnim="@anim/fragment_fade_enter"
-        app:popExitAnim="@anim/fragment_fade_exit" />
+        app:popExitAnim="@anim/fragment_fade_exit"
+        app:popUpTo="@id/dashBoardFragment"
+        app:popUpToInclusive="false" />
+
     <fragment
         android:id="@+id/plansListingFragment"
         android:name="com.tpv.android.ui.home.plans.PlansListingFragment"
