@@ -53,11 +53,11 @@ class LoginFragment : Fragment() {
             context.startActivity<HomeActivity>()
             activity?.finish()
         }
-        if (BuildConfig.DEBUG) {
-            mBinding.editEmail.setText("rinal.shah@contactpoint360.com")
-            mBinding.editPassword.setText("Rinal0211")
-
-        }
+//        if (BuildConfig.DEBUG) {
+//            mBinding.editEmail.setText("rinal.shah@contactpoint360.com")
+//            mBinding.editPassword.setText("Rinal0211")
+//
+//        }
 
         mBinding.btnStart.onClick {
             if (isValid()) {
