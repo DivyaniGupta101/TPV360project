@@ -32,7 +32,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="24dp"
+                android:padding="@dimen/_24sdp"
                 tools:context=".ui.home.profile.ProfileFragment">
 
 
