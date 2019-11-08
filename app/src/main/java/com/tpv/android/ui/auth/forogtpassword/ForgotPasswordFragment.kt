@@ -37,7 +37,7 @@ class ForgotPasswordFragment : Fragment() {
             if (isValid()) {
                 toastNow("Coming soon!!")
             }
-            //            Navigation.findNavController(mBinding.root).navigate(R.id.action_forgotPasswordFragment_to_newPasswordFragment)
+            //            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_forgotPasswordFragment_to_newPasswordFragment)
         }
 
         mBinding.textReturnToLogin?.onClick {

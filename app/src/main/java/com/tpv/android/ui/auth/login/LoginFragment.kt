@@ -24,6 +24,7 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
+import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
@@ -65,7 +66,7 @@ class LoginFragment : Fragment() {
         }
 
         mBinding.textForgotPassword?.onClick {
-            Navigation.findNavController(mBinding.root).navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
     }
 

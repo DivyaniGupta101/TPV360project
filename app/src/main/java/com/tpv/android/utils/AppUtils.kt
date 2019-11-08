@@ -1,7 +1,12 @@
 package com.tpv.android.utils
 
+import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.Navigator
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.invisible
 import com.livinglifetechway.k4kotlin.core.onClick
@@ -77,4 +82,21 @@ enum class LeadStatus(val value: String) {
     VERIFIED("verified"),
     DECLINED("decline"),
     HANGUP("hangup")
+}
+
+/**
+ * check requested action in current destination of navigation controller
+ */
+fun NavController.navigateSafe(
+        @IdRes resId: Int,
+        args: Bundle? = null,
+        navOptions: NavOptions? = null,
+        navExtras: Navigator.Extras? = null
+) {
+    try {
+        val action = currentDestination?.getAction(resId)
+        if (action != null) navigate(resId, args, navOptions, navExtras)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }

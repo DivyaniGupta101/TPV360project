@@ -16,6 +16,7 @@ import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
 import com.tpv.android.utils.Plan
+import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
 
@@ -60,7 +61,7 @@ class PlansZipcodeFragment : Fragment() {
 
         mBinding.btnNext?.onClick {
             hideKeyboard()
-            Navigation.findNavController(mBinding.root).navigate(R.id.action_plansZipcodeFragment_to_programsListingFragment)
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
 
     }

@@ -16,6 +16,7 @@ import com.tpv.android.databinding.FragmentDashBoardBinding
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.LeadStatus
+import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 
@@ -73,7 +74,7 @@ class DashBoardFragment : Fragment() {
         }
 
         mBinding.imageEnroll.onClick {
-            mNavController.navigate(R.id.action_global_plansListFragment)
+            mNavController.navigateSafe(R.id.action_global_plansListFragment)
         }
 
     }

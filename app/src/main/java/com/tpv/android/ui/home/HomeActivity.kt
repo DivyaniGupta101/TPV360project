@@ -31,6 +31,7 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
+import com.tpv.android.utils.navigateSafe
 
 
 class HomeActivity : AppCompatActivity() {
@@ -75,17 +76,17 @@ class HomeActivity : AppCompatActivity() {
 
         mBinding.navMenu?.dashboardContainer?.onClick {
             handleItemMenu(DASHBOARD)
-            mNavController.navigate(R.id.action_global_dashboardFragment)
+            mNavController.navigateSafe(R.id.action_global_dashboardFragment)
         }
 
         mBinding.navMenu?.profileContainer?.onClick {
             handleItemMenu(PROFILE)
-            mNavController.navigate(R.id.action_global_profileFragment)
+            mNavController.navigateSafe(R.id.action_global_profileFragment)
         }
 
         mBinding.navMenu?.enrollmentContainer?.onClick {
             handleItemMenu(ENROLL)
-            mNavController.navigate(R.id.action_global_plansListFragment)
+            mNavController.navigateSafe(R.id.action_global_plansListFragment)
         }
 
         mBinding.navMenu?.logoutContainer?.onClick {
