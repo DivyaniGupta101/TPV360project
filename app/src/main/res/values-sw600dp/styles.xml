@@ -33,11 +33,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/colorButtonText</item>
-        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:paddingTop">@dimen/_10sdp</item>
         <item name="android:paddingBottom">@dimen/_10sdp</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
-        <item name="android:layout_marginBottom">@dimen/_5sdp</item>
+        <item name="android:layout_marginBottom">5dp</item>
 
     </style>
 
@@ -75,21 +75,21 @@
     <!--    Toolbar-->
 
     <style name="ToolbarImage">
-        <item name="android:layout_width">@dimen/_32sdp</item>
-        <item name="android:layout_height">@dimen/_32sdp</item>
+        <item name="android:layout_width">@dimen/_28sdp</item>
+        <item name="android:layout_height">@dimen/_28sdp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">?selectableItemBackground</item>
         <item name="android:padding">@dimen/_8sdp</item>
     </style>
 
     <style name="ToolbarTitle" parent="PrimaryNormalText">
-        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
     </style>
 
     <!--    Dashboard-->
     <style name="DashboardMenuItemImage">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/_58sdp</item>
+        <item name="android:layout_height">@dimen/_58sdp</item>
     </style>
 
     <style name="DashboardMenuItemCountPrimaryBoldText" parent="PrimaryBigBoldText">
@@ -106,14 +106,14 @@
 
     <!--SlideMenuItem-->
     <style name="SlideMenuItemImage">
-        <item name="android:layout_height">@dimen/_16sdp</item>
-        <item name="android:layout_width">@dimen/_16sdp</item>
+        <item name="android:layout_height">@dimen/_14sdp</item>
+        <item name="android:layout_width">@dimen/_14sdp</item>
         <item name="android:layout_weight">1</item>
     </style>
 
     <style name="SlideMenuItemProfileImage">
-        <item name="android:layout_width">@dimen/_50sdp</item>
-        <item name="android:layout_height">@dimen/_50sdp</item>
+        <item name="android:layout_width">@dimen/_40sdp</item>
+        <item name="android:layout_height">@dimen/_40sdp</item>
     </style>
 
     <style name="SlideMenuItemText" parent="PrimaryNormalText">
@@ -123,18 +123,17 @@
 
     <!--    FabButton-->
     <style name="FabButton">
-        <item name="android:layout_width">@dimen/_38sdp</item>
-        <item name="android:layout_height">@dimen/_38sdp</item>
+        <item name="android:layout_width">@dimen/_30sdp</item>
+        <item name="android:layout_height">@dimen/_30sdp</item>
         <item name="android:layout_margin">@dimen/_16sdp</item>
-        <item name="android:padding">@dimen/_10sdp</item>
+        <item name="android:padding">@dimen/_9sdp</item>
     </style>
-
 
     <!--    ProfileImage-->
     <style name="ProfileImage">
-        <item name="android:layout_height">@dimen/_80sdp</item>
-        <item name="android:layout_width">@dimen/_80sdp</item>
-        <item name="android:layout_marginTop">@dimen/_24sdp</item>
+        <item name="android:layout_height">@dimen/_60sdp</item>
+        <item name="android:layout_width">@dimen/_60sdp</item>
+        <item name="android:layout_marginTop">@dimen/_28sdp</item>
     </style>
 
     <style name="SecondaryNormalTextWithTopSpacing" parent="SecondaryNormalText">

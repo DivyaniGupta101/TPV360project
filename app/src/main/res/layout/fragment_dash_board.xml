@@ -65,7 +65,7 @@
                             <TextView
                                 android:id="@+id/textPending"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/_4sdp"
                                 tools:text="90" />
 
                             <TextView
@@ -77,7 +77,7 @@
                         <View
                             style="@style/Divider"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/_16sdp" />
+                            android:layout_marginTop="@dimen/_32sdp" />
 
                         <LinearLayout
                             android:id="@+id/verifiedContainer"
@@ -92,7 +92,7 @@
                             <TextView
                                 android:id="@+id/textVerified"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/_4sdp"
                                 tools:text="18" />
 
                             <TextView
@@ -127,7 +127,7 @@
                             <TextView
                                 android:id="@+id/textDeclined"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/_4sdp"
                                 tools:text="02" />
 
                             <TextView
@@ -154,7 +154,7 @@
                             <TextView
                                 android:id="@+id/textHangUp"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/_4sdp"
                                 tools:text="05" />
 
                             <TextView
@@ -167,13 +167,10 @@
 
                 <ImageView
                     android:id="@+id/imageEnroll"
-                    android:layout_width="@dimen/_38sdp"
-                    android:layout_height="@dimen/_38sdp"
+                    style="@style/FabButton"
                     android:layout_gravity="bottom|end"
-                    android:layout_margin="@dimen/_16sdp"
                     android:background="@drawable/bg_gradient_fab"
                     android:foreground="@drawable/rounded_ripple_effect"
-                    android:padding="@dimen/_10sdp"
                     android:src="@drawable/ic_register" />
 
 
