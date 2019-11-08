@@ -86,7 +86,7 @@ class HomeActivity : AppCompatActivity() {
 
         mBinding.navMenu?.enrollmentContainer?.onClick {
             handleItemMenu(ENROLL)
-            mNavController.navigateSafe(R.id.action_global_plansListFragment)
+//            mNavController.navigateSafe(R.id.action_global_plansListFragment)
         }
 
         mBinding.navMenu?.logoutContainer?.onClick {
