@@ -207,7 +207,7 @@
 
                     <ImageView
                         style="@style/SlideMenuItemImage"
-                        android:src="@drawable/ic_menu_logout_white"
+                        android:src="@drawable/ic_logout_white_32dp"
                         app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}" />
 
                     <TextView
