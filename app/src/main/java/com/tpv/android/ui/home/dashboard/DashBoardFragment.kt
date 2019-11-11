@@ -74,7 +74,7 @@ class DashBoardFragment : Fragment() {
         }
 
         mBinding.imageEnroll.onClick {
-//            mNavController.navigateSafe(R.id.action_global_plansListFragment)
+            mNavController.navigateSafe(R.id.action_global_plansListFragment)
         }
 
     }
