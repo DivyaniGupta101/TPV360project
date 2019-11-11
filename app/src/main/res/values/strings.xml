@@ -74,4 +74,19 @@
     <string name="enter_confirm_password">Please enter confirm password</string>
     <string name="password_not_matching">Both passwords are not matching</string>
     <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
+    <string name="authorised_first_name">Authorised First Name</string>
+    <string name="authorised_middle_name">Authorised Middle Name</string>
+    <string name="authorised_last_name">Authorised Last Name</string>
+    <string name="email">Email</string>
+    <string name="billing_address">Billing Address</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="billing_address_msg">Is the billing address same as service address?</string>
+    <string name="no">No</string>
+    <string name="service_address">Service Address</string>
+    <string name="billing_first_name">Billing First Name</string>
+    <string name="billing_middle_name">Billing Middle Name</string>
+    <string name="billing_last_name">Billing Last Name</string>
+    <string name="auth_relationship">Auth Relationship</string>
+    <string name="enter_account_number">Enter Account Number</string>
+    <string name="customer_data">Customer Data</string>
 </resources>

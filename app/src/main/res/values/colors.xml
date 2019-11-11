@@ -27,6 +27,7 @@
     <color name="colorPrimaryText">@color/colorBlack</color>
     <color name="colorSecondaryText">@color/colorGray</color>
     <color name="colorDivider">@color/colorLightGrey</color>
+    <color name="colorDarkDivider">@color/colorGray</color>
     <color name="colorButtonText">@color/colorWhite</color>
     <color name="colorSecondaryImageTint">@color/colorGray</color>
     <color name="colorToolbarBg">@color/colorWhite</color>
@@ -44,5 +45,7 @@
     <color name="colorBlockingProgressBar">@color/colorLightBlack</color>
     <color name="colorProfileImageBg">@color/colorAccent</color>
     <color name="colorProfileImageText">@color/colorWhite</color>
-
+    <color name="colorEditTextBorder">@color/colorGray</color>
+    <color name="colorSelectedPageIndicatior">@color/colorPrimary</color>
+    <color name="colorUnSelectedPageIndicatior">@color/colorLightGrey</color>
 </resources>

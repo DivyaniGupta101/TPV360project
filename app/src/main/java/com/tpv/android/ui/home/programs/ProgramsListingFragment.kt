@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.livinglifetechway.k4kotlin.core.hide
-import com.livinglifetechway.k4kotlin.core.orFalse
-import com.livinglifetechway.k4kotlin.core.orZero
-import com.livinglifetechway.k4kotlin.core.show
+import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.*
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -18,6 +16,7 @@ import com.tpv.android.databinding.FragmentProgramsListingBinding
 import com.tpv.android.databinding.ItemProgramsBinding
 import com.tpv.android.model.Programs
 import com.tpv.android.utils.Plan
+import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
 /**
@@ -49,6 +48,9 @@ class ProgramsListingFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.select_plan), showBackIcon = true)
         setRecyclerView()
 
+        mBinding.btnNext?.onClick {
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_programsListingFragment_to_customerDetailFormOneFragment)
+        }
     }
 
     private fun setRecyclerView() {

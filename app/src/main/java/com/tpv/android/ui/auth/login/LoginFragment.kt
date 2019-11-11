@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.startActivity
 import com.livinglifetechway.k4kotlin.core.value
@@ -53,13 +54,14 @@ class LoginFragment : Fragment() {
             context.startActivity<HomeActivity>()
             activity?.finish()
         }
-//        if (BuildConfig.DEBUG) {
-//            mBinding.editEmail.setText("rinal.shah@contactpoint360.com")
-//            mBinding.editPassword.setText("Rinal0211")
-//
-//        }
+        if (BuildConfig.DEBUG) {
+            mBinding.editEmail.setText("testingusermm@mailinator.com")
+            mBinding.editPassword.setText("cp360")
+
+        }
 
         mBinding.btnStart.onClick {
+            hideKeyboard()
             if (isValid()) {
                 signInApi()
             }

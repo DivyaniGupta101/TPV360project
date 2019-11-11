@@ -37,7 +37,7 @@
         <item name="android:paddingTop">@dimen/_10sdp</item>
         <item name="android:paddingBottom">@dimen/_10sdp</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
-        <item name="android:layout_marginBottom">@dimen/_5sdp</item>
+        <item name="android:layout_marginBottom">@dimen/_10sdp</item>
 
     </style>
 
@@ -59,8 +59,8 @@
 
     <!-- Divider-->
     <style name="Divider">
-        <item name="android:layout_width">@dimen/_1sdp</item>
-        <item name="android:layout_height">@dimen/_1sdp</item>
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/colorDivider</item>
     </style>
 
@@ -140,4 +140,27 @@
     <style name="SecondaryNormalTextWithTopSpacing" parent="SecondaryNormalText">
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
+
+
+    <!--    Details Forms-->
+    <style name="CheckBoxButton" parent="PrimaryNormalText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_16sdp</item>
+    </style>
+
+    <style name="SquareBorderEditText" parent="DefaultEditText">
+        <item name="android:layout_height">@dimen/_40sdp</item>
+        <item name="android:background">@null</item>
+        <item name="android:gravity">top</item>
+    </style>
+
+    <style name="SquareBorderTextInputLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+        <item name="android:background">@drawable/square_gray_border</item>
+        <item name="android:inputType">text</item>
+    </style>
+
 </resources>

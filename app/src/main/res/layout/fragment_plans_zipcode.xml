@@ -61,6 +61,7 @@
                     android:id="@+id/dividerGas"
                     style="@style/Divider"
                     android:layout_width="match_parent"
+                    android:background="@color/colorDarkDivider"
                     android:visibility="gone"
                     tools:visibility="visible" />
 
@@ -83,6 +84,7 @@
                     android:id="@+id/dividerElectric"
                     style="@style/Divider"
                     android:layout_width="match_parent"
+                    android:background="@color/colorDarkDivider"
                     android:visibility="gone"
                     tools:visibility="visible" />
 

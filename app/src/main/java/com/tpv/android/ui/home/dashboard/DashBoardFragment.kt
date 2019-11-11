@@ -83,5 +83,6 @@ class DashBoardFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         setItemSelection(HomeActivity.DASHBOARD)
+        mViewModel.getDashBoardDetail()
     }
 }

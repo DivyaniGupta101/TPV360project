@@ -21,7 +21,8 @@
     <fragment
         android:id="@+id/leadListingFragment"
         android:name="com.tpv.android.ui.leadlisting.LeadListingFragment"
-        android:label="LeadListingFragment">
+        android:label="LeadListingFragment"
+        tools:layout="@layout/fragment_lead_listing">
         <argument
             android:name="item"
             app:argType="string" />
@@ -30,7 +31,8 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.tpv.android.ui.home.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
 
     <action
         android:id="@+id/action_global_dashboardFragment"
@@ -68,7 +70,8 @@
     <fragment
         android:id="@+id/plansListingFragment"
         android:name="com.tpv.android.ui.home.plans.PlansListingFragment"
-        android:label="PlansListingFragment">
+        android:label="PlansListingFragment"
+        tools:layout="@layout/fragment_plans_listing">
         <action
             android:id="@+id/action_plansListingFragment_to_plansZipcodeFragment"
             app:destination="@id/plansZipcodeFragment"
@@ -80,7 +83,8 @@
     <fragment
         android:id="@+id/plansZipcodeFragment"
         android:name="com.tpv.android.ui.home.planszipcode.PlansZipcodeFragment"
-        android:label="PlansZipcodeFragment">
+        android:label="PlansZipcodeFragment"
+        tools:layout="@layout/fragment_plans_zipcode">
         <argument
             android:name="item"
             app:argType="string" />
@@ -95,6 +99,20 @@
     <fragment
         android:id="@+id/programsListingFragment"
         android:name="com.tpv.android.ui.home.programs.ProgramsListingFragment"
-        android:label="ProgramsListingFragment" />
+        android:label="ProgramsListingFragment"
+        tools:layout="@layout/fragment_programs_listing">
+        <action
+            android:id="@+id/action_programsListingFragment_to_customerDetailFormOneFragment"
+            app:destination="@id/customerDetailFormOneFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerDetailFormOneFragment"
+        android:name="com.tpv.android.ui.home.form.CustomerDetailFormOneFragment"
+        android:label="CustomerDetailFormOneFragment"
+        tools:layout="@layout/fragment_customer_detail_form_one" />
 
 </navigation>
