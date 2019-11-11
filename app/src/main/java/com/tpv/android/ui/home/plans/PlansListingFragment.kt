@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
@@ -15,6 +16,7 @@ import com.tpv.android.databinding.FragmentPlansListingBinding
 import com.tpv.android.databinding.ItemPlansBinding
 import com.tpv.android.model.Plans
 import com.tpv.android.utils.Plan
+import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
 /**
@@ -22,12 +24,14 @@ import com.tpv.android.utils.setupToolbar
  */
 class PlansListingFragment : Fragment() {
     private lateinit var mBinding: FragmentPlansListingBinding
+    private lateinit var mViewModel: PlanListViewModel
     private var mList: ArrayList<Plans> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_plans_listing, container, false)
+        activity?.let { mViewModel = ViewModelProviders.of(it).get(PlanListViewModel::class.java) }
         return mBinding.root
     }
 
@@ -47,7 +51,8 @@ class PlansListingFragment : Fragment() {
         LiveAdapter(mList, BR.item)
                 .map<Plans, ItemPlansBinding>(R.layout.item_plans) {
                     onClick { holder ->
-                        Navigation.findNavController(mBinding.root).navigate(PlansListingFragmentDirections.actionPlansListingFragmentToPlansZipcodeFragment(holder.binding.item?.plansId.orEmpty()))
+                        mViewModel.selectedUtility = holder.binding.item?.plansId.toString()
+                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansListingFragment_to_plansZipcodeFragment)
                     }
                 }
                 .into(mBinding.listPlans)

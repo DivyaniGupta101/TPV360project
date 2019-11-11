@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
@@ -15,6 +16,7 @@ import com.livinglifetechway.k4kotlin.core.setItems
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
+import com.tpv.android.ui.home.plans.PlanListViewModel
 import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -28,24 +30,25 @@ class PlansZipcodeFragment : Fragment() {
     private var mZipcodeList = arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango")
     private var mGasList = arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango")
     private var mElectricList = arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango")
+    private lateinit var mPlanListViewModel: PlanListViewModel
     private var toolbarTitle = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_plans_zipcode, container, false)
+        activity?.let { mPlanListViewModel = ViewModelProviders.of(it).get(PlanListViewModel::class.java) }
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val plan = arguments?.let { PlansZipcodeFragmentArgs.fromBundle(it).item }
 
-        if (plan.equals(Plan.GASFUEL.value)) {
+        if (mPlanListViewModel.selectedUtility.equals(Plan.GASFUEL.value)) {
             toolbarTitle = getString(R.string.natural_gas)
             setGasUtility()
-        } else if (plan.equals(Plan.ELECTRICFUEL.value)) {
+        } else if (mPlanListViewModel.selectedUtility.equals(Plan.ELECTRICFUEL.value)) {
             toolbarTitle = getString(R.string.electricity)
             setElectricUtility()
 

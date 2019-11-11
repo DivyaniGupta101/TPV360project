@@ -85,9 +85,6 @@
         android:name="com.tpv.android.ui.home.planszipcode.PlansZipcodeFragment"
         android:label="PlansZipcodeFragment"
         tools:layout="@layout/fragment_plans_zipcode">
-        <argument
-            android:name="item"
-            app:argType="string" />
         <action
             android:id="@+id/action_plansZipcodeFragment_to_programsListingFragment"
             app:destination="@id/programsListingFragment"
