@@ -52,7 +52,7 @@
                             style="@style/PrimaryBoldText"
                             android:layout_width="0dp"
                             android:layout_weight="8"
-                            android:text="@{item.id}"
+                            android:text="@{item.refrenceId}"
                             tools:text="It-it-ios-12657" />
                     </LinearLayout>
 

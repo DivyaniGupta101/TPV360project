@@ -68,7 +68,7 @@
 
                             <ImageView
                                 style="@style/DashboardMenuItemImage"
-                                android:src="@drawable/ic_pending" />
+                                android:src="@drawable/ic_dashboard_pending" />
 
                             <TextView
                                 android:id="@+id/textPending"
@@ -78,8 +78,7 @@
                                 tools:text="90" />
 
                             <TextView
-                                style="@style/SecondaryNormalText"
-                                android:singleLine="true"
+                                style="@style/DashboardLeadText"
                                 android:text="@string/pending_leads" />
                         </LinearLayout>
 
@@ -96,7 +95,7 @@
 
                             <ImageView
                                 style="@style/DashboardMenuItemImage"
-                                android:src="@drawable/ic_verified" />
+                                android:src="@drawable/ic_dashboard_verified" />
 
                             <TextView
                                 android:id="@+id/textVerified"
@@ -106,7 +105,7 @@
                                 tools:text="18" />
 
                             <TextView
-                                style="@style/SecondaryNormalText"
+                                style="@style/DashboardLeadText"
                                 android:text="@string/verified_leads" />
                         </LinearLayout>
 
@@ -132,7 +131,7 @@
 
                             <ImageView
                                 style="@style/DashboardMenuItemImage"
-                                android:src="@drawable/ic_declined" />
+                                android:src="@drawable/ic_dashboard_declined" />
 
                             <TextView
                                 android:id="@+id/textDeclined"
@@ -142,7 +141,7 @@
                                 tools:text="02" />
 
                             <TextView
-                                style="@style/SecondaryNormalText"
+                                style="@style/DashboardLeadText"
                                 android:text="@string/declined_leads" />
                         </LinearLayout>
 
@@ -160,7 +159,7 @@
 
                             <ImageView
                                 style="@style/DashboardMenuItemImage"
-                                android:src="@drawable/ic_hang_up" />
+                                android:src="@drawable/ic_dashboard_hangup" />
 
                             <TextView
                                 android:id="@+id/textHangUp"
@@ -170,7 +169,7 @@
                                 tools:text="05" />
 
                             <TextView
-                                style="@style/SecondaryNormalText"
+                                style="@style/DashboardLeadText"
                                 android:text="@string/hang_up_calls" />
                         </LinearLayout>
 
