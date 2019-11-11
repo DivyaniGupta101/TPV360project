@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="@dimen/_4sdp"
+            app:cardElevation="4dp"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
