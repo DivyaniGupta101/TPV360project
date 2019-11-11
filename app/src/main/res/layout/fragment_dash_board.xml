@@ -137,7 +137,7 @@
                                 android:id="@+id/textDeclined"
                                 style="@style/DashboardMenuItemCountPrimaryBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
-                                android:text="@{item.decliend}"
+                                android:text="@{item.declined}"
                                 tools:text="02" />
 
                             <TextView
