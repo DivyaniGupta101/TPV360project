@@ -1,12 +1,10 @@
 package com.tpv.android.utils
 
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
-import androidx.navigation.Navigator
+import androidx.navigation.*
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.invisible
 import com.livinglifetechway.k4kotlin.core.onClick
@@ -97,6 +95,21 @@ fun NavController.navigateSafe(
         val action = currentDestination?.getAction(resId)
         if (action != null) navigate(resId, args, navOptions, navExtras)
     } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+/**
+ * check requested action in current destination of navigation controller
+ */
+fun NavController.navigateSafe(
+        navDirections: NavDirections
+) {
+    try {
+        val action = currentDestination?.getAction(navDirections.actionId)
+        if (action != null) navigate(navDirections.actionId, navDirections.arguments, null, null)
+    } catch (e: Exception) {
+        Log.e("TAG", e.message)
         e.printStackTrace()
     }
 }
