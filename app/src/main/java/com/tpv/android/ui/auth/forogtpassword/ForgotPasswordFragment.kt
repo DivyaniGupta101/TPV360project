@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
@@ -35,6 +36,7 @@ class ForgotPasswordFragment : Fragment() {
 
         mBinding.btnSubmit?.onClick {
             if (isValid()) {
+                hideKeyboard()
                 toastNow("Coming soon!!")
             }
             //            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_forgotPasswordFragment_to_newPasswordFragment)
