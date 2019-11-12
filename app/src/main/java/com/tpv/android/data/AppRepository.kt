@@ -25,7 +25,7 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.getDashBoardCall() = dataApi<List<Dashboard>, APIError> {
+    fun CoroutineScope.getDashBoardCall() = dataApi<List<DashboardResp>, APIError> {
         fromNetwork {
             ApiClient.service.getDashboardDetail().getResult().map { it?.data.orEmpty() }
         }

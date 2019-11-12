@@ -17,11 +17,11 @@ interface ApiInterface {
     fun getProfile(): Call<CommonResponse<UserDetail>>
 
     @POST("dashboard")
-    fun getDashboardDetail(): Call<CommonResponse<List<Dashboard>>>
+    fun getDashboardDetail(): Call<CommonResponse<List<DashboardResp>>>
 
 
     @POST("zipautocomplete")
-    fun zipAutoCompleteApi(@Field("zipcode") zipcode: String): Call<CommonResponse<List<ZipCodeComplete>>>
+    fun zipAutoCompleteApi(zipCodeReq: ZipCodeReq): Call<CommonResponse<List<ZipCodeResp>>>
 
 
     @POST("getprograms")
