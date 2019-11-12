@@ -37,7 +37,7 @@ interface ApiInterface {
 
 
     @POST("validatezipcode")
-    fun validateZipCode(@Field("zipcode") zipcode: String, @Field("commodity") commodity: String): Call<CommonResponse<List<CommonResponse<List<DuelFuel>>>>>
+    fun validateZipCode(@Body selectedUtilityReq: SelectedUtilityReq): Call<CommonResponse<List<SelectedUtilityResp>>>
 
     @Multipart
     @POST("leadmedia")

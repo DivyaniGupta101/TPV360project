@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.home.form.CustomerDetailFormOneFragment">
+        tools:context=".ui.home.enrollment.form.CustomerDetailFormOneFragment">
 
         <include
             android:id="@+id/toolbar"

@@ -1,4 +1,4 @@
-package com.tpv.android.ui.home.programs
+package com.tpv.android.ui.home.enrollment.programs
 
 
 import android.os.Bundle

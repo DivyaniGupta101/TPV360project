@@ -69,7 +69,7 @@
 
     <fragment
         android:id="@+id/plansListingFragment"
-        android:name="com.tpv.android.ui.home.plans.PlansListingFragment"
+        android:name="com.tpv.android.ui.home.enrollment.plans.PlansListingFragment"
         android:label="PlansListingFragment"
         tools:layout="@layout/fragment_plans_listing">
         <action
@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/plansZipcodeFragment"
-        android:name="com.tpv.android.ui.home.planszipcode.PlansZipcodeFragment"
+        android:name="com.tpv.android.ui.home.enrollment.planszipcode.PlansZipcodeFragment"
         android:label="PlansZipcodeFragment"
         tools:layout="@layout/fragment_plans_zipcode">
         <action
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/programsListingFragment"
-        android:name="com.tpv.android.ui.home.programs.ProgramsListingFragment"
+        android:name="com.tpv.android.ui.home.enrollment.programs.ProgramsListingFragment"
         android:label="ProgramsListingFragment"
         tools:layout="@layout/fragment_programs_listing">
         <action
@@ -108,7 +108,7 @@
     </fragment>
     <fragment
         android:id="@+id/customerDetailFormOneFragment"
-        android:name="com.tpv.android.ui.home.form.CustomerDetailFormOneFragment"
+        android:name="com.tpv.android.ui.home.enrollment.form.CustomerDetailFormOneFragment"
         android:label="CustomerDetailFormOneFragment"
         tools:layout="@layout/fragment_customer_detail_form_one" />
 

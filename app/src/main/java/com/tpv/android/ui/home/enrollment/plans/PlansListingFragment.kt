@@ -1,4 +1,4 @@
-package com.tpv.android.ui.home.plans
+package com.tpv.android.ui.home.enrollment.plans
 
 
 import android.os.Bundle
@@ -15,6 +15,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansListingBinding
 import com.tpv.android.databinding.ItemPlansBinding
 import com.tpv.android.model.Plans
+import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -24,14 +25,14 @@ import com.tpv.android.utils.setupToolbar
  */
 class PlansListingFragment : Fragment() {
     private lateinit var mBinding: FragmentPlansListingBinding
-    private lateinit var mViewModel: PlanListViewModel
+    private lateinit var mViewModel: SetEnrollViewModel
     private var mList: ArrayList<Plans> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_plans_listing, container, false)
-        activity?.let { mViewModel = ViewModelProviders.of(it).get(PlanListViewModel::class.java) }
+        activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         return mBinding.root
     }
 

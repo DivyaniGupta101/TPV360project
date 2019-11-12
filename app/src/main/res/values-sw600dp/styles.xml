@@ -111,9 +111,9 @@
 
     <!--SlideMenuItem-->
     <style name="SlideMenuItemImage">
-        <item name="android:layout_height">@dimen/_14sdp</item>
-        <item name="android:layout_width">@dimen/_14sdp</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">@dimen/_16sdp</item>
+        <item name="android:layout_width">@dimen/_16sdp</item>
+        <item name="android:layout_marginStart">@dimen/_16sdp</item>
     </style>
 
     <style name="SlideMenuItemProfileImage">
@@ -122,8 +122,8 @@
     </style>
 
     <style name="SlideMenuItemText" parent="PrimaryNormalText">
-        <item name="android:layout_weight">4</item>
-
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">@dimen/_16sdp</item>
     </style>
 
     <!--    FabButton-->

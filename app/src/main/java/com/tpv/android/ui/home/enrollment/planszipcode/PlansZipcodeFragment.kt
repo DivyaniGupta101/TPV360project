@@ -1,29 +1,23 @@
-package com.tpv.android.ui.home.planszipcode
+package com.tpv.android.ui.home.enrollment.planszipcode
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.livinglifetechway.k4kotlin.core.addTextWatcher
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.setItems
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
-import com.tpv.android.model.ZipCodeReq
 import com.tpv.android.model.ZipCodeResp
 import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.network.resources.extensions.ifSuccess
-import com.tpv.android.ui.home.plans.PlanListViewModel
+import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -37,7 +31,7 @@ class PlansZipcodeFragment : Fragment() {
     private var mZipcodeList = ArrayList<ZipCodeResp>()
     private var mGasList = arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango")
     private var mElectricList = arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango")
-    private lateinit var mPlanListViewModel: PlanListViewModel
+    private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private var toolbarTitle = ""
     private lateinit var mViewModel: PlansZipcodeViewModel
 
@@ -45,7 +39,7 @@ class PlansZipcodeFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_plans_zipcode, container, false)
-        activity?.let { mPlanListViewModel = ViewModelProviders.of(it).get(PlanListViewModel::class.java) }
+        activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         mBinding.lifecycleOwner = this
         mViewModel = ViewModelProviders.of(this).get(PlansZipcodeViewModel::class.java)
         return mBinding.root
@@ -56,10 +50,10 @@ class PlansZipcodeFragment : Fragment() {
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
-        if (mPlanListViewModel.selectedUtility.equals(Plan.GASFUEL.value)) {
+        if (mSetEnrollViewModel.selectedUtility.equals(Plan.GASFUEL.value)) {
             toolbarTitle = getString(R.string.natural_gas)
             setGasUtility()
-        } else if (mPlanListViewModel.selectedUtility.equals(Plan.ELECTRICFUEL.value)) {
+        } else if (mSetEnrollViewModel.selectedUtility.equals(Plan.ELECTRICFUEL.value)) {
             toolbarTitle = getString(R.string.electricity)
             setElectricUtility()
 
@@ -75,6 +69,7 @@ class PlansZipcodeFragment : Fragment() {
 
         mBinding.btnNext?.onClick {
             hideKeyboard()
+//            mSetEnrollViewModel.selectedUtilities = arrayListOf(SelectedUtility(""))
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
 

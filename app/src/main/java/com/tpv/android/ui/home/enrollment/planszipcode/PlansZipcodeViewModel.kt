@@ -1,4 +1,4 @@
-package com.tpv.android.ui.home.planszipcode
+package com.tpv.android.ui.home.enrollment.planszipcode
 
 import com.tpv.android.data.AppRepository
 import com.tpv.android.model.ZipCodeReq
