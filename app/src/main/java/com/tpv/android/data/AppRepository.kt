@@ -69,4 +69,11 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.getUtilityCall(utilityReq: UtilityReq) = dataApi<List<UtilityResp>, APIError>
+    {
+        fromNetwork {
+            ApiClient.service.getUtility(utilityReq).getResult().map { it?.data.orEmpty() }
+        }
+    }
+
 }

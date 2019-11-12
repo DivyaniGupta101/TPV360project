@@ -32,6 +32,9 @@ fun Fragment.setupToolbar(
             if (showBackIcon) {
                 backImage?.show()
                 backImage?.onClick {
+                    if (backIconClickListener != null) {
+                        backIconClickListener.invoke()
+                    }
                     Navigation.findNavController(toolbarContainer.root).navigateUp()
                 }
             } else {
@@ -72,9 +75,9 @@ fun Fragment.updateProfileInMenu() {
 }
 
 enum class Plan(val value: String) {
-    DUALFUEL("dualfuel"),
-    GASFUEL("gasfuel"),
-    ELECTRICFUEL("electricityfuel")
+    DUALFUEL("Dual Fuel"),
+    GASFUEL("Gas"),
+    ELECTRICFUEL("Electric")
 }
 
 enum class LeadStatus(val value: String) {

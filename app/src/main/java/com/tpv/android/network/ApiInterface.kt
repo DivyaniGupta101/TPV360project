@@ -37,7 +37,7 @@ interface ApiInterface {
 
 
     @POST("validatezipcode")
-    fun validateZipCode(@Body selectedUtilityReq: SelectedUtilityReq): Call<CommonResponse<List<SelectedUtilityResp>>>
+    fun getUtility(@Body utilityReq: UtilityReq): Call<CommonResponse<List<UtilityResp>>>
 
     @Multipart
     @POST("leadmedia")

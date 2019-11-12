@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -111,6 +111,8 @@
                         android:id="@+id/btnNext"
                         style="@style/ButtonPrimary"
                         android:layout_marginTop="@dimen/_40sdp"
+                        android:background="@drawable/button_background_state"
+                        android:enabled="false"
                         android:text="@string/next" />
 
                 </LinearLayout>

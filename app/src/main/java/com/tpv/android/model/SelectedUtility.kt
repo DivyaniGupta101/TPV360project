@@ -2,7 +2,7 @@ package com.tpv.android.model
 
 import com.google.gson.annotations.SerializedName
 
-data class SelectedUtilityResp(
+data class UtilityResp(
     @SerializedName("commodity")
     val commodity: String?,
     @SerializedName("fullname")
@@ -15,7 +15,7 @@ data class SelectedUtilityResp(
     val utilityname: String?
 )
 
-data class SelectedUtilityReq(
+data class UtilityReq(
     @SerializedName("commodity")
     val commodity: String?,
     @SerializedName("zipcode")

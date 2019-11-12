@@ -48,4 +48,5 @@
     <color name="colorEditTextBorder">@color/colorGray</color>
     <color name="colorSelectedPageIndicatior">@color/colorPrimary</color>
     <color name="colorUnSelectedPageIndicatior">@color/colorLightGrey</color>
+    <color name="colorPrimaryButtonDisable">@color/colorLightGrey</color>
 </resources>

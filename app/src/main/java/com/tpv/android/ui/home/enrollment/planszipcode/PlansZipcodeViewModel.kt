@@ -1,6 +1,7 @@
 package com.tpv.android.ui.home.enrollment.planszipcode
 
 import com.tpv.android.data.AppRepository
+import com.tpv.android.model.UtilityReq
 import com.tpv.android.model.ZipCodeReq
 import com.tpv.android.network.resources.CoroutineScopedViewModel
 
@@ -13,6 +14,11 @@ class PlansZipcodeViewModel : CoroutineScopedViewModel() {
     fun getZipCode(zipCodeReq: ZipCodeReq) = with(AppRepository)
     {
         getZipCodeCall(zipCodeReq)
+    }
+
+    fun getUtility(utilityReq: UtilityReq) = with(AppRepository)
+    {
+        getUtilityCall(utilityReq)
     }
 
 }
