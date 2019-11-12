@@ -89,4 +89,6 @@
     <string name="auth_relationship">Auth Relationship</string>
     <string name="enter_account_number">Enter Account Number</string>
     <string name="customer_data">Customer Data</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="verify">Verify</string>
 </resources>

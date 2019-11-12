@@ -90,6 +90,63 @@
 
                     <TextView
                         style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/phone_number" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputPhoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:orientation="vertical">
+
+                                <Spinner
+                                    android:id="@+id/countryCodeSpinner"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_vertical" />
+
+                                <View
+                                    style="@style/Divider"
+                                    android:layout_width="match_parent"
+                                    android:background="@color/colorDarkDivider" />
+                            </LinearLayout>
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/editPhoneNumber"
+                                    style="@style/DefaultEditText"
+                                    android:inputType="textEmailAddress"
+                                    android:maxLength="10"
+                                    android:paddingEnd="52dp" />
+
+
+                                <TextView
+                                    style="@style/PrimaryNormalText"
+                                    android:layout_gravity="center_vertical|end"
+                                    android:text="@string/verify"
+                                    android:textColor="@color/colorTertiaryText" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
                         android:text="@string/email" />
 
                     <com.google.android.material.textfield.TextInputLayout

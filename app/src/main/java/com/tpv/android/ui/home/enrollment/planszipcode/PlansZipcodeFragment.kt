@@ -120,6 +120,7 @@ class PlansZipcodeFragment : Fragment() {
         }
 
         setupToolbar(mBinding.toolbar, toolbarTitle, showBackIcon = true) {
+            hideKeyboard()
             mSetEnrollViewModel.utilities.clear()
         }
     }
@@ -130,7 +131,7 @@ class PlansZipcodeFragment : Fragment() {
 
         mBinding.textZipcode.addTextWatcher { s, start, before, count ->
 
-            mBinding.btnNext.isEnabled=false
+            mBinding.btnNext.isEnabled = false
 
             mViewModel.getZipCode(ZipCodeReq(s.toString())).observe(this, Observer {
                 it.ifSuccess { list ->
