@@ -68,6 +68,7 @@ class LoginFragment : Fragment() {
         }
 
         mBinding.textForgotPassword?.onClick {
+            hideKeyboard()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
     }
