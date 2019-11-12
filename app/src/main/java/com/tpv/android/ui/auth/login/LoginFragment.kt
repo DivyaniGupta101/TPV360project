@@ -54,11 +54,11 @@ class LoginFragment : Fragment() {
             context.startActivity<HomeActivity>()
             activity?.finish()
         }
-        if (BuildConfig.DEBUG) {
-            mBinding.editEmail.setText("testingusermm@mailinator.com")
-            mBinding.editPassword.setText("cp360")
-
-        }
+//        if (BuildConfig.DEBUG) {
+//            mBinding.editEmail.setText("testingusermm@mailinator.com")
+//            mBinding.editPassword.setText("cp360")
+//
+//        }
 
         mBinding.btnStart.onClick {
             hideKeyboard()
