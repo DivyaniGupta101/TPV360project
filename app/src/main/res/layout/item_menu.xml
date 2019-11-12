@@ -76,8 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="32dp"
-                android:background="@color/colorMenuLightHighLight"
-                android:foreground="@drawable/rounded_ripple_effect">
+                android:background="@color/colorMenuLightHighLight">
 
                 <View
                     android:id="@+id/darkViewDashBoard"
@@ -113,8 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center_vertical"
-                android:background="@color/colorMenuLightHighLight"
-                android:foreground="@drawable/rounded_ripple_effect">
+                android:background="@color/colorMenuLightHighLight">
 
                 <View
                     android:id="@+id/darkViewProfile"
@@ -149,8 +147,7 @@
                 android:id="@+id/enrollmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                android:background="@color/colorMenuLightHighLight"
-                android:foreground="@drawable/rounded_ripple_effect">
+                android:background="@color/colorMenuLightHighLight">
 
                 <View
                     android:id="@+id/darkViewEnrollment"
@@ -185,8 +182,7 @@
                 android:id="@+id/logoutContainer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                android:background="@color/colorMenuLightHighLight"
-                android:foreground="@drawable/rounded_ripple_effect">
+                android:background="@color/colorMenuLightHighLight">
 
                 <View
                     android:id="@+id/darkViewLogout"
@@ -207,7 +203,7 @@
 
                     <ImageView
                         style="@style/SlideMenuItemImage"
-                        android:src="@drawable/ic_menu_logout_white"
+                        android:src="@drawable/ic_logout_white_32dp"
                         app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}" />
 
                     <TextView

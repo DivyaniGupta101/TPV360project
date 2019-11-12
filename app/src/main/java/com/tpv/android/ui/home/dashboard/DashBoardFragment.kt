@@ -58,23 +58,24 @@ class DashBoardFragment : Fragment() {
 
 
         mBinding.pendingContainer.onClick {
-            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.PENDING.value))
+            mNavController.navigateSafe(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.PENDING.value))
         }
 
         mBinding.verifiedContainer.onClick {
-            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.VERIFIED.value))
+            mNavController.navigateSafe(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.VERIFIED.value))
         }
 
         mBinding.declinendContainer.onClick {
-            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.DECLINED.value))
+            mNavController.navigateSafe(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.DECLINED.value))
         }
 
         mBinding.hangUpContainer.onClick {
-            mNavController.navigate(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.HANGUP.value))
+            mNavController.navigateSafe(DashBoardFragmentDirections.actionHomeFragmentToLeadListingFragment(LeadStatus.HANGUP.value))
         }
 
         mBinding.imageEnroll.onClick {
             mNavController.navigateSafe(R.id.action_global_plansListFragment)
+            //            mNavController.navigateSafe(R.id.action_global_plansListFragment)
         }
 
     }
