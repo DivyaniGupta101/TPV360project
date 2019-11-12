@@ -2,20 +2,27 @@ package com.tpv.android.ui.home.planszipcode
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.addTextWatcher
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.setItems
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
+import com.tpv.android.model.ZipCodeReq
+import com.tpv.android.model.ZipCodeResp
+import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.plans.PlanListViewModel
 import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
@@ -27,23 +34,27 @@ import com.tpv.android.utils.setupToolbar
  */
 class PlansZipcodeFragment : Fragment() {
     private lateinit var mBinding: FragmentPlansZipcodeBinding
-    private var mZipcodeList = arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango")
+    private var mZipcodeList = ArrayList<ZipCodeResp>()
     private var mGasList = arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango")
     private var mElectricList = arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango")
     private lateinit var mPlanListViewModel: PlanListViewModel
     private var toolbarTitle = ""
+    private lateinit var mViewModel: PlansZipcodeViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_plans_zipcode, container, false)
         activity?.let { mPlanListViewModel = ViewModelProviders.of(it).get(PlanListViewModel::class.java) }
+        mBinding.lifecycleOwner = this
+        mViewModel = ViewModelProviders.of(this).get(PlansZipcodeViewModel::class.java)
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         if (mPlanListViewModel.selectedUtility.equals(Plan.GASFUEL.value)) {
             toolbarTitle = getString(R.string.natural_gas)
@@ -84,8 +95,34 @@ class PlansZipcodeFragment : Fragment() {
     }
 
     private fun setAutoCompleterTextView() {
-        mBinding.textZipcode.threshold = 1
-        mBinding.textZipcode.setAdapter(context?.let { ArrayAdapter(it, android.R.layout.simple_selectable_list_item, mZipcodeList) })
+//        mBinding.textZipcode.threshold = 1
+//
+//        mBinding.textZipcode.addTextWatcher { s, start, before, count ->
+//            Log.d("TAG", s.toString())
+//
+//            mViewModel.getZipCode(ZipCodeReq(s.toString())).observe(this, Observer {
+//                it.ifSuccess { list ->
+//                    mZipcodeList.clear()
+//                    mZipcodeList.addAll(list.orEmpty())
+//                    val autoCompleteAdapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item,list?.map { it.label })
+//                    mBinding.textZipcode.setAdapter(autoCompleteAdapter)
+//
+//                    mBinding.textZipcode.setOnFocusChangeListener { v, hasFocus ->
+//                        if (hasFocus) {
+//                            mBinding.textZipcode.showDropDown()
+//                        }
+//                    }
+//
+//
+//                    mBinding.textZipcode.setOnItemClickListener { parent, view, position, id ->
+//                        mBinding.textZipcode.showDropDown()
+//                    }
+//
+//                }
+//            })
+//        }
+
+
     }
 
 

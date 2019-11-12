@@ -21,7 +21,7 @@ interface ApiInterface {
 
 
     @POST("zipautocomplete")
-    fun zipAutoCompleteApi(zipCodeReq: ZipCodeReq): Call<CommonResponse<List<ZipCodeResp>>>
+    fun zipAutoCompleteApi(@Body zipCodeReq: ZipCodeReq): Call<CommonResponse<List<ZipCodeResp>>>
 
 
     @POST("getprograms")

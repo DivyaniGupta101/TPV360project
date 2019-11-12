@@ -60,4 +60,13 @@ object AppRepository {
         }
     }
 
+
+    fun CoroutineScope.getZipCodeCall(zipCodeReq: ZipCodeReq) = dataApi<List<ZipCodeResp>, APIError> {
+        fromNetwork {
+            ApiClient.service.zipAutoCompleteApi(zipCodeReq).getResult().map {
+                it?.data.orEmpty()
+            }
+        }
+    }
+
 }
