@@ -38,7 +38,7 @@ class PlansListingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar(mBinding.toolbar, getString(R.string.plans), showBackIcon = true)
+        setupToolbar(mBinding.toolbar, getString(R.string.plans), showBackIcon = true, showMenuIcon = true)
         setRecyclerView()
     }
 
