@@ -16,7 +16,7 @@ data class PaginateCommonResp<T>(
         @SerializedName("total")
         var total: Int?,
         @SerializedName("lastPage")
-        var lastPage: String?,
+        var lastPage: Int?,
         @SerializedName("data")
         var data: T?
 

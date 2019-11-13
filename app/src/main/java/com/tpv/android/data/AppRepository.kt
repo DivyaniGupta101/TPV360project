@@ -1,6 +1,7 @@
 package com.tpv.android.data
 
 import androidx.lifecycle.LiveData
+import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.*
 import com.tpv.android.network.ApiClient
@@ -45,7 +46,10 @@ object AppRepository {
 
     fun CoroutineScope.getLeadsCall(leadList: List<LeadResp>, leadReq: LeadReq): LiveData<Resource<List<LeadResp>, APIError>> = paginatedDataApi(leadList) {
         fromNetwork {
-            ApiClient.service.getMyLeadList(leadReq).getResult().map { it?.data.orEmpty() }
+            ApiClient.service.getMyLeadList(leadReq).getResult().map {
+                shouldLoadNextPage = it?.currentPage.orZero() < it?.lastPage.orZero()
+                it?.data.orEmpty()
+            }
         }
     }
 
