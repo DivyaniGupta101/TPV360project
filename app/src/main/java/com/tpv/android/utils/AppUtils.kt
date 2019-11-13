@@ -11,6 +11,7 @@ import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.databinding.ToolbarBinding
 import com.tpv.android.ui.home.HomeActivity
+import kotlinx.android.synthetic.main.toolbar.*
 
 
 fun Fragment.setupToolbar(
@@ -18,6 +19,8 @@ fun Fragment.setupToolbar(
         title: String = "",
         showMenuIcon: Boolean = false,
         showBackIcon: Boolean = false,
+        showSkipText: Boolean = false,
+        skipTextClickListener: (() -> Unit)? = null,
         backIconClickListener: (() -> Unit)? = null
 ) {
 
@@ -27,6 +30,10 @@ fun Fragment.setupToolbar(
             toolbarContainer.textToolbarTitle.text = title
 
             val backImage = toolbarContainer.imageToolbarBack
+            val skipText = toolbarContainer.textSkip
+            val menuImage = toolbarContainer.imageToolbarMenu
+
+
             if (showBackIcon) {
                 backImage?.show()
                 backImage?.onClick {
@@ -39,9 +46,20 @@ fun Fragment.setupToolbar(
                 backImage?.hide()
             }
 
-            val menuImage = toolbarContainer.imageToolbarMenu
+            if (showSkipText) {
+                skipText?.show()
+                menuImage?.hide()
+                skipText?.onClick {
+                    skipTextClickListener?.invoke()
+                }
+
+            } else {
+                textSkip?.invisible()
+            }
+
             if (showMenuIcon) {
                 menuImage?.show()
+                skipText?.hide()
                 (activity as HomeActivity).unLockSwipeModeMenu()
                 menuImage?.onClick {
                     (activity as HomeActivity).openMenu()

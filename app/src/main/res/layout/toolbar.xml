@@ -52,19 +52,29 @@
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1" />
 
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/imageToolbarMenu"
-                            style="@style/ToolbarImage"
-                            android:src="@drawable/ic_menu_black"
-                            android:visibility="visible"
-                            app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
+                            <ImageView
+                                android:id="@+id/imageToolbarMenu"
+                                style="@style/ToolbarImage"
+                                android:src="@drawable/ic_menu_black"
+                                android:visibility="visible"
+                                app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
+
+                            <TextView
+                                android:id="@+id/textSkip"
+                                style="@style/SecondaryNormalSmallText"
+                                android:layout_gravity="center"
+                                tools:text="Skip>" />
+                        </FrameLayout>
 
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/textToolbarTitle"
-                        style="@style/ToolbarTitle"
+                        style="@style/PrimaryNormalText"
                         android:layout_gravity="center"
                         tools:text="Home" />
 
