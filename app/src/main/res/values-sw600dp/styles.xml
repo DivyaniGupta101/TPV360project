@@ -72,10 +72,6 @@
         <item name="android:layout_marginEnd">@dimen/_16sdp</item>
     </style>
 
-    <style name="DashboardLeadText" parent="SecondaryNormalText">
-        <item name="android:textSize">@dimen/_10sdp</item>
-        <item name="android:gravity">center</item>
-    </style>
 
     <!--    Toolbar-->
 
@@ -99,6 +95,10 @@
 
     <style name="DashboardMenuItemCountPrimaryBoldText" parent="PrimaryBigBoldText">
         <item name="android:textSize">@dimen/_16sdp</item>
+    </style>
+
+    <style name="DashboardLeadText" parent="SecondarySmallText">
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="DashboardItem">
