@@ -5,6 +5,9 @@
 
     <data>
 
+        <import type="com.tpv.android.R" />
+
+
         <variable
             name="item"
             type="com.tpv.android.model.Plans" />
@@ -36,6 +39,7 @@
                     placeholder="@{item.icon}"
                     android:layout_width="@dimen/_36sdp"
                     android:layout_height="@dimen/_36sdp"
+                    app:dynamicTintColor="@{R.color.colorSecondaryImageTint}"
                     tools:src="@drawable/ic_idea_gray" />
 
                 <View style="@style/DividerPrimary" />
