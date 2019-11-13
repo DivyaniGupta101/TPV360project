@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/bg_menu" />
+                    android:src="@drawable/bg_slide_menu" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -167,7 +167,7 @@
 
                     <ImageView
                         style="@style/SlideMenuItemImage"
-                        android:src="@drawable/ic_register"
+                        android:src="@drawable/ic_register_white"
                         app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}" />
 
                     <TextView

@@ -48,7 +48,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_200sdp"
-                        android:src="@drawable/undraw_note_list_etto" />
+                        android:src="@drawable/ic_plan_selection_img" />
 
 
                     <TextView

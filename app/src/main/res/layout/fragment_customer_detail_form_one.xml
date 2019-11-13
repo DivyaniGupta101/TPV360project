@@ -112,7 +112,7 @@
                                 android:orientation="vertical">
 
                                 <Spinner
-                                    android:id="@+id/countryCodeSpinner"
+                                    android:id="@+id/spinnerCountryCode"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center_vertical" />
@@ -356,6 +356,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/btnNext"
                         style="@style/ButtonPrimary"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/next" />

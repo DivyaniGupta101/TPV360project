@@ -2,15 +2,15 @@
             android:opacity="opaque">
     <!-- The background color, preferably the same as your normal theme -->
     <item android:drawable="@drawable/gradient_rectangle"/>
-    <!-- Your product logo - 144dp color version of your app ic_right -->
+    <!-- Your product logo - 144dp color version of your app ic_right_white -->
     <item>
         <bitmap
                 android:gravity="center"
-                android:src="@drawable/ic_splash_logo"/>
+                android:src="@drawable/ic_splash_logo_white"/>
     </item>
     <item>
         <bitmap
             android:gravity="bottom"
-            android:src="@drawable/ic_splash_bg"/>
+            android:src="@drawable/ic_splash_bg_white"/>
     </item>
 </layer-list>
