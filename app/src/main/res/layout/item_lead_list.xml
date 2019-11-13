@@ -46,12 +46,13 @@
                         <TextView
                             style="@style/SecondaryNormalText"
                             android:layout_weight="1"
+                            android:layout_width="0dp"
                             android:text="@string/id" />
 
                         <TextView
                             style="@style/PrimaryBoldText"
+                            android:layout_weight="3"
                             android:layout_width="0dp"
-                            android:layout_weight="8"
                             android:text="@{item.refrenceId}"
                             tools:text="It-it-ios-12657" />
                     </LinearLayout>
@@ -65,12 +66,13 @@
                         <TextView
                             style="@style/SecondaryNormalText"
                             android:layout_weight="1"
+                            android:layout_width="0dp"
                             android:text="@string/date" />
 
                         <TextView
                             style="@style/SecondaryBoldText"
+                            android:layout_weight="3"
                             android:layout_width="0dp"
-                            android:layout_weight="15"
                             app:setDate="@{item.createTime}"
                             tools:text="27/08/2018" />
                     </LinearLayout>
@@ -84,12 +86,13 @@
                         <TextView
                             style="@style/SecondaryNormalText"
                             android:layout_weight="1"
+                            android:layout_width="0dp"
                             android:text="@string/time" />
 
                         <TextView
                             style="@style/SecondaryBoldText"
+                            android:layout_weight="3"
                             android:layout_width="0dp"
-                            android:layout_weight="16"
                             app:time="@{item.createTime}"
                             tools:text="09:36:06" />
                     </LinearLayout>
