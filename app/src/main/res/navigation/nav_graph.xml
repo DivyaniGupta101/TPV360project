@@ -110,6 +110,32 @@
         android:id="@+id/customerDetailFormOneFragment"
         android:name="com.tpv.android.ui.home.enrollment.form.CustomerDetailFormOneFragment"
         android:label="CustomerDetailFormOneFragment"
-        tools:layout="@layout/fragment_customer_detail_form_one" />
+        tools:layout="@layout/fragment_customer_detail_form_one">
+        <action
+            android:id="@+id/action_customerDetailFormOneFragment_to_customerDetailFormTwoFragment"
+            app:destination="@id/customerDetailFormTwoFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerDetailFormTwoFragment"
+        android:name="com.tpv.android.ui.home.enrollment.form.CustomerDetailFormTwoFragment"
+        android:label="CustomerDetailFormTwoFragment"
+        tools:layout="@layout/fragment_customer_detail_form_two">
+        <action
+            android:id="@+id/action_customerDetailFormTwoFragment_to_clientInfoFragment"
+            app:destination="@id/clientInfoFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientInfoFragment"
+        android:name="com.tpv.android.ui.home.enrollment.clientinfo.ClientInfoFragment"
+        android:label="ClientInfoFragment"
+        tools:layout="@layout/fragment_client_info" />
 
 </navigation>

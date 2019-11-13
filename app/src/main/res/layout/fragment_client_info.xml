@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.home.enrollment.form.CustomerDetailFormOneFragment">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/SecondaryNormalText"
+                    android:gravity="center"
+                    android:padding="@dimen/_24sdp"
+                    android:text="@string/msg_forgot_password" />
+
+                <TextView
+                    style="@style/PrimaryBoldText"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_16sdp"
+                    android:text="@string/customer_name"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorTertiaryText" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_24sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackground"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/SecondaryNormalText"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/first_name" />
+
+                                <TextView
+                                    style="@style/PrimaryNormalText"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    tools:text="Smithan"
+                                    android:text="Smithan"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/SecondaryNormalText"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/middle_name" />
+
+                                <TextView
+                                    style="@style/PrimaryNormalText"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    tools:text="John"
+                                    android:text="John"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/SecondaryNormalText"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/last_name" />
+
+                                <TextView
+                                    style="@style/PrimaryNormalText"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    tools:text="Michel"
+                                    android:text="Michel"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_writing_gray" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/PrimaryBoldText"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_16sdp"
+                    android:text="@string/plan_information"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorTertiaryText" />
+
+                <LinearLayout
+                    android:id="@+id/planInforamtionContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

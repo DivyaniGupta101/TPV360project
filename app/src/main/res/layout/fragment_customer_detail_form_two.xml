@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.home.enrollment.form.CustomerDetailFormOneFragment">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    style="@style/PrimaryBoldText"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_16sdp"
+                    android:text="@string/electric_programs"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorTertiaryText" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_24sdp">
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/billing_first_name" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputBillingFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editBillingFirstName"
+                            style="@style/DefaultEditText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/billing_middle_name" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputBillingMiddleName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editBillingMiddleName"
+                            style="@style/DefaultEditText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/billing_last_name" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputBillingLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editBillingLastName"
+                            style="@style/DefaultEditText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/billing_address" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputBillingAddress"
+                        style="@style/SquareBorderTextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editBillingAddress"
+                            style="@style/SquareBorderEditText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/zip_code" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputZipCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editZipCode"
+                            style="@style/DefaultEditText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/billing_address_msg" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            style="@style/CheckBoxButton"
+                            android:layout_marginStart="0dp"
+                            android:text="@string/yes" />
+
+                        <CheckBox
+                            style="@style/CheckBoxButton"
+                            android:text="@string/no"
+                            tools:checked="true" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/service_address" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputServiceAddress"
+                        style="@style/SquareBorderTextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editServiceAddress"
+                            style="@style/SquareBorderEditText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/zip_code" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputServiceZipCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editServiceZipCode"
+                            style="@style/DefaultEditText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/enter_account_number" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputAccountNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editAccountNumber"
+                            style="@style/DefaultEditText"
+                            android:inputType="phone" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2" />
+
+                        <TextView
+                            android:layout_width="@dimen/_6sdp"
+                            android:layout_height="@dimen/_6sdp"
+                            android:background="@drawable/bg_unselected_page_indicator" />
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1" />
+
+                        <TextView
+                            android:layout_width="@dimen/_6sdp"
+                            android:layout_height="@dimen/_6sdp"
+                            android:background="@drawable/bg_selected_page_indicator" />
+
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/btnNext"
+                        style="@style/ButtonPrimary"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/next" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

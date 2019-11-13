@@ -91,4 +91,10 @@
     <string name="customer_data">Customer Data</string>
     <string name="phone_number">Phone Number</string>
     <string name="verify">Verify</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="first_name">First Name</string>
+    <string name="middle_name">Middle Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="plan_information">Plan Information</string>
+    <string name="client_info">Client Info</string>
 </resources>
