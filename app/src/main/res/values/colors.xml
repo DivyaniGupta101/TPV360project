@@ -68,6 +68,7 @@
     <!--    Border-->
     <color name="colorEditTextBorder">@color/colorGray</color>
     <color name="colorCancelButtonBorder">@color/colorAccent</color>
+    <color name="colorRecordingButtonBorder">@color/colorGray</color>
 
 
 </resources>

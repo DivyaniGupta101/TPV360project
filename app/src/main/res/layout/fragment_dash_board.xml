@@ -72,7 +72,7 @@
 
                             <TextView
                                 android:id="@+id/textPending"
-                                style="@style/DashboardMenuItemCountPrimaryBoldText"
+                                style="@style/PrimaryMediumBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
                                 android:text="@{item.pending}"
                                 tools:text="90" />
@@ -99,7 +99,7 @@
 
                             <TextView
                                 android:id="@+id/textVerified"
-                                style="@style/DashboardMenuItemCountPrimaryBoldText"
+                                style="@style/PrimaryMediumBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
                                 android:text="@{item.verified}"
                                 tools:text="18" />
@@ -135,7 +135,7 @@
 
                             <TextView
                                 android:id="@+id/textDeclined"
-                                style="@style/DashboardMenuItemCountPrimaryBoldText"
+                                style="@style/PrimaryMediumBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
                                 android:text="@{item.declined}"
                                 tools:text="02" />
@@ -163,7 +163,7 @@
 
                             <TextView
                                 android:id="@+id/textHangUp"
-                                style="@style/DashboardMenuItemCountPrimaryBoldText"
+                                style="@style/PrimaryMediumBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
                                 android:text="@{item.hangUp}"
                                 tools:text="05" />

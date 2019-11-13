@@ -115,6 +115,8 @@
                 <TextView
                     android:id="@+id/btnStart"
                     style="@style/ButtonPrimary"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
                     android:layout_marginTop="@dimen/_30sdp"
                     android:text="@string/get_started" />
 

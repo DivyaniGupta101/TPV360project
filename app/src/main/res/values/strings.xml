@@ -97,4 +97,7 @@
     <string name="last_name">Last Name</string>
     <string name="plan_information">Plan Information</string>
     <string name="client_info">Client Info</string>
+    <string name="msg_client_info">Please review and confirm that all of the info below Id accurate. You are only a few steps away from being done.</string>
+    <string name="msg_recording">I give authorisation to record our conversation</string>
+    <string name="recording">Recording</string>
 </resources>

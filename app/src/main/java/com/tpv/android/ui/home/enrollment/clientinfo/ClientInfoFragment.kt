@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClientInfoBinding
 import com.tpv.android.databinding.ItemProgramsBinding
+import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
 /**
@@ -28,7 +31,12 @@ class ClientInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar(mBinding.toolbar,getString(R.string.client_info), showBackIcon = true)
+        setupToolbar(mBinding.toolbar, getString(R.string.client_info), showBackIcon = true)
+
+        mBinding.btnNext.onClick {
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_recordingFragment)
+
+        }
 
         mList.forEach {
             var binding = DataBindingUtil.inflate<ItemProgramsBinding>(layoutInflater, R.layout.item_programs, mBinding.planInforamtionContainer, true)
