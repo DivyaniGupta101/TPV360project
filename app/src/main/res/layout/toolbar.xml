@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+
+        <import type="com.tpv.android.R" />
+    </data>
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -40,6 +43,7 @@
                             style="@style/ToolbarImage"
                             android:src="@drawable/ic_arrow_black"
                             android:visibility="invisible"
+                            app:dynamicTintColor="@{R.color.colorSecondaryImageTint}"
                             tools:visibility="visible" />
 
                         <Space
@@ -53,7 +57,8 @@
                             android:id="@+id/imageToolbarMenu"
                             style="@style/ToolbarImage"
                             android:src="@drawable/ic_menu_black"
-                            android:visibility="visible" />
+                            android:visibility="visible"
+                            app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
 
                     </LinearLayout>
 
