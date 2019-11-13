@@ -118,11 +118,13 @@
                 </LinearLayout>
 
             </ScrollView>
+
             <include
                 android:id="@+id/incProgressBar"
                 layout="@layout/progress_bar"
                 app:errorHandler="@{errorHandler}"
                 app:resource="@{resource}"
+                app:useBlockingProgress="@{true}"
                 tools:visibility="visible" />
         </FrameLayout>
     </LinearLayout>

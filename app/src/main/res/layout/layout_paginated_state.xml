@@ -35,9 +35,8 @@
             app:visibleIf="@{resource != null}">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                style="@style/PrimaryNormalText"
+                android:layout_gravity="center"
                 android:text="@string/no_data_found"
                 android:textSize="16sp"
                 android:visibility="gone"
