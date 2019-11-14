@@ -67,7 +67,8 @@
                                 android:id="@+id/textSkip"
                                 style="@style/SecondaryNormalSmallText"
                                 android:layout_gravity="center"
-                                tools:text="Skip>" />
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/skip" />
                         </FrameLayout>
 
                     </LinearLayout>
