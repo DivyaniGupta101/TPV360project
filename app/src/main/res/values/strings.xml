@@ -10,12 +10,12 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="pending_leads">Pending Leads</string>
     <string name="declined_leads">Declined Leads</string>
-    <string name="hang_up_calls">Hang Up Calls</string>
+    <string name="disconnected_calls">Disconnected Calls</string>
     <string name="verified_leads">Verified Leads</string>
     <string name="id">ID:</string>
     <string name="pending">Pending</string>
     <string name="verified">Verified</string>
-    <string name="declined">Declined</string>
+    <string name="disconnected">Disconnected</string>
     <string name="hang_up">Hang up</string>
     <string name="date">Date:</string>
     <string name="time">Time:</string>
