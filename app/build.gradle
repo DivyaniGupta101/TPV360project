@@ -98,5 +98,6 @@ dependencies {
     //circle imageView
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
-
+    //Quick Permission
+    implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.0'
 }

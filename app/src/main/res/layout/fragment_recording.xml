@@ -27,6 +27,7 @@
             android:textColor="@color/colorTertiaryText" />
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -49,22 +50,31 @@
                 android:layout_marginTop="@dimen/_40sdp">
 
                 <ImageView
+                    android:id="@+id/graySpeakerImage"
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"
-                    android:src="@drawable/ic_speaker_gray" />
+                    android:src="@drawable/ic_speaker_gray"
+                    android:visibility="visible" />
 
                 <ImageView
+                    android:id="@+id/redSpeakerImage"
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"
-                    android:src="@drawable/ic_speaker_red" />
+                    android:src="@drawable/ic_speaker_red"
+                    android:visibility="gone" />
             </FrameLayout>
 
+            <Chronometer
+                android:id="@+id/chronometer"
+                style="@style/PrimaryMediumBoldText"
+                android:visibility="gone" />
+
             <TextView
-                android:id="@+id/textPending"
+                android:id="@+id/textTimer"
                 style="@style/PrimaryMediumBoldText"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:text="00:00" />
+                android:text="@string/start_time" />
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -73,19 +83,53 @@
                 android:layout_marginTop="@dimen/_16sdp">
 
                 <ImageView
-                    android:layout_width="@dimen/_36sdp"
-                    android:layout_height="@dimen/_36sdp"
-                    android:background="@drawable/bg_round_border"
-                    android:padding="@dimen/_12sdp"
-                    android:src="@drawable/ic_play_black" />
+                    android:id="@+id/audioStartImage"
+                    style="@style/RecordingImage"
+                    android:src="@drawable/ic_audio_start_black"
+                    android:visibility="gone" />
 
                 <ImageView
-                    android:layout_width="@dimen/_36sdp"
-                    android:layout_height="@dimen/_36sdp"
-                    android:background="@drawable/bg_round_border"
-                    android:padding="@dimen/_12sdp"
-                    android:src="@drawable/ic_pause_black" />
+                    android:id="@+id/audioStopImage"
+                    style="@style/RecordingImage"
+                    android:src="@drawable/ic_audio_stop_black"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/recordStartImage"
+                    style="@style/RecordingImage"
+                    android:src="@drawable/ic_record_start_black"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/recordStopImage"
+                    style="@style/RecordingImage"
+                    android:src="@drawable/ic_record_stop_black"
+                    android:visibility="gone" />
+
             </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/recordAgainContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="?selectableItemBackground"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/ic_replay_gray" />
+
+                <TextView
+                    style="@style/SecondaryBoldText"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:text="@string/record_again" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView

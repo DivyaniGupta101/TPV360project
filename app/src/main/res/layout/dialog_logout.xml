@@ -43,6 +43,7 @@
                 <TextView
                     style="@style/SecondaryNormalText"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:gravity="center"
                     android:text="@{item.description}" />
 
                 <LinearLayout
