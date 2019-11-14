@@ -20,10 +20,10 @@ class DashBoardViewModel : CoroutineScopedViewModel() {
     }
 
     fun getDashBoardDetail() = with(AppRepository) {
+        val dashBoardStatusCount = DashBoardStatusCount()
         getDashBoardCall().observeForever {
 
             it.ifSuccess {
-                val dashBoardStatusCount = DashBoardStatusCount()
 
                 it?.forEach { dashboard ->
                     if (dashboard.status?.equals(LeadStatus.PENDING.value).orFalse()) {
@@ -42,8 +42,8 @@ class DashBoardViewModel : CoroutineScopedViewModel() {
                 dashBoardCountMutableLiveData.value = dashBoardStatusCount
 
             }
-
         }
+        dashBoardCountMutableLiveData.value = dashBoardStatusCount
     }
 
 }
