@@ -139,7 +139,20 @@
         tools:layout="@layout/fragment_client_info">
         <action
             android:id="@+id/action_clientInfoFragment_to_recordingFragment"
-            app:destination="@id/recordingFragment" />
+            app:destination="@id/recordingFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_clientInfoFragment_to_customerDetailFormOneFragment"
+            app:destination="@id/customerDetailFormOneFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpToInclusive="false"
+            app:popUpTo="@id/programsListingFragment"/>
     </fragment>
     <fragment
         android:id="@+id/recordingFragment"

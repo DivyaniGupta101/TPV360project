@@ -39,8 +39,13 @@ class ClientInfoFragment : Fragment() {
         }
 
         mList.forEach {
-            var binding = DataBindingUtil.inflate<ItemProgramsBinding>(layoutInflater, R.layout.item_programs, mBinding.planInforamtionContainer, true)
+            val binding = DataBindingUtil.inflate<ItemProgramsBinding>(layoutInflater, R.layout.item_programs, mBinding.planInforamtionContainer, true)
+            binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_program_border)
 
+            mBinding.imageEdit.onClick {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_customerDetailFormOneFragment)
+
+            }
         }
 
     }
