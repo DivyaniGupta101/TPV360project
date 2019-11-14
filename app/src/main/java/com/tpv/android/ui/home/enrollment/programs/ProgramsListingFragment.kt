@@ -66,8 +66,7 @@ class ProgramsListingFragment : Fragment() {
                         }
                     }
                     onClick {
-                        val programs = it.binding.item
-                        selectItem(type = programs?.utilityType.orEmpty(), selectedPosition = it.adapterPosition)
+                        selectItem(type = it.binding.item?.utilityType.orEmpty(), selectedPosition = it.adapterPosition)
                     }
                 }
                 .map<String, ItemProgramsBinding>(R.layout.item_title_programs)
@@ -80,15 +79,16 @@ class ProgramsListingFragment : Fragment() {
             Plan.GASFUEL.value -> {
                 if (mLastSelectedGasPosition != null) {
                     (mList[mLastSelectedGasPosition.orZero()] as Programs).isSelcected = false
-                    (mList[selectedPosition] as Programs).isSelcected = true
                 }
+                (mList[selectedPosition] as Programs).isSelcected = true
                 mLastSelectedGasPosition = selectedPosition
+
             }
             Plan.ELECTRICFUEL.value -> {
                 if (mLastSelectedElectricPosition != null) {
                     (mList[mLastSelectedElectricPosition.orZero()] as Programs).isSelcected = false
-                    (mList[selectedPosition] as Programs).isSelcected = true
                 }
+                (mList[selectedPosition] as Programs).isSelcected = true
                 mLastSelectedElectricPosition = selectedPosition
             }
         }
