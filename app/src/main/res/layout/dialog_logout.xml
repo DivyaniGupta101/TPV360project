@@ -4,6 +4,10 @@
 
     <data>
 
+        <variable
+            name="item"
+            type="com.tpv.android.model.DialogText" />
+
     </data>
 
     <LinearLayout
@@ -34,12 +38,12 @@
                 <TextView
                     style="@style/PrimaryBoldText"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/log_out" />
+                    android:text="@{item.title}" />
 
                 <TextView
                     style="@style/SecondaryNormalText"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/log_out_msg" />
+                    android:text="@{item.description}" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,14 +58,14 @@
                         style="@style/DialogCancelButton"
                         android:layout_marginStart="0dp"
                         android:layout_marginEnd="8dp"
-                        android:text="@string/cancel" />
+                        android:text="@{item.negativeButtonText}" />
 
                     <TextView
                         android:id="@+id/btnYes"
                         style="@style/DialogButton"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="0dp"
-                        android:text="@string/yes" />
+                        android:text="@{item.positiveButtonText}" />
 
                 </LinearLayout>
 

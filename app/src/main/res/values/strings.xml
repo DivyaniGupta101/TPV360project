@@ -41,7 +41,7 @@
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
     <string name="log_out">Log out</string>
-    <string name="log_out_msg">Are you sure you want to logout?</string>
+    <string name="msg_log_out">Are you sure you want to logout?</string>
     <string name="forogt_password">Forgot Password</string>
     <string name="submit">Submit</string>
     <string name="return_to_login">Return to Login</string>

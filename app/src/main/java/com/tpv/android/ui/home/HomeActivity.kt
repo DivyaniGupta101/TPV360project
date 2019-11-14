@@ -25,6 +25,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.ActivityHomeBinding
 import com.tpv.android.databinding.DialogLogoutBinding
 import com.tpv.android.helper.Pref
+import com.tpv.android.model.DialogText
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -155,6 +156,11 @@ class HomeActivity : AppCompatActivity() {
         val binding = DataBindingUtil.inflate<DialogLogoutBinding>(layoutInflater, R.layout.dialog_logout, null, false)
         val dialog = AlertDialog.Builder(this@HomeActivity)
                 .setView(binding.root).show()
+
+        binding.item = DialogText(getString(R.string.log_out),
+                getString(R.string.msg_log_out),
+                getString(R.string.yes),
+                getString(R.string.cancel))
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
