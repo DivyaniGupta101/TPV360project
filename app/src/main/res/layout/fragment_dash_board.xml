@@ -170,7 +170,7 @@
 
                             <TextView
                                 style="@style/DashboardLeadText"
-                                android:text="@string/hang_up_calls" />
+                                android:text="@string/disconnected_calls" />
                         </LinearLayout>
 
                     </LinearLayout>

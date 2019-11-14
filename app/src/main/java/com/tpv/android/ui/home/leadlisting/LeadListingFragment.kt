@@ -58,7 +58,7 @@ class LeadListingFragment : Fragment() {
                 toolBarTitle = getString(R.string.declined_leads)
             }
             LeadStatus.HANGUP.value -> {
-                toolBarTitle = getString(R.string.hang_up_calls)
+                toolBarTitle = getString(R.string.disconnected_calls)
             }
         }
 
