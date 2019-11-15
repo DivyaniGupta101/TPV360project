@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.tpv.android.ui.home.enrollment.SetEnrollViewModel" />
+
+        <import type="com.tpv.android.utils.Plan" />
+
+        <variable
+            name="viewModel"
+            type="SetEnrollViewModel" />
+
+        <variable
+            name="plan"
+            type="Plan" />
 
     </data>
 
@@ -217,12 +230,14 @@
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.1" />
+                            android:layout_weight="0.1"
+                            app:visibleIf="@{viewModel.selectedUtility == plan.DUALFUEL.value}" />
 
                         <TextView
                             android:layout_width="8dp"
                             android:layout_height="8dp"
-                            android:background="@drawable/bg_unselected_page_indicator" />
+                            android:background="@drawable/bg_unselected_page_indicator"
+                            app:visibleIf="@{viewModel.selectedUtility == plan.DUALFUEL.value}" />
 
                         <Space
                             android:layout_width="0dp"
