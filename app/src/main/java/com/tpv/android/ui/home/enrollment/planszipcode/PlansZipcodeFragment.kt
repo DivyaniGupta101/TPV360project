@@ -2,6 +2,7 @@ package com.tpv.android.ui.home.enrollment.planszipcode
 
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,17 @@ class PlansZipcodeFragment : Fragment() {
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private var toolbarTitle = ""
     private lateinit var mViewModel: PlansZipcodeViewModel
+
+    private val mHandler = Handler()
+
+    companion object {
+        /**
+         * Wait for at least these seconds to get the text change results
+         * This will result in the low api calls when rate limit 1 api call every millis
+         * as per the value of this variable
+         */
+        private const val TEXT_CHANGE_DELAY = 200L
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -138,10 +150,11 @@ class PlansZipcodeFragment : Fragment() {
         })
 
         mBinding.textZipcode.addTextWatcher { s, start, before, count ->
-
-            mBinding.btnNext.isEnabled = false
-
-            mViewModel.getZipCode(ZipCodeReq(s.toString()))
+            mHandler.removeCallbacksAndMessages(null)
+            mHandler.postDelayed({
+                mBinding.btnNext.isEnabled = false
+                mViewModel.getZipCode(ZipCodeReq(s.toString()))
+            }, TEXT_CHANGE_DELAY)
         }
 
         mBinding.textZipcode.setOnItemClickListener { parent, view, position, id ->
