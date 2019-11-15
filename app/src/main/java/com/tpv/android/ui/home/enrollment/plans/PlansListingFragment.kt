@@ -52,7 +52,7 @@ class PlansListingFragment : Fragment() {
         LiveAdapter(mList, BR.item)
                 .map<Plans, ItemPlansBinding>(R.layout.item_plans) {
                     onClick { holder ->
-                        mViewModel.planType = holder.binding.item?.planType.toString()
+                        mViewModel.planType = holder.binding.item?.planType.orEmpty()
                         Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansListingFragment_to_plansZipcodeFragment)
                     }
                 }

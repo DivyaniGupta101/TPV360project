@@ -44,4 +44,8 @@ class PlansZipcodeViewModel : CoroutineScopedViewModel() {
         getUtilityCall(utilityReq)
     }
 
+    fun clearZipCodeListData() {
+        zipCodeMutableLiveData.value = emptyList()
+    }
+
 }

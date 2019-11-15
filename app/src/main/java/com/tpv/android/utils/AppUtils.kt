@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.*
+import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.invisible
 import com.livinglifetechway.k4kotlin.core.onClick
@@ -37,6 +38,7 @@ fun Fragment.setupToolbar(
             if (showBackIcon) {
                 backImage?.show()
                 backImage?.onClick {
+                    hideKeyboard()
                     if (backIconClickListener != null) {
                         backIconClickListener.invoke()
                     }
