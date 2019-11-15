@@ -129,33 +129,26 @@ class PlansZipcodeFragment : Fragment() {
     private fun setAutoCompleterTextView() {
         mBinding.textZipcode.threshold = 1
 
+        mViewModel.zipCodeLiveData.observe(this, Observer { list ->
+            mZipcodeList.clear()
+            mZipcodeList.addAll(list.orEmpty())
+            val autoCompleteAdapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, list.map { it.label })
+            mBinding.textZipcode.setAdapter(autoCompleteAdapter)
+            mBinding.textZipcode.showDropDown()
+        })
+
         mBinding.textZipcode.addTextWatcher { s, start, before, count ->
 
             mBinding.btnNext.isEnabled = false
 
-            mViewModel.getZipCode(ZipCodeReq(s.toString())).observe(this, Observer {
-                it.ifSuccess { list ->
-                    mZipcodeList.clear()
-                    mZipcodeList.addAll(list.orEmpty())
-                    val autoCompleteAdapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, list?.map { it.label })
-                    mBinding.textZipcode.setAdapter(autoCompleteAdapter)
-
-                    mBinding.textZipcode.setOnFocusChangeListener { v, hasFocus ->
-                        if (hasFocus) {
-                            mBinding.textZipcode.showDropDown()
-                        }
-                    }
-
-                    mBinding.textZipcode.setOnItemClickListener { parent, view, position, id ->
-                        hideKeyboard()
-                        getUtilityListApiCall()
-                        mBinding.textZipcode.showDropDown()
-                    }
-
-                }
-            })
+            mViewModel.getZipCode(ZipCodeReq(s.toString()))
         }
 
+        mBinding.textZipcode.setOnItemClickListener { parent, view, position, id ->
+            hideKeyboard()
+            getUtilityListApiCall()
+            mBinding.textZipcode.showDropDown()
+        }
 
     }
 
