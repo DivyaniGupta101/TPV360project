@@ -105,4 +105,8 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="msg_confirmation_again_record">You want to record again? \n Current recording will be deleted.</string>
     <string name="start_time">00:00</string>
+    <string name="personal_detail">Personal Detail</string>
+    <string name="electric_detail">Electric Detail</string>
+    <string name="gas_detail">Gas Detail</string>
+    <string name="personal_data">Personal Data</string>
 </resources>

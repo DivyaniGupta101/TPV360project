@@ -43,7 +43,7 @@ class ClientInfoFragment : Fragment() {
             binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_program_border)
 
             mBinding.imageEdit.onClick {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_customerDetailFormOneFragment)
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_personalDetailFormFragment)
 
             }
         }

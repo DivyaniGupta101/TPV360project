@@ -49,7 +49,7 @@ class ProgramsListingFragment : Fragment() {
         setRecyclerView()
 
         mBinding.btnNext?.onClick {
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_programsListingFragment_to_customerDetailFormOneFragment)
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_programsListingFragment_to_personalDetailFormFragment)
         }
     }
 
