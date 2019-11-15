@@ -145,8 +145,32 @@
                     android:textAllCaps="true"
                     android:textColor="@color/colorTertiaryText" />
 
+                <TextView
+                    android:id="@+id/textGas"
+                    style="@style/PrimaryBoldText"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:text="@string/gas_programs"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorTertiaryText"
+                    tools:text="@string/electric_programs" />
+
                 <LinearLayout
-                    android:id="@+id/planInforamtionContainer"
+                    android:id="@+id/gasInforamtionContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/textElectric"
+                    style="@style/PrimaryBoldText"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:text="@string/electric_programs"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorTertiaryText"
+                    tools:text="@string/electric_programs" />
+
+                <LinearLayout
+                    android:id="@+id/electricInforamtionContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
