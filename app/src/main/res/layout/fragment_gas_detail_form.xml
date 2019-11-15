@@ -231,13 +231,13 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.1"
-                            app:visibleIf="@{viewModel.selectedUtility == plan.DUALFUEL.value}" />
+                            app:visibleIf="@{viewModel.planType == plan.DUALFUEL.value}" />
 
                         <TextView
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:background="@drawable/bg_unselected_page_indicator"
-                            app:visibleIf="@{viewModel.selectedUtility == plan.DUALFUEL.value}" />
+                            app:visibleIf="@{viewModel.planType == plan.DUALFUEL.value}" />
 
                         <Space
                             android:layout_width="0dp"

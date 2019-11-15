@@ -5,7 +5,7 @@ import com.tpv.android.network.resources.CoroutineScopedViewModel
 
 class SetEnrollViewModel : CoroutineScopedViewModel() {
 
-    var selectedUtility: String = ""
+    var planType: String = ""
     var utilities: ArrayList<UtilityResp?> = ArrayList()
 
 }

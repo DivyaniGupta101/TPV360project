@@ -78,13 +78,13 @@ class PlansZipcodeFragment : Fragment() {
 
         //check if utilies list already not empty then show respective dropdown
         if (mSetEnrollViewModel.utilities.isNotEmpty()) {
-            if (mSetEnrollViewModel.selectedUtility.equals(Plan.GASFUEL.value)) {
+            if (mSetEnrollViewModel.planType.equals(Plan.GASFUEL.value)) {
                 setGasUtility()
             }
-            if (mSetEnrollViewModel.selectedUtility.equals(Plan.ELECTRICFUEL.value)) {
+            if (mSetEnrollViewModel.planType.equals(Plan.ELECTRICFUEL.value)) {
                 setElectricUtility()
             }
-            if (mSetEnrollViewModel.selectedUtility.equals(Plan.DUALFUEL.value)) {
+            if (mSetEnrollViewModel.planType.equals(Plan.DUALFUEL.value)) {
                 setGasUtility()
                 setElectricUtility()
             }
@@ -123,9 +123,9 @@ class PlansZipcodeFragment : Fragment() {
      */
 
     private fun setToolbar() {
-        if (mSetEnrollViewModel.selectedUtility.equals(Plan.GASFUEL.value)) {
+        if (mSetEnrollViewModel.planType.equals(Plan.GASFUEL.value)) {
             toolbarTitle = getString(R.string.natural_gas)
-        } else if (mSetEnrollViewModel.selectedUtility.equals(Plan.ELECTRICFUEL.value)) {
+        } else if (mSetEnrollViewModel.planType.equals(Plan.ELECTRICFUEL.value)) {
             toolbarTitle = getString(R.string.electricity)
         } else {
             toolbarTitle = getString(R.string.dual_fuel)
@@ -166,7 +166,7 @@ class PlansZipcodeFragment : Fragment() {
     }
 
     private fun getUtilityListApiCall() {
-        val liveData = mViewModel.getUtility(UtilityReq(zipcode = "01007", commodity = mSetEnrollViewModel.selectedUtility))
+        val liveData = mViewModel.getUtility(UtilityReq(zipcode = "01007", commodity = mSetEnrollViewModel.planType))
         liveData.observe(this, Observer {
             it.ifSuccess {
                 mUtilityList.clear()
@@ -185,13 +185,13 @@ class PlansZipcodeFragment : Fragment() {
      */
 
     private fun setUtilitySpinners() {
-        if (mSetEnrollViewModel.selectedUtility.equals(Plan.GASFUEL.value)) {
+        if (mSetEnrollViewModel.planType.equals(Plan.GASFUEL.value)) {
             setGasUtility()
         }
-        if (mSetEnrollViewModel.selectedUtility.equals(Plan.ELECTRICFUEL.value)) {
+        if (mSetEnrollViewModel.planType.equals(Plan.ELECTRICFUEL.value)) {
             setElectricUtility()
         }
-        if (mSetEnrollViewModel.selectedUtility.equals(Plan.DUALFUEL.value)) {
+        if (mSetEnrollViewModel.planType.equals(Plan.DUALFUEL.value)) {
             setGasUtility()
             setElectricUtility()
         }
