@@ -96,7 +96,6 @@ class PlansZipcodeFragment : Fragment() {
             hideKeyboard()
 
             mViewModel.clearZipCodeListData()
-            mSetEnrollViewModel.zipCode = "next"
 
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
@@ -115,7 +114,6 @@ class PlansZipcodeFragment : Fragment() {
         }
 
         setupToolbar(mBinding.toolbar, toolbarTitle, showBackIcon = true) {
-            mSetEnrollViewModel.zipCode = ""
             mSetEnrollViewModel.utilitiesList.clear()
         }
     }
@@ -133,12 +131,10 @@ class PlansZipcodeFragment : Fragment() {
         })
 
         mBinding.textZipcode.addTextWatcher { s, start, before, count ->
-            if (!mSetEnrollViewModel.zipCode.isNotEmpty()) {
-                mHandler.removeCallbacksAndMessages(null)
-                mHandler.postDelayed({
-                    mViewModel.getZipCode(ZipCodeReq(s.toString()))
-                }, TEXT_CHANGE_DELAY)
-            }
+            mHandler.removeCallbacksAndMessages(null)
+            mHandler.postDelayed({
+                mViewModel.getZipCode(ZipCodeReq(s.toString()))
+            }, TEXT_CHANGE_DELAY)
         }
 
 

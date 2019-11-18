@@ -46,13 +46,13 @@
                         <TextView
                             style="@style/PrimaryBoldText"
                             android:maxLines="1"
-                            android:text="@{item.programName}"
+                            android:text="@{item.premiseTypeName}"
                             tools:text="Guaranteed Choice 24" />
 
                         <TextView
                             style="@style/SecondaryNormalSmallText"
-                            android:text="@{item.saleschannel}"
                             android:maxLines="1"
+                            android:text="@{item.programName}"
                             tools:text="Commercial &amp; Residential" />
                     </LinearLayout>
 
@@ -78,7 +78,8 @@
                     <TextView
                         style="@style/PrimaryBoldText"
                         android:layout_gravity="center_vertical"
-                        android:text="$12.49" />
+                        android:text="@{ '$' + item.rate}"
+                        tools:text="$12.49" />
 
                     <View
                         style="@style/DividerPrimary"
@@ -97,7 +98,8 @@
 
                         <TextView
                             style="@style/PrimaryNormalSmallText"
-                            android:text="12 Months" />
+                            android:text="@{item.term}"
+                            tools:text="12 Months" />
 
 
                     </LinearLayout>
@@ -116,7 +118,8 @@
 
                         <TextView
                             style="@style/PrimaryNormalSmallText"
-                            android:text="$ 00" />
+                            android:text="@{item.earlyterminationfee}"
+                            tools:text="$ 00" />
 
 
                     </LinearLayout>
@@ -133,7 +136,8 @@
 
                         <TextView
                             style="@style/PrimaryNormalSmallText"
-                            android:text="142044" />
+                            android:text="@{item.programCode}"
+                            tools:text="142044" />
 
 
                     </LinearLayout>

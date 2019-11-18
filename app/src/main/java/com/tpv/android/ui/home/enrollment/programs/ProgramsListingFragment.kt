@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -18,6 +19,9 @@ import com.tpv.android.databinding.FragmentProgramsListingBinding
 import com.tpv.android.databinding.ItemProgramsBinding
 import com.tpv.android.model.ProgramsReq
 import com.tpv.android.model.ProgramsResp
+import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.Plan
@@ -42,29 +46,41 @@ class ProgramsListingFragment : Fragment() {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_programs_listing, container, false)
         mBinding.lifecycleOwner = this
         mViewModel = ViewModelProviders.of(this).get(ProgramsListingViewModel::class.java)
-        mSetEnrollViewModel = ViewModelProviders.of(this).get(SetEnrollViewModel::class.java)
+        activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar(mBinding.toolbar, getString(R.string.select_plan), showBackIcon = true)
-        setRecyclerView()
 
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+
+        setupToolbar(mBinding.toolbar, getString(R.string.select_plan), showBackIcon = true)
+        handleNextButtonState()
+        getProgramsApi()
+
+        mBinding.btnNext.onClick {
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_programsListingFragment_to_personalDetailFormFragment)
+        }
+    }
+
+    private fun getProgramsApi() {
         mSetEnrollViewModel.utilitiesList.forEach { utilityResp ->
 
-            mViewModel.getPrograms(ProgramsReq(utilityResp?.utid.toString())).observe(this, Observer {
+            val liveData = mViewModel.getPrograms(ProgramsReq(utilityResp?.utid.toString()))
+            liveData.observe(this, Observer {
                 it.ifSuccess {
-                    mList.add(utilityResp?.commodity + getString(R.string.programs))
-                    mList.add(it.orEmpty())
+                    mList.add(utilityResp?.commodity + " " + getString(R.string.programs))
+                    it?.forEach { programResp ->
+                        programResp.utilityType = utilityResp?.commodity
+                    }
+                    mList.addAll(it.orEmpty())
+                    setRecyclerView()
                 }
             })
 
+            mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
 
-        }
-
-        mBinding.btnNext?.onClick {
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_programsListingFragment_to_personalDetailFormFragment)
         }
     }
 
@@ -81,15 +97,32 @@ class ProgramsListingFragment : Fragment() {
                         }
                     }
                     onClick {
-                        selectItem(type = it.binding.item?.utilityType.orEmpty(), selectedPosition = it.adapterPosition)
+                        itemSelection(type = it.binding.item?.utilityType.orEmpty(), selectedPosition = it.adapterPosition)
+                        handleNextButtonState()
                     }
                 }
                 .map<String, ItemProgramsBinding>(R.layout.item_title_programs)
                 .into(mBinding.listPrograms)
-
     }
 
-    private fun selectItem(type: String, selectedPosition: Int) {
+    private fun handleNextButtonState() {
+        mBinding.btnNext.isEnabled = when (mSetEnrollViewModel.planType) {
+            Plan.ELECTRICFUEL.value -> {
+                mLastSelectedElectricPosition != null
+            }
+            Plan.GASFUEL.value -> {
+                mLastSelectedGasPosition != null
+            }
+            Plan.DUALFUEL.value -> {
+                (mLastSelectedElectricPosition != null && mLastSelectedGasPosition != null)
+            }
+            else -> {
+                false
+            }
+        }
+    }
+
+    private fun itemSelection(type: String, selectedPosition: Int) {
         when (type) {
             Plan.GASFUEL.value -> {
                 if (mLastSelectedGasPosition != null) {
@@ -97,7 +130,6 @@ class ProgramsListingFragment : Fragment() {
                 }
                 (mList[selectedPosition] as ProgramsResp).isSelcected = true
                 mLastSelectedGasPosition = selectedPosition
-
             }
             Plan.ELECTRICFUEL.value -> {
                 if (mLastSelectedElectricPosition != null) {

@@ -7,7 +7,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
 
     var planType: String = ""
     var utilitiesList: ArrayList<UtilityResp?> = ArrayList()
-    var zipCode:String = ""
 
 
 }
