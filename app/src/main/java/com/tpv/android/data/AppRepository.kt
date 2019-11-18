@@ -87,4 +87,10 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.saveLeadDetailCall(saveLeadsDetailReq: SaveLeadsDetailReq) = dataApi<SaveLeadsDetailResp?, APIError> {
+        fromNetwork {
+            ApiClient.service.saveLeadDetail(saveLeadsDetailReq).getResult().map { it?.data }
+        }
+    }
+
 }
