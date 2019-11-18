@@ -80,4 +80,11 @@ object AppRepository {
         }
     }
 
+
+    fun CoroutineScope.getProgramsCall(programsReq: ProgramsReq) = dataApi<List<ProgramsResp>, APIError> {
+        fromNetwork {
+            ApiClient.service.getPrograms(programsReq).getResult().map { it?.data.orEmpty() }
+        }
+    }
+
 }

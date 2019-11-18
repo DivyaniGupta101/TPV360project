@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.Programs" />
+            type="com.tpv.android.model.ProgramsResp" />
     </data>
 
     <LinearLayout
@@ -45,11 +45,15 @@
 
                         <TextView
                             style="@style/PrimaryBoldText"
-                            android:text="Guaranteed Choice 24" />
+                            android:maxLines="1"
+                            android:text="@{item.programName}"
+                            tools:text="Guaranteed Choice 24" />
 
                         <TextView
                             style="@style/SecondaryNormalSmallText"
-                            android:text="Commercial &amp; Residential" />
+                            android:text="@{item.saleschannel}"
+                            android:maxLines="1"
+                            tools:text="Commercial &amp; Residential" />
                     </LinearLayout>
 
 

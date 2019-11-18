@@ -169,7 +169,6 @@ class PlansZipcodeFragment : Fragment() {
             }
 
             it.ifFailure { _, _ ->
-                mBinding.incProgressBar.textNoData.hide()
                 hideAllSpinner()
             }
         })

@@ -2,7 +2,7 @@ package com.tpv.android.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Programs(
+data class ProgramsResp(
         @SerializedName("id")
         var id: String?,
         @SerializedName("ProgramCode")
@@ -32,4 +32,9 @@ data class Programs(
         var isSelcected: Boolean? = false,
         var utilityType: String?
 
+)
+
+data class ProgramsReq(
+        @SerializedName("utility_id")
+        var utilityId: String?
 )

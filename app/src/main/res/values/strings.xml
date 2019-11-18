@@ -60,6 +60,7 @@
     <string name="early_termination">Early Termination</string>
     <string name="code">Code</string>
     <string name="electric_programs">electric programs</string>
+    <string name="programs">programs</string>
     <string name="gas_programs">gas programs</string>
     <string name="select_plan">Select Plan</string>
     <string name="ok">Ok</string>

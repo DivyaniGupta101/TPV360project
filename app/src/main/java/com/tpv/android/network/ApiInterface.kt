@@ -25,7 +25,7 @@ interface ApiInterface {
 
 
     @POST("getprograms")
-    fun getPrograms(@Field("utility_id") utility_id: String, @Field("page") page: Int): Call<PaginateCommonResp<List<Programs>>>
+    fun getPrograms(@Body programsReq: ProgramsReq): Call<CommonResponse<List<ProgramsResp>>>
 
 
     @POST("myleads")
@@ -37,7 +37,7 @@ interface ApiInterface {
 
 
     @POST("validatezipcode")
-    fun getUtility(@Body utilityReq: UtilityReq): Call<CommonResponse<List<UtilityResp>>>
+        fun getUtility(@Body utilityReq: UtilityReq): Call<CommonResponse<List<UtilityResp>>>
 
     @Multipart
     @POST("leadmedia")
