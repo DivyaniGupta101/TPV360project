@@ -140,7 +140,6 @@
                     style="@style/PrimaryBoldText"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingTop="@dimen/_16sdp"
-                    android:paddingBottom="@dimen/_16sdp"
                     android:text="@string/plan_information"
                     android:textAllCaps="true"
                     android:textColor="@color/colorTertiaryText" />
@@ -149,6 +148,7 @@
                     android:id="@+id/textElectric"
                     style="@style/PrimaryBoldText"
                     android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_16sdp"
                     android:text="@string/electric"
                     android:textAllCaps="true"
                     android:textColor="@color/colorTertiaryText"
@@ -164,6 +164,7 @@
                     android:id="@+id/textGas"
                     style="@style/PrimaryBoldText"
                     android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_16sdp"
                     android:text="@string/gas"
                     android:textAllCaps="true"
                     android:textColor="@color/colorTertiaryText"
