@@ -14,6 +14,7 @@ import com.livinglifetechway.k4kotlin.core.setItems
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPersonalDetailFormBinding
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
@@ -41,7 +42,14 @@ class PersonalDetailFormFragment : Fragment() {
         mBinding.spinnerRelationShip.setItems(arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango"))
 
         mBinding.btnNext.onClick {
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_gasDetailFormFragment)
+            when (mViewModel.planType) {
+                Plan.DUALFUEL.value, Plan.GASFUEL.value -> {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_gasDetailFormFragment)
+                }
+                Plan.ELECTRICFUEL.value -> {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_electricDetailFormFragment)
+                }
+            }
         }
     }
 }

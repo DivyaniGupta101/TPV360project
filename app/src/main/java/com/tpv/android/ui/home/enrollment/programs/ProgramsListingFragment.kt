@@ -56,15 +56,46 @@ class ProgramsListingFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         setupToolbar(mBinding.toolbar, getString(R.string.select_plan), showBackIcon = true)
+
+        if (mLastSelectedGasPosition != null) {
+            (mList[mLastSelectedGasPosition.orZero()] as ProgramsResp).isSelcected = true
+            mBinding.listPrograms.adapter?.notifyDataSetChanged()
+        }
+        if (mLastSelectedElectricPosition != null) {
+            (mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp).isSelcected = true
+            mBinding.listPrograms.adapter?.notifyDataSetChanged()
+        }
+
+        if (mList.isEmpty()) {
+            getProgramsApi()
+        } else {
+            setRecyclerView()
+        }
+
         handleNextButtonState()
-        getProgramsApi()
+
 
         mBinding.btnNext.onClick {
+            mSetEnrollViewModel.programList.clear()
+
+            when (mSetEnrollViewModel.planType) {
+                Plan.GASFUEL.value -> {
+                    mSetEnrollViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
+                }
+                Plan.ELECTRICFUEL.value -> {
+                    mSetEnrollViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
+                }
+                Plan.DUALFUEL.value -> {
+                    mSetEnrollViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
+                    mSetEnrollViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
+                }
+            }
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_programsListingFragment_to_personalDetailFormFragment)
         }
     }
 
     private fun getProgramsApi() {
+        mList.clear()
         mSetEnrollViewModel.utilitiesList.forEach { utilityResp ->
 
             val liveData = mViewModel.getPrograms(ProgramsReq(utilityResp?.utid.toString()))

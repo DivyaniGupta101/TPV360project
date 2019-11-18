@@ -13,6 +13,7 @@ import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentGasDetailFormBinding
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
@@ -38,11 +39,15 @@ class GasDetailFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
-//        mBinding.spinnerCountryCode.setItems(ArrayList(mCountryCodeList))
-
-
         mBinding.btnNext.onClick {
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_gasDetailFormFragment_to_electricDetailFormFragment)
+            when (mViewModel.planType) {
+                Plan.GASFUEL.value -> {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_gasDetailFormFragment_to_clientInfoFragment)
+                }
+                Plan.DUALFUEL.value -> {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_gasDetailFormFragment_to_electricDetailFormFragment)
+                }
+            }
         }
     }
 
