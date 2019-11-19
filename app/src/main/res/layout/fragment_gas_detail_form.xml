@@ -143,11 +143,13 @@
                         android:orientation="horizontal">
 
                         <CheckBox
+                            android:id="@+id/checkBoxYes"
                             style="@style/CheckBoxButton"
                             android:layout_marginStart="0dp"
                             android:text="@string/yes" />
 
                         <CheckBox
+                            android:id="@+id/checkBoxNo"
                             style="@style/CheckBoxButton"
                             android:text="@string/no"
                             tools:checked="true" />

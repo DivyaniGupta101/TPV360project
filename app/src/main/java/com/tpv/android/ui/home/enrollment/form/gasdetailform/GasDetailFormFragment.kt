@@ -9,7 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentGasDetailFormBinding
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
@@ -39,13 +41,70 @@ class GasDetailFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
+        mBinding.checkBoxYes?.onClick {
+            mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
+            mBinding.editServiceZipCode.value = mBinding.editZipCode.value
+        }
+
+        mBinding.checkBoxNo?.onClick {
+            mBinding.editServiceAddress.value = ""
+            mBinding.editServiceZipCode.value = ""
+        }
+
         mBinding.btnNext.onClick {
+            hideKeyboard()
+            setValueInViewModel()
+
             when (mViewModel.planType) {
                 Plan.GASFUEL.value -> {
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_gasDetailFormFragment_to_clientInfoFragment)
                 }
                 Plan.DUALFUEL.value -> {
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_gasDetailFormFragment_to_electricDetailFormFragment)
+                }
+            }
+        }
+    }
+
+    private fun setValueInViewModel() {
+        when (mViewModel.planType) {
+            Plan.GASFUEL.value -> {
+                mViewModel.serviceDetail.apply {
+                    billingFirstName = mBinding.editBillingFirstName.value
+                    billingMiddleInitial = mBinding.editBillingMiddleName.value
+                    billingLastName = mBinding.editBillingLastName.value
+                    billingAddress = mBinding.editBillingAddress.value
+                    billingZip = mBinding.editZipCode.value
+                    isTheBillingAddressTheSameAsTheServiceAddress = if (mBinding.checkBoxYes.isChecked) mBinding.checkBoxYes.text.toString() else mBinding.checkBoxNo.text.toString()
+                    billingAddress2 = ""
+                    serviceAddress = mBinding.editServiceAddress.value
+                    serviceAddress2 = ""
+                    serviceZip = mBinding.editServiceZipCode.value
+                    accountNumber = mBinding.editAccountNumber.value
+                    billingCity = "Amherst"
+                    billingState = "MA"
+                    serviceState = "MA"
+                    serviceCity = "Amherst"
+                }
+            }
+
+            Plan.DUALFUEL.value -> {
+                mViewModel.serviceDetail.apply {
+                    gasBillingAddress = mBinding.editBillingAddress.value
+                    gasBillingAddress2 = ""
+                    gasServiceAddress = mBinding.editServiceAddress.value
+                    gasServiceAddress2 = ""
+                    gasBillingFirstName = mBinding.editBillingFirstName.value
+                    gasBillingMiddleInitial = mBinding.editBillingMiddleName.value
+                    gasBillingLastName = mBinding.editBillingLastName.value
+                    gasBillingCity = "Amherst"
+                    gasBillingState = "MA"
+                    gasBillingZip = mBinding.editZipCode.value
+                    gasServiceZip = mBinding.editServiceZipCode.value
+                    gasServiceCity = "Amherst"
+                    gasServiceState = "MA"
+                    isTheBillingAddressTheSameAsTheServiceAddress = if (mBinding.checkBoxYes.isChecked) mBinding.checkBoxYes.text.toString() else mBinding.checkBoxNo.text.toString()
+                    gasAccountNumber = mBinding.editAccountNumber.value
                 }
             }
         }

@@ -93,6 +93,8 @@ class PlansZipcodeFragment : Fragment() {
                 mSetEnrollViewModel.utilitiesList.add(mUtilityList.find { it.fullname == mBinding.spinnerGas.selectedItem })
             }
 
+            mSetEnrollViewModel.zipcode = mZipcodeList.find { it.zipcode == mBinding.textZipcode.value }
+
             hideKeyboard()
 
             mViewModel.clearZipCodeListData()

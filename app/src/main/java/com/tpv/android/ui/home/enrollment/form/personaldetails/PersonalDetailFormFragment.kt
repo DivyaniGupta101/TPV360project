@@ -9,8 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.setItems
+import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPersonalDetailFormBinding
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
@@ -40,8 +42,12 @@ class PersonalDetailFormFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.personal_data), showBackIcon = true)
 
         mBinding.spinnerRelationShip.setItems(arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango"))
+        mBinding.spinnerCountryCode.setItems(arrayListOf("+1"))
 
         mBinding.btnNext.onClick {
+            hideKeyboard()
+            setValueInViewModel()
+
             when (mViewModel.planType) {
                 Plan.DUALFUEL.value, Plan.GASFUEL.value -> {
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_gasDetailFormFragment)
@@ -50,6 +56,22 @@ class PersonalDetailFormFragment : Fragment() {
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_electricDetailFormFragment)
                 }
             }
+        }
+    }
+
+    fun setValueInViewModel() {
+        mViewModel.serviceDetail.apply {
+            if (mViewModel.planType == Plan.DUALFUEL.value) {
+                gasAuthRelationship = mBinding.spinnerRelationShip.selectedItem.toString()
+            } else {
+                relationShip = mBinding.spinnerRelationShip.selectedItem.toString()
+            }
+            authorizedFirstName = mBinding.editAuthorisedFirstName.value
+            authorizedMiddleInitial = mBinding.editAuthorisedMiddleName.value
+            authorizedLastName = mBinding.editAuthorisedLastName.value
+            phoneNumber = mBinding.editPhoneNumber.value
+            email = mBinding.editAuthorisedEmail.value
+            countryCode = "+1"
         }
     }
 }

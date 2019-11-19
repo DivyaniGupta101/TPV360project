@@ -12,119 +12,119 @@ data class SaveLeadsDetailResp(
 
 data class SaveLeadsDetailReq(
         @SerializedName("clientid")
-        val clientid: String?,
+        val clientid: String? = "",
         @SerializedName("commodity")
-        val commodity: String?,
+        val commodity: String? = "",
         @SerializedName("electricprogramid")
-        val electricprogramid: String?,
+        val electricprogramid: String? = "",
         @SerializedName("electricutility_id")
-        val electricutilityId: String?,
+        val electricutilityId: String? = "",
         @SerializedName("fields")
-        val fields: List<ServiceDetail>?,
+        val fields: ArrayList<ServiceDetail?>,
         @SerializedName("gasprogramid")
-        val gasprogramid: String?,
+        val gasprogramid: String? = "",
         @SerializedName("gasutility_id")
-        val gasutilityId: String?,
+        val gasutilityId: String? = "",
         @SerializedName("utility_id")
-        val utilityId: String?,
+        val utilityId: String? = "",
         @SerializedName("programid")
-        val programId: String?,
+        val programId: String? = "",
         @SerializedName("zipcode")
-        val zipcode: String?
+        val zipcode: String? = ""
 )
 
 data class ServiceDetail(
         @SerializedName("Authorized First name")
-        val authorizedFirstName: String?,
+        var authorizedFirstName: String? = "",
         @SerializedName("Authorized Last name")
-        val authorizedLastName: String?,
+        var authorizedLastName: String? = "",
         @SerializedName("Authorized Middle initial")
-        val authorizedMiddleInitial: String?,
+        var authorizedMiddleInitial: String? = "",
         @SerializedName("country_code")
-        val countryCode: String?,
+        var countryCode: String? = "",
         @SerializedName("Electric Account Number")
-        val electricAccountNumber: String?,
+        var electricAccountNumber: String? = "",
         @SerializedName("ElectricBillingAddress")
-        val electricBillingAddress: String?,
+        var electricBillingAddress: String? = "",
         @SerializedName("ElectricBillingAddress2")
-        val electricBillingAddress2: String?,
+        var electricBillingAddress2: String? = "",
         @SerializedName("ElectricBillingCity")
-        val electricBillingCity: String?,
+        var electricBillingCity: String? = "",
         @SerializedName("Electric Billing First name")
-        val electricBillingFirstName: String?,
+        var electricBillingFirstName: String? = "",
         @SerializedName("Electric Billing Last name")
-        val electricBillingLastName: String?,
+        var electricBillingLastName: String? = "",
         @SerializedName("Electric Billing Middle initial")
-        val electricBillingMiddleInitial: String?,
+        var electricBillingMiddleInitial: String? = "",
         @SerializedName("ElectricBillingState")
-        val electricBillingState: String?,
+        var electricBillingState: String? = "",
         @SerializedName("ElectricBillingZip")
-        val electricBillingZip: String?,
+        var electricBillingZip: String? = "",
         @SerializedName("Email")
-        val email: String?,
+        var email: String? = "",
         @SerializedName("Gas Account Number")
-        val gasAccountNumber: String?,
+        var gasAccountNumber: String? = "",
         @SerializedName("Gas auth relationship")
-        val gasAuthRelationship: String?,
+        var gasAuthRelationship: String? = "",
         @SerializedName("GasBillingAddress")
-        val gasBillingAddress: String?,
+        var gasBillingAddress: String? = "",
         @SerializedName("GasBillingAddress2")
-        val gasBillingAddress2: String?,
+        var gasBillingAddress2: String? = "",
         @SerializedName("GasBillingCity")
-        val gasBillingCity: String?,
+        var gasBillingCity: String? = "",
         @SerializedName("Gas Billing First name")
-        val gasBillingFirstName: String?,
+        var gasBillingFirstName: String? = "",
         @SerializedName("Gas Billing Last name")
-        val gasBillingLastName: String?,
+        var gasBillingLastName: String? = "",
         @SerializedName("Gas Billing Middle initial")
-        val gasBillingMiddleInitial: String?,
+        var gasBillingMiddleInitial: String? = "",
         @SerializedName("GasBillingState")
-        val gasBillingState: String?,
+        var gasBillingState: String? = "",
         @SerializedName("GasBillingZip")
-        val gasBillingZip: String?,
+        var gasBillingZip: String? = "",
         @SerializedName("GasServiceAddress")
-        val gasServiceAddress: String?,
+        var gasServiceAddress: String? = "",
         @SerializedName("GasServiceAddress2")
-        val gasServiceAddress2: String?,
+        var gasServiceAddress2: String? = "",
         @SerializedName("GasServiceCity")
-        val gasServiceCity: String?,
+        var gasServiceCity: String? = "",
         @SerializedName("GasServiceState")
-        val gasServiceState: String?,
+        var gasServiceState: String? = "",
         @SerializedName("GasServiceZip")
-        val gasServiceZip: String?,
+        var gasServiceZip: String? = "",
         @SerializedName("Is the billing address the same as the service address")
-        val isTheBillingAddressTheSameAsTheServiceAddress: String?,
+        var isTheBillingAddressTheSameAsTheServiceAddress: String? = "",
         @SerializedName("Phone Number")
-        val phoneNumber: String?,
+        var phoneNumber: String? = "",
         @SerializedName("ServiceAddress")
-        val serviceAddress: String?,
+        var serviceAddress: String? = "",
         @SerializedName("ServiceAddress2")
-        val serviceAddress2: String?,
+        var serviceAddress2: String? = "",
         @SerializedName("ServiceCity")
-        val serviceCity: String?,
+        var serviceCity: String? = "",
         @SerializedName("ServiceState")
-        val serviceState: String?,
+        var serviceState: String? = "",
         @SerializedName("ServiceZip")
-        val serviceZip: String?,
+        var serviceZip: String? = "",
         @SerializedName("BillingAddress")
-        val billingAddress: String?,
+        var billingAddress: String? = "",
         @SerializedName("BillingAddress2")
-        val billingAddress2: String?,
+        var billingAddress2: String? = "",
         @SerializedName("Relationship")
-        val relationShip: String?,
+        var relationShip: String? = "",
         @SerializedName("BillingZip")
-        val billingZip: String?,
+        var billingZip: String? = "",
         @SerializedName("BillingCity")
-        val billingCity: String?,
+        var billingCity: String? = "",
         @SerializedName("BillingState")
-        val billingState: String?,
+        var billingState: String? = "",
         @SerializedName("Billing First name")
-        val billingFirstName: String?,
+        var billingFirstName: String? = "",
         @SerializedName("Billing Middle initial")
-        val billingMiddleInitial: String?,
+        var billingMiddleInitial: String? = "",
         @SerializedName("Billing Last name")
-        val billingLastName: String?,
+        var billingLastName: String? = "",
         @SerializedName("Account Number")
-        val accountNumber: String?
+        var accountNumber: String? = ""
 
 )
