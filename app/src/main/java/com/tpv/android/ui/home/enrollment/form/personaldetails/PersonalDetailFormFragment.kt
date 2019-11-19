@@ -27,7 +27,7 @@ class PersonalDetailFormFragment : Fragment() {
 
     private lateinit var mBinding: FragmentPersonalDetailFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
-
+    private var relationShipList = arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_personal_detail_form, container, false)
@@ -41,8 +41,13 @@ class PersonalDetailFormFragment : Fragment() {
 
         setupToolbar(mBinding.toolbar, getString(R.string.personal_data), showBackIcon = true)
 
-        mBinding.spinnerRelationShip.setItems(arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango"))
+        mBinding.item = mViewModel.serviceDetail
+
+        mBinding.spinnerRelationShip.setItems(relationShipList)
         mBinding.spinnerCountryCode.setItems(arrayListOf("+1"))
+
+        mBinding.spinnerRelationShip.setSelection(relationShipList.indexOf(mViewModel.serviceDetail.relationShip))
+
 
         mBinding.btnNext.onClick {
             hideKeyboard()
@@ -63,6 +68,7 @@ class PersonalDetailFormFragment : Fragment() {
         mViewModel.serviceDetail.apply {
             if (mViewModel.planType == Plan.DUALFUEL.value) {
                 gasAuthRelationship = mBinding.spinnerRelationShip.selectedItem.toString()
+                relationShip = mBinding.spinnerRelationShip.selectedItem.toString()
             } else {
                 relationShip = mBinding.spinnerRelationShip.selectedItem.toString()
             }
