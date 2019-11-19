@@ -41,6 +41,8 @@ class GasDetailFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
+        mBinding.item = mViewModel.serviceDetail
+
         mBinding.checkBoxYes?.onClick {
             mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
             mBinding.editServiceZipCode.value = mBinding.editZipCode.value

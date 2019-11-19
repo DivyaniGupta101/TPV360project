@@ -14,6 +14,10 @@
             type="SetEnrollViewModel" />
 
         <variable
+            name="item"
+            type="com.tpv.android.model.ServiceDetail" />
+
+        <variable
             name="plan"
             type="Plan" />
 
@@ -65,7 +69,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingFirstName"
-                            style="@style/DefaultEditText" />
+                            style="@style/DefaultEditText"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingFirstName : item.billingFirstName }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +86,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingMiddleName"
-                            style="@style/DefaultEditText" />
+                            style="@style/DefaultEditText"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingMiddleInitial : item.billingMiddleInitial }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +103,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingLastName"
-                            style="@style/DefaultEditText" />
+                            style="@style/DefaultEditText"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingLastName : item.billingLastName }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,7 +118,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingAddress"
-                            style="@style/SquareBorderEditText" />
+                            style="@style/SquareBorderEditText"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingAddress : item.billingAddress }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,7 +136,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editZipCode"
                             style="@style/DefaultEditText"
-                            android:inputType="phone" />
+                            android:inputType="phone"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingZip : item.billingZip }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -147,11 +156,13 @@
                             android:id="@+id/checkBoxYes"
                             style="@style/CheckBoxButton"
                             android:layout_marginStart="0dp"
+                            android:checked="@{item.isTheBillingAddressTheSameAsTheServiceAddress() == @string/yes ? true : false}"
                             android:text="@string/yes" />
 
                         <CheckBox
                             android:id="@+id/checkBoxNo"
                             style="@style/CheckBoxButton"
+                            android:checked="@{item.isTheBillingAddressTheSameAsTheServiceAddress() == @string/no ? true : false}"
                             android:text="@string/no"
                             tools:checked="true" />
                     </LinearLayout>
@@ -166,7 +177,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceAddress"
-                            style="@style/SquareBorderEditText" />
+                            style="@style/SquareBorderEditText"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasServiceAddress : item.serviceAddress }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -183,7 +195,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceZipCode"
                             style="@style/DefaultEditText"
-                            android:inputType="phone"/>
+                            android:inputType="phone"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasServiceZip : item.serviceZip }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -200,7 +213,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editAccountNumber"
                             style="@style/DefaultEditText"
-                            android:inputType="phone" />
+                            android:inputType="phone"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasAccountNumber : item.accountNumber }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
