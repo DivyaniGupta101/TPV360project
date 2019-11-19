@@ -142,7 +142,7 @@
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/editPhoneNumber"
                                     style="@style/DefaultEditText"
-                                    android:inputType="textEmailAddress"
+                                    android:inputType="phone"
                                     android:maxLength="10"
                                     android:paddingEnd="52dp" />
 

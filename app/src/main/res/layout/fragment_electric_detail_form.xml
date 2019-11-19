@@ -126,7 +126,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editZipCode"
-                            style="@style/DefaultEditText" />
+                            style="@style/DefaultEditText"
+                            android:inputType="phone"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -180,7 +181,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceZipCode"
-                            style="@style/DefaultEditText" />
+                            style="@style/DefaultEditText"
+                            android:inputType="phone"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
