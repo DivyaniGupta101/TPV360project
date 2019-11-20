@@ -12,28 +12,12 @@
         <item name="android:fontFamily">@font/montserrat_regular</item>
     </style>
 
-    <style name="SecondaryNormalText" parent="PrimaryNormalText">
-        <item name="android:textColor">@color/colorSecondaryText</item>
-    </style>
-
-
-    <!-- Regular Bold-->
-    <style name="PrimaryBoldText" parent="PrimaryNormalText">
-        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
-    </style>
-
-    <style name="SecondaryBoldText" parent="SecondaryNormalText">
-        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
-
-    </style>
-
 
     <!--    Big Bold-->
     <style name="PrimaryBigBoldText" parent="PrimaryBoldText">
         <item name="android:textSize">@dimen/_20sdp</item>
         <item name="android:textColor">@color/colorBlack</item>
     </style>
-
 
 
     <!--    Medium Bold-->
@@ -43,7 +27,6 @@
     </style>
 
 
-
     <!--    Small Normal-->
     <style name="PrimaryNormalSmallText" parent="PrimaryNormalText">
         <item name="android:textSize">@dimen/_6sdp</item>
@@ -51,14 +34,6 @@
 
     <style name="SecondaryNormalSmallText" parent="SecondaryNormalText">
         <item name="android:textSize">@dimen/_6sdp</item>
-    </style>
-
-
-    <!--    EditText-->
-    <style name="DefaultEditText" parent="PrimaryNormalText">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:inputType">text|textCapSentences|textMultiLine</item>
     </style>
 
 

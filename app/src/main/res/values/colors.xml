@@ -31,6 +31,7 @@
     <!--    TextColor-->
     <color name="colorPrimaryText">@color/colorBlack</color>
     <color name="colorSecondaryText">@color/colorGray</color>
+    <color name="colorSecondaryLighText">@color/colorLightBlack</color>
     <color name="colorButtonText">@color/colorWhite</color>
     <color name="colorPendingText">@color/colorYellow</color>
     <color name="colorVerifiedText">@color/colorGreen</color>

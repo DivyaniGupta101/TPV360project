@@ -19,37 +19,6 @@
     </style>
 
 
-    <!--Dialog-->
-    <style name="DialogButton" parent="ButtonPrimary">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:paddingTop">@dimen/_8sdp</item>
-        <item name="android:paddingBottom">@dimen/_8sdp</item>
-        <item name="android:layout_marginBottom">0dp</item>
-    </style>
-
-    <style name="DialogCancelButton" parent="DialogButton">
-        <item name="android:background">@drawable/bg_rectangle_border</item>
-        <item name="android:textColor">@color/colorCancelButtonBorder</item>
-    </style>
-
-
-    <!-- Divider-->
-    <style name="Divider">
-        <item name="android:layout_width">1dp</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/colorDivider</item>
-    </style>
-
-    <style name="DividerPrimary">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">@dimen/_2sdp</item>
-        <item name="android:background">@color/colorPlansDivider</item>
-        <item name="android:layout_marginStart">@dimen/_16sdp</item>
-        <item name="android:layout_marginEnd">@dimen/_16sdp</item>
-    </style>
-
-
     <!--    Toolbar-->
     <style name="ToolbarImage">
         <item name="android:layout_width">@dimen/_28sdp</item>
@@ -66,34 +35,11 @@
         <item name="android:layout_height">@dimen/_58sdp</item>
     </style>
 
-    <style name="DashboardLeadText" parent="SecondaryNormalSmallText">
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="DashboardItem">
-        <item name="android:layout_weight">1</item>
-        <item name="android:background">?selectableItemBackground</item>
-        <item name="android:gravity">center</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:padding">@dimen/_24sdp</item>
-    </style>
-
 
     <!--SlideMenuItem-->
-    <style name="SlideMenuItemImage">
-        <item name="android:layout_height">@dimen/_16sdp</item>
-        <item name="android:layout_width">@dimen/_16sdp</item>
-        <item name="android:layout_marginStart">@dimen/_16sdp</item>
-    </style>
-
     <style name="SlideMenuItemProfileImage">
         <item name="android:layout_width">@dimen/_40sdp</item>
         <item name="android:layout_height">@dimen/_40sdp</item>
-    </style>
-
-    <style name="SlideMenuItemText" parent="PrimaryNormalText">
-        <item name="android:layout_weight">1</item>
-        <item name="android:layout_marginStart">@dimen/_16sdp</item>
     </style>
 
 
@@ -114,29 +60,4 @@
     </style>
 
 
-    <style name="SecondaryNormalTextWithTopSpacing" parent="SecondaryNormalText">
-        <item name="android:layout_marginTop">@dimen/_8sdp</item>
-    </style>
-
-
-    <!--    Details Forms-->
-    <style name="CheckBoxButton" parent="PrimaryNormalText">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/_16sdp</item>
-    </style>
-
-    <style name="SquareBorderEditText" parent="DefaultEditText">
-        <item name="android:layout_height">@dimen/_40sdp</item>
-        <item name="android:background">@null</item>
-        <item name="android:gravity">top</item>
-    </style>
-
-    <style name="SquareBorderTextInputLayout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/_8sdp</item>
-        <item name="android:background">@drawable/square_gray_border</item>
-        <item name="android:inputType">text</item>
-    </style>
 </resources>

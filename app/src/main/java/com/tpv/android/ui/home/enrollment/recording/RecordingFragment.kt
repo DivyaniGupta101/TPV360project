@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
@@ -31,6 +32,7 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 import com.tpv.android.utils.toMultipartBody
 import com.tpv.android.utils.toRequestBody
@@ -48,7 +50,7 @@ class RecordingFragment : Fragment() {
     private lateinit var mViewModel: RecordingViewModel
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private var myAudioRecorder: MediaRecorder = MediaRecorder()
-    private var outputFile: String? = null
+    private var recordedFile: String? = null
     private var mediaPlayer: MediaPlayer = MediaPlayer()
     var initialTime = 0L
     var isAudioPause: Boolean = false
@@ -74,12 +76,17 @@ class RecordingFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, showSkipText = true, skipTextClickListener = {
-            confirmationDialogForSkip()
+            if (recordedFile.isNullOrEmpty()) {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_satementFragment)
+            } else {
+                confirmationDialogForSkip()
+            }
+
         })
 
         mBinding.btnNext.onClick {
-            if (outputFile.isNullOrEmpty()) {
-                toastNow("NextPage")
+            if (recordedFile.isNullOrEmpty()) {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_satementFragment)
             } else {
                 saveRecordingCall()
             }
@@ -130,13 +137,13 @@ class RecordingFragment : Fragment() {
     }
 
     private fun saveRecordingCall() {
-        Log.d("RecordingFragment", "$outputFile")
-        val audioFile = File(outputFile)
+        Log.d("RecordingFragment", "$recordedFile")
+        val audioFile = File(recordedFile)
         val requestFile = RequestBody.create(MediaType.parse("audio/*"), audioFile)
 
 
         val liveData =
-                File(outputFile).toMultipartBody("media", "audio/*")?.let {
+                File(recordedFile).toMultipartBody("media", "audio/*")?.let {
                     mViewModel.saveRecording(mSetEnrollViewModel.savedLeadDetail?.id.toString().toRequestBody(),
                             it)
                 }
@@ -161,11 +168,11 @@ class RecordingFragment : Fragment() {
 
             val folder = File(context?.filesDir?.absolutePath + "/recordings")
             folder.mkdirs()
-            outputFile = folder.absolutePath + "/recording.mp3"
+            recordedFile = folder.absolutePath + "/recording.mp3"
             myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
             myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
             myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)
-            myAudioRecorder.setOutputFile(outputFile)
+            myAudioRecorder.setOutputFile(recordedFile)
 
 
             myAudioRecorder.prepare()
@@ -206,7 +213,7 @@ class RecordingFragment : Fragment() {
                 mediaPlayer.start()
             } else {
                 mediaPlayer.reset()
-                mediaPlayer.setDataSource(outputFile)
+                mediaPlayer.setDataSource(recordedFile)
                 mediaPlayer.prepare()
                 mediaPlayer.start()
             }
@@ -305,7 +312,7 @@ class RecordingFragment : Fragment() {
             dialog?.dismiss()
         }
         binding?.btnYes?.onClick {
-            toastNow("next page")
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_satementFragment)
         }
 
     }

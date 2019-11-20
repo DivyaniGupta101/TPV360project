@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.ServiceDetail" />
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_16sdp">
+
+                <TextView
+                    style="@style/PrimaryBoldText"
+                    android:text="@string/contract_detail"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorTertiaryText" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_12sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/SecondaryNormalSmallText"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/account_holder_name" />
+
+                        <TextView
+                            style="@style/PrimaryBoldText"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@{item.authorizedFirstName+ ' '+item.authorizedMiddleInitial +' '+ item.authorizedLastName}"
+                            tools:text="smithan michel" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/SecondaryNormalSmallText"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/phone_number" />
+
+                        <TextView
+                            style="@style/PrimaryBoldText"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@{item.phoneNumber}"
+                            tools:text="smithan michel" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/SecondaryNormalText"
+                    android:text="@string/msg_statement" />
+
+                <CheckBox
+                    style="@style/SecondaryLightNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:text="@string/msg_agree_statement" />
+
+
+                <TextView
+                    style="@style/PrimaryNormalText"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:text="@string/signature" />
+
+                <TextView
+                    android:id="@+id/btnNext"
+                    style="@style/ButtonPrimary"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:text="@string/next" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

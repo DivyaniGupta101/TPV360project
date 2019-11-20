@@ -166,7 +166,15 @@
         app:exitAnim="@anim/fragment_fade_exit"
         app:popEnterAnim="@anim/fragment_fade_enter"
         app:popExitAnim="@anim/fragment_fade_exit"
-        tools:layout="@layout/fragment_recording" />
+        tools:layout="@layout/fragment_recording">
+        <action
+            android:id="@+id/action_recordingFragment_to_satementFragment"
+            app:destination="@id/satementFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
     <fragment
         android:id="@+id/personalDetailFormFragment"
         android:name="com.tpv.android.ui.home.enrollment.form.personaldetails.PersonalDetailFormFragment"
@@ -187,5 +195,9 @@
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
+    <fragment
+        android:id="@+id/satementFragment"
+        android:name="com.tpv.android.ui.home.enrollment.statement.SatementFragment"
+        android:label="SatementFragment" />
 
 </navigation>
