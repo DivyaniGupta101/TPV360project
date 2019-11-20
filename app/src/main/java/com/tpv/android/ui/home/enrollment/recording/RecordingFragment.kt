@@ -73,7 +73,9 @@ class RecordingFragment : Fragment() {
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
-        setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, showSkipText = true)
+        setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, showSkipText = true, skipTextClickListener = {
+            confirmationDialogForSkip()
+        })
 
         mBinding.btnNext.onClick {
             if (outputFile.isNullOrEmpty()) {
@@ -123,7 +125,7 @@ class RecordingFragment : Fragment() {
         }
 
         mBinding.recordAgainContainer.onClick {
-            confirmationDialog()
+            confirmationDialogForReRecord()
         }
     }
 
@@ -263,7 +265,7 @@ class RecordingFragment : Fragment() {
     }
 
 
-    private fun confirmationDialog() {
+    private fun confirmationDialogForReRecord() {
         val binding = DataBindingUtil.inflate<DialogLogoutBinding>(layoutInflater, R.layout.dialog_logout, null, false)
         val dialog = context?.let { AlertDialog.Builder(it) }
                 ?.setView(binding.root)?.show()
@@ -282,6 +284,28 @@ class RecordingFragment : Fragment() {
             myAudioRecorder = MediaRecorder()
             handleRecordStart()
             dialog?.dismiss()
+        }
+
+    }
+
+
+    private fun confirmationDialogForSkip() {
+        val binding = DataBindingUtil.inflate<DialogLogoutBinding>(layoutInflater, R.layout.dialog_logout, null, false)
+        val dialog = context?.let { AlertDialog.Builder(it) }
+                ?.setView(binding.root)?.show()
+
+        binding.item = DialogText(getString(R.string.are_you_sure),
+                getString(R.string.msg_skip),
+                getString(R.string.yes),
+                getString(R.string.cancel))
+
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        binding?.btnCancel?.onClick {
+            dialog?.dismiss()
+        }
+        binding?.btnYes?.onClick {
+            toastNow("next page")
         }
 
     }

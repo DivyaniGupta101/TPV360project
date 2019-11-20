@@ -112,4 +112,5 @@
     <string name="personal_data">Personal Data</string>
     <string name="gas">Gas</string>
     <string name="electric">Electric</string>
+    <string name="msg_skip">If you skip, then your recording will be deleted</string>
 </resources>
