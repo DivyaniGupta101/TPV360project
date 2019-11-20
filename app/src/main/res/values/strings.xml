@@ -119,4 +119,10 @@
     <string name="account_holder_name">Account Holder Name</string>
     <string name="statement">Statement</string>
     <string name="signature">Signature</string>
+    <string name="thank_you">Thank You!</string>
+    <string name="your_reference_id">Your Reference ID:</string>
+    <string name="self_verification">Self - Verification</string>
+    <string name="phone">Phone</string>
+    <string name="back_to_dashboard">Back to Dashboard</string>
+    <string name="success">Success</string>
 </resources>
