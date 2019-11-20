@@ -11,6 +11,8 @@
 
         <import type="com.tpv.android.network.resources.apierror.APIError" />
 
+        <import type="com.tpv.android.R" />
+
         <variable
             name="resource"
             type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
@@ -23,7 +25,6 @@
             name="item"
             type="com.tpv.android.model.ServiceDetail" />
 
-        <import type="com.tpv.android.R" />
 
     </data>
 

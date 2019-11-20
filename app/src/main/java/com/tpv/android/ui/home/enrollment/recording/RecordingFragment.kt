@@ -7,12 +7,17 @@ import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
@@ -21,7 +26,16 @@ import com.tpv.android.R
 import com.tpv.android.databinding.DialogLogoutBinding
 import com.tpv.android.databinding.FragmentRecordingBinding
 import com.tpv.android.model.DialogText
+import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.setupToolbar
+import com.tpv.android.utils.toRequestBody
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
 
 
@@ -31,6 +45,8 @@ import java.io.File
 class RecordingFragment : Fragment() {
 
     private lateinit var mBinding: FragmentRecordingBinding
+    private lateinit var mViewModel: RecordingViewModel
+    private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private var myAudioRecorder: MediaRecorder = MediaRecorder()
     private var outputFile: String? = null
     private var mediaPlayer: MediaPlayer = MediaPlayer()
@@ -46,12 +62,27 @@ class RecordingFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_recording, container, false)
+        mBinding.lifecycleOwner = this
+        mViewModel = ViewModelProviders.of(this).get(RecordingViewModel::class.java)
+        activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+
         setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, showSkipText = true)
+
+        mBinding.btnNext.onClick {
+            if (outputFile.isNullOrEmpty()) {
+                toastNow("NextPage")
+            } else {
+                saveRecordingCall()
+            }
+
+        }
 
 
         handleImages(RECORD_START)
@@ -94,6 +125,26 @@ class RecordingFragment : Fragment() {
         mBinding.recordAgainContainer.onClick {
             confirmationDialog()
         }
+    }
+
+    private fun saveRecordingCall() {
+        Log.d("RecordingFragment", "$outputFile")
+        val audioFile = File(outputFile)
+        val requestFile = RequestBody.create(MediaType.parse("audio/*"), audioFile)
+
+
+        val liveData =
+                mViewModel.saveRecording(mSetEnrollViewModel.savedLeadDetail?.id.toString().toRequestBody(),
+                        MultipartBody.Part.createFormData("media", audioFile.getName(), requestFile))
+
+
+        liveData.observe(this, Observer {
+            it?.ifSuccess {
+                toastNow("Done")
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
 

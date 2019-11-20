@@ -13,6 +13,10 @@ import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.databinding.ToolbarBinding
 import com.tpv.android.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.toolbar.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 
 fun Fragment.setupToolbar(
@@ -135,4 +139,17 @@ fun NavController.navigateSafe(
         Log.e("TAG", e.message)
         e.printStackTrace()
     }
+}
+
+
+fun String?.toRequestBody() =
+        RequestBody.create(MultipartBody.FORM, this ?: "")
+
+fun File?.toMultipartBody(name: String): MultipartBody.Part? {
+    this ?: return null
+    return MultipartBody.Part.createFormData(
+            name,
+            this.name,
+            RequestBody.create(MediaType.parse("audio/*"), this)
+    )
 }

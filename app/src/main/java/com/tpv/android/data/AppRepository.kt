@@ -12,6 +12,9 @@ import com.tpv.android.network.resources.dataproviders.paginatedDataApi
 import com.tpv.android.network.resources.getResult
 import com.tpv.android.network.resources.map
 import kotlinx.coroutines.CoroutineScope
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 
 
 object AppRepository {
@@ -26,7 +29,7 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.getDashBoardCall() = dataApi<List<DashboardResp>, APIError> {
+    fun CoroutineScope.getDashBoardCall() = dataApi<List<Dashboard>, APIError> {
         fromNetwork {
             ApiClient.service.getDashboardDetail().getResult().map { it?.data.orEmpty() }
         }
@@ -90,6 +93,12 @@ object AppRepository {
     fun CoroutineScope.saveLeadDetailCall(saveLeadsDetailReq: SaveLeadsDetailReq) = dataApi<SaveLeadsDetailResp?, APIError> {
         fromNetwork {
             ApiClient.service.saveLeadDetail(saveLeadsDetailReq).getResult().map { it?.data }
+        }
+    }
+
+    fun CoroutineScope.saveRecordingcall(leadId: RequestBody, mediaFile: MultipartBody.Part) = dataApi<RecordingResp?, APIError> {
+        fromNetwork {
+            ApiClient.service.saveRecording(leadid = leadId, mediaFile = mediaFile).getResult().map { it?.data }
         }
     }
 

@@ -122,6 +122,7 @@ class ClientInfoFragment : Fragment() {
 
         mLiveDataResource?.observe(this, Observer {
             it?.ifSuccess {
+                mSetEnrollViewModel.savedLeadDetail = it
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_recordingFragment)
             }
         })

@@ -21,7 +21,7 @@ interface ApiInterface {
     fun getProfile(): Call<CommonResponse<UserDetail>>
 
     @POST("dashboard")
-    fun getDashboardDetail(): Call<CommonResponse<List<DashboardResp>>>
+    fun getDashboardDetail(): Call<CommonResponse<List<Dashboard>>>
 
 
     @POST("zipautocomplete")
@@ -45,7 +45,7 @@ interface ApiInterface {
 
     @Multipart
     @POST("leadmedia")
-    fun leadMedia(@Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<CommonResponse<Unit>>
+    fun saveRecording(@Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<CommonResponse<RecordingResp>>
 
 
     @POST("saveleaddata")

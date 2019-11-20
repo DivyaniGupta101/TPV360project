@@ -2,7 +2,7 @@ package com.tpv.android.model
 
 import com.google.gson.annotations.SerializedName
 
-data class DashboardResp(
+data class Dashboard(
         @SerializedName("status")
         var status: String?,
         @SerializedName("value")
