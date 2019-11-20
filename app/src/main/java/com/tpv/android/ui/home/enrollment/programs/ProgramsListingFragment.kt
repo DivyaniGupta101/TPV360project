@@ -17,7 +17,6 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentProgramsListingBinding
 import com.tpv.android.databinding.ItemProgramsBinding
-import com.tpv.android.model.ProgramsReq
 import com.tpv.android.model.ProgramsResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -95,24 +94,18 @@ class ProgramsListingFragment : Fragment() {
     }
 
     private fun getProgramsApi() {
-        mList.clear()
-        mSetEnrollViewModel.utilitiesList.forEach { utilityResp ->
 
-            val liveData = mViewModel.getPrograms(ProgramsReq(utilityResp?.utid.toString()))
-            liveData.observe(this, Observer {
-                it.ifSuccess {
-                    mList.add(utilityResp?.commodity + " " + getString(R.string.programs))
-                    it?.forEach { programResp ->
-                        programResp.utilityType = utilityResp?.commodity
-                    }
-                    mList.addAll(it.orEmpty())
-                    setRecyclerView()
-                }
-            })
+        val liveData = mViewModel.getPrograms(mSetEnrollViewModel.utilitiesList)
 
-            mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+        liveData.observe(this, Observer {
+            it.ifSuccess {
+                mList.clear()
+                mList.addAll(it.orEmpty())
+                setRecyclerView()
+            }
+        })
 
-        }
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     private fun setRecyclerView() {

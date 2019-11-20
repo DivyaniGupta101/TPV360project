@@ -6,15 +6,17 @@ import com.tpv.android.helper.Pref
 import com.tpv.android.model.*
 import com.tpv.android.network.ApiClient
 import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.Result
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.dataproviders.dataApi
 import com.tpv.android.network.resources.dataproviders.paginatedDataApi
 import com.tpv.android.network.resources.getResult
 import com.tpv.android.network.resources.map
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 
 
 object AppRepository {
@@ -84,9 +86,51 @@ object AppRepository {
     }
 
 
-    fun CoroutineScope.getProgramsCall(programsReq: ProgramsReq) = dataApi<List<ProgramsResp>, APIError> {
+    fun CoroutineScope.getProgramsCall(utilityList: ArrayList<UtilityResp>) = dataApi<List<Any>, APIError> {
+
+
         fromNetwork {
-            ApiClient.service.getPrograms(programsReq).getResult().map { it?.data.orEmpty() }
+            val deferredResultList = arrayListOf<Deferred<Result<CommonResponse<List<ProgramsResp>>, APIError>>>()
+
+            // make all the API calls and store the deffered response in the array list
+            utilityList.forEach {
+                val result = async {
+                    ApiClient.service.getPrograms(ProgramsReq(it.utid.toString())).getResult()
+                }
+                deferredResultList.add(result)
+            }
+
+            // this will be the result array containg all the response result
+            val result = arrayListOf<Any>()
+
+            // this list stores the response result -> success / failure
+            val resultStatuses = arrayListOf<Result<*, APIError>>()
+
+
+            // loop through all the deffered array and add all of them one by to the response list
+            deferredResultList.forEachIndexed { index, deferred ->
+
+                // get the deferred result
+                val response = deferred.await()
+
+                // add the labels and result
+                response.map {
+                    it?.data?.map {
+                        it.utilityType = utilityList.get(index).commodity
+                    }
+                    result.add(utilityList.get(index).commodity + " Programs")
+                    result.addAll(it?.data.orEmpty())
+                }
+
+                resultStatuses.add(response)
+            }
+
+            // get the final result state based on the combined state
+            if (Result.allSuccess(*resultStatuses.toTypedArray())) {
+                Result.success(result)
+            } else {
+                Result.getFailures(*resultStatuses.toTypedArray()).first() as Result<List<Any>, APIError>
+            }
         }
     }
 
