@@ -145,11 +145,11 @@ fun NavController.navigateSafe(
 fun String?.toRequestBody() =
         RequestBody.create(MultipartBody.FORM, this ?: "")
 
-fun File?.toMultipartBody(name: String): MultipartBody.Part? {
+fun File?.toMultipartBody(name: String,type:String): MultipartBody.Part? {
     this ?: return null
     return MultipartBody.Part.createFormData(
             name,
             this.name,
-            RequestBody.create(MediaType.parse("audio/*"), this)
+            RequestBody.create(MediaType.parse(type), this)
     )
 }

@@ -32,9 +32,9 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.setupToolbar
+import com.tpv.android.utils.toMultipartBody
 import com.tpv.android.utils.toRequestBody
 import okhttp3.MediaType
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
@@ -134,11 +134,13 @@ class RecordingFragment : Fragment() {
 
 
         val liveData =
-                mViewModel.saveRecording(mSetEnrollViewModel.savedLeadDetail?.id.toString().toRequestBody(),
-                        MultipartBody.Part.createFormData("media", audioFile.getName(), requestFile))
+                File(outputFile).toMultipartBody("media", "audio/*")?.let {
+                    mViewModel.saveRecording(mSetEnrollViewModel.savedLeadDetail?.id.toString().toRequestBody(),
+                            it)
+                }
 
 
-        liveData.observe(this, Observer {
+        liveData?.observe(this, Observer {
             it?.ifSuccess {
                 toastNow("Done")
             }
@@ -157,7 +159,7 @@ class RecordingFragment : Fragment() {
 
             val folder = File(context?.filesDir?.absolutePath + "/recordings")
             folder.mkdirs()
-            outputFile = folder.absolutePath + "/recording.3gp"
+            outputFile = folder.absolutePath + "/recording.mp3"
             myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
             myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
             myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)
