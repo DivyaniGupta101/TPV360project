@@ -7,9 +7,11 @@ import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -48,7 +50,8 @@ class RecordingFragment : Fragment() {
     private var myAudioRecorder: MediaRecorder = MediaRecorder()
     private var recordedFile: String? = null
     private var mediaPlayer: MediaPlayer = MediaPlayer()
-    var initialTime = 0L
+    var lastPaused = 0L
+    var audioTime = 0L
     var isAudioPause: Boolean = false
     var AUDIO_START = 0
     var AUDIO_STOP = 1
@@ -82,7 +85,7 @@ class RecordingFragment : Fragment() {
 
         mBinding.btnNext.onClick {
             if (recordedFile.isNullOrEmpty()) {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
+                Navigation.findNavController(mBinding.root).navigateSafe(com.tpv.android.R.id.action_recordingFragment_to_statementFragment)
             } else {
                 saveRecordingCall()
             }
@@ -90,11 +93,40 @@ class RecordingFragment : Fragment() {
         }
 
 
+        mBinding.chronometer.setOnChronometerTickListener {
+            if (mediaPlayer.isPlaying || isAudioPause) {
+                val mCurrentPosition = mediaPlayer.currentPosition / 1000
+                mBinding.seekbarAudio.progress = mCurrentPosition + 1
+            }
+        }
+
+
+        mBinding.seekbarAudio.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    seekBar?.progress?.let { mediaPlayer.seekTo(it) }
+                    mBinding.chronometer.stop()
+                    mBinding.chronometer.base -= progress / 1000
+                    mBinding.chronometer.start()
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
+
         handleImages(RECORD_START)
+
+        mBinding.recordAgainContainer.hide()
 
         mediaPlayer.setOnCompletionListener {
             mediaPlayer.stop()
             isAudioPause = false
+//            mBinding.seekbarAudio.progress = mBinding.seekbarAudio.max
+            mBinding.chronometer.stop()
             handleImages(AUDIO_START)
         }
 
@@ -112,19 +144,8 @@ class RecordingFragment : Fragment() {
             handleAudioStart()
         }
 
-
         mBinding.audioStopImage?.onClick {
             handleAudioPause()
-        }
-
-        mBinding.chronometer.setOnChronometerTickListener {
-            val now = System.currentTimeMillis()
-            val diff = now - initialTime
-            val minutes = diff / (60 * 1000)
-            val seconds = (diff / 1000) % 60
-
-            mBinding.textTimer.text = String.format("%02d:%02d", minutes, seconds) //"${minutes}:${seconds}"
-
         }
 
         mBinding.recordAgainContainer.onClick {
@@ -170,8 +191,8 @@ class RecordingFragment : Fragment() {
             myAudioRecorder.prepare()
             myAudioRecorder.start()
 
-            initialTime = System.currentTimeMillis()
-
+            mBinding.chronometer.base = SystemClock.elapsedRealtime()
+            audioTime = mBinding.chronometer.base
             mBinding.chronometer.start()
             handleImages(RECORD_STOP)
 
@@ -187,6 +208,8 @@ class RecordingFragment : Fragment() {
         myAudioRecorder.release()
 
         mBinding.chronometer.stop()
+        audioTime = audioTime - SystemClock.elapsedRealtime()
+        mBinding.seekbarAudio.max = Math.abs(audioTime / 1000).toInt()
 
         handleImages(AUDIO_START)
     }
@@ -199,15 +222,21 @@ class RecordingFragment : Fragment() {
      */
     private fun handleAudioStart() {
         try {
+
             handleImages(AUDIO_STOP)
 
             if (isAudioPause) {
                 mediaPlayer.start()
+                mBinding.chronometer.base = SystemClock.elapsedRealtime() + (mBinding.chronometer.base - lastPaused)
+                mBinding.chronometer.start()
             } else {
+                mBinding.seekbarAudio.progress = -1
                 mediaPlayer.reset()
                 mediaPlayer.setDataSource(recordedFile)
                 mediaPlayer.prepare()
                 mediaPlayer.start()
+                mBinding.chronometer.base = SystemClock.elapsedRealtime()
+                mBinding.chronometer.start()
             }
 
 
@@ -224,6 +253,8 @@ class RecordingFragment : Fragment() {
         try {
             isAudioPause = true
             mediaPlayer.pause()
+            mBinding.chronometer.stop()
+            lastPaused = SystemClock.elapsedRealtime()
             handleImages(AUDIO_START)
 
         } catch (e: Exception) {
@@ -239,17 +270,20 @@ class RecordingFragment : Fragment() {
         mBinding.recordAgainContainer.hide()
         mBinding.graySpeakerImage.hide()
         mBinding.redSpeakerImage.hide()
+        mBinding.seekbarAudio.hide()
 
         when (state) {
             AUDIO_START -> {
                 mBinding.audioStartImage.show()
                 mBinding.recordAgainContainer.show()
                 mBinding.redSpeakerImage.show()
+                mBinding.seekbarAudio.show()
             }
             AUDIO_STOP -> {
                 mBinding.audioStopImage.show()
                 mBinding.recordAgainContainer.show()
                 mBinding.redSpeakerImage.show()
+                mBinding.seekbarAudio.show()
             }
             RECORD_START -> {
                 mBinding.recordStartImage.show()

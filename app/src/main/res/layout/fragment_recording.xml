@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -91,14 +92,19 @@
                     <Chronometer
                         android:id="@+id/chronometer"
                         style="@style/PrimaryMediumBoldText"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/textTimer"
-                        style="@style/PrimaryMediumBoldText"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="@string/start_time" />
+                        android:text="00:00"
+                        android:visibility="visible" />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/seekbarAudio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:min="0"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
                     <FrameLayout
                         android:layout_width="wrap_content"
@@ -164,10 +170,10 @@
 
             <include
                 android:id="@+id/incProgressBar"
+                layout="@layout/progress_bar"
                 app:errorHandler="@{errorHandler}"
                 app:resource="@{resource}"
                 app:useBlockingProgress="@{true}"
-                layout="@layout/progress_bar"
                 tools:visibility="visible" />
         </FrameLayout>
     </LinearLayout>
