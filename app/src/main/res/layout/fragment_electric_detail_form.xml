@@ -145,26 +145,27 @@
                         style="@style/SecondaryNormalTextWithTopSpacing"
                         android:text="@string/billing_address_msg" />
 
-                    <LinearLayout
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:orientation="horizontal">
 
-                        <CheckBox
-                            android:id="@+id/checkBoxYes"
+                        <RadioButton
+                            android:id="@+id/radioYes"
                             style="@style/CheckBoxButton"
                             android:layout_marginStart="0dp"
-                            android:checked="@{item.isTheBillingAddressTheSameAsTheServiceAddress() == @string/yes ? true : false}"
+                            android:checked="@{item.isTheBillingAddressTheSameAsTheServiceAddress().equals(@string/yes) ? true : false}"
                             android:text="@string/yes" />
 
-                        <CheckBox
-                            android:id="@+id/checkBoxNo"
+                        <RadioButton
+                            android:id="@+id/radioNo"
                             style="@style/CheckBoxButton"
-                            android:checked="@{item.isTheBillingAddressTheSameAsTheServiceAddress() == @string/no ? true : false}"
+                            android:checked="@{item.isTheBillingAddressTheSameAsTheServiceAddress().equals(@string/no) ? true : false , default = true}"
                             android:text="@string/no"
                             tools:checked="true" />
-                    </LinearLayout>
+                    </RadioGroup>
 
                     <TextView
                         style="@style/SecondaryNormalTextWithTopSpacing"

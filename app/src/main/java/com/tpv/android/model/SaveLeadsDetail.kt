@@ -93,7 +93,7 @@ data class ServiceDetail(
         @SerializedName("GasServiceZip")
         var gasServiceZip: String? = "",
         @SerializedName("Is the billing address the same as the service address")
-        var isTheBillingAddressTheSameAsTheServiceAddress: String? = "",
+        var isTheBillingAddressTheSameAsTheServiceAddress: String? = "No",
         @SerializedName("Phone Number")
         var phoneNumber: String? = "",
         @SerializedName("ServiceAddress")

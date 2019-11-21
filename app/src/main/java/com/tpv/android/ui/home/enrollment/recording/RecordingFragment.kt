@@ -256,7 +256,7 @@ class RecordingFragment : Fragment() {
                 mBinding.redSpeakerImage.show()
             }
             RECORD_START -> {
-                mBinding.recordStartImatage.show()
+                mBinding.recordStartImage.show()
                 mBinding.recordAgainContainer.show()
                 mBinding.graySpeakerImage.show()
             }

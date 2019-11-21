@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -25,6 +26,7 @@ import com.tpv.android.utils.setupToolbar
 class ElectricDetailFormFragment : Fragment() {
     private lateinit var mBinding: FragmentElectricDetailFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
+    private var mSelectedRadioButton = "No"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,18 +41,22 @@ class ElectricDetailFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
-
         mBinding.item = mViewModel.serviceDetail
 
-        mBinding.checkBoxYes?.onClick {
+        mBinding.radioYes?.onClick {
             mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
             mBinding.editServiceZipCode.value = mBinding.editZipCode.value
         }
 
-        mBinding.checkBoxNo?.onClick {
+        mBinding.radioNo?.onClick {
             mBinding.editServiceAddress.value = ""
             mBinding.editServiceZipCode.value = ""
         }
+
+        mBinding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            mSelectedRadioButton = group.findViewById<RadioButton>(checkedId).text.toString()
+        }
+
 
         mBinding.btnNext.onClick {
             hideKeyboard()
@@ -69,7 +75,7 @@ class ElectricDetailFormFragment : Fragment() {
                     billingLastName = mBinding.editBillingLastName.value
                     billingAddress = mBinding.editBillingAddress.value
                     billingZip = mBinding.editZipCode.value
-                    isTheBillingAddressTheSameAsTheServiceAddress = if (mBinding.checkBoxYes.isChecked) mBinding.checkBoxYes.text.toString() else mBinding.checkBoxNo.text.toString()
+                    isTheBillingAddressTheSameAsTheServiceAddress = mSelectedRadioButton
                     billingAddress2 = ""
                     serviceAddress = mBinding.editServiceAddress.value
                     serviceAddress2 = ""

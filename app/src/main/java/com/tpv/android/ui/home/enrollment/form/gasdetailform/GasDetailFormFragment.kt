@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -25,6 +26,7 @@ import com.tpv.android.utils.setupToolbar
 class GasDetailFormFragment : Fragment() {
     private lateinit var mBinding: FragmentGasDetailFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
+    private var mSelectedRadioButton = "No"
     private var mCountryCodeList = arrayListOf("+1")
 
 
@@ -41,14 +43,20 @@ class GasDetailFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
+
+        mBinding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            mSelectedRadioButton = group.findViewById<RadioButton>(checkedId).text.toString()
+        }
+
+
         mBinding.item = mViewModel.serviceDetail
 
-        mBinding.checkBoxYes?.onClick {
+        mBinding.radioYes?.onClick {
             mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
             mBinding.editServiceZipCode.value = mBinding.editZipCode.value
         }
 
-        mBinding.checkBoxNo?.onClick {
+        mBinding.radioYes?.onClick {
             mBinding.editServiceAddress.value = ""
             mBinding.editServiceZipCode.value = ""
         }
@@ -77,7 +85,7 @@ class GasDetailFormFragment : Fragment() {
                     billingLastName = mBinding.editBillingLastName.value
                     billingAddress = mBinding.editBillingAddress.value
                     billingZip = mBinding.editZipCode.value
-                    isTheBillingAddressTheSameAsTheServiceAddress = if (mBinding.checkBoxYes.isChecked) mBinding.checkBoxYes.text.toString() else mBinding.checkBoxNo.text.toString()
+                    isTheBillingAddressTheSameAsTheServiceAddress = mSelectedRadioButton
                     billingAddress2 = ""
                     serviceAddress = mBinding.editServiceAddress.value
                     serviceAddress2 = ""
@@ -105,7 +113,7 @@ class GasDetailFormFragment : Fragment() {
                     gasServiceZip = mBinding.editServiceZipCode.value
                     gasServiceCity = "Amherst"
                     gasServiceState = "MA"
-                    isTheBillingAddressTheSameAsTheServiceAddress = if (mBinding.checkBoxYes.isChecked) mBinding.checkBoxYes.text.toString() else mBinding.checkBoxNo.text.toString()
+                    isTheBillingAddressTheSameAsTheServiceAddress = mSelectedRadioButton
                     gasAccountNumber = mBinding.editAccountNumber.value
                 }
             }

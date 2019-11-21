@@ -27,7 +27,7 @@ class PersonalDetailFormFragment : Fragment() {
 
     private lateinit var mBinding: FragmentPersonalDetailFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
-    private var relationShipList = arrayListOf("Banana", "Apple", "Cherry", "Kiwi", "Mango")
+    private var relationShipList = arrayListOf("Account Holder", "Spouse", "Power of Attorney", "Family Member", "Other")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_personal_detail_form, container, false)
