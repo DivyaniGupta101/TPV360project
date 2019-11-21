@@ -39,7 +39,7 @@ class PersonalDetailFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupToolbar(mBinding.toolbar, getString(R.string.personal_data), showBackIcon = true)
+        setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
         mBinding.item = mViewModel.serviceDetail
 

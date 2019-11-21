@@ -46,7 +46,7 @@
                     style="@style/PrimaryBoldText"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingTop="@dimen/_16sdp"
-                    android:text="@string/personal_detail"
+                    android:text="@string/personal_details"
                     android:textAllCaps="true"
                     android:textColor="@color/colorTertiaryText" />
 

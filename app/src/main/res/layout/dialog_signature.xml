@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.DialogText" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="@dimen/_8sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_8sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/PrimaryNormalText"
+                        android:layout_weight="1"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/signature" />
+
+                    <TextView
+                        android:id="@+id/textClear"
+                        style="@style/SecondaryNormalText"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/clear" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/square_gray_border"
+                    android:padding="@dimen/_8sdp">
+
+                    <com.github.gcacace.signaturepad.views.SignaturePad
+                        android:id="@+id/signature_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150sdp"
+                        app:penColor="@android:color/black" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_8sdp">
+
+
+                    <TextView
+                        android:id="@+id/btnCancel"
+                        style="@style/DialogCancelButton"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@{item.negativeButtonText}" />
+
+                    <TextView
+                        android:id="@+id/btnSave"
+                        style="@style/DialogButton"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@drawable/button_background_state"
+                        android:enabled="false"
+                        android:text="@{item.positiveButtonText}" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</layout>

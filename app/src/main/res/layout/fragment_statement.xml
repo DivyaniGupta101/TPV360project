@@ -89,10 +89,12 @@
                     android:text="@string/msg_statement" />
 
                 <CheckBox
+                    android:id="@+id/checkContract"
                     style="@style/SecondaryLightNormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:gravity="top"
                     android:text="@string/msg_agree_statement" />
 
 
@@ -101,11 +103,21 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:text="@string/signature" />
 
+                <ImageView
+                    android:id="@+id/imageSign"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/square_gray_border"
+                    android:padding="@dimen/_8sdp" />
+
                 <TextView
                     android:id="@+id/btnNext"
                     style="@style/ButtonPrimary"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
+                    android:background="@drawable/button_background_state"
+                    android:enabled="false"
                     android:text="@string/next" />
             </LinearLayout>
         </ScrollView>
