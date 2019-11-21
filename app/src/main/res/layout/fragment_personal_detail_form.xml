@@ -125,21 +125,23 @@
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="@dimen/_36sdp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginEnd="@dimen/_8sdp"
                                 android:orientation="vertical">
 
                                 <Spinner
+                                    android:layout_weight="1"
                                     android:id="@+id/spinnerCountryCode"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="0dp"
                                     android:layout_gravity="center_vertical" />
 
                                 <View
                                     style="@style/Divider"
                                     android:layout_width="match_parent"
-                                    android:background="@color/colorDarkDivider" />
+                                    android:background="@color/colorDarkDivider"
+                                    android:layout_marginEnd="@dimen/_8sdp"/>
                             </LinearLayout>
 
                             <FrameLayout
@@ -149,9 +151,11 @@
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/editPhoneNumber"
                                     style="@style/DefaultEditText"
+                                    android:layout_height="@dimen/_36sdp"
                                     android:inputType="phone"
                                     android:maxLength="10"
                                     android:paddingEnd="52dp"
+                                    android:background="@drawable/bg_divider"
                                     android:text="@{item.phoneNumber}" />
 
 
