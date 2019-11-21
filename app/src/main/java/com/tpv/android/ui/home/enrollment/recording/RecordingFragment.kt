@@ -137,10 +137,6 @@ class RecordingFragment : Fragment() {
     }
 
     private fun saveRecordingCall() {
-        Log.d("RecordingFragment", "$recordedFile")
-        val audioFile = File(recordedFile)
-        val requestFile = RequestBody.create(MediaType.parse("audio/*"), audioFile)
-
 
         val liveData =
                 File(recordedFile).toMultipartBody("media", "audio/*")?.let {
@@ -151,7 +147,7 @@ class RecordingFragment : Fragment() {
 
         liveData?.observe(this, Observer {
             it?.ifSuccess {
-                toastNow("Done")
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_satementFragment)
             }
         })
 
@@ -260,7 +256,7 @@ class RecordingFragment : Fragment() {
                 mBinding.redSpeakerImage.show()
             }
             RECORD_START -> {
-                mBinding.recordStartImage.show()
+                mBinding.recordStartImatage.show()
                 mBinding.recordAgainContainer.show()
                 mBinding.graySpeakerImage.show()
             }
@@ -303,7 +299,7 @@ class RecordingFragment : Fragment() {
 
         binding.item = DialogText(getString(R.string.are_you_sure),
                 getString(R.string.msg_skip),
-                getString(R.string.yes),
+                getString(R.string.skip_btn),
                 getString(R.string.cancel))
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
