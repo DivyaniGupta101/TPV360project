@@ -140,9 +140,16 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.saveRecordingcall(leadId: RequestBody, mediaFile: MultipartBody.Part) = dataApi<RecordingResp?, APIError> {
+    fun CoroutineScope.saveRecordingCall(leadId: RequestBody, mediaFile: MultipartBody.Part) = dataApi<RecordingResp?, APIError> {
         fromNetwork {
             ApiClient.service.saveRecording(leadid = leadId, mediaFile = mediaFile).getResult().map { it?.data }
+        }
+    }
+
+
+    fun CoroutineScope.saveContractCall(contractReq: ContractReq) = dataApi<Any?,APIError> {
+        fromNetwork {
+            ApiClient.service.sendContract(contractReq).getResult().map { it?.data }
         }
     }
 

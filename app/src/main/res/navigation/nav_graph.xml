@@ -168,8 +168,8 @@
         app:popExitAnim="@anim/fragment_fade_exit"
         tools:layout="@layout/fragment_recording">
         <action
-            android:id="@+id/action_recordingFragment_to_satementFragment"
-            app:destination="@id/satementFragment"
+            android:id="@+id/action_recordingFragment_to_statementFragment"
+            app:destination="@id/statementFragment"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
@@ -196,12 +196,12 @@
             app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
     <fragment
-        android:id="@+id/satementFragment"
-        android:name="com.tpv.android.ui.home.enrollment.statement.SatementFragment"
-        android:label="SatementFragment"
-        tools:layout="@layout/fragment_satement">
+        android:id="@+id/statementFragment"
+        android:name="com.tpv.android.ui.home.enrollment.statement.StatementFragment"
+        android:label="StatementFragment"
+        tools:layout="@layout/fragment_statement">
         <action
-            android:id="@+id/action_satementFragment_to_successFragment"
+            android:id="@+id/action_statementFragment_to_successFragment"
             app:destination="@id/successFragment"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit"

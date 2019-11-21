@@ -8,7 +8,7 @@ import okhttp3.RequestBody
 class RecordingViewModel : CoroutineScopedViewModel() {
 
     fun saveRecording(leadId: RequestBody, mediaFile: MultipartBody.Part) = with(AppRepository) {
-        saveRecordingcall(leadId, mediaFile)
+        saveRecordingCall(leadId, mediaFile)
     }
 
 }

@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
@@ -36,8 +34,6 @@ import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 import com.tpv.android.utils.toMultipartBody
 import com.tpv.android.utils.toRequestBody
-import okhttp3.MediaType
-import okhttp3.RequestBody
 import java.io.File
 
 
@@ -77,7 +73,7 @@ class RecordingFragment : Fragment() {
 
         setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, showSkipText = true, skipTextClickListener = {
             if (recordedFile.isNullOrEmpty()) {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_satementFragment)
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
             } else {
                 confirmationDialogForSkip()
             }
@@ -86,7 +82,7 @@ class RecordingFragment : Fragment() {
 
         mBinding.btnNext.onClick {
             if (recordedFile.isNullOrEmpty()) {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_satementFragment)
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
             } else {
                 saveRecordingCall()
             }
@@ -147,7 +143,7 @@ class RecordingFragment : Fragment() {
 
         liveData?.observe(this, Observer {
             it?.ifSuccess {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_satementFragment)
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
             }
         })
 
@@ -308,7 +304,7 @@ class RecordingFragment : Fragment() {
             dialog?.dismiss()
         }
         binding?.btnYes?.onClick {
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_satementFragment)
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
         }
 
     }
