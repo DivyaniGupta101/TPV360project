@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.github.gcacace.signaturepad.views.SignaturePad
@@ -20,45 +22,47 @@ import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
 import com.tpv.android.model.ContractReq
 import com.tpv.android.model.DialogText
+import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.*
 import com.tpv.android.utils.glide.GlideApp
-import com.tpv.android.utils.navigateSafe
-import com.tpv.android.utils.setupToolbar
 
 /**
  * A simple [Fragment] subclass.
  */
 class StatementFragment : Fragment() {
     private lateinit var mBinding: FragmentStatementBinding
-    private lateinit var mSetEnrollViewModel: SetEnrollViewModel
-    private lateinit var mViewModel: StatementViewModel
-    private var signImage: Bitmap? = null
+    private lateinit var mViewModel: SetEnrollViewModel
+    private var mSignImage: Bitmap? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_statement, container, false)
         mBinding.lifecycleOwner = this
-        activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
-        mViewModel = ViewModelProviders.of(this).get(StatementViewModel::class.java)
+        activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
 
-        mViewModel.saveContract(contractReq = ContractReq(mSetEnrollViewModel.savedLeadDetail?.id.toString()))
+        mViewModel.saveContract(contractReq = ContractReq(mViewModel.savedLeadDetail?.id.toString()))
 
-        mBinding.item = mSetEnrollViewModel.serviceDetail
+        mBinding.item = mViewModel.serviceDetail
 
         mBinding.checkContract.setOnCheckedChangeListener { buttonView, isChecked ->
             setButtonEnable()
         }
 
         mBinding.btnNext.onClick {
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_statementFragment_to_successFragment)
+            saveSignatureCall()
         }
 
         mBinding.imageSign.onClick {
@@ -66,9 +70,26 @@ class StatementFragment : Fragment() {
         }
     }
 
+    private fun saveSignatureCall() {
+
+        val liveData = context?.BitmapToFile(mSignImage).toMultipartBody("media", "image/jpeg")?.let {
+            mViewModel.saveRecording(mViewModel.savedLeadDetail?.id.toString().toRequestBody(),
+                    it)
+        }
+
+        liveData?.observe(this, Observer {
+            it.ifSuccess {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_statementFragment_to_successFragment)
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
+    }
+
     private fun setButtonEnable() {
         mBinding.btnNext.isEnabled = if (mBinding.checkContract.isChecked) {
-            if (signImage != null) true else false
+            if (mSignImage != null) true else false
         } else false
     }
 
@@ -96,9 +117,9 @@ class StatementFragment : Fragment() {
         })
 
 
-        if (signImage != null) {
+        if (mSignImage != null) {
             binding.btnSave.isEnabled = true
-            binding.signatureView.signatureBitmap = signImage
+            binding.signatureView.signatureBitmap = mSignImage
         }
         binding?.textClear?.onClick {
             binding.btnSave.isEnabled = false
@@ -111,10 +132,10 @@ class StatementFragment : Fragment() {
 
 
         binding?.btnSave?.onClick {
-            signImage = binding.signatureView.signatureBitmap
+            mSignImage = binding.signatureView.signatureBitmap
             GlideApp.with(context)
                     .asBitmap()
-                    .load(signImage)
+                    .load(mSignImage)
                     .into(mBinding.imageSign)
             dialog?.dismiss()
             setButtonEnable()

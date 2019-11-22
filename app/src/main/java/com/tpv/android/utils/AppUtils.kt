@@ -1,5 +1,7 @@
 package com.tpv.android.utils
 
+import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.IdRes
@@ -16,7 +18,11 @@ import kotlinx.android.synthetic.main.toolbar.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.util.*
 
 
 fun Fragment.setupToolbar(
@@ -145,7 +151,7 @@ fun NavController.navigateSafe(
 fun String?.toRequestBody() =
         RequestBody.create(MultipartBody.FORM, this ?: "")
 
-fun File?.toMultipartBody(name: String,type:String): MultipartBody.Part? {
+fun File?.toMultipartBody(name: String, type: String): MultipartBody.Part? {
     this ?: return null
     return MultipartBody.Part.createFormData(
             name,
@@ -153,3 +159,28 @@ fun File?.toMultipartBody(name: String,type:String): MultipartBody.Part? {
             RequestBody.create(MediaType.parse(type), this)
     )
 }
+
+
+fun Context.BitmapToFile(imageBitmap: Bitmap?): File {
+    val file = File(this.cacheDir, Calendar.getInstance().timeInMillis.toString() + ".jpg")
+    file.createNewFile()
+
+    //Convert bitmap to byte array
+    val bitmap = imageBitmap
+    val bos = ByteArrayOutputStream()
+    bitmap?.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos)
+
+    //write the bytes in file
+    var fos: FileOutputStream? = null
+    try {
+        fos = FileOutputStream(file)
+        fos.write(bos.toByteArray())
+        fos.flush()
+        fos.close()
+    } catch (e: FileNotFoundException) {
+        e.printStackTrace()
+    }
+    return file
+}
+
+

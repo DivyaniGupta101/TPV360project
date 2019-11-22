@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <import type="com.tpv.android.R" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+
 
         <variable
             name="item"
@@ -20,107 +38,119 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_16sdp">
-
-                <TextView
-                    style="@style/PrimaryBoldText"
-                    android:text="@string/contract_detail"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorTertiaryText" />
-
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="@dimen/_12sdp">
+                    android:padding="@dimen/_16sdp">
+
+                    <TextView
+                        style="@style/PrimaryBoldText"
+                        android:text="@string/contract_detail"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTertiaryText" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:padding="@dimen/_12sdp">
 
-                        <TextView
-                            style="@style/SecondaryNormalSmallText"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:text="@string/account_holder_name" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            style="@style/PrimaryBoldText"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:text="@{item.authorizedFirstName+ ' '+item.authorizedMiddleInitial +' '+ item.authorizedLastName}"
-                            tools:text="smithan michel" />
+                            <TextView
+                                style="@style/SecondaryNormalSmallText"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/account_holder_name" />
+
+                            <TextView
+                                style="@style/PrimaryBoldText"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@{item.authorizedFirstName+ ' '+item.authorizedMiddleInitial +' '+ item.authorizedLastName}"
+                                tools:text="smithan michel" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/SecondaryNormalSmallText"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/phone_number" />
+
+                            <TextView
+                                style="@style/PrimaryBoldText"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@{item.phoneNumber}"
+                                tools:text="smithan michel" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:text="@string/msg_statement" />
+
+                    <CheckBox
+                        android:id="@+id/checkContract"
+                        style="@style/SecondaryLightNormalText"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:gravity="top"
+                        android:text="@string/msg_agree_statement" />
 
-                        <TextView
-                            style="@style/SecondaryNormalSmallText"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:text="@string/phone_number" />
 
-                        <TextView
-                            style="@style/PrimaryBoldText"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:text="@{item.phoneNumber}"
-                            tools:text="smithan michel" />
-                    </LinearLayout>
+                    <TextView
+                        style="@style/PrimaryNormalText"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/signature" />
 
+                    <ImageView
+                        android:id="@+id/imageSign"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@drawable/square_gray_border"
+                        android:padding="@dimen/_8sdp" />
+
+                    <TextView
+                        android:id="@+id/btnNext"
+                        style="@style/ButtonPrimary"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@drawable/button_background_state"
+                        android:enabled="false"
+                        android:text="@string/next" />
                 </LinearLayout>
+            </ScrollView>
 
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:text="@string/msg_statement" />
-
-                <CheckBox
-                    android:id="@+id/checkContract"
-                    style="@style/SecondaryLightNormalText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:gravity="top"
-                    android:text="@string/msg_agree_statement" />
-
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/signature" />
-
-                <ImageView
-                    android:id="@+id/imageSign"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_150sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@drawable/square_gray_border"
-                    android:padding="@dimen/_8sdp" />
-
-                <TextView
-                    android:id="@+id/btnNext"
-                    style="@style/ButtonPrimary"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:background="@drawable/button_background_state"
-                    android:enabled="false"
-                    android:text="@string/next" />
-            </LinearLayout>
-        </ScrollView>
-
+            <include
+                android:id="@+id/incProgressBar"
+                layout="@layout/progress_bar"
+                app:errorHandler="@{errorHandler}"
+                app:resource="@{resource}"
+                app:useBlockingProgress="@{true}"
+                tools:visibility="visible" />
+        </FrameLayout>
     </LinearLayout>
 </layout>
