@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SaveLeadsDetailResp(
         @SerializedName("id")
-        var id: Int?,
+        var id: String?,
         @SerializedName("reference_id")
         var referenceId: String?
 

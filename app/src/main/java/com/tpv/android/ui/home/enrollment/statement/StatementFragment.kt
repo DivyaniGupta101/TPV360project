@@ -53,7 +53,7 @@ class StatementFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
 
-        mViewModel.saveContract(contractReq = ContractReq(mViewModel.savedLeadDetail?.id.toString()))
+        mViewModel.saveContract(contractReq = ContractReq(mViewModel.savedLeadDetail?.id))
 
         mBinding.item = mViewModel.serviceDetail
 
@@ -73,7 +73,7 @@ class StatementFragment : Fragment() {
     private fun saveSignatureCall() {
 
         val liveData = context?.BitmapToFile(mSignImage).toMultipartBody("media", "image/jpeg")?.let {
-            mViewModel.saveRecording(mViewModel.savedLeadDetail?.id.toString().toRequestBody(),
+            mViewModel.saveRecording(mViewModel.savedLeadDetail?.id.toRequestBody(),
                     it)
         }
 

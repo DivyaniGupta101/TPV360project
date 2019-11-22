@@ -157,7 +157,7 @@ class RecordingFragment : Fragment() {
 
         val liveData =
                 File(recordedFile).toMultipartBody("media", "audio/*")?.let {
-                    mViewModel.saveRecording(mSetEnrollViewModel.savedLeadDetail?.id.toString().toRequestBody(),
+                    mViewModel.saveRecording(mSetEnrollViewModel.savedLeadDetail?.id.toRequestBody(),
                             it)
                 }
 

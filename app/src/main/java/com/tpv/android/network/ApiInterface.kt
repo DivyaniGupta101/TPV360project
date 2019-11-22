@@ -48,15 +48,15 @@ interface ApiInterface {
     fun saveLeadDetail(@Body saveLeadsDetailReq: SaveLeadsDetailReq): Call<CommonResponse<SaveLeadsDetailResp>>
 
 
+    @POST("selfverify")
+    fun selfVerify(@Body successReq: SuccessReq): Call<CommonResponse<Any>>
+
+
     @POST("generateotp")
     fun sendOtp(@Field("phonenumber") phonenumber: String): Call<CommonResponse<Unit>>
 
 
     @POST("verifyotp")
     fun verifyOtp(@Field("phonenumber") phonenumber: String, @Field("otp") otp: String): Call<CommonResponse<Unit>>
-
-
-    @POST("selfverify")
-    fun selfVerify(@Field("verification_mode") verification_mode: String, @Field("leadid") leadid: String): Call<CommonResponse<Unit>>
 
 }

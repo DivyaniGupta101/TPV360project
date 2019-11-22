@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <import type="com.tpv.android.R" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
 
         <variable
             name="item"
@@ -19,80 +36,94 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
-
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/_24sdp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_120sdp"
-                    android:src="@drawable/ic_verified_img" />
-
-                <TextView
-                    style="@style/PrimaryMediumBoldText"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/thank_you"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorTertiaryText" />
-
-                <TextView
-                    style="@style/SecondaryNormalSmallText"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/your_reference_id" />
-
-                <TextView
-                    style="@style/PrimaryNormalSmallText"
-                    android:text="@{item.referenceId}"
-                    tools:text="it-it-iso-1356" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_32sdp"
-                    android:text="@string/self_verification" />
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:padding="@dimen/_24sdp">
 
-                    <CheckBox
-                        android:id="@+id/checkBoxEmail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/email" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_120sdp"
+                        android:src="@drawable/ic_verified_img" />
 
-                    <CheckBox
-                        android:id="@+id/checkBoxPhone"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        style="@style/PrimaryMediumBoldText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/thank_you"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTertiaryText" />
+
+                    <TextView
+                        style="@style/SecondaryNormalSmallText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/your_reference_id" />
+
+                    <TextView
+                        style="@style/PrimaryNormalSmallText"
+                        android:text="@{item.referenceId}"
+                        tools:text="it-it-iso-1356" />
+
+                    <TextView
+                        style="@style/PrimaryNormalText"
+                        android:layout_marginTop="@dimen/_32sdp"
+                        android:text="@string/self_verification" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:text="@string/phone" />
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/email"
+                            android:checked="true"/>
+
+                        <CheckBox
+                            android:id="@+id/checkBoxPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:text="@string/phone"
+                            android:checked="true"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/btnVerify"
+                        style="@style/ButtonPrimary"
+                        android:layout_marginTop="@dimen/_30sdp"
+                        android:background="@drawable/button_background_state"
+                        android:text="@string/verify" />
+
+                    <TextView
+                        android:id="@+id/textBackToDashBoard"
+                        style="@style/PrimaryBoldText"
+                        android:text="@string/back_to_dashboard"
+                        android:textColor="@color/colorTertiaryText" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/btnVerify"
-                    style="@style/ButtonPrimary"
-                    android:layout_marginTop="@dimen/_30sdp"
-                    android:text="@string/verify" />
+            </ScrollView>
 
-                <TextView
-                    android:id="@+id/textBackToDashBoard"
-                    style="@style/PrimaryBoldText"
-                    android:text="@string/back_to_dashboard"
-                    android:textColor="@color/colorTertiaryText" />
-            </LinearLayout>
-
-        </ScrollView>
-
+            <include
+                android:id="@+id/incProgressBar"
+                layout="@layout/progress_bar"
+                app:errorHandler="@{errorHandler}"
+                app:resource="@{resource}"
+                app:useBlockingProgress="@{true}"
+                tools:visibility="visible" />
+        </FrameLayout>
     </LinearLayout>
 </layout>
