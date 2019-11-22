@@ -5,7 +5,6 @@ import android.Manifest
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
-import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.LayoutInflater
@@ -32,6 +31,8 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.audio.AudioDataReceivedListener
+import com.tpv.android.utils.audio.RecordingThread
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 import com.tpv.android.utils.toMultipartBody
@@ -47,7 +48,8 @@ class RecordingFragment : Fragment() {
     private lateinit var mBinding: FragmentRecordingBinding
     private lateinit var mViewModel: RecordingViewModel
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
-    private var myAudioRecorder: MediaRecorder = MediaRecorder()
+    //    private var myAudioRecorder: MediaRecorder = MediaRecorder()
+    private var mRecordingThread: RecordingThread? = null
     private var recordedFile: String? = null
     private var mediaPlayer: MediaPlayer = MediaPlayer()
     var lastPaused = 0L
@@ -80,7 +82,6 @@ class RecordingFragment : Fragment() {
             } else {
                 confirmationDialogForSkip()
             }
-
         })
 
         mBinding.btnNext.onClick {
@@ -178,18 +179,26 @@ class RecordingFragment : Fragment() {
     private fun handleRecordStart() {
         runWithPermissions(Manifest.permission.RECORD_AUDIO) {
 
-
             val folder = File(context?.filesDir?.absolutePath + "/recordings")
             folder.mkdirs()
             recordedFile = folder.absolutePath + "/recording.mp3"
-            myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-            myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)
-            myAudioRecorder.setOutputFile(recordedFile)
+
+            mRecordingThread = RecordingThread(recordedFile,
+                    AudioDataReceivedListener { data ->
+                        mBinding.waveformView.setSamples(data)
+                    }
+            )
+            mRecordingThread?.startRecording()
 
 
-            myAudioRecorder.prepare()
-            myAudioRecorder.start()
+//            myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+//            myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+//            myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)
+//            myAudioRecorder.setOutputFile(recordedFile)
+//
+//
+//            myAudioRecorder.prepare()
+//            myAudioRecorder.start()
 
             mBinding.chronometer.base = SystemClock.elapsedRealtime()
             audioTime = mBinding.chronometer.base
@@ -204,8 +213,9 @@ class RecordingFragment : Fragment() {
     this method will stop recoding the audio
      */
     private fun handleRecordStop() {
-        myAudioRecorder.stop()
-        myAudioRecorder.release()
+        mRecordingThread?.stopRecording()
+//        myAudioRecorder.stop()
+//        myAudioRecorder.release()
 
         mBinding.chronometer.stop()
         audioTime = audioTime - SystemClock.elapsedRealtime()
@@ -271,6 +281,7 @@ class RecordingFragment : Fragment() {
         mBinding.graySpeakerImage.hide()
         mBinding.redSpeakerImage.hide()
         mBinding.seekbarAudio.hide()
+        mBinding.waveformView.hide()
 
         when (state) {
             AUDIO_START -> {
@@ -286,11 +297,13 @@ class RecordingFragment : Fragment() {
                 mBinding.seekbarAudio.show()
             }
             RECORD_START -> {
+                mBinding.waveformView.show()
                 mBinding.recordStartImage.show()
                 mBinding.recordAgainContainer.show()
                 mBinding.graySpeakerImage.show()
             }
             RECORD_STOP -> {
+                mBinding.waveformView.show()
                 mBinding.recordStopImage.show()
                 mBinding.graySpeakerImage.show()
             }
@@ -314,11 +327,16 @@ class RecordingFragment : Fragment() {
             dialog?.dismiss()
         }
         binding?.btnYes?.onClick {
-            myAudioRecorder = MediaRecorder()
+            //            myAudioRecorder = MediaRecorder()
             handleRecordStart()
             dialog?.dismiss()
         }
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mRecordingThread?.stopRecording()
     }
 
 
