@@ -20,8 +20,11 @@ import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
+import com.tpv.android.helper.Pref
 import com.tpv.android.model.ContractReq
 import com.tpv.android.model.DialogText
+import com.tpv.android.model.SaveLeadsDetailReq
+import com.tpv.android.model.SaveLeadsDetailResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -29,6 +32,7 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
 import com.tpv.android.utils.glide.GlideApp
+import java.io.File
 
 /**
  * A simple [Fragment] subclass.
@@ -53,7 +57,6 @@ class StatementFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
 
-        mViewModel.saveContract(contractReq = ContractReq(mViewModel.savedLeadDetail?.id))
 
         mBinding.item = mViewModel.serviceDetail
 
@@ -62,12 +65,70 @@ class StatementFragment : Fragment() {
         }
 
         mBinding.btnNext.onClick {
-            saveSignatureCall()
+            saveCustomerData()
         }
 
         mBinding.imageSign.onClick {
             showSignatureDialog()
         }
+    }
+
+    private fun saveCustomerData() {
+        var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
+        when (mViewModel.planType) {
+            Plan.DUALFUEL.value -> {
+                liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
+                        clientid = Pref.user?.clientId.toString(),
+                        commodity = mViewModel.planType,
+                        gasutilityId = mViewModel.utilitiesList.find { it?.commodity == Plan.GASFUEL.value }?.utid.toString(),
+                        gasprogramid = mViewModel.programList.find { it.utilityType == Plan.GASFUEL.value }?.id,
+                        electricutilityId = mViewModel.utilitiesList.find { it?.commodity == Plan.ELECTRICFUEL.value }?.utid.toString(),
+                        electricprogramid = mViewModel.programList.find { it.utilityType == Plan.ELECTRICFUEL.value }?.id,
+                        fields = arrayListOf(mViewModel.serviceDetail),
+                        zipcode = mViewModel.zipcode?.zipcode)
+                )
+            }
+            else -> {
+                liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
+                        clientid = Pref.user?.clientId.toString(),
+                        commodity = mViewModel.planType,
+                        programId = mViewModel.programList.get(0).id,
+                        utilityId = mViewModel.utilitiesList.get(0)?.utid.toString(),
+                        zipcode = mViewModel.zipcode?.zipcode,
+                        fields = arrayListOf(mViewModel.serviceDetail)))
+            }
+        }
+
+        liveData.observe(this, Observer {
+            it?.ifSuccess {
+                mViewModel.savedLeadDetail = it
+                mViewModel.saveContract(contractReq = ContractReq(mViewModel.savedLeadDetail?.id))
+                if (mViewModel.recordingFile.isNotEmpty()) {
+                    saveRecording()
+                } else {
+                    saveSignatureCall()
+                }
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
+
+    private fun saveRecording() {
+        val liveData =
+                File(mViewModel.recordingFile).toMultipartBody("media", "audio/*")?.let {
+                    mViewModel.saveRecording(mViewModel.savedLeadDetail?.id.toRequestBody(),
+                            it)
+                }
+
+
+        liveData?.observe(this, Observer {
+            it?.ifSuccess {
+                saveSignatureCall()
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     private fun saveSignatureCall() {

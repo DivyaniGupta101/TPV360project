@@ -34,8 +34,7 @@ class ProgramsListingFragment : Fragment() {
     private lateinit var mBinding: FragmentProgramsListingBinding
     private var mLastSelectedGasPosition: Int? = null
     private var mLastSelectedElectricPosition: Int? = null
-    private lateinit var mViewModel: ProgramsListingViewModel
-    private lateinit var mSetEnrollViewModel: SetEnrollViewModel
+    private lateinit var mViewModel: SetEnrollViewModel
 
     private var mList: ArrayList<Any> = ArrayList()
 
@@ -44,8 +43,7 @@ class ProgramsListingFragment : Fragment() {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_programs_listing, container, false)
         mBinding.lifecycleOwner = this
-        mViewModel = ViewModelProviders.of(this).get(ProgramsListingViewModel::class.java)
-        activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
+        activity?.let { this.mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         return mBinding.root
     }
 
@@ -75,18 +73,18 @@ class ProgramsListingFragment : Fragment() {
 
 
         mBinding.btnNext.onClick {
-            mSetEnrollViewModel.programList.clear()
+            this@ProgramsListingFragment.mViewModel.programList.clear()
 
-            when (mSetEnrollViewModel.planType) {
+            when (this@ProgramsListingFragment.mViewModel.planType) {
                 Plan.GASFUEL.value -> {
-                    mSetEnrollViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
+                    this@ProgramsListingFragment.mViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
                 }
                 Plan.ELECTRICFUEL.value -> {
-                    mSetEnrollViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
+                    this@ProgramsListingFragment.mViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
                 }
                 Plan.DUALFUEL.value -> {
-                    mSetEnrollViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
-                    mSetEnrollViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
+                    this@ProgramsListingFragment.mViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
+                    this@ProgramsListingFragment.mViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
                 }
             }
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_programsListingFragment_to_personalDetailFormFragment)
@@ -95,7 +93,7 @@ class ProgramsListingFragment : Fragment() {
 
     private fun getProgramsApi() {
 
-        val liveData = mViewModel.getPrograms(mSetEnrollViewModel.utilitiesList)
+        val liveData = this.mViewModel.getPrograms(this.mViewModel.utilitiesList)
 
         liveData.observe(this, Observer {
             it.ifSuccess {
@@ -130,7 +128,7 @@ class ProgramsListingFragment : Fragment() {
     }
 
     private fun handleNextButtonState() {
-        mBinding.btnNext.isEnabled = when (mSetEnrollViewModel.planType) {
+        mBinding.btnNext.isEnabled = when (this.mViewModel.planType) {
             Plan.ELECTRICFUEL.value -> {
                 mLastSelectedElectricPosition != null
             }

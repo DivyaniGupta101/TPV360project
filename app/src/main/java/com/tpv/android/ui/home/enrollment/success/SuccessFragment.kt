@@ -30,8 +30,7 @@ import com.tpv.android.utils.setupToolbar
 class SuccessFragment : Fragment() {
 
     lateinit var mBinding: FragmentSuccessBinding
-    lateinit var mSetEnrollViewModel: SetEnrollViewModel
-    lateinit var mViewModel: SuccessViewModel
+    lateinit var mViewModel: SetEnrollViewModel
     private var mVerificationType: ArrayList<String> = ArrayList()
 
 
@@ -40,8 +39,7 @@ class SuccessFragment : Fragment() {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_success, container, false)
         mBinding.lifecycleOwner = this
-        activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
-        mViewModel = ViewModelProviders.of(this).get(SuccessViewModel::class.java)
+        activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         return mBinding.root
     }
 
@@ -50,7 +48,7 @@ class SuccessFragment : Fragment() {
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.success))
-        mBinding.item = mSetEnrollViewModel.savedLeadDetail
+        mBinding.item = mViewModel.savedLeadDetail
 
         mVerificationType.add(getString(R.string.email))
         mVerificationType.add(getString(R.string.phone))
@@ -92,7 +90,7 @@ class SuccessFragment : Fragment() {
 
     private fun selfVerificationCall() {
 
-        val liveData = mViewModel.selfVerification(SuccessReq(verificationType = mVerificationType.joinToString(separator = ","), leadId = mSetEnrollViewModel.savedLeadDetail?.id))
+        val liveData = mViewModel.selfVerification(SuccessReq(verificationType = mVerificationType.joinToString(separator = ","), leadId = mViewModel.savedLeadDetail?.id))
 
         liveData.observe(this, Observer {
             it?.ifSuccess {

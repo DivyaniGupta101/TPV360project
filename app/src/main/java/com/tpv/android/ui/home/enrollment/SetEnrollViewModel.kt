@@ -1,7 +1,6 @@
 package com.tpv.android.ui.home.enrollment
 
 import com.tpv.android.data.AppRepository
-import com.tpv.android.data.AppRepository.saveRecordingCall
 import com.tpv.android.model.*
 import com.tpv.android.network.resources.CoroutineScopedViewModel
 import okhttp3.MultipartBody
@@ -15,9 +14,13 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var programList: ArrayList<ProgramsResp> = ArrayList()
     var serviceDetail: ServiceDetail = ServiceDetail()
     var savedLeadDetail: SaveLeadsDetailResp? = null
+    var recordingFile: String = ""
 
 
-
+    fun saveLeadDetail(leadsDetailReq: SaveLeadsDetailReq) = with(AppRepository)
+    {
+        saveLeadDetailCall(leadsDetailReq)
+    }
 
     fun saveContract(contractReq: ContractReq) = with(AppRepository) {
         saveContractCall(contractReq)
@@ -25,5 +28,22 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
 
     fun saveRecording(leadId: RequestBody, mediaFile: MultipartBody.Part) = with(AppRepository) {
         saveRecordingCall(leadId, mediaFile)
+    }
+
+    fun generateOTP(otpReq: OTPReq) = with(AppRepository) {
+        generateOTPCall(otpReq)
+    }
+
+    fun verifyOTP(verifyOTPReq: VerifyOTPReq) = with(AppRepository) {
+        verifyOTPCall(verifyOTPReq)
+    }
+
+    fun getPrograms(utilityList: ArrayList<UtilityResp>) = with(AppRepository)
+    {
+        getProgramsCall(utilityList)
+    }
+
+    fun selfVerification(successReq: SuccessReq) = with(AppRepository) {
+        selfVerificationCall(successReq)
     }
 }

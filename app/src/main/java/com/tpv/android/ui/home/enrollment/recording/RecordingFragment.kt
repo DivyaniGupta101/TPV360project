@@ -14,8 +14,6 @@ import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.hide
@@ -26,17 +24,11 @@ import com.tpv.android.R
 import com.tpv.android.databinding.DialogLogoutBinding
 import com.tpv.android.databinding.FragmentRecordingBinding
 import com.tpv.android.model.DialogText
-import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.network.resources.Resource
-import com.tpv.android.network.resources.apierror.APIError
-import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.audio.AudioDataReceivedListener
 import com.tpv.android.utils.audio.RecordingThread
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
-import com.tpv.android.utils.toMultipartBody
-import com.tpv.android.utils.toRequestBody
 import java.io.File
 
 
@@ -46,8 +38,7 @@ import java.io.File
 class RecordingFragment : Fragment() {
 
     private lateinit var mBinding: FragmentRecordingBinding
-    private lateinit var mViewModel: RecordingViewModel
-    private lateinit var mSetEnrollViewModel: SetEnrollViewModel
+    private lateinit var mViewModel: SetEnrollViewModel
     //    private var myAudioRecorder: MediaRecorder = MediaRecorder()
     private var mRecordingThread: RecordingThread? = null
     private var recordedFile: String? = null
@@ -65,16 +56,12 @@ class RecordingFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_recording, container, false)
-        mBinding.lifecycleOwner = this
-        mViewModel = ViewModelProviders.of(this).get(RecordingViewModel::class.java)
-        activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
+        activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, showSkipText = true, skipTextClickListener = {
             if (recordedFile.isNullOrEmpty()) {
@@ -85,12 +72,8 @@ class RecordingFragment : Fragment() {
         })
 
         mBinding.btnNext.onClick {
-            if (recordedFile.isNullOrEmpty()) {
-                Navigation.findNavController(mBinding.root).navigateSafe(com.tpv.android.R.id.action_recordingFragment_to_statementFragment)
-            } else {
-                saveRecordingCall()
-            }
-
+            mViewModel.recordingFile = recordedFile.orEmpty()
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
         }
 
 
@@ -152,24 +135,6 @@ class RecordingFragment : Fragment() {
         mBinding.recordAgainContainer.onClick {
             confirmationDialogForReRecord()
         }
-    }
-
-    private fun saveRecordingCall() {
-
-        val liveData =
-                File(recordedFile).toMultipartBody("media", "audio/*")?.let {
-                    mViewModel.saveRecording(mSetEnrollViewModel.savedLeadDetail?.id.toRequestBody(),
-                            it)
-                }
-
-
-        liveData?.observe(this, Observer {
-            it?.ifSuccess {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
-            }
-        })
-
-        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
 

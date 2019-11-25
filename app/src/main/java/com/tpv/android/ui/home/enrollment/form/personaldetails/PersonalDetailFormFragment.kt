@@ -46,14 +46,14 @@ class PersonalDetailFormFragment : Fragment() {
 
     private lateinit var mBinding: FragmentPersonalDetailFormBinding
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
-    private lateinit var mViewModel: PersonalDetailViewModel
+    private lateinit var mViewModel: SetEnrollViewModel
     private var relationShipList: ObservableArrayList<String> = ObservableArrayList()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_personal_detail_form, container, false)
         mBinding.lifecycleOwner = this
         activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
-        mViewModel = ViewModelProviders.of(this).get(PersonalDetailViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(SetEnrollViewModel::class.java)
         mBinding.viewModel = mSetEnrollViewModel
         return mBinding.root
     }

@@ -87,11 +87,11 @@ class PlansZipcodeFragment : Fragment() {
 
             //get detail of selected utility and then add in "utilitiesList" for further use.
             if (mBinding.spinnerElectricity.isShown) {
-                val electricUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerElectricity.selectedItem }
+                val electricUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerElectricity.selectedItem && it.commodity == Plan.ELECTRICFUEL.value }
                 electricUtilityResp?.let { mSetEnrollViewModel.utilitiesList.add(it) }
             }
             if (mBinding.spinnerGas.isShown) {
-                val gasUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerGas.selectedItem }
+                val gasUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerGas.selectedItem && it.commodity == Plan.GASFUEL.value }
                 gasUtilityResp?.let { mSetEnrollViewModel.utilitiesList.add(it) }
             }
 
