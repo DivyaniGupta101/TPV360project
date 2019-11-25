@@ -30,7 +30,6 @@ class LeadListingFragment : Fragment() {
     lateinit var mBinding: FragmentLeadListingBinding
     var toolBarTitle = ""
     lateinit var mViewModel: LeadListingViewModel
-    var mList = arrayListOf(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -57,7 +56,7 @@ class LeadListingFragment : Fragment() {
             LeadStatus.DECLINED.value -> {
                 toolBarTitle = getString(R.string.declined_leads)
             }
-            LeadStatus.HANGUP.value -> {
+            LeadStatus.DISCONNECTED.value -> {
                 toolBarTitle = getString(R.string.disconnected_calls)
             }
         }

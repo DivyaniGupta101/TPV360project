@@ -69,8 +69,8 @@ class DashBoardFragment : Fragment() {
             mNavController.navigateSafe(DashBoardFragmentDirections.actionDashBoardFragmentToLeadListingFragment(LeadStatus.DECLINED.value))
         }
 
-        mBinding.hangUpContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections.actionDashBoardFragmentToLeadListingFragment(LeadStatus.HANGUP.value))
+        mBinding.disconnectedContainer.onClick {
+            mNavController.navigateSafe(DashBoardFragmentDirections.actionDashBoardFragmentToLeadListingFragment(LeadStatus.DISCONNECTED.value))
         }
 
         mBinding.imageEnroll.onClick {

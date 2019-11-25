@@ -35,8 +35,8 @@ class DashBoardViewModel : CoroutineScopedViewModel() {
                     if (dashboard.status?.equals(LeadStatus.DECLINED.value).orFalse()) {
                         dashBoardStatusCount.declined = dashboard.value.toString()
                     }
-                    if (dashboard.status?.equals(LeadStatus.HANGUP.value).orFalse()) {
-                        dashBoardStatusCount.hangUp = dashboard.value.toString()
+                    if (dashboard.status?.equals(LeadStatus.DISCONNECTED.value).orFalse()) {
+                        dashBoardStatusCount.diconnected = dashboard.value.toString()
                     }
                 }
                 dashBoardCountMutableLiveData.value = dashBoardStatusCount

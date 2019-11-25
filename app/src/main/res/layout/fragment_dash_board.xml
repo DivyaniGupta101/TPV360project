@@ -151,7 +151,7 @@
                             android:layout_marginBottom="@dimen/_32sdp" />
 
                         <LinearLayout
-                            android:id="@+id/hangUpContainer"
+                            android:id="@+id/disconnectedContainer"
                             style="@style/DashboardItem"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content">
@@ -165,7 +165,7 @@
                                 android:id="@+id/textHangUp"
                                 style="@style/PrimaryMediumBoldText"
                                 android:layout_marginTop="@dimen/_4sdp"
-                                android:text="@{item.hangUp}"
+                                android:text="@{item.diconnected}"
                                 tools:text="05" />
 
                             <TextView

@@ -112,7 +112,7 @@ enum class LeadStatus(val value: String) {
     PENDING("pending"),
     VERIFIED("verified"),
     DECLINED("decline"),
-    HANGUP("hangup")
+    DISCONNECTED("hangup")
 }
 
 /**

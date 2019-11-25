@@ -36,7 +36,7 @@
     <color name="colorPendingText">@color/colorYellow</color>
     <color name="colorVerifiedText">@color/colorGreen</color>
     <color name="colorDecliendText">@color/colorRed</color>
-    <color name="colorHangUpText">@color/colorSky</color>
+    <color name="colorDisconnectedText">@color/colorSky</color>
     <color name="colorTertiaryText">@color/colorAccent</color>
     <color name="colorProfileImageText">@color/colorWhite</color>
 
