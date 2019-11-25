@@ -46,230 +46,244 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-                <TextView
-                    style="@style/PrimaryBoldText"
-                    android:paddingStart="@dimen/_16sdp"
-                    android:paddingTop="@dimen/_16sdp"
-                    android:text="@string/personal_details"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorTertiaryText" />
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_24sdp">
-
-                    <TextView
-                        style="@style/SecondaryNormalText"
-                        android:text="@string/authorised_first_name" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputAuthorisedFirstName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editAuthorisedFirstName"
-                            style="@style/DefaultEditText"
-                            android:text="@{item.authorizedFirstName}" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/authorised_middle_name" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputAuthorisedMiddleName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editAuthorisedMiddleName"
-                            style="@style/DefaultEditText"
-                            android:text="@{item.authorizedMiddleInitial}" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/authorised_last_name" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputAuthorisedLastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editAuthorisedLastName"
-                            style="@style/DefaultEditText"
-                            android:text="@{item.authorizedLastName}" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/phone_number" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputPhoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/_36sdp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginEnd="@dimen/_8sdp"
-                                android:orientation="vertical">
-
-                                <Spinner
-                                    android:id="@+id/spinnerCountryCode"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_weight="1" />
-
-                                <View
-                                    style="@style/Divider"
-                                    android:layout_width="match_parent"
-                                    android:layout_marginEnd="@dimen/_8sdp"
-                                    android:background="@color/colorDarkDivider" />
-                            </LinearLayout>
-
-                            <FrameLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/editPhoneNumber"
-                                    style="@style/DefaultEditText"
-                                    android:layout_height="@dimen/_36sdp"
-                                    android:background="@drawable/bg_divider"
-                                    android:inputType="phone"
-                                    android:maxLength="10"
-                                    android:paddingEnd="52dp"
-                                    android:text="@{item.phoneNumber}" />
-
-
-                                <TextView
-                                    android:id="@+id/textVerify"
-                                    style="@style/PrimaryNormalText"
-                                    android:layout_gravity="center_vertical|end"
-                                    android:text="@string/verify"
-                                    android:textColor="@color/colorTertiaryText" />
-                            </FrameLayout>
-                        </LinearLayout>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/email" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editAuthorisedEmail"
-                            style="@style/DefaultEditText"
-                            android:inputType="textEmailAddress"
-                            android:text="@{item.email}" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
 
                     <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/auth_relationship" />
-
-                    <Spinner
-                        android:id="@+id/spinnerRelationShip"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_36sdp" />
-
-                    <View
-                        style="@style/Divider"
-                        android:layout_width="match_parent"
-                        android:background="@color/colorDarkDivider" />
+                        style="@style/PrimaryBoldText"
+                        android:paddingStart="@dimen/_16sdp"
+                        android:paddingTop="@dimen/_16sdp"
+                        android:text="@string/personal_details"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTertiaryText" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_16sdp"
-                        android:orientation="horizontal">
-
-                        <Space
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_24sdp">
 
                         <TextView
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:background="@drawable/bg_selected_page_indicator" />
+                            style="@style/SecondaryNormalText"
+                            android:text="@string/authorised_first_name" />
 
-                        <Space
-                            android:layout_width="0dp"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputAuthorisedFirstName"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.1" />
+                            android:inputType="text">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editAuthorisedFirstName"
+                                style="@style/DefaultEditText"
+                                android:text="@{item.authorizedFirstName}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <TextView
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:background="@drawable/bg_unselected_page_indicator" />
+                            style="@style/SecondaryNormalTextWithTopSpacing"
+                            android:text="@string/authorised_middle_name" />
 
-                        <Space
-                            android:layout_width="0dp"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputAuthorisedMiddleName"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.1"
-                            app:visibleIf="@{viewModel.planType == plan.DUALFUEL.value}" />
+                            android:inputType="text">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editAuthorisedMiddleName"
+                                style="@style/DefaultEditText"
+                                android:text="@{item.authorizedMiddleInitial}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <TextView
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:background="@drawable/bg_unselected_page_indicator"
-                            app:visibleIf="@{viewModel.planType == plan.DUALFUEL.value}" />
+                            style="@style/SecondaryNormalTextWithTopSpacing"
+                            android:text="@string/authorised_last_name" />
 
-                        <Space
-                            android:layout_width="0dp"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputAuthorisedLastName"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2" />
+                            android:inputType="text">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editAuthorisedLastName"
+                                style="@style/DefaultEditText"
+                                android:text="@{item.authorizedLastName}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            style="@style/SecondaryNormalTextWithTopSpacing"
+                            android:text="@string/phone_number" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputPhoneNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/_36sdp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginEnd="@dimen/_8sdp"
+                                    android:orientation="vertical">
+
+                                    <Spinner
+                                        android:id="@+id/spinnerCountryCode"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_weight="1" />
+
+                                    <View
+                                        style="@style/Divider"
+                                        android:layout_width="match_parent"
+                                        android:layout_marginEnd="@dimen/_8sdp"
+                                        android:background="@color/colorDarkDivider" />
+                                </LinearLayout>
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/editPhoneNumber"
+                                        style="@style/DefaultEditText"
+                                        android:layout_height="@dimen/_36sdp"
+                                        android:background="@drawable/bg_divider"
+                                        android:inputType="phone"
+                                        android:maxLength="10"
+                                        android:paddingEnd="52dp"
+                                        android:text="@{item.phoneNumber}" />
+
+
+                                    <TextView
+                                        android:id="@+id/textVerify"
+                                        style="@style/PrimaryNormalText"
+                                        android:layout_gravity="center_vertical|end"
+                                        android:padding="@dimen/_8sdp"
+                                        android:text="@string/verify"
+                                        android:textColor="@color/colorTertiaryText" />
+                                </FrameLayout>
+                            </LinearLayout>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            style="@style/SecondaryNormalTextWithTopSpacing"
+                            android:text="@string/email" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editAuthorisedEmail"
+                                style="@style/DefaultEditText"
+                                android:inputType="textEmailAddress"
+                                android:text="@{item.email}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <TextView
+                            style="@style/SecondaryNormalTextWithTopSpacing"
+                            android:text="@string/auth_relationship" />
+
+                        <Spinner
+                            android:id="@+id/spinnerRelationShip"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_36sdp" />
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_width="match_parent"
+                            android:background="@color/colorDarkDivider" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:orientation="horizontal">
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2" />
+
+                            <TextView
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:background="@drawable/bg_selected_page_indicator" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.1" />
+
+                            <TextView
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:background="@drawable/bg_unselected_page_indicator" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.1"
+                                app:visibleIf="@{viewModel.planType == plan.DUALFUEL.value}" />
+
+                            <TextView
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:background="@drawable/bg_unselected_page_indicator"
+                                app:visibleIf="@{viewModel.planType == plan.DUALFUEL.value}" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/btnNext"
+                            style="@style/ButtonPrimary"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:text="@string/next" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/btnNext"
-                        style="@style/ButtonPrimary"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginEnd="0dp"
-                        android:text="@string/next" />
                 </LinearLayout>
+            </ScrollView>
 
-            </LinearLayout>
-        </ScrollView>
+            <include
+                android:id="@+id/incProgressBar"
+                layout="@layout/progress_bar"
+                app:errorHandler="@{errorHandler}"
+                app:resource="@{resource}"
+                app:useBlockingProgress="@{true}"
+                tools:visibility="visible" />
+        </FrameLayout>
     </LinearLayout>
 </layout>
