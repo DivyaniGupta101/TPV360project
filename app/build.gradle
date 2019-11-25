@@ -107,4 +107,7 @@ dependencies {
     implementation 'com.github.gcacace:signature-pad:1.2.1'
     implementation 'com.github.naman14:TAndroidLame:1.1'
     api project(path: ':waveform')
+
+    //OTP view
+    implementation 'com.chaos.view:pinview:1.4.3'
 }

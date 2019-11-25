@@ -128,4 +128,7 @@
     <string name="success">Success</string>
     <string name="save">Save</string>
     <string name="clear">Clear</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="please_enter_otp">Please enter otp</string>
+    <string name="enter_phone_number">Enter Phone number</string>
 </resources>

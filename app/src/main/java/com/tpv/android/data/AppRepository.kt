@@ -159,4 +159,16 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.generateOTPCall(otpReq: OTPReq) = dataApi<Any?, APIError> {
+        fromNetwork {
+            ApiClient.service.sendOtp(otpReq).getResult().map { it?.data }
+        }
+    }
+
+    fun CoroutineScope.verifyOTPCall(verifyOTPReq: VerifyOTPReq) = dataApi<Any?, APIError> {
+        fromNetwork {
+            ApiClient.service.verifyOtp(verifyOTPReq).getResult().map { it?.data }
+        }
+    }
+
 }
