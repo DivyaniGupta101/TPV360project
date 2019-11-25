@@ -80,7 +80,7 @@
                                 style="@style/PrimaryBoldText"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:text="@{item.authorizedFirstName+ ' '+item.authorizedMiddleInitial +' '+ item.authorizedLastName}"
+                                android:text="@{item.authorizedFirstName+ ' '+ item.authorizedLastName}"
                                 tools:text="smithan michel" />
                         </LinearLayout>
 
