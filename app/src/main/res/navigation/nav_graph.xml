@@ -55,8 +55,8 @@
         app:popUpToInclusive="false" />
 
     <action
-        android:id="@+id/action_global_plansListFragment"
-        app:destination="@+id/plansListingFragment"
+        android:id="@+id/action_global_commodityFragment"
+        app:destination="@+id/commodityFragment"
         app:enterAnim="@anim/fragment_fade_enter"
         app:exitAnim="@anim/fragment_fade_exit"
         app:popEnterAnim="@anim/fragment_fade_enter"
@@ -65,12 +65,12 @@
         app:popUpToInclusive="false" />
 
     <fragment
-        android:id="@+id/plansListingFragment"
-        android:name="com.tpv.android.ui.home.enrollment.plans.PlansListingFragment"
+        android:id="@+id/commodityFragment"
+        android:name="com.tpv.android.ui.home.enrollment.commodity.CommodityFragment"
         android:label="PlansListingFragment"
-        tools:layout="@layout/fragment_plans_listing">
+        tools:layout="@layout/fragment_commodity">
         <action
-            android:id="@+id/action_plansListingFragment_to_plansZipcodeFragment"
+            android:id="@+id/action_commodityFragment_to_plansZipcodeFragment"
             app:destination="@id/plansZipcodeFragment"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit"

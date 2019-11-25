@@ -53,6 +53,7 @@
     <string name="electricity">Electricity</string>
     <string name="natural_gas">Natural Gas</string>
     <string name="plans">Plans</string>
+    <string name="commodity">Commodity</string>
     <string name="enter_zipcode">Enter ZipCode</string>
     <string name="select_gas_utility">Select Gas Utility</string>
     <string name="select_electric_utility">Select Electric Utility</string>
