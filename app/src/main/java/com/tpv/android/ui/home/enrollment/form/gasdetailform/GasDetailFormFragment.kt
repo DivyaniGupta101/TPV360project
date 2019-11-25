@@ -2,6 +2,8 @@ package com.tpv.android.ui.home.enrollment.form.gasdetailform
 
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.androidx.color
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.value
@@ -54,12 +57,49 @@ class GasDetailFormFragment : Fragment() {
         mBinding.radioYes?.onClick {
             mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
             mBinding.editServiceZipCode.value = mBinding.editZipCode.value
+            mBinding.editServiceAddress.isEnabled = false
+            mBinding.editServiceZipCode.isEnabled = false
+            mBinding.editServiceAddress.setTextColor(context.color(R.color.colorSecondaryText))
+            mBinding.editServiceZipCode.setTextColor(context.color(R.color.colorSecondaryText))
         }
 
-        mBinding.radioYes?.onClick {
+        mBinding.radioNo?.onClick {
             mBinding.editServiceAddress.value = ""
             mBinding.editServiceZipCode.value = ""
+            mBinding.editServiceAddress.isEnabled = true
+            mBinding.editServiceZipCode.isEnabled = true
+            mBinding.editServiceAddress.setTextColor(context.color(R.color.colorPrimaryText))
+            mBinding.editServiceZipCode.setTextColor(context.color(R.color.colorPrimaryText))
         }
+
+        mBinding.editBillingAddress.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (mBinding.radioYes.isChecked) {
+                    mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
+                }
+            }
+
+        })
+
+        mBinding.editZipCode.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (mBinding.radioYes.isChecked) {
+                    mBinding.editServiceZipCode.value = mBinding.editZipCode.value
+                }
+            }
+        })
 
         mBinding.btnNext.onClick {
             hideKeyboard()
