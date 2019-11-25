@@ -23,7 +23,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.ServiceDetail" />
+            type="com.tpv.android.model.CustomerData" />
 
 
     </data>

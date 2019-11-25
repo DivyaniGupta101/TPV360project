@@ -15,7 +15,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.ServiceDetail" />
+            type="com.tpv.android.model.CustomerData" />
 
         <variable
             name="plan"
@@ -156,13 +156,13 @@
                             android:id="@+id/radioYes"
                             style="@style/CheckBoxButton"
                             android:layout_marginStart="0dp"
-                            android:checked="@{item.isTheBillingAddressTheSameAsTheServiceAddress().equals(@string/yes) ? true : false}"
+                            android:checked="@{viewModel.isElectricServiceAddressSame()? true : false}"
                             android:text="@string/yes" />
 
                         <RadioButton
                             android:id="@+id/radioNo"
                             style="@style/CheckBoxButton"
-                            android:checked="@{item.isTheBillingAddressTheSameAsTheServiceAddress().equals(@string/no) ? true : false , default = true}"
+                            android:checked="@{viewModel.isElectricServiceAddressSame()? false : true}"
                             android:text="@string/no"
                             tools:checked="true" />
                     </RadioGroup>

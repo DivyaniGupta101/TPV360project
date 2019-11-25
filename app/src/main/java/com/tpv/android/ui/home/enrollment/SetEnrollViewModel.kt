@@ -12,9 +12,11 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var utilitiesList: ArrayList<UtilityResp> = ArrayList()
     var zipcode: ZipCodeResp? = null
     var programList: ArrayList<ProgramsResp> = ArrayList()
-    var serviceDetail: ServiceDetail = ServiceDetail()
+    var customerData: CustomerData = CustomerData()
     var savedLeadDetail: SaveLeadsDetailResp? = null
     var recordingFile: String = ""
+    var isElectricServiceAddressSame: Boolean? = false
+    var isGasServiceAddressSame: Boolean? = false
 
 
     fun saveLeadDetail(leadsDetailReq: SaveLeadsDetailReq) = with(AppRepository)

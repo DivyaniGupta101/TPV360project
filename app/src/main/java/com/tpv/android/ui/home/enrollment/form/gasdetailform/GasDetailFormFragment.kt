@@ -52,7 +52,7 @@ class GasDetailFormFragment : Fragment() {
         }
 
 
-        mBinding.item = mViewModel.serviceDetail
+        mBinding.item = mViewModel.customerData
 
         mBinding.radioYes?.onClick {
             mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
@@ -117,9 +117,11 @@ class GasDetailFormFragment : Fragment() {
     }
 
     private fun setValueInViewModel() {
+        mViewModel.isGasServiceAddressSame = if (mSelectedRadioButton == getString(R.string.yes)) true else false
+
         when (mViewModel.planType) {
             Plan.GASFUEL.value -> {
-                mViewModel.serviceDetail.apply {
+                mViewModel.customerData.apply {
                     billingFirstName = mBinding.editBillingFirstName.value
                     billingMiddleInitial = mBinding.editBillingMiddleName.value
                     billingLastName = mBinding.editBillingLastName.value
@@ -139,7 +141,7 @@ class GasDetailFormFragment : Fragment() {
             }
 
             Plan.DUALFUEL.value -> {
-                mViewModel.serviceDetail.apply {
+                mViewModel.customerData.apply {
                     gasBillingAddress = mBinding.editBillingAddress.value
                     gasBillingAddress2 = ""
                     gasServiceAddress = mBinding.editServiceAddress.value

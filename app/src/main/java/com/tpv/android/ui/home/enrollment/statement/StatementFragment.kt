@@ -58,7 +58,7 @@ class StatementFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
 
 
-        mBinding.item = mViewModel.serviceDetail
+        mBinding.item = mViewModel.customerData
 
         mBinding.checkContract.setOnCheckedChangeListener { buttonView, isChecked ->
             setButtonEnable()
@@ -84,7 +84,7 @@ class StatementFragment : Fragment() {
                         gasprogramid = mViewModel.programList.find { it.utilityType == Plan.GASFUEL.value }?.id,
                         electricutilityId = mViewModel.utilitiesList.find { it?.commodity == Plan.ELECTRICFUEL.value }?.utid.toString(),
                         electricprogramid = mViewModel.programList.find { it.utilityType == Plan.ELECTRICFUEL.value }?.id,
-                        fields = arrayListOf(mViewModel.serviceDetail),
+                        fields = arrayListOf(mViewModel.customerData),
                         zipcode = mViewModel.zipcode?.zipcode)
                 )
             }
@@ -95,7 +95,7 @@ class StatementFragment : Fragment() {
                         programId = mViewModel.programList.get(0).id,
                         utilityId = mViewModel.utilitiesList.get(0)?.utid.toString(),
                         zipcode = mViewModel.zipcode?.zipcode,
-                        fields = arrayListOf(mViewModel.serviceDetail)))
+                        fields = arrayListOf(mViewModel.customerData)))
             }
         }
 

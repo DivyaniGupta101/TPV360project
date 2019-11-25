@@ -15,7 +15,6 @@ import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClientInfoBinding
 import com.tpv.android.databinding.ItemProgramsBinding
-import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
@@ -44,7 +43,7 @@ class ClientInfoFragment : Fragment() {
         mBinding.textElectric.hide()
         mBinding.textGas.hide()
 
-        mBinding.item = mViewModel.serviceDetail
+        mBinding.item = mViewModel.customerData
 
         setupToolbar(mBinding.toolbar, getString(R.string.client_info), showBackIcon = true)
 

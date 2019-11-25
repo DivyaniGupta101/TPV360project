@@ -20,7 +20,7 @@ data class SaveLeadsDetailReq(
         @SerializedName("electricutility_id")
         val electricutilityId: String? = "",
         @SerializedName("fields")
-        val fields: ArrayList<ServiceDetail?>,
+        val fields: ArrayList<CustomerData?>,
         @SerializedName("gasprogramid")
         val gasprogramid: String? = "",
         @SerializedName("gasutility_id")
@@ -33,7 +33,7 @@ data class SaveLeadsDetailReq(
         val zipcode: String? = ""
 )
 
-data class ServiceDetail(
+data class CustomerData(
         @SerializedName("Authorized First name")
         var authorizedFirstName: String? = "",
         @SerializedName("Authorized Last name")

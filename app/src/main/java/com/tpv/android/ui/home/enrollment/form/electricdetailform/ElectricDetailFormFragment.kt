@@ -36,7 +36,6 @@ class ElectricDetailFormFragment : Fragment() {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_electric_detail_form, container, false)
         activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
-        mBinding.viewModel = mViewModel
         return mBinding.root
 
     }
@@ -44,9 +43,11 @@ class ElectricDetailFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
-        mBinding.item = mViewModel.serviceDetail
+        mBinding.item = mViewModel.customerData
+        mBinding.viewModel = mViewModel
 
-        mBinding.radioYes?.onClick {
+        mBinding.radioYes?.onClick()
+        {
             mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
             mBinding.editServiceZipCode.value = mBinding.editZipCode.value
             mBinding.editServiceAddress.isEnabled = false
@@ -55,7 +56,8 @@ class ElectricDetailFormFragment : Fragment() {
             mBinding.editServiceZipCode.setTextColor(context.color(R.color.colorSecondaryText))
         }
 
-        mBinding.radioNo?.onClick {
+        mBinding.radioNo?.onClick()
+        {
             mBinding.editServiceAddress.value = ""
             mBinding.editServiceZipCode.value = ""
             mBinding.editServiceAddress.isEnabled = true
@@ -64,41 +66,45 @@ class ElectricDetailFormFragment : Fragment() {
             mBinding.editServiceZipCode.setTextColor(context.color(R.color.colorPrimaryText))
         }
 
-        mBinding.editBillingAddress.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
+        mBinding.editBillingAddress.addTextChangedListener(
+                object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {
+                    }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (mBinding.radioYes.isChecked) {
-                    mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
-                }
-            }
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        if (mBinding.radioYes.isChecked) {
+                            mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
+                        }
+                    }
 
-        })
+                })
 
-        mBinding.editZipCode.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
+        mBinding.editZipCode.addTextChangedListener(
+                object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {
+                    }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (mBinding.radioYes.isChecked) {
-                    mBinding.editServiceZipCode.value = mBinding.editZipCode.value
-                }
-            }
-        })
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        if (mBinding.radioYes.isChecked) {
+                            mBinding.editServiceZipCode.value = mBinding.editZipCode.value
+                        }
+                    }
+                })
 
-        mBinding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        mBinding.radioGroup.setOnCheckedChangeListener()
+        { group, checkedId ->
             mSelectedRadioButton = group.findViewById<RadioButton>(checkedId).text.toString()
         }
 
 
-        mBinding.btnNext.onClick {
+        mBinding.btnNext.onClick()
+        {
             hideKeyboard()
             setValueInViewModel()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_electricDetailFormFragment_to_clientInfoFragment)
@@ -107,9 +113,11 @@ class ElectricDetailFormFragment : Fragment() {
     }
 
     private fun setValueInViewModel() {
+        mViewModel.isElectricServiceAddressSame = if (mSelectedRadioButton.equals(getString(R.string.yes))) true else false
+
         when (mViewModel.planType) {
             Plan.ELECTRICFUEL.value -> {
-                mViewModel.serviceDetail.apply {
+                mViewModel.customerData.apply {
                     billingFirstName = mBinding.editBillingFirstName.value
                     billingMiddleInitial = mBinding.editBillingMiddleName.value
                     billingLastName = mBinding.editBillingLastName.value
@@ -129,7 +137,8 @@ class ElectricDetailFormFragment : Fragment() {
             }
 
             Plan.DUALFUEL.value -> {
-                mViewModel.serviceDetail.apply {
+
+                mViewModel.customerData.apply {
                     electricBillingFirstName = mBinding.editBillingFirstName.value
                     electricBillingMiddleInitial = mBinding.editBillingMiddleName.value
                     electricBillingLastName = mBinding.editBillingLastName.value

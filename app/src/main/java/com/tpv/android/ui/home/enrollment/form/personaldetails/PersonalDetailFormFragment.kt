@@ -65,12 +65,12 @@ class PersonalDetailFormFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
-        mBinding.item = mSetEnrollViewModel.serviceDetail
+        mBinding.item = mSetEnrollViewModel.customerData
 
         mBinding.spinnerRelationShip.adapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, relationShipList)
         mBinding.spinnerCountryCode.setItems(arrayListOf("+1"))
 
-        mBinding.spinnerRelationShip.setSelection(relationShipList.indexOf(mSetEnrollViewModel.serviceDetail.relationShip))
+        mBinding.spinnerRelationShip.setSelection(relationShipList.indexOf(mSetEnrollViewModel.customerData.relationShip))
 
         mBinding.textVerify.onClick {
             hideKeyboard()
@@ -222,7 +222,7 @@ class PersonalDetailFormFragment : Fragment() {
     }
 
     fun setValueInViewModel() {
-        mSetEnrollViewModel.serviceDetail.apply {
+        mSetEnrollViewModel.customerData.apply {
             if (mSetEnrollViewModel.planType == Plan.DUALFUEL.value) {
                 gasAuthRelationship = mBinding.spinnerRelationShip.selectedItem.toString()
                 relationShip = mBinding.spinnerRelationShip.selectedItem.toString()
