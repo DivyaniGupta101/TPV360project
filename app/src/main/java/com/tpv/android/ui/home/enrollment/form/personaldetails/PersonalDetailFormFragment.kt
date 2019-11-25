@@ -9,19 +9,20 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
-import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.setItems
-import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogOtpBinding
+import com.tpv.android.databinding.DialogRelationshipBinding
 import com.tpv.android.databinding.FragmentPersonalDetailFormBinding
 import com.tpv.android.model.DialogText
 import com.tpv.android.model.OTPReq
@@ -46,7 +47,7 @@ class PersonalDetailFormFragment : Fragment() {
     private lateinit var mBinding: FragmentPersonalDetailFormBinding
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private lateinit var mViewModel: PersonalDetailViewModel
-    private var relationShipList = arrayListOf("Account Holder", "Spouse", "Power of Attorney", "Family Member", "Other")
+    private var relationShipList: ObservableArrayList<String> = ObservableArrayList()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_personal_detail_form, container, false)
@@ -60,12 +61,13 @@ class PersonalDetailFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        relationShipList.addAll(arrayListOf(getString(R.string.account_holder), getString(R.string.spouse), getString(R.string.power_of_attorney), getString(R.string.family_member), getString(R.string.other)))
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
         mBinding.item = mSetEnrollViewModel.serviceDetail
 
-        mBinding.spinnerRelationShip.setItems(relationShipList)
+        mBinding.spinnerRelationShip.adapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, relationShipList)
         mBinding.spinnerCountryCode.setItems(arrayListOf("+1"))
 
         mBinding.spinnerRelationShip.setSelection(relationShipList.indexOf(mSetEnrollViewModel.serviceDetail.relationShip))
@@ -85,6 +87,12 @@ class PersonalDetailFormFragment : Fragment() {
             }
         }
 
+        mBinding.spinnerRelationShip.onItemSelected { parent, view, position, id ->
+            if (getString(R.string.other) == relationShipList.get(position.orZero())) {
+                showRelationShipDialog()
+            }
+        }
+
 
         mBinding.btnNext.onClick {
             hideKeyboard()
@@ -99,6 +107,44 @@ class PersonalDetailFormFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showRelationShipDialog() {
+        val binding = DataBindingUtil.inflate<DialogRelationshipBinding>(layoutInflater, R.layout.dialog_relationship, null, false)
+        context?.let { context ->
+
+            val dialog = AlertDialog.Builder(context)
+                    .setView(binding.root).show()
+
+            binding.item = DialogText("", "", getString(R.string.submit), getString(R.string.cancel))
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            binding.btnCancel?.onClick {
+                dialog.hide()
+            }
+
+            binding.editNewRelationship.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    binding.btnSubmit.isEnabled = (binding.editNewRelationship.value.isNotEmpty().orFalse())
+                }
+            })
+
+            binding.btnSubmit?.onClick {
+                relationShipList.add(relationShipList.size - 1, binding.editNewRelationship.value)
+                mBinding.spinnerRelationShip.adapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, relationShipList)
+                mBinding.spinnerRelationShip.setSelection(relationShipList.size - 2)
+                dialog?.hide()
+
+            }
+
+        }
+
     }
 
     private fun verifyOTPCall(otp: String, dialog: AlertDialog, binding: DialogOtpBinding) {
