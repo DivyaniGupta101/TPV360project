@@ -16,6 +16,10 @@
         <import type="com.tpv.android.network.resources.apierror.APIError" />
 
         <variable
+            name="showEmptyText"
+            type="Boolean" />
+
+        <variable
             name="useBlockingProgress"
             type="boolean" />
 
@@ -43,6 +47,7 @@
             android:layout_gravity="center"
             android:text="@string/no_data_found"
             android:visibility="gone"
+            app:showEmptyText="@{showEmptyText}"
             app:showIfEmptyDataCheck="@{resource}"
             tools:visibility="visible" />
 

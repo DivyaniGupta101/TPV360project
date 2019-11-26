@@ -94,11 +94,13 @@ object BindingAdapter {
      * shows the view if resource data is empty
      */
     @JvmStatic
-    @BindingAdapter("showIfEmptyDataCheck")
-    fun showIfEmptyDataCheck(container: View, resource: Resource<*, APIError>?) {
+    @BindingAdapter("showIfEmptyDataCheck", "showEmptyText")
+    fun showIfEmptyDataCheck(container: View, resource: Resource<*, APIError>?, isShow: Boolean = true) {
         val data = resource?.data
         if (data is List<*> && data.size.orZero() == 0 && resource.state == Resource.State.SUCCESS) {
-            container.show()
+            if (isShow) {
+                container.show()
+            }
         } else {
             container.hide()
         }
