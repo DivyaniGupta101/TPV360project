@@ -88,6 +88,18 @@ class PersonalDetailFormFragment : Fragment() {
             }
         }
 
+        mBinding.editPhoneNumber.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                mBinding.textVerify.isEnabled = true
+                mBinding.textVerify.setText(R.string.verify)
+            }
+        })
         mBinding.spinnerRelationShip.onItemSelected { parent, view, position, id ->
 
             if (getString(R.string.other) == relationShipList.get(position.orZero())) {
@@ -166,7 +178,7 @@ class PersonalDetailFormFragment : Fragment() {
 
             binding.btnCancel?.onClick {
                 mBinding.spinnerRelationShip.setSelection(mLastSelectedItem.orZero())
-                dialog.hide()
+                dialog.dismiss()
             }
 
             binding.editNewRelationship.addTextChangedListener(object : TextWatcher {
@@ -185,7 +197,7 @@ class PersonalDetailFormFragment : Fragment() {
                 relationShipList.add(relationShipList.size - 1, binding.editNewRelationship.value)
                 mBinding.spinnerRelationShip.adapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, relationShipList)
                 mBinding.spinnerRelationShip.setSelection(relationShipList.size - 2)
-                dialog?.hide()
+                dialog?.dismiss()
 
             }
 
@@ -198,7 +210,10 @@ class PersonalDetailFormFragment : Fragment() {
 
         liveData.observe(this, Observer {
             it.ifSuccess {
-                dialog.hide()
+                dialog.dismiss()
+                mBinding.textVerify.setText(R.string.verified)
+                mBinding.textVerify.isEnabled = false
+                activity?.hideKeyboard()
             }
         })
 
@@ -251,16 +266,15 @@ class PersonalDetailFormFragment : Fragment() {
             })
 
             binding?.btnSubmit?.onClick {
-                hideKeyboard()
                 verifyOTPCall(binding.pinView.value, dialog, binding)
             }
 
             binding.btnCancel?.onClick {
-                dialog.hide()
+                dialog.dismiss()
             }
 
             binding.textResendOTP?.onClick {
-                dialog.hide()
+                dialog.dismiss()
                 generateOTPCall()
             }
 
@@ -282,4 +296,5 @@ class PersonalDetailFormFragment : Fragment() {
             countryCode = mBinding.spinnerCountryCode.selectedItem.toString()
         }
     }
+
 }
