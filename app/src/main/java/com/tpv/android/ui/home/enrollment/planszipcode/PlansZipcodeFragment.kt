@@ -40,6 +40,7 @@ class PlansZipcodeFragment : Fragment() {
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private var toolbarTitle = ""
     private lateinit var mViewModel: PlansZipcodeViewModel
+    private var lastSearchZipCode = ""
 
     private val mHandler = Handler()
 
@@ -142,17 +143,19 @@ class PlansZipcodeFragment : Fragment() {
         mBinding.textZipcode.addTextWatcher { s, start, before, count ->
             mHandler.removeCallbacksAndMessages(null)
             mHandler.postDelayed({
-                mViewModel.getZipCode(ZipCodeReq(s.toString()))
+                if (!s.toString().equals(lastSearchZipCode))
+                    mViewModel.getZipCode(ZipCodeReq(s.toString()))
             }, TEXT_CHANGE_DELAY)
         }
 
+        mBinding.textZipcode.setOnItemClickListener { parent, view, position, id ->
+            lastSearchZipCode = mZipcodeList[position].zipcode.orEmpty()
+            mBinding.textZipcode.value = lastSearchZipCode
+            mBinding.textZipcode.setSelection(lastSearchZipCode.length)
+        }
 
         mBinding.textZipcode.setOnDismissListener {
-            mBinding.textZipcode.setOnItemClickListener { parent, view, position, id ->
-                mBinding.textZipcode.value = mZipcodeList.get(position).zipcode.orEmpty()
-                mBinding.textZipcode.isFocusable = false
-            }
-            if (mZipcodeList.find { it.zipcode == mBinding.textZipcode.value } != null) {
+            if (mZipcodeList.any { it.zipcode == mBinding.textZipcode.value }) {
                 hideKeyboard()
                 getUtilityListApiCall(mBinding.textZipcode.value)
             } else {
