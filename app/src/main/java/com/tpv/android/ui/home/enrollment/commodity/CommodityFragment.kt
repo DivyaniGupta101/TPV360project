@@ -13,7 +13,7 @@ import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentCommodityBinding
-import com.tpv.android.databinding.ItemPlansBinding
+import com.tpv.android.databinding.ItemCommodityBinding
 import com.tpv.android.model.Plans
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.Plan
@@ -50,7 +50,7 @@ class CommodityFragment : Fragment() {
         mList.add(Plans(context?.getDrawable(R.drawable.ic_natural_gas_gray), getString(R.string.natural_gas), Plan.GASFUEL.value))
 
         LiveAdapter(mList, BR.item)
-                .map<Plans, ItemPlansBinding>(R.layout.item_plans) {
+                .map<Plans, ItemCommodityBinding>(R.layout.item_commodity) {
                     onClick { holder ->
                         mViewModel.planType = holder.binding.item?.planType.orEmpty()
                         Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_commodityFragment_to_plansZipcodeFragment)

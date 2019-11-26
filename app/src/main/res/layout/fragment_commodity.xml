@@ -26,7 +26,7 @@
             android:paddingTop="@dimen/_8sdp"
             android:paddingBottom="@dimen/_8sdp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/item_plans" />
+            tools:listitem="@layout/item_commodity" />
 
 
     </LinearLayout>
