@@ -46,6 +46,9 @@ class PersonalDetailFormFragment : Fragment() {
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private lateinit var mViewModel: SetEnrollViewModel
     private var relationShipList: ObservableArrayList<String> = ObservableArrayList()
+    private var mLastSelectedItem: Int = 0
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_personal_detail_form, container, false)
@@ -86,8 +89,11 @@ class PersonalDetailFormFragment : Fragment() {
         }
 
         mBinding.spinnerRelationShip.onItemSelected { parent, view, position, id ->
+
             if (getString(R.string.other) == relationShipList.get(position.orZero())) {
                 showRelationShipDialog()
+            } else {
+                mLastSelectedItem = position.orZero()
             }
         }
 
@@ -159,6 +165,7 @@ class PersonalDetailFormFragment : Fragment() {
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
             binding.btnCancel?.onClick {
+                mBinding.spinnerRelationShip.setSelection(mLastSelectedItem.orZero())
                 dialog.hide()
             }
 
