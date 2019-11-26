@@ -318,6 +318,7 @@ class RecordingFragment : Fragment() {
             dialog?.dismiss()
         }
         binding?.btnYes?.onClick {
+            dialog?.dismiss()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
         }
 

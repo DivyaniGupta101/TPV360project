@@ -52,41 +52,49 @@
 
                     <TextView
                         style="@style/PrimaryNormalText"
-                        android:text="@{item.title}" />
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@{item.title}"
+                        tools:text="@string/enter_otp" />
 
-                    <com.chaos.view.PinView
-                        android:id="@+id/pinView"
-                        style="@style/PinWidget.PinView"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:cursorVisible="true"
-                        android:inputType="number"
-                        android:lines="1"
-                        android:maxLines="1"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/_20sdp"
-                        app:cursorColor="@color/colorCursor"
-                        app:hideLineWhenFilled="false"
-                        app:itemCount="6"
-                        app:itemSpacing="@dimen/_6sdp"
-                        app:itemWidth="@dimen/_30sdp"
-                        app:lineColor="@drawable/otp_selector"
-                        app:lineWidth="@dimen/_2sdp"
-                        app:viewType="line" />
+                        android:orientation="vertical">
+
+                        <com.chaos.view.PinView
+                            android:id="@+id/pinView"
+                            style="@style/PinWidget.PinView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:cursorVisible="true"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="@dimen/_14sdp"
+                            app:cursorColor="@color/colorCursor"
+                            app:hideLineWhenFilled="false"
+                            app:itemCount="6"
+                            app:itemSpacing="@dimen/_4sdp"
+                            app:itemWidth="@dimen/_26sdp"
+                            app:lineColor="@drawable/otp_selector"
+                            app:lineWidth="@dimen/_2sdp"
+                            app:viewType="line" />
 
 
-                    <TextView
-                        android:id="@+id/textResendOTP"
-                        style="@style/SecondaryNormalText"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_marginEnd="@dimen/_20sdp"
-                        android:layout_marginBottom="@dimen/_16sdp"
-                        android:text="@{item.description}"
-                        android:textColor="@color/colorTertiaryText"
-                        tools:text="@string/resend_otp" />
+                        <TextView
+                            android:id="@+id/textResendOTP"
+                            style="@style/SecondaryNormalText"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:layout_marginBottom="@dimen/_16sdp"
+                            android:text="@{item.description}"
+                            android:textColor="@color/colorTertiaryText"
+                            tools:text="@string/resend_otp" />
 
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

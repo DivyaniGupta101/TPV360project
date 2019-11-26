@@ -5,23 +5,6 @@
 
     <data>
 
-        <import type="com.tpv.android.network.resources.Resource" />
-
-        <import type="com.tpv.android.network.error.ErrorHandler" />
-
-        <import type="com.tpv.android.network.resources.apierror.APIError" />
-
-        <import type="com.tpv.android.R" />
-
-        <variable
-            name="resource"
-            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
-
-        <variable
-            name="errorHandler"
-            type="com.tpv.android.network.error.ErrorHandler" />
-
-
     </data>
 
     <LinearLayout
@@ -34,13 +17,13 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
-        <FrameLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -52,7 +35,6 @@
                     android:textColor="@color/colorTertiaryText" />
 
                 <LinearLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -185,13 +167,6 @@
                     android:text="@string/next" />
             </LinearLayout>
 
-            <include
-                android:id="@+id/incProgressBar"
-                layout="@layout/progress_bar"
-                app:errorHandler="@{errorHandler}"
-                app:resource="@{resource}"
-                app:useBlockingProgress="@{true}"
-                tools:visibility="visible" />
-        </FrameLayout>
+        </ScrollView>
     </LinearLayout>
 </layout>

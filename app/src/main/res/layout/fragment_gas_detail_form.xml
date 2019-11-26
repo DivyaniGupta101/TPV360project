@@ -63,7 +63,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputBillingFirstName"
-                        style="@style/DefaultEditText">
+                        style="@style/SingleLineEditText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingFirstName"
@@ -78,7 +78,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputBillingMiddleName"
-                        style="@style/DefaultEditText">
+                        style="@style/SingleLineEditText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingMiddleName"
@@ -97,7 +97,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingLastName"
-                            style="@style/DefaultEditText"
+                            style="@style/SingleLineEditText"
                             android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingLastName : item.billingLastName }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -129,7 +129,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editZipCode"
-                            style="@style/DefaultEditText"
+                            style="@style/SingleLineEditText"
                             android:enabled="false"
                             android:text="@{viewModel.zipcode.zipcode}"
                             android:textColor="@color/colorSecondaryText" />
@@ -192,7 +192,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceZipCode"
-                            style="@style/DefaultEditText"
+                            style="@style/SingleLineEditText"
                             android:enabled="false"
                             android:text="@{viewModel.zipcode.zipcode}"
                             android:textColor="@color/colorSecondaryText" />
@@ -205,7 +205,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputAccountNumber"
-                        style="@style/DefaultEditText">
+                        style="@style/SingleLineEditText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editAccountNumber"

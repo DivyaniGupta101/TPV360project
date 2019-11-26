@@ -73,72 +73,91 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
                     <TextView
                         style="@style/PrimaryBoldText"
+                        android:layout_width="0dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="0.2"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="@{ '$' + item.rate}"
                         tools:text="$12.49" />
 
-                    <View
-                        style="@style/DividerPrimary"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_8sdp" />
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_weight="0.8"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            style="@style/SecondaryNormalSmallText"
-                            android:text="@string/validity" />
+                        <View
+                            style="@style/DividerPrimary"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_8sdp" />
 
-                        <TextView
-                            style="@style/PrimaryNormalSmallText"
-                            android:text="@{item.term}"
-                            tools:text="12 Months" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
+                            <TextView
+                                style="@style/SecondaryNormalSmallText"
+                                android:text="@string/validity" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_weight="2"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/SecondaryNormalSmallText"
-                            android:text="@string/early_termination" />
-
-                        <TextView
-                            style="@style/PrimaryNormalSmallText"
-                            android:text="@{item.earlyterminationfee}"
-                            tools:text="$ 00" />
+                            <TextView
+                                style="@style/PrimaryNormalSmallText"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@{item.term}"
+                                tools:text="12 Months" />
 
 
-                    </LinearLayout>
+                        </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
 
-                        <TextView
-                            style="@style/SecondaryNormalSmallText"
-                            android:text="@string/code" />
+                            <TextView
+                                style="@style/SecondaryNormalSmallText"
+                                android:text="@string/early_termination" />
 
-                        <TextView
-                            style="@style/PrimaryNormalSmallText"
-                            android:text="@{item.programCode}"
-                            tools:text="142044" />
+                            <TextView
+                                style="@style/PrimaryNormalSmallText"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@{item.earlyterminationfee}"
+                                tools:text="$ 00" />
 
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/SecondaryNormalSmallText"
+                                android:text="@string/code" />
+
+                            <TextView
+                                style="@style/PrimaryNormalSmallText"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@{item.programCode}"
+                                tools:text="142044" />
+
+
+                        </LinearLayout>
 
                     </LinearLayout>
 

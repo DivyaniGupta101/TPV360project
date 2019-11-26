@@ -84,7 +84,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editAuthorisedFirstName"
-                                style="@style/DefaultEditText"
+                                style="@style/SingleLineEditText"
                                 android:text="@{item.authorizedFirstName}" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -99,7 +99,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editAuthorisedMiddleName"
-                                style="@style/DefaultEditText"
+                                style="@style/SingleLineEditText"
                                 android:text="@{item.authorizedMiddleInitial}" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -114,7 +114,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editAuthorisedLastName"
-                                style="@style/DefaultEditText"
+                                style="@style/SingleLineEditText"
                                 android:text="@{item.authorizedLastName}" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -166,7 +166,7 @@
 
                                         <com.google.android.material.textfield.TextInputEditText
                                             android:id="@+id/editPhoneNumber"
-                                            style="@style/DefaultEditText"
+                                            style="@style/SingleLineEditText"
                                             android:layout_height="@dimen/_36sdp"
                                             android:background="@drawable/bg_divider"
                                             android:inputType="phone"
@@ -199,7 +199,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editAuthorisedEmail"
-                                style="@style/DefaultEditText"
+                                style="@style/SingleLineEditText"
                                 android:inputType="textEmailAddress"
                                 android:text="@{item.email}" />
 

@@ -60,6 +60,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:inputType">text|textCapSentences|textMultiLine</item>
     </style>
-
+    <style name="SingleLineEditText" parent="DefaultEditText">
+       <item name="android:maxLines">1</item>
+    </style>
 
 </resources>
