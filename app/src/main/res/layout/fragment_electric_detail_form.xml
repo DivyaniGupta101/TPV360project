@@ -178,7 +178,9 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceAddress"
                             style="@style/SquareBorderEditText"
-                            android:text="@{item.serviceAddress}" />
+                            android:enabled="@{!viewModel.isElectricServiceAddressSame()}"
+                            android:text="@{item.serviceAddress}"
+                            android:textColor="@{viewModel.isElectricServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,8 +197,10 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceZipCode"
                             style="@style/DefaultEditText"
+                            android:enabled="@{viewModel.isElectricServiceAddressSame()}"
                             android:inputType="phone"
-                            android:text="@{item.serviceZip}" />
+                            android:text="@{item.serviceZip}"
+                            android:textColor="@{viewModel.isElectricServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

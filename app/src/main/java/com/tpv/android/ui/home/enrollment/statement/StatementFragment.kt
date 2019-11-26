@@ -178,10 +178,10 @@ class StatementFragment : Fragment() {
         })
 
 
-        if (mSignImage != null) {
-            binding.btnSave.isEnabled = true
-            binding.signatureView.signatureBitmap = mSignImage
-        }
+//        if (mSignImage != null) {
+//            binding.btnSave.isEnabled = true
+//            binding.signatureView.signatureBitmap = mSignImage
+//        }
         binding?.textClear?.onClick {
             binding.btnSave.isEnabled = false
             binding.signatureView.clear()

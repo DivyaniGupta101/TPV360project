@@ -179,7 +179,9 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceAddress"
                             style="@style/SquareBorderEditText"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasServiceAddress : item.serviceAddress }" />
+                            android:enabled="@{!viewModel.isGasServiceAddressSame()}"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasServiceAddress : item.serviceAddress }"
+                            android:textColor="@{viewModel.isGasServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -196,8 +198,10 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceZipCode"
                             style="@style/DefaultEditText"
+                            android:enabled="@{!viewModel.isGasServiceAddressSame()}"
                             android:inputType="phone"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasServiceZip : item.serviceZip }" />
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasServiceZip : item.serviceZip }"
+                            android:textColor="@{viewModel.isGasServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
