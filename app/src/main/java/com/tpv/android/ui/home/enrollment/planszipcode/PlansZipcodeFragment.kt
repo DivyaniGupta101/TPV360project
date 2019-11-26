@@ -18,10 +18,7 @@ import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
-import com.tpv.android.model.UtilityReq
-import com.tpv.android.model.UtilityResp
-import com.tpv.android.model.ZipCodeReq
-import com.tpv.android.model.ZipCodeResp
+import com.tpv.android.model.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -119,6 +116,14 @@ class PlansZipcodeFragment : Fragment() {
 
         setupToolbar(mBinding.toolbar, toolbarTitle, showBackIcon = true) {
             mSetEnrollViewModel.utilitiesList.clear()
+            mSetEnrollViewModel.planType = ""
+            mSetEnrollViewModel.zipcode = null
+            mSetEnrollViewModel.programList.clear()
+            mSetEnrollViewModel.customerData = CustomerData()
+            mSetEnrollViewModel.savedLeadDetail = null
+            mSetEnrollViewModel.recordingFile = ""
+            mSetEnrollViewModel.isElectricServiceAddressSame = false
+            mSetEnrollViewModel.isGasServiceAddressSame = false
         }
     }
 

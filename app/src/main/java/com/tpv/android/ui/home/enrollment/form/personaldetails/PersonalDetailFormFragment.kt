@@ -35,9 +35,7 @@ import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
-import com.tpv.android.utils.validation.EmptyValidator
-import com.tpv.android.utils.validation.TextInputValidationErrorHandler
-import com.tpv.android.utils.validation.Validator
+import com.tpv.android.utils.validation.*
 
 /**
  * A simple [Fragment] subclass.
@@ -96,17 +94,58 @@ class PersonalDetailFormFragment : Fragment() {
 
         mBinding.btnNext.onClick {
             hideKeyboard()
-            setValueInViewModel()
-
-            when (mSetEnrollViewModel.planType) {
-                Plan.DUALFUEL.value, Plan.GASFUEL.value -> {
-                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_gasDetailFormFragment)
-                }
-                Plan.ELECTRICFUEL.value -> {
-                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_electricDetailFormFragment)
+            if (isValid()) {
+                setValueInViewModel()
+                when (mSetEnrollViewModel.planType) {
+                    Plan.DUALFUEL.value, Plan.GASFUEL.value -> {
+                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_gasDetailFormFragment)
+                    }
+                    Plan.ELECTRICFUEL.value -> {
+                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_electricDetailFormFragment)
+                    }
                 }
             }
         }
+    }
+
+    private fun isValid(): Boolean {
+        return Validator(TextInputValidationErrorHandler()) {
+            addValidate(
+                    mBinding.editAuthorisedFirstName,
+                    EmptyValidator(),
+                    getString(R.string.enter_authorised_first_name)
+            )
+            addValidate(
+                    mBinding.editAuthorisedMiddleName,
+                    EmptyValidator(),
+                    getString(R.string.enter_authorised_middle_name)
+            )
+            addValidate(
+                    mBinding.editAuthorisedLastName,
+                    EmptyValidator(),
+                    getString(R.string.enter_authorised_last_name)
+            )
+            addValidate(
+                    mBinding.editPhoneNumber,
+                    EmptyValidator(),
+                    getString(R.string.enter_phone_number)
+            )
+            addValidate(
+                    mBinding.editAuthorisedEmail,
+                    EmptyValidator(),
+                    getString(R.string.enter_email)
+            )
+            addValidate(
+                    mBinding.editPhoneNumber,
+                    PhoneNumberValidator(),
+                    getString(R.string.enter_valid_phone_number)
+            )
+            addValidate(
+                    mBinding.editAuthorisedEmail,
+                    EmailValidator(),
+                    getString(R.string.enter_valid_email)
+            )
+        }.validate()
     }
 
     private fun showRelationShipDialog() {
@@ -225,7 +264,6 @@ class PersonalDetailFormFragment : Fragment() {
         mSetEnrollViewModel.customerData.apply {
             if (mSetEnrollViewModel.planType == Plan.DUALFUEL.value) {
                 gasAuthRelationship = mBinding.spinnerRelationShip.selectedItem.toString()
-                relationShip = mBinding.spinnerRelationShip.selectedItem.toString()
             } else {
                 relationShip = mBinding.spinnerRelationShip.selectedItem.toString()
             }
@@ -234,7 +272,7 @@ class PersonalDetailFormFragment : Fragment() {
             authorizedLastName = mBinding.editAuthorisedLastName.value
             phoneNumber = mBinding.editPhoneNumber.value
             email = mBinding.editAuthorisedEmail.value
-            countryCode = "+1"
+            countryCode = mBinding.spinnerCountryCode.selectedItem.toString()
         }
     }
 }

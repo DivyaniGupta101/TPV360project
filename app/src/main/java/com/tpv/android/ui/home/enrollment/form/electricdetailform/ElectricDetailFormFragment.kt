@@ -22,6 +22,9 @@ import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
+import com.tpv.android.utils.validation.EmptyValidator
+import com.tpv.android.utils.validation.TextInputValidationErrorHandler
+import com.tpv.android.utils.validation.Validator
 
 /**
  * A simple [Fragment] subclass.
@@ -105,11 +108,57 @@ class ElectricDetailFormFragment : Fragment() {
 
         mBinding.btnNext.onClick()
         {
-            hideKeyboard()
-            setValueInViewModel()
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_electricDetailFormFragment_to_clientInfoFragment)
-
+            if (isValid()) {
+                hideKeyboard()
+                setValueInViewModel()
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_electricDetailFormFragment_to_clientInfoFragment)
+            }
         }
+    }
+
+    private fun isValid(): Boolean {
+        return Validator(TextInputValidationErrorHandler()) {
+            addValidate(
+                    mBinding.editBillingFirstName,
+                    EmptyValidator(),
+                    getString(R.string.enter_billing_first_name)
+            )
+            addValidate(
+                    mBinding.editBillingMiddleName,
+                    EmptyValidator(),
+                    getString(R.string.enter_billing_middle_name)
+            )
+            addValidate(
+                    mBinding.editBillingLastName,
+                    EmptyValidator(),
+                    getString(R.string.enter_billing_last_name)
+            )
+            addValidate(
+                    mBinding.editBillingAddress,
+                    EmptyValidator(),
+                    getString(R.string.enter_billing_address)
+            )
+            addValidate(
+                    mBinding.editZipCode,
+                    EmptyValidator(),
+                    getString(R.string.enter_zipcode)
+            )
+            addValidate(
+                    mBinding.editServiceAddress,
+                    EmptyValidator(),
+                    getString(R.string.enter_service_address)
+            )
+            addValidate(
+                    mBinding.editServiceZipCode,
+                    EmptyValidator(),
+                    getString(R.string.enter_service_zipcode)
+            )
+            addValidate(
+                    mBinding.editAccountNumber,
+                    EmptyValidator(),
+                    getString(R.string.enter_account_number)
+            )
+        }.validate()
     }
 
     private fun setValueInViewModel() {

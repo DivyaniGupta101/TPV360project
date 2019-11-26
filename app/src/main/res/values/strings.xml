@@ -54,9 +54,9 @@
     <string name="natural_gas">Natural Gas</string>
     <string name="plans">Plans</string>
     <string name="commodity">Commodity</string>
-    <string name="enter_zipcode">Enter ZipCode</string>
-    <string name="select_gas_utility">Select Gas Utility</string>
-    <string name="select_electric_utility">Select Electric Utility</string>
+    <string name="zipcode">ZipCode</string>
+    <string name="gas_utility">Gas Utility</string>
+    <string name="electric_utility">Electric Utility</string>
     <string name="next">Next</string>
     <string name="validity">Validity</string>
     <string name="early_termination">Early Termination</string>
@@ -70,11 +70,6 @@
     <string name="unknown_error">Unknown Error</string>
     <string name="no_internet_connection_message">Network seams to be offline. Please try again later</string>
     <string name="something_went_wrong">Something went wrong. Please try again.</string>
-    <string name="enter_email">Please enter email</string>
-    <string name="enter_valid_email">Please enter valid email</string>
-    <string name="enter_password">Please enter password</string>
-    <string name="enter_new_password">Please enter new password</string>
-    <string name="enter_confirm_password">Please enter confirm password</string>
     <string name="password_not_matching">Both passwords are not matching</string>
     <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
     <string name="authorised_first_name">Authorised First Name</string>
@@ -90,7 +85,7 @@
     <string name="billing_middle_name">Billing Middle Name</string>
     <string name="billing_last_name">Billing Last Name</string>
     <string name="auth_relationship">Auth Relationship</string>
-    <string name="enter_account_number">Enter Account Number</string>
+    <string name="account_number">Account Number</string>
     <string name="customer_data">Customer Data</string>
     <string name="phone_number">Phone Number</string>
     <string name="verify">Verify</string>
@@ -130,12 +125,31 @@
     <string name="save">Save</string>
     <string name="clear">Clear</string>
     <string name="resend_otp">Resend OTP</string>
-    <string name="please_enter_otp">Please enter OTP</string>
-    <string name="enter_phone_number">Enter Phone number</string>
-    <string name="enter_new_relationship">Enter New Relationship</string>
     <string name="account_holder">Account Holder</string>
     <string name="spouse">Spouse</string>
     <string name="power_of_attorney">Power of Attorney</string>
     <string name="family_member">Family Member</string>
     <string name="other">Other</string>
+
+    <!--    Validation -->
+    <string name="enter_email">Please enter email</string>
+    <string name="enter_valid_email">Please enter valid email</string>
+    <string name="enter_password">Please enter password</string>
+    <string name="enter_new_password">Please enter new password</string>
+    <string name="enter_confirm_password">Please enter confirm password</string>
+    <string name="enter_authorised_first_name">Please enter authorised first name</string>
+    <string name="enter_authorised_middle_name">Please enter authorised middle name</string>
+    <string name="enter_authorised_last_name">Please enter authorised last name</string>
+    <string name="enter_billing_first_name">Please enter billing first name</string>
+    <string name="enter_billing_middle_name">Please enter billing middle name</string>
+    <string name="enter_billing_last_name">Please enter billing last name</string>
+    <string name="enter_billing_address">Please enter billing address</string>
+    <string name="enter_zipcode">Please enter zipcode</string>
+    <string name="enter_service_address">Please enter service address</string>
+    <string name="enter_service_zipcode">Please enter service zipcode</string>
+    <string name="enter_account_number">Please enter account number</string>
+    <string name="enter_valid_phone_number">Please enter valid phone number</string>
+    <string name="enter_otp">Please enter OTP</string>
+    <string name="enter_phone_number">Plese enter phone number</string>
+    <string name="enter_new_relationship">Enter New Relationship</string>
 </resources>

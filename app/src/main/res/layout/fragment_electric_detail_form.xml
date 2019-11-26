@@ -113,13 +113,16 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputBillingAddress"
-                        style="@style/SquareBorderTextInputLayout">
+                        style="@style/DefaultEditText">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editBillingAddress"
-                            style="@style/SquareBorderEditText"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.electricBillingAddress : item.billingAddress }" />
+                        <LinearLayout style="@style/SquareBorderTextLinearLayout">
 
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editBillingAddress"
+                                style="@style/SquareBorderEditText"
+                                android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.electricBillingAddress : item.billingAddress }" />
+
+                        </LinearLayout>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -173,15 +176,17 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputServiceAddress"
-                        style="@style/SquareBorderTextInputLayout">
+                        style="@style/DefaultEditText">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editServiceAddress"
-                            style="@style/SquareBorderEditText"
-                            android:enabled="@{!viewModel.isElectricServiceAddressSame()}"
-                            android:text="@{item.serviceAddress}"
-                            android:textColor="@{viewModel.isElectricServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
+                        <LinearLayout style="@style/SquareBorderTextLinearLayout">
 
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editServiceAddress"
+                                style="@style/SquareBorderEditText"
+                                android:enabled="@{!viewModel.isElectricServiceAddressSame()}"
+                                android:text="@{item.serviceAddress}"
+                                android:textColor="@{viewModel.isElectricServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
+                        </LinearLayout>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -197,7 +202,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceZipCode"
                             style="@style/DefaultEditText"
-                            android:enabled="@{viewModel.isElectricServiceAddressSame()}"
+                            android:enabled="@{!viewModel.isElectricServiceAddressSame()}"
                             android:inputType="phone"
                             android:text="@{item.serviceZip}"
                             android:textColor="@{viewModel.isElectricServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
@@ -206,7 +211,7 @@
 
                     <TextView
                         style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/enter_account_number" />
+                        android:text="@string/account_number" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputAccountNumber"
