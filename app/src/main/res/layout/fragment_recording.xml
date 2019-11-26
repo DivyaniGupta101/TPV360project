@@ -96,7 +96,7 @@
                     <com.newventuresoftware.waveform.WaveformView
                         android:id="@+id/waveformView"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_80sdp"
+                        android:layout_height="@dimen/_70sdp"
                         android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginEnd="@dimen/_25sdp"
                         android:background="#FFF"

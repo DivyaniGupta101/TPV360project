@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.show
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
@@ -63,15 +64,21 @@ class RecordingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mBinding.item = mViewModel.customerData
+
         setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, showSkipText = true, skipTextClickListener = {
             if (recordedFile.isNullOrEmpty()) {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
             } else {
                 confirmationDialogForSkip()
             }
+        }, backIconClickListener = {
+            if (recordedFile?.isNotEmpty().orFalse()) {
+                mediaPlayer.stop()
+            }
         })
 
         mBinding.btnNext.onClick {
+            mediaPlayer.stop()
             mViewModel.recordingFile = recordedFile.orEmpty()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
         }
@@ -101,9 +108,14 @@ class RecordingFragment : Fragment() {
             }
         })
 
-        handleImages(RECORD_START)
+        if (mViewModel.recordingFile.isNotEmpty()) {
+            recordedFile = mViewModel.recordingFile
+            handleImages(AUDIO_START)
+        } else {
+            handleImages(RECORD_START)
+        }
 
-        mBinding.recordAgainContainer.hide()
+
 
         mediaPlayer.setOnCompletionListener {
             mediaPlayer.stop()
@@ -255,7 +267,7 @@ class RecordingFragment : Fragment() {
             RECORD_START -> {
                 mBinding.waveformView.show()
                 mBinding.recordStartImage.show()
-                mBinding.recordAgainContainer.show()
+                mBinding.recordAgainContainer.hide()
                 mBinding.graySpeakerImage.show()
             }
             RECORD_STOP -> {
