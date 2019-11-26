@@ -1,12 +1,15 @@
 package com.tpv.android.ui.home.enrollment.planszipcode
 
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
@@ -17,6 +20,7 @@ import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.tpv.android.R
+import com.tpv.android.databinding.DialogErrorBinding
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
 import com.tpv.android.model.*
 import com.tpv.android.network.error.AlertErrorHandler
@@ -224,8 +228,11 @@ class PlansZipcodeFragment : Fragment() {
         mBinding.spinnerElectricity.setItems(ArrayList(listOfElectricUtility))
         if (listOfElectricUtility.isNotEmpty()) {
             showElectricSpinner()
+        } else {
+            showNoUtilityDialog()
         }
     }
+
 
     /**
      * Find gas utilities From List and then set in spinner
@@ -235,9 +242,26 @@ class PlansZipcodeFragment : Fragment() {
         mBinding.spinnerGas.setItems(ArrayList(listOfGasUtility))
         if (listOfGasUtility.isNotEmpty()) {
             showGasSpinner()
+        } else {
+            showNoUtilityDialog()
         }
     }
 
+    private fun showNoUtilityDialog() {
+        val binding = DataBindingUtil.inflate<DialogErrorBinding>(layoutInflater, R.layout.dialog_error, null, false)
+        val dialog = context?.let {
+            AlertDialog.Builder(it)
+                    .setView(binding.root).show()
+        }
+
+        binding.item = getString(R.string.str_no_utilitiy_available)
+
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        binding.btnYes?.onClick {
+            dialog?.dismiss()
+        }
+    }
 
     /**
      * Show Electric DropDown and Title Text

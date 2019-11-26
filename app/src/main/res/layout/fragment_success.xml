@@ -90,7 +90,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/email"
-                            android:checked="true"/>
+                            android:checked="true" />
 
                         <CheckBox
                             android:id="@+id/checkBoxPhone"
@@ -98,7 +98,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_16sdp"
                             android:text="@string/phone"
-                            android:checked="true"/>
+                            android:checked="true" />
                     </LinearLayout>
 
                     <TextView

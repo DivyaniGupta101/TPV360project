@@ -12,6 +12,5 @@
         tools:context="com.tpv.android.ui.SplashActivity">
 
 
-
     </LinearLayout>
 </layout>
