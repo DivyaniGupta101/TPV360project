@@ -63,9 +63,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputBillingFirstName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
+                        style="@style/DefaultEditText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingFirstName"
@@ -80,9 +78,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputBillingMiddleName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
+                        style="@style/DefaultEditText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingMiddleName"
@@ -97,9 +93,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputBillingLastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
+                        style="@style/DefaultEditText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingLastName"
@@ -131,9 +125,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputZipCode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
+                        style="@style/DefaultEditText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editZipCode"
@@ -195,9 +187,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputServiceZipCode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
+                        style="@style/DefaultEditText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceZipCode"
@@ -215,9 +205,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputAccountNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text">
+                        style="@style/DefaultEditText">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editAccountNumber"

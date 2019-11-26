@@ -222,7 +222,7 @@ class PersonalDetailFormFragment : Fragment() {
             val dialog = AlertDialog.Builder(context)
                     .setView(binding.root).show()
 
-            binding.item = DialogText(getString(R.string.please_enter_otp),
+            binding.item = DialogText(getString(R.string.enter_otp),
                     getString(R.string.resend_otp), getString(R.string.submit), getString(R.string.cancel))
 
             dialog?.setCanceledOnTouchOutside(false)

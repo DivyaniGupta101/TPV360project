@@ -80,9 +80,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputAuthorisedFirstName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text">
+                          style="@style/DefaultEditText">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editAuthorisedFirstName"
@@ -97,9 +95,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputAuthorisedMiddleName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text">
+                            style="@style/DefaultEditText">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editAuthorisedMiddleName"
@@ -114,9 +110,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputAuthorisedLastName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text">
+                            style="@style/DefaultEditText">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editAuthorisedLastName"
@@ -132,13 +126,12 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
+                                android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/_8sdp"
                                 android:orientation="vertical">
 
@@ -146,7 +139,6 @@
                                     android:id="@+id/spinnerCountryCode"
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/_36sdp"
-                                    android:layout_weight="1"
                                     android:layout_gravity="center_vertical" />
 
                                 <View
@@ -156,38 +148,44 @@
                                     android:background="@color/colorDarkDivider" />
                             </LinearLayout>
 
+
                             <com.google.android.material.textfield.TextInputLayout
                                 android:id="@+id/textInputPhoneNumber"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:hintEnabled="false"
-                                android:inputType="text">
+                                style="@style/DefaultEditText"
+                                app:hintEnabled="false">
 
-                                <FrameLayout
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_36sdp">
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/_6sdp"
+                                    android:orientation="vertical">
 
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/editPhoneNumber"
-                                        style="@style/DefaultEditText"
-                                        android:layout_height="match_parent"
-                                        android:background="@drawable/bg_divider"
-                                        android:inputType="phone"
-                                        android:maxLength="10"
-                                        android:paddingEnd="52dp"
-                                        android:text="@{item.phoneNumber}" />
+                                    <FrameLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/editPhoneNumber"
+                                            style="@style/DefaultEditText"
+                                            android:layout_height="@dimen/_36sdp"
+                                            android:background="@drawable/bg_divider"
+                                            android:inputType="phone"
+                                            android:maxLength="10"
+                                            android:paddingEnd="52dp"
+                                            android:text="@{item.phoneNumber}" />
 
 
-                                    <TextView
-                                        android:id="@+id/textVerify"
-                                        style="@style/PrimaryNormalText"
-                                        android:layout_gravity="center_vertical|end"
-                                        android:padding="@dimen/_8sdp"
-                                        android:text="@string/verify"
-                                        android:textColor="@color/colorTertiaryText" />
-                                </FrameLayout>
+                                        <TextView
+                                            android:id="@+id/textVerify"
+                                            style="@style/PrimaryNormalText"
+                                            android:layout_gravity="center_vertical|end"
+                                            android:padding="@dimen/_8sdp"
+                                            android:text="@string/verify"
+                                            android:textColor="@color/colorTertiaryText" />
+                                    </FrameLayout>
+                                </LinearLayout>
+
                             </com.google.android.material.textfield.TextInputLayout>
-
                         </LinearLayout>
 
 
@@ -197,9 +195,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textInputEmail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text">
+                            style="@style/DefaultEditText">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/editAuthorisedEmail"
