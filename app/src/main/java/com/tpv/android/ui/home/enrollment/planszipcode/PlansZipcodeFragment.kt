@@ -194,15 +194,25 @@ class PlansZipcodeFragment : Fragment() {
             Plan.DUALFUEL.value -> {
                 setGasSpinner()
                 setElectricSpinner()
+                if (mBinding.spinnerGas.isShown && mBinding.spinnerElectricity.isShown) {
+                    mBinding.btnNext.isEnabled = true
+
+                }
             }
             Plan.ELECTRICFUEL.value -> {
                 setElectricSpinner()
+                if (mBinding.spinnerElectricity.isShown) {
+                    mBinding.btnNext.isEnabled = true
+                }
             }
             Plan.GASFUEL.value -> {
                 setGasSpinner()
+                if (mBinding.spinnerGas.isShown) {
+                    mBinding.btnNext.isEnabled = true
+                }
             }
         }
-        mBinding.btnNext.isEnabled = true
+
     }
 
     /**
@@ -212,7 +222,9 @@ class PlansZipcodeFragment : Fragment() {
     private fun setElectricSpinner() {
         val listOfElectricUtility = mUtilityList.filter { it.commodity.equals(Plan.ELECTRICFUEL.value) }.map { it.fullname.orEmpty() }
         mBinding.spinnerElectricity.setItems(ArrayList(listOfElectricUtility))
-        showElectricSpinner()
+        if (listOfElectricUtility.isNotEmpty()) {
+            showElectricSpinner()
+        }
     }
 
     /**
@@ -221,7 +233,9 @@ class PlansZipcodeFragment : Fragment() {
     private fun setGasSpinner() {
         val listOfGasUtility = mUtilityList.filter { it.commodity.equals(Plan.GASFUEL.value) }.map { it.fullname.orEmpty() }
         mBinding.spinnerGas.setItems(ArrayList(listOfGasUtility))
-        showGasSpinner()
+        if (listOfGasUtility.isNotEmpty()) {
+            showGasSpinner()
+        }
     }
 
 
