@@ -130,8 +130,9 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editZipCode"
                             style="@style/DefaultEditText"
-                            android:inputType="phone"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.electricBillingZip : item.billingZip }" />
+                            android:enabled="false"
+                            android:text="@{viewModel.zipcode.zipcode}"
+                            android:textColor="@color/colorSecondaryText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -192,10 +193,9 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editServiceZipCode"
                             style="@style/DefaultEditText"
-                            android:enabled="@{!viewModel.isElectricServiceAddressSame()}"
-                            android:inputType="phone"
-                            android:text="@{item.serviceZip}"
-                            android:textColor="@{viewModel.isElectricServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
+                            android:enabled="false"
+                            android:text="@{viewModel.zipcode.zipcode}"
+                            android:textColor="@color/colorSecondaryText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

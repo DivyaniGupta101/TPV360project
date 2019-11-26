@@ -52,21 +52,15 @@ class ElectricDetailFormFragment : Fragment() {
         mBinding.radioYes?.onClick()
         {
             mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
-            mBinding.editServiceZipCode.value = mBinding.editZipCode.value
             mBinding.editServiceAddress.isEnabled = false
-            mBinding.editServiceZipCode.isEnabled = false
             mBinding.editServiceAddress.setTextColor(context.color(R.color.colorSecondaryText))
-            mBinding.editServiceZipCode.setTextColor(context.color(R.color.colorSecondaryText))
         }
 
         mBinding.radioNo?.onClick()
         {
             mBinding.editServiceAddress.value = ""
-            mBinding.editServiceZipCode.value = ""
             mBinding.editServiceAddress.isEnabled = true
-            mBinding.editServiceZipCode.isEnabled = true
             mBinding.editServiceAddress.setTextColor(context.color(R.color.colorPrimaryText))
-            mBinding.editServiceZipCode.setTextColor(context.color(R.color.colorPrimaryText))
         }
 
         mBinding.editBillingAddress.addTextChangedListener(
@@ -85,20 +79,6 @@ class ElectricDetailFormFragment : Fragment() {
 
                 })
 
-        mBinding.editZipCode.addTextChangedListener(
-                object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {
-                    }
-
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                    }
-
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                        if (mBinding.radioYes.isChecked) {
-                            mBinding.editServiceZipCode.value = mBinding.editZipCode.value
-                        }
-                    }
-                })
 
         mBinding.radioGroup.setOnCheckedChangeListener()
         { group, checkedId ->

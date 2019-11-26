@@ -22,7 +22,6 @@ import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
-import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
@@ -60,20 +59,14 @@ class GasDetailFormFragment : Fragment() {
 
         mBinding.radioYes?.onClick {
             mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
-            mBinding.editServiceZipCode.value = mBinding.editZipCode.value
             mBinding.editServiceAddress.isEnabled = false
-            mBinding.editServiceZipCode.isEnabled = false
             mBinding.editServiceAddress.setTextColor(context.color(R.color.colorSecondaryText))
-            mBinding.editServiceZipCode.setTextColor(context.color(R.color.colorSecondaryText))
         }
 
         mBinding.radioNo?.onClick {
             mBinding.editServiceAddress.value = ""
-            mBinding.editServiceZipCode.value = ""
             mBinding.editServiceAddress.isEnabled = true
-            mBinding.editServiceZipCode.isEnabled = true
             mBinding.editServiceAddress.setTextColor(context.color(R.color.colorPrimaryText))
-            mBinding.editServiceZipCode.setTextColor(context.color(R.color.colorPrimaryText))
         }
 
         mBinding.editBillingAddress.addTextChangedListener(object : TextWatcher {
@@ -91,19 +84,6 @@ class GasDetailFormFragment : Fragment() {
 
         })
 
-        mBinding.editZipCode.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (mBinding.radioYes.isChecked) {
-                    mBinding.editServiceZipCode.value = mBinding.editZipCode.value
-                }
-            }
-        })
 
         mBinding.btnNext.onClick {
             hideKeyboard()
@@ -147,12 +127,12 @@ class GasDetailFormFragment : Fragment() {
             addValidate(
                     mBinding.editZipCode,
                     EmptyValidator(),
-                   getString(R.string.enter_zipcode)
+                    getString(R.string.enter_zipcode)
             )
             addValidate(
                     mBinding.editServiceAddress,
                     EmptyValidator(),
-                   getString(R.string.enter_service_address)
+                    getString(R.string.enter_service_address)
             )
             addValidate(
                     mBinding.editServiceZipCode,
