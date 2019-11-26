@@ -102,7 +102,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
-                        android:min="0"
+                        android:max="100"
+                        android:progress="0"
                         android:visibility="gone"
                         tools:visibility="visible" />
 
@@ -117,7 +118,7 @@
                         app:barPerSec="1"
                         app:gravity="1"
                         app:mode="RECORDING"
-                        app:speed="1"
+                        app:speed="2"
                         app:waveformColor="@color/colorAccent"
                         app:waveformStrokeThickness="12"
                         tools:visibility="visible" />

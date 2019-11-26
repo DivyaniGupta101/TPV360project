@@ -159,6 +159,11 @@ public class WaveformView extends View {
         }
     }
 
+    public void reset() {
+        if (mSampleList != null) mSampleList.clear();
+        if (mHistoricalData != null) mHistoricalData.clear();
+    }
+
     public int getMode() {
         return mMode;
     }
@@ -270,19 +275,24 @@ public class WaveformView extends View {
     }
 
     void drawRecordingWaveform(Short[] buffer, float[] waveformPoints) {
-        float max = Short.MAX_VALUE;
-        float maxY = 0f;
 
-        for (int x = 0; x < width; x++) {
-            int index = (int) (((x * 1.0f) / width) * buffer.length);
-            short sample = buffer[index];
-            float y = centerY - (((sample / barGravity) / max) * centerY);
+        try {
+            float max = Short.MAX_VALUE;
+            float maxY = 0f;
 
-            maxY = Math.max(maxY, y);
+            for (int x = 0; x < width; x++) {
+                int index = (int) (((x * 1.0f) / width) * buffer.length);
+                short sample = buffer[index];
+                float y = centerY - (((sample / barGravity) / max) * centerY);
+
+                maxY = Math.max(maxY, y);
+            }
+
+            waveformPoints[0] = width;
+            waveformPoints[1] = maxY;
+        } catch (Exception e) {
+
         }
-
-        waveformPoints[0] = width;
-        waveformPoints[1] = maxY;
     }
 
     Path drawPlaybackWaveform(int width, int height, short[] buffer) {
