@@ -15,6 +15,7 @@ import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentSuccessBinding
+import com.tpv.android.model.CustomerData
 import com.tpv.android.model.SuccessReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -68,6 +69,7 @@ class SuccessFragment : Fragment() {
 
 
         mBinding.textBackToDashBoard.onClick {
+            removeStoredData()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_successFragment_to_dashBoardFragment)
         }
     }
@@ -94,6 +96,7 @@ class SuccessFragment : Fragment() {
 
         liveData.observe(this, Observer {
             it?.ifSuccess {
+                removeStoredData()
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_successFragment_to_dashBoardFragment)
             }
         })
@@ -101,6 +104,18 @@ class SuccessFragment : Fragment() {
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
 
 
+    }
+
+    private fun removeStoredData() {
+        mViewModel.utilitiesList.clear()
+        mViewModel.planType = ""
+        mViewModel.zipcode = null
+        mViewModel.programList.clear()
+        mViewModel.customerData = CustomerData()
+        mViewModel.savedLeadDetail = null
+        mViewModel.recordingFile = ""
+        mViewModel.isElectricServiceAddressSame = false
+        mViewModel.isGasServiceAddressSame = false
     }
 
 }
