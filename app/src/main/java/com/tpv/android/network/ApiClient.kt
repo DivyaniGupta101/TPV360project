@@ -2,8 +2,7 @@ package com.tpv.android.network
 
 import com.tpv.android.BuildConfig
 import com.tpv.android.helper.Pref
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -48,6 +47,16 @@ object ApiClient {
             }
 
             val response = it.proceed(request)
+            if(response.code() == 401){
+                UnAuthorizedEventObserver.notifyObservers()
+                return@Interceptor Response.Builder()
+                        .code(200) //Whatever code
+                        .protocol(Protocol.HTTP_2)
+                        .message("")
+                        .body(ResponseBody.create(MediaType.parse("application/json"), "{}"))
+                        .request(it.request())
+                        .build()
+            }
             response
         }
         client.addInterceptor(interceptor)
@@ -59,7 +68,7 @@ object ApiClient {
         }
 
         builder.client(client.build())
-        com.tpv.android.network.ApiClient.retrofit = builder.build()
-        com.tpv.android.network.ApiClient.retrofit.create(com.tpv.android.network.ApiInterface::class.java)
+        ApiClient.retrofit = builder.build()
+        ApiClient.retrofit.create(ApiInterface::class.java)
     }
 }
