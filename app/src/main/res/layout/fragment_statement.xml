@@ -125,13 +125,23 @@
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/signature" />
 
-                    <ImageView
-                        android:id="@+id/imageSign"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_150sdp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:background="@drawable/square_gray_border"
-                        android:padding="@dimen/_8sdp" />
+                        android:padding="1dp">
+
+                        <ImageView
+                            android:id="@+id/imageSign"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="2:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/btnNext"

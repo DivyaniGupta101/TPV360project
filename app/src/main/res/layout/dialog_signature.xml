@@ -20,17 +20,14 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:cardCornerRadius="@dimen/_8sdp">
+            app:cardCornerRadius="@dimen/_8sdp"
+            android:layout_margin="@dimen/_16sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingEnd="@dimen/_16sdp"
-                android:paddingBottom="@dimen/_8sdp">
+                android:padding="@dimen/_12sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -41,35 +38,36 @@
                     <TextView
                         style="@style/PrimaryNormalText"
                         android:layout_weight="1"
-                        android:padding="@dimen/_4sdp"
                         android:text="@string/signature" />
 
                     <TextView
                         android:id="@+id/textClear"
                         style="@style/SecondaryNormalText"
-                        android:padding="@dimen/_4sdp"
                         android:text="@string/clear" />
                 </LinearLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/square_gray_border"
-                    android:padding="@dimen/_8sdp">
+                    android:background="@drawable/square_gray_border">
 
                     <com.github.gcacace.signaturepad.views.SignaturePad
                         android:id="@+id/signature_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_150sdp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="2:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:penColor="@android:color/black" />
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_8sdp">
+                    android:orientation="horizontal">
 
 
                     <TextView
