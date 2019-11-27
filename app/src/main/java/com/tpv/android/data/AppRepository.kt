@@ -140,9 +140,9 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.saveRecordingCall(leadId: RequestBody, mediaFile: MultipartBody.Part) = dataApi<RecordingResp?, APIError> {
+    fun CoroutineScope.saveMediaCall(leadId: RequestBody, mediaFile: MultipartBody.Part) = dataApi<Any?, APIError> {
         fromNetwork {
-            ApiClient.service.saveRecording(leadid = leadId, mediaFile = mediaFile).getResult().map { it?.data }
+            ApiClient.service.saveMedia(leadid = leadId, mediaFile = mediaFile).getResult().map { it?.data }
         }
     }
 

@@ -28,8 +28,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         saveContractCall(contractReq)
     }
 
-    fun saveRecording(leadId: RequestBody, mediaFile: MultipartBody.Part) = with(AppRepository) {
-        saveRecordingCall(leadId, mediaFile)
+    fun saveMedia(leadId: RequestBody, mediaFile: MultipartBody.Part) = with(AppRepository) {
+        saveMediaCall(leadId, mediaFile)
     }
 
     fun generateOTP(otpReq: OTPReq) = with(AppRepository) {

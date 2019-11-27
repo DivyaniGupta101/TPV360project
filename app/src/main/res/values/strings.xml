@@ -130,6 +130,8 @@
     <string name="power_of_attorney">Power of Attorney</string>
     <string name="family_member">Family Member</string>
     <string name="other">Other</string>
+    <string name="str_no_utilitiy_available">No utilities available for selected zipcode</string>
+
 
     <!--    Validation -->
     <string name="enter_email">Please enter email</string>
@@ -152,5 +154,4 @@
     <string name="enter_otp">Please enter OTP</string>
     <string name="enter_phone_number">Plese enter phone number</string>
     <string name="enter_new_relationship">Enter New Relationship</string>
-    <string name="str_no_utilitiy_available">No utilities available for selected zipcode</string>
 </resources>

@@ -117,7 +117,7 @@ class StatementFragment : Fragment() {
     private fun saveRecording() {
         val liveData =
                 File(mViewModel.recordingFile).toMultipartBody("media", "audio/*")?.let {
-                    mViewModel.saveRecording(mViewModel.savedLeadDetail?.id.toRequestBody(),
+                    mViewModel.saveMedia(mViewModel.savedLeadDetail?.id.toRequestBody(),
                             it)
                 }
 
@@ -134,7 +134,7 @@ class StatementFragment : Fragment() {
     private fun saveSignatureCall() {
 
         val liveData = context?.BitmapToFile(mSignImage).toMultipartBody("media", "image/jpeg")?.let {
-            mViewModel.saveRecording(mViewModel.savedLeadDetail?.id.toRequestBody(),
+            mViewModel.saveMedia(mViewModel.savedLeadDetail?.id.toRequestBody(),
                     it)
         }
 

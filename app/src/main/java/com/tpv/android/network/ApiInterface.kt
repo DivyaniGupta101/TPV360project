@@ -44,7 +44,7 @@ interface ApiInterface {
 
     @Multipart
     @POST("leadmedia")
-    fun saveRecording(@Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<CommonResponse<RecordingResp>>
+    fun saveMedia(@Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<CommonResponse<Any>>
 
 
     @POST("saveleaddata")
