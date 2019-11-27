@@ -14,8 +14,7 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentCommodityBinding
 import com.tpv.android.databinding.ItemCommodityBinding
-import com.tpv.android.model.Plans
-import com.tpv.android.ui.home.HomeActivity
+import com.tpv.android.model.Commodity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
 
@@ -25,7 +24,7 @@ import com.tpv.android.utils.*
 class CommodityFragment : Fragment() {
     private lateinit var mBinding: FragmentCommodityBinding
     private lateinit var mViewModel: SetEnrollViewModel
-    private var mList: ArrayList<Plans> = ArrayList()
+    private var mList: ArrayList<Commodity> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,12 +43,12 @@ class CommodityFragment : Fragment() {
     private fun setRecyclerView() {
 
         mList.clear()
-        mList.add(Plans(context?.getDrawable(R.drawable.ic_fire_gray), getString(R.string.dual_fuel), Plan.DUALFUEL.value))
-        mList.add(Plans(context?.getDrawable(R.drawable.ic_idea_gray), getString(R.string.electricity), Plan.ELECTRICFUEL.value))
-        mList.add(Plans(context?.getDrawable(R.drawable.ic_natural_gas_gray), getString(R.string.natural_gas), Plan.GASFUEL.value))
+        mList.add(Commodity(context?.getDrawable(R.drawable.ic_fire_gray), getString(R.string.dual_fuel), Plan.DUALFUEL.value))
+        mList.add(Commodity(context?.getDrawable(R.drawable.ic_idea_gray), getString(R.string.electricity), Plan.ELECTRICFUEL.value))
+        mList.add(Commodity(context?.getDrawable(R.drawable.ic_natural_gas_gray), getString(R.string.natural_gas), Plan.GASFUEL.value))
 
         LiveAdapter(mList, BR.item)
-                .map<Plans, ItemCommodityBinding>(R.layout.item_commodity) {
+                .map<Commodity, ItemCommodityBinding>(R.layout.item_commodity) {
                     onClick { holder ->
                         mViewModel.planType = holder.binding.item?.planType.orEmpty()
                         Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_commodityFragment_to_plansZipcodeFragment)

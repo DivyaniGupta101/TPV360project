@@ -10,7 +10,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.Plans" />
+            type="com.tpv.android.model.Commodity" />
 
     </data>
 

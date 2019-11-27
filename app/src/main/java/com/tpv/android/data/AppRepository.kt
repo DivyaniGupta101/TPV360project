@@ -21,6 +21,7 @@ import okhttp3.RequestBody
 
 object AppRepository {
 
+    //    Login
     fun CoroutineScope.logInCall(loginReq: LoginReq) = dataApi<LoginResp?, APIError> {
         fromNetwork {
             ApiClient.service.logIn(loginReq).getResult().map {
@@ -31,6 +32,7 @@ object AppRepository {
         }
     }
 
+    //    Home
     fun CoroutineScope.getDashBoardCall() = dataApi<List<Dashboard>, APIError> {
         fromNetwork {
             ApiClient.service.getDashboardDetail().getResult().map { it?.data.orEmpty() }
@@ -69,7 +71,7 @@ object AppRepository {
         }
     }
 
-
+    //zipcode
     fun CoroutineScope.getZipCodeCall(zipCodeReq: ZipCodeReq) = dataApi<List<ZipCodeResp>, APIError> {
         fromNetwork {
             ApiClient.service.zipAutoCompleteApi(zipCodeReq).getResult().map {
@@ -134,6 +136,7 @@ object AppRepository {
         }
     }
 
+    //    SaveLead
     fun CoroutineScope.saveLeadDetailCall(saveLeadsDetailReq: SaveLeadsDetailReq) = dataApi<SaveLeadsDetailResp?, APIError> {
         fromNetwork {
             ApiClient.service.saveLeadDetail(saveLeadsDetailReq).getResult().map { it?.data }
@@ -153,12 +156,15 @@ object AppRepository {
         }
     }
 
+    //    Sucess
     fun CoroutineScope.selfVerificationCall(successReq: SuccessReq) = dataApi<Any?, APIError> {
         fromNetwork {
             ApiClient.service.selfVerify(successReq).getResult().map { it?.data }
         }
     }
 
+
+    //    OTP
     fun CoroutineScope.generateOTPCall(otpReq: OTPReq) = dataApi<Any?, APIError> {
         fromNetwork {
             ApiClient.service.sendOtp(otpReq).getResult().map { it?.data }
