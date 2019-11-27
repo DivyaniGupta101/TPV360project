@@ -179,6 +179,7 @@
                                             android:id="@+id/textVerify"
                                             style="@style/PrimaryNormalText"
                                             android:layout_gravity="center_vertical|end"
+                                            android:background="?selectableItemBackground"
                                             android:padding="@dimen/_8sdp"
                                             android:text="@string/verify"
                                             android:textColor="@color/colorTertiaryText" />

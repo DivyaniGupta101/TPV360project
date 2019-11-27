@@ -57,7 +57,7 @@
     </style>
 
     <style name="DialogCancelButton" parent="DialogButton">
-        <item name="android:background">@drawable/bg_rectangle_border</item>
+        <item name="android:background">@drawable/bg_rectangle_with_radius_border</item>
         <item name="android:textColor">@color/colorCancelButtonBorder</item>
     </style>
 

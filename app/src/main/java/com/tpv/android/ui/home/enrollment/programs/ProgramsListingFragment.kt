@@ -111,7 +111,7 @@ class ProgramsListingFragment : Fragment() {
                 .map<ProgramsResp, ItemProgramsBinding>(R.layout.item_programs) {
                     onBind {
                         if (it.binding.item?.isSelcected.orFalse()) {
-                            it.binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_program_border)
+                            it.binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_border)
                             it.binding.imageEnroll.show()
                         } else {
                             it.binding.mainContainer.background = null

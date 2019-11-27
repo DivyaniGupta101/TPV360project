@@ -74,7 +74,7 @@ class ClientInfoFragment : Fragment() {
             }
 
             val binding = DataBindingUtil.inflate<ItemProgramsBinding>(layoutInflater, R.layout.item_programs, mViewGroup, true)
-            binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_program_border)
+            binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_border)
             binding.item = programsResp
 
         }

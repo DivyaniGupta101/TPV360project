@@ -30,7 +30,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical"
                 android:padding="@dimen/_8sdp"
-                tools:background="@drawable/bg_rectangle_program_border">
+                tools:background="@drawable/bg_rectangle_border">
 
                 <LinearLayout
                     android:layout_width="match_parent"
