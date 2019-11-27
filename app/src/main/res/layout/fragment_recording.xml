@@ -68,7 +68,7 @@
                             android:layout_height="@dimen/_60sdp"
                             android:src="@drawable/ic_speaker_gray"
                             android:visibility="visible"
-                            app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
+                            app:dynamicTintColor="@{R.color.colorSecondaryLighText}" />
 
                         <ImageView
                             android:id="@+id/redSpeakerImage"
