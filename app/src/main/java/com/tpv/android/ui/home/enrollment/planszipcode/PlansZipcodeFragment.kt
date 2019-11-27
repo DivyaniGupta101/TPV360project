@@ -288,6 +288,8 @@ class PlansZipcodeFragment : Fragment() {
         mBinding.textGas.hide()
         mBinding.spinnerElectricity.hide()
         mBinding.spinnerGas.hide()
+        mBinding.dividerGas.hide()
+        mBinding.dividerElectric.hide()
         mBinding.btnNext.isEnabled = false
     }
 
