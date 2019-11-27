@@ -15,12 +15,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.startActivity
 import com.livinglifetechway.k4kotlin.databinding.setBindingView
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivityHomeBinding
 import com.tpv.android.databinding.DialogLogoutBinding
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.DialogText
 import com.tpv.android.model.MenuItems
@@ -40,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var mNavController: NavController
     lateinit var mViewModel: HomeViewModel
     var mLastSelectedItem = MenuItem.DASHBOARD.value
+    private lateinit var navigationHostFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +50,8 @@ class HomeActivity : AppCompatActivity() {
         mBinding.lifecycleOwner = this
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         mNavController = Navigation.findNavController(this, R.id.navHostFragment)
-
+        navigationHostFragment =
+                supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
 
         handleStatusBarColor()
 
@@ -178,6 +182,8 @@ class HomeActivity : AppCompatActivity() {
         if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
             mBinding.drawerLayout.closeDrawer(GravityCompat.END)
         } else {
+            val fragment = navigationHostFragment.childFragmentManager.fragments.first()
+            if ((fragment is OnBackPressCallBack)) fragment.handleOnBackPressed()
             super.onBackPressed()
         }
 

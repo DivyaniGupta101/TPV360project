@@ -22,6 +22,7 @@ import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogErrorBinding
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -37,7 +38,8 @@ import com.tpv.android.utils.setupToolbar
 /**
  * A simple [Fragment] subclass.
  */
-class PlansZipcodeFragment : Fragment() {
+class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
+
     private lateinit var mBinding: FragmentPlansZipcodeBinding
     private var mZipcodeList = ObservableArrayList<ZipCodeResp>()
     private var mUtilityList = ArrayList<UtilityResp>()
@@ -291,6 +293,19 @@ class PlansZipcodeFragment : Fragment() {
         mBinding.dividerGas.hide()
         mBinding.dividerElectric.hide()
         mBinding.btnNext.isEnabled = false
+    }
+
+    override fun handleOnBackPressed(): Boolean {
+        mSetEnrollViewModel.utilitiesList.clear()
+        mSetEnrollViewModel.planType = ""
+        mSetEnrollViewModel.zipcode = null
+        mSetEnrollViewModel.programList.clear()
+        mSetEnrollViewModel.customerData = CustomerData()
+        mSetEnrollViewModel.savedLeadDetail = null
+        mSetEnrollViewModel.recordingFile = ""
+        mSetEnrollViewModel.isElectricServiceAddressSame = false
+        mSetEnrollViewModel.isGasServiceAddressSame = false
+        return true
     }
 
 }

@@ -78,8 +78,10 @@ class RecordingFragment : Fragment() {
         })
 
         mBinding.btnNext.onClick {
-            mediaPlayer.stop()
-            mViewModel.recordingFile = recordedFile.orEmpty()
+            if (recordedFile?.isNotEmpty().orFalse()) {
+                mediaPlayer.stop()
+                mViewModel.recordingFile = recordedFile.orEmpty()
+            }
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
         }
 
