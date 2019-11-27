@@ -256,7 +256,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                     .setView(binding.root).show()
         }
 
-        binding.item = getString(R.string.str_no_utilitiy_available)
+        binding.item = getString(R.string.msg_no_utilitiy_available)
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
