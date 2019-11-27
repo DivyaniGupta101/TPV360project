@@ -71,9 +71,11 @@
     <color name="colorCancelButtonBorder">@color/colorAccent</color>
     <color name="colorRecordingButtonBorder">@color/colorGray</color>
 
-<!--    CursorColor-->
+    <!--    CursorColor-->
     <color name="colorCursor">@color/colorAccent</color>
 
+    <!--    WaveColor-->
+    <color name="colorWave">@color/colorGray</color>
 
 
 </resources>
