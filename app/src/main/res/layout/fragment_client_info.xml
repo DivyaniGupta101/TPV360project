@@ -102,6 +102,7 @@
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:maxLines="1"
+                                        android:ellipsize="end"
                                         android:text="@{item.authorizedFirstName}"
                                         tools:text="Smithan" />
                                 </LinearLayout>
@@ -123,6 +124,7 @@
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:maxLines="1"
+                                        android:ellipsize="end"
                                         android:text="@{item.authorizedMiddleInitial}"
                                         tools:text="John" />
                                 </LinearLayout>
@@ -144,6 +146,7 @@
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:maxLines="1"
+                                        android:ellipsize="end"
                                         android:text="@{item.authorizedLastName}"
                                         tools:text="Michel" />
                                 </LinearLayout>

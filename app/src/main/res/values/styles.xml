@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:editTextStyle">@style/DefaultEditText</item>
+        <item name="android:editTextStyle">@style/TextInputLayout</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -153,11 +153,12 @@
         <item name="android:layout_marginStart">@dimen/_16sdp</item>
     </style>
 
-    <style name="SquareBorderEditText" parent="DefaultEditText">
+    <style name="SquareBorderEditText" parent="TextInputLayout">
         <item name="android:layout_height">@dimen/_60sdp</item>
         <item name="android:padding">@dimen/_8sdp</item>
         <item name="android:background">@null</item>
         <item name="android:gravity">top</item>
+        <item name="android:inputType">text|textCapSentences|textMultiLine</item>
     </style>
 
     <style name="SquareBorderTextLinearLayout">

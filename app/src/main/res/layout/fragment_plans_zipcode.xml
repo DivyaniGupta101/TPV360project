@@ -58,7 +58,7 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/textZipcode"
-                        style="@style/SingleLineEditText"
+                        style="@style/DefaultEditText"
                         android:layout_width="match_parent"
                         android:inputType="phone" />
 

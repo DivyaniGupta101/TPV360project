@@ -5,7 +5,4 @@
         android:width="1dp"
         android:color="@color/colorEditTextBorder" />
     <corners android:radius="4dp" />
-    <padding
-        android:left="@dimen/_4sdp"
-        android:right="@dimen/_4sdp" />
 </shape>
