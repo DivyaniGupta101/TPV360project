@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.tpv.android.R" />
 
         <variable
             name="item"
@@ -33,7 +34,8 @@
                 <ImageView
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/ic_alert_gray" />
+                    android:src="@drawable/ic_alert_gray"
+                    app:dynamicTintColor="@{R.color.colorSecondaryImageTint}"/>
 
                 <TextView
                     style="@style/PrimaryBoldText"
