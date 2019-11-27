@@ -48,6 +48,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var mBinding: ActivityHomeBinding
     lateinit var mNavController: NavController
     lateinit var mViewModel: HomeViewModel
+    var mLastSelectedITem = DASHBOARD
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +93,7 @@ class HomeActivity : AppCompatActivity() {
 
         mBinding.navMenu?.logoutContainer?.onClick {
             handleItemMenu(LOGOUT)
+            openLogOutDialog()
         }
     }
 
@@ -126,27 +128,29 @@ class HomeActivity : AppCompatActivity() {
 
         when (item) {
             DASHBOARD -> {
+                mLastSelectedITem = item
                 mBinding.navMenu?.darkViewDashBoard?.show()
                 mBinding.navMenu?.dashboardContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
                 mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
             PROFILE -> {
+                mLastSelectedITem = item
                 mBinding.navMenu?.darkViewProfile?.show()
                 mBinding.navMenu?.profileContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
                 mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
             ENROLL -> {
+                mLastSelectedITem = item
                 mBinding.navMenu?.darkViewEnrollment?.show()
                 mBinding.navMenu?.enrollmentContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
                 mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             }
 
             LOGOUT -> {
+                handleItemMenu(mLastSelectedITem)
                 mBinding.drawerLayout.closeDrawer(GravityCompat.END)
-                mBinding.navMenu?.logoutContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
-                openLogOutDialog()
             }
         }
 

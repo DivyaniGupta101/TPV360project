@@ -15,9 +15,11 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentCommodityBinding
 import com.tpv.android.databinding.ItemCommodityBinding
 import com.tpv.android.model.Plans
+import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
+import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 
 /**
@@ -59,4 +61,8 @@ class CommodityFragment : Fragment() {
                 .into(mBinding.listPlans)
     }
 
+    override fun onResume() {
+        super.onResume()
+        setItemSelection(HomeActivity.ENROLL)
+    }
 }
