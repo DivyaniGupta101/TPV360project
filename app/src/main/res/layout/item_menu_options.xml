@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.tpv.android.R" />
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.MenuItems" />
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/parentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        tools:background="@color/colorMenuLightHighLight"
+        app:selectMenuItem="@{isSelected}">
+
+        <View
+            android:layout_width="@dimen/_8sdp"
+            android:layout_height="match_parent"
+            android:background="@color/colorMenuDarkHighLight"
+            android:visibility="gone"
+            app:selectMenuItem="@{isSelected}"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="?selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/_12sdp">
+
+            <ImageView
+                style="@style/SlideMenuItemImage"
+                app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}"
+                app:placeholder="@{item.icon}"
+                tools:src="@drawable/ic_menu_profile_white" />
+
+            <TextView
+                style="@style/SlideMenuItemText"
+                android:text="@{item.title}"
+                tools:text="@string/profile" />
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

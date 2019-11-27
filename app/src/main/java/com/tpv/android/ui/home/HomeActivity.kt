@@ -15,10 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.livinglifetechway.k4kotlin.core.androidx.color
-import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.show
 import com.livinglifetechway.k4kotlin.core.startActivity
 import com.livinglifetechway.k4kotlin.databinding.setBindingView
 import com.tpv.android.R
@@ -26,29 +23,23 @@ import com.tpv.android.databinding.ActivityHomeBinding
 import com.tpv.android.databinding.DialogLogoutBinding
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.DialogText
+import com.tpv.android.model.MenuItems
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
+import com.tpv.android.utils.MenuItem
 import com.tpv.android.utils.navigateSafe
 
 
 class HomeActivity : AppCompatActivity() {
 
-
-    companion object {
-        var DASHBOARD = 1
-        var PROFILE = 2
-        var ENROLL = 3
-        var LOGOUT = 4
-    }
-
     lateinit var mBinding: ActivityHomeBinding
     lateinit var mNavController: NavController
     lateinit var mViewModel: HomeViewModel
-    var mLastSelectedITem = DASHBOARD
+    var mLastSelectedItem = MenuItem.DASHBOARD.value
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +50,6 @@ class HomeActivity : AppCompatActivity() {
 
 
         handleStatusBarColor()
-
-
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
@@ -74,25 +63,38 @@ class HomeActivity : AppCompatActivity() {
             setMenuProfileData()
         }
 
-        handleItemMenu(DASHBOARD)
+        mBinding.navMenu.menutItemList = arrayListOf(
+                MenuItems(getDrawable(R.drawable.ic_menu_dashboard_white), getString(R.string.dashboard)),
+                MenuItems(getDrawable(R.drawable.ic_menu_profile_white), getString(R.string.profile)),
+                MenuItems(getDrawable(R.drawable.ic_register_white), getString(R.string.start_enrollment)),
+                MenuItems(getDrawable(R.drawable.ic_logout_white_32dp), getString(R.string.log_out)))
 
-        mBinding.navMenu?.dashboardContainer?.onClick {
-            handleItemMenu(DASHBOARD)
+        handleItemMenu(MenuItem.DASHBOARD.value)
+
+        mBinding.navMenu?.layoutDashboard?.parentContainer?.onClick {
+            mBinding.navMenu.currentSelected = MenuItem.DASHBOARD.value
+            mLastSelectedItem = MenuItem.DASHBOARD.value
+            mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             mNavController.navigateSafe(R.id.action_global_dashboardFragment)
         }
 
-        mBinding.navMenu?.profileContainer?.onClick {
-            handleItemMenu(PROFILE)
+        mBinding.navMenu?.layoutProfile?.parentContainer?.onClick {
+            mBinding.navMenu.currentSelected = MenuItem.PROFILE.value
+            mLastSelectedItem = MenuItem.PROFILE.value
+            mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             mNavController.navigateSafe(R.id.action_global_profileFragment)
         }
 
-        mBinding.navMenu?.enrollmentContainer?.onClick {
-            handleItemMenu(ENROLL)
+        mBinding.navMenu?.layoutSetEnroll?.parentContainer?.onClick {
+            mBinding.navMenu.currentSelected = MenuItem.ENROLL.value
+            mLastSelectedItem = MenuItem.ENROLL.value
+            mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             mNavController.navigateSafe(R.id.action_global_commodityFragment)
         }
 
-        mBinding.navMenu?.logoutContainer?.onClick {
-            handleItemMenu(LOGOUT)
+        mBinding.navMenu?.layoutLogout?.parentContainer?.onClick {
+            mBinding.navMenu.currentSelected = MenuItem.LOGOUT.value
+            mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             openLogOutDialog()
         }
     }
@@ -115,45 +117,9 @@ class HomeActivity : AppCompatActivity() {
         mBinding.navMenu.item = Pref.user
     }
 
-    fun handleItemMenu(item: Int) {
-
-        mBinding.navMenu?.darkViewDashBoard?.hide()
-        mBinding.navMenu?.dashboardContainer?.background = null
-        mBinding.navMenu?.darkViewProfile?.hide()
-        mBinding.navMenu?.profileContainer?.background = null
-        mBinding.navMenu?.darkViewEnrollment?.hide()
-        mBinding.navMenu?.enrollmentContainer?.background = null
-        mBinding.navMenu?.darkViewLogout?.hide()
-        mBinding.navMenu?.logoutContainer?.background = null
-
-        when (item) {
-            DASHBOARD -> {
-                mLastSelectedITem = item
-                mBinding.navMenu?.darkViewDashBoard?.show()
-                mBinding.navMenu?.dashboardContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
-                mBinding.drawerLayout.closeDrawer(GravityCompat.END)
-            }
-
-            PROFILE -> {
-                mLastSelectedITem = item
-                mBinding.navMenu?.darkViewProfile?.show()
-                mBinding.navMenu?.profileContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
-                mBinding.drawerLayout.closeDrawer(GravityCompat.END)
-            }
-
-            ENROLL -> {
-                mLastSelectedITem = item
-                mBinding.navMenu?.darkViewEnrollment?.show()
-                mBinding.navMenu?.enrollmentContainer?.setBackgroundColor(this.color(R.color.colorMenuLightHighLight))
-                mBinding.drawerLayout.closeDrawer(GravityCompat.END)
-            }
-
-            LOGOUT -> {
-                handleItemMenu(mLastSelectedITem)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.END)
-            }
-        }
-
+    fun handleItemMenu(item: String) {
+        mLastSelectedItem = item
+        mBinding.navMenu.currentSelected = item
     }
 
     private fun openLogOutDialog() {
@@ -166,6 +132,9 @@ class HomeActivity : AppCompatActivity() {
                 getString(R.string.yes),
                 getString(R.string.cancel))
 
+        dialog?.setOnDismissListener {
+            mBinding.navMenu.currentSelected = mLastSelectedItem
+        }
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         binding?.btnCancel?.onClick {
@@ -210,7 +179,6 @@ class HomeActivity : AppCompatActivity() {
             mBinding.drawerLayout.closeDrawer(GravityCompat.END)
         } else {
             super.onBackPressed()
-
         }
 
     }

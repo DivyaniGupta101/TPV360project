@@ -8,6 +8,18 @@
         <import type="com.tpv.android.R" />
 
         <variable
+            name="currentSelected"
+            type="String" />
+
+        <variable
+            name="menutItemList"
+            type="java.util.ArrayList&lt;com.tpv.android.model.MenuItems>" />
+
+        <variable
+            name="menuItem"
+            type="com.tpv.android.utils.MenuItem" />
+
+        <variable
             name="item"
             type="com.tpv.android.model.UserDetail" />
 
@@ -70,148 +82,33 @@
                 </LinearLayout>
             </FrameLayout>
 
-
-            <FrameLayout
-                android:id="@+id/dashboardContainer"
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginTop="32dp"
-                android:background="@color/colorMenuLightHighLight">
+                android:layout_height="@dimen/_20sdp" />
 
-                <View
-                    android:id="@+id/darkViewDashBoard"
-                    android:layout_width="@dimen/_8sdp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorMenuDarkHighLight"
-                    android:visibility="gone" />
+            <include
+                android:id="@+id/layoutDashboard"
+                layout="@layout/item_menu_options"
+                app:isSelected="@{currentSelected == menuItem.DASHBOARD.value }"
+                app:item="@{menutItemList[0]}" />
 
+            <include
+                android:id="@+id/layoutProfile"
+                layout="@layout/item_menu_options"
+                app:isSelected="@{currentSelected == menuItem.PROFILE.value }"
+                app:item="@{menutItemList[1]}" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_12sdp">
+            <include
+                android:id="@+id/layoutSetEnroll"
+                layout="@layout/item_menu_options"
+                app:isSelected="@{currentSelected == menuItem.ENROLL.value }"
+                app:item="@{menutItemList[2]}" />
 
-                    <ImageView
-                        style="@style/SlideMenuItemImage"
-                        android:src="@drawable/ic_menu_dashboard_white"
-                        app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}" />
-
-                    <TextView
-                        style="@style/SlideMenuItemText"
-                        android:text="@string/dashboard" />
-                </LinearLayout>
-
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/profileContainer"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorMenuLightHighLight">
-
-                <View
-                    android:id="@+id/darkViewProfile"
-                    android:layout_width="@dimen/_8sdp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorMenuDarkHighLight"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="?selectableItemBackground"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_12sdp">
-
-                    <ImageView
-                        style="@style/SlideMenuItemImage"
-                        android:src="@drawable/ic_menu_profile_white"
-                        app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}" />
-
-                    <TextView
-                        style="@style/SlideMenuItemText"
-                        android:text="@string/profile" />
-
-                </LinearLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/enrollmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:background="@color/colorMenuLightHighLight">
-
-                <View
-                    android:id="@+id/darkViewEnrollment"
-                    android:layout_width="@dimen/_8sdp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorMenuDarkHighLight"
-                    android:visibility="gone" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_12sdp">
-
-                    <ImageView
-                        style="@style/SlideMenuItemImage"
-                        android:src="@drawable/ic_register_white"
-                        app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}" />
-
-                    <TextView
-                        style="@style/SlideMenuItemText"
-                        android:layout_weight="3"
-                        android:text="@string/start_enrollment" />
-
-                </LinearLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/logoutContainer"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:background="@color/colorMenuLightHighLight">
-
-                <View
-                    android:id="@+id/darkViewLogout"
-                    android:layout_width="@dimen/_8sdp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorMenuDarkHighLight"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_12sdp">
-
-                    <ImageView
-                        style="@style/SlideMenuItemImage"
-                        android:src="@drawable/ic_logout_white_32dp"
-                        app:dynamicTintColor="@{R.color.colorMenuDarkHighLight}" />
-
-                    <TextView
-                        style="@style/SlideMenuItemText"
-                        android:text="@string/logout" />
-
-                </LinearLayout>
-            </FrameLayout>
+            <include
+                android:id="@+id/layoutLogout"
+                layout="@layout/item_menu_options"
+                app:isSelected="@{currentSelected == menuItem.LOGOUT.value }"
+                app:item="@{menutItemList[3]}" />
 
         </LinearLayout>
     </ScrollView>

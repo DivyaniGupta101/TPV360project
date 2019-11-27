@@ -86,7 +86,7 @@ fun Fragment.setupToolbar(
 
 }
 
-fun Fragment.setItemSelection(item: Int) {
+fun Fragment.setItemSelection(item: String) {
     when (activity) {
         is HomeActivity -> {
             (activity as HomeActivity).handleItemMenu(item)
@@ -113,6 +113,13 @@ enum class LeadStatus(val value: String) {
     VERIFIED("verified"),
     DECLINED("decline"),
     DISCONNECTED("hangup")
+}
+
+enum class MenuItem(val value: String){
+    DASHBOARD ("dashboard"),
+    PROFILE ("profile"),
+    ENROLL ("enroll"),
+    LOGOUT ("logout")
 }
 
 /**

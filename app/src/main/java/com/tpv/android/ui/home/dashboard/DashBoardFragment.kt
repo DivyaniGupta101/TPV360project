@@ -15,10 +15,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.ui.home.HomeActivity
-import com.tpv.android.utils.LeadStatus
-import com.tpv.android.utils.navigateSafe
-import com.tpv.android.utils.setItemSelection
-import com.tpv.android.utils.setupToolbar
+import com.tpv.android.utils.*
 
 /**
  * A simple [Fragment] subclass.
@@ -82,7 +79,7 @@ class DashBoardFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        setItemSelection(HomeActivity.DASHBOARD)
+        setItemSelection(MenuItem.DASHBOARD.value)
         mViewModel.getDashBoardDetail()
     }
 }

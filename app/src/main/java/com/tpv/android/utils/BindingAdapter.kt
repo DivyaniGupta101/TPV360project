@@ -3,6 +3,7 @@ package com.tpv.android.utils
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -182,5 +183,27 @@ object BindingAdapter {
             setImage(image, url, null)
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("selectMenuItem")
+    fun setMenuSelection(view: View, isSelected: Boolean) {
+        if (isSelected) {
+            if (view is FrameLayout) {
+                view.setBackgroundColor(view.context.color(R.color.colorMenuLightHighLight))
+            } else {
+                view.show()
+            }
+        } else {
+            if (view is FrameLayout) {
+                view.background = null
+            } else {
+                view.hide()
+            }
+
+        }
+
+    }
+
+
 }
 
