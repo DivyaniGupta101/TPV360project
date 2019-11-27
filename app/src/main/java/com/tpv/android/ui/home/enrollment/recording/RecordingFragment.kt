@@ -103,7 +103,8 @@ class RecordingFragment : Fragment() {
                 seekBar?.progress?.let {
                     mediaPlayer.seekTo(it)
                     mBinding.chronometer.base = SystemClock.elapsedRealtime() - it
-                    mBinding.chronometer.start()
+                    if (mediaPlayer.isPlaying)
+                        mBinding.chronometer.start()
                 }
             }
         })
@@ -119,8 +120,16 @@ class RecordingFragment : Fragment() {
 
         mediaPlayer.setOnCompletionListener {
             mediaPlayer.stop()
+            mediaPlayer.reset()
+            mediaPlayer.setDataSource(recordedFile)
+            mediaPlayer.prepare()
+            mBinding.seekbarAudio.progress = 0
+            mBinding.seekbarAudio.max = mediaPlayer.duration - (mediaPlayer.duration % 1000)
+
             isAudioPause = false
             mBinding.chronometer.stop()
+            mBinding.seekbarAudio.progress = 0
+            mBinding.chronometer.text = "00:00"
             handleImages(AUDIO_START)
         }
 
@@ -187,6 +196,12 @@ class RecordingFragment : Fragment() {
         mBinding.chronometer.text = "00:00"
 
         handleImages(AUDIO_START)
+
+        mediaPlayer.reset()
+        mediaPlayer.setDataSource(recordedFile)
+        mediaPlayer.prepare()
+        mBinding.seekbarAudio.progress = 0
+        mBinding.seekbarAudio.max = mediaPlayer.duration - (mediaPlayer.duration % 1000)
     }
 
 
@@ -202,21 +217,21 @@ class RecordingFragment : Fragment() {
 
             if (isAudioPause) {
                 mediaPlayer.start()
-                mBinding.chronometer.base = SystemClock.elapsedRealtime() - mediaPlayer.currentPosition
-                mBinding.chronometer.start()
+                isAudioPause = false
             } else {
-                mBinding.seekbarAudio.progress = 0
-                mediaPlayer.reset()
-                mediaPlayer.setDataSource(recordedFile)
-                mediaPlayer.prepare()
+
+//                mediaPlayer.reset()
+//                mediaPlayer.setDataSource(recordedFile)
+//                mediaPlayer.prepare()
                 mediaPlayer.start()
+                mediaPlayer.seekTo(mBinding.seekbarAudio.progress)
+//                mBinding.seekbarAudio.max = mediaPlayer.duration - (mediaPlayer.duration % 1000)
 
-                mBinding.seekbarAudio.progress = 0
-                mBinding.seekbarAudio.max = mediaPlayer.duration - (mediaPlayer.duration % 1000)
-
-                mBinding.chronometer.base = SystemClock.elapsedRealtime()
-                mBinding.chronometer.start()
+//                mBinding.chronometer.base = SystemClock.elapsedRealtime()
+//                mBinding.chronometer.start()
             }
+            mBinding.chronometer.base = SystemClock.elapsedRealtime() - mediaPlayer.currentPosition
+            mBinding.chronometer.start()
 
 
         } catch (e: Exception) {
