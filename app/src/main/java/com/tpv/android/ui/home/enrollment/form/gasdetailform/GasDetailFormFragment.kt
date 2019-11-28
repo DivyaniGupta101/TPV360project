@@ -58,18 +58,18 @@ class GasDetailFormFragment : Fragment() {
         mBinding.item = mViewModel.customerData
 
         mBinding.radioYes?.onClick {
-            mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
-            mBinding.editServiceAddress.isEnabled = false
-            mBinding.editServiceAddress.setTextColor(context.color(R.color.colorSecondaryText))
+            mBinding.editBillingAddress.value = mBinding.editServiceAddress.value
+            mBinding.editBillingAddress.isEnabled = false
+            mBinding.editBillingAddress.setTextColor(context.color(R.color.colorSecondaryText))
         }
 
         mBinding.radioNo?.onClick {
-            mBinding.editServiceAddress.value = ""
-            mBinding.editServiceAddress.isEnabled = true
-            mBinding.editServiceAddress.setTextColor(context.color(R.color.colorPrimaryText))
+            mBinding.editBillingAddress.value = ""
+            mBinding.editBillingAddress.isEnabled = true
+            mBinding.editBillingAddress.setTextColor(context.color(R.color.colorPrimaryText))
         }
 
-        mBinding.editBillingAddress.addTextChangedListener(object : TextWatcher {
+        mBinding.editServiceAddress.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -78,7 +78,7 @@ class GasDetailFormFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (mBinding.radioYes.isChecked) {
-                    mBinding.editServiceAddress.value = mBinding.editBillingAddress.value
+                    mBinding.editBillingAddress.value = mBinding.editServiceAddress.value
                 }
             }
 
