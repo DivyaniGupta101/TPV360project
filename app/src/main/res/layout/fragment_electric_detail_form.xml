@@ -74,22 +74,6 @@
                         </LinearLayout>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/zip_code" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputZipCode"
-                        style="@style/TextInputLayout">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editZipCode"
-                            style="@style/DefaultEditText"
-                            android:enabled="false"
-                            android:text="@{viewModel.zipcode.zipcode}"
-                            android:textColor="@color/colorSecondaryText" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
 
                     <TextView
@@ -137,6 +121,24 @@
 
                         </LinearLayout>
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/zip_code" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputZipCode"
+                        style="@style/TextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editZipCode"
+                            style="@style/DefaultEditText"
+                            android:enabled="false"
+                            android:text="@{viewModel.zipcode.zipcode}"
+                            android:textColor="@color/colorSecondaryText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                     <TextView
                         style="@style/SecondaryNormalTextWithTopSpacing"
