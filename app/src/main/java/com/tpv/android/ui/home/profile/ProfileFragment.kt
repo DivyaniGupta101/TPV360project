@@ -18,9 +18,6 @@ import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 import com.tpv.android.utils.updateProfileInMenu
 
-/**
- * A simple [Fragment] subclass.
- */
 class ProfileFragment : Fragment() {
 
     lateinit var mBinding: FragmentProfileBinding

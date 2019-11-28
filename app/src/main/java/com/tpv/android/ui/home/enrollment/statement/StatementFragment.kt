@@ -34,9 +34,6 @@ import com.tpv.android.utils.*
 import com.tpv.android.utils.glide.GlideApp
 import java.io.File
 
-/**
- * A simple [Fragment] subclass.
- */
 class StatementFragment : Fragment() {
     private lateinit var mBinding: FragmentStatementBinding
     private lateinit var mViewModel: SetEnrollViewModel

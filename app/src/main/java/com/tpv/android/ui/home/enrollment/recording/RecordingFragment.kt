@@ -32,10 +32,6 @@ import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 import java.io.File
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class RecordingFragment : Fragment() {
 
     private lateinit var mBinding: FragmentRecordingBinding

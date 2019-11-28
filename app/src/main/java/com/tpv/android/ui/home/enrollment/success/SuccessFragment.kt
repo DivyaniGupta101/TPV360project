@@ -25,9 +25,6 @@ import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
-/**
- * A simple [Fragment] subclass.
- */
 class SuccessFragment : Fragment() {
 
     lateinit var mBinding: FragmentSuccessBinding

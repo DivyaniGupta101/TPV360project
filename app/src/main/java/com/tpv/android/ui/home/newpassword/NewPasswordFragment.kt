@@ -10,9 +10,6 @@ import androidx.fragment.app.Fragment
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentNewPasswordBinding
 
-/**
- * A simple [Fragment] subclass.
- */
 class NewPasswordFragment : Fragment() {
 
     lateinit var mBinding: FragmentNewPasswordBinding

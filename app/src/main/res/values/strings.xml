@@ -148,5 +148,8 @@
     <string name="msg_recording">I give authorisation to record our conversation</string>
     <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

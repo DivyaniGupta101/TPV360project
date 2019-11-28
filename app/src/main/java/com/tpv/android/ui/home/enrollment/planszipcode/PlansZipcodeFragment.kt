@@ -34,10 +34,6 @@ import com.tpv.android.utils.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
     private lateinit var mBinding: FragmentPlansZipcodeBinding

@@ -23,9 +23,6 @@ import com.tpv.android.ui.home.leadlisting.LeadListingViewModel
 import com.tpv.android.utils.LeadStatus
 import com.tpv.android.utils.setupToolbar
 
-/**
- * A simple [Fragment] subclass.
- */
 class LeadListingFragment : Fragment() {
     lateinit var mBinding: FragmentLeadListingBinding
     var toolBarTitle = ""

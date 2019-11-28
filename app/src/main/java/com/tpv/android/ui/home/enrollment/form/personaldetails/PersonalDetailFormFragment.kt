@@ -37,9 +37,6 @@ import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 import com.tpv.android.utils.validation.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class PersonalDetailFormFragment : Fragment() {
 
     private lateinit var mBinding: FragmentPersonalDetailFormBinding

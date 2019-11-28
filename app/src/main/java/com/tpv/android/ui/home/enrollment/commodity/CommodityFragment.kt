@@ -18,9 +18,6 @@ import com.tpv.android.model.Commodity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class CommodityFragment : Fragment() {
     private lateinit var mBinding: FragmentCommodityBinding
     private lateinit var mViewModel: SetEnrollViewModel

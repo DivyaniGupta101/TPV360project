@@ -17,10 +17,6 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.*
 
-/**
- * A simple [Fragment] subclass.
- *
- */
 class DashBoardFragment : Fragment() {
 
     private lateinit var mBinding: FragmentDashBoardBinding

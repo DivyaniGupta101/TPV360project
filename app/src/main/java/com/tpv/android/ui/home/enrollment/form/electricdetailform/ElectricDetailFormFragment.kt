@@ -26,9 +26,6 @@ import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
-/**
- * A simple [Fragment] subclass.
- */
 class ElectricDetailFormFragment : Fragment() {
     private lateinit var mBinding: FragmentElectricDetailFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
