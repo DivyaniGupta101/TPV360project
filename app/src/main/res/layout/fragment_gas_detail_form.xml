@@ -55,7 +55,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="@dimen/_24sdp">
+                    android:paddingStart="@dimen/_24sdp"
+                    android:paddingTop="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_24sdp"
+                    android:paddingBottom="@dimen/_24sdp">
 
                     <TextView
                         style="@style/SecondaryNormalText"

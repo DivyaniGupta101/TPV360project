@@ -54,7 +54,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="@dimen/_24sdp">
+                    android:paddingStart="@dimen/_24sdp"
+                    android:paddingTop="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_24sdp"
+                    android:paddingBottom="@dimen/_24sdp">
 
 
                     <TextView
@@ -73,7 +76,22 @@
                                 android:text="@{item.serviceAddress}" />
                         </LinearLayout>
                     </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/zip_code" />
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputServiceZipCode"
+                        style="@style/TextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editServiceZipCode"
+                            style="@style/DefaultEditText"
+                            android:enabled="false"
+                            android:text="@{viewModel.zipcode.zipcode}"
+                            android:textColor="@color/colorSecondaryText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
                     <TextView
@@ -185,22 +203,6 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/zip_code" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputServiceZipCode"
-                        style="@style/TextInputLayout">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editServiceZipCode"
-                            style="@style/DefaultEditText"
-                            android:enabled="false"
-                            android:text="@{viewModel.zipcode.zipcode}"
-                            android:textColor="@color/colorSecondaryText" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         style="@style/SecondaryNormalTextWithTopSpacing"
