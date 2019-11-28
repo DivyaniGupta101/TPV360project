@@ -68,6 +68,8 @@
     <string name="msg_confirmation_again_record">You want to record again? \n Current recording will be deleted.</string>
     <string name="no_data_found">No Leads Available</string>
     <string name="error">Error</string>
+    <string name="msg_zipcode_not_match">Your current location does not match with your service loaction.</string>
+
 
     <!-- LeadList-->
     <string name="pending">Pending</string>
@@ -147,9 +149,6 @@
     <string name="msg_client_info">Please review and confirm that all of the info below Id accurate. You are only a few steps away from being done.</string>
     <string name="msg_recording">I give authorisation to record our conversation</string>
     <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

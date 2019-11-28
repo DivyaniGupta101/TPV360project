@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,12 +19,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.github.gcacace.signaturepad.views.SignaturePad
-import com.livinglifetechway.k4kotlin.core.TAG
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
+import com.tpv.android.databinding.DialogErrorBinding
 import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
 import com.tpv.android.helper.Pref
@@ -222,15 +221,30 @@ class StatementFragment : Fragment() {
 
             val geoCoder = Geocoder(context, Locale.getDefault())
             val addresses = geoCoder.getFromLocation(location?.latitude.orZero(), location?.longitude.orZero(), 1)
-            val postalCode = addresses.get(0).postalCode
+            val postalCode = addresses?.get(0)?.postalCode
 
             if (mViewModel.zipcode?.value?.equals(postalCode).orFalse()) {
                 withContext(Dispatchers.Main) {
                     saveCustomerData()
                 }
             } else {
-                Log.d(TAG, "zipcode not matched")
+                showUnMatchZipcodeDialog()
             }
+        }
+
+    }
+
+    private fun showUnMatchZipcodeDialog() {
+        val binding = DataBindingUtil.inflate<DialogErrorBinding>(layoutInflater, R.layout.dialog_error, null, false)
+        val dialog = context?.let { AlertDialog.Builder(it) }
+                ?.setView(binding.root)?.show()
+
+        binding.item = getString(R.string.msg_zipcode_not_match)
+
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        binding?.btnYes?.onClick {
+            dialog?.dismiss()
         }
 
     }
