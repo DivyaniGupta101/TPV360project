@@ -122,16 +122,21 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         }
 
         setupToolbar(mBinding.toolbar, toolbarTitle, showBackIcon = true) {
-            mSetEnrollViewModel.utilitiesList.clear()
-            mSetEnrollViewModel.planType = ""
-            mSetEnrollViewModel.zipcode = null
-            mSetEnrollViewModel.programList.clear()
-            mSetEnrollViewModel.customerData = CustomerData()
-            mSetEnrollViewModel.savedLeadDetail = null
-            mSetEnrollViewModel.recordingFile = ""
-            mSetEnrollViewModel.isElectricServiceAddressSame = false
-            mSetEnrollViewModel.isGasServiceAddressSame = false
+            removeStoredData()
         }
+    }
+
+    private fun removeStoredData() {
+        mSetEnrollViewModel.utilitiesList.clear()
+        mSetEnrollViewModel.planType = ""
+        mSetEnrollViewModel.zipcode = null
+        mSetEnrollViewModel.programList.clear()
+        mSetEnrollViewModel.customerData = CustomerData()
+        mSetEnrollViewModel.savedLeadDetail = null
+        mSetEnrollViewModel.recordingFile = ""
+        mSetEnrollViewModel.isElectricServiceAddressSame = false
+        mSetEnrollViewModel.isGasServiceAddressSame = false
+        mSetEnrollViewModel.relationShipList.clear()
     }
 
 
@@ -296,15 +301,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     }
 
     override fun handleOnBackPressed(): Boolean {
-        mSetEnrollViewModel.utilitiesList.clear()
-        mSetEnrollViewModel.planType = ""
-        mSetEnrollViewModel.zipcode = null
-        mSetEnrollViewModel.programList.clear()
-        mSetEnrollViewModel.customerData = CustomerData()
-        mSetEnrollViewModel.savedLeadDetail = null
-        mSetEnrollViewModel.recordingFile = ""
-        mSetEnrollViewModel.isElectricServiceAddressSame = false
-        mSetEnrollViewModel.isGasServiceAddressSame = false
+        removeStoredData()
         return true
     }
 

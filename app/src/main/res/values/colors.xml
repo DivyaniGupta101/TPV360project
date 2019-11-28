@@ -13,6 +13,7 @@
     <color name="colorLightPink">#2C9440B5</color>
     <color name="colorSky">#2FBFFF</color>
     <color name="colorLightBlack">#41000000</color>
+    <color name="colorLightRed">#ff0000</color>
 
 
     <color name="colorBlack">#000000</color>
@@ -49,6 +50,7 @@
     <!--    ImageColor-->
     <color name="colorSecondaryImageTint">@color/colorGray</color>
     <color name="colorSecondaryLightImageTint">@color/colorSecondaryLighText</color>
+    <color name="colorRedImageTint">@color/colorLightRed</color>
 
     <!--    BackGroundColor-->
     <color name="colorToolbarBg">@color/colorWhite</color>

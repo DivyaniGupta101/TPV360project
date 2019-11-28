@@ -62,7 +62,14 @@ class PersonalDetailFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        relationShipList.addAll(arrayListOf(getString(R.string.account_holder), getString(R.string.spouse), getString(R.string.power_of_attorney), getString(R.string.family_member), getString(R.string.other)))
+        if (mViewModel?.relationShipList?.isNotEmpty()) {
+            relationShipList.clear()
+            relationShipList.addAll(mViewModel.relationShipList)
+        } else {
+            relationShipList.addAll(arrayListOf(getString(R.string.account_holder), getString(R.string.spouse), getString(R.string.power_of_attorney), getString(R.string.family_member), getString(R.string.other)))
+        }
+
+
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
@@ -83,6 +90,11 @@ class PersonalDetailFormFragment : Fragment() {
                             mBinding.editPhoneNumber,
                             EmptyValidator(),
                             context.getString(R.string.enter_phone_number)
+                    )
+                    addValidate(
+                            mBinding.editPhoneNumber,
+                            PhoneNumberValidator(),
+                            getString(R.string.enter_valid_phone_number)
                     )
                 }.validate()
             }
@@ -295,6 +307,9 @@ class PersonalDetailFormFragment : Fragment() {
             email = mBinding.editAuthorisedEmail.value
             countryCode = mBinding.spinnerCountryCode.selectedItem.toString()
         }
+
+        mViewModel.relationShipList.clear()
+        mViewModel.relationShipList.addAll(relationShipList)
     }
 
 }
