@@ -147,6 +147,7 @@
     <string name="msg_client_info">Please review and confirm that all of the info below Id accurate. You are only a few steps away from being done.</string>
     <string name="msg_recording">I give authorisation to record our conversation</string>
     <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
+    <string name="tap_to_open">Tap to open</string>
 
 
 </resources>
