@@ -1,10 +1,14 @@
 package com.tpv.android.ui.home.enrollment.statement
 
 
+import android.Manifest
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +20,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.github.gcacace.signaturepad.views.SignaturePad
+import com.livinglifetechway.k4kotlin.core.TAG
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orFalse
+import com.livinglifetechway.k4kotlin.core.orZero
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
@@ -32,12 +40,19 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
 import com.tpv.android.utils.glide.GlideApp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
+import java.util.*
+
 
 class StatementFragment : Fragment() {
     private lateinit var mBinding: FragmentStatementBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var mSignImage: Bitmap? = null
+    var location: Location? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -62,7 +77,7 @@ class StatementFragment : Fragment() {
         }
 
         mBinding.btnNext.onClick {
-            saveCustomerData()
+            getLocation()
         }
 
         mBinding.imageSign.onClick {
@@ -197,6 +212,25 @@ class StatementFragment : Fragment() {
                     .into(mBinding.imageSign)
             dialog?.dismiss()
             setButtonEnable()
+        }
+
+    }
+
+    private fun getLocation() = runWithPermissions(Manifest.permission.ACCESS_FINE_LOCATION) {
+        GlobalScope.launch {
+            location = context?.let { LocationHelper.getLastKnownLocation(it) }
+
+            val geoCoder = Geocoder(context, Locale.getDefault())
+            val addresses = geoCoder.getFromLocation(location?.latitude.orZero(), location?.longitude.orZero(), 1)
+            val postalCode = addresses.get(0).postalCode
+
+            if (mViewModel.zipcode?.value?.equals(postalCode).orFalse()) {
+                withContext(Dispatchers.Main) {
+                    saveCustomerData()
+                }
+            } else {
+                Log.d(TAG, "zipcode not matched")
+            }
         }
 
     }
