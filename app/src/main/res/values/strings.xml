@@ -1,26 +1,8 @@
 <resources>
     <string name="app_name">TPV Plus</string>
 
-    <string name="welcome">Welcome</string>
-    <string name="email_address">Email Address</string>
-    <string name="password">Password</string>
-    <string name="get_started">Get Started</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="pending_leads">Pending Leads</string>
-    <string name="declined_leads">Declined Leads</string>
-    <string name="disconnected_calls">Disconnected Calls</string>
-    <string name="verified_leads">Verified Leads</string>
-    <string name="id">ID:</string>
 
-    <!-- LeadsList-->
-    <string name="pending">Pending</string>
-    <string name="verified">Verified</string>
-    <string name="declined">Declined</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="date">Date:</string>
-    <string name="time">Time:</string>
-
-    <!--    Title-->
+    <!--    Toolbar Title-->
     <string name="dashboard">Dashboard</string>
     <string name="profile">Profile</string>
     <string name="start_enrollment">Start Enrollment</string>
@@ -36,94 +18,21 @@
     <string name="recording">Recording</string>
     <string name="success">Success</string>
     <string name="statement">Statement</string>
+    <string name="skip"><![CDATA[Skip>]]></string>
 
-
-    <string name="no_data_found">No Leads Available</string>
-    <string name="logout">Logout</string>
+    <!--    ButtonLabel-->
     <string name="cancel">Cancel</string>
     <string name="skip_btn">Skip</string>
     <string name="yes">Yes</string>
-    <string name="zipcode">ZipCode</string>
     <string name="submit">Submit</string>
-    <string name="return_to_login">Return to Login</string>
-    <string name="username">User Name</string>
-    <string name="confirm_password">Confirm Password</string>
-
-    <string name="gas_utility">Gas Utility</string>
-    <string name="electric_utility">Electric Utility</string>
     <string name="next">Next</string>
-    <string name="validity">Validity</string>
-    <string name="early_termination">Early Termination</string>
-    <string name="code">Code</string>
-    <string name="electric_programs">electric programs</string>
-    <string name="gas_programs">gas programs</string>
-    <string name="select_plan">Select Plan</string>
     <string name="ok">Ok</string>
-    <string name="error">Error</string>
-    <string name="unknown_error">Unknown Error</string>
-    <string name="no_internet_connection_message">Network seams to be offline. Please try again later</string>
-    <string name="something_went_wrong">Something went wrong. Please try again.</string>
-    <string name="password_not_matching">Both passwords are not matching</string>
-    <string name="authorised_first_name">Authorised First Name</string>
-    <string name="authorised_middle_name">Authorised Middle Name</string>
-    <string name="authorised_last_name">Authorised Last Name</string>
-    <string name="email">Email</string>
-    <string name="billing_address">Billing Address</string>
-    <string name="zip_code">Zip Code</string>
-    <string name="billing_address_msg">Is the billing address same as service address?</string>
     <string name="no">No</string>
-    <string name="service_address">Service Address</string>
-    <string name="billing_first_name">Billing First Name</string>
-    <string name="billing_middle_name">Billing Middle Name</string>
-    <string name="billing_last_name">Billing Last Name</string>
-    <string name="auth_relationship">Auth Relationship</string>
-    <string name="account_number">Account Number</string>
-    <string name="phone_number">Phone Number</string>
     <string name="verify">Verify</string>
-    <string name="customer_name">Customer Name</string>
-    <string name="first_name">First Name</string>
-    <string name="middle_name">Middle Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="plan_information">Plan Information</string>
-    <string name="client_info">Client Info</string>
-    <string name="skip"><![CDATA[Skip>]]></string>
-    <string name="record_again">Record Again</string>
-    <string name="are_you_sure">Are you sure?</string>
-    <string name="msg_confirmation_again_record">You want to record again? \n Current recording will be deleted.</string>
-    <string name="start_time">00:00</string>
-    <string name="personal_details">Personal Details</string>
-    <string name="electric_detail">Electric Detail</string>
-    <string name="gas_detail">Gas Detail</string>
-    <string name="personal_data">Personal Data</string>
-    <string name="gas">Gas</string>
-    <string name="electric">Electric</string>
-    <string name="contract_detail">Contract Detail</string>
-    <string name="msg_statement">These Terms and Conditions apply to customers offered the Pulse Price Promise. They apply in addition to the Pulse Residential Agreement that applies from 1 January 2016 and as may be amended from time to time in accordance with that agreement. If there is any conflict between these Terms and Conditions and the Pulse Residential Agreement, these Terms and Conditions shall prevail. Any capitalised terms set out in these terms which are not defined in these Terms and Conditions have the same meaning as set out in the Pulse Residential Agreement.\n\nIf applicable, the Pulse Energy Price Promise means that we commit to offering you a combination of electricity Energy and delivery rates that will give you a lower total cost than what you are paying with your current electricity retailer as at the date of our offer to you for electricity Energy and delivery, after any Prompt Payment Discount (PPD) you currently receive (Price Promise).The Price Promise applies only to fixed and variable electricity Energy rates paid on a monthly basis based on billing days or metered Energy. The Price Promise does not apply to Delivery charges or any LPG or Natural Gas related charges. Any other credits or fees you may receive or incur from time to time in accordance with the Pulse Residential Agreement are not subject to the Price Promise.Where you have provided a recent invoice from your current retailer, we have calculated an adjustment which is set out in Your Price Plan (labelled Price Promise) to reflect Our Price Promise.\n\nIf you could not supply a copy of your most recent electricity bill from your current electricity provider (or you do not have a current electricity provider), then you acknowledge that the Price Promise does not apply to any rate you are offered by us.Price Protection applies to your Energy Rate for two years from the date you originally switched to this product and does not apply to charges under Delivery on your Price Plan which includes Network Services, Retailer Services and Metering.Beyond the Price Protection period we will give you notice of any change in accordance with the Pulse Residential Agreement.</string>
-    <string name="msg_agree_statement">I agree I have read the Terms of Service and I have authorisation to have my utility service switched to TPV Energy</string>
-    <string name="account_holder_name">Account Holder Name</string>
-    <string name="signature">Signature</string>
-    <string name="thank_you">Thank You!</string>
-    <string name="your_reference_id">Your Reference ID:</string>
-    <string name="self_verification">Self - Verification</string>
-    <string name="phone">Phone</string>
-    <string name="back_to_dashboard">Back to Dashboard</string>
     <string name="save">Save</string>
     <string name="clear">Clear</string>
     <string name="resend_otp">Resend OTP</string>
-    <string name="account_holder">Account Holder</string>
-    <string name="spouse">Spouse</string>
-    <string name="power_of_attorney">Power of Attorney</string>
-    <string name="family_member">Family Member</string>
-    <string name="other">Other</string>
-    <string name="msg_client_info">Please review and confirm that all of the info below Id accurate. You are only a few steps away from being done.</string>
-    <string name="msg_recording">I give authorisation to record our conversation</string>
-    <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
-
-    <!--    Info Message-->
-    <string name="msg_log_out">Are you sure you want to logout?</string>
-    <string name="msg_skip">If you skip, then your recording will be deleted</string>
-    <string name="msg_no_utilitiy_available">No utilities available for selected zipcode</string>
-
+    <string name="get_started">Get Started</string>
 
     <!--    Validation -->
     <string name="enter_email">Please enter email</string>
@@ -146,4 +55,98 @@
     <string name="enter_otp">Please enter OTP</string>
     <string name="enter_phone_number">Plese enter phone number</string>
     <string name="enter_new_relationship">Enter New Relationship</string>
+
+    <!--    Info Message-->
+    <string name="logout">Logout</string>
+    <string name="msg_log_out">Are you sure you want to logout?</string>
+    <string name="msg_skip">If you skip, then your recording will be deleted</string>
+    <string name="msg_no_utilitiy_available">No utilities available for selected zipcode</string>
+    <string name="no_internet_connection_message">Network seams to be offline. Please try again later</string>
+    <string name="something_went_wrong">Something went wrong. Please try again.</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="msg_confirmation_again_record">You want to record again? \n Current recording will be deleted.</string>
+    <string name="no_data_found">No Leads Available</string>
+    <string name="error">Error</string>
+
+    <!-- LeadList-->
+    <string name="pending">Pending</string>
+    <string name="verified">Verified</string>
+    <string name="declined">Declined</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="date">Date:</string>
+    <string name="time">Time:</string>
+    <string name="id">ID:</string>
+
+    <!--    DashBoard-->
+    <string name="pending_leads">Pending Leads</string>
+    <string name="declined_leads">Declined Leads</string>
+    <string name="disconnected_calls">Disconnected Calls</string>
+    <string name="verified_leads">Verified Leads</string>
+
+
+    <!--    Labels-->
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="welcome">Welcome</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="zipcode">ZipCode</string>
+    <string name="return_to_login">Return to Login</string>
+    <string name="username">User Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="gas_utility">Gas Utility</string>
+    <string name="electric_utility">Electric Utility</string>
+    <string name="validity">Validity</string>
+    <string name="early_termination">Early Termination</string>
+    <string name="code">Code</string>
+    <string name="electric_programs">electric programs</string>
+    <string name="gas_programs">gas programs</string>
+    <string name="select_plan">Select Plan</string>
+    <string name="authorised_first_name">Authorised First Name</string>
+    <string name="authorised_middle_name">Authorised Middle Name</string>
+    <string name="authorised_last_name">Authorised Last Name</string>
+    <string name="email">Email</string>
+    <string name="billing_address">Billing Address</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="billing_address_msg">Is the billing address same as service address?</string>
+    <string name="service_address">Service Address</string>
+    <string name="billing_first_name">Billing First Name</string>
+    <string name="billing_middle_name">Billing Middle Name</string>
+    <string name="billing_last_name">Billing Last Name</string>
+    <string name="auth_relationship">Auth Relationship</string>
+    <string name="account_number">Account Number</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="first_name">First Name</string>
+    <string name="middle_name">Middle Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="plan_information">Plan Information</string>
+    <string name="client_info">Client Info</string>
+    <string name="record_again">Record Again</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="electric_detail">Electric Detail</string>
+    <string name="gas_detail">Gas Detail</string>
+    <string name="personal_data">Personal Data</string>
+    <string name="gas">Gas</string>
+    <string name="electric">Electric</string>
+    <string name="contract_detail">Contract Detail</string>
+    <string name="msg_statement">These Terms and Conditions apply to customers offered the Pulse Price Promise. They apply in addition to the Pulse Residential Agreement that applies from 1 January 2016 and as may be amended from time to time in accordance with that agreement. If there is any conflict between these Terms and Conditions and the Pulse Residential Agreement, these Terms and Conditions shall prevail. Any capitalised terms set out in these terms which are not defined in these Terms and Conditions have the same meaning as set out in the Pulse Residential Agreement.\n\nIf applicable, the Pulse Energy Price Promise means that we commit to offering you a combination of electricity Energy and delivery rates that will give you a lower total cost than what you are paying with your current electricity retailer as at the date of our offer to you for electricity Energy and delivery, after any Prompt Payment Discount (PPD) you currently receive (Price Promise).The Price Promise applies only to fixed and variable electricity Energy rates paid on a monthly basis based on billing days or metered Energy. The Price Promise does not apply to Delivery charges or any LPG or Natural Gas related charges. Any other credits or fees you may receive or incur from time to time in accordance with the Pulse Residential Agreement are not subject to the Price Promise.Where you have provided a recent invoice from your current retailer, we have calculated an adjustment which is set out in Your Price Plan (labelled Price Promise) to reflect Our Price Promise.\n\nIf you could not supply a copy of your most recent electricity bill from your current electricity provider (or you do not have a current electricity provider), then you acknowledge that the Price Promise does not apply to any rate you are offered by us.Price Protection applies to your Energy Rate for two years from the date you originally switched to this product and does not apply to charges under Delivery on your Price Plan which includes Network Services, Retailer Services and Metering.Beyond the Price Protection period we will give you notice of any change in accordance with the Pulse Residential Agreement.</string>
+    <string name="msg_agree_statement">I agree I have read the Terms of Service and I have authorisation to have my utility service switched to TPV Energy</string>
+    <string name="account_holder_name">Account Holder Name</string>
+    <string name="signature">Signature</string>
+    <string name="thank_you">Thank You!</string>
+    <string name="your_reference_id">Your Reference ID:</string>
+    <string name="self_verification">Self - Verification</string>
+    <string name="phone">Phone</string>
+    <string name="back_to_dashboard">Back to Dashboard</string>
+    <string name="account_holder">Account Holder</string>
+    <string name="spouse">Spouse</string>
+    <string name="power_of_attorney">Power of Attorney</string>
+    <string name="family_member">Family Member</string>
+    <string name="other">Other</string>
+    <string name="msg_client_info">Please review and confirm that all of the info below Id accurate. You are only a few steps away from being done.</string>
+    <string name="msg_recording">I give authorisation to record our conversation</string>
+    <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
+
+
 </resources>
