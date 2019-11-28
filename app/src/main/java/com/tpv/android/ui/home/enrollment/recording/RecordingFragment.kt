@@ -65,17 +65,20 @@ class RecordingFragment : Fragment() {
 
         mBinding.item = mViewModel.customerData
 
-        setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, showSkipText = true, skipTextClickListener = {
+        setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, backIconClickListener = {
+            if (recordedFile?.isNotEmpty().orFalse()) {
+                mediaPlayer.stop()
+            }
+        })
+
+
+        mBinding.textSkip.onClick {
             if (recordedFile.isNullOrEmpty()) {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
             } else {
                 confirmationDialogForSkip()
             }
-        }, backIconClickListener = {
-            if (recordedFile?.isNotEmpty().orFalse()) {
-                mediaPlayer.stop()
-            }
-        })
+        }
 
         mBinding.btnNext.onClick {
             if (recordedFile?.isNotEmpty().orFalse()) {

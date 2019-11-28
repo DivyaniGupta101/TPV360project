@@ -169,10 +169,18 @@
                     </LinearLayout>
                 </LinearLayout>
 
+
                 <TextView
                     android:id="@+id/btnNext"
                     style="@style/ButtonPrimary"
                     android:text="@string/next" />
+
+                <TextView
+                    android:id="@+id/textSkip"
+                    style="@style/PrimaryBoldText"
+                    android:layout_gravity="center"
+                    android:text="@string/skip_btn"
+                    android:textColor="@color/colorTertiaryText" />
             </LinearLayout>
 
         </ScrollView>
