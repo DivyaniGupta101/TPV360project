@@ -1,5 +1,6 @@
 package com.tpv.android.ui.home
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -32,11 +33,16 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
+import com.tpv.android.ui.home.enrollment.statement.StatementFragment
 import com.tpv.android.utils.MenuItem
 import com.tpv.android.utils.navigateSafe
 
 
 class HomeActivity : AppCompatActivity() {
+
+    companion object {
+        var REQUEST_CHECK_SETTINGS = 1234
+    }
 
     lateinit var mBinding: ActivityHomeBinding
     lateinit var mNavController: NavController
@@ -187,6 +193,14 @@ class HomeActivity : AppCompatActivity() {
             super.onBackPressed()
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == StatementFragment.REQUEST_CHECK_SETTINGS) {
+            StatementFragment().onActivityResult(requestCode, resultCode, data);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
 }

@@ -2,11 +2,16 @@ package com.tpv.android.ui.home.enrollment.statement
 
 
 import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.IntentSender
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.location.Geocoder
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +24,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.github.gcacace.signaturepad.views.SignaturePad
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.Task
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
@@ -36,22 +44,31 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
 import com.tpv.android.utils.glide.GlideApp
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.*
 
 
 class StatementFragment : Fragment() {
+    companion object {
+        var REQUEST_CHECK_SETTINGS = 1234
+    }
+
     private lateinit var mBinding: FragmentStatementBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var mSignImage: Bitmap? = null
-    var location: Location? = null
+    private var location: Location? = null
+    private var locationManager: LocationManager? = null
+
+    private val job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -68,6 +85,7 @@ class StatementFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
 
+        locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         mBinding.item = mViewModel.customerData
 
@@ -215,20 +233,24 @@ class StatementFragment : Fragment() {
 
     }
 
-    private fun getLocation() = runWithPermissions(Manifest.permission.ACCESS_FINE_LOCATION) {
-        GlobalScope.launch {
+    /**
+     * get user current location
+     * check location permission and check gps is enabled and if last location time is less than 2 minutes
+     */
+    private fun getLocation() = runWithPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION) {
+        uiScope.launch {
             location = context?.let { LocationHelper.getLastKnownLocation(it) }
+            val currentTimeStamp = System.currentTimeMillis()
+            val diffTime = currentTimeStamp.minus(location?.time.orZero())
 
-            val geoCoder = Geocoder(context, Locale.getDefault())
-            val addresses = geoCoder.getFromLocation(location?.latitude.orZero(), location?.longitude.orZero(), 1)
-            val postalCode = addresses?.get(0)?.postalCode
-
-            if (mViewModel.zipcode?.value?.equals(postalCode).orFalse()) {
-                withContext(Dispatchers.Main) {
-                    saveCustomerData()
-                }
+            if (location == null) {
+                createLocationRequest()
             } else {
-                showUnMatchZipcodeDialog()
+                if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse() && diffTime <= AppConstant.TWO_MINUTE_CONSTANT) {
+                    getZipCodedFromLocation(location)
+                } else {
+                    showUnMatchZipcodeDialog()
+                }
             }
         }
 
@@ -247,6 +269,82 @@ class StatementFragment : Fragment() {
             dialog?.dismiss()
         }
 
+    }
+
+    /**
+     * create location request and check gps dialog is enabled or not
+     */
+    fun createLocationRequest() {
+        val locationRequest = LocationRequest.create()?.apply {
+            interval = 10000
+            fastestInterval = 5000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        val builder = locationRequest?.let {
+            LocationSettingsRequest.Builder()
+                    .addLocationRequest(it)
+        }
+        val client: SettingsClient? = context?.let { LocationServices.getSettingsClient(it) }
+        val task: Task<LocationSettingsResponse>? = client?.checkLocationSettings(builder?.build())
+
+        task?.addOnSuccessListener { locationSettingsResponse ->
+            // All location settings are satisfied. The client can initialize
+            // location requests here.
+            // ...
+            uiScope.launch {
+                location = context?.let { LocationHelper.getLastKnownLocation(it) }
+                getZipCodedFromLocation(location)
+            }
+
+
+        }
+
+        task?.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException) {
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    exception.startResolutionForResult(activity,
+                            HomeActivity.REQUEST_CHECK_SETTINGS)
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
+        }
+
+    }
+
+    /**
+     * take result from MAIN ACTIVITY onActivityResult method
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CHECK_SETTINGS) {
+            if (resultCode == Activity.RESULT_OK) {
+                createLocationRequest()
+            }
+        }
+
+    }
+
+    /**
+     * get zipcode from location
+     */
+    private fun getZipCodedFromLocation(location: Location?) {
+        location?.let {
+            val geoCoder = Geocoder(context, Locale.getDefault())
+            val addresses = geoCoder.getFromLocation(it.latitude.orZero(), it.longitude.orZero(), 1)
+            val postalCode = addresses?.get(0)?.postalCode
+
+            if (mViewModel.zipcode?.value?.equals(postalCode).orFalse()) {
+                saveCustomerData()
+            } else {
+                showUnMatchZipcodeDialog()
+            }
+        }
     }
 
 }
