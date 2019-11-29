@@ -101,6 +101,20 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
             mViewModel.clearZipCodeListData()
 
+            when (mSetEnrollViewModel.planType) {
+                Plan.DUALFUEL.value -> {
+                    mSetEnrollViewModel.customerData.apply {
+                        gasBillingZip = mSetEnrollViewModel.zipcode?.zipcode
+                        electricBillingZip = mSetEnrollViewModel.zipcode?.zipcode
+                    }
+                }
+                else -> {
+                    mSetEnrollViewModel.customerData.apply {
+                        billingZip = mSetEnrollViewModel.zipcode?.zipcode
+                    }
+                }
+            }
+
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
     }

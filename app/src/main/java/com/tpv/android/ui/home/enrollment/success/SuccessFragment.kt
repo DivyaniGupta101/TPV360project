@@ -26,7 +26,7 @@ import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
-class SuccessFragment : Fragment() {
+class SuccessFragment : Fragment(), OnBackPressCallBack {
 
     lateinit var mBinding: FragmentSuccessBinding
     lateinit var mViewModel: SetEnrollViewModel

@@ -82,11 +82,11 @@
                         android:text="@string/zip_code" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputZipCode"
+                        android:id="@+id/textInputServiceZipCode"
                         style="@style/TextInputLayout">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editZipCode"
+                            android:id="@+id/editServiceZipCode"
                             style="@style/DefaultEditText"
                             android:enabled="false"
                             android:text="@{viewModel.zipcode.zipcode}"
@@ -146,17 +146,16 @@
                         android:text="@string/zip_code" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputServiceZipCode"
+                        android:id="@+id/textInputZipCode"
                         style="@style/TextInputLayout">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editServiceZipCode"
+                            android:id="@+id/editBillingZipCode"
                             style="@style/DefaultEditText"
-                            android:enabled="false"
-                            android:text="@{viewModel.zipcode.zipcode}"
-                            android:textColor="@color/colorSecondaryText" />
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingZip : item.billingZip }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
 
                     <TextView
                         style="@style/SecondaryNormalTextWithTopSpacing"

@@ -83,7 +83,7 @@
                         style="@style/TextInputLayout">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editZipCode"
+                            android:id="@+id/editBillingZipCode"
                             style="@style/DefaultEditText"
                             android:enabled="false"
                             android:text="@{viewModel.zipcode.zipcode}"

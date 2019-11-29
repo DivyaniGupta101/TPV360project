@@ -49,15 +49,21 @@ class ElectricDetailFormFragment : Fragment() {
         mBinding.radioYes?.onClick()
         {
             mBinding.editBillingAddress.value = mBinding.editServiceAddress.value
+            mBinding.editBillingZipCode.value = mBinding.editServiceZipCode.value
             mBinding.editBillingAddress.isEnabled = false
+            mBinding.editBillingZipCode.isEnabled = false
             mBinding.editBillingAddress.setTextColor(context.color(R.color.colorSecondaryText))
+            mBinding.editBillingZipCode.setTextColor(context.color(R.color.colorSecondaryText))
         }
 
         mBinding.radioNo?.onClick()
         {
             mBinding.editBillingAddress.value = ""
+            mBinding.editBillingZipCode.value = ""
             mBinding.editBillingAddress.isEnabled = true
+            mBinding.editBillingZipCode.isEnabled = true
             mBinding.editBillingAddress.setTextColor(context.color(R.color.colorPrimaryText))
+            mBinding.editBillingZipCode.setTextColor(context.color(R.color.colorPrimaryText))
         }
 
         mBinding.editServiceAddress.addTextChangedListener(
@@ -116,7 +122,7 @@ class ElectricDetailFormFragment : Fragment() {
                     getString(R.string.enter_billing_address)
             )
             addValidate(
-                    mBinding.editZipCode,
+                    mBinding.editBillingZipCode,
                     EmptyValidator(),
                     getString(R.string.enter_zipcode)
             )
@@ -148,7 +154,7 @@ class ElectricDetailFormFragment : Fragment() {
                     billingMiddleInitial = mBinding.editBillingMiddleName.value
                     billingLastName = mBinding.editBillingLastName.value
                     billingAddress = mBinding.editBillingAddress.value
-                    billingZip = mBinding.editZipCode.value
+                    billingZip = mBinding.editBillingZipCode.value
                     isTheBillingAddressTheSameAsTheServiceAddress = mSelectedRadioButton
                     billingAddress2 = ""
                     serviceAddress = mBinding.editServiceAddress.value
@@ -172,7 +178,7 @@ class ElectricDetailFormFragment : Fragment() {
                     electricBillingAddress2 = ""
                     electricBillingCity = "Amherst"
                     electricBillingState = "MA"
-                    electricBillingZip = mBinding.editZipCode.value
+                    electricBillingZip = mBinding.editBillingZipCode.value
                     serviceAddress = mBinding.editServiceAddress.value
                     serviceAddress2 = ""
                     serviceCity = "Amherst"

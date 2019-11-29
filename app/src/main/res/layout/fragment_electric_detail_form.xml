@@ -76,6 +76,7 @@
                                 android:text="@{item.serviceAddress}" />
                         </LinearLayout>
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <TextView
                         style="@style/SecondaryNormalTextWithTopSpacing"
                         android:text="@string/zip_code" />
@@ -149,11 +150,10 @@
                         style="@style/TextInputLayout">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editZipCode"
+                            android:id="@+id/editBillingZipCode"
                             style="@style/DefaultEditText"
-                            android:enabled="false"
-                            android:text="@{viewModel.zipcode.zipcode}"
-                            android:textColor="@color/colorSecondaryText" />
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.electricBillingZip : item.billingZip }"
+                            />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
