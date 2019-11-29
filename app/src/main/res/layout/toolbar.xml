@@ -43,7 +43,7 @@
                             style="@style/ToolbarImage"
                             android:src="@drawable/ic_arrow_black"
                             android:visibility="invisible"
-                            app:dynamicTintColor="@{R.color.colorSecondaryImageTint}"
+                            app:dynamicTintColor="@{R.color.colorBlackTint}"
                             tools:visibility="visible" />
 
                         <Space
@@ -61,7 +61,7 @@
                                 style="@style/ToolbarImage"
                                 android:src="@drawable/ic_menu_black"
                                 android:visibility="visible"
-                                app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
+                                app:dynamicTintColor="@{R.color.colorBlackTint}" />
 
                             <TextView
                                 android:id="@+id/textSkip"

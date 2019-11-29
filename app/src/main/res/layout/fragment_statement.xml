@@ -94,7 +94,7 @@
                                 style="@style/SecondaryNormalSmallText"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:text="@string/phone_number" />
+                                android:text="@{@string/phone_number + ' ' +':'}" />
 
                             <TextView
                                 style="@style/PrimaryBoldText"
@@ -115,14 +115,14 @@
                         style="@style/SecondaryLightNormalText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:gravity="top"
                         android:text="@string/msg_agree_statement" />
 
 
                     <TextView
                         style="@style/PrimaryNormalText"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:text="@string/signature" />
 
 

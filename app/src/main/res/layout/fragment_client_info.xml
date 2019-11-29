@@ -155,8 +155,8 @@
 
                             <ImageView
                                 android:id="@+id/imageEdit"
-                                android:layout_width="@dimen/_16sdp"
-                                android:layout_height="@dimen/_16sdp"
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"
                                 android:layout_gravity="center_vertical"
                                 android:background="?selectableItemBackground"
                                 android:src="@drawable/ic_writing_gray"
