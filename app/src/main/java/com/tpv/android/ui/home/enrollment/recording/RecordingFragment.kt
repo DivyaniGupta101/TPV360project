@@ -26,7 +26,6 @@ import com.tpv.android.databinding.DialogLogoutBinding
 import com.tpv.android.databinding.FragmentRecordingBinding
 import com.tpv.android.model.DialogText
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
-import com.tpv.android.utils.BindingAdapter.setDynamicTintColor
 import com.tpv.android.utils.audio.AudioDataReceivedListener
 import com.tpv.android.utils.audio.RecordingThread
 import com.tpv.android.utils.navigateSafe
@@ -274,31 +273,28 @@ class RecordingFragment : Fragment() {
 
         when (state) {
             AUDIO_START -> {
-                setDynamicTintColor(mBinding.redSpeakerImage, R.color.colorRedImageTint)
                 mBinding.audioStartImage.show()
                 mBinding.recordAgainContainer.show()
                 mBinding.redSpeakerImage.show()
                 mBinding.seekbarAudio.show()
             }
             AUDIO_STOP -> {
-                setDynamicTintColor(mBinding.redSpeakerImage, R.color.colorRedImageTint)
                 mBinding.audioStopImage.show()
                 mBinding.recordAgainContainer.show()
                 mBinding.redSpeakerImage.show()
                 mBinding.seekbarAudio.show()
             }
             RECORD_START -> {
-                setDynamicTintColor(mBinding.graySpeakerImage, R.color.colorSecondaryImageTint)
                 mBinding.waveformView.show()
                 mBinding.recordStartImage.show()
                 mBinding.recordAgainContainer.hide()
                 mBinding.graySpeakerImage.show()
             }
             RECORD_STOP -> {
-                setDynamicTintColor(mBinding.graySpeakerImage, R.color.colorRedImageTint)
                 mBinding.waveformView.show()
                 mBinding.recordStopImage.show()
-                mBinding.graySpeakerImage.show()
+                mBinding.graySpeakerImage.hide()
+                mBinding.redSpeakerImage.show()
             }
         }
     }

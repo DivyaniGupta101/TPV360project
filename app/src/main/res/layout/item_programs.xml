@@ -133,7 +133,7 @@
                                 style="@style/PrimaryNormalSmallText"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="@{item.earlyterminationfee}"
+                                android:text="@{'$'+' ' + item.earlyterminationfee}"
                                 tools:text="$ 00" />
 
 

@@ -66,7 +66,7 @@
                             android:id="@+id/graySpeakerImage"
                             android:layout_width="@dimen/_60sdp"
                             android:layout_height="@dimen/_60sdp"
-                            android:src="@drawable/ic_speaker_white_48dp"
+                            android:src="@drawable/ic_speaker_white_60dp"
                             android:visibility="visible"
                             app:dynamicTintColor="@{R.color.colorSecondaryLighText}" />
 
@@ -74,8 +74,9 @@
                             android:id="@+id/redSpeakerImage"
                             android:layout_width="@dimen/_60sdp"
                             android:layout_height="@dimen/_60sdp"
-                            android:src="@drawable/ic_speaker_wave_48dp"
-                            android:visibility="gone" />
+                            android:src="@drawable/ic_speaker_wave_white_60dp"
+                            android:visibility="gone"
+                            app:dynamicTintColor="@{R.color.colorRedImageTint}" />
                     </FrameLayout>
 
                     <Chronometer
