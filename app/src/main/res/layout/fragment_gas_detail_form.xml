@@ -55,67 +55,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="@dimen/_24sdp">
+                    android:paddingStart="@dimen/_24sdp"
+                    android:paddingTop="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_24sdp"
+                    android:paddingBottom="@dimen/_24sdp">
 
                     <TextView
                         style="@style/SecondaryNormalText"
-                        android:text="@string/billing_first_name" />
+                        android:text="@string/service_address" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputBillingFirstName"
-                        style="@style/DefaultEditText">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editBillingFirstName"
-                            style="@style/DefaultEditText"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingFirstName : item.billingFirstName }" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/billing_middle_name" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputBillingMiddleName"
-                        style="@style/DefaultEditText">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editBillingMiddleName"
-                            style="@style/DefaultEditText"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingMiddleInitial : item.billingMiddleInitial }" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/billing_last_name" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputBillingLastName"
-                        style="@style/TextInputLayout">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editBillingLastName"
-                            style="@style/DefaultEditText"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingLastName : item.billingLastName }" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/billing_address" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputBillingAddress"
+                        android:id="@+id/textInputServiceAddress"
                         style="@style/TextInputLayout">
 
                         <LinearLayout style="@style/SquareBorderTextLinearLayout">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/editBillingAddress"
+                                android:id="@+id/editServiceAddress"
                                 style="@style/SquareBorderEditText"
-                                android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingAddress : item.billingAddress }" />
+                                android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasServiceAddress : item.serviceAddress }" />
                         </LinearLayout>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,21 +121,22 @@
                             tools:checked="true" />
                     </RadioGroup>
 
+
                     <TextView
                         style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/service_address" />
+                        android:text="@string/billing_address" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputServiceAddress"
+                        android:id="@+id/textInputBillingAddress"
                         style="@style/TextInputLayout">
 
                         <LinearLayout style="@style/SquareBorderTextLinearLayout">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/editServiceAddress"
+                                android:id="@+id/editBillingAddress"
                                 style="@style/SquareBorderEditText"
                                 android:enabled="@{!viewModel.isGasServiceAddressSame()}"
-                                android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasServiceAddress : item.serviceAddress }"
+                                android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingAddress : item.billingAddress }"
                                 android:textColor="@{viewModel.isGasServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
                         </LinearLayout>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -196,6 +155,51 @@
                             android:enabled="false"
                             android:text="@{viewModel.zipcode.zipcode}"
                             android:textColor="@color/colorSecondaryText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/billing_first_name" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputBillingFirstName"
+                        style="@style/DefaultEditText">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editBillingFirstName"
+                            style="@style/DefaultEditText"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingFirstName : item.billingFirstName }" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/billing_middle_name" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputBillingMiddleName"
+                        style="@style/DefaultEditText">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editBillingMiddleName"
+                            style="@style/DefaultEditText"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingMiddleInitial : item.billingMiddleInitial }" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/billing_last_name" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputBillingLastName"
+                        style="@style/TextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editBillingLastName"
+                            style="@style/DefaultEditText"
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingLastName : item.billingLastName }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

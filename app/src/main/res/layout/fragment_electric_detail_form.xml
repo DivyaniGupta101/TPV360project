@@ -54,10 +54,112 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="@dimen/_24sdp">
+                    android:paddingStart="@dimen/_24sdp"
+                    android:paddingTop="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_24sdp"
+                    android:paddingBottom="@dimen/_24sdp">
+
 
                     <TextView
                         style="@style/SecondaryNormalText"
+                        android:text="@string/service_address" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputServiceAddress"
+                        style="@style/TextInputLayout">
+
+                        <LinearLayout style="@style/SquareBorderTextLinearLayout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editServiceAddress"
+                                style="@style/SquareBorderEditText"
+                                android:text="@{item.serviceAddress}" />
+                        </LinearLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/zip_code" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputServiceZipCode"
+                        style="@style/TextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editServiceZipCode"
+                            style="@style/DefaultEditText"
+                            android:enabled="false"
+                            android:text="@{viewModel.zipcode.zipcode}"
+                            android:textColor="@color/colorSecondaryText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/billing_address_msg" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioYes"
+                            style="@style/CheckBoxButton"
+                            android:layout_marginStart="0dp"
+                            android:checked="@{viewModel.isElectricServiceAddressSame()? true : false}"
+                            android:text="@string/yes" />
+
+                        <RadioButton
+                            android:id="@+id/radioNo"
+                            style="@style/CheckBoxButton"
+                            android:checked="@{viewModel.isElectricServiceAddressSame()? false : true}"
+                            android:text="@string/no"
+                            tools:checked="true" />
+                    </RadioGroup>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/billing_address" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputBillingAddress"
+                        style="@style/TextInputLayout">
+
+                        <LinearLayout style="@style/SquareBorderTextLinearLayout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editBillingAddress"
+                                style="@style/SquareBorderEditText"
+                                android:enabled="@{!viewModel.isElectricServiceAddressSame()}"
+                                android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.electricBillingAddress : item.billingAddress }"
+                                android:textColor="@{viewModel.isElectricServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
+
+                        </LinearLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
+                        android:text="@string/zip_code" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputZipCode"
+                        style="@style/TextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editZipCode"
+                            style="@style/DefaultEditText"
+                            android:enabled="false"
+                            android:text="@{viewModel.zipcode.zipcode}"
+                            android:textColor="@color/colorSecondaryText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <TextView
+                        style="@style/SecondaryNormalTextWithTopSpacing"
                         android:text="@string/billing_first_name" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -101,103 +203,6 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/billing_address" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputBillingAddress"
-                        style="@style/TextInputLayout">
-
-                        <LinearLayout style="@style/SquareBorderTextLinearLayout">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/editBillingAddress"
-                                style="@style/SquareBorderEditText"
-                                android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.electricBillingAddress : item.billingAddress }" />
-
-                        </LinearLayout>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/zip_code" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputZipCode"
-                        style="@style/TextInputLayout">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editZipCode"
-                            style="@style/DefaultEditText"
-                            android:enabled="false"
-                            android:text="@{viewModel.zipcode.zipcode}"
-                            android:textColor="@color/colorSecondaryText" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/billing_address_msg" />
-
-                    <RadioGroup
-                        android:id="@+id/radioGroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/radioYes"
-                            style="@style/CheckBoxButton"
-                            android:layout_marginStart="0dp"
-                            android:checked="@{viewModel.isElectricServiceAddressSame()? true : false}"
-                            android:text="@string/yes" />
-
-                        <RadioButton
-                            android:id="@+id/radioNo"
-                            style="@style/CheckBoxButton"
-                            android:checked="@{viewModel.isElectricServiceAddressSame()? false : true}"
-                            android:text="@string/no"
-                            tools:checked="true" />
-                    </RadioGroup>
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/service_address" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputServiceAddress"
-                        style="@style/TextInputLayout">
-
-                        <LinearLayout style="@style/SquareBorderTextLinearLayout">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/editServiceAddress"
-                                style="@style/SquareBorderEditText"
-                                android:enabled="@{!viewModel.isElectricServiceAddressSame()}"
-                                android:text="@{item.serviceAddress}"
-                                android:textColor="@{viewModel.isElectricServiceAddressSame() ? @color/colorSecondaryText : @color/colorPrimaryText}" />
-                        </LinearLayout>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        style="@style/SecondaryNormalTextWithTopSpacing"
-                        android:text="@string/zip_code" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputServiceZipCode"
-                        style="@style/TextInputLayout">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editServiceZipCode"
-                            style="@style/DefaultEditText"
-                            android:enabled="false"
-                            android:text="@{viewModel.zipcode.zipcode}"
-                            android:textColor="@color/colorSecondaryText" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         style="@style/SecondaryNormalTextWithTopSpacing"
