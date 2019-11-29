@@ -94,7 +94,7 @@
                                 style="@style/SecondaryNormalSmallText"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:text="@string/phone_number" />
+                                android:text="@{@string/phone_number + ' ' +':'}" />
 
                             <TextView
                                 style="@style/PrimaryBoldText"
@@ -115,15 +115,16 @@
                         style="@style/SecondaryLightNormalText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:gravity="top"
                         android:text="@string/msg_agree_statement" />
 
 
                     <TextView
                         style="@style/PrimaryNormalText"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:text="@string/signature" />
+
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -138,6 +139,18 @@
                             android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintDimensionRatio="2:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textTapToOpen"
+                            style="@style/SecondaryNormalText"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:gravity="center"
+                            android:text="@string/tap_to_open"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />

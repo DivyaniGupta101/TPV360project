@@ -117,7 +117,7 @@
     <string name="billing_last_name">Billing Last Name</string>
     <string name="auth_relationship">Auth Relationship</string>
     <string name="account_number">Account Number</string>
-    <string name="phone_number">Phone Number</string>
+    <string name="phone_number">Phone Number </string>
     <string name="customer_name">Customer Name</string>
     <string name="first_name">First Name</string>
     <string name="middle_name">Middle Name</string>
@@ -134,10 +134,10 @@
     <string name="contract_detail">Contract Detail</string>
     <string name="msg_statement">These Terms and Conditions apply to customers offered the Pulse Price Promise. They apply in addition to the Pulse Residential Agreement that applies from 1 January 2016 and as may be amended from time to time in accordance with that agreement. If there is any conflict between these Terms and Conditions and the Pulse Residential Agreement, these Terms and Conditions shall prevail. Any capitalised terms set out in these terms which are not defined in these Terms and Conditions have the same meaning as set out in the Pulse Residential Agreement.\n\nIf applicable, the Pulse Energy Price Promise means that we commit to offering you a combination of electricity Energy and delivery rates that will give you a lower total cost than what you are paying with your current electricity retailer as at the date of our offer to you for electricity Energy and delivery, after any Prompt Payment Discount (PPD) you currently receive (Price Promise).The Price Promise applies only to fixed and variable electricity Energy rates paid on a monthly basis based on billing days or metered Energy. The Price Promise does not apply to Delivery charges or any LPG or Natural Gas related charges. Any other credits or fees you may receive or incur from time to time in accordance with the Pulse Residential Agreement are not subject to the Price Promise.Where you have provided a recent invoice from your current retailer, we have calculated an adjustment which is set out in Your Price Plan (labelled Price Promise) to reflect Our Price Promise.\n\nIf you could not supply a copy of your most recent electricity bill from your current electricity provider (or you do not have a current electricity provider), then you acknowledge that the Price Promise does not apply to any rate you are offered by us.Price Protection applies to your Energy Rate for two years from the date you originally switched to this product and does not apply to charges under Delivery on your Price Plan which includes Network Services, Retailer Services and Metering.Beyond the Price Protection period we will give you notice of any change in accordance with the Pulse Residential Agreement.</string>
     <string name="msg_agree_statement">I agree I have read the Terms of Service and I have authorisation to have my utility service switched to TPV Energy</string>
-    <string name="account_holder_name">Account Holder Name</string>
+    <string name="account_holder_name">Account Holder Name :</string>
     <string name="signature">Signature</string>
     <string name="thank_you">Thank You!</string>
-    <string name="your_reference_id">Your Reference ID:</string>
+    <string name="your_reference_id">Your Reference ID :</string>
     <string name="self_verification">Self - Verification</string>
     <string name="phone">Phone</string>
     <string name="back_to_dashboard">Back to Dashboard</string>
@@ -149,6 +149,7 @@
     <string name="msg_client_info">Please review and confirm that all of the info below Id accurate. You are only a few steps away from being done.</string>
     <string name="msg_recording">I give authorisation to record our conversation</string>
     <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
+    <string name="tap_to_open">Tap to open</string>
 
 
 </resources>

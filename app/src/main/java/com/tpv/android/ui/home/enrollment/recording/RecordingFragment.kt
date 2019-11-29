@@ -289,7 +289,8 @@ class RecordingFragment : Fragment() {
             RECORD_STOP -> {
                 mBinding.waveformView.show()
                 mBinding.recordStopImage.show()
-                mBinding.graySpeakerImage.show()
+                mBinding.graySpeakerImage.hide()
+                mBinding.redSpeakerImage.show()
             }
         }
     }
@@ -347,6 +348,7 @@ class RecordingFragment : Fragment() {
             dialog?.dismiss()
         }
         binding?.btnYes?.onClick {
+            recordedFile = ""
             dialog?.dismiss()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
         }

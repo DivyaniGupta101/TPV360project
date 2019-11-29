@@ -27,6 +27,7 @@ import com.github.gcacace.signaturepad.views.SignaturePad
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
+import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
@@ -98,6 +99,10 @@ class StatementFragment : Fragment() {
         }
 
         mBinding.imageSign.onClick {
+            showSignatureDialog()
+        }
+
+        mBinding.textTapToOpen.onClick {
             showSignatureDialog()
         }
     }
@@ -196,13 +201,13 @@ class StatementFragment : Fragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding.signatureView.setOnSignedListener(object : SignaturePad.OnSignedListener {
             override fun onStartSigning() {
-                binding.btnSave.isEnabled = true
             }
 
             override fun onClear() {
             }
 
             override fun onSigned() {
+                binding.btnSave.isEnabled = true
             }
         })
 
@@ -222,6 +227,7 @@ class StatementFragment : Fragment() {
 
 
         binding?.btnSave?.onClick {
+            mBinding.textTapToOpen.hide()
             mSignImage = binding.signatureView.signatureBitmap
             GlideApp.with(context)
                     .asBitmap()

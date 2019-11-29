@@ -12,6 +12,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var utilitiesList: ArrayList<UtilityResp> = ArrayList()
     var zipcode: ZipCodeResp? = null
     var programList: ArrayList<ProgramsResp> = ArrayList()
+    var relationShipList: ArrayList<String> = ArrayList()
     var customerData: CustomerData = CustomerData()
     var savedLeadDetail: SaveLeadsDetailResp? = null
     var recordingFile: String = ""

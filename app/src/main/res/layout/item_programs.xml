@@ -83,7 +83,7 @@
                         android:layout_weight="0.2"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{ '$' + item.rate}"
+                        android:text="@{ '$'+ ' '  + item.rate}"
                         tools:text="$12.49" />
 
                     <LinearLayout
@@ -133,7 +133,7 @@
                                 style="@style/PrimaryNormalSmallText"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="@{item.earlyterminationfee}"
+                                android:text="@{'$' + ' '+item.earlyterminationfee}"
                                 tools:text="$ 00" />
 
 

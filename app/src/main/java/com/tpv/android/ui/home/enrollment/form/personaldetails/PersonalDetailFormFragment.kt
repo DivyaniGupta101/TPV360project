@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.*
+import com.livinglifetechway.k4kotlin.core.androidx.color
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogOtpBinding
@@ -59,7 +60,14 @@ class PersonalDetailFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        relationShipList.addAll(arrayListOf(getString(R.string.account_holder), getString(R.string.spouse), getString(R.string.power_of_attorney), getString(R.string.family_member), getString(R.string.other)))
+        if (mViewModel?.relationShipList?.isNotEmpty()) {
+            relationShipList.clear()
+            relationShipList.addAll(mViewModel.relationShipList)
+        } else {
+            relationShipList.addAll(arrayListOf(getString(R.string.account_holder), getString(R.string.spouse), getString(R.string.power_of_attorney), getString(R.string.family_member), getString(R.string.other)))
+        }
+
+
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
@@ -81,6 +89,11 @@ class PersonalDetailFormFragment : Fragment() {
                             EmptyValidator(),
                             context.getString(R.string.enter_phone_number)
                     )
+                    addValidate(
+                            mBinding.editPhoneNumber,
+                            PhoneNumberValidator(),
+                            getString(R.string.enter_valid_phone_number)
+                    )
                 }.validate()
             }
         }
@@ -95,6 +108,7 @@ class PersonalDetailFormFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 mBinding.textVerify.isEnabled = true
                 mBinding.textVerify.setText(R.string.verify)
+                mBinding.textVerify.setTextColor(context?.color(R.color.colorTertiaryText).orZero())
             }
         })
         mBinding.spinnerRelationShip.onItemSelected { parent, view, position, id ->
@@ -209,6 +223,7 @@ class PersonalDetailFormFragment : Fragment() {
             it.ifSuccess {
                 dialog.dismiss()
                 mBinding.textVerify.setText(R.string.verified)
+                mBinding.textVerify.setTextColor(context?.color(R.color.colorVerifiedText).orZero())
                 mBinding.textVerify.isEnabled = false
                 activity?.hideKeyboard()
             }
@@ -292,6 +307,9 @@ class PersonalDetailFormFragment : Fragment() {
             email = mBinding.editAuthorisedEmail.value
             countryCode = mBinding.spinnerCountryCode.selectedItem.toString()
         }
+
+        mViewModel.relationShipList.clear()
+        mViewModel.relationShipList.addAll(relationShipList)
     }
 
 }
