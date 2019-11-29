@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.*
+import com.livinglifetechway.k4kotlin.core.androidx.color
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogOtpBinding
@@ -110,6 +111,7 @@ class PersonalDetailFormFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 mBinding.textVerify.isEnabled = true
                 mBinding.textVerify.setText(R.string.verify)
+                mBinding.textVerify.setTextColor(context?.color(R.color.colorTertiaryText).orZero())
             }
         })
         mBinding.spinnerRelationShip.onItemSelected { parent, view, position, id ->
@@ -224,6 +226,7 @@ class PersonalDetailFormFragment : Fragment() {
             it.ifSuccess {
                 dialog.dismiss()
                 mBinding.textVerify.setText(R.string.verified)
+                mBinding.textVerify.setTextColor(context?.color(R.color.colorVerifiedText).orZero())
                 mBinding.textVerify.isEnabled = false
                 activity?.hideKeyboard()
             }
