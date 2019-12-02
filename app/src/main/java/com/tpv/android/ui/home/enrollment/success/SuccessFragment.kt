@@ -45,8 +45,9 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.success))
+
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         mBinding.item = mViewModel.savedLeadDetail
 
         mVerificationType.add(getString(R.string.email))
@@ -61,10 +62,8 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         }
 
         mBinding.btnVerify.onClick {
-            selfVerificationCall()
+            selfVerificationApiCall()
         }
-
-
 
         mBinding.textBackToDashBoard.onClick {
             removeStoredData()
@@ -72,6 +71,20 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         }
     }
 
+
+    /**
+     * On click of backButton remove stored Data
+     */
+    override fun handleOnBackPressed(): Boolean {
+        removeStoredData()
+        return true
+    }
+
+    /**
+     * Check if @param isChecked is true then add @param buttonView's text in mVerificationType list
+     * Else remove from mVerificationType list
+     * Also check if list is empty then verify button should not be enabled
+     */
     private fun getSelectedCheckBoxValue(isChecked: Boolean, buttonView: CompoundButton?) {
         if (isChecked) {
             mVerificationType.add(buttonView?.text.toString())
@@ -88,10 +101,9 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
 
     }
 
-    private fun selfVerificationCall() {
+    private fun selfVerificationApiCall() {
 
         val liveData = mViewModel.selfVerification(SuccessReq(verificationType = mVerificationType.joinToString(separator = ","), leadId = mViewModel.savedLeadDetail?.id))
-
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 removeStoredData()
@@ -100,10 +112,11 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-
-
     }
 
+    /**
+     * Remove all the storedData in viewModel
+     */
     private fun removeStoredData() {
         mViewModel.utilitiesList.clear()
         mViewModel.planType = ""
@@ -117,9 +130,5 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         mViewModel.relationShipList.clear()
     }
 
-    override fun handleOnBackPressed(): Boolean {
-        removeStoredData()
-        return true
-    }
 
 }

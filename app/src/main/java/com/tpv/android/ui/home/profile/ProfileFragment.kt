@@ -13,7 +13,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentProfileBinding
 import com.tpv.android.helper.Pref
 import com.tpv.android.network.resources.extensions.ifSuccess
-import com.tpv.android.utils.MenuItem
+import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 import com.tpv.android.utils.updateProfileInMenu

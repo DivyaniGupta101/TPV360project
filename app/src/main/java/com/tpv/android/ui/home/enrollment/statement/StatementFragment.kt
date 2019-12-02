@@ -84,8 +84,9 @@ class StatementFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
+
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
@@ -95,20 +96,128 @@ class StatementFragment : Fragment() {
             setButtonEnable()
         }
 
+        //Get current location and get zipcode
+        //After that compare with previous selected(stored) zipcode
+        //If same then saveAllDetails related to leads else show Dialog for zipcode does not mathch.
         mBinding.btnNext.onClick {
             getLocation()
         }
 
         mBinding.imageSign.onClick {
-            showSignatureDialog()
+            signatureDialog()
         }
 
         mBinding.textTapToOpen.onClick {
-            showSignatureDialog()
+            signatureDialog()
         }
     }
 
-    private fun saveCustomerData() {
+    /**
+     * Get result from MAIN ACTIVITY onActivityResult method
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_GPS_SETTINGS) {
+            if (resultCode == Activity.RESULT_OK) {
+                createLocationRequest()
+            }
+        }
+
+    }
+
+    /**
+     * Get user current location
+     * Check location permission
+     * Also check gps is enabled
+     * If last location time is less than 2 minutes then it will give you location else show UnMatchZipcodeDialog
+     */
+    private fun getLocation() = runWithPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION) {
+        uiScope.launch {
+            location = context?.let { LocationHelper.getLastKnownLocation(it) }
+            val currentTimeStamp = System.currentTimeMillis()
+            val diffTime = currentTimeStamp.minus(location?.time.orZero())
+
+            if (location == null) {
+                createLocationRequest()
+            } else {
+                if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse() && diffTime <= AppConstant.TWO_MINUTE_CONSTANT) {
+                    getZipCodedFromLocation(location)
+                } else {
+                    unMatchZipcodeDialog()
+                }
+            }
+        }
+
+    }
+
+    /**
+     * create location request and check gps dialog is enabled or not
+     */
+    private fun createLocationRequest() {
+        val locationRequest = LocationRequest.create()?.apply {
+            interval = 10000
+            fastestInterval = 5000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        val builder = locationRequest?.let {
+            LocationSettingsRequest.Builder()
+                    .addLocationRequest(it)
+        }
+        val client: SettingsClient? = context?.let { LocationServices.getSettingsClient(it) }
+        val task: Task<LocationSettingsResponse>? = client?.checkLocationSettings(builder?.build())
+
+        task?.addOnSuccessListener { locationSettingsResponse ->
+            // All location settings are satisfied. The client can initialize
+            // location requests here.
+            // ...
+            uiScope.launch {
+                location = context?.let { LocationHelper.getLastKnownLocation(it) }
+                getZipCodedFromLocation(location)
+            }
+        }
+
+        task?.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException) {
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    exception.startResolutionForResult(activity,
+                            HomeActivity.REQUEST_CHECK_SETTINGS)
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
+        }
+    }
+
+    /**
+     * Get zipcode from location and check if it's match with stored Zipcode then able to call all saveLaeadsApi
+     * Else show unMatchZipcode dialog
+     */
+    private fun getZipCodedFromLocation(location: Location?) {
+        location?.let {
+            val geoCoder = Geocoder(context, Locale.getDefault())
+            val addresses = geoCoder.getFromLocation(it.latitude.orZero(), it.longitude.orZero(), 1)
+            val postalCode = addresses?.get(0)?.postalCode
+
+            if (mViewModel.zipcode?.value?.equals(postalCode).orFalse()) {
+                saveCustomerDataApiCall()
+            } else {
+                unMatchZipcodeDialog()
+            }
+        }
+    }
+
+    /**
+     * Call API for save customer data
+     * But before thet chaek if planType is DUEL FUEL then parameters will be change then GAS or ELECTRIC
+     * On success of saveCustomerDataApiCall api, call saveContract API
+     * Also check if recording is not empty then call save recording API else call save Signature API
+     */
+    private fun saveCustomerDataApiCall() {
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
         when (mViewModel.planType) {
             Plan.DUALFUEL.value -> {
@@ -137,11 +246,13 @@ class StatementFragment : Fragment() {
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.savedLeadDetail = it
+
                 mViewModel.saveContract(contractReq = ContractReq(mViewModel.savedLeadDetail?.id))
+
                 if (mViewModel.recordingFile.isNotEmpty()) {
-                    saveRecording()
+                    saveRecordingApiCall()
                 } else {
-                    saveSignatureCall()
+                    saveSignatureApiCall()
                 }
             }
         })
@@ -149,30 +260,34 @@ class StatementFragment : Fragment() {
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
-    private fun saveRecording() {
+    /**
+     * Save recording file
+     * And on success callBack call saveSinature API
+     */
+    private fun saveRecordingApiCall() {
         val liveData =
                 File(mViewModel.recordingFile).toMultipartBody("media", "audio/*")?.let {
                     mViewModel.saveMedia(mViewModel.savedLeadDetail?.id.toRequestBody(),
                             it)
                 }
-
-
         liveData?.observe(this, Observer {
             it?.ifSuccess {
-                saveSignatureCall()
+                saveSignatureApiCall()
             }
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
-    private fun saveSignatureCall() {
+    /**
+     * save SignatureImage
+     */
+    private fun saveSignatureApiCall() {
 
         val liveData = context?.BitmapToFile(mSignImage).toMultipartBody("media", "image/jpeg")?.let {
             mViewModel.saveMedia(mViewModel.savedLeadDetail?.id.toRequestBody(),
                     it)
         }
-
         liveData?.observe(this, Observer {
             it.ifSuccess {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_statementFragment_to_successFragment)
@@ -183,14 +298,15 @@ class StatementFragment : Fragment() {
 
     }
 
+    /**
+     * if checkBox is selected and signature image both  are available then only nextButton is enabled
+     */
     private fun setButtonEnable() {
-        mBinding.btnNext.isEnabled = if (mBinding.checkContract.isChecked) {
-            if (mSignImage != null) true else false
-        } else false
+        mBinding.btnNext.isEnabled = if (mBinding.checkContract.isChecked && mSignImage != null) true else false
     }
 
 
-    private fun showSignatureDialog() {
+    private fun signatureDialog() {
         val binding = DataBindingUtil.inflate<DialogSignatureBinding>(layoutInflater, R.layout.dialog_signature, null, false)
         val dialog = context?.let { AlertDialog.Builder(it) }
                 ?.setView(binding.root)?.show()
@@ -240,30 +356,7 @@ class StatementFragment : Fragment() {
 
     }
 
-    /**
-     * get user current location
-     * check location permission and check gps is enabled and if last location time is less than 2 minutes
-     */
-    private fun getLocation() = runWithPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION) {
-        uiScope.launch {
-            location = context?.let { LocationHelper.getLastKnownLocation(it) }
-            val currentTimeStamp = System.currentTimeMillis()
-            val diffTime = currentTimeStamp.minus(location?.time.orZero())
-
-            if (location == null) {
-                createLocationRequest()
-            } else {
-                if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse() && diffTime <= AppConstant.TWO_MINUTE_CONSTANT) {
-                    getZipCodedFromLocation(location)
-                } else {
-                    showUnMatchZipcodeDialog()
-                }
-            }
-        }
-
-    }
-
-    private fun showUnMatchZipcodeDialog() {
+    private fun unMatchZipcodeDialog() {
         val binding = DataBindingUtil.inflate<DialogErrorBinding>(layoutInflater, R.layout.dialog_error, null, false)
         val dialog = context?.let { AlertDialog.Builder(it) }
                 ?.setView(binding.root)?.show()
@@ -277,83 +370,6 @@ class StatementFragment : Fragment() {
         }
 
     }
-
-    /**
-     * create location request and check gps dialog is enabled or not
-     */
-    fun createLocationRequest() {
-        val locationRequest = LocationRequest.create()?.apply {
-            interval = 10000
-            fastestInterval = 5000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
-
-        val builder = locationRequest?.let {
-            LocationSettingsRequest.Builder()
-                    .addLocationRequest(it)
-        }
-        val client: SettingsClient? = context?.let { LocationServices.getSettingsClient(it) }
-        val task: Task<LocationSettingsResponse>? = client?.checkLocationSettings(builder?.build())
-
-        task?.addOnSuccessListener { locationSettingsResponse ->
-            // All location settings are satisfied. The client can initialize
-            // location requests here.
-            // ...
-            uiScope.launch {
-                location = context?.let { LocationHelper.getLastKnownLocation(it) }
-                getZipCodedFromLocation(location)
-            }
-
-
-        }
-
-        task?.addOnFailureListener { exception ->
-            if (exception is ResolvableApiException) {
-                // Location settings are not satisfied, but this can be fixed
-                // by showing the user a dialog.
-                try {
-                    // Show the dialog by calling startResolutionForResult(),
-                    // and check the result in onActivityResult().
-                    exception.startResolutionForResult(activity,
-                            HomeActivity.REQUEST_CHECK_SETTINGS)
-                } catch (sendEx: IntentSender.SendIntentException) {
-                    // Ignore the error.
-                }
-            }
-        }
-
-    }
-
-    /**
-     * take result from MAIN ACTIVITY onActivityResult method
-     */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_GPS_SETTINGS) {
-            if (resultCode == Activity.RESULT_OK) {
-                createLocationRequest()
-            }
-        }
-
-    }
-
-    /**
-     * get zipcode from location
-     */
-    private fun getZipCodedFromLocation(location: Location?) {
-        location?.let {
-            val geoCoder = Geocoder(context, Locale.getDefault())
-            val addresses = geoCoder.getFromLocation(it.latitude.orZero(), it.longitude.orZero(), 1)
-            val postalCode = addresses?.get(0)?.postalCode
-
-            if (mViewModel.zipcode?.value?.equals(postalCode).orFalse()) {
-                saveCustomerData()
-            } else {
-                showUnMatchZipcodeDialog()
-            }
-        }
-    }
-
 }
 
 
