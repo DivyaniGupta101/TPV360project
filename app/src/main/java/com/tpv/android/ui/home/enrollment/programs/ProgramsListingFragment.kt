@@ -60,8 +60,9 @@ class ProgramsListingFragment : Fragment() {
             mBinding.listPrograms.adapter?.notifyDataSetChanged()
         }
 
+        //If mList is empty then getPrograms from api and then set in recyclerView else only set in recyclerView
         if (mList.isEmpty()) {
-            getProgramsApi()
+            getProgramsApiCall()
         } else {
             setRecyclerView()
         }
@@ -69,26 +70,27 @@ class ProgramsListingFragment : Fragment() {
         handleNextButtonState()
 
 
+        //Save ProgramDetail in viewModel
         mBinding.btnNext.onClick {
-            this@ProgramsListingFragment.mViewModel.programList.clear()
+            mViewModel.programList.clear()
 
-            when (this@ProgramsListingFragment.mViewModel.planType) {
+            when (mViewModel.planType) {
                 Plan.GASFUEL.value -> {
-                    this@ProgramsListingFragment.mViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
+                    mViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
                 }
                 Plan.ELECTRICFUEL.value -> {
-                    this@ProgramsListingFragment.mViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
+                    mViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
                 }
                 Plan.DUALFUEL.value -> {
-                    this@ProgramsListingFragment.mViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
-                    this@ProgramsListingFragment.mViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
+                    mViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
+                    mViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
                 }
             }
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_programsListingFragment_to_personalDetailFormFragment)
         }
     }
 
-    private fun getProgramsApi() {
+    private fun getProgramsApiCall() {
 
         val liveData = this.mViewModel.getPrograms(this.mViewModel.utilitiesList)
 
@@ -124,6 +126,12 @@ class ProgramsListingFragment : Fragment() {
                 .into(mBinding.listPrograms)
     }
 
+    /**
+     * if Plan type is Electric or Gas then there should be one item selected then only button will be disabled
+     * If plan type is Duel Fuel then there should be one item selected from gas list
+     * And one from electric list then only button will be disabled
+     */
+
     private fun handleNextButtonState() {
         mBinding.btnNext.isEnabled = when (this.mViewModel.planType) {
             Plan.ELECTRICFUEL.value -> {
@@ -141,6 +149,10 @@ class ProgramsListingFragment : Fragment() {
         }
     }
 
+    /**
+     * Handle itemSelection, only one item from each GASFUEL and ELECTRICFUEL should be selected
+     * Other will be unSelected automatically
+     */
     private fun itemSelection(type: String, selectedPosition: Int) {
         when (type) {
             Plan.GASFUEL.value -> {

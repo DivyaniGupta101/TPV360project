@@ -36,11 +36,9 @@ class RecordingFragment : Fragment() {
 
     private lateinit var mBinding: FragmentRecordingBinding
     private lateinit var mViewModel: SetEnrollViewModel
-    //    private var myAudioRecorder: MediaRecorder = MediaRecorder()
     private var mRecordingThread: RecordingThread? = null
     private var recordedFile: String? = null
     private var mediaPlayer: MediaPlayer = MediaPlayer()
-    var lastPaused = 0L
     var isAudioPause: Boolean = false
     var AUDIO_START = 0
     var AUDIO_STOP = 1
