@@ -76,7 +76,7 @@ class HomeActivity : AppCompatActivity() {
         mBinding.navMenu.menutItemList = arrayListOf(
                 MenuItems(getDrawable(R.drawable.ic_menu_dashboard_white), getString(R.string.dashboard)),
                 MenuItems(getDrawable(R.drawable.ic_menu_profile_white), getString(R.string.profile)),
-                MenuItems(getDrawable(R.drawable.ic_register_white), getString(R.string.start_enrollment)),
+                MenuItems(getDrawable(R.drawable.ic_register_white_32dp), getString(R.string.start_enrollment)),
                 MenuItems(getDrawable(R.drawable.ic_logout_white_32dp), getString(R.string.log_out)))
 
         handleItemMenu(MenuItem.DASHBOARD.value)

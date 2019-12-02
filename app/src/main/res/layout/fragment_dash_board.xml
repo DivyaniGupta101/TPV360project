@@ -182,7 +182,7 @@
                     android:layout_gravity="bottom|end"
                     android:background="@drawable/bg_gradient_fab"
                     android:foreground="@drawable/rounded_ripple_effect"
-                    android:src="@drawable/ic_register_white" />
+                    android:src="@drawable/ic_register_white_32dp" />
 
 
             </FrameLayout>
