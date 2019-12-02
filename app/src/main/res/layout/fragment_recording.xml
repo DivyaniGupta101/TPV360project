@@ -123,25 +123,29 @@
                             android:id="@+id/audioStartImage"
                             style="@style/RecordingImage"
                             android:src="@drawable/ic_audio_start_black"
-                            android:visibility="gone" />
+                            android:visibility="gone"
+                            app:dynamicTintColor="@{R.color.colorBlackTint}" />
 
                         <ImageView
                             android:id="@+id/audioStopImage"
                             style="@style/RecordingImage"
                             android:src="@drawable/ic_audio_stop_black"
-                            android:visibility="gone" />
+                            android:visibility="gone"
+                            app:dynamicTintColor="@{R.color.colorBlackTint}" />
 
                         <ImageView
                             android:id="@+id/recordStartImage"
                             style="@style/RecordingImage"
                             android:src="@drawable/ic_record_start_black"
-                            android:visibility="visible" />
+                            android:visibility="visible"
+                            app:dynamicTintColor="@{R.color.colorBlackTint}" />
 
                         <ImageView
                             android:id="@+id/recordStopImage"
                             style="@style/RecordingImage"
                             android:src="@drawable/ic_record_stop_black"
-                            android:visibility="gone" />
+                            android:visibility="gone"
+                            app:dynamicTintColor="@{R.color.colorBlackTint}" />
 
                     </FrameLayout>
 
@@ -181,9 +185,9 @@
                     style="@style/PrimaryBoldText"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/_16sdp"
+                    android:background="?selectableItemBackground"
                     android:padding="@dimen/_4sdp"
                     android:text="@string/skip_btn"
-                    android:background="?selectableItemBackground"
                     android:textColor="@color/colorTertiaryText" />
             </LinearLayout>
 
