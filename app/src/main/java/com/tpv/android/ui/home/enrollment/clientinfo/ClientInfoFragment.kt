@@ -16,7 +16,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClientInfoBinding
 import com.tpv.android.databinding.ItemProgramsBinding
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
-import com.tpv.android.utils.Plan
+import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 

@@ -16,7 +16,11 @@ import com.tpv.android.databinding.FragmentCommodityBinding
 import com.tpv.android.databinding.ItemCommodityBinding
 import com.tpv.android.model.Commodity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
-import com.tpv.android.utils.*
+import com.tpv.android.utils.enums.MenuItem
+import com.tpv.android.utils.enums.Plan
+import com.tpv.android.utils.navigateSafe
+import com.tpv.android.utils.setItemSelection
+import com.tpv.android.utils.setupToolbar
 
 class CommodityFragment : Fragment() {
     private lateinit var mBinding: FragmentCommodityBinding

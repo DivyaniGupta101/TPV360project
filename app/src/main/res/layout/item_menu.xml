@@ -17,7 +17,7 @@
 
         <variable
             name="menuItem"
-            type="com.tpv.android.utils.MenuItem" />
+            type="com.tpv.android.utils.enums.MenuItem" />
 
         <variable
             name="item"

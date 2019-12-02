@@ -16,8 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:gravity="center">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -41,11 +40,11 @@
                 <TextView
                     style="@style/PrimaryBoldText"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:gravity="center"
                     android:text="@{item.title}" />
 
                 <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    style="@style/SecondaryNormalTextWithTopSpacing"
                     android:gravity="center"
                     android:text="@{item.description}" />
 

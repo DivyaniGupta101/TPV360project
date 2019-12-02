@@ -1,5 +1,6 @@
 package com.tpv.android.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -34,7 +35,7 @@ import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
 import com.tpv.android.ui.home.enrollment.statement.StatementFragment
-import com.tpv.android.utils.MenuItem
+import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.navigateSafe
 
 
@@ -52,25 +53,21 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         mBinding = setBindingView(R.layout.activity_home)
         mBinding.lifecycleOwner = this
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         mNavController = Navigation.findNavController(this, R.id.navHostFragment)
-        navigationHostFragment =
-                supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        navigationHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
 
         handleStatusBarColor()
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         if (Pref.user == null) {
-            mViewModel.getProfile().observe(this, Observer {
-                it.ifSuccess { userDetail ->
-                    mBinding.navMenu.item = Pref.user
-                }
-            })
+            getProfileApiCall()
         } else {
-            setMenuProfileData()
+            setProfileData()
         }
 
         mBinding.navMenu.menutItemList = arrayListOf(
@@ -79,25 +76,22 @@ class HomeActivity : AppCompatActivity() {
                 MenuItems(getDrawable(R.drawable.ic_register_white_32dp), getString(R.string.start_enrollment)),
                 MenuItems(getDrawable(R.drawable.ic_logout_white_32dp), getString(R.string.log_out)))
 
-        handleItemMenu(MenuItem.DASHBOARD.value)
+        mBinding.navMenu.currentSelected = mLastSelectedItem
 
         mBinding.navMenu?.layoutDashboard?.parentContainer?.onClick {
-            mBinding.navMenu.currentSelected = MenuItem.DASHBOARD.value
-            mLastSelectedItem = MenuItem.DASHBOARD.value
+            menuItemSelection(MenuItem.DASHBOARD.value)
             mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             mNavController.navigateSafe(R.id.action_global_dashboardFragment)
         }
 
         mBinding.navMenu?.layoutProfile?.parentContainer?.onClick {
-            mBinding.navMenu.currentSelected = MenuItem.PROFILE.value
-            mLastSelectedItem = MenuItem.PROFILE.value
+            menuItemSelection(MenuItem.PROFILE.value)
             mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             mNavController.navigateSafe(R.id.action_global_profileFragment)
         }
 
         mBinding.navMenu?.layoutSetEnroll?.parentContainer?.onClick {
-            mBinding.navMenu.currentSelected = MenuItem.ENROLL.value
-            mLastSelectedItem = MenuItem.ENROLL.value
+            menuItemSelection(MenuItem.ENROLL.value)
             mBinding.drawerLayout.closeDrawer(GravityCompat.END)
             mNavController.navigateSafe(R.id.action_global_commodityFragment)
         }
@@ -105,34 +99,64 @@ class HomeActivity : AppCompatActivity() {
         mBinding.navMenu?.layoutLogout?.parentContainer?.onClick {
             mBinding.navMenu.currentSelected = MenuItem.LOGOUT.value
             mBinding.drawerLayout.closeDrawer(GravityCompat.END)
-            openLogOutDialog()
+            logOutDialog()
         }
+    }
+
+    private fun getProfileApiCall() {
+        mViewModel.getProfile().observe(this, Observer {
+            it.ifSuccess { userDetail ->
+                mBinding.navMenu.item = Pref.user
+            }
+        })
+    }
+
+    private fun Context.logOutApiCall() {
+        val liveData = mViewModel.logout()
+        liveData.observe(this@HomeActivity, Observer {
+            it?.ifSuccess {
+                this.startActivity<AuthActivity>()
+                finish()
+            }
+            it?.ifFailure { throwable, errorData ->
+                this.startActivity<AuthActivity>()
+                finish()
+            }
+
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     private fun handleStatusBarColor() {
         val window = getWindow()
 
-// clear FLAG_TRANSLUCENT_STATUS flag:
+        // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 
-// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
-// finally change the color
+        // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this@HomeActivity, R.color.colorStatusBarColor))
-
     }
 
-    fun setMenuProfileData() {
+    /**
+     * get stored profile data and set in menu item
+     */
+    fun setProfileData() {
         mBinding.navMenu.item = Pref.user
     }
 
-    fun handleItemMenu(item: String) {
+    /**
+     * set slideMenuItem selection as per @param:item value
+     */
+    fun menuItemSelection(item: String) {
         mLastSelectedItem = item
         mBinding.navMenu.currentSelected = item
     }
 
-    private fun openLogOutDialog() {
+    private fun logOutDialog() {
         val binding = DataBindingUtil.inflate<DialogLogoutBinding>(layoutInflater, R.layout.dialog_logout, null, false)
         val dialog = AlertDialog.Builder(this@HomeActivity)
                 .setView(binding.root).show()
@@ -151,35 +175,28 @@ class HomeActivity : AppCompatActivity() {
             dialog.dismiss()
         }
         binding?.btnYes?.onClick {
-            val liveData = mViewModel.logout()
-            liveData.observe(this@HomeActivity, Observer {
-                it?.ifSuccess {
-                    context.startActivity<AuthActivity>()
-                    finish()
-                }
-                it?.ifFailure { throwable, errorData ->
-                    context.startActivity<AuthActivity>()
-                    finish()
-                }
-
-            })
-
-            mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+            context.logOutApiCall()
             dialog.dismiss()
-
-
         }
     }
 
+    /**
+     * open slide menu
+     */
     fun openMenu() {
         mBinding.drawerLayout.openDrawer(GravityCompat.END)
     }
 
-
+    /**
+     * lock swipe to open menu
+     */
     fun lockSwipeModeMenu() {
         mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
+    /**
+     * unlock swipe to open menu
+     */
     fun unLockSwipeModeMenu() {
         mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
@@ -196,7 +213,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == StatementFragment.REQUEST_CHECK_SETTINGS) {
+        if (requestCode == StatementFragment.REQUEST_GPS_SETTINGS) {
             StatementFragment().onActivityResult(requestCode, resultCode, data);
         } else {
             super.onActivityResult(requestCode, resultCode, data)

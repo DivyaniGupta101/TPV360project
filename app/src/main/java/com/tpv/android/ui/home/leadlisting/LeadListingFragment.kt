@@ -20,7 +20,7 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.ui.home.leadlisting.LeadListingViewModel
-import com.tpv.android.utils.LeadStatus
+import com.tpv.android.utils.enums.LeadStatus
 import com.tpv.android.utils.setupToolbar
 
 class LeadListingFragment : Fragment() {

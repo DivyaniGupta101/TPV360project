@@ -7,7 +7,7 @@
 
         <import type="com.tpv.android.ui.home.enrollment.SetEnrollViewModel" />
 
-        <import type="com.tpv.android.utils.Plan" />
+        <import type="com.tpv.android.utils.enums.Plan" />
 
         <variable
             name="viewModel"
@@ -152,8 +152,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingZipCode"
                             style="@style/DefaultEditText"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.electricBillingZip : item.billingZip }"
-                            />
+                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.electricBillingZip : item.billingZip }" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

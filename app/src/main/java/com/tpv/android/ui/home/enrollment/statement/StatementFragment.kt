@@ -48,6 +48,7 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
+import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.glide.GlideApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -59,7 +60,7 @@ import java.util.*
 
 class StatementFragment : Fragment() {
     companion object {
-        var REQUEST_CHECK_SETTINGS = 1234
+        var REQUEST_GPS_SETTINGS = 1234
     }
 
     private lateinit var mBinding: FragmentStatementBinding
@@ -328,7 +329,7 @@ class StatementFragment : Fragment() {
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CHECK_SETTINGS) {
+        if (requestCode == REQUEST_GPS_SETTINGS) {
             if (resultCode == Activity.RESULT_OK) {
                 createLocationRequest()
             }

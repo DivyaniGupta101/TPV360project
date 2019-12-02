@@ -20,6 +20,7 @@ import com.tpv.android.helper.formatDate
 import com.tpv.android.network.error.ErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.utils.enums.LeadStatus
 import com.tpv.android.utils.textdrawable.TextDrawable
 import java.text.SimpleDateFormat
 import java.util.*
