@@ -28,6 +28,9 @@ import java.util.*
 
 object BindingAdapter {
 
+    /**
+     * binding adapter for apply colorTint on image
+     */
     @JvmStatic
     @BindingAdapter("dynamicTintColor")
     fun setDynamicTintColor(imageView: ImageView, color: Int) {
@@ -38,12 +41,15 @@ object BindingAdapter {
     }
 
 
+    /**
+     * binding adapter for set image url in imageView if url is null or empty then show placeholder image in imageView
+     */
     @JvmStatic
     @BindingAdapter(value = ["url", "placeholder"], requireAll = false)
     fun loadImage(imageView: ImageView, url: String?, placeHolder: Drawable?) {
         // make sure url is valid
 
-        if (url != null) {
+        if (!url.isNullOrEmpty()) {
             setImage(imageView, url, placeHolder)
         } else {
             imageView.setImageDrawable(placeHolder)
@@ -64,7 +70,9 @@ object BindingAdapter {
         glide.into(imageView)
     }
 
-
+    /**
+     * change text color and text as per @param status value
+     */
     @JvmStatic
     @BindingAdapter("leadStatus")
     fun setLeadStatus(textView: TextView, status: String) {
@@ -109,7 +117,7 @@ object BindingAdapter {
     }
 
     /**
-     * set date 'yyyy-MM-dd to dd/MM/yyyy'
+     * set date 'MM-dd-yyyy HH:mm:ss to dd/MM/yyyy'
      */
     @JvmStatic
     @BindingAdapter("setDate")
@@ -119,6 +127,9 @@ object BindingAdapter {
     }
 
 
+    /**
+     * set time 'MM-dd-yyyy HH:mm:ss to hh:mm:ss'
+     */
     @JvmStatic
     @BindingAdapter("time")
     fun setTimeFormate(textView: TextView, time: String?) {
@@ -162,7 +173,9 @@ object BindingAdapter {
         }
     }
 
-
+    /**
+     * binding adapter for show name's letter in image while url is blank or null
+     */
     @JvmStatic
     @BindingAdapter(value = ["url", "name"], requireAll = false)
     fun loadImageOrTextDrawable(image: ImageView, url: String?, name: String?) {
@@ -185,6 +198,10 @@ object BindingAdapter {
         }
     }
 
+    /**
+     * binding adapter for highlight selected menu item and hide/show views.
+     * @param isSelected give the information about view should highlight or not.
+     */
     @JvmStatic
     @BindingAdapter("selectMenuItem")
     fun setMenuSelection(view: View, isSelected: Boolean) {

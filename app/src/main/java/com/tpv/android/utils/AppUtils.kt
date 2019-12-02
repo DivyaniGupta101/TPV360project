@@ -24,7 +24,10 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.util.*
 
-
+/**
+ * handle toolbar text and image hide/show and clickListener
+ * also handle function invoke for back and skip button
+ */
 fun Fragment.setupToolbar(
         toolbarContainer: ToolbarBinding,
         title: String = "",
@@ -82,10 +85,11 @@ fun Fragment.setupToolbar(
             }
         }
     }
-
-
 }
 
+/**
+ * set slideMenuItem Selection
+ */
 fun Fragment.setItemSelection(item: String) {
     when (activity) {
         is HomeActivity -> {
@@ -94,6 +98,9 @@ fun Fragment.setItemSelection(item: String) {
     }
 }
 
+/**
+ * update userProfile data in slideMenu
+ */
 fun Fragment.updateProfileInMenu() {
     when (activity) {
         is HomeActivity -> {
@@ -135,9 +142,15 @@ fun NavController.navigateSafe(
 }
 
 
+/**
+ * Convert file into RequestBody
+ */
 fun String?.toRequestBody() =
         RequestBody.create(MultipartBody.FORM, this ?: "")
 
+/**
+ * Convert file into MultipartBody
+ */
 fun File?.toMultipartBody(name: String, type: String): MultipartBody.Part? {
     this ?: return null
     return MultipartBody.Part.createFormData(
@@ -148,6 +161,9 @@ fun File?.toMultipartBody(name: String, type: String): MultipartBody.Part? {
 }
 
 
+/**
+ * Convert bitmap into file
+ */
 fun Context.BitmapToFile(imageBitmap: Bitmap?): File {
     val file = File(this.cacheDir, Calendar.getInstance().timeInMillis.toString() + ".jpg")
     file.createNewFile()
