@@ -11,9 +11,11 @@
 
         <import type="com.tpv.android.network.resources.apierror.APIError" />
 
-        <import type="com.tpv.android.model.DashBoardStatusCount" />
+        <import type="com.tpv.android.model.DashBoardItem" />
 
         <import type="androidx.lifecycle.LiveData" />
+
+        <import type="java.util.ArrayList" />
 
         <variable
             name="resource"
@@ -25,7 +27,7 @@
 
         <variable
             name="item"
-            type="LiveData&lt;DashBoardStatusCount>" />
+            type="LiveData&lt;ArrayList&lt;DashBoardItem>>" />
 
     </data>
 
@@ -60,54 +62,26 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:id="@+id/pendingContainer"
-                            style="@style/DashboardItem"
+                        <include
+                            android:id="@+id/includeItemDashboardPending"
+                            layout="@layout/item_dashboard"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                style="@style/DashboardMenuItemImage"
-                                android:src="@drawable/ic_dashboard_pending" />
-
-                            <TextView
-                                android:id="@+id/textPending"
-                                style="@style/PrimaryMediumBoldText"
-                                android:layout_marginTop="@dimen/_4sdp"
-                                android:text="@{item.pending}"
-                                tools:text="90" />
-
-                            <TextView
-                                style="@style/DashboardLeadText"
-                                android:text="@string/pending_leads" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:item="@{item[0]}" />
 
                         <View
                             style="@style/Divider"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/_32sdp" />
 
-                        <LinearLayout
-                            android:id="@+id/verifiedContainer"
-                            style="@style/DashboardItem"
+                        <include
+                            android:id="@+id/includeItemDashboardVerified"
+                            layout="@layout/item_dashboard"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                style="@style/DashboardMenuItemImage"
-                                android:src="@drawable/ic_dashboard_verified" />
-
-                            <TextView
-                                android:id="@+id/textVerified"
-                                style="@style/PrimaryMediumBoldText"
-                                android:layout_marginTop="@dimen/_4sdp"
-                                android:text="@{item.verified}"
-                                tools:text="18" />
-
-                            <TextView
-                                style="@style/DashboardLeadText"
-                                android:text="@string/verified_leads" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:item="@{item[1]}" />
 
                     </LinearLayout>
 
@@ -122,56 +96,26 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:id="@+id/declinendContainer"
-                            style="@style/DashboardItem"
+                        <include
+                            android:id="@+id/includeItemDashboardDeclined"
+                            layout="@layout/item_dashboard"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content">
-
-
-                            <ImageView
-                                style="@style/DashboardMenuItemImage"
-                                android:src="@drawable/ic_dashboard_declined" />
-
-                            <TextView
-                                android:id="@+id/textDeclined"
-                                style="@style/PrimaryMediumBoldText"
-                                android:layout_marginTop="@dimen/_4sdp"
-                                android:text="@{item.declined}"
-                                tools:text="02" />
-
-                            <TextView
-                                style="@style/DashboardLeadText"
-                                android:text="@string/declined_leads" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:item="@{item[2]}" />
 
                         <View
                             style="@style/Divider"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="@dimen/_32sdp" />
 
-                        <LinearLayout
-                            android:id="@+id/disconnectedContainer"
-                            style="@style/DashboardItem"
+                        <include
+                            android:id="@+id/includeItemDashboardDisconnected"
+                            layout="@layout/item_dashboard"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content">
-
-
-                            <ImageView
-                                style="@style/DashboardMenuItemImage"
-                                android:src="@drawable/ic_dashboard_hangup" />
-
-                            <TextView
-                                android:id="@+id/textHangUp"
-                                style="@style/PrimaryMediumBoldText"
-                                android:layout_marginTop="@dimen/_4sdp"
-                                android:text="@{item.diconnected}"
-                                tools:text="05" />
-
-                            <TextView
-                                style="@style/DashboardLeadText"
-                                android:text="@string/disconnected_calls" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:item="@{item[3]}" />
 
                     </LinearLayout>
                 </LinearLayout>

@@ -33,7 +33,7 @@ object AppRepository {
     }
 
     //    Home
-    fun CoroutineScope.getDashBoardCall() = dataApi<List<Dashboard>, APIError> {
+    fun CoroutineScope.getDashBoardCall() = dataApi<List<DashBoard>, APIError> {
         fromNetwork {
             ApiClient.service.getDashboardDetail().getResult().map { it?.data.orEmpty() }
         }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.DashBoardItem" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/mainContainer"
+            style="@style/DashboardItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                style="@style/DashboardMenuItemImage"
+                app:placeholder="@{item.icon}"
+                tools:src="@drawable/ic_dashboard_pending" />
+
+            <TextView
+                android:id="@+id/textPending"
+                style="@style/PrimaryMediumBoldText"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="@{item.statusCount}"
+                tools:text="90" />
+
+            <TextView
+                style="@style/DashboardLeadText"
+                android:text="@{item.title}"
+                tools:text="@string/pending_leads" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

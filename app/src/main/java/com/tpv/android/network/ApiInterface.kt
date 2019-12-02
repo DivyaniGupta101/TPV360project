@@ -25,7 +25,7 @@ interface ApiInterface {
     fun getProfile(): Call<CommonResponse<UserDetail>>
 
     @POST("dashboard")
-    fun getDashboardDetail(): Call<CommonResponse<List<Dashboard>>>
+    fun getDashboardDetail(): Call<CommonResponse<List<DashBoard>>>
 
     @POST("myleads")
     fun getMyLeadList(@Body leadReq: LeadReq): Call<PaginateCommonResp<List<LeadResp>>>

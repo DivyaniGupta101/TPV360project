@@ -29,7 +29,7 @@
     </style>
 
 
-    <!--    Dashboard-->
+    <!--    DashBoard-->
     <style name="DashboardMenuItemImage">
         <item name="android:layout_width">@dimen/_58sdp</item>
         <item name="android:layout_height">@dimen/_58sdp</item>

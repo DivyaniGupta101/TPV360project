@@ -33,16 +33,21 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupToolbar(mBinding.toolbar, getString(R.string.profile), true, true)
+
         mBinding.item = Pref.user
 
+        getProfileApiCall()
+    }
+
+    private fun getProfileApiCall() {
 
         mViewModel.getProfile().observe(viewLifecycleOwner, Observer {
             it.ifSuccess {
                 updateProfileInMenu()
             }
         })
-
     }
 
     override fun onResume() {

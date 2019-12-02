@@ -14,8 +14,10 @@ import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
 import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.ui.home.HomeActivity
-import com.tpv.android.utils.*
+import com.tpv.android.utils.MenuItem
+import com.tpv.android.utils.navigateSafe
+import com.tpv.android.utils.setItemSelection
+import com.tpv.android.utils.setupToolbar
 
 class DashBoardFragment : Fragment() {
 
@@ -45,25 +47,39 @@ class DashBoardFragment : Fragment() {
 
         setupToolbar(mBinding.toolbar, getString(R.string.dashboard), showMenuIcon = true)
 
+        getDashBoardDetailApiCall()
+
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         mBinding.item = mViewModel.dashBoardCount
 
 
-        mBinding.pendingContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections.actionDashBoardFragmentToLeadListingFragment(LeadStatus.PENDING.value))
+        mBinding.includeItemDashboardPending.mainContainer.onClick {
+            mNavController.navigateSafe(DashBoardFragmentDirections
+                    .actionDashBoardFragmentToLeadListingFragment(
+                            mBinding.includeItemDashboardPending.item?.statusType.orEmpty()
+                    ))
         }
 
-        mBinding.verifiedContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections.actionDashBoardFragmentToLeadListingFragment(LeadStatus.VERIFIED.value))
+        mBinding.includeItemDashboardVerified.mainContainer.onClick {
+            mNavController.navigateSafe(DashBoardFragmentDirections
+                    .actionDashBoardFragmentToLeadListingFragment(
+                            mBinding.includeItemDashboardVerified.item?.statusType.orEmpty()
+                    ))
         }
 
-        mBinding.declinendContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections.actionDashBoardFragmentToLeadListingFragment(LeadStatus.DECLINED.value))
+        mBinding.includeItemDashboardDeclined.mainContainer.onClick {
+            mNavController.navigateSafe(DashBoardFragmentDirections
+                    .actionDashBoardFragmentToLeadListingFragment(
+                            mBinding.includeItemDashboardDeclined.item?.statusType.orEmpty()
+                    ))
         }
 
-        mBinding.disconnectedContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections.actionDashBoardFragmentToLeadListingFragment(LeadStatus.DISCONNECTED.value))
+        mBinding.includeItemDashboardDisconnected.mainContainer.onClick {
+            mNavController.navigateSafe(DashBoardFragmentDirections
+                    .actionDashBoardFragmentToLeadListingFragment(
+                            mBinding.includeItemDashboardDisconnected.item?.statusType.orEmpty()
+                    ))
         }
 
         mBinding.imageEnroll.onClick {
@@ -72,10 +88,14 @@ class DashBoardFragment : Fragment() {
 
     }
 
+    private fun getDashBoardDetailApiCall() {
+        context?.let { mViewModel.getDashBoardDetail(it) }
+    }
+
 
     override fun onResume() {
         super.onResume()
         setItemSelection(MenuItem.DASHBOARD.value)
-        mViewModel.getDashBoardDetail()
+        getDashBoardDetailApiCall()
     }
 }
