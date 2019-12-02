@@ -213,7 +213,7 @@ class StatementFragment : Fragment() {
 
     /**
      * Call API for save customer data
-     * But before thet chaek if planType is DUEL FUEL then parameters will be change then GAS or ELECTRIC
+     * But before thet chaek if planType is DUEL FUEL then parameters will be change than GAS or ELECTRIC
      * On success of saveCustomerDataApiCall api, call saveContract API
      * Also check if recording is not empty then call save recording API else call save Signature API
      */

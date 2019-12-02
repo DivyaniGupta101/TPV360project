@@ -30,7 +30,6 @@ class GasDetailFormFragment : Fragment() {
     private lateinit var mBinding: FragmentGasDetailFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var mSelectedRadioButton = "No"
-    private var mCountryCodeList = arrayListOf("+1")
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -44,16 +43,13 @@ class GasDetailFormFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
-
-
-        mBinding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            mSelectedRadioButton = group.findViewById<RadioButton>(checkedId).text.toString()
-        }
-
 
         mBinding.item = mViewModel.customerData
 
+        // Billing address,Zipcode same as Service Address,Service Zipcode respectively
+        // And Billing address and zipcode will not be editable
         mBinding.radioYes?.onClick {
             mBinding.editBillingAddress.value = mBinding.editServiceAddress.value
             mBinding.editBillingZipCode.value = mBinding.editServiceZipCode.value
@@ -63,6 +59,8 @@ class GasDetailFormFragment : Fragment() {
             mBinding.editBillingZipCode.setTextColor(context.color(R.color.colorSecondaryText))
         }
 
+        // Billing address,Zipcode will not same Service Address,Service Zipcode respectively
+        // And Billing address and zipcode will be editable
         mBinding.radioNo?.onClick {
             mBinding.editBillingAddress.isEnabled = true
             mBinding.editBillingZipCode.isEnabled = true
@@ -70,6 +68,8 @@ class GasDetailFormFragment : Fragment() {
             mBinding.editBillingZipCode.setTextColor(context.color(R.color.colorPrimaryText))
         }
 
+        // If radioButton Selected as a true
+        // And at that time if serviceAddress change then the value of billingAddress will also be change
         mBinding.editServiceAddress.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -85,12 +85,16 @@ class GasDetailFormFragment : Fragment() {
 
         })
 
+        mBinding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            mSelectedRadioButton = group.findViewById<RadioButton>(checkedId).text.toString()
+        }
 
         mBinding.btnNext.onClick {
             hideKeyboard()
             if (isValid()) {
                 setValueInViewModel()
 
+                //Check if DuelFuel then next page will be Electric Form screen else client info screen
                 when (mViewModel.planType) {
                     Plan.GASFUEL.value -> {
                         Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_gasDetailFormFragment_to_clientInfoFragment)
@@ -148,6 +152,10 @@ class GasDetailFormFragment : Fragment() {
         }.validate()
     }
 
+    /**
+     * Check planType, if It's DuelFuel then parameters will be different than GAS Fuel
+     * And set as per parameters required in Model class
+     */
     private fun setValueInViewModel() {
         mViewModel.isGasServiceAddressSame = if (mSelectedRadioButton == getString(R.string.yes)) true else false
 

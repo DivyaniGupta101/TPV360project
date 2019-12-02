@@ -46,6 +46,8 @@ class ElectricDetailFormFragment : Fragment() {
         mBinding.item = mViewModel.customerData
         mBinding.viewModel = mViewModel
 
+        // Billing address,Zipcode same as Service Address,Service Zipcode respectively
+        // And Billing address and zipcode will not be editable
         mBinding.radioYes?.onClick()
         {
             mBinding.editBillingAddress.value = mBinding.editServiceAddress.value
@@ -56,6 +58,8 @@ class ElectricDetailFormFragment : Fragment() {
             mBinding.editBillingZipCode.setTextColor(context.color(R.color.colorSecondaryText))
         }
 
+        // Billing address,Zipcode will not same Service Address,Service Zipcode respectively
+        // And Billing address and zipcode will be editable
         mBinding.radioNo?.onClick()
         {
             mBinding.editBillingAddress.isEnabled = true
@@ -64,6 +68,8 @@ class ElectricDetailFormFragment : Fragment() {
             mBinding.editBillingZipCode.setTextColor(context.color(R.color.colorPrimaryText))
         }
 
+        // If radioButton Selected as a true
+        // And at that time if serviceAddress change then the value of billingAddress will also be change
         mBinding.editServiceAddress.addTextChangedListener(
                 object : TextWatcher {
                     override fun afterTextChanged(s: Editable?) {
@@ -142,12 +148,19 @@ class ElectricDetailFormFragment : Fragment() {
         }.validate()
     }
 
+    /**
+     * Check planType, if It's DuelFuel then parameters will be different than ELECTRIC Fuel
+     * And set as per parameters required in Model class
+     */
     private fun setValueInViewModel() {
+
         mViewModel.isElectricServiceAddressSame = if (mSelectedRadioButton.equals(getString(R.string.yes))) true else false
 
-        when (mViewModel.planType) {
-            Plan.ELECTRICFUEL.value -> {
-                mViewModel.customerData.apply {
+        mViewModel.customerData.apply {
+
+            when (mViewModel.planType) {
+
+                Plan.ELECTRICFUEL.value -> {
                     billingFirstName = mBinding.editBillingFirstName.value
                     billingMiddleInitial = mBinding.editBillingMiddleName.value
                     billingLastName = mBinding.editBillingLastName.value
@@ -164,11 +177,8 @@ class ElectricDetailFormFragment : Fragment() {
                     serviceState = "MA"
                     serviceCity = "Amherst"
                 }
-            }
 
-            Plan.DUALFUEL.value -> {
-
-                mViewModel.customerData.apply {
+                Plan.DUALFUEL.value -> {
                     electricBillingFirstName = mBinding.editBillingFirstName.value
                     electricBillingMiddleInitial = mBinding.editBillingMiddleName.value
                     electricBillingLastName = mBinding.editBillingLastName.value

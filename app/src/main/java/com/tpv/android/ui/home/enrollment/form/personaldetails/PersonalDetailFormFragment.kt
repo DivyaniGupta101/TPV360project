@@ -41,47 +41,51 @@ import com.tpv.android.utils.validation.*
 class PersonalDetailFormFragment : Fragment() {
 
     private lateinit var mBinding: FragmentPersonalDetailFormBinding
-    private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private lateinit var mViewModel: SetEnrollViewModel
     private var relationShipList: ObservableArrayList<String> = ObservableArrayList()
-    private var mLastSelectedItem: Int = 0
+    private var mLastSelectedRelationShipPosition: Int = 0
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_personal_detail_form, container, false)
         mBinding.lifecycleOwner = this
-        activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
-        mViewModel = ViewModelProviders.of(this).get(SetEnrollViewModel::class.java)
-        mBinding.viewModel = mSetEnrollViewModel
+        activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (mViewModel?.relationShipList?.isNotEmpty()) {
+        setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
+
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+
+        mBinding.item = mViewModel.customerData
+        mBinding.viewModel = mViewModel
+
+        //Check if stored relationShip list is not empty then getStored List value and add in fragment's list
+        //Else add value in fragment's list
+        if (mViewModel.relationShipList.isNotEmpty()) {
             relationShipList.clear()
             relationShipList.addAll(mViewModel.relationShipList)
         } else {
             relationShipList.addAll(arrayListOf(getString(R.string.account_holder), getString(R.string.spouse), getString(R.string.power_of_attorney), getString(R.string.family_member), getString(R.string.other)))
         }
 
-
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
-        setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
-
-        mBinding.item = mSetEnrollViewModel.customerData
-
         mBinding.spinnerRelationShip.adapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, relationShipList)
+
+        if (mViewModel.customerData.relationShip?.isNotEmpty().orFalse()) {
+            mBinding.spinnerRelationShip.setSelection(relationShipList.indexOf(mViewModel.customerData.relationShip))
+        }
+
         mBinding.spinnerCountryCode.setItems(arrayListOf("+1"))
 
-        mBinding.spinnerRelationShip.setSelection(relationShipList.indexOf(mSetEnrollViewModel.customerData.relationShip))
 
         mBinding.textVerify.onClick {
             hideKeyboard()
             if (mBinding.editPhoneNumber.value.isNotEmpty()) {
-                generateOTPCall()
+                generateOTPApiCall()
             } else {
                 Validator(TextInputValidationErrorHandler()) {
                     addValidate(
@@ -101,22 +105,22 @@ class PersonalDetailFormFragment : Fragment() {
         mBinding.editPhoneNumber.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 mBinding.textVerify.isEnabled = true
                 mBinding.textVerify.setText(R.string.verify)
                 mBinding.textVerify.setTextColor(context?.color(R.color.colorTertiaryText).orZero())
             }
         })
+
+        //Check if item is "other" then show Dialog for add NewRelationShip
         mBinding.spinnerRelationShip.onItemSelected { parent, view, position, id ->
 
             if (getString(R.string.other) == relationShipList.get(position.orZero())) {
-                showRelationShipDialog()
+                relationShipDialog()
             } else {
-                mLastSelectedItem = position.orZero()
+                mLastSelectedRelationShipPosition = position.orZero()
             }
         }
 
@@ -125,7 +129,9 @@ class PersonalDetailFormFragment : Fragment() {
             hideKeyboard()
             if (isValid()) {
                 setValueInViewModel()
-                when (mSetEnrollViewModel.planType) {
+
+                //Check if DuelFuel then next page will be Gas Form screen else Electric Form screen
+                when (mViewModel.planType) {
                     Plan.DUALFUEL.value, Plan.GASFUEL.value -> {
                         Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_gasDetailFormFragment)
                     }
@@ -135,6 +141,32 @@ class PersonalDetailFormFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun generateOTPApiCall() {
+        val liveData = mViewModel.generateOTP(OTPReq(mBinding.editPhoneNumber.value))
+        liveData.observe(this, Observer {
+            it?.ifSuccess {
+                showOTPDialog()
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
+
+    private fun verifyOTPApiCall(otp: String, dialog: AlertDialog, binding: DialogOtpBinding) {
+        val liveData = mViewModel.verifyOTP(VerifyOTPReq(otp = otp, phonenumber = mBinding.editPhoneNumber.value))
+        liveData.observe(this, Observer {
+            it.ifSuccess {
+                dialog.dismiss()
+                mBinding.textVerify.setText(R.string.verified)
+                mBinding.textVerify.setTextColor(context?.color(R.color.colorVerifiedText).orZero())
+                mBinding.textVerify.isEnabled = false
+                activity?.hideKeyboard()
+            }
+        })
+
+        binding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     private fun isValid(): Boolean {
@@ -177,7 +209,7 @@ class PersonalDetailFormFragment : Fragment() {
         }.validate()
     }
 
-    private fun showRelationShipDialog() {
+    private fun relationShipDialog() {
         val binding = DataBindingUtil.inflate<DialogRelationshipBinding>(layoutInflater, R.layout.dialog_relationship, null, false)
         context?.let { context ->
 
@@ -188,7 +220,8 @@ class PersonalDetailFormFragment : Fragment() {
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
             binding.btnCancel?.onClick {
-                mBinding.spinnerRelationShip.setSelection(mLastSelectedItem.orZero())
+                //show last selected list's item as selected
+                mBinding.spinnerRelationShip.setSelection(mLastSelectedRelationShipPosition.orZero())
                 dialog.dismiss()
             }
 
@@ -205,6 +238,7 @@ class PersonalDetailFormFragment : Fragment() {
             })
 
             binding.btnSubmit?.onClick {
+                //Add new Relation ship in list and set it as selected
                 relationShipList.add(relationShipList.size - 1, binding.editNewRelationship.value)
                 mBinding.spinnerRelationShip.adapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, relationShipList)
                 mBinding.spinnerRelationShip.setSelection(relationShipList.size - 2)
@@ -216,35 +250,6 @@ class PersonalDetailFormFragment : Fragment() {
 
     }
 
-    private fun verifyOTPCall(otp: String, dialog: AlertDialog, binding: DialogOtpBinding) {
-        val liveData = mViewModel.verifyOTP(VerifyOTPReq(otp = otp, phonenumber = mBinding.editPhoneNumber.value))
-
-        liveData.observe(this, Observer {
-            it.ifSuccess {
-                dialog.dismiss()
-                mBinding.textVerify.setText(R.string.verified)
-                mBinding.textVerify.setTextColor(context?.color(R.color.colorVerifiedText).orZero())
-                mBinding.textVerify.isEnabled = false
-                activity?.hideKeyboard()
-            }
-        })
-
-        binding.resource = liveData as LiveData<Resource<Any, APIError>>
-
-    }
-
-    private fun generateOTPCall() {
-        val liveData = mViewModel.generateOTP(OTPReq(mBinding.editPhoneNumber.value))
-
-        liveData.observe(this, Observer {
-            it?.ifSuccess {
-                showOTPDialog()
-            }
-        })
-
-        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-    }
-
     private fun showOTPDialog() {
         val binding = DataBindingUtil.inflate<DialogOtpBinding>(layoutInflater, R.layout.dialog_otp, null, false)
 
@@ -252,7 +257,6 @@ class PersonalDetailFormFragment : Fragment() {
         binding.errorHandler = AlertErrorHandler(binding.root)
 
         context?.let { context ->
-
             val dialog = AlertDialog.Builder(context)
                     .setView(binding.root).show()
 
@@ -264,21 +268,16 @@ class PersonalDetailFormFragment : Fragment() {
 
             binding.pinView.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
-
                 }
-
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 }
-
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     binding.btnSubmit.isEnabled = (start == 5 && count == 1)
                 }
-
-
             })
 
             binding?.btnSubmit?.onClick {
-                verifyOTPCall(binding.pinView.value, dialog, binding)
+                verifyOTPApiCall(binding.pinView.value, dialog, binding)
             }
 
             binding.btnCancel?.onClick {
@@ -287,15 +286,15 @@ class PersonalDetailFormFragment : Fragment() {
 
             binding.textResendOTP?.onClick {
                 dialog.dismiss()
-                generateOTPCall()
+                generateOTPApiCall()
             }
-
         }
     }
 
     fun setValueInViewModel() {
-        mSetEnrollViewModel.customerData.apply {
-            if (mSetEnrollViewModel.planType == Plan.DUALFUEL.value) {
+
+        mViewModel.customerData.apply {
+            if (mViewModel.planType == Plan.DUALFUEL.value) {
                 gasAuthRelationship = mBinding.spinnerRelationShip.selectedItem.toString()
             } else {
                 relationShip = mBinding.spinnerRelationShip.selectedItem.toString()
