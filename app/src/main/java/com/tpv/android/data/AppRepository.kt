@@ -22,12 +22,11 @@ import okhttp3.RequestBody
 object AppRepository {
 
     //    Login
-    fun CoroutineScope.logInCall(loginReq: LoginReq) = dataApi<LoginResp?, APIError> {
+    fun CoroutineScope.logInCall(loginReq: LoginReq) = dataApi<UserDetail?, APIError> {
         fromNetwork {
             ApiClient.service.logIn(loginReq).getResult().map {
-                val logInResp = it?.data
                 Pref.token = it?.token
-                logInResp
+                it?.data
             }
         }
     }
@@ -63,11 +62,10 @@ object AppRepository {
     //Logout
     fun CoroutineScope.logoutCall() = dataApi<Unit?, APIError> {
         fromNetwork {
-            ApiClient.service.logout().getResult().map {
-                val result = it?.data
+            val result = ApiClient.service.logout().getResult().also {
                 Pref.clear()
-                result
             }
+            result.map { it?.data }
         }
     }
 

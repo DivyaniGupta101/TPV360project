@@ -14,7 +14,7 @@ interface ApiInterface {
 
     //Login
     @POST("login")
-    fun logIn(@Body loginReq: LoginReq): Call<CommonResponse<LoginResp>>
+    fun logIn(@Body loginReq: LoginReq): Call<CommonResponse<UserDetail>>
 
     //Logout
     @POST("logout")
