@@ -39,7 +39,7 @@ object AppRepository {
         }
     }
 
-
+    //Profile
     fun CoroutineScope.getProfileDetailCall() = dataApi<UserDetail?, APIError> {
         fromNetwork {
             ApiClient.service.getProfile().getResult().map {
@@ -50,7 +50,7 @@ object AppRepository {
         }
     }
 
-
+    //LeadList
     fun CoroutineScope.getLeadsCall(leadList: List<LeadResp>, leadReq: LeadReq): LiveData<Resource<List<LeadResp>, APIError>> = paginatedDataApi(leadList) {
         fromNetwork {
             ApiClient.service.getMyLeadList(leadReq).getResult().map {
@@ -60,7 +60,7 @@ object AppRepository {
         }
     }
 
-
+    //Logout
     fun CoroutineScope.logoutCall() = dataApi<Unit?, APIError> {
         fromNetwork {
             ApiClient.service.logout().getResult().map {
@@ -71,7 +71,7 @@ object AppRepository {
         }
     }
 
-    //zipcode
+    //zipcodeList
     fun CoroutineScope.getZipCodeCall(zipCodeReq: ZipCodeReq) = dataApi<List<ZipCodeResp>, APIError> {
         fromNetwork {
             ApiClient.service.zipAutoCompleteApi(zipCodeReq).getResult().map {
@@ -80,6 +80,7 @@ object AppRepository {
         }
     }
 
+    //UtilityList
     fun CoroutineScope.getUtilityCall(utilityReq: UtilityReq) = dataApi<List<UtilityResp>, APIError>
     {
         fromNetwork {
@@ -87,10 +88,9 @@ object AppRepository {
         }
     }
 
-
-    fun CoroutineScope.getProgramsCall(utilityList: ArrayList<UtilityResp>) = dataApi<List<Any>, APIError> {
-
-
+    //ProgramsList
+    fun CoroutineScope.getProgramsCall(utilityList: ArrayList<UtilityResp>) = dataApi<List<Any>, APIError>
+    {
         fromNetwork {
             val deferredResultList = arrayListOf<Deferred<Result<CommonResponse<List<ProgramsResp>>, APIError>>>()
 
@@ -143,20 +143,21 @@ object AppRepository {
         }
     }
 
+    //Save Recording,Signature
     fun CoroutineScope.saveMediaCall(leadId: RequestBody, mediaFile: MultipartBody.Part) = dataApi<Any?, APIError> {
         fromNetwork {
             ApiClient.service.saveMedia(leadid = leadId, mediaFile = mediaFile).getResult().map { it?.data }
         }
     }
 
-
+    //Save Contract
     fun CoroutineScope.saveContractCall(contractReq: ContractReq) = dataApi<Any?, APIError> {
         fromNetwork {
             ApiClient.service.sendContract(contractReq).getResult().map { it?.data }
         }
     }
 
-    //    Sucess
+    //Verification (email,Phone)
     fun CoroutineScope.selfVerificationCall(successReq: SuccessReq) = dataApi<Any?, APIError> {
         fromNetwork {
             ApiClient.service.selfVerify(successReq).getResult().map { it?.data }
@@ -164,13 +165,14 @@ object AppRepository {
     }
 
 
-    //    OTP
+    //Generate OTP
     fun CoroutineScope.generateOTPCall(otpReq: OTPReq) = dataApi<Any?, APIError> {
         fromNetwork {
             ApiClient.service.sendOtp(otpReq).getResult().map { it?.data }
         }
     }
 
+    //Verify OTP
     fun CoroutineScope.verifyOTPCall(verifyOTPReq: VerifyOTPReq) = dataApi<Any?, APIError> {
         fromNetwork {
             ApiClient.service.verifyOtp(verifyOTPReq).getResult().map { it?.data }
