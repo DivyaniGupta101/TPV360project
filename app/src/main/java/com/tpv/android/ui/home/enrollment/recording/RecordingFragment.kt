@@ -82,6 +82,7 @@ class RecordingFragment : Fragment() {
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
         }
 
+        //While audio playing or in Pause state then set seekbar value according to it.
         mBinding.chronometer.setOnChronometerTickListener {
             if (mediaPlayer.isPlaying || isAudioPause) {
                 mBinding.seekbarAudio.progress = mediaPlayer.currentPosition
@@ -89,9 +90,9 @@ class RecordingFragment : Fragment() {
         }
 
 
+        //Set timer value as per progress bar progress.
         mBinding.seekbarAudio.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -108,6 +109,7 @@ class RecordingFragment : Fragment() {
             }
         })
 
+        //Initial checking, that if any recording saved then play it else start new recording.
         if (mViewModel.recordingFile.isNotEmpty()) {
             recordedFile = mViewModel.recordingFile
             handleImages(AUDIO_START)
@@ -116,7 +118,7 @@ class RecordingFragment : Fragment() {
         }
 
 
-
+        //After complete mediaPlayer, set time to "00:00" and set audio player position and seekbar progress value.
         mediaPlayer.setOnCompletionListener {
             mediaPlayer.stop()
             mediaPlayer.reset()
@@ -132,33 +134,41 @@ class RecordingFragment : Fragment() {
             handleImages(AUDIO_START)
         }
 
+        //Recording start
         mBinding.recordStartImage?.onClick {
             handleRecordStart()
         }
 
 
+        //Recording stop
         mBinding.recordStopImage?.onClick {
             handleRecordStop()
         }
 
-
+        //Audion start (Saved Recording play)
         mBinding.audioStartImage?.onClick {
             handleAudioStart()
         }
 
+        //Audio stop (Saved Recording finish/pause)
         mBinding.audioStopImage?.onClick {
             handleAudioPause()
         }
 
+        //Record again
         mBinding.recordAgainContainer.onClick {
             confirmationDialogForReRecord()
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        mRecordingThread?.stop()
+    }
 
-    /*
-   this method will start recording the audio
-   */
+    /**
+     * Start recording and handle image according to state and also make Directory for save recoded file
+     */
     private fun handleRecordStart() {
         runWithPermissions(Manifest.permission.RECORD_AUDIO) {
 
@@ -176,17 +186,16 @@ class RecordingFragment : Fragment() {
             mRecordingThread?.start()
 
             mBinding.chronometer.stop()
-
             mBinding.chronometer.base = SystemClock.elapsedRealtime()
             mBinding.chronometer.start()
-            handleImages(RECORD_STOP)
 
+            handleImages(RECORD_STOP)
         }
     }
 
 
-    /*
-    this method will stop recoding the audio
+    /**
+     * Stop recording and save in file and handle image according
      */
     private fun handleRecordStop() {
         mRecordingThread?.stop()
@@ -199,50 +208,44 @@ class RecordingFragment : Fragment() {
         mediaPlayer.reset()
         mediaPlayer.setDataSource(recordedFile)
         mediaPlayer.prepare()
+
         mBinding.seekbarAudio.progress = 0
         mBinding.seekbarAudio.max = mediaPlayer.duration - (mediaPlayer.duration % 1000)
     }
 
 
-    /*
-    this method start the recorded audio
-    isAudioPlayer check if audio was paused by user
-    then on click of play it will start from resume else restart the audio
+    /**
+     * Start Play the recorded file (Audio file)
+     * Variable "isAudioPlayer" check if audio was paused by user
+     * Then maintain the state and when play it again then that audio should be start from resume state
+     * Also set timer time and seekbar value according to audio player position
      */
     private fun handleAudioStart() {
-        try {
 
+        try {
             handleImages(AUDIO_STOP)
 
             if (isAudioPause) {
-                mediaPlayer.start()
                 isAudioPause = false
             } else {
-
-//                mediaPlayer.reset()
-//                mediaPlayer.setDataSource(recordedFile)
-//                mediaPlayer.prepare()
-                mediaPlayer.start()
                 mediaPlayer.seekTo(mBinding.seekbarAudio.progress)
-//                mBinding.seekbarAudio.max = mediaPlayer.duration - (mediaPlayer.duration % 1000)
-
-//                mBinding.chronometer.base = SystemClock.elapsedRealtime()
-//                mBinding.chronometer.start()
             }
+
+            mediaPlayer.start()
+
             mBinding.chronometer.base = SystemClock.elapsedRealtime() - mediaPlayer.currentPosition
             mBinding.chronometer.start()
-
-
         } catch (e: Exception) {
-            // make something
         }
     }
 
-    /*
-    this method will stop audio which is currently playing
-    if audio will resume then set isAudioPause = true
+    /**
+     * Stop playing audio(Audio Pause)
+     * Change variable value in "isAudioPause"
+     * Stop Timer and handle image according to state
      */
     private fun handleAudioPause() {
+
         try {
             isAudioPause = true
             mediaPlayer.pause()
@@ -250,10 +253,12 @@ class RecordingFragment : Fragment() {
             handleImages(AUDIO_START)
 
         } catch (e: Exception) {
-
         }
     }
 
+    /**
+     * Image hide/show according to state
+     */
     private fun handleImages(state: Int) {
         mBinding.audioStartImage.hide()
         mBinding.audioStopImage.hide()
@@ -293,7 +298,37 @@ class RecordingFragment : Fragment() {
         }
     }
 
+    /**
+     * Show dialog when recording is recorded and user want to skip
+     * On Click of "Skip" button remove recording and send to next page
+     */
+    private fun confirmationDialogForSkip() {
+        val binding = DataBindingUtil.inflate<DialogLogoutBinding>(layoutInflater, R.layout.dialog_logout, null, false)
+        val dialog = context?.let { AlertDialog.Builder(it) }
+                ?.setView(binding.root)?.show()
 
+        binding.item = DialogText(getString(R.string.are_you_sure),
+                getString(R.string.msg_skip),
+                getString(R.string.skip_btn),
+                getString(R.string.cancel))
+
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        binding?.btnCancel?.onClick {
+            dialog?.dismiss()
+        }
+        binding?.btnYes?.onClick {
+            recordedFile = ""
+            dialog?.dismiss()
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
+        }
+
+    }
+
+    /**
+     * Show dialog for recordAgain
+     * On click of "yes" stop timer and set value of progrss to 0 and handle image according to state.
+     */
     private fun confirmationDialogForReRecord() {
         val binding = DataBindingUtil.inflate<DialogLogoutBinding>(layoutInflater, R.layout.dialog_logout, null, false)
         val dialog = context?.let { AlertDialog.Builder(it) }
@@ -320,35 +355,6 @@ class RecordingFragment : Fragment() {
 
             handleRecordStart()
             dialog?.dismiss()
-        }
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mRecordingThread?.stop()
-    }
-
-
-    private fun confirmationDialogForSkip() {
-        val binding = DataBindingUtil.inflate<DialogLogoutBinding>(layoutInflater, R.layout.dialog_logout, null, false)
-        val dialog = context?.let { AlertDialog.Builder(it) }
-                ?.setView(binding.root)?.show()
-
-        binding.item = DialogText(getString(R.string.are_you_sure),
-                getString(R.string.msg_skip),
-                getString(R.string.skip_btn),
-                getString(R.string.cancel))
-
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        binding?.btnCancel?.onClick {
-            dialog?.dismiss()
-        }
-        binding?.btnYes?.onClick {
-            recordedFile = ""
-            dialog?.dismiss()
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
         }
 
     }
