@@ -44,7 +44,19 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+
+    /**
+     * On click of backButton remove stored Data
+     */
+    override fun handleOnBackPressed(): Boolean {
+        removeStoredData()
+        return true
+    }
+
+    private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.success))
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
@@ -69,15 +81,6 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
             removeStoredData()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_successFragment_to_dashBoardFragment)
         }
-    }
-
-
-    /**
-     * On click of backButton remove stored Data
-     */
-    override fun handleOnBackPressed(): Boolean {
-        removeStoredData()
-        return true
     }
 
     /**

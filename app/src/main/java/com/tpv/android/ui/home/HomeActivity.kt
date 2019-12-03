@@ -59,7 +59,10 @@ class HomeActivity : AppCompatActivity() {
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         mNavController = Navigation.findNavController(this, R.id.navHostFragment)
         navigationHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        initialize()
+    }
 
+    private fun initialize() {
         handleStatusBarColor()
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)

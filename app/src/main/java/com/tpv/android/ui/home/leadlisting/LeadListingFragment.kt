@@ -40,7 +40,10 @@ class LeadListingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+    private fun initialize() {
         val leadStatus = arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item
 
         when (leadStatus) {
@@ -59,7 +62,10 @@ class LeadListingFragment : Fragment() {
         }
 
         setupToolbar(mBinding.toolbar, toolBarTitle, showMenuIcon = false, showBackIcon = true)
+        setRecyclerView(leadStatus)
+    }
 
+    private fun setRecyclerView(leadStatus: String?) {
         mBinding.paginatedLayout.errorHandler = AlertErrorHandler(mBinding.root)
         mBinding.paginatedLayout.resource = mViewModel.leadsPaginatedResourceLiveData as LiveData<Resource<Any, APIError>>
         mBinding.paginatedLayout.showEmptyView = mViewModel.showEmptyView
@@ -71,7 +77,6 @@ class LeadListingFragment : Fragment() {
         mBinding.listLead.setPagination(mViewModel.leadsPaginatedResourceLiveData) { page ->
             mViewModel.getLeadList(leadStatus, page)
         }
-
     }
 
 

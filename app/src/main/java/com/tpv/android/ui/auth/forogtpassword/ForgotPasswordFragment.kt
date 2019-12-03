@@ -33,7 +33,10 @@ class ForgotPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+    private fun initialize() {
         mBinding.btnSubmit?.onClick {
             if (isValid()) {
                 hideKeyboard()

@@ -83,7 +83,23 @@ class StatementFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+    /**
+     * Get result from MAIN ACTIVITY onActivityResult method
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_GPS_SETTINGS) {
+            if (resultCode == Activity.RESULT_OK) {
+                createLocationRequest()
+            }
+        }
+
+    }
+    private fun initialize()
+    {
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
@@ -110,19 +126,6 @@ class StatementFragment : Fragment() {
         mBinding.textTapToOpen.onClick {
             signatureDialog()
         }
-    }
-
-    /**
-     * Get result from MAIN ACTIVITY onActivityResult method
-     */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_GPS_SETTINGS) {
-            if (resultCode == Activity.RESULT_OK) {
-                createLocationRequest()
-            }
-        }
-
     }
 
     /**

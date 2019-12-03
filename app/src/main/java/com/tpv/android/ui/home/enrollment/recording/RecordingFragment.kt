@@ -56,7 +56,15 @@ class RecordingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        mRecordingThread?.stop()
+    }
+
+    private fun initialize() {
         mBinding.item = mViewModel.customerData
 
         setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, backIconClickListener = {
@@ -159,11 +167,6 @@ class RecordingFragment : Fragment() {
         mBinding.recordAgainContainer.onClick {
             confirmationDialogForReRecord()
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mRecordingThread?.stop()
     }
 
     /**

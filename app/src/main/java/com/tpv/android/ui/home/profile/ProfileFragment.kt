@@ -33,7 +33,15 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        setItemSelection(MenuItem.PROFILE.value)
+    }
+
+    private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.profile), true, true)
 
         mBinding.item = Pref.user
@@ -48,10 +56,5 @@ class ProfileFragment : Fragment() {
                 updateProfileInMenu()
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setItemSelection(MenuItem.PROFILE.value)
     }
 }

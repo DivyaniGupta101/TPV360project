@@ -46,7 +46,10 @@ class ProgramsListingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+    private fun initialize() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         setupToolbar(mBinding.toolbar, getString(R.string.select_plan), showBackIcon = true)

@@ -43,7 +43,10 @@ class GasDetailFormFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+    private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
         mBinding.item = mViewModel.customerData

@@ -49,6 +49,11 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
+
+    private fun initialize() {
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         if (Pref.token != null) {
             context.startActivity<HomeActivity>()
@@ -63,7 +68,7 @@ class LoginFragment : Fragment() {
         mBinding.btnStart.onClick {
             hideKeyboard()
             if (isValid()) {
-                signInApi()
+                signInApiCall()
             }
         }
 
@@ -98,9 +103,7 @@ class LoginFragment : Fragment() {
     }
 
 
-    private fun signInApi() {
-
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+    private fun signInApiCall() {
         val liveData = mViewModel.logInApi(LoginReq(mBinding.editEmail.value, mBinding.editPassword.value))
         liveData.observe(this, Observer {
             it.ifSuccess {

@@ -36,7 +36,10 @@ class ClientInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+    private fun initialize() {
         mBinding.textElectric.hide()
         mBinding.textGas.hide()
 
@@ -53,7 +56,6 @@ class ClientInfoFragment : Fragment() {
         mBinding.imageEdit.onClick {
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_personalDetailFormFragment)
         }
-
     }
 
     private fun setProgramInformation() {

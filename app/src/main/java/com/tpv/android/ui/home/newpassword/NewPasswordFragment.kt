@@ -20,5 +20,14 @@ class NewPasswordFragment : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initalize()
+    }
+
+    private fun initalize() {
+
+    }
+
 
 }

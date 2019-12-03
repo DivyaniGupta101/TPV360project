@@ -56,7 +56,10 @@ class PersonalDetailFormFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+    private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
@@ -105,8 +108,10 @@ class PersonalDetailFormFragment : Fragment() {
         mBinding.editPhoneNumber.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 mBinding.textVerify.isEnabled = true
                 mBinding.textVerify.setText(R.string.verify)
@@ -269,8 +274,10 @@ class PersonalDetailFormFragment : Fragment() {
             binding.pinView.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                 }
+
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     binding.btnSubmit.isEnabled = (start == 5 && count == 1)
                 }

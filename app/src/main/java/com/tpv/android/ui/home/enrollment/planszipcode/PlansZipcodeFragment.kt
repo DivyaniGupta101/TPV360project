@@ -66,7 +66,15 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
 
+    override fun handleOnBackPressed(): Boolean {
+        removeStoredData()
+        return true
+    }
+
+    private fun initialize() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         //Set toolbar title as per utility
@@ -124,11 +132,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         }
         mViewModel.clearZipCodeListData()
 
-    }
-
-    override fun handleOnBackPressed(): Boolean {
-        removeStoredData()
-        return true
     }
 
     /** Set toolbar title according to selection of fuel in previous screen.
