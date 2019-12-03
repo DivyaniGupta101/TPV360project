@@ -10,16 +10,16 @@ import java.util.concurrent.TimeUnit
 
 object ApiClient {
     lateinit var retrofit: Retrofit
-    private val BASE_URL: String = if (com.tpv.android.BuildConfig.DEBUG) {
+    private val BASE_URL: String = if (BuildConfig.DEBUG) {
         "https://dev.tpv.plus/api/"
     } else {
         "https://spark.tpv.plus/api/"
     }
 
 
-    val service: com.tpv.android.network.ApiInterface by lazy {
+    val service: ApiInterface by lazy {
         val builder = Retrofit.Builder()
-                .baseUrl(com.tpv.android.network.ApiClient.BASE_URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
         val client = OkHttpClient.Builder()
         client.connectTimeout(30, TimeUnit.SECONDS)
@@ -68,7 +68,7 @@ object ApiClient {
         }
 
         builder.client(client.build())
-        ApiClient.retrofit = builder.build()
-        ApiClient.retrofit.create(ApiInterface::class.java)
+        retrofit = builder.build()
+        retrofit.create(ApiInterface::class.java)
     }
 }
