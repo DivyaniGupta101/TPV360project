@@ -105,6 +105,7 @@
                         android:id="@+id/btnVerify"
                         style="@style/ButtonPrimary"
                         android:layout_marginTop="@dimen/_30sdp"
+
                         android:background="@drawable/button_background_state"
                         android:text="@string/verify" />
 

@@ -44,14 +44,14 @@
 
                         <TextView
                             style="@style/SecondaryNormalSmallText"
-                            android:layout_weight="1"
                             android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:text="@string/id" />
 
                         <TextView
                             style="@style/PrimaryBoldText"
-                            android:layout_weight="3"
                             android:layout_width="0dp"
+                            android:layout_weight="3"
                             android:text="@{item.refrenceId}"
                             tools:text="It-it-ios-12657" />
                     </LinearLayout>
@@ -64,14 +64,14 @@
 
                         <TextView
                             style="@style/SecondaryNormalSmallText"
-                            android:layout_weight="1"
                             android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:text="@string/date" />
 
                         <TextView
                             style="@style/SecondaryBoldText"
-                            android:layout_weight="3"
                             android:layout_width="0dp"
+                            android:layout_weight="3"
                             app:setDate="@{item.createTime}"
                             tools:text="27/08/2018" />
                     </LinearLayout>
@@ -84,14 +84,14 @@
 
                         <TextView
                             style="@style/SecondaryNormalSmallText"
-                            android:layout_weight="1"
                             android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:text="@string/time" />
 
                         <TextView
                             style="@style/SecondaryBoldText"
-                            android:layout_weight="3"
                             android:layout_width="0dp"
+                            android:layout_weight="3"
                             app:time="@{item.createTime}"
                             tools:text="09:36:06" />
                     </LinearLayout>
@@ -100,7 +100,7 @@
 
                 <TextView
                     android:id="@+id/textPendingStatus"
-                    style="@style/PrimaryBoldText"
+                    style="@style/PrimaryNormalText"
                     android:layout_gravity="center_vertical"
                     android:padding="@dimen/_8sdp"
                     android:textColor="@color/colorPendingText"

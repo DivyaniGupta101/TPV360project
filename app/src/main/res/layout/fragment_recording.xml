@@ -163,6 +163,7 @@
                         <ImageView
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
+                            android:background="@drawable/rounded_ripple_effect"
                             android:src="@drawable/ic_replay_white_32dp"
                             app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
 

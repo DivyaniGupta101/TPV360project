@@ -71,9 +71,7 @@
                         android:text="@{item.positiveButtonText}" />
 
                 </LinearLayout>
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
     </LinearLayout>
 </layout>
