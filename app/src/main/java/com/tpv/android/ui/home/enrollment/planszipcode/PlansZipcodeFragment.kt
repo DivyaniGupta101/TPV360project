@@ -69,57 +69,69 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
-
-        //set toolbar title as per utility
+        //Set toolbar title as per utility
         setToolbar()
+
         setAutoCompleterTextView()
 
-
-        //check if utilitiesList list available then show respective in dropdown
+        //Check if utilitiesList list available then show respective value in dropdown
         if (mSetEnrollViewModel.utilitiesList.isNotEmpty()) {
             setUtilitySpinners()
         }
 
-
         mBinding.btnNext?.onClick {
-
-            mSetEnrollViewModel.utilitiesList.clear()
-
-            //get detail of selected utility and then add in "utilitiesList" for further use.
-            if (mBinding.spinnerElectricity.isShown) {
-                val electricUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerElectricity.selectedItem && it.commodity == Plan.ELECTRICFUEL.value }
-                electricUtilityResp?.let { mSetEnrollViewModel.utilitiesList.add(it) }
-            }
-            if (mBinding.spinnerGas.isShown) {
-                val gasUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerGas.selectedItem && it.commodity == Plan.GASFUEL.value }
-                gasUtilityResp?.let { mSetEnrollViewModel.utilitiesList.add(it) }
-            }
-
-            mSetEnrollViewModel.zipcode = mZipcodeList.find { it.zipcode == mBinding.textZipcode.value }
-
+            setData()
             hideKeyboard()
-
-            mViewModel.clearZipCodeListData()
-
-            when (mSetEnrollViewModel.planType) {
-                Plan.DUALFUEL.value -> {
-                    mSetEnrollViewModel.customerData.apply {
-                        gasBillingZip = mSetEnrollViewModel.zipcode?.zipcode
-                        electricBillingZip = mSetEnrollViewModel.zipcode?.zipcode
-                    }
-                }
-                else -> {
-                    mSetEnrollViewModel.customerData.apply {
-                        billingZip = mSetEnrollViewModel.zipcode?.zipcode
-                    }
-                }
-            }
-
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
     }
 
-    /** set toolbar title according to selection of fuel in previous screen.
+    /**
+     * Set value in viewModel for further use.
+     */
+    private fun setData() {
+
+        mSetEnrollViewModel.utilitiesList.clear()
+
+        //Get detail of selected utility and then add in viewModel variable "utilitiesList"
+        if (mBinding.spinnerElectricity.isShown) {
+            val electricUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerElectricity.selectedItem && it.commodity == Plan.ELECTRICFUEL.value }
+            electricUtilityResp?.let { mSetEnrollViewModel.utilitiesList.add(it) }
+        }
+        if (mBinding.spinnerGas.isShown) {
+            val gasUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerGas.selectedItem && it.commodity == Plan.GASFUEL.value }
+            gasUtilityResp?.let { mSetEnrollViewModel.utilitiesList.add(it) }
+        }
+
+        //Get detail of selected zipcode and then add in viewModel variable "zipcode"
+        mSetEnrollViewModel.zipcode = mZipcodeList.find { it.zipcode == mBinding.textZipcode.value }
+
+
+        //Set zipcode value in viewModel
+        when (mSetEnrollViewModel.planType) {
+            Plan.DUALFUEL.value -> {
+                mSetEnrollViewModel.customerData.apply {
+                    gasBillingZip = mSetEnrollViewModel.zipcode?.zipcode
+                    electricBillingZip = mSetEnrollViewModel.zipcode?.zipcode
+                }
+            }
+            else -> {
+                mSetEnrollViewModel.customerData.apply {
+                    billingZip = mSetEnrollViewModel.zipcode?.zipcode
+                }
+            }
+
+        }
+        mViewModel.clearZipCodeListData()
+
+    }
+
+    override fun handleOnBackPressed(): Boolean {
+        removeStoredData()
+        return true
+    }
+
+    /** Set toolbar title according to selection of fuel in previous screen.
      * For example, if user select gas fuel then title should be "Natural Gas"
      */
     private fun setToolbar() {
@@ -136,20 +148,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         }
     }
 
-    private fun removeStoredData() {
-        mSetEnrollViewModel.utilitiesList.clear()
-        mSetEnrollViewModel.planType = ""
-        mSetEnrollViewModel.zipcode = null
-        mSetEnrollViewModel.programList.clear()
-        mSetEnrollViewModel.customerData = CustomerData()
-        mSetEnrollViewModel.savedLeadDetail = null
-        mSetEnrollViewModel.recordingFile = ""
-        mSetEnrollViewModel.isElectricServiceAddressSame = false
-        mSetEnrollViewModel.isGasServiceAddressSame = false
-        mSetEnrollViewModel.relationShipList.clear()
-    }
-
-
     private fun setAutoCompleterTextView() {
         mBinding.textZipcode.threshold = 1
 
@@ -162,19 +160,20 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         })
 
         mBinding.textZipcode.addTextWatcher { s, start, before, count ->
-            mHandler.removeCallbacksAndMessages(null)
-            mHandler.postDelayed({
-                if (!s.toString().equals(lastSearchZipCode))
-                    mViewModel.getZipCode(ZipCodeReq(s.toString()))
-            }, TEXT_CHANGE_DELAY)
+            zipCodeApiCall(s.toString())
         }
 
+        //On Click of dropdown, set selected value in editText
+        //Also set that value in "lastSearchZipcode"
         mBinding.textZipcode.setOnItemClickListener { parent, view, position, id ->
             lastSearchZipCode = mZipcodeList[position].zipcode.orEmpty()
             mBinding.textZipcode.value = lastSearchZipCode
             mBinding.textZipcode.setSelection(lastSearchZipCode.length)
         }
 
+        //On click of outside of dropdown, get zipcode from editText
+        // Also check if that zipcode available in list then set spinner according.
+        //Else hide all spinners
         mBinding.textZipcode.setOnDismissListener {
             if (mZipcodeList.any { it.zipcode == mBinding.textZipcode.value }) {
                 hideKeyboard()
@@ -183,6 +182,14 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 hideAllSpinner()
             }
         }
+    }
+
+    private fun zipCodeApiCall(zipcode: String?) {
+        mHandler.removeCallbacksAndMessages(null)
+        mHandler.postDelayed({
+            if (!zipcode.equals(lastSearchZipCode))
+                mViewModel.getZipCode(ZipCodeReq(zipcode))
+        }, TEXT_CHANGE_DELAY)
     }
 
     /**
@@ -196,7 +203,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 mUtilityList.addAll(it.orEmpty())
                 setUtilitySpinners()
             }
-
             it.ifFailure { _, _ ->
                 hideAllSpinner()
             }
@@ -205,11 +211,56 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
+    /**
+     * Find electric utilities From List and then set in spinner
+     * And if list is empty then hide spinner
+     */
+    private fun setElectricSpinner() {
+        val listOfElectricUtility = mUtilityList.filter { it.commodity.equals(Plan.ELECTRICFUEL.value) }.map { it.fullname.orEmpty() }
+        mBinding.spinnerElectricity.setItems(ArrayList(listOfElectricUtility))
+        if (listOfElectricUtility.isNotEmpty()) {
+            showElectricSpinner()
+        } else {
+            showNoUtilityDialog()
+        }
+    }
+
+    /**
+     * Find gas utilities From List and then set in spinner
+     *  And if list is empty then hide spinner
+     */
+    private fun setGasSpinner() {
+        val listOfGasUtility = mUtilityList.filter { it.commodity.equals(Plan.GASFUEL.value) }.map { it.fullname.orEmpty() }
+        mBinding.spinnerGas.setItems(ArrayList(listOfGasUtility))
+        if (listOfGasUtility.isNotEmpty()) {
+            showGasSpinner()
+        } else {
+            showNoUtilityDialog()
+        }
+    }
+
+    /**
+     * If utility list is empty then show
+     */
+    private fun showNoUtilityDialog() {
+        val binding = DataBindingUtil.inflate<DialogErrorBinding>(layoutInflater, R.layout.dialog_error, null, false)
+        val dialog = context?.let {
+            AlertDialog.Builder(it)
+                    .setView(binding.root).show()
+        }
+
+        binding.item = getString(R.string.msg_no_utilitiy_available)
+
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        binding.btnYes?.onClick {
+            dialog?.dismiss()
+        }
+    }
 
     /** Show utility spinner according to selection of fuel in previous page.
      * For instance, If user select "Dual Fuel" then gas and electric both spinner will show.
      */
-
     private fun setUtilitySpinners() {
         when (mSetEnrollViewModel.planType) {
             Plan.DUALFUEL.value -> {
@@ -233,51 +284,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 }
             }
         }
-
-    }
-
-    /**
-     * Find electric utilities From List and then set in spinner
-     */
-
-    private fun setElectricSpinner() {
-        val listOfElectricUtility = mUtilityList.filter { it.commodity.equals(Plan.ELECTRICFUEL.value) }.map { it.fullname.orEmpty() }
-        mBinding.spinnerElectricity.setItems(ArrayList(listOfElectricUtility))
-        if (listOfElectricUtility.isNotEmpty()) {
-            showElectricSpinner()
-        } else {
-            showNoUtilityDialog()
-        }
-    }
-
-
-    /**
-     * Find gas utilities From List and then set in spinner
-     */
-    private fun setGasSpinner() {
-        val listOfGasUtility = mUtilityList.filter { it.commodity.equals(Plan.GASFUEL.value) }.map { it.fullname.orEmpty() }
-        mBinding.spinnerGas.setItems(ArrayList(listOfGasUtility))
-        if (listOfGasUtility.isNotEmpty()) {
-            showGasSpinner()
-        } else {
-            showNoUtilityDialog()
-        }
-    }
-
-    private fun showNoUtilityDialog() {
-        val binding = DataBindingUtil.inflate<DialogErrorBinding>(layoutInflater, R.layout.dialog_error, null, false)
-        val dialog = context?.let {
-            AlertDialog.Builder(it)
-                    .setView(binding.root).show()
-        }
-
-        binding.item = getString(R.string.msg_no_utilitiy_available)
-
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        binding.btnYes?.onClick {
-            dialog?.dismiss()
-        }
     }
 
     /**
@@ -289,7 +295,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         mBinding.spinnerElectricity.show()
     }
 
-
     /**
      * Show Gas DropDown and Title Text
      */
@@ -299,7 +304,9 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         mBinding.spinnerGas.show()
     }
 
-
+    /**
+     * hide all the spinners and all the label texts and dividers
+     */
     private fun hideAllSpinner() {
         mBinding.textElectric.hide()
         mBinding.textGas.hide()
@@ -310,9 +317,19 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         mBinding.btnNext.isEnabled = false
     }
 
-    override fun handleOnBackPressed(): Boolean {
-        removeStoredData()
-        return true
+    /**
+     * Remove stored values in viewModel
+     */
+    private fun removeStoredData() {
+        mSetEnrollViewModel.utilitiesList.clear()
+        mSetEnrollViewModel.planType = ""
+        mSetEnrollViewModel.zipcode = null
+        mSetEnrollViewModel.programList.clear()
+        mSetEnrollViewModel.customerData = CustomerData()
+        mSetEnrollViewModel.savedLeadDetail = null
+        mSetEnrollViewModel.recordingFile = ""
+        mSetEnrollViewModel.isElectricServiceAddressSame = false
+        mSetEnrollViewModel.isGasServiceAddressSame = false
+        mSetEnrollViewModel.relationShipList.clear()
     }
-
 }
