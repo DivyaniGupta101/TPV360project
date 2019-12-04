@@ -12,6 +12,7 @@ object ApiClient {
     lateinit var retrofit: Retrofit
     private val BASE_URL: String = if (BuildConfig.DEBUG) {
         "https://dev.tpv.plus/api/"
+//        "http://192.168.0.19:8000/api/"
     } else {
         "https://spark.tpv.plus/api/"
     }
@@ -47,7 +48,7 @@ object ApiClient {
             }
 
             val response = it.proceed(request)
-            if(response.code() == 401){
+            if (response.code() == 401) {
                 UnAuthorizedEventObserver.notifyObservers()
                 return@Interceptor Response.Builder()
                         .code(200) //Whatever code

@@ -177,4 +177,10 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.forgotPasswordCall(forgotPasswordReq: ForgotPasswordReq) = dataApi<Any?, APIError> {
+        fromNetwork {
+            ApiClient.service.forgotPassword(forgotPasswordReq).getResult().map { it?.data }
+        }
+    }
+
 }

@@ -69,4 +69,8 @@ interface ApiInterface {
     @POST("verifyotp")
     fun verifyOtp(@Body verifyOTPReq: VerifyOTPReq): Call<CommonResponse<Any>>
 
+    //ForgotPassword
+    @POST("forgotpassword")
+    fun forgotPassword(@Body forgotPasswordReq: ForgotPasswordReq): Call<CommonResponse<Any>>
+
 }
