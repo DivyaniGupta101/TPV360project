@@ -1,10 +1,13 @@
 package com.tpv.android.ui.auth.forogtpassword
 
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -15,7 +18,9 @@ import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
+import com.tpv.android.databinding.DialogErrorBinding
 import com.tpv.android.databinding.FragmentForgotPasswordBinding
+import com.tpv.android.model.CommonResponse
 import com.tpv.android.model.ForgotPasswordReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -67,11 +72,32 @@ class ForgotPasswordFragment : Fragment() {
         val liveData = mViewModel.forgotPassword(ForgotPasswordReq(mBinding.editEmail.value))
         liveData.observe(this, Observer {
             it.ifSuccess {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_forgotPasswordFragment_to_loginFragment)
+                sucessDialog(it)
             }
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
+
+    private fun sucessDialog(response: CommonResponse<Any>?) {
+        val binding = DataBindingUtil.inflate<DialogErrorBinding>(layoutInflater, R.layout.dialog_error, null, false)
+        context?.let {
+            val dialog = AlertDialog.Builder(it)
+                    .setView(binding.root).show()
+
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            binding.item = response?.message
+            binding.titleError.setText(context?.getString(R.string.success))
+
+            binding.btnYes?.onClick {
+                dialog.dismiss()
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_forgotPasswordFragment_to_loginFragment)
+            }
+
+
+        }
+
     }
 
     /**

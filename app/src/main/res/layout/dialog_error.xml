@@ -44,6 +44,7 @@
                         app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
 
                     <TextView
+                        android:id="@+id/titleError"
                         style="@style/PrimaryBoldText"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/error" />

@@ -179,9 +179,9 @@ object AppRepository {
     }
 
     //ForgotPassword
-    fun CoroutineScope.forgotPasswordCall(forgotPasswordReq: ForgotPasswordReq) = dataApi<Any?, APIError> {
+    fun CoroutineScope.forgotPasswordCall(forgotPasswordReq: ForgotPasswordReq) = dataApi<CommonResponse<Any>?, APIError> {
         fromNetwork {
-            ApiClient.service.forgotPassword(forgotPasswordReq).getResult().map { it?.data }
+            ApiClient.service.forgotPassword(forgotPasswordReq).getResult().map { it }
         }
     }
 
