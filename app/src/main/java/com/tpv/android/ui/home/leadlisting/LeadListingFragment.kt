@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -21,6 +22,7 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.ui.home.leadlisting.LeadListingViewModel
 import com.tpv.android.utils.enums.LeadStatus
+import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
 class LeadListingFragment : Fragment() {
@@ -71,7 +73,13 @@ class LeadListingFragment : Fragment() {
         mBinding.paginatedLayout.showEmptyView = mViewModel.showEmptyView
 
         LiveAdapter(mViewModel.leadsLiveData, BR.item)
-                .map<LeadResp, ItemLeadListBinding>(R.layout.item_lead_list)
+                .map<LeadResp, ItemLeadListBinding>(R.layout.item_lead_list) {
+                    onClick {
+                        val id = it.binding.item?.id
+                        Navigation.findNavController(mBinding.root).navigateSafe(
+                                LeadListingFragmentDirections.actionLeadListingFragmentToLeadDetailFragment(id.orEmpty()))
+                    }
+                }
                 .into(mBinding.listLead)
 
         mBinding.listLead.setPagination(mViewModel.leadsPaginatedResourceLiveData) { page ->

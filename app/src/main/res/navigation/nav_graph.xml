@@ -26,6 +26,13 @@
         <argument
             android:name="item"
             app:argType="string" />
+        <action
+            android:id="@+id/action_leadListingFragment_to_leadDetailFragment"
+            app:destination="@id/leadDetailFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -223,6 +230,14 @@
             app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/dashBoardFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/leadDetailFragment"
+        android:name="com.tpv.android.ui.home.leaddetail.LeadDetailFragment"
+        android:label="LeadDetailFragment">
+        <argument
+            android:name="item"
+            app:argType="string" />
     </fragment>
 
 </navigation>

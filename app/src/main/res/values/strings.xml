@@ -19,6 +19,9 @@
     <string name="success">Success</string>
     <string name="statement">Statement</string>
     <string name="skip"><![CDATA[Skip>]]></string>
+    <string name="lead_details">Lead Details</string>
+    <string name="edit">Edit</string>
+
 
     <!--    ButtonLabel-->
     <string name="cancel">Cancel</string>

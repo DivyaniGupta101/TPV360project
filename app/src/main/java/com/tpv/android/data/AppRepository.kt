@@ -17,6 +17,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.util.*
 
 
 object AppRepository {
@@ -191,4 +192,9 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.getLeadDetailCall(leadId: String?) = dataApi<LinkedHashMap<String?, String?>?, APIError> {
+        fromNetwork {
+            ApiClient.service.getLeadDetail(leadId).getResult().map { it?.data }
+        }
+    }
 }

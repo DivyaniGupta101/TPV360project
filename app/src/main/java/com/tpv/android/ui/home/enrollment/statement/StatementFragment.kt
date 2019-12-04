@@ -204,9 +204,9 @@ class StatementFragment : Fragment() {
         location?.let {
             val geoCoder = Geocoder(context, Locale.getDefault())
             val addresses = geoCoder.getFromLocation(it.latitude.orZero(), it.longitude.orZero(), 1)
-            val postalCode = addresses?.get(0)?.postalCode
+            val postalCode = addresses.find { it.postalCode == mViewModel.zipcode?.zipcode }
 
-            if (mViewModel.zipcode?.value?.equals(postalCode).orFalse()) {
+            if (postalCode != null) {
                 saveCustomerDataApiCall()
             } else {
                 getNearByZipCodesListApiCall(it.latitude.orZero().toString(), it.longitude.orZero().toString())

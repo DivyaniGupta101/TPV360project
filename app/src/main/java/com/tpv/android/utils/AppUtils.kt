@@ -33,8 +33,9 @@ fun Fragment.setupToolbar(
         title: String = "",
         showMenuIcon: Boolean = false,
         showBackIcon: Boolean = false,
-        showSkipText: Boolean = false,
-        skipTextClickListener: (() -> Unit)? = null,
+        showSubTitle: Boolean = false,
+        subTitleText: String = "",
+        subTitleClickListener: (() -> Unit)? = null,
         backIconClickListener: (() -> Unit)? = null
 ) {
 
@@ -44,9 +45,12 @@ fun Fragment.setupToolbar(
             toolbarContainer.textToolbarTitle.text = title
 
             val backImage = toolbarContainer.imageToolbarBack
-            val skipText = toolbarContainer.textSkip
+            val subTitle = toolbarContainer.textSkip
             val menuImage = toolbarContainer.imageToolbarMenu
 
+            if (subTitleText.isNotEmpty()) {
+                subTitle.setText(subTitleText)
+            }
 
             if (showBackIcon) {
                 backImage?.show()
@@ -61,11 +65,11 @@ fun Fragment.setupToolbar(
                 backImage?.hide()
             }
 
-            if (showSkipText) {
-                skipText?.show()
+            if (showSubTitle) {
+                subTitle?.show()
                 menuImage?.hide()
-                skipText?.onClick {
-                    skipTextClickListener?.invoke()
+                subTitle?.onClick {
+                    subTitleClickListener?.invoke()
                 }
 
             } else {
@@ -74,7 +78,7 @@ fun Fragment.setupToolbar(
 
             if (showMenuIcon) {
                 menuImage?.show()
-                skipText?.hide()
+                subTitle?.hide()
                 (activity as HomeActivity).unLockSwipeModeMenu()
                 menuImage?.onClick {
                     (activity as HomeActivity).openMenu()

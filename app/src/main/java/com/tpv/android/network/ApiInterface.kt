@@ -6,6 +6,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
+import java.util.*
+import kotlin.collections.LinkedHashMap
 
 interface ApiInterface {
 
@@ -77,5 +79,9 @@ interface ApiInterface {
                           @Query("username") userName: String? = AppConstant.REQUEST_USERNAME,
                           @Query("lat") userLat: String?,
                           @Query("lng") userLng: String?): Call<CommonResponse<List<PostalCode>>>
+
+    //LeadDetail
+    @GET("leads/{id}")
+    fun getLeadDetail(@Path("id") id: String?): Call<CommonResponse<LinkedHashMap<String?, String?>>>
 
 }
