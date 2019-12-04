@@ -33,7 +33,7 @@ object ApiClient {
             try {
                 val newBuilder = request.newBuilder()
 
-                if (!Pref.token.isNullOrEmpty()) {
+                if (!Pref.token.isNullOrEmpty() && request.url().toString().startsWith(BASE_URL)) {
                     newBuilder.addHeader(
                             "Authorization",
                             "Bearer ${Pref.token}"
@@ -42,8 +42,8 @@ object ApiClient {
                             "Accept",
                             "application/json"
                     )
+                    request = newBuilder.build()
                 }
-                request = newBuilder.build()
             } catch (e: Exception) {
             }
 

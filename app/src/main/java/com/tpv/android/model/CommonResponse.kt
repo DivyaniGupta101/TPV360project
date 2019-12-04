@@ -10,6 +10,8 @@ data class CommonResponse<T>(
         @SerializedName("data")
         var data: T?,
         @SerializedName("token")
-        var token: String?
+        var token: String?,
+        @SerializedName("postalCodes")
+        var postalCodes: T?
 
 )

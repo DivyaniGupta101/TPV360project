@@ -1,13 +1,11 @@
 package com.tpv.android.network
 
 import com.tpv.android.model.*
+import com.tpv.android.utils.AppConstant
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
+import retrofit2.http.*
 
 interface ApiInterface {
 
@@ -72,5 +70,12 @@ interface ApiInterface {
     //ForgotPassword
     @POST("forgotpassword")
     fun forgotPassword(@Body forgotPasswordReq: ForgotPasswordReq): Call<CommonResponse<Any>>
+
+    //NearByZipcode
+    @GET
+    fun getNearByZipcodes(@Url url: String? = AppConstant.ZIPCODE_LIST_URL,
+                          @Query("username") userName: String? = AppConstant.REQUEST_USERNAME,
+                          @Query("lat") userLat: String?,
+                          @Query("lng") userLng: String?): Call<CommonResponse<List<PostalCode>>>
 
 }

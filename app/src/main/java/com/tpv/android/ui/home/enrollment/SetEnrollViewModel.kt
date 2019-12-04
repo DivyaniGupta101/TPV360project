@@ -41,12 +41,15 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         verifyOTPCall(verifyOTPReq)
     }
 
-    fun getPrograms(utilityList: ArrayList<UtilityResp>) = with(AppRepository)
-    {
+    fun getPrograms(utilityList: ArrayList<UtilityResp>) = with(AppRepository) {
         getProgramsCall(utilityList)
     }
 
     fun selfVerification(successReq: SuccessReq) = with(AppRepository) {
         selfVerificationCall(successReq)
+    }
+
+    fun getNearByZipCodes(lat: String?, lng: String?) = with(AppRepository) {
+        getNearByZipcodesCall(lat = lat, lng = lng)
     }
 }

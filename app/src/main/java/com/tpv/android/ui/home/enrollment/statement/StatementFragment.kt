@@ -98,8 +98,8 @@ class StatementFragment : Fragment() {
         }
 
     }
-    private fun initialize()
-    {
+
+    private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
@@ -197,8 +197,8 @@ class StatementFragment : Fragment() {
     }
 
     /**
-     * Get zipcode from location and check if it's match with stored Zipcode then able to call all saveLaeadsApi
-     * Else show unMatchZipcode dialog
+     * Get zipcode from current or last location and check if it's match with stored Zipcode then able to call all saveLeadsAPI
+     * Else call api getnearByZipcode
      */
     private fun getZipCodedFromLocation(location: Location?) {
         location?.let {
@@ -209,9 +209,29 @@ class StatementFragment : Fragment() {
             if (mViewModel.zipcode?.value?.equals(postalCode).orFalse()) {
                 saveCustomerDataApiCall()
             } else {
-                unMatchZipcodeDialog()
+                getNearByZipCodesListApiCall(it.latitude.orZero().toString(), it.longitude.orZero().toString())
             }
         }
+    }
+
+    /**
+     * Using current or last location get list of nearByZipcode
+     * Also Check if selected zipcode match with any zipcode from list then call all saveLeadsAPI else show no zipcode match dialog
+     */
+    private fun getNearByZipCodesListApiCall(lat: String?, lng: String?) {
+        val liveData = mViewModel.getNearByZipCodes(lat = lat, lng = lng)
+        liveData.observe(this, Observer {
+            it.ifSuccess { list ->
+                val postalCode = list?.find { it.postalCode == mViewModel.zipcode?.zipcode }
+                if (postalCode != null) {
+                    saveCustomerDataApiCall()
+                } else {
+                    unMatchZipcodeDialog()
+                }
+            }
+
+        })
+
     }
 
     /**

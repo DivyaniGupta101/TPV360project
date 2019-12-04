@@ -177,9 +177,17 @@ object AppRepository {
         }
     }
 
+    //ForgotPassword
     fun CoroutineScope.forgotPasswordCall(forgotPasswordReq: ForgotPasswordReq) = dataApi<Any?, APIError> {
         fromNetwork {
             ApiClient.service.forgotPassword(forgotPasswordReq).getResult().map { it?.data }
+        }
+    }
+
+    //GetNearByZipCodeList
+    fun CoroutineScope.getNearByZipcodesCall(lat: String?, lng: String?) = dataApi<List<PostalCode>, APIError> {
+        fromNetwork {
+            ApiClient.service.getNearByZipcodes(userLat = lat, userLng = lng).getResult().map { it?.postalCodes.orEmpty() }
         }
     }
 
