@@ -12,7 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.livinglifetechway.k4kotlin.core.isNetworkAvailable
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
-import com.tpv.android.databinding.DialogErrorBinding
+import com.tpv.android.databinding.DialogInfoBinding
+import com.tpv.android.model.internal.DialogText
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 
@@ -51,7 +52,7 @@ class AlertErrorHandler(
 ) : ErrorHandler {
     override fun onError(resource: Resource<*, APIError>) {
 
-        val binding = DataBindingUtil.inflate<DialogErrorBinding>(LayoutInflater.from(view.context), R.layout.dialog_error, null, false)
+        val binding = DataBindingUtil.inflate<DialogInfoBinding>(LayoutInflater.from(view.context), R.layout.dialog_info, null, false)
         val dialog = AlertDialog.Builder(view.context)
                 .setCancelable(isCancelable)
                 .setView(binding.root).show()
@@ -73,12 +74,16 @@ class AlertErrorHandler(
 
         val errorData = resource.errorData
         if (errorData is APIError) {
-            binding.item = errorData.message ?: view.context?.getString(R.string.unknown_error)
+            if (errorData.message.isNullOrEmpty()) {
+                binding.item = DialogText(view.context.getString(R.string.error), description = view.context.getString(R.string.unknown_error), negativeButtonText = "", positiveButtonText = view.context.getString(R.string.ok))
+            } else {
+                binding.item = DialogText(view.context.getString(R.string.error), description = errorData.message, negativeButtonText = "", positiveButtonText = view.context.getString(R.string.ok))
+            }
         } else {
             if (!view.context.isNetworkAvailable()) {
-                binding.item = view.context.getString(R.string.no_internet_connection_message)
+                binding.item = DialogText(view.context.getString(R.string.error), description = view.context.getString(R.string.no_internet_connection_message), negativeButtonText = "", positiveButtonText = view.context.getString(R.string.ok))
             } else {
-                binding.item = view.context.getString(R.string.something_went_wrong)
+                binding.item = DialogText(view.context.getString(R.string.error), description = view.context.getString(R.string.something_went_wrong), negativeButtonText = "", positiveButtonText = view.context.getString(R.string.ok))
             }
         }
     }

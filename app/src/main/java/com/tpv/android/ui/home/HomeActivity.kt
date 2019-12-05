@@ -21,7 +21,7 @@ import com.livinglifetechway.k4kotlin.core.startActivity
 import com.livinglifetechway.k4kotlin.databinding.setBindingView
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivityHomeBinding
-import com.tpv.android.databinding.DialogLogoutBinding
+import com.tpv.android.databinding.DialogActionBinding
 import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.internal.DialogText
@@ -33,6 +33,7 @@ import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
 import com.tpv.android.ui.home.enrollment.statement.StatementFragment
+import com.tpv.android.utils.actionDialog
 import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.navigateSafe
 
@@ -95,7 +96,14 @@ class HomeActivity : AppCompatActivity() {
         mBinding.navMenu?.layoutLogout?.parentContainer?.onClick {
             mBinding.navMenu.currentSelected = MenuItem.LOGOUT.value
             closeDrawer()
-            logOutDialog()
+            actionDialog(DialogText(getString(R.string.log_out),
+                    getString(R.string.msg_log_out),
+                    getString(R.string.yes),
+                    getString(R.string.cancel)), setOnDismissListener = {
+                mBinding.navMenu.currentSelected = mLastSelectedItem
+            }, setOnPositiveBtnClickLisener = {
+                context.logOutApiCall()
+            })
         }
     }
 
@@ -141,30 +149,6 @@ class HomeActivity : AppCompatActivity() {
     fun menuItemSelection(item: String) {
         mLastSelectedItem = item
         mBinding.navMenu.currentSelected = item
-    }
-
-    private fun logOutDialog() {
-        val binding = DataBindingUtil.inflate<DialogLogoutBinding>(layoutInflater, R.layout.dialog_logout, null, false)
-        val dialog = AlertDialog.Builder(this@HomeActivity)
-                .setView(binding.root).show()
-
-        binding.item = DialogText(getString(R.string.log_out),
-                getString(R.string.msg_log_out),
-                getString(R.string.yes),
-                getString(R.string.cancel))
-
-        dialog?.setOnDismissListener {
-            mBinding.navMenu.currentSelected = mLastSelectedItem
-        }
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        binding?.btnCancel?.onClick {
-            dialog.dismiss()
-        }
-        binding?.btnYes?.onClick {
-            context.logOutApiCall()
-            dialog.dismiss()
-        }
     }
 
     /**

@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="String" />
+            type="com.tpv.android.model.internal.DialogText" />
     </data>
 
     <LinearLayout
@@ -47,12 +47,12 @@
                         android:id="@+id/titleError"
                         style="@style/PrimaryBoldText"
                         android:layout_marginTop="@dimen/_8sdp"
-                        android:text="@string/error" />
+                        android:text="@{item.title}" />
 
                     <TextView
                         style="@style/SecondaryNormalTextWithTopSpacing"
                         android:gravity="center"
-                        android:text="@{item}"
+                        android:text="@{item.description}"
                         tools:text="@string/msg_forgot_password" />
 
 
@@ -64,8 +64,9 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_16sdp"
-                    android:text="@string/ok"
-                    android:textAllCaps="true" />
+                    android:text="@{item.positiveButtonText}"
+                    android:textAllCaps="true"
+                    tools:text="@string/ok"/>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

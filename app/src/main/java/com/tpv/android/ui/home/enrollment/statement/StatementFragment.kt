@@ -33,12 +33,11 @@ import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
-import com.tpv.android.databinding.DialogErrorBinding
 import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
 import com.tpv.android.helper.Pref
-import com.tpv.android.model.network.ContractReq
 import com.tpv.android.model.internal.DialogText
+import com.tpv.android.model.network.ContractReq
 import com.tpv.android.model.network.SaveLeadsDetailReq
 import com.tpv.android.model.network.SaveLeadsDetailResp
 import com.tpv.android.network.error.AlertErrorHandler
@@ -146,7 +145,7 @@ class StatementFragment : Fragment() {
                 if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse() && diffTime <= AppConstant.LOCATION_EXPIRED_TIMEOUT) {
                     getZipCodedFromLocation(location)
                 } else {
-                    unMatchZipcodeDialog()
+                    context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match))
                 }
             }
         }
@@ -226,7 +225,7 @@ class StatementFragment : Fragment() {
                 if (postalCode != null) {
                     saveCustomerDataApiCall()
                 } else {
-                    unMatchZipcodeDialog()
+                    context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match))
                 }
             }
 
@@ -376,22 +375,6 @@ class StatementFragment : Fragment() {
             dialog?.dismiss()
             setButtonEnable()
         }
-
-    }
-
-    private fun unMatchZipcodeDialog() {
-        val binding = DataBindingUtil.inflate<DialogErrorBinding>(layoutInflater, R.layout.dialog_error, null, false)
-        val dialog = context?.let { AlertDialog.Builder(it) }
-                ?.setView(binding.root)?.show()
-
-        binding.item = getString(R.string.msg_zipcode_not_match)
-
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        binding?.btnYes?.onClick {
-            dialog?.dismiss()
-        }
-
     }
 }
 

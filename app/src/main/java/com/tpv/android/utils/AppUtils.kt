@@ -2,8 +2,13 @@ package com.tpv.android.utils
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.annotation.IdRes
+import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
@@ -11,7 +16,11 @@ import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.invisible
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
+import com.tpv.android.R
+import com.tpv.android.databinding.DialogActionBinding
+import com.tpv.android.databinding.DialogInfoBinding
 import com.tpv.android.databinding.ToolbarBinding
+import com.tpv.android.model.internal.DialogText
 import com.tpv.android.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.toolbar.*
 import okhttp3.MediaType
@@ -88,6 +97,62 @@ fun Fragment.setupToolbar(
             }
         }
     }
+}
+
+fun Context.infoDialog(title: String? = getString(R.string.error),
+                       subTitleText: String,
+                       btnText: String? = getString(R.string.ok),
+                       isCancelable: Boolean = false,
+                       setOnDismissListener: (() -> Unit)? = null,
+                       setOnBtnClickLisener: (() -> Unit)? = null) {
+    val binding = DataBindingUtil.inflate<DialogInfoBinding>(LayoutInflater.from(this), R.layout.dialog_info, null, false)
+    val dialog = AlertDialog.Builder(this)
+            .setView(binding.root).show()
+
+    binding.item = DialogText(title, subTitleText, btnText, "")
+    dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    dialog?.setCanceledOnTouchOutside(isCancelable)
+
+    dialog?.setOnDismissListener {
+        setOnDismissListener?.invoke()
+    }
+
+    binding?.btnYes?.onClick {
+        setOnBtnClickLisener?.invoke()
+        dialog.dismiss()
+    }
+}
+
+fun Context.actionDialog(
+        texts: DialogText,
+        isCancelable: Boolean = false,
+        setOnDismissListener: (() -> Unit)? = null,
+        setOnPositiveBtnClickLisener: (() -> Unit)? = null,
+        setOnNegativeBtnClickLisener: (() -> Unit)? = null
+
+) {
+    val binding = DataBindingUtil.inflate<DialogActionBinding>(LayoutInflater.from(this), R.layout.dialog_action, null, false)
+    val dialog = AlertDialog.Builder(this)
+            .setView(binding.root).show()
+
+    binding.item = texts
+    dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    dialog?.setCanceledOnTouchOutside(isCancelable)
+
+    dialog?.setOnDismissListener {
+        setOnDismissListener?.invoke()
+    }
+
+    binding?.btnCancel?.onClick {
+        setOnNegativeBtnClickLisener?.invoke()
+        dialog.dismiss()
+    }
+
+    binding?.btnYes?.onClick {
+        setOnPositiveBtnClickLisener?.invoke()
+        dialog.dismiss()
+    }
+
 }
 
 /**

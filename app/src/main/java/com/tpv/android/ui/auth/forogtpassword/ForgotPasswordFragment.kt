@@ -1,13 +1,10 @@
 package com.tpv.android.ui.auth.forogtpassword
 
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -18,14 +15,13 @@ import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
-import com.tpv.android.databinding.DialogErrorBinding
 import com.tpv.android.databinding.FragmentForgotPasswordBinding
-import com.tpv.android.model.network.CommonResponse
 import com.tpv.android.model.network.ForgotPasswordReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator
@@ -70,32 +66,15 @@ class ForgotPasswordFragment : Fragment() {
         val liveData = mViewModel.forgotPassword(ForgotPasswordReq(mBinding.editEmail.value))
         liveData.observe(this, Observer {
             it.ifSuccess {
-                successDialog(it)
+                context?.infoDialog(subTitleText = it?.message.orEmpty(),
+                        title = getString(R.string.success),
+                        setOnBtnClickLisener = {
+                            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_forgotPasswordFragment_to_loginFragment)
+                        })
             }
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-    }
-
-    private fun successDialog(response: CommonResponse<Any>?) {
-        val binding = DataBindingUtil.inflate<DialogErrorBinding>(layoutInflater, R.layout.dialog_error, null, false)
-        context?.let {
-            val dialog = AlertDialog.Builder(it)
-                    .setView(binding.root).show()
-
-            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-            binding.item = response?.message
-            binding.titleError.setText(context?.getString(R.string.success))
-
-            binding.btnYes?.onClick {
-                dialog.dismiss()
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_forgotPasswordFragment_to_loginFragment)
-            }
-
-
-        }
-
     }
 
     /**

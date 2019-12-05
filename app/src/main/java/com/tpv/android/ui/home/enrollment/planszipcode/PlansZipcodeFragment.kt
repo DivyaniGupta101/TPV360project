@@ -1,15 +1,12 @@
 package com.tpv.android.ui.home.enrollment.planszipcode
 
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
@@ -20,7 +17,6 @@ import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.tpv.android.R
-import com.tpv.android.databinding.DialogErrorBinding
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
 import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.network.UtilityReq
@@ -34,6 +30,7 @@ import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.enums.Plan
+import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
@@ -250,19 +247,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      * If utility list is empty then show
      */
     private fun showNoUtilityDialog() {
-        val binding = DataBindingUtil.inflate<DialogErrorBinding>(layoutInflater, R.layout.dialog_error, null, false)
-        val dialog = context?.let {
-            AlertDialog.Builder(it)
-                    .setView(binding.root).show()
-        }
-
-        binding.item = getString(R.string.msg_no_utilitiy_available)
-
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        binding.btnYes?.onClick {
-            dialog?.dismiss()
-        }
+        context?.infoDialog(subTitleText = getString(R.string.msg_no_utilitiy_available))
     }
 
     /** Show utility spinner according to selection of fuel in previous page.

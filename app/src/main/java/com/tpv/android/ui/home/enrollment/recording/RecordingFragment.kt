@@ -2,8 +2,6 @@ package com.tpv.android.ui.home.enrollment.recording
 
 
 import android.Manifest
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.SystemClock
@@ -11,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -22,10 +19,10 @@ import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.show
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
-import com.tpv.android.databinding.DialogLogoutBinding
 import com.tpv.android.databinding.FragmentRecordingBinding
 import com.tpv.android.model.internal.DialogText
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.actionDialog
 import com.tpv.android.utils.audio.AudioDataReceivedListener
 import com.tpv.android.utils.audio.RecordingThread
 import com.tpv.android.utils.navigateSafe
@@ -78,7 +75,17 @@ class RecordingFragment : Fragment() {
             if (recordedFile.isNullOrEmpty()) {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
             } else {
-                confirmationDialogForSkip()
+                //Show dialog when recording is recorded and user want to skip
+                //On Click of "Skip" button remove recording and send to next page
+                context?.actionDialog(DialogText(getString(R.string.are_you_sure),
+                        getString(R.string.msg_skip),
+                        getString(R.string.skip_btn),
+                        getString(R.string.cancel)),
+                        setOnPositiveBtnClickLisener = {
+                            recordedFile = ""
+                            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
+                        }
+                )
             }
         }
 
@@ -165,7 +172,25 @@ class RecordingFragment : Fragment() {
 
         //Record again
         mBinding.recordAgainContainer.onClick {
-            confirmationDialogForReRecord()
+
+            // Show dialog for recordAgain
+            // On click of "yes" stop timer and set value of progrss to 0 and handle image according to state.
+
+            context?.actionDialog(DialogText(getString(R.string.are_you_sure),
+                    getString(R.string.msg_confirmation_again_record),
+                    getString(R.string.yes),
+                    getString(R.string.cancel)),
+                    setOnPositiveBtnClickLisener = {
+                        if (mediaPlayer.isPlaying) {
+                            mBinding.chronometer.stop()
+                            mBinding.seekbarAudio.progress = 0
+                            mBinding.seekbarAudio.max = 0
+                            mediaPlayer.stop()
+                        }
+
+                        handleRecordStart()
+                    }
+            )
         }
     }
 
@@ -299,66 +324,5 @@ class RecordingFragment : Fragment() {
                 mBinding.redSpeakerImage.show()
             }
         }
-    }
-
-    /**
-     * Show dialog when recording is recorded and user want to skip
-     * On Click of "Skip" button remove recording and send to next page
-     */
-    private fun confirmationDialogForSkip() {
-        val binding = DataBindingUtil.inflate<DialogLogoutBinding>(layoutInflater, R.layout.dialog_logout, null, false)
-        val dialog = context?.let { AlertDialog.Builder(it) }
-                ?.setView(binding.root)?.show()
-
-        binding.item = DialogText(getString(R.string.are_you_sure),
-                getString(R.string.msg_skip),
-                getString(R.string.skip_btn),
-                getString(R.string.cancel))
-
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        binding?.btnCancel?.onClick {
-            dialog?.dismiss()
-        }
-        binding?.btnYes?.onClick {
-            recordedFile = ""
-            dialog?.dismiss()
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
-        }
-
-    }
-
-    /**
-     * Show dialog for recordAgain
-     * On click of "yes" stop timer and set value of progrss to 0 and handle image according to state.
-     */
-    private fun confirmationDialogForReRecord() {
-        val binding = DataBindingUtil.inflate<DialogLogoutBinding>(layoutInflater, R.layout.dialog_logout, null, false)
-        val dialog = context?.let { AlertDialog.Builder(it) }
-                ?.setView(binding.root)?.show()
-
-        binding.item = DialogText(getString(R.string.are_you_sure),
-                getString(R.string.msg_confirmation_again_record),
-                getString(R.string.yes),
-                getString(R.string.cancel))
-
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        binding?.btnCancel?.onClick {
-            dialog?.dismiss()
-        }
-        binding?.btnYes?.onClick {
-
-            if (mediaPlayer.isPlaying) {
-                mBinding.chronometer.stop()
-                mBinding.seekbarAudio.progress = 0
-                mBinding.seekbarAudio.max = 0
-                mediaPlayer.stop()
-            }
-
-            handleRecordStart()
-            dialog?.dismiss()
-        }
-
     }
 }
