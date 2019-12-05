@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.tpv.android.R" />
+    </data>
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,13 +31,42 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listLead"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:clipToPadding="false"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/_8sdp"
                 android:paddingBottom="@dimen/_50sdp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/item_lead_list" />
+
+            <View
+                style="@style/Divider"
+                android:layout_width="match_parent"
+                android:background="@color/colorDarkDivider" />
+
+            <LinearLayout
+                android:id="@+id/bottomStatusContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/textStatus"
+                    style="@style/SecondaryNormalText"
+                    android:layout_width="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/imageArrow"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:rotation="180"
+                    android:src="@drawable/ic_arrow_white_32dp"
+                    app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
