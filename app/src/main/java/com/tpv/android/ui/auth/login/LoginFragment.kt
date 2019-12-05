@@ -31,9 +31,6 @@ import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
-/**
- * A simple [Fragment] subclass.
- */
 class LoginFragment : Fragment() {
     lateinit var mBinding: FragmentLoginBinding
     private lateinit var mViewModel: LoginViewModel

@@ -32,9 +32,7 @@ import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class ForgotPasswordFragment : Fragment() {
 
     private lateinit var mBinding: FragmentForgotPasswordBinding

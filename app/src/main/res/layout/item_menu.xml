@@ -13,7 +13,7 @@
 
         <variable
             name="menutItemList"
-            type="com.tpv.android.model.internal.MenuItems" />
+            type="java.util.ArrayList&lt;com.tpv.android.model.internal.MenuItems>" />
 
         <variable
             name="menuItem"

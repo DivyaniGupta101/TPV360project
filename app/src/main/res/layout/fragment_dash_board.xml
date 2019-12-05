@@ -27,7 +27,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.internal.DashBoardItem" />
+            type="LiveData&lt;ArrayList&lt;com.tpv.android.model.internal.DashBoardItem>>" />
 
     </data>
 
