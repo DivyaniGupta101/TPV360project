@@ -67,11 +67,7 @@ class HomeActivity : AppCompatActivity() {
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
-        if (Pref.user == null) {
-            getProfileApiCall()
-        } else {
-            setProfileData()
-        }
+        setProfileData()
 
         mBinding.navMenu.menutItemList = arrayListOf(
                 MenuItems(getDrawable(R.drawable.ic_menu_dashboard_white), getString(R.string.dashboard)),
@@ -83,25 +79,25 @@ class HomeActivity : AppCompatActivity() {
 
         mBinding.navMenu?.layoutDashboard?.parentContainer?.onClick {
             menuItemSelection(MenuItem.DASHBOARD.value)
-            mBinding.drawerLayout.closeDrawer(GravityCompat.END)
+            closeDrawer()
             mNavController.navigateSafe(R.id.action_global_dashboardFragment)
         }
 
         mBinding.navMenu?.layoutProfile?.parentContainer?.onClick {
             menuItemSelection(MenuItem.PROFILE.value)
-            mBinding.drawerLayout.closeDrawer(GravityCompat.END)
+            closeDrawer()
             mNavController.navigateSafe(R.id.action_global_profileFragment)
         }
 
         mBinding.navMenu?.layoutSetEnroll?.parentContainer?.onClick {
             menuItemSelection(MenuItem.ENROLL.value)
-            mBinding.drawerLayout.closeDrawer(GravityCompat.END)
+            closeDrawer()
             mNavController.navigateSafe(R.id.action_global_commodityFragment)
         }
 
         mBinding.navMenu?.layoutLogout?.parentContainer?.onClick {
             mBinding.navMenu.currentSelected = MenuItem.LOGOUT.value
-            mBinding.drawerLayout.closeDrawer(GravityCompat.END)
+            closeDrawer()
             logOutDialog()
         }
     }
@@ -148,7 +144,11 @@ class HomeActivity : AppCompatActivity() {
      * get stored profile data and set in menu item
      */
     fun setProfileData() {
-        mBinding.navMenu.item = Pref.user
+        if (Pref.user == null) {
+            getProfileApiCall()
+        } else {
+            mBinding.navMenu.item = Pref.user
+        }
     }
 
     /**
@@ -206,7 +206,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
-            mBinding.drawerLayout.closeDrawer(GravityCompat.END)
+            closeDrawer()
         } else {
             val fragment = navigationHostFragment.childFragmentManager.fragments.first()
             if ((fragment is OnBackPressCallBack)) fragment.handleOnBackPressed()
@@ -214,6 +214,8 @@ class HomeActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun closeDrawer() = mBinding.drawerLayout.closeDrawer(GravityCompat.END)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == StatementFragment.REQUEST_GPS_SETTINGS) {

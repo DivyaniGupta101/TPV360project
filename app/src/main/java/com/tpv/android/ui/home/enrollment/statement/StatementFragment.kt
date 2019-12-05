@@ -143,7 +143,7 @@ class StatementFragment : Fragment() {
             if (location == null) {
                 createLocationRequest()
             } else {
-                if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse() && diffTime <= AppConstant.TWO_MINUTE_CONSTANT) {
+                if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse() && diffTime <= AppConstant.LOCATION_EXPIRED_TIMEOUT) {
                     getZipCodedFromLocation(location)
                 } else {
                     unMatchZipcodeDialog()
@@ -307,7 +307,7 @@ class StatementFragment : Fragment() {
      */
     private fun saveSignatureApiCall() {
 
-        val liveData = context?.BitmapToFile(mSignImage).toMultipartBody("media", "image/jpeg")?.let {
+        val liveData = context?.bitmapToFile(mSignImage).toMultipartBody("media", "image/jpeg")?.let {
             mViewModel.saveMedia(mViewModel.savedLeadDetail?.id.toRequestBody(),
                     it)
         }

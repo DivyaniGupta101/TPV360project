@@ -40,7 +40,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     private var mZipcodeList = ObservableArrayList<ZipCodeResp>()
     private var mUtilityList = ArrayList<UtilityResp>()
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
-    private var toolbarTitle = ""
     private lateinit var mViewModel: PlansZipcodeViewModel
     private var lastSearchZipCode = ""
 
@@ -134,10 +133,12 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
     }
 
-    /** Set toolbar title according to selection of fuel in previous screen.
+    /**
+     * Set toolbar title according to selection of fuel in previous screen.
      * For example, if user select gas fuel then title should be "Natural Gas"
      */
     private fun setToolbar() {
+        var toolbarTitle = ""
         if (mSetEnrollViewModel.planType.equals(Plan.GASFUEL.value)) {
             toolbarTitle = getString(R.string.natural_gas)
         } else if (mSetEnrollViewModel.planType.equals(Plan.ELECTRICFUEL.value)) {

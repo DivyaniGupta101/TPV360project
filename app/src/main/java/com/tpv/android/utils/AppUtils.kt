@@ -3,7 +3,6 @@ package com.tpv.android.utils
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.*
@@ -123,8 +122,7 @@ fun NavController.navigateSafe(
         navExtras: Navigator.Extras? = null
 ) {
     try {
-        val action = currentDestination?.getAction(resId)
-        if (action != null) navigate(resId, args, navOptions, navExtras)
+        navigate(resId, args, navOptions, navExtras)
     } catch (e: Exception) {
         e.printStackTrace()
     }
@@ -137,10 +135,8 @@ fun NavController.navigateSafe(
         navDirections: NavDirections
 ) {
     try {
-        val action = currentDestination?.getAction(navDirections.actionId)
-        if (action != null) navigate(navDirections.actionId, navDirections.arguments, null, null)
+        navigate(navDirections.actionId, navDirections.arguments, null, null)
     } catch (e: Exception) {
-        Log.e("TAG", e.message)
         e.printStackTrace()
     }
 }
@@ -149,8 +145,7 @@ fun NavController.navigateSafe(
 /**
  * Convert file into RequestBody
  */
-fun String?.toRequestBody() =
-        RequestBody.create(MultipartBody.FORM, this ?: "")
+fun String?.toRequestBody() = RequestBody.create(MultipartBody.FORM, this ?: "")
 
 /**
  * Convert file into MultipartBody
@@ -168,7 +163,7 @@ fun File?.toMultipartBody(name: String, type: String): MultipartBody.Part? {
 /**
  * Convert bitmap into file
  */
-fun Context.BitmapToFile(imageBitmap: Bitmap?): File {
+fun Context.bitmapToFile(imageBitmap: Bitmap?): File {
     val file = File(this.cacheDir, Calendar.getInstance().timeInMillis.toString() + ".jpg")
     file.createNewFile()
 

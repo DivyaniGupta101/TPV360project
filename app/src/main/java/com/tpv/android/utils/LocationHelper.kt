@@ -10,7 +10,7 @@ import kotlin.coroutines.suspendCoroutine
 object LocationHelper {
 
     /**
-     * it provides the last location
+     * It provides the last location
      * @param context it needed to pass the location provider client
      * @return [Location] location object
      */
@@ -22,5 +22,4 @@ object LocationHelper {
                             continuation.resume(location)
                         }
             }
-
 }

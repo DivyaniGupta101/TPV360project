@@ -13,8 +13,8 @@ import com.livinglifetechway.k4kotlin.core.isNetworkAvailable
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogErrorBinding
-import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
 
 
 interface ErrorHandler {
@@ -53,6 +53,7 @@ class AlertErrorHandler(
 
         val binding = DataBindingUtil.inflate<DialogErrorBinding>(LayoutInflater.from(view.context), R.layout.dialog_error, null, false)
         val dialog = AlertDialog.Builder(view.context)
+                .setCancelable(isCancelable)
                 .setView(binding.root).show()
 
 

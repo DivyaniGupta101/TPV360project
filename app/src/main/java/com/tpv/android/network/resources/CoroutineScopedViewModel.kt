@@ -18,14 +18,3 @@ open class CoroutineScopedViewModel : ViewModel(), CoroutineScope {
         job.cancel() // Cancel job when ViewModel is cleared
     }
 }
-
-open class CoroutineScopedAndroidViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
-    private var job: Job = Job()
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
-
-    override fun onCleared() {
-        super.onCleared()
-        job.cancel() // Cancel job when ViewModel is cleared
-    }
-}

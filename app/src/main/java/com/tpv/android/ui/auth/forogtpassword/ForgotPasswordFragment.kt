@@ -72,14 +72,14 @@ class ForgotPasswordFragment : Fragment() {
         val liveData = mViewModel.forgotPassword(ForgotPasswordReq(mBinding.editEmail.value))
         liveData.observe(this, Observer {
             it.ifSuccess {
-                sucessDialog(it)
+                successDialog(it)
             }
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
-    private fun sucessDialog(response: CommonResponse<Any>?) {
+    private fun successDialog(response: CommonResponse<Any>?) {
         val binding = DataBindingUtil.inflate<DialogErrorBinding>(layoutInflater, R.layout.dialog_error, null, false)
         context?.let {
             val dialog = AlertDialog.Builder(it)
