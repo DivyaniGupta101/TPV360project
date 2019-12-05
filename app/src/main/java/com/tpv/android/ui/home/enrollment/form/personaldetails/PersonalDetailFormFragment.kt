@@ -25,9 +25,9 @@ import com.tpv.android.R
 import com.tpv.android.databinding.DialogOtpBinding
 import com.tpv.android.databinding.DialogRelationshipBinding
 import com.tpv.android.databinding.FragmentPersonalDetailFormBinding
-import com.tpv.android.model.DialogText
-import com.tpv.android.model.OTPReq
-import com.tpv.android.model.VerifyOTPReq
+import com.tpv.android.model.internal.DialogText
+import com.tpv.android.model.network.OTPReq
+import com.tpv.android.model.network.VerifyOTPReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError

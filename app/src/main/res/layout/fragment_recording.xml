@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.CustomerData" />
+            type="com.tpv.android.model.network.CustomerData" />
     </data>
 
     <LinearLayout

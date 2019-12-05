@@ -11,7 +11,7 @@
 
         <import type="com.tpv.android.network.resources.apierror.APIError" />
 
-        <import type="com.tpv.android.model.DashBoardItem" />
+        <import type="com.tpv.android.model.internal.DashBoardItem" />
 
         <import type="androidx.lifecycle.LiveData" />
 
@@ -27,7 +27,7 @@
 
         <variable
             name="item"
-            type="LiveData&lt;ArrayList&lt;DashBoardItem>>" />
+            type="com.tpv.android.model.internal.DashBoardItem" />
 
     </data>
 

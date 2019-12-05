@@ -1,4 +1,4 @@
-package com.tpv.android.model
+package com.tpv.android.model.network
 
 import com.google.gson.annotations.SerializedName
 

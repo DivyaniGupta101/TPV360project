@@ -1,4 +1,4 @@
-package com.tpv.android.model
+package com.tpv.android.model.internal
 
 data class DialogText(var title: String?,
                       var description: String?,

@@ -21,7 +21,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.DialogText" />
+            type="com.tpv.android.model.internal.DialogText" />
     </data>
 
 

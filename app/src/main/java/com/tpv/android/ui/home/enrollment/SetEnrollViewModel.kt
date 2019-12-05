@@ -1,7 +1,7 @@
 package com.tpv.android.ui.home.enrollment
 
 import com.tpv.android.data.AppRepository
-import com.tpv.android.model.*
+import com.tpv.android.model.network.*
 import com.tpv.android.network.resources.CoroutineScopedViewModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

@@ -19,7 +19,7 @@ import com.tpv.android.BuildConfig
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLoginBinding
 import com.tpv.android.helper.Pref
-import com.tpv.android.model.LoginReq
+import com.tpv.android.model.network.LoginReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError

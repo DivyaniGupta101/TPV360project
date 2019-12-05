@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.LeadResp" />
+            type="com.tpv.android.model.network.LeadResp" />
 
     </data>
 

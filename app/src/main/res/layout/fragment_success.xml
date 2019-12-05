@@ -23,7 +23,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.SaveLeadsDetailResp" />
+            type="com.tpv.android.model.network.SaveLeadsDetailResp" />
     </data>
 
     <LinearLayout

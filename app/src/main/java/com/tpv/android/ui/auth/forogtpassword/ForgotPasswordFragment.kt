@@ -20,8 +20,8 @@ import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogErrorBinding
 import com.tpv.android.databinding.FragmentForgotPasswordBinding
-import com.tpv.android.model.CommonResponse
-import com.tpv.android.model.ForgotPasswordReq
+import com.tpv.android.model.network.CommonResponse
+import com.tpv.android.model.network.ForgotPasswordReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError

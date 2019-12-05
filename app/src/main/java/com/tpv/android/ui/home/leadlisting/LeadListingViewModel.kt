@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.tpv.android.data.AppRepository
 import com.tpv.android.helper.asLiveData
-import com.tpv.android.model.LeadReq
-import com.tpv.android.model.LeadResp
+import com.tpv.android.model.network.LeadReq
+import com.tpv.android.model.network.LeadResp
 import com.tpv.android.network.resources.CoroutineScopedViewModel
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError

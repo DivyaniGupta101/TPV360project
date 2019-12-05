@@ -16,8 +16,8 @@ import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentSuccessBinding
 import com.tpv.android.helper.OnBackPressCallBack
-import com.tpv.android.model.CustomerData
-import com.tpv.android.model.SuccessReq
+import com.tpv.android.model.network.CustomerData
+import com.tpv.android.model.network.SuccessReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError

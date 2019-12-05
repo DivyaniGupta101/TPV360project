@@ -24,7 +24,7 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogLogoutBinding
 import com.tpv.android.databinding.FragmentRecordingBinding
-import com.tpv.android.model.DialogText
+import com.tpv.android.model.internal.DialogText
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.audio.AudioDataReceivedListener
 import com.tpv.android.utils.audio.RecordingThread

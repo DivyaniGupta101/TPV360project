@@ -8,7 +8,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.UserDetail" />
+            type="com.tpv.android.model.network.UserDetail" />
 
     </data>
 

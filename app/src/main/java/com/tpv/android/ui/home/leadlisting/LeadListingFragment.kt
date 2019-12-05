@@ -16,7 +16,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLeadListingBinding
 import com.tpv.android.databinding.ItemLeadListBinding
 import com.tpv.android.helper.setPagination
-import com.tpv.android.model.LeadResp
+import com.tpv.android.model.network.LeadResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError

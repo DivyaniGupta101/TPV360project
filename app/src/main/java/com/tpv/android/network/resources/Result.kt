@@ -1,12 +1,5 @@
 package com.tpv.android.network.resources
 
-import androidx.lifecycle.MutableLiveData
-import com.livinglifetechway.k4kotlin.core.orFalse
-import com.livinglifetechway.k4kotlin.core.orZero
-import com.tpv.android.model.PaginateCommonResp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-
 sealed class Result<T, F> {
     companion object {
         fun <T, F> success(data: T?) = Success<T, F>(data)

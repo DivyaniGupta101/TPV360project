@@ -1,6 +1,6 @@
 package com.tpv.android.network
 
-import com.tpv.android.model.*
+import com.tpv.android.model.network.*
 import com.tpv.android.utils.AppConstant
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

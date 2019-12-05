@@ -23,7 +23,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.DialogErrorBinding
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
 import com.tpv.android.helper.OnBackPressCallBack
-import com.tpv.android.model.*
+import com.tpv.android.model.network.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError

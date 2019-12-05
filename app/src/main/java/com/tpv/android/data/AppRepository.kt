@@ -3,7 +3,7 @@ package com.tpv.android.data
 import androidx.lifecycle.LiveData
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.helper.Pref
-import com.tpv.android.model.*
+import com.tpv.android.model.network.*
 import com.tpv.android.network.ApiClient
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.Result

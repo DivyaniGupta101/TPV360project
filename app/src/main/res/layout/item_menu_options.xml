@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.MenuItems" />
+            type="com.tpv.android.model.internal.MenuItems" />
 
         <variable
             name="isSelected"

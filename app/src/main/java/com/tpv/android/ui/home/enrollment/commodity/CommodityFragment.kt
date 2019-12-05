@@ -14,7 +14,7 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentCommodityBinding
 import com.tpv.android.databinding.ItemCommodityBinding
-import com.tpv.android.model.Commodity
+import com.tpv.android.model.internal.Commodity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.enums.Plan

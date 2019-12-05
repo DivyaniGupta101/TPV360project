@@ -2,7 +2,7 @@ package com.tpv.android.helper
 
 import com.chibatching.kotpref.KotprefModel
 import com.chibatching.kotpref.gsonpref.gsonNullablePref
-import com.tpv.android.model.UserDetail
+import com.tpv.android.model.network.UserDetail
 
 object Pref : KotprefModel() {
 

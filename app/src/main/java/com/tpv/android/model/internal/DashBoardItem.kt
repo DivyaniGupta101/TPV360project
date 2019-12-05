@@ -1,4 +1,4 @@
-package com.tpv.android.model
+package com.tpv.android.model.internal
 
 import android.graphics.drawable.Drawable
 

@@ -37,10 +37,10 @@ import com.tpv.android.databinding.DialogErrorBinding
 import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
 import com.tpv.android.helper.Pref
-import com.tpv.android.model.ContractReq
-import com.tpv.android.model.DialogText
-import com.tpv.android.model.SaveLeadsDetailReq
-import com.tpv.android.model.SaveLeadsDetailResp
+import com.tpv.android.model.network.ContractReq
+import com.tpv.android.model.internal.DialogText
+import com.tpv.android.model.network.SaveLeadsDetailReq
+import com.tpv.android.model.network.SaveLeadsDetailResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError

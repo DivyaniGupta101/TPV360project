@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.data.AppRepository
 import com.tpv.android.helper.asLiveData
-import com.tpv.android.model.UtilityReq
-import com.tpv.android.model.ZipCodeReq
-import com.tpv.android.model.ZipCodeResp
+import com.tpv.android.model.network.UtilityReq
+import com.tpv.android.model.network.ZipCodeReq
+import com.tpv.android.model.network.ZipCodeResp
 import com.tpv.android.network.resources.CoroutineScopedViewModel
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
