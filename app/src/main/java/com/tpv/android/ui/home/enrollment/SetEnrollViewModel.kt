@@ -52,4 +52,20 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     fun getNearByZipCodes(lat: String?, lng: String?) = with(AppRepository) {
         getNearByZipcodesCall(lat = lat, lng = lng)
     }
+
+    /**
+     * Remove stored values in viewModel
+     */
+    fun clearSavedData() {
+        utilitiesList.clear()
+        planType = ""
+        zipcode = null
+        programList.clear()
+        customerData = CustomerData()
+        savedLeadDetail = null
+        recordingFile = ""
+        isElectricServiceAddressSame = false
+        isGasServiceAddressSame = false
+        relationShipList.clear()
+    }
 }

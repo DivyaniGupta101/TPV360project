@@ -16,7 +16,6 @@ import com.livinglifetechway.k4kotlin.core.onClick
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentSuccessBinding
 import com.tpv.android.helper.OnBackPressCallBack
-import com.tpv.android.model.network.CustomerData
 import com.tpv.android.model.network.SuccessReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -52,7 +51,7 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
      * On click of backButton remove stored Data
      */
     override fun handleOnBackPressed(): Boolean {
-        removeStoredData()
+        mViewModel.clearSavedData()
         return true
     }
 
@@ -78,7 +77,7 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         }
 
         mBinding.textBackToDashBoard.onClick {
-            removeStoredData()
+            mViewModel.clearSavedData()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_successFragment_to_dashBoardFragment)
         }
     }
@@ -109,29 +108,11 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         val liveData = mViewModel.selfVerification(SuccessReq(verificationType = mVerificationType.joinToString(separator = ","), leadId = mViewModel.savedLeadDetail?.id))
         liveData.observe(this, Observer {
             it?.ifSuccess {
-                removeStoredData()
+                mViewModel.clearSavedData()
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_successFragment_to_dashBoardFragment)
             }
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
-
-    /**
-     * Remove all the storedData in viewModel
-     */
-    private fun removeStoredData() {
-        mViewModel.utilitiesList.clear()
-        mViewModel.planType = ""
-        mViewModel.zipcode = null
-        mViewModel.programList.clear()
-        mViewModel.customerData = CustomerData()
-        mViewModel.savedLeadDetail = null
-        mViewModel.recordingFile = ""
-        mViewModel.isElectricServiceAddressSame = false
-        mViewModel.isGasServiceAddressSame = false
-        mViewModel.relationShipList.clear()
-    }
-
-
 }
