@@ -5,10 +5,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -63,7 +61,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
-        handleStatusBarColor()
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
@@ -125,19 +122,6 @@ class HomeActivity : AppCompatActivity() {
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-    }
-
-    private fun handleStatusBarColor() {
-        val window = getWindow()
-
-        // clear FLAG_TRANSLUCENT_STATUS flag:
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-
-        // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(this@HomeActivity, R.color.colorStatusBarColor))
     }
 
     /**
