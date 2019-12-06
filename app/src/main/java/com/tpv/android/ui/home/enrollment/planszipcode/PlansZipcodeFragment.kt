@@ -260,7 +260,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 setElectricSpinner()
                 if (mBinding.spinnerGas.isShown && mBinding.spinnerElectricity.isShown) {
                     mBinding.btnNext.isEnabled = true
-
+                } else {
+                    hideAllSpinner()
                 }
             }
             Plan.ELECTRICFUEL.value -> {
