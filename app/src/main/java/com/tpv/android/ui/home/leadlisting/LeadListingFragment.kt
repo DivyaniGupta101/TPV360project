@@ -19,6 +19,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.BottomSheetBinding
 import com.tpv.android.databinding.FragmentLeadListingBinding
 import com.tpv.android.databinding.ItemLeadListBinding
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.helper.setPagination
 import com.tpv.android.model.network.LeadResp
 import com.tpv.android.network.error.AlertErrorHandler
@@ -29,11 +30,10 @@ import com.tpv.android.utils.enums.LeadStatus
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
-class LeadListingFragment : Fragment() {
+class LeadListingFragment : Fragment(), OnBackPressCallBack {
+
     lateinit var mBinding: FragmentLeadListingBinding
-    var toolBarTitle = ""
     lateinit var mViewModel: LeadListingViewModel
-    var status = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -50,84 +50,96 @@ class LeadListingFragment : Fragment() {
         initialize()
     }
 
+    override fun handleOnBackPressed(): Boolean {
+        mViewModel.mLastSelectedStatus = ""
+        return true
+    }
+
     private fun initialize() {
-        val leadStatus = arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item
-        status = leadStatus.orEmpty()
-        setUpToolbarTitle(leadStatus)
-        setRecyclerView(leadStatus)
+
+        if (mViewModel.mLastSelectedStatus.isNullOrEmpty()) {
+            mViewModel.mLastSelectedStatus = arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item
+        }
+        setTitleAndRecyclerView(mViewModel.mLastSelectedStatus)
 
         mBinding.bottomStatusContainer.onClick {
-            setBottomSheet(status)
+            setBottomSheetDialog()
         }
     }
 
-    private fun setUpToolbarTitle(leadStatus: String?) {
-        when (leadStatus) {
-            LeadStatus.PENDING.value -> {
-                toolBarTitle = getString(R.string.pending_leads)
-                mBinding.textStatus.setText(getString(R.string.pending))
-            }
-            LeadStatus.VERIFIED.value -> {
-                toolBarTitle = getString(R.string.verified_leads)
-                mBinding.textStatus.setText(getString(R.string.verified))
-            }
-            LeadStatus.DECLINED.value -> {
-                toolBarTitle = getString(R.string.declined_leads)
-                mBinding.textStatus.setText(getString(R.string.declined))
-            }
-            LeadStatus.DISCONNECTED.value -> {
-                toolBarTitle = getString(R.string.disconnected_calls)
-                mBinding.textStatus.setText(getString(R.string.disconnected_calls))
-            }
-        }
+    private fun setBottomSheetDialog() {
 
-        setupToolbar(mBinding.toolbar, toolBarTitle, showMenuIcon = false, showBackIcon = true)
-    }
-
-    private fun setBottomSheet(leadStatus: String?) {
         val binding = DataBindingUtil.inflate<BottomSheetBinding>(layoutInflater, R.layout.bottom_sheet, null, false)
+
         context?.let {
+
             val dialog = BottomSheetDialog(it)
             dialog.setContentView(binding.root)
 
-            binding.radioGroup?.setOnCheckedChangeListener { group, checkedId ->
-                val radioButton = binding.radioGroup.findViewById<RadioButton>(checkedId)
-                if (radioButton.isChecked) {
-                    mBinding.textStatus.setText(radioButton.text)
-//                setUpToolbarTitle(radioButton.tag.toString())
-//                setRecyclerView(radioButton.tag.toString())
-                }
+            binding.radioPending.onClick {
+                setTitleAndRecyclerView(LeadStatus.PENDING.value)
                 dialog.dismiss()
             }
-
-            when (status) {
-                LeadStatus.PENDING.value -> {
-                    binding.radioPending.isChecked = true
-                    status = LeadStatus.PENDING.value
-                    binding.radioPending.tag = LeadStatus.PENDING.value
-                }
-                LeadStatus.VERIFIED.value -> {
-                    binding.radioVerified.isChecked = true
-                    status = LeadStatus.VERIFIED.value
-                    binding.radioVerified.tag = LeadStatus.VERIFIED.value
-                }
-                LeadStatus.DECLINED.value -> {
-                    binding.radioDeclined.isChecked = true
-                    status = LeadStatus.DECLINED.value
-                    binding.radioDeclined.tag = LeadStatus.DECLINED.value
-                }
-                LeadStatus.DISCONNECTED.value -> {
-                    binding.radioDisconnected.isChecked = true
-                    status = LeadStatus.DISCONNECTED.value
-                    binding.radioDisconnected.tag = LeadStatus.DISCONNECTED.value
-                }
+            binding.radioVerified.onClick {
+                setTitleAndRecyclerView(LeadStatus.VERIFIED.value)
+                dialog.dismiss()
             }
+            binding.radioDeclined.onClick {
+                setTitleAndRecyclerView(LeadStatus.DECLINED.value)
+                dialog.dismiss()
+            }
+            binding.radioDisconnected.onClick {
+                setTitleAndRecyclerView(LeadStatus.DISCONNECTED.value)
+                dialog.dismiss()
+            }
+            // Check if any radioButton text match with mBinding.textStatus.text
+            // Then add in listOfRadioButton and then set that item as selected
+            val listOfRadioButton = ArrayList<RadioButton>()
+            binding.radioGroup.findViewsWithText(listOfRadioButton as java.util.ArrayList<View>, mBinding.textStatus.text, View.FIND_VIEWS_WITH_TEXT)
+            listOfRadioButton.get(0).isChecked = true
 
             dialog.show()
         }
     }
 
+    private fun setTitleAndRecyclerView(status: String?) {
+        setUpToolbarTitle(status)
+        setRecyclerView(status)
+    }
+
+
+    private fun setUpToolbarTitle(leadStatus: String?) {
+        mViewModel.mLastSelectedStatus = leadStatus
+        var toolBarTitle = ""
+
+        when (leadStatus) {
+            LeadStatus.PENDING.value -> {
+                toolBarTitle = getString(R.string.pending_leads)
+                mBinding.textStatus.text = getString(R.string.pending)
+            }
+            LeadStatus.VERIFIED.value -> {
+                toolBarTitle = getString(R.string.verified_leads)
+                mBinding.textStatus.text = getString(R.string.verified)
+            }
+            LeadStatus.DECLINED.value -> {
+                toolBarTitle = getString(R.string.declined_leads)
+                mBinding.textStatus.text = getString(R.string.declined)
+            }
+            LeadStatus.DISCONNECTED.value -> {
+                toolBarTitle = getString(R.string.disconnected_calls)
+                mBinding.textStatus.text = getString(R.string.disconnected)
+            }
+        }
+        setupToolbar(mBinding.toolbar, toolBarTitle, showMenuIcon = false, showBackIcon = true, backIconClickListener = {
+            mViewModel.mLastSelectedStatus = ""
+        })
+    }
+
     private fun setRecyclerView(leadStatus: String?) {
+        mViewModel.clearList()
+        mBinding.listLead.adapter = null
+        mBinding.listLead.clearOnScrollListeners()
+
         mBinding.paginatedLayout.errorHandler = AlertErrorHandler(mBinding.root)
         mBinding.paginatedLayout.resource = mViewModel.leadsPaginatedResourceLiveData as LiveData<Resource<Any, APIError>>
         mBinding.paginatedLayout.showEmptyView = mViewModel.showEmptyView
