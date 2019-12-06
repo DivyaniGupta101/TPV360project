@@ -75,7 +75,7 @@ class AlertErrorHandler(
         val errorData = resource.errorData
         if (errorData is APIError) {
             if (errorData.message.isNullOrEmpty()) {
-                binding.item = DialogText(view.context.getString(R.string.error), description = view.context.getString(R.string.unknown_error), negativeButtonText = "", positiveButtonText = view.context.getString(R.string.ok))
+                binding.item = DialogText(view.context.getString(R.string.error), description = view.context.getString(R.string.something_went_wrong), negativeButtonText = "", positiveButtonText = view.context.getString(R.string.ok))
             } else {
                 binding.item = DialogText(view.context.getString(R.string.error), description = errorData.message, negativeButtonText = "", positiveButtonText = view.context.getString(R.string.ok))
             }
