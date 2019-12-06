@@ -13,6 +13,8 @@ object ApiClient {
     private val BASE_URL: String = if (BuildConfig.DEBUG) {
         "https://dev.tpv.plus/api/"
 //        "http://192.168.0.19:8000/api/"
+//        "https://newdev.tpv.plus/api/"
+
     } else {
         "https://spark.tpv.plus/api/"
     }
