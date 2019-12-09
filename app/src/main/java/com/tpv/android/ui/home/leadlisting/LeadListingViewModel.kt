@@ -19,12 +19,17 @@ class LeadListingViewModel : CoroutineScopedViewModel() {
     val leadsLiveData: LiveData<List<LeadResp>> = Transformations.map(leadsPaginatedResourceLiveData) { it.data }
 
     val showEmptyView: LiveData<Boolean> = Transformations.map(leadsLiveData) {
-        it.isEmpty()
+        it?.isEmpty()
     }
+    var mLastSelectedStatus:String?=""
 
 
     fun getLeadList(leadstatus: String?, page: Int? = 1) = with(AppRepository) {
         getLeadsCall(leadsLiveData.value.orEmpty(), LeadReq(leadstatus, page = page))
                 .observeForever { leadsPaginatedResourceMutableLiveData.value = it }
+    }
+
+    fun clearList() {
+        leadsPaginatedResourceMutableLiveData.value = Resource.empty()
     }
 }

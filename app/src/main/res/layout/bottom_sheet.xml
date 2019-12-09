@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/bottomSheetContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:behavior_hideable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <TextView
+            style="@style/SecondaryNormalText"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_16sdp"
+            android:text="@string/leads_status"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_16sdp">
+
+            <RadioButton
+                android:id="@+id/radioPending"
+                style="@style/SecondaryNormalText"
+                android:text="@string/pending" />
+
+            <RadioButton
+                android:id="@+id/radioVerified"
+                style="@style/SecondaryNormalText"
+                android:text="@string/verified" />
+
+            <RadioButton
+                android:id="@+id/radioDeclined"
+                style="@style/SecondaryNormalText"
+                android:text="@string/declined" />
+
+            <RadioButton
+                android:id="@+id/radioDisconnected"
+                style="@style/SecondaryNormalText"
+                android:text="@string/disconnected" />
+        </RadioGroup>
+
+
+    </LinearLayout>
+</layout>

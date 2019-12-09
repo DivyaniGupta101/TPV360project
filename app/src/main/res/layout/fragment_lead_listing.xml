@@ -3,24 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <data>
+
+        <import type="com.tpv.android.R" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorScreenBg">
+        android:orientation="vertical"
+        tools:context=".ui.leadlisting.LeadListingFragment">
 
         <include
-            android:id="@+id/paginated_layout"
-            layout="@layout/layout_paginated_state" />
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".ui.leadlisting.LeadListingFragment">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorScreenBg">
 
             <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar" />
+                android:id="@+id/paginated_layout"
+                layout="@layout/layout_paginated_state" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listLead"
@@ -32,8 +39,38 @@
                 android:paddingBottom="@dimen/_50sdp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/item_lead_list" />
+        </FrameLayout>
+
+        <View
+            style="@style/Divider"
+            android:layout_width="match_parent"
+            android:background="@color/colorDarkDivider" />
+
+        <LinearLayout
+            android:id="@+id/bottomStatusContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_12sdp">
+
+            <ImageView
+                android:id="@+id/imageArrow"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:rotation="180"
+                android:src="@drawable/ic_filter_white_32dp"
+                app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
+
+            <TextView
+                android:id="@+id/textStatus"
+                style="@style/SecondaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_weight="1" />
+
 
         </LinearLayout>
 
-    </FrameLayout>
+    </LinearLayout>
+
 </layout>
