@@ -43,15 +43,6 @@
     </style>
 
 
-    <!--    FabButton-->
-    <style name="FabButton">
-        <item name="android:layout_width">@dimen/_30sdp</item>
-        <item name="android:layout_height">@dimen/_30sdp</item>
-        <item name="android:layout_margin">@dimen/_16sdp</item>
-        <item name="android:padding">@dimen/_9sdp</item>
-    </style>
-
-
     <!--    ProfileImage-->
     <style name="ProfileImage">
         <item name="android:layout_height">@dimen/_60sdp</item>
