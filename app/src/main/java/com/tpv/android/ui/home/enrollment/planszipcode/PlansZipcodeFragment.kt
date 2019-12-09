@@ -113,24 +113,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         //Get detail of selected zipcode and then add in viewModel variable "zipcode"
         mSetEnrollViewModel.zipcode = mZipcodeList.find { it.zipcode == mBinding.textZipcode.value }
 
-
-        //Set zipcode value in viewModel
-        when (mSetEnrollViewModel.planType) {
-            Plan.DUALFUEL.value -> {
-                mSetEnrollViewModel.customerData.apply {
-                    gasBillingZip = mSetEnrollViewModel.zipcode?.zipcode
-                    electricBillingZip = mSetEnrollViewModel.zipcode?.zipcode
-                }
-            }
-            else -> {
-                mSetEnrollViewModel.customerData.apply {
-                    billingZip = mSetEnrollViewModel.zipcode?.zipcode
-                }
-            }
-
-        }
         mViewModel.clearZipCodeListData()
-
     }
 
     /**
