@@ -44,6 +44,7 @@ class PersonalDetailFormFragment : Fragment() {
     private lateinit var mViewModel: SetEnrollViewModel
     private var relationShipList: ObservableArrayList<String> = ObservableArrayList()
     private var mLastSelectedRelationShipPosition: Int = 0
+    private var verifiedNumber: String = ""
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -103,6 +104,7 @@ class PersonalDetailFormFragment : Fragment() {
                     )
                 }.validate()
             }
+
         }
 
         mBinding.editPhoneNumber.addTextChangedListener(object : TextWatcher {
@@ -113,9 +115,11 @@ class PersonalDetailFormFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                mBinding.textVerify.isEnabled = true
-                mBinding.textVerify.setText(R.string.verify)
-                mBinding.textVerify.setTextColor(context?.color(R.color.colorTertiaryText).orZero())
+                if (s.toString().equals(verifiedNumber)) {
+                    handleVerifiedText(false)
+                } else {
+                    handleVerifiedText(true)
+                }
             }
         })
 
@@ -148,6 +152,18 @@ class PersonalDetailFormFragment : Fragment() {
         }
     }
 
+    private fun handleVerifiedText(isEditable: Boolean) {
+        if (isEditable) {
+            mBinding.textVerify.isEnabled = true
+            mBinding.textVerify.setText(R.string.verify)
+            mBinding.textVerify.setTextColor(context?.color(R.color.colorTertiaryText).orZero())
+        } else {
+            mBinding.textVerify.isEnabled = false
+            mBinding.textVerify.setText(R.string.verified)
+            mBinding.textVerify.setTextColor(context?.color(R.color.colorVerifiedText).orZero())
+        }
+    }
+
     private fun generateOTPApiCall() {
         val liveData = mViewModel.generateOTP(OTPReq(mBinding.editPhoneNumber.value))
         liveData.observe(this, Observer {
@@ -163,10 +179,9 @@ class PersonalDetailFormFragment : Fragment() {
         val liveData = mViewModel.verifyOTP(VerifyOTPReq(otp = otp, phonenumber = mBinding.editPhoneNumber.value))
         liveData.observe(this, Observer {
             it.ifSuccess {
+                verifiedNumber = mBinding.editPhoneNumber.value
                 dialog.dismiss()
-                mBinding.textVerify.setText(R.string.verified)
-                mBinding.textVerify.setTextColor(context?.color(R.color.colorVerifiedText).orZero())
-                mBinding.textVerify.isEnabled = false
+                handleVerifiedText(false)
                 activity?.hideKeyboard()
             }
         })
