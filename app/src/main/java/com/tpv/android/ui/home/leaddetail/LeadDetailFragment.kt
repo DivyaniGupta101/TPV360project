@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLeadDetailBinding
@@ -42,8 +41,7 @@ class LeadDetailFragment : Fragment() {
     private fun initialize() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
-        setupToolbar(mBinding.toolbar, getString(R.string.lead_details), showBackIcon = true, showSubTitle = true, subTitleText = getString(R.string.edit), subTitleClickListener = {
-        })
+        setupToolbar(mBinding.toolbar, getString(R.string.lead_details), showBackIcon = true)
         getLeadDetailApiCall()
     }
 
