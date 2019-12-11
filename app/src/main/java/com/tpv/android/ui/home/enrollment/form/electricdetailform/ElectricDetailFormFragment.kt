@@ -68,6 +68,8 @@ class ElectricDetailFormFragment : Fragment() {
         {
             mBinding.editBillingAddress.isEnabled = true
             mBinding.editBillingZipCode.isEnabled = true
+            mBinding.editBillingAddress.value = ""
+            mBinding.editBillingZipCode.value = ""
             mBinding.editBillingAddress.setTextColor(context.color(R.color.colorPrimaryText))
             mBinding.editBillingZipCode.setTextColor(context.color(R.color.colorPrimaryText))
         }
