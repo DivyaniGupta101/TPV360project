@@ -47,7 +47,7 @@
                     style="@style/PrimaryBoldText"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingTop="@dimen/_16sdp"
-                    android:text="@string/gas_detail"
+                    android:text="@string/gas_details"
                     android:textAllCaps="true"
                     android:textColor="@color/colorTertiaryText" />
 

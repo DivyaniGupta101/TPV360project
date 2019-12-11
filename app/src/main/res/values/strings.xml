@@ -129,8 +129,8 @@
     <string name="client_info">Client Info</string>
     <string name="record_again">Record Again</string>
     <string name="personal_details">Personal Details</string>
-    <string name="electric_detail">Electric Detail</string>
-    <string name="gas_detail">Gas Detail</string>
+    <string name="electric_details">Electric Details</string>
+    <string name="gas_details">Gas Details</string>
     <string name="personal_data">Personal Data</string>
     <string name="gas">Gas</string>
     <string name="electric">Electric</string>
