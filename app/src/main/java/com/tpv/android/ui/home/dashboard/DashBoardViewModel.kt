@@ -14,14 +14,17 @@ class DashBoardViewModel : CoroutineScopedViewModel() {
 
     private val dashBoardCountMutableLiveData = MutableLiveData<ArrayList<DashBoardItem>>()
     val dashBoardCount: LiveData<ArrayList<DashBoardItem>> = dashBoardCountMutableLiveData
+    var dashBoardStatusCount: ArrayList<DashBoardItem> = ArrayList()
 
     fun getDashBoardDetail(context: Context) = with(AppRepository) {
-        val dashBoardStatusCount = arrayListOf(
-                DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_pending), context.getString(R.string.pending_leads), "-", LeadStatus.PENDING.value),
-                DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_verified), context.getString(R.string.verified_leads), "-", LeadStatus.VERIFIED.value),
-                DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_declined), context.getString(R.string.declined_leads), "-", LeadStatus.DECLINED.value),
-                DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_disconnected), context.getString(R.string.disconnected_calls), "-", LeadStatus.DISCONNECTED.value)
-        )
+        if (dashBoardStatusCount.isEmpty()) {
+            dashBoardStatusCount = arrayListOf(
+                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_pending), context.getString(R.string.pending_leads), "-", LeadStatus.PENDING.value),
+                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_verified), context.getString(R.string.verified_leads), "-", LeadStatus.VERIFIED.value),
+                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_declined), context.getString(R.string.declined_leads), "-", LeadStatus.DECLINED.value),
+                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_disconnected), context.getString(R.string.disconnected_calls), "-", LeadStatus.DISCONNECTED.value)
+            )
+        }
         getDashBoardCall().observeForever {
 
             it.ifSuccess {
