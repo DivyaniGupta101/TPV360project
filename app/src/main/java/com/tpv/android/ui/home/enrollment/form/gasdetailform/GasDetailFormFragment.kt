@@ -117,11 +117,11 @@ class GasDetailFormFragment : Fragment() {
                     EmptyValidator(),
                     getString(R.string.enter_billing_first_name)
             )
-            addValidate(
-                    mBinding.editBillingMiddleName,
-                    EmptyValidator(),
-                    getString(R.string.enter_billing_middle_name)
-            )
+//            addValidate(
+//                    mBinding.editBillingMiddleName,
+//                    EmptyValidator(),
+//                    getString(R.string.enter_billing_middle_name)
+//            )
             addValidate(
                     mBinding.editBillingLastName,
                     EmptyValidator(),

@@ -196,11 +196,11 @@ class PersonalDetailFormFragment : Fragment() {
                     EmptyValidator(),
                     getString(R.string.enter_authorised_first_name)
             )
-            addValidate(
-                    mBinding.editAuthorisedMiddleName,
-                    EmptyValidator(),
-                    getString(R.string.enter_authorised_middle_name)
-            )
+//            addValidate(
+//                    mBinding.editAuthorisedMiddleName,
+//                    EmptyValidator(),
+//                    getString(R.string.enter_authorised_middle_name)
+//            )
             addValidate(
                     mBinding.editAuthorisedLastName,
                     EmptyValidator(),
