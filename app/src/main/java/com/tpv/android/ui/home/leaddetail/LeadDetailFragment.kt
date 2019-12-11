@@ -43,7 +43,6 @@ class LeadDetailFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         setupToolbar(mBinding.toolbar, getString(R.string.lead_details), showBackIcon = true, showSubTitle = true, subTitleText = getString(R.string.edit), subTitleClickListener = {
-            toastNow("Coming soon!!")
         })
         getLeadDetailApiCall()
     }
