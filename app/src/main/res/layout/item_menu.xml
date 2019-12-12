@@ -110,6 +110,16 @@
                 app:isSelected="@{currentSelected == menuItem.LOGOUT.value }"
                 app:item="@{menutItemList[3]}" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp" />
+
+            <TextView
+                android:id="@+id/textSettings"
+                style="@style/SecondaryNormalText"
+                android:layout_gravity="center"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/setting" />
         </LinearLayout>
     </ScrollView>
 </layout>

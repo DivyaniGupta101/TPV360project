@@ -2,13 +2,9 @@ package com.tpv.android.ui.home
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -16,12 +12,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.show
 import com.livinglifetechway.k4kotlin.core.startActivity
 import com.livinglifetechway.k4kotlin.databinding.setBindingView
+import com.tpv.android.BuildConfig
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivityHomeBinding
-import com.tpv.android.databinding.DialogActionBinding
 import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.internal.DialogText
@@ -75,6 +73,12 @@ class HomeActivity : AppCompatActivity() {
 
         mBinding.navMenu.currentSelected = mLastSelectedItem
 
+        if (BuildConfig.DEBUG) {
+            mBinding.navMenu?.textSettings?.show()
+        } else {
+            mBinding.navMenu?.textSettings?.hide()
+        }
+
         mBinding.navMenu?.layoutDashboard?.parentContainer?.onClick {
             menuItemSelection(MenuItem.DASHBOARD.value)
             closeDrawer()
@@ -93,6 +97,11 @@ class HomeActivity : AppCompatActivity() {
             mNavController.navigateSafe(R.id.action_global_commodityFragment)
         }
 
+        mBinding.navMenu?.textSettings?.onClick {
+            closeDrawer()
+            startActivityForResult(Intent(this@HomeActivity, SettingsActivity::class.java), SettingsActivity.REQUEST_SETTINGS)
+        }
+
         mBinding.navMenu?.layoutLogout?.parentContainer?.onClick {
             mBinding.navMenu.currentSelected = MenuItem.LOGOUT.value
             closeDrawer()
@@ -105,6 +114,10 @@ class HomeActivity : AppCompatActivity() {
                 context.logOutApiCall()
             })
         }
+    }
+
+    private fun settingDialog() {
+
     }
 
     private fun getProfileApiCall() {
@@ -188,7 +201,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == StatementFragment.REQUEST_GPS_SETTINGS) {
             StatementFragment().onActivityResult(requestCode, resultCode, data);
-        } else {
+        } else {2
             super.onActivityResult(requestCode, resultCode, data)
         }
     }

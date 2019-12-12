@@ -112,16 +112,18 @@ class DataResource<R, F> {
         this.funcFromNetwork = func
     }
 
-    /**
-     * @return [Resource]
-     * this is the extension function of result, it maps the result to
-     * their appropriate resource
-     */
-    private fun Result<R, F>.mapToResource(): Resource<R, F> {
-        return when (this) {
-            is Success -> Resource.success(data)
-            is Failure -> Resource.error(null, throwable, error)
-        }
+
+}
+
+/**
+ * @return [Resource]
+ * this is the extension function of result, it maps the result to
+ * their appropriate resource
+ */
+public fun <R,F> Result<R, F>.mapToResource(): Resource<R, F> {
+    return when (this) {
+        is Success -> Resource.success(data)
+        is Failure -> Resource.error(null, throwable, error)
     }
 }
 

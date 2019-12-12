@@ -9,7 +9,11 @@ data class ZipCodeResp(
         var label: String?,
         @SerializedName("value")
         var value: String?
-)
+){
+    override fun toString(): String {
+        return label.toString()
+    }
+}
 
 data class ZipCodeReq(
     @SerializedName("zipcode")

@@ -5,13 +5,11 @@ import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.network.*
 import com.tpv.android.network.ApiClient
-import com.tpv.android.network.resources.Resource
-import com.tpv.android.network.resources.Result
+import com.tpv.android.network.resources.*
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.dataproviders.dataApi
 import com.tpv.android.network.resources.dataproviders.paginatedDataApi
-import com.tpv.android.network.resources.getResult
-import com.tpv.android.network.resources.map
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -71,13 +69,14 @@ object AppRepository {
     }
 
     //zipcodeList
-    fun CoroutineScope.getZipCodeCall(zipCodeReq: ZipCodeReq) = dataApi<List<ZipCodeResp>, APIError> {
-        fromNetwork {
-            ApiClient.service.zipAutoCompleteApi(zipCodeReq).getResult().map {
+    fun getZipCodeCall(zipCodeReq: ZipCodeReq)  =
+            ApiClient.service.zipAutoCompleteApi(zipCodeReq).getResultSync().map {
                 it?.data.orEmpty()
-            }
         }
-    }
+
+
+
+
 
     //UtilityList
     fun CoroutineScope.getUtilityCall(utilityReq: UtilityReq) = dataApi<List<UtilityResp>, APIError>

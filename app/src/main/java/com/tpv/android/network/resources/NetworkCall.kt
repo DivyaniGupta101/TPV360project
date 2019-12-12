@@ -30,6 +30,23 @@ suspend fun <T : Any> Call<T>.getResult(): Result<T, APIError> {
 }
 
 
+ fun <T : Any> Call<T>.getResultSync(): Result<T, APIError> {
+    return try {
+        val response = this.execute()
+        if (response.isSuccessful) {
+            Success(response.body())
+        } else {
+            //parse error from API
+            val apiError = APIErrorUtils.parseError<T, APIError>(response)
+            Failure(null, apiError)
+        }
+    } catch (throwable: Throwable) {
+        Log.e(TAG, "getResult: ", throwable)
+        Failure(throwable, null)
+    }
+}
+
+
 
 
 

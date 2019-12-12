@@ -111,11 +111,17 @@ class StatementFragment : Fragment() {
             setButtonEnable()
         }
 
+        //If geo location is enable then
         //Get current location and get zipcode
         //After that compare with previous selected(stored) zipcode
         //If same then saveAllDetails related to leads else show Dialog for zipcode does not mathch.
+        //Else direct saveAllDetails.
         mBinding.btnNext.onClick {
-            getLocation()
+            if (AppConstant.GEO_LOCATION_ENABLE) {
+                getLocation()
+            } else {
+                saveCustomerDataApiCall()
+            }
         }
 
         mBinding.imageSign.onClick {

@@ -56,11 +56,12 @@
                         android:layout_marginTop="@dimen/_50sdp"
                         android:text="@string/zipcode" />
 
-                    <AutoCompleteTextView
+                    <com.tpv.android.utils.customview.DelayAutoCompleteTextView
                         android:id="@+id/textZipcode"
                         style="@style/DefaultEditText"
                         android:layout_width="match_parent"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:maxLength="5" />
 
                     <TextView
                         android:id="@+id/textGas"

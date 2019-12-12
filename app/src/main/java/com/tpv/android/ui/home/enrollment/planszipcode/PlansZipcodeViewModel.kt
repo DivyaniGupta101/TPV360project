@@ -11,41 +11,27 @@ import com.tpv.android.model.network.ZipCodeResp
 import com.tpv.android.network.resources.CoroutineScopedViewModel
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.dataproviders.mapToResource
 import com.tpv.android.network.resources.extensions.ifSuccess
 
 class PlansZipcodeViewModel : CoroutineScopedViewModel() {
 
-    private val zipCodeMutableLiveData = MutableLiveData<List<ZipCodeResp>>()
-    val zipCodeLiveData: LiveData<List<ZipCodeResp>> = zipCodeMutableLiveData.asLiveData()
 
-    private val observer: (Resource<List<ZipCodeResp>, APIError>) -> Unit = {
-        it.ifSuccess { list ->
-            if (list?.isNotEmpty().orFalse()) {
-                zipCodeMutableLiveData.value = list
-            }
-        }
-    }
-    private var currentZipCodeCall: LiveData<Resource<List<ZipCodeResp>, APIError>>? = null
+    private var currentZipCodeCallMutableLiveData = MutableLiveData<Resource<List<ZipCodeResp>, APIError>>()
+     var zipCodeLiveData: LiveData<Resource<List<ZipCodeResp>, APIError>> = currentZipCodeCallMutableLiveData
 
-    fun getZipCode(zipCodeReq: ZipCodeReq) {
-        with(AppRepository) {
-            // remove existing observer so that old api call doesn't replace existing data
-            currentZipCodeCall?.removeObserver(observer)
 
-            // request new results
-            currentZipCodeCall = getZipCodeCall(zipCodeReq)
 
-            // observe on it to get the latest data
-            currentZipCodeCall?.observeForever(observer)
-        }
-    }
+    fun getZipCodeSynchronously(zipCodeReq: ZipCodeReq) =
+        AppRepository.getZipCodeCall(zipCodeReq).mapToResource()
+
 
     fun getUtility(utilityReq: UtilityReq) = with(AppRepository) {
         getUtilityCall(utilityReq)
     }
 
     fun clearZipCodeListData() {
-        zipCodeMutableLiveData.value = emptyList()
+        currentZipCodeCallMutableLiveData.value = Resource.empty()
     }
 
 }

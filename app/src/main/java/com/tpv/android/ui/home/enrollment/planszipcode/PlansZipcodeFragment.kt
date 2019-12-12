@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Filter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
@@ -138,17 +139,51 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     private fun setAutoCompleterTextView() {
         mBinding.textZipcode.threshold = 1
 
-        mViewModel.zipCodeLiveData.observe(this, Observer { list ->
-            mZipcodeList.clear()
-            mZipcodeList.addAll(list.orEmpty())
-            val autoCompleteAdapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, mZipcodeList.map { it.label })
-            mBinding.textZipcode.setAdapter(autoCompleteAdapter)
-            mBinding.textZipcode.showDropDown()
-        })
+        /*  val autoCompleteAdapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, mZipcodeList.map { it.label })
+          mBinding.textZipcode.setAdapter(autoCompleteAdapter)*/
 
-        mBinding.textZipcode.addTextWatcher { s, start, before, count ->
-            zipCodeApiCall(s.toString())
+        val adaptor = object : ArrayAdapter<ZipCodeResp>(context, android.R.layout.simple_selectable_list_item, ArrayList<ZipCodeResp>()) {
+
+            override fun getFilter(): Filter {
+                return object : Filter() {
+
+
+                    override fun performFiltering(constraint: CharSequence?): FilterResults {
+                        val filterResult = FilterResults()
+                        if (constraint.isNullOrBlank()) {
+                            filterResult.values = emptyList<String>()
+                            filterResult.count = 0
+                            return filterResult
+                        }
+
+                        val resource = mViewModel.getZipCodeSynchronously(ZipCodeReq(constraint.toString()))
+                        resource.ifSuccess {
+
+                            mZipcodeList.clear()
+                            mZipcodeList.addAll(it.orEmpty())
+
+                            filterResult.values = it.orEmpty()
+                            filterResult.count = it?.size.orZero()
+                        }
+                        resource.ifFailure { _, _ ->
+                            filterResult.values = emptyList<String>()
+                            filterResult.count = 0
+                        }
+                        return filterResult
+                    }
+
+                    override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                        clear()
+                        results?.values?.let {
+                            addAll(it as List<ZipCodeResp>)
+                        }
+                    }
+
+                }
+            }
         }
+
+        mBinding.textZipcode.setAdapter(adaptor)
 
         //On Click of dropdown, set selected value in editText
         //Also set that value in "lastSearchZipcode"
@@ -169,14 +204,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 hideAllSpinner()
             }
         }
-    }
-
-    private fun zipCodeApiCall(zipcode: String?) {
-        mHandler.removeCallbacksAndMessages(null)
-        mHandler.postDelayed({
-            if (!zipcode.equals(lastSearchZipCode))
-                mViewModel.getZipCode(ZipCodeReq(zipcode))
-        }, TEXT_CHANGE_DELAY)
     }
 
     /**

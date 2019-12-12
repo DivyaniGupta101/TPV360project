@@ -47,43 +47,41 @@ fun Fragment.setupToolbar(
         backIconClickListener: (() -> Unit)? = null
 ) {
 
+    toolbarContainer.textToolbarTitle.text = title
+
+    val backImage = toolbarContainer.imageToolbarBack
+    val subTitle = toolbarContainer.textSkip
+    val menuImage = toolbarContainer.imageToolbarMenu
+
+    if (subTitleText.isNotEmpty()) {
+        subTitle.setText(subTitleText)
+    }
+
+    if (showBackIcon) {
+        backImage?.show()
+        backImage?.onClick {
+            hideKeyboard()
+            if (backIconClickListener != null) {
+                backIconClickListener.invoke()
+            }
+            Navigation.findNavController(toolbarContainer.root).navigateUp()
+        }
+    } else {
+        backImage?.hide()
+    }
+
+    if (showSubTitle) {
+        subTitle?.show()
+        menuImage?.hide()
+        subTitle?.onClick {
+            subTitleClickListener?.invoke()
+        }
+
+    } else {
+        textSkip?.invisible()
+    }
     when (activity) {
         is HomeActivity -> {
-
-            toolbarContainer.textToolbarTitle.text = title
-
-            val backImage = toolbarContainer.imageToolbarBack
-            val subTitle = toolbarContainer.textSkip
-            val menuImage = toolbarContainer.imageToolbarMenu
-
-            if (subTitleText.isNotEmpty()) {
-                subTitle.setText(subTitleText)
-            }
-
-            if (showBackIcon) {
-                backImage?.show()
-                backImage?.onClick {
-                    hideKeyboard()
-                    if (backIconClickListener != null) {
-                        backIconClickListener.invoke()
-                    }
-                    Navigation.findNavController(toolbarContainer.root).navigateUp()
-                }
-            } else {
-                backImage?.hide()
-            }
-
-            if (showSubTitle) {
-                subTitle?.show()
-                menuImage?.hide()
-                subTitle?.onClick {
-                    subTitleClickListener?.invoke()
-                }
-
-            } else {
-                textSkip?.invisible()
-            }
-
             if (showMenuIcon) {
                 menuImage?.show()
                 subTitle?.hide()
