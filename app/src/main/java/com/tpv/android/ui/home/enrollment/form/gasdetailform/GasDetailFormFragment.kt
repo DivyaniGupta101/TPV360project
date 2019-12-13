@@ -69,8 +69,6 @@ class GasDetailFormFragment : Fragment() {
 
         if (mViewModel.customerDataList.isNotEmpty()) {
             mBinding.item = mViewModel.customerDataList.find { it?.planType == Plan.GASFUEL.value }
-        } else {
-            mBinding.radioNo.isChecked = true
         }
 
         // AutoPlace picker
@@ -95,7 +93,6 @@ class GasDetailFormFragment : Fragment() {
         }
 
         mBinding.radioNo?.onClick {
-
             mBinding.layoutBillingAddress.editAddress.isEnabled = true
             mBinding.layoutBillingAddress.editUnit.isEnabled = true
             mBinding.layoutBillingAddress.editUnit.value = ""
@@ -250,6 +247,12 @@ class GasDetailFormFragment : Fragment() {
     private fun setValueInViewModel() {
 
         mCustomerData.apply {
+            billingFirstName = mBinding.editBillingFirstName.value
+            billingMiddleInitial = mBinding.editBillingMiddleName.value
+            billingLastName = mBinding.editBillingLastName.value
+            accountNumber = mBinding.editAccountNumber.value
+
+
             billingFirstName = mBinding.editBillingFirstName.value
             billingMiddleInitial = mBinding.editBillingMiddleName.value
             billingLastName = mBinding.editBillingLastName.value

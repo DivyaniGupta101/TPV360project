@@ -86,13 +86,13 @@
                             android:id="@+id/radioYes"
                             style="@style/CheckBoxButton"
                             android:layout_marginStart="0dp"
-                            android:checked="@{item.isAddressSame()}"
+                            android:checked="@{item.isAddressSame()? true : false}"
                             android:text="@string/yes" />
 
                         <RadioButton
                             android:id="@+id/radioNo"
                             style="@style/CheckBoxButton"
-                            android:checked="@{item.isAddressSame()}"
+                            android:checked="@{item.isAddressSame()? false:true}"
                             android:text="@string/no"
                             tools:checked="true" />
                     </RadioGroup>
@@ -120,7 +120,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingFirstName"
                             style="@style/DefaultEditText"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingFirstName : item.billingFirstName }" />
+                            android:text="@{item.billingFirstName}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +135,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingMiddleName"
                             style="@style/DefaultEditText"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingMiddleInitial : item.billingMiddleInitial }" />
+                            android:text="@{item.billingMiddleInitial}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -150,7 +150,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBillingLastName"
                             style="@style/DefaultEditText"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasBillingLastName : item.billingLastName }" />
+                            android:text="@{item.billingLastName}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -166,7 +166,7 @@
                             android:id="@+id/editAccountNumber"
                             style="@style/DefaultEditText"
                             android:inputType="phone"
-                            android:text="@{viewModel.planType == plan.DUALFUEL.value ? item.gasAccountNumber : item.accountNumber }" />
+                           android:text="@{item.accountNumber}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
