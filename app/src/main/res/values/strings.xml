@@ -53,6 +53,8 @@
     <string name="enter_billing_address">Please enter billing address</string>
     <string name="enter_zipcode">Please enter zipcode</string>
     <string name="enter_service_address">Please enter service address</string>
+    <string name="enter_service_unit">Please enter service unit</string>
+    <string name="enter_billing_unit">Please enter billing unit</string>
     <string name="enter_service_zipcode">Please enter service zipcode</string>
     <string name="enter_account_number">Please enter account number</string>
     <string name="enter_valid_phone_number">Please enter valid phone number</string>
@@ -73,6 +75,7 @@
     <string name="no_data_found">No Leads Available</string>
     <string name="error">Error</string>
     <string name="msg_zipcode_not_match">Your current location does not match with your service loaction.</string>
+    <string name="msg_gps_location">Your GPS Location seams to be off. Please turn on GPS and try again.</string>
 
 
     <!-- LeadList-->
@@ -155,6 +158,15 @@
     <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
     <string name="tap_to_open">Tap to open</string>
     <string name="leads_status">Leads Status</string>
-
+    <string name="address_line_1">Address Line 1</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="country">Country</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="address">Address</string>
+    <string name="unit">Unit</string>
+    <string name="name_char">ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-0123456789</string>
 
 </resources>

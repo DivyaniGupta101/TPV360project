@@ -184,13 +184,6 @@ object AppRepository {
         }
     }
 
-    //GetNearByZipCodeList
-    fun CoroutineScope.getNearByZipcodesCall(lat: String?, lng: String?) = dataApi<List<PostalCode>, APIError> {
-        fromNetwork {
-            ApiClient.service.getNearByZipcodes(userLat = lat, userLng = lng).getResult().map { it?.postalCodes.orEmpty() }
-        }
-    }
-
     fun CoroutineScope.getLeadDetailCall(leadId: String?) = dataApi<LinkedHashMap<String?, String?>?, APIError> {
         fromNetwork {
             ApiClient.service.getLeadDetail(leadId).getResult().map { it?.data }

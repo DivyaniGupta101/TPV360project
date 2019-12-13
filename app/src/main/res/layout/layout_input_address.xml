@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="isBilling"
+            type="Boolean" />
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.CustomerData" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/address" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editAddress"
+                style="@style/DefaultEditText"
+                android:focusable="false"
+                android:text="@{isBilling ? item.billingAddress : item.serviceAddress }"
+                android:textColor="@color/colorSecondaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/unit" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editUnit"
+                style="@style/DefaultEditText"
+                android:inputType="text"
+                android:digits="@string/name_char"
+                android:text="@{isBilling ? item.billingUnit : item.serviceUnit }"
+                android:textColor="@color/colorSecondaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/address_line_1" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editAddressLineOne"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:text="@{isBilling ? item.billingAddressLine1 : item.serviceAddressLine1 }"
+                android:textColor="@color/colorSecondaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/address_line_2" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputBillingAddress"
+            style="@style/TextInputLayout">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editAddressLineTwo"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:text="@{isBilling ? item.billingAddressLine2 : item.serviceAddressLine2 }"
+                android:textColor="@color/colorSecondaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/zip_code" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editZipcode"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:text="@{isBilling ? item.billingZipcode : item.serviceZipcode }"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/latitude" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editLatitude"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:text="@{isBilling ? item.billingLatitude : item.serviceLatitude }"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/longitude" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editLongitude"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:text="@{isBilling ? item.billingLongitude : item.serviceLongitude }"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/city" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editCity"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:text="@{isBilling ? item.billingCity : item.serviceCity }"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/state" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editState"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:text="@{isBilling ? item.billingState : item.serviceState }"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/country" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editCountry"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:text="@{isBilling ? item.billingCountry : item.serviceCountry }"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+</layout>

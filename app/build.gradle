@@ -113,4 +113,7 @@ dependencies {
 
     // location services for place picker
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    //Place picker dep
+    implementation 'com.google.android.libraries.places:places:1.1.0'
 }

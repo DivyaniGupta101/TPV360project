@@ -125,6 +125,21 @@ data class CustomerData(
         @SerializedName("Billing Last name")
         var billingLastName: String? = "",
         @SerializedName("Account Number")
-        var accountNumber: String? = ""
-
+        var accountNumber: String? = "",
+        var billingAddressLine1: String? = "",
+        var billingAddressLine2: String? = "",
+        var serviceAddressLine1: String? = "",
+        var serviceAddressLine2: String? = "",
+        var billingZipcode: String? = "",
+        var serviceZipcode: String? = "",
+        var billingLatitude: String? = "",
+        var serviceLatitude: String? = "",
+        var billingLongitude: String? = "",
+        var serviceLongitude: String? = "",
+        var billingCountry: String? = "",
+        var serviceCountry: String? = "",
+        var billingUnit: String? = "",
+        var serviceUnit: String? = "",
+        var isAddressSame: Boolean? = false,
+        var planType: String? = ""
 )

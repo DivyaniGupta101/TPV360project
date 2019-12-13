@@ -9,7 +9,6 @@ import android.content.IntentSender
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -54,7 +53,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.io.File
-import java.util.*
 
 
 class StatementFragment : Fragment() {
@@ -137,21 +135,19 @@ class StatementFragment : Fragment() {
      * Get user current location
      * Check location permission
      * Also check gps is enabled
-     * If last location time is less than 2 minutes then it will give you location else show UnMatchZipcodeDialog
+     * Then checkRadius else show error message
      */
     private fun getLocation() = runWithPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION) {
         uiScope.launch {
             location = context?.let { LocationHelper.getLastKnownLocation(it) }
-            val currentTimeStamp = System.currentTimeMillis()
-            val diffTime = currentTimeStamp.minus(location?.time.orZero())
 
             if (location == null) {
                 createLocationRequest()
             } else {
-                if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse() && diffTime <= AppConstant.LOCATION_EXPIRED_TIMEOUT) {
-                    getZipCodedFromLocation(location)
+                if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
+                    checkRadius(location?.latitude, location?.longitude)
                 } else {
-                    context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match))
+                    context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
                 }
             }
         }
@@ -181,7 +177,6 @@ class StatementFragment : Fragment() {
             // ...
             uiScope.launch {
                 location = context?.let { LocationHelper.getLastKnownLocation(it) }
-                getZipCodedFromLocation(location)
             }
         }
 
@@ -199,44 +194,6 @@ class StatementFragment : Fragment() {
                 }
             }
         }
-    }
-
-    /**
-     * Get zipcode from current or last location and check if it's match with stored Zipcode then able to call all saveLeadsAPI
-     * Else call api getnearByZipcode
-     */
-    private fun getZipCodedFromLocation(location: Location?) {
-        location?.let {
-            val geoCoder = Geocoder(context, Locale.getDefault())
-            val addresses = geoCoder.getFromLocation(it.latitude.orZero(), it.longitude.orZero(), 1)
-            val postalCode = addresses.find { it.postalCode == mViewModel.zipcode?.zipcode }
-
-            if (postalCode != null) {
-                saveCustomerDataApiCall()
-            } else {
-                getNearByZipCodesListApiCall(it.latitude.orZero().toString(), it.longitude.orZero().toString())
-            }
-        }
-    }
-
-    /**
-     * Using current or last location get list of nearByZipcode
-     * Also Check if selected zipcode match with any zipcode from list then call all saveLeadsAPI else show no zipcode match dialog
-     */
-    private fun getNearByZipCodesListApiCall(lat: String?, lng: String?) {
-        val liveData = mViewModel.getNearByZipCodes(lat = lat, lng = lng)
-        liveData.observe(this, Observer {
-            it.ifSuccess { list ->
-                val postalCode = list?.find { it.postalCode == mViewModel.zipcode?.zipcode }
-                if (postalCode != null) {
-                    saveCustomerDataApiCall()
-                } else {
-                    context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match))
-                }
-            }
-
-        })
-
     }
 
     /**
@@ -356,11 +313,6 @@ class StatementFragment : Fragment() {
             }
         })
 
-
-//        if (mSignImage != null) {
-//            binding.btnSave.isEnabled = true
-//            binding.signatureView.signatureBitmap = mSignImage
-//        }
         binding?.textClear?.onClick {
             binding.btnSave.isEnabled = false
             binding.signatureView.clear()
@@ -382,6 +334,27 @@ class StatementFragment : Fragment() {
             setButtonEnable()
         }
     }
+
+    private fun checkRadius(latitude: Double?, longitude: Double?) {
+        try {
+            val result = FloatArray(1)
+
+            Location.distanceBetween(mViewModel.customerDataList.get(0)?.serviceLatitude?.toDouble().orZero(),
+                    mViewModel.customerDataList.get(0)?.serviceLongitude?.toDouble().orZero()
+                    , latitude.orZero(), longitude.orZero(), result)
+
+            if (result.isNotEmpty()) {
+                if (result[0] < AppConstant.GEO_LOCATION_RADIOUS.toDouble() || result[0] == AppConstant.GEO_LOCATION_RADIOUS.toFloat()) {
+                    saveCustomerDataApiCall()
+                } else {
+                    context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match))
+                }
+            }
+        } catch (e: IllegalArgumentException) {
+        }
+    }
+
+
 }
 
 

@@ -17,7 +17,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var savedLeadDetail: SaveLeadsDetailResp? = null
     var recordingFile: String = ""
     var isElectricServiceAddressSame: Boolean? = false
-    var isGasServiceAddressSame: Boolean? = false
+    var customerDataList: ArrayList<CustomerData?> = ArrayList()
 
 
     fun saveLeadDetail(leadsDetailReq: SaveLeadsDetailReq) = with(AppRepository)
@@ -49,10 +49,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         selfVerificationCall(successReq)
     }
 
-    fun getNearByZipCodes(lat: String?, lng: String?) = with(AppRepository) {
-        getNearByZipcodesCall(lat = lat, lng = lng)
-    }
-
     /**
      * Remove stored values in viewModel
      */
@@ -64,8 +60,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         customerData = CustomerData()
         savedLeadDetail = null
         recordingFile = ""
+        customerDataList.clear()
         isElectricServiceAddressSame = false
-        isGasServiceAddressSame = false
         relationShipList.clear()
     }
 }

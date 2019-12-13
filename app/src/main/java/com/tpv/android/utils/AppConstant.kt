@@ -4,10 +4,7 @@ import com.chibatching.kotpref.KotprefModel
 
 object AppConstant : KotprefModel() {
 
-    const val ZIPCODE_GEONAMES_API_URL = "http://api.geonames.org/findNearbyPostalCodesJSON"
-    const val ZIPCODE_GEONAMES_API_REQUEST_USERNAME = "rinal.shah"
-
-    val LOCATION_EXPIRED_TIMEOUT by longPref(2 * 60 * 1000)
     var GEO_LOCATION_ENABLE by booleanPref(true)
-    var GEO_LOCATION_RADIOUS by stringPref("")
+    var GEO_LOCATION_RADIOUS by stringPref("100")
+    const val ADDRESSPICKER_KEY = "AIzaSyB5w9xL068s7yS9muLzbpQvSp6_WK1k0tE"
 }

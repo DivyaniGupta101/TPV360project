@@ -71,13 +71,6 @@ interface ApiInterface {
     @POST("forgotpassword")
     fun forgotPassword(@Body forgotPasswordReq: ForgotPasswordReq): Call<CommonResponse<Any>>
 
-    //NearByZipcode
-    @GET
-    fun getNearByZipcodes(@Url url: String? = AppConstant.ZIPCODE_GEONAMES_API_URL,
-                          @Query("username") userName: String? = AppConstant.ZIPCODE_GEONAMES_API_REQUEST_USERNAME,
-                          @Query("lat") userLat: String?,
-                          @Query("lng") userLng: String?): Call<CommonResponse<List<PostalCode>>>
-
     //LeadDetail
     @GET("leads/{id}")
     fun getLeadDetail(@Path("id") id: String?): Call<CommonResponse<LinkedHashMap<String?, String?>>>
