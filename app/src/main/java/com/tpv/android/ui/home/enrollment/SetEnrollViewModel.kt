@@ -1,5 +1,6 @@
 package com.tpv.android.ui.home.enrollment
 
+import android.graphics.Bitmap
 import com.tpv.android.data.AppRepository
 import com.tpv.android.model.network.*
 import com.tpv.android.network.resources.CoroutineScopedViewModel
@@ -18,7 +19,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var recordingFile: String = ""
     var isElectricServiceAddressSame: Boolean? = false
     var customerDataList: ArrayList<CustomerData?> = ArrayList()
-
+    var isAgreeWithCondition: Boolean = false
+    var signature: Bitmap? = null
 
     fun saveLeadDetail(leadsDetailReq: SaveLeadsDetailReq) = with(AppRepository)
     {
@@ -63,5 +65,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         customerDataList.clear()
         isElectricServiceAddressSame = false
         relationShipList.clear()
+        isAgreeWithCondition = false
+        signature = null
     }
 }
