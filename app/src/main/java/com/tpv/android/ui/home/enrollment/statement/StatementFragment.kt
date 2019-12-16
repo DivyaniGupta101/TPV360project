@@ -99,6 +99,19 @@ class StatementFragment : Fragment() {
     private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
 
+        if (mViewModel.signature != null && mViewModel.isAgreeWithCondition) {
+            mSignImage = mViewModel.signature
+            GlideApp.with(this)
+                    .asBitmap()
+                    .load(mViewModel.signature)
+                    .into(mBinding.imageSign)
+
+            mBinding.textTapToOpen.hide()
+            mBinding.checkContract.isChecked = mViewModel.isAgreeWithCondition
+            setButtonEnable()
+        }
+
+
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -115,6 +128,10 @@ class StatementFragment : Fragment() {
         //If same then saveAllDetails related to leads else show Dialog for zipcode does not mathch.
         //Else direct saveAllDetails.
         mBinding.btnNext.onClick {
+
+            mViewModel.isAgreeWithCondition = mBinding.checkContract.isChecked
+            mViewModel.signature = mSignImage
+
             if (AppConstant.GEO_LOCATION_ENABLE) {
                 getLocation()
             } else {
