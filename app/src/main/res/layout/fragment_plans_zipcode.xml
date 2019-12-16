@@ -61,7 +61,8 @@
                         style="@style/DefaultEditText"
                         android:layout_width="match_parent"
                         android:inputType="phone"
-                        android:maxLength="5" />
+                        android:maxLength="5"
+                        android:digits="@string/number_char"/>
 
                     <TextView
                         android:id="@+id/textGas"

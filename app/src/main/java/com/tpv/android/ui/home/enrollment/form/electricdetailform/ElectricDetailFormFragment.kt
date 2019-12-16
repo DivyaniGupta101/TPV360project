@@ -128,6 +128,31 @@ class ElectricDetailFormFragment : Fragment() {
 
         })
 
+        mBinding.layoutServiceAddress.editAddress.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (mBinding.radioYes.isChecked) {
+                    mBinding.layoutBillingAddress.editAddress.isEnabled = false
+                    mBinding.layoutBillingAddress.editUnit.isEnabled = false
+                    mBinding.layoutBillingAddress.editAddress?.value = mBinding.layoutServiceAddress?.editAddress?.value.orEmpty()
+                    mBinding.layoutBillingAddress.editUnit?.value = mBinding.layoutServiceAddress?.editUnit?.value.orEmpty()
+                    mBinding.layoutBillingAddress?.editAddressLineOne?.value = mBinding.layoutServiceAddress?.editAddressLineOne?.value.orEmpty()
+                    mBinding.layoutBillingAddress?.editAddressLineTwo?.value = mBinding.layoutServiceAddress?.editAddressLineTwo?.value.orEmpty()
+                    mBinding.layoutBillingAddress?.editZipcode?.value = mBinding.layoutServiceAddress?.editZipcode?.value.orEmpty()
+                    mBinding.layoutBillingAddress?.editLatitude?.value = mBinding.layoutServiceAddress?.editLatitude?.value.orEmpty()
+                    mBinding.layoutBillingAddress?.editLongitude?.value = mBinding.layoutServiceAddress?.editLongitude?.value.orEmpty()
+                    mBinding.layoutBillingAddress?.editCity?.value = mBinding.layoutServiceAddress?.editCity?.value.orEmpty()
+                    mBinding.layoutBillingAddress?.editState?.value = mBinding.layoutServiceAddress?.editState?.value.orEmpty()
+                    mBinding.layoutBillingAddress?.editCountry?.value = mBinding.layoutServiceAddress?.editCountry?.value.orEmpty()
+                }
+            }
+        })
+
         mBinding.layoutServiceAddress.editAddress?.onClick {
             val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, addressField)
                     .setCountry("US")
@@ -167,7 +192,6 @@ class ElectricDetailFormFragment : Fragment() {
                     val place = Autocomplete.getPlaceFromIntent(data!!)
                     val addressComponent = addressComponents(place)
 
-                    mBinding.layoutBillingAddress.editAddress.value = addressComponent?.address.orEmpty()
                     mBinding.layoutBillingAddress.editAddressLineOne.value = addressComponent?.addressLine1.orEmpty()
                     mBinding.layoutBillingAddress.editAddressLineTwo.value = addressComponent?.addressLine2.orEmpty()
                     mBinding.layoutBillingAddress.editZipcode.value = addressComponent?.zipcode.orEmpty()
@@ -177,14 +201,13 @@ class ElectricDetailFormFragment : Fragment() {
                     mBinding.layoutBillingAddress.editCity.value = addressComponent?.city.orEmpty()
                     mBinding.layoutBillingAddress.editState.value = addressComponent?.state.orEmpty()
                     mBinding.layoutBillingAddress.editUnit.value = addressComponent?.unit.orEmpty()
-
+                    mBinding.layoutBillingAddress.editAddress.value = addressComponent?.address.orEmpty()
                 }
 
                 AUTOCOMPLETE_REQUEST_CODE_SERVICE -> {
                     val place = Autocomplete.getPlaceFromIntent(data!!)
                     val addressComponent = addressComponents(place)
 
-                    mBinding.layoutServiceAddress.editAddress.value = addressComponent?.address.orEmpty()
                     mBinding.layoutServiceAddress.editAddressLineOne.value = addressComponent?.addressLine1.orEmpty()
                     mBinding.layoutServiceAddress.editAddressLineTwo.value = addressComponent?.addressLine2.orEmpty()
                     mBinding.layoutServiceAddress.editZipcode.value = addressComponent?.zipcode.orEmpty()
@@ -194,6 +217,7 @@ class ElectricDetailFormFragment : Fragment() {
                     mBinding.layoutServiceAddress.editCity.value = addressComponent?.city.orEmpty()
                     mBinding.layoutServiceAddress.editState.value = addressComponent?.state.orEmpty()
                     mBinding.layoutServiceAddress.editUnit.value = addressComponent?.unit.orEmpty()
+                    mBinding.layoutServiceAddress.editAddress.value = addressComponent?.address.orEmpty()
 
                 }
             }

@@ -168,5 +168,6 @@
     <string name="address">Address</string>
     <string name="unit">Unit</string>
     <string name="name_char">ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-0123456789</string>
+    <string name="number_char">0123456789</string>
 
 </resources>
