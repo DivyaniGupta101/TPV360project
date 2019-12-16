@@ -1,7 +1,6 @@
 package com.tpv.android.data
 
-import DynamicFormReq
-import DynamicFormResp
+
 import androidx.lifecycle.LiveData
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.helper.Pref
@@ -188,7 +187,7 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.getDynamicFormCall(dynamicFormReq: DynamicFormReq) = dataApi<DynamicFormResp?, APIError> {
+    fun CoroutineScope.getDynamicFormCall(dynamicFormReq: DynamicFormReq) = dataApi<List<DynamicFormResp>?, APIError> {
         fromNetwork {
             ApiClient.service.getDynamicForm(dynamicFormReq).getResult().map { it?.data }
         }

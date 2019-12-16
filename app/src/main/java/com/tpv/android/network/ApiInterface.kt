@@ -1,7 +1,6 @@
 package com.tpv.android.network
 
-import DynamicFormReq
-import DynamicFormResp
+
 import com.tpv.android.model.network.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -78,6 +77,6 @@ interface ApiInterface {
 
     //GetForm
     @POST("getform")
-    fun getDynamicForm(@Body dynamicFormReq: DynamicFormReq): Call<CommonResponse<DynamicFormResp>>
+    fun getDynamicForm(@Body dynamicFormReq: DynamicFormReq): Call<CommonResponse<List<DynamicFormResp>>>
 
 }

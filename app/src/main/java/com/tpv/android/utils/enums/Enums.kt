@@ -21,19 +21,21 @@ enum class MenuItem(val value: String) {
     LOGOUT("logout")
 }
 
-enum class DynamicField() {
-    full_name,
-    address,
-    textbox,
-    textarea,
-    radio,
-    checkbox,
-    selectbox,
-    separator,
-    heading,
-    label,
-    phone_number,
-    email,
-    service_and_billing_address
+enum class DynamicField (val type:String){
+    FULLNAME("full_name"),
+    ADDRESS("address"),
+    TEXTBOX("textbox"),
+    TEXTAREA("textarea"),
+    RADIO("radio"),
+    CHECKBOX("checkbox"),
+    SELECTBOX("selectbox"),
+    SEPARATE("separator"),
+    HEADING("heading"),
+    LABEL("label"),
+    PHONENUMBER("phone_number"),
+    EMAIL("email"),
+    BOTHADDRESS("service_and_billing_address"),
+
+
 
 }

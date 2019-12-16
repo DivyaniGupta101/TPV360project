@@ -42,8 +42,16 @@
                     android:id="@+id/fieldContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/_18sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingEnd="@dimen/_18sdp"
+                    android:paddingBottom="@dimen/_18sdp" />
 
+                <TextView
+                    android:id="@+id/btnNext"
+                    style="@style/ButtonPrimary"
+                    android:text="@string/next" />
 
             </LinearLayout>
         </ScrollView>

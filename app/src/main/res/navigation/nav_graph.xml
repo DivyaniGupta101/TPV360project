@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/dashBoardFragment">
+    app:startDestination="@id/dynamicFormFragment">
 
     <fragment
         android:id="@+id/dashBoardFragment"
@@ -239,5 +239,10 @@
             android:name="item"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/dynamicFormFragment"
+        android:name="com.tpv.android.ui.home.enrollment.dynamicform.DynamicFormFragment"
+        android:label="DynamicFormFragment"
+        tools:layout="@layout/fragment_dynamic_form" />
 
 </navigation>
