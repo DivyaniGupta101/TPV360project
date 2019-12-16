@@ -1,5 +1,7 @@
 package com.tpv.android.data
 
+import DynamicFormReq
+import DynamicFormResp
 import androidx.lifecycle.LiveData
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.helper.Pref
@@ -9,7 +11,6 @@ import com.tpv.android.network.resources.*
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.dataproviders.dataApi
 import com.tpv.android.network.resources.dataproviders.paginatedDataApi
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -69,13 +70,10 @@ object AppRepository {
     }
 
     //zipcodeList
-    fun getZipCodeCall(zipCodeReq: ZipCodeReq)  =
+    fun getZipCodeCall(zipCodeReq: ZipCodeReq) =
             ApiClient.service.zipAutoCompleteApi(zipCodeReq).getResultSync().map {
                 it?.data.orEmpty()
-        }
-
-
-
+            }
 
 
     //UtilityList
@@ -187,6 +185,12 @@ object AppRepository {
     fun CoroutineScope.getLeadDetailCall(leadId: String?) = dataApi<LinkedHashMap<String?, String?>?, APIError> {
         fromNetwork {
             ApiClient.service.getLeadDetail(leadId).getResult().map { it?.data }
+        }
+    }
+
+    fun CoroutineScope.getDynamicFormCall(dynamicFormReq: DynamicFormReq) = dataApi<DynamicFormResp?, APIError> {
+        fromNetwork {
+            ApiClient.service.getDynamicForm(dynamicFormReq).getResult().map { it?.data }
         }
     }
 }

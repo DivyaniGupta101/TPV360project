@@ -20,3 +20,20 @@ enum class MenuItem(val value: String) {
     ENROLL("enroll"),
     LOGOUT("logout")
 }
+
+enum class DynamicField() {
+    full_name,
+    address,
+    textbox,
+    textarea,
+    radio,
+    checkbox,
+    selectbox,
+    separator,
+    heading,
+    label,
+    phone_number,
+    email,
+    service_and_billing_address
+
+}

@@ -1,7 +1,8 @@
 package com.tpv.android.network
 
+import DynamicFormReq
+import DynamicFormResp
 import com.tpv.android.model.network.*
-import com.tpv.android.utils.AppConstant
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -74,5 +75,9 @@ interface ApiInterface {
     //LeadDetail
     @GET("leads/{id}")
     fun getLeadDetail(@Path("id") id: String?): Call<CommonResponse<LinkedHashMap<String?, String?>>>
+
+    //GetForm
+    @POST("getform")
+    fun getDynamicForm(@Body dynamicFormReq: DynamicFormReq): Call<CommonResponse<DynamicFormResp>>
 
 }
