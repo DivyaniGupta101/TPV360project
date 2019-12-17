@@ -1,6 +1,8 @@
 package com.tpv.android.ui.home.enrollment.dynamicform
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.libraries.places.widget.Autocomplete
+import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.R
 import com.tpv.android.databinding.*
 import com.tpv.android.model.network.DynamicFormReq
@@ -20,13 +25,22 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.home.enrollment.dynamicform.address.fillAddressFields
+import com.tpv.android.ui.home.enrollment.dynamicform.address.isValid
+import com.tpv.android.ui.home.enrollment.dynamicform.address.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.fullname.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.fullname.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.heading.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.label.setField
+import com.tpv.android.ui.home.enrollment.dynamicform.multilineedittext.isValid
+import com.tpv.android.ui.home.enrollment.dynamicform.multilineedittext.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.phone.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.phone.setField
+import com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress.fillAddressFields
+import com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress.isValid
+import com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.setField
 import com.tpv.android.utils.enums.DynamicField
@@ -38,8 +52,6 @@ class DynamicFormFragment : Fragment() {
     private lateinit var mBinding: FragmentDynamicFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var bindingList: ArrayList<Any> = ArrayList()
-    private var validList: ArrayList<Boolean> = ArrayList()
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -64,39 +76,45 @@ class DynamicFormFragment : Fragment() {
         getFormApiCall()
 
         mBinding.btnNext.onClick {
+            hideKeyboard()
+
+            val validList: ArrayList<Boolean> = ArrayList()
 
             if (bindingList.isNotEmpty()) {
 
                 bindingList.forEach { view ->
-                    checkValid(view)
+                    validList.add(checkValid(view))
                 }
 
                 if (!validList.contains(false)) {
                     toastNow("good to go")
                 }
-                validList.clear()
             }
-
-
         }
-
     }
 
-    private fun checkValid(view: Any) {
-        context?.let { ctx ->
-            when (view) {
-                is LayoutInputFullNameBinding -> {
-                    validList.add(ctx.isValid(view))
-                }
-                is LayoutInputSingleLineEditTextBinding -> {
-                    validList.add(ctx.isValid(view))
-                }
-                is LayoutInputPhoneNumberBinding -> {
-                    validList.add(ctx.isValid(view))
-                }
-                else -> {
-
-                }
+    private fun checkValid(view: Any): Boolean {
+        return when (view) {
+            is LayoutInputFullNameBinding -> {
+                view.isValid(context)
+            }
+            is LayoutInputSingleLineEditTextBinding -> {
+                view.isValid(context)
+            }
+            is LayoutInputPhoneNumberBinding -> {
+                view.isValid(context)
+            }
+            is LayoutInputAddressBinding -> {
+                view.isValid(context)
+            }
+            is LayoutInputServiceAndBillingAddressBinding -> {
+                view.isValid(context)
+            }
+            is LayoutInputMultiLineEditTextBinding -> {
+                view.isValid(context)
+            }
+            else -> {
+                return true
             }
         }
 
@@ -109,7 +127,7 @@ class DynamicFormFragment : Fragment() {
         liveData.observe(this, Observer {
             it.ifSuccess {
                 it?.forEach { resp ->
-                    when (resp.id) {
+                    when (resp.type) {
                         DynamicField.FULLNAME.type -> {
                             setFieldsOfFullName(resp)
                         }
@@ -128,6 +146,15 @@ class DynamicFormFragment : Fragment() {
                         DynamicField.LABEL.type -> {
                             setFieldsOfLabel(resp)
                         }
+                        DynamicField.ADDRESS.type -> {
+                            setFieldsOfAddress(resp)
+                        }
+                        DynamicField.BOTHADDRESS.type -> {
+                            setFieldOfBillingAndServiceAddress(resp)
+                        }
+                        DynamicField.TEXTAREA.type -> {
+                            setFieldOfMultiLineEditText(resp)
+                        }
                     }
                 }
 
@@ -138,6 +165,7 @@ class DynamicFormFragment : Fragment() {
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
+
     private fun setFieldsOfSinglLineEditText(response: DynamicFormResp) {
 
         val binding = DataBindingUtil.inflate<LayoutInputSingleLineEditTextBinding>(layoutInflater,
@@ -145,7 +173,7 @@ class DynamicFormFragment : Fragment() {
                 mBinding.fieldContainer,
                 true)
 
-        setField(response, binding)
+        binding.setField(response)
         bindingList.add(binding)
     }
 
@@ -157,7 +185,7 @@ class DynamicFormFragment : Fragment() {
                 mBinding.fieldContainer,
                 true)
 
-        setField(response, binding)
+        binding.setField(response)
         bindingList.add(binding)
     }
 
@@ -168,7 +196,7 @@ class DynamicFormFragment : Fragment() {
                 mBinding.fieldContainer,
                 true)
 
-        setField(response, binding)
+        binding.setField(response)
         bindingList.add(binding)
     }
 
@@ -179,7 +207,7 @@ class DynamicFormFragment : Fragment() {
                 mBinding.fieldContainer,
                 true)
 
-        setField(response, binding)
+        binding.setField(response)
         bindingList.add(binding)
     }
 
@@ -190,8 +218,90 @@ class DynamicFormFragment : Fragment() {
                 mBinding.fieldContainer,
                 true)
 
-        setField(response, binding, mViewModel, mBinding)
+        binding.setField(response, mViewModel, mBinding)
         bindingList.add(binding)
     }
 
+    private fun setFieldsOfAddress(response: DynamicFormResp) {
+
+        val binding = DataBindingUtil.inflate<LayoutInputAddressBinding>(layoutInflater,
+                R.layout.layout_input_address,
+                mBinding.fieldContainer,
+                true)
+        binding.setField(response)
+        bindingList.add(binding)
+    }
+
+
+    private fun setFieldOfBillingAndServiceAddress(response: DynamicFormResp) {
+
+        val binding = DataBindingUtil.inflate<LayoutInputServiceAndBillingAddressBinding>(layoutInflater,
+                R.layout.layout_input_service_and_billing_address,
+                mBinding.fieldContainer,
+                true)
+        binding.setField(response)
+        bindingList.add(binding)
+    }
+
+    private fun setFieldOfMultiLineEditText(response: DynamicFormResp) {
+        val binding = DataBindingUtil.inflate<LayoutInputMultiLineEditTextBinding>(layoutInflater,
+                R.layout.layout_input_multi_line_edit_text,
+                mBinding.fieldContainer,
+                true)
+
+        binding.setField(response)
+        bindingList.add(binding)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == HomeActivity.ADDRESS_REQUEST_CODE) {
+
+                val id = HomeActivity.ADDRESS_REQUEST_CODE - 5000
+                HomeActivity.ADDRESS_REQUEST_CODE = 5000
+
+                bindingList.forEach { binding ->
+                    when (binding) {
+                        is LayoutInputAddressBinding -> {
+                            if (binding.item?.id?.equals(id).orFalse()) {
+                                binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) })
+                            }
+                        }
+                    }
+                }
+
+            } else if (requestCode == HomeActivity.BILLING_ADDRESS_REQUEST_CODE) {
+
+                val id = HomeActivity.BILLING_ADDRESS_REQUEST_CODE - 5000
+                HomeActivity.BILLING_ADDRESS_REQUEST_CODE = 5000
+
+                bindingList.forEach { binding ->
+                    when (binding) {
+                        is LayoutInputServiceAndBillingAddressBinding -> {
+                            if (binding.item?.id?.equals(id).orFalse()) {
+                                binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) }, false)
+                            }
+                        }
+                    }
+                }
+            } else if (requestCode == HomeActivity.SERVICE_ADDRESS_REQUEST_CODE) {
+
+                val id = HomeActivity.SERVICE_ADDRESS_REQUEST_CODE - 5000
+                HomeActivity.SERVICE_ADDRESS_REQUEST_CODE = 5000
+
+                bindingList.forEach { binding ->
+                    when (binding) {
+                        is LayoutInputServiceAndBillingAddressBinding -> {
+                            if (binding.item?.id?.equals(id).orFalse()) {
+                                binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) }, true)
+                            }
+                        }
+                    }
+                }
+            } else {
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
+    }
 }

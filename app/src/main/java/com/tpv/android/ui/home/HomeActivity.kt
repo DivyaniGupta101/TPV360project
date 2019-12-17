@@ -1,5 +1,6 @@
 package com.tpv.android.ui.home
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -40,6 +41,9 @@ class HomeActivity : AppCompatActivity() {
 
     companion object {
         var REQUEST_CHECK_SETTINGS = 1234
+        var ADDRESS_REQUEST_CODE = 5000
+        var SERVICE_ADDRESS_REQUEST_CODE = 5000
+        var BILLING_ADDRESS_REQUEST_CODE = 5000
     }
 
     lateinit var mBinding: ActivityHomeBinding
@@ -199,10 +203,12 @@ class HomeActivity : AppCompatActivity() {
     private fun closeDrawer() = mBinding.drawerLayout.closeDrawer(GravityCompat.END)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == StatementFragment.REQUEST_GPS_SETTINGS) {
-            StatementFragment().onActivityResult(requestCode, resultCode, data);
-        } else {2
-            super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == StatementFragment.REQUEST_GPS_SETTINGS) {
+                StatementFragment().onActivityResult(requestCode, resultCode, data);
+            } else {
+                super.onActivityResult(requestCode, resultCode, data)
+            }
         }
     }
 

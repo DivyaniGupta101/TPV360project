@@ -1,7 +1,6 @@
 package com.tpv.android.model.internal
 
 data class AddressComponent(var address: String?,
-                            var unit: String?,
                             var addressLine1: String?,
                             var addressLine2: String?,
                             var zipcode: String?,

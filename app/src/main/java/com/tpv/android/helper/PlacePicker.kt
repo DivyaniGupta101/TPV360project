@@ -4,7 +4,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.tpv.android.model.internal.AddressComponent
 
 fun addressComponents(place: Place): AddressComponent? {
-    val placeComponent = AddressComponent("", "", "", "", "", "", "", "", "", "")
+    val placeComponent = AddressComponent("", "", "", "", "", "", "", "", "")
 
     val addressComponents = place.addressComponents?.asList()
 

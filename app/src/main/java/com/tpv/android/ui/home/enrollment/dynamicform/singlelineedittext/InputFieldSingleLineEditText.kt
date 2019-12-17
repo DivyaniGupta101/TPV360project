@@ -13,9 +13,10 @@ import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
 
-fun setField(resp: DynamicFormResp, binding: LayoutInputSingleLineEditTextBinding) {
+fun LayoutInputSingleLineEditTextBinding.setField(resp: DynamicFormResp) {
+    val binding = this
     binding.item = resp
-    when (binding.item?.id) {
+    when (binding.item?.type) {
         DynamicField.EMAIL.type -> {
             binding.editText.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
         }
@@ -23,24 +24,24 @@ fun setField(resp: DynamicFormResp, binding: LayoutInputSingleLineEditTextBindin
 }
 
 
-fun Context.isValid(binding: LayoutInputSingleLineEditTextBinding): Boolean {
-    val context = this
+fun LayoutInputSingleLineEditTextBinding.isValid(context: Context?): Boolean {
+    val binding = this
 
     return if (binding.item?.validations?.required.orFalse()) {
 
-        when (binding.item?.id) {
+        when (binding.item?.type) {
             DynamicField.EMAIL.type -> {
                 Validator(TextInputValidationErrorHandler()) {
                     addValidate(
                             binding.editText,
                             EmptyValidator(),
-                            context.getString(R.string.enter_email)
+                            context?.getString(R.string.enter_email)
 
                     )
                     addValidate(
                             binding.editText,
                             EmailValidator(),
-                            context.getString(R.string.enter_valid_email)
+                            context?.getString(R.string.enter_valid_email)
                     )
                 }.validate()
             }
@@ -49,7 +50,7 @@ fun Context.isValid(binding: LayoutInputSingleLineEditTextBinding): Boolean {
                     addValidate(
                             binding.editText,
                             EmptyValidator(),
-                            context.getString(R.string.please_enter) + " " + binding.textTitle.text.toString()
+                            context?.getString(R.string.please_enter) + " " + binding.textTitle.text.toString()
                     )
 
                 }.validate()

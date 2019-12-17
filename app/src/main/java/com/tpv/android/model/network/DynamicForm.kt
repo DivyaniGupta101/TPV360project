@@ -3,7 +3,9 @@ import com.google.gson.annotations.SerializedName
 
 data class DynamicFormResp(
         @SerializedName("id")
-        val id: String?,
+        val id: Int?,
+        @SerializedName("type")
+        val type: String?,
         @SerializedName("label")
         val label: String?,
         @SerializedName("meta")

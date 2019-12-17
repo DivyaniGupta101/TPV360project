@@ -57,6 +57,7 @@
     <string name="enter_billing_address">Please enter billing address</string>
     <string name="enter_zipcode">Please enter zipcode</string>
     <string name="enter_service_address">Please enter service address</string>
+    <string name="enter_address">Please enter address</string>
     <string name="enter_service_unit">Please enter service unit</string>
     <string name="enter_billing_unit">Please enter billing unit</string>
     <string name="enter_service_zipcode">Please enter service zipcode</string>
@@ -65,6 +66,7 @@
     <string name="enter_otp">Please enter OTP</string>
     <string name="enter_phone_number">Please enter Phone number</string>
     <string name="enter_new_relationship">Enter New Relationship</string>
+    <string name="enter_unit">Please enter unit</string>
     <string name="please_enter">Please enter</string>
 
     <!--    Info Message-->

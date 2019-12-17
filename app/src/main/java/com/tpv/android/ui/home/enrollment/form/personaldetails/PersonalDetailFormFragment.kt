@@ -142,10 +142,10 @@ class PersonalDetailFormFragment : Fragment() {
                 //Check if DuelFuel then next page will be Gas Form screen else Electric Form screen
                 when (mViewModel.planType) {
                     Plan.DUALFUEL.value, Plan.GASFUEL.value -> {
-                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_gasDetailFormFragment)
+//                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_gasDetailFormFragment)
                     }
                     Plan.ELECTRICFUEL.value -> {
-                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_electricDetailFormFragment)
+//                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_personalDetailFormFragment_to_electricDetailFormFragment)
                     }
                 }
             }

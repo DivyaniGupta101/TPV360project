@@ -110,39 +110,7 @@
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
-    <fragment
-        android:id="@+id/gasDetailFormFragment"
-        android:name="com.tpv.android.ui.home.enrollment.form.gasdetailform.GasDetailFormFragment"
-        android:label="GasDetailFormFragment"
-        tools:layout="@layout/fragment_gas_detail_form">
-        <action
-            android:id="@+id/action_gasDetailFormFragment_to_electricDetailFormFragment"
-            app:destination="@id/electricDetailFormFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
-        <action
-            android:id="@+id/action_gasDetailFormFragment_to_clientInfoFragment"
-            app:destination="@id/clientInfoFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
-    </fragment>
-    <fragment
-        android:id="@+id/electricDetailFormFragment"
-        android:name="com.tpv.android.ui.home.enrollment.form.electricdetailform.ElectricDetailFormFragment"
-        android:label="ElectricDetailFormFragment"
-        tools:layout="@layout/fragment_electric_detail_form">
-        <action
-            android:id="@+id/action_electricDetailFormFragment_to_clientInfoFragment"
-            app:destination="@id/clientInfoFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
-    </fragment>
+
     <fragment
         android:id="@+id/clientInfoFragment"
         android:name="com.tpv.android.ui.home.enrollment.clientinfo.ClientInfoFragment"
@@ -186,22 +154,7 @@
         android:id="@+id/personalDetailFormFragment"
         android:name="com.tpv.android.ui.home.enrollment.form.personaldetails.PersonalDetailFormFragment"
         android:label="PersonalDetailFormFragment"
-        tools:layout="@layout/fragment_personal_detail_form">
-        <action
-            android:id="@+id/action_personalDetailFormFragment_to_gasDetailFormFragment"
-            app:destination="@id/gasDetailFormFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
-        <action
-            android:id="@+id/action_personalDetailFormFragment_to_electricDetailFormFragment"
-            app:destination="@id/electricDetailFormFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
-    </fragment>
+        tools:layout="@layout/fragment_personal_detail_form" />
     <fragment
         android:id="@+id/statementFragment"
         android:name="com.tpv.android.ui.home.enrollment.statement.StatementFragment"

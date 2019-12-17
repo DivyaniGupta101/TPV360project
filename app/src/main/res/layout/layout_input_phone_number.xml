@@ -26,12 +26,14 @@
         <TextView
             style="@style/SecondaryNormalTextWithTopSpacing"
             visibleIf="@{item.meta.placeHolder != null}"
+            android:layout_marginStart="@dimen/_8sdp"
             android:text="@{item.meta.placeHolder}" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
             android:orientation="horizontal">
 
             <LinearLayout

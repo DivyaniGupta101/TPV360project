@@ -31,24 +31,29 @@ import com.tpv.android.utils.validation.PhoneNumberValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
-var verifiedNumber: String = ""
+var verifiedNumber: String? = null
 var countryCodeList = arrayListOf("+1")
 
 
-fun setField(resp: DynamicFormResp, bindingInputPhone: LayoutInputPhoneNumberBinding,
-             viewModel: SetEnrollViewModel,
-             bindingDynamicForm: FragmentDynamicFormBinding) {
+fun LayoutInputPhoneNumberBinding.setField(resp: DynamicFormResp,
+                                           viewModel: SetEnrollViewModel,
+                                           bindingDynamicForm: FragmentDynamicFormBinding) {
 
     val context = bindingDynamicForm.btnNext.context
+    val bindingInputPhone = this
+
     bindingInputPhone.item = resp
 
     bindingInputPhone.spinnerCountryCode.setItems(countryCodeList)
 
     bindingInputPhone.textVerify.onClick {
+
+        context.hideKeyBoard()
+
         if (bindingInputPhone.editPhoneNumber.value.isNotEmpty()) {
             context.generateOTPApiCall(bindingInputPhone, bindingDynamicForm, viewModel)
         } else {
-            context.isValid(bindingInputPhone)
+            bindingInputPhone.isValid(context)
         }
     }
 
@@ -72,22 +77,22 @@ fun setField(resp: DynamicFormResp, bindingInputPhone: LayoutInputPhoneNumberBin
 }
 
 
-fun Context.isValid(bindingInputPhone: LayoutInputPhoneNumberBinding): Boolean {
+fun LayoutInputPhoneNumberBinding.isValid(context: Context?): Boolean {
 
-    val context = this
+    val bindingInputPhone = this
 
     return if (bindingInputPhone.item?.validations?.required.orFalse()) {
         Validator(TextInputValidationErrorHandler()) {
             addValidate(
                     bindingInputPhone.editPhoneNumber,
                     EmptyValidator(),
-                    context.getString(R.string.enter_phone_number)
+                    context?.getString(R.string.enter_phone_number)
 
             )
             addValidate(
                     bindingInputPhone.editPhoneNumber,
                     PhoneNumberValidator(),
-                    context.getString(R.string.enter_valid_phone_number)
+                    context?.getString(R.string.enter_valid_phone_number)
             )
 
         }.validate()
@@ -180,10 +185,7 @@ private fun Context.verifyOTPApiCall(bindingInputPhone: LayoutInputPhoneNumberBi
                 dialog.dismiss()
 
                 context.handleVerifiedText(bindingInputPhone, false)
-
-                if (context is HomeActivity) {
-                    context.hideKeyboard()
-                }
+                context.hideKeyBoard()
             }
         })
     }
@@ -202,5 +204,12 @@ private fun Context.handleVerifiedText(bindingInputPhone: LayoutInputPhoneNumber
         bindingInputPhone.textVerify.isEnabled = false
         bindingInputPhone.textVerify.setText(R.string.verified)
         bindingInputPhone.textVerify.setTextColor(context.color(R.color.colorVerifiedText).orZero())
+    }
+}
+
+private fun Context.hideKeyBoard() {
+    val context = this
+    if (context is HomeActivity) {
+        context.hideKeyboard()
     }
 }

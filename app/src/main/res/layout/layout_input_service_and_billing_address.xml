@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.DynamicFormResp" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textTitle"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@{item.label}"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText"
+            tools:text="@string/address" />
+
+        <TextView
+            android:id="@+id/textServiceAddress"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/address" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceAddress"
+                style="@style/DefaultEditText"
+                android:focusable="false"
+                android:textColor="@color/colorSecondaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textServiceUnit"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/unit" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceUnit"
+                style="@style/DefaultEditText"
+                android:digits="@string/name_char"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textServiceAddressLineOne"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/address_line_1" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceAddressLineOne"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textServiceAddressLineTwo"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/address_line_2" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceAddressLineTwo"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textServiceZipcode"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/zip_code" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceZipcode"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textServiceLatitude"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/latitude" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceLatitude"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textServiceLongitude"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/longitude" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceLongitude"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/textServiceCity"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/city" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceCity"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textServiceState"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/state" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceState"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textServiceCountry"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/country" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceCountry"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:text="@string/billing_address_msg" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioYes"
+                style="@style/CheckBoxButton"
+                android:layout_marginStart="0dp"
+                android:text="@string/yes" />
+
+            <RadioButton
+                android:id="@+id/radioNo"
+                style="@style/CheckBoxButton"
+                android:text="@string/no"
+                tools:checked="true" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textBillingAddress"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/address" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingAddress"
+                style="@style/DefaultEditText"
+                android:focusable="false"
+                android:textColor="@color/colorSecondaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textBillingUnit"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/unit" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingUnit"
+                style="@style/DefaultEditText"
+                android:digits="@string/name_char"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textBillingAddressLineOne"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/address_line_1" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingAddressLineOne"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textBillingAddressLineTwo"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/address_line_2" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingAddressLineTwo"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textBillingZipcode"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/zip_code" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingZipcode"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textBillingLatitude"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/latitude" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingLatitude"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textBillingLongitude"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/longitude" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingLongitude"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/textBillingCity"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/city" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingCity"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textBillingState"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/state" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingState"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textBillingCountry"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/country" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingCountry"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</layout>
