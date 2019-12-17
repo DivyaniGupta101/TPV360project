@@ -9,31 +9,29 @@ import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
-fun LayoutInputFullNameBinding.setField(fields: DynamicFormResp) {
-    val binding = this
+fun setField(fields: DynamicFormResp, binding: LayoutInputFullNameBinding) {
     binding.item = fields
-
 }
 
 
-fun LayoutInputFullNameBinding.isValid(context: Context): Boolean {
-    val binding = this
-    return if (this.item?.validations?.required.orFalse()) {
+fun Context.isValid(binding: LayoutInputFullNameBinding): Boolean {
+    val context = this
+    return if (binding.item?.validations?.required.orFalse()) {
         return Validator(TextInputValidationErrorHandler()) {
             addValidate(
                     binding.editFirstName,
                     EmptyValidator(),
-                    binding.textFirstName.text.toString() + " " + context.getString(R.string.is_required)
+                    context.getString(R.string.enter_first_name)
             )
             addValidate(
                     binding.editMiddleName,
                     EmptyValidator(),
-                    binding.textMiddleName.text.toString() + " " + context.getString(R.string.is_required)
+                    context.getString(R.string.enter_middle_name)
             )
             addValidate(
                     binding.editLastName,
                     EmptyValidator(),
-                    binding.textLastName.text.toString() + " " + context.getString(R.string.is_required)
+                    context.getString(R.string.enter_last_name)
             )
         }.validate()
     } else {

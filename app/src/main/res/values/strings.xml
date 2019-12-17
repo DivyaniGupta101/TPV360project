@@ -48,6 +48,9 @@
     <string name="enter_authorised_middle_name">Please enter authorised middle name</string>
     <string name="enter_authorised_last_name">Please enter authorised last name</string>
     <string name="enter_billing_first_name">Please enter billing first name</string>
+    <string name="enter_first_name">Please enter  first name</string>
+    <string name="enter_middle_name">Please enter  middle name</string>
+    <string name="enter_last_name">Please enter  last name</string>
     <string name="is_required">is required</string>
     <string name="enter_billing_middle_name">Please enter billing middle name</string>
     <string name="enter_billing_last_name">Please enter billing last name</string>
@@ -60,8 +63,9 @@
     <string name="enter_account_number">Please enter account number</string>
     <string name="enter_valid_phone_number">Please enter valid phone number</string>
     <string name="enter_otp">Please enter OTP</string>
-    <string name="enter_phone_number">Phone number is required</string>
+    <string name="enter_phone_number">Please enter Phone number</string>
     <string name="enter_new_relationship">Enter New Relationship</string>
+    <string name="please_enter">Please enter</string>
 
     <!--    Info Message-->
     <string name="logout">Logout</string>

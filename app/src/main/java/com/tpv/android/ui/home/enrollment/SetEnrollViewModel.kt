@@ -22,6 +22,11 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var isAgreeWithCondition: Boolean = false
     var signature: Bitmap? = null
 
+
+    fun getDynamicForm(dynamicFormReq: DynamicFormReq) = with(AppRepository) {
+        getDynamicFormCall(dynamicFormReq)
+    }
+
     fun saveLeadDetail(leadsDetailReq: SaveLeadsDetailReq) = with(AppRepository)
     {
         saveLeadDetailCall(leadsDetailReq)
