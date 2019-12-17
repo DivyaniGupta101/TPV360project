@@ -68,6 +68,7 @@
     <string name="enter_new_relationship">Enter New Relationship</string>
     <string name="enter_unit">Please enter unit</string>
     <string name="please_enter">Please enter</string>
+    <string name="please_select">Please select</string>
 
     <!--    Info Message-->
     <string name="logout">Logout</string>

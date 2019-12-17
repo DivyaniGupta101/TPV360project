@@ -39,6 +39,7 @@
     <color name="colorDecliendText">@color/colorRed</color>
     <color name="colorDisconnectedText">@color/colorSky</color>
     <color name="colorTertiaryText">@color/colorAccent</color>
+    <color name="colorErrorText">@color/colorLightRed</color>
     <color name="colorProfileImageText">@color/colorWhite</color>
 
 

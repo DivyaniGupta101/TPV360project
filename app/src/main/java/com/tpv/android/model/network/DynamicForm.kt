@@ -27,9 +27,9 @@ data class Meta(
 
 data class Option(
         @SerializedName("option")
-        val option: String?,
+        var option: String?,
         @SerializedName("selected")
-        val selected: Boolean?
+        var selected: Boolean?
 )
 
 data class Validations(

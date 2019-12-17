@@ -30,6 +30,8 @@ import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.home.enrollment.dynamicform.address.fillAddressFields
 import com.tpv.android.ui.home.enrollment.dynamicform.address.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.address.setField
+import com.tpv.android.ui.home.enrollment.dynamicform.checkbox.isValid
+import com.tpv.android.ui.home.enrollment.dynamicform.checkbox.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.fullname.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.fullname.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.heading.setField
@@ -38,6 +40,8 @@ import com.tpv.android.ui.home.enrollment.dynamicform.multilineedittext.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.multilineedittext.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.phone.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.phone.setField
+import com.tpv.android.ui.home.enrollment.dynamicform.radiobutton.isValid
+import com.tpv.android.ui.home.enrollment.dynamicform.radiobutton.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress.fillAddressFields
 import com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress.setField
@@ -113,6 +117,12 @@ class DynamicFormFragment : Fragment() {
             is LayoutInputMultiLineEditTextBinding -> {
                 view.isValid(context)
             }
+            is LayoutInputRadioButtonBinding -> {
+                view.isValid(context)
+            }
+            is LayoutInputCheckBoxBinding -> {
+                view.isValid(context)
+            }
             else -> {
                 return true
             }
@@ -155,6 +165,12 @@ class DynamicFormFragment : Fragment() {
                         DynamicField.TEXTAREA.type -> {
                             setFieldOfMultiLineEditText(resp)
                         }
+                        DynamicField.RADIO.type -> {
+                            setFieldOfRadioButton(resp)
+                        }
+                        DynamicField.CHECKBOX.type -> {
+                            setFieldOfCheckBox(resp)
+                        }
                     }
                 }
 
@@ -165,9 +181,7 @@ class DynamicFormFragment : Fragment() {
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
-
     private fun setFieldsOfSinglLineEditText(response: DynamicFormResp) {
-
         val binding = DataBindingUtil.inflate<LayoutInputSingleLineEditTextBinding>(layoutInflater,
                 R.layout.layout_input_single_line_edit_text,
                 mBinding.fieldContainer,
@@ -179,7 +193,6 @@ class DynamicFormFragment : Fragment() {
 
 
     private fun setFieldsOfFullName(response: DynamicFormResp) {
-
         val binding = DataBindingUtil.inflate<LayoutInputFullNameBinding>(layoutInflater,
                 R.layout.layout_input_full_name,
                 mBinding.fieldContainer,
@@ -190,7 +203,6 @@ class DynamicFormFragment : Fragment() {
     }
 
     private fun setFieldsOfHeading(response: DynamicFormResp) {
-
         val binding = DataBindingUtil.inflate<LayoutInputHeadingBinding>(layoutInflater,
                 R.layout.layout_input_heading,
                 mBinding.fieldContainer,
@@ -201,7 +213,6 @@ class DynamicFormFragment : Fragment() {
     }
 
     private fun setFieldsOfLabel(response: DynamicFormResp) {
-
         val binding = DataBindingUtil.inflate<LayoutInputLabelBinding>(layoutInflater,
                 R.layout.layout_input_label,
                 mBinding.fieldContainer,
@@ -212,7 +223,6 @@ class DynamicFormFragment : Fragment() {
     }
 
     private fun setFieldsOfPhoneNumber(response: DynamicFormResp) {
-
         val binding = DataBindingUtil.inflate<LayoutInputPhoneNumberBinding>(layoutInflater,
                 R.layout.layout_input_phone_number,
                 mBinding.fieldContainer,
@@ -223,7 +233,6 @@ class DynamicFormFragment : Fragment() {
     }
 
     private fun setFieldsOfAddress(response: DynamicFormResp) {
-
         val binding = DataBindingUtil.inflate<LayoutInputAddressBinding>(layoutInflater,
                 R.layout.layout_input_address,
                 mBinding.fieldContainer,
@@ -234,7 +243,6 @@ class DynamicFormFragment : Fragment() {
 
 
     private fun setFieldOfBillingAndServiceAddress(response: DynamicFormResp) {
-
         val binding = DataBindingUtil.inflate<LayoutInputServiceAndBillingAddressBinding>(layoutInflater,
                 R.layout.layout_input_service_and_billing_address,
                 mBinding.fieldContainer,
@@ -253,6 +261,26 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
     }
 
+    private fun setFieldOfRadioButton(response: DynamicFormResp) {
+        val binding = DataBindingUtil.inflate<LayoutInputRadioButtonBinding>(layoutInflater,
+                R.layout.layout_input_radio_button,
+                mBinding.fieldContainer,
+                true)
+
+        binding.setField(response)
+        bindingList.add(binding)
+    }
+
+    private fun setFieldOfCheckBox(response: DynamicFormResp) {
+        val binding = DataBindingUtil.inflate<LayoutInputCheckBoxBinding>(layoutInflater,
+                R.layout.layout_input_check_box,
+                mBinding.fieldContainer,
+                true)
+
+        binding.setField(response)
+        bindingList.add(binding)
+
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
