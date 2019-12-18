@@ -37,6 +37,7 @@
                 android:id="@+id/editAddress"
                 style="@style/DefaultEditText"
                 android:focusable="false"
+                android:text="@={item.values.address}"
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,7 +56,8 @@
                 android:id="@+id/editUnit"
                 style="@style/DefaultEditText"
                 android:digits="@string/name_char"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="@={item.values.unit}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -73,6 +75,7 @@
                 android:id="@+id/editAddressLineOne"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.address1}"
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,6 +94,7 @@
                 android:id="@+id/editAddressLineTwo"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.address2}"
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,6 +112,7 @@
                 android:id="@+id/editZipcode"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.zipcode}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -126,6 +131,7 @@
                 android:id="@+id/editLatitude"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.lat}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -144,6 +150,7 @@
                 android:id="@+id/editLongitude"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.lng}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -163,6 +170,7 @@
                 android:id="@+id/editCity"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.city}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -181,6 +189,7 @@
                 android:id="@+id/editState"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.state}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -199,6 +208,7 @@
                 android:id="@+id/editCountry"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.country}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>

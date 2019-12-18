@@ -45,27 +45,27 @@ data class Validations(
 
 data class Values(
         @SerializedName("billing_address_1")
-        val billingAddress1: String?,
+        var billingAddress1: String?,
         @SerializedName("billing_address_2")
-        val billingAddress2: String?,
+        var billingAddress2: String?,
         @SerializedName("billing_city")
-        val billingCity: String?,
+        var billingCity: String?,
         @SerializedName("billing_state")
-        val billingState: String?,
+        var billingState: String?,
         @SerializedName("billing_zipcode")
-        val billingZipcode: String?,
+        var billingZipcode: String?,
         @SerializedName("is_billing_address_same_as_service_address")
-        val isBillingAddressSameAsServiceAddress: Boolean?,
+        var isBillingAddressSameAsServiceAddress: Boolean?,
         @SerializedName("service_address_1")
-        val serviceAddress1: String?,
+        var serviceAddress1: String?,
         @SerializedName("service_address_2")
-        val serviceAddress2: String?,
+        var serviceAddress2: String?,
         @SerializedName("service_city")
-        val serviceCity: String?,
+        var serviceCity: String?,
         @SerializedName("service_state")
-        val serviceState: String?,
+        var serviceState: String?,
         @SerializedName("service_zipcode")
-        val serviceZipcode: String?,
+        var serviceZipcode: String?,
         @SerializedName("first_name")
         var firstName: String?,
         @SerializedName("middle_initial")
@@ -73,7 +73,22 @@ data class Values(
         @SerializedName("last_name")
         var lastName: String?,
         @SerializedName("value")
-        var value: String?
+        var value: String?,
+        @SerializedName("address_1")
+        var address1: String?,
+        @SerializedName("address_2")
+        var address2: String?,
+        @SerializedName("zipcode")
+        var zipcode: String?,
+        @SerializedName("city")
+        var city: String?,
+        @SerializedName("State")
+        var state: String?,
+        var address:String?,
+        var unit: String?,
+        var lat: String?,
+        var lng: String?,
+        var country: String?
 )
 
 data class DynamicFormReq(
