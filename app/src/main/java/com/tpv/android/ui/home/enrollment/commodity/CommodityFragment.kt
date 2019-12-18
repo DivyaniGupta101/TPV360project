@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.ravikoradiya.liveadapter.LiveAdapter
@@ -15,7 +17,14 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentCommodityBinding
 import com.tpv.android.databinding.ItemCommodityBinding
 import com.tpv.android.model.internal.Commodity
+import com.tpv.android.model.network.DynamicFormReq
+import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.navigateSafe
@@ -32,6 +41,7 @@ class CommodityFragment : Fragment() {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_commodity, container, false)
         activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
+        mBinding.lifecycleOwner = this
         return mBinding.root
     }
 
@@ -42,6 +52,7 @@ class CommodityFragment : Fragment() {
 
     private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.commodity), showBackIcon = true, showMenuIcon = true)
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setRecyclerView()
     }
 
@@ -55,11 +66,35 @@ class CommodityFragment : Fragment() {
         LiveAdapter(mList, BR.item)
                 .map<Commodity, ItemCommodityBinding>(R.layout.item_commodity) {
                     onClick { holder ->
-                        mViewModel.planType = holder.binding.item?.planType.orEmpty()
-                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_commodityFragment_to_plansZipcodeFragment)
+                        getDynamicFormApiCall(holder.binding.item?.planType.orEmpty())
                     }
                 }
                 .into(mBinding.listPlans)
+    }
+
+    private fun getDynamicFormApiCall(type: String) {
+        val liveData = mViewModel.getDynamicForm(DynamicFormReq(clientid = "102",
+                commodity = "Electric", programid = "716"))
+        liveData.observe(this, Observer {
+            it.ifSuccess {
+                mViewModel.planType = type
+
+                val list: ArrayList<DynamicFormResp> = ArrayList()
+                var page = 1
+                it?.forEach { dynamicFormResp ->
+                    if (dynamicFormResp.type == DynamicField.SEPARATE.type) {
+                        mViewModel.dynamicForm?.put(page, list)
+                        page = page++
+                        list.clear()
+                    } else {
+                        list.add(dynamicFormResp)
+                    }
+                }
+
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_commodityFragment_to_plansZipcodeFragment)
+            }
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     override fun onResume() {

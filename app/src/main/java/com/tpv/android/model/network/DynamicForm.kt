@@ -85,13 +85,18 @@ data class Values(
         var billingCountry: String?,
         @SerializedName("service_country")
         var serviceCountry: String?,
+        @SerializedName("service_lat")
+        var serviceLat: String?,
+        @SerializedName("service_lng")
+        var serviceLng: String?,
+        @SerializedName("billing_lat")
+        var billingLat: String?,
+        @SerializedName("billing_lng")
+        var billingLng: String?,
 
         var serviceAddress: String?,
         var billingAddress: String?,
-        var serviceLat: String?,
-        var serviceLng: String?,
-        var billingLat: String?,
-        var billingLng: String?,
+
 
         @SerializedName("address_1")
         var address1: String?,
@@ -107,10 +112,12 @@ data class Values(
         var unit: String?,
         @SerializedName("country")
         var country: String?,
-
-        var address: String?,
+        @SerializedName("lat")
         var lat: String?,
-        var lng: String?
+        @SerializedName("lng")
+        var lng: String?,
+
+        var address: String?
 
 )
 

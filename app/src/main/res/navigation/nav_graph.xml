@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/dynamicFormFragment">
+    app:startDestination="@id/dashBoardFragment">
 
     <fragment
         android:id="@+id/dashBoardFragment"
@@ -109,6 +109,13 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_programsListingFragment_to_dynamicFormFragment"
+            app:destination="@id/dynamicFormFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -196,6 +203,21 @@
         android:id="@+id/dynamicFormFragment"
         android:name="com.tpv.android.ui.home.enrollment.dynamicform.DynamicFormFragment"
         android:label="DynamicFormFragment"
-        tools:layout="@layout/fragment_dynamic_form" />
+        tools:layout="@layout/fragment_dynamic_form">
+        <action
+            android:id="@+id/action_dynamicFormFragment_self"
+            app:destination="@id/dynamicFormFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_dynamicFormFragment_to_clientInfoFragment"
+            app:destination="@id/clientInfoFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
 
 </navigation>

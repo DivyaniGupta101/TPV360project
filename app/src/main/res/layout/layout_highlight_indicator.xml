@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="currentPage"
+            type="Integer" />
+
+        <variable
+            name="pageNumber"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            app:currentPage="@{currentPage}"
+            app:pageNumber="@{pageNumber}" />
+
+    </LinearLayout>
+</layout>

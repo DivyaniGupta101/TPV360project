@@ -219,9 +219,16 @@ object BindingAdapter {
             }
 
         }
-
     }
 
-
+    @JvmStatic
+    @BindingAdapter(value = ["currentPage", "pageNumber"], requireAll = true)
+    fun handleHighlightOfIndicator(textView: TextView, currentPage: Int, pageNumber: Int) {
+        if (currentPage == pageNumber) {
+            textView.background = textView.context.getDrawable(R.drawable.bg_selected_page_indicator)
+        } else {
+            textView.background = textView.context.getDrawable(R.drawable.bg_unselected_page_indicator)
+        }
+    }
 }
 

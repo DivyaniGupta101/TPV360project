@@ -9,22 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.google.android.libraries.places.widget.Autocomplete
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
-import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
+import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.R
 import com.tpv.android.databinding.*
-import com.tpv.android.model.network.DynamicFormReq
 import com.tpv.android.model.network.DynamicFormResp
-import com.tpv.android.network.error.AlertErrorHandler
-import com.tpv.android.network.resources.Resource
-import com.tpv.android.network.resources.apierror.APIError
-import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.home.enrollment.dynamicform.address.fillAddressFields
@@ -49,6 +43,7 @@ import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.spinner.setField
 import com.tpv.android.utils.enums.DynamicField
+import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
 
@@ -57,6 +52,8 @@ class DynamicFormFragment : Fragment() {
     private lateinit var mBinding: FragmentDynamicFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var bindingList: ArrayList<Any> = ArrayList()
+    private var totalPage: Int? = null
+    private var hasNext: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -74,25 +71,37 @@ class DynamicFormFragment : Fragment() {
     }
 
     fun initialize() {
-
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
-
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
-        getFormApiCall()
+
+        totalPage = mViewModel.dynamicForm?.size
+
+        if (mViewModel.dynamicFormCurrentPage == totalPage) {
+            hasNext = false
+        } else if (mViewModel.dynamicFormCurrentPage < totalPage.orZero()) {
+            hasNext = true
+        } else {
+            hasNext = false
+        }
+
+
+        inflateViews(totalPage)
+
 
         mBinding.btnNext.onClick {
             hideKeyboard()
 
             val validList: ArrayList<Boolean> = ArrayList()
 
-            if (bindingList.isNotEmpty()) {
+            bindingList.forEach { view ->
+                validList.add(checkValid(view))
+            }
 
-                bindingList.forEach { view ->
-                    validList.add(checkValid(view))
-                }
-
-                if (!validList.contains(false)) {
-                    toastNow("good to go")
+            if (!validList.contains(false)) {
+                if (hasNext) {
+                    mViewModel.dynamicFormCurrentPage = mViewModel.dynamicFormCurrentPage + 1
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
+                } else {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_self)
                 }
             }
         }
@@ -132,57 +141,61 @@ class DynamicFormFragment : Fragment() {
     }
 
 
-    private fun getFormApiCall() {
-        val liveData = mViewModel.getDynamicForm(DynamicFormReq(clientid = "102",
-                commodity = "Electric", programid = "716"))
-        liveData.observe(this, Observer {
-            it.ifSuccess {
-                it?.forEach { resp ->
-                    when (resp.type) {
-                        DynamicField.FULLNAME.type -> {
-                            setFieldsOfFullName(resp)
-                        }
-                        DynamicField.TEXTBOX.type -> {
-                            setFieldsOfSinglLineEditText(resp)
-                        }
-                        DynamicField.EMAIL.type -> {
-                            setFieldsOfSinglLineEditText(resp)
-                        }
-                        DynamicField.PHONENUMBER.type -> {
-                            setFieldsOfPhoneNumber(resp)
-                        }
-                        DynamicField.HEADING.type -> {
-                            setFieldsOfHeading(resp)
-                        }
-                        DynamicField.LABEL.type -> {
-                            setFieldsOfLabel(resp)
-                        }
-                        DynamicField.ADDRESS.type -> {
-                            setFieldsOfAddress(resp)
-                        }
-                        DynamicField.BOTHADDRESS.type -> {
-                            setFieldOfBillingAndServiceAddress(resp)
-                        }
-                        DynamicField.TEXTAREA.type -> {
-                            setFieldOfMultiLineEditText(resp)
-                        }
-                        DynamicField.RADIO.type -> {
-                            setFieldOfRadioButton(resp)
-                        }
-                        DynamicField.CHECKBOX.type -> {
-                            setFieldOfCheckBox(resp)
-                        }
-                        DynamicField.SELECTBOX.type -> {
-                            setFieldOfSpinner(resp)
-                        }
-                    }
+    private fun inflateViews(totalPage: Int?) {
+
+        for (pageNumber in 0..totalPage.orZero()) {
+            val binding = DataBindingUtil.inflate<LayoutHighlightIndicatorBinding>(layoutInflater,
+                    R.layout.layout_highlight_indicator,
+                    mBinding.indicatorContainer,
+                    true)
+            binding.currentPage = mViewModel.dynamicFormCurrentPage
+            binding.pageNumber = pageNumber
+        }
+
+
+
+
+        mViewModel.dynamicForm?.get(mViewModel.dynamicFormCurrentPage)?.forEach { response ->
+            when (response.type) {
+                DynamicField.FULLNAME.type -> {
+                    setFieldsOfFullName(response)
                 }
-
+                DynamicField.TEXTBOX.type -> {
+                    setFieldsOfSinglLineEditText(response)
+                }
+                DynamicField.EMAIL.type -> {
+                    setFieldsOfSinglLineEditText(response)
+                }
+                DynamicField.PHONENUMBER.type -> {
+                    setFieldsOfPhoneNumber(response)
+                }
+                DynamicField.HEADING.type -> {
+                    setFieldsOfHeading(response)
+                }
+                DynamicField.LABEL.type -> {
+                    setFieldsOfLabel(response)
+                }
+                DynamicField.ADDRESS.type -> {
+                    setFieldsOfAddress(response)
+                }
+                DynamicField.BOTHADDRESS.type -> {
+                    setFieldOfBillingAndServiceAddress(response)
+                }
+                DynamicField.TEXTAREA.type -> {
+                    setFieldOfMultiLineEditText(response)
+                }
+                DynamicField.RADIO.type -> {
+                    setFieldOfRadioButton(response)
+                }
+                DynamicField.CHECKBOX.type -> {
+                    setFieldOfCheckBox(response)
+                }
+                DynamicField.SELECTBOX.type -> {
+                    setFieldOfSpinner(response)
+                }
             }
+        }
 
-        })
-
-        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     private fun setFieldsOfSinglLineEditText(response: DynamicFormResp) {

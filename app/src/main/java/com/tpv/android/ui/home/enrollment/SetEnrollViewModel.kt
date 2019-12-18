@@ -21,6 +21,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var customerDataList: ArrayList<CustomerData?> = ArrayList()
     var isAgreeWithCondition: Boolean = false
     var signature: Bitmap? = null
+    var dynamicFormCurrentPage: Int = 1
+    var dynamicForm: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
 
 
     fun getDynamicForm(dynamicFormReq: DynamicFormReq) = with(AppRepository) {
@@ -72,5 +74,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         relationShipList.clear()
         isAgreeWithCondition = false
         signature = null
+        dynamicFormCurrentPage = 1
     }
 }
