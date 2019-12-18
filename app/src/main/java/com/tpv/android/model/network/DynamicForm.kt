@@ -67,13 +67,13 @@ data class Values(
         @SerializedName("service_zipcode")
         val serviceZipcode: String?,
         @SerializedName("first_name")
-        val firstName: String?,
+        var firstName: String?,
         @SerializedName("middle_initial")
-        val middleName: String?,
+        var middleName: String?,
         @SerializedName("last_name")
-        val lastName: String?,
+        var lastName: String?,
         @SerializedName("value")
-        val value: String?
+        var value: String?
 )
 
 data class DynamicFormReq(

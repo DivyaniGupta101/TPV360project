@@ -34,7 +34,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editFirstName"
-                style="@style/DefaultEditText" />
+                style="@style/DefaultEditText"
+                android:text="@={item.values.firstName}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,7 +51,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editMiddleName"
-                style="@style/DefaultEditText" />
+                style="@style/DefaultEditText"
+                android:text="@={item.values.middleName}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,7 +68,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editLastName"
-                style="@style/DefaultEditText" />
+                style="@style/DefaultEditText"
+                android:text="@={item.values.lastName}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

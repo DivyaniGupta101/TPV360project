@@ -37,7 +37,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText"
-                    style="@style/SquareBorderEditText" />
+                    style="@style/SquareBorderEditText"
+                    android:text="@={item.values.value}" />
             </LinearLayout>
 
         </com.google.android.material.textfield.TextInputLayout>

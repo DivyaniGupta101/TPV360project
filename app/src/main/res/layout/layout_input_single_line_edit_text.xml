@@ -35,7 +35,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText"
-                style="@style/DefaultEditText" />
+                style="@style/DefaultEditText"
+                android:text="@={item.values.value}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
