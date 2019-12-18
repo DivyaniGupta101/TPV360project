@@ -15,12 +15,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textTitle"
             style="@style/SecondaryNormalTextWithTopSpacing"
             android:text="@{item.label}"
             android:textAllCaps="true"
             android:textColor="@color/colorTertiaryText"
             tools:text="@string/address" />
+
+        <TextView
+            style="@style/SecondaryNormalSmallText"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/service_address"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText" />
 
         <TextView
             android:id="@+id/textServiceAddress"
@@ -37,6 +44,7 @@
                 android:id="@+id/editServiceAddress"
                 style="@style/DefaultEditText"
                 android:focusable="false"
+                android:text="@={item.values.serviceAddress}"
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,7 +63,8 @@
                 android:id="@+id/editServiceUnit"
                 style="@style/DefaultEditText"
                 android:digits="@string/name_char"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="@{item.values.serviceUnit}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -73,6 +82,7 @@
                 android:id="@+id/editServiceAddressLineOne"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.serviceAddress1}"
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,6 +101,7 @@
                 android:id="@+id/editServiceAddressLineTwo"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.serviceAddress2}"
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,6 +119,7 @@
                 android:id="@+id/editServiceZipcode"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.serviceZipcode}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -126,6 +138,7 @@
                 android:id="@+id/editServiceLatitude"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.serviceLat}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -144,6 +157,7 @@
                 android:id="@+id/editServiceLongitude"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.serviceLng}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -163,6 +177,7 @@
                 android:id="@+id/editServiceCity"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.serviceCity}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -181,6 +196,7 @@
                 android:id="@+id/editServiceState"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.serviceState}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -199,12 +215,14 @@
                 android:id="@+id/editServiceCountry"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.serviceCountry}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
             android:text="@string/billing_address_msg" />
 
         <RadioGroup
@@ -218,14 +236,24 @@
                 android:id="@+id/radioYes"
                 style="@style/CheckBoxButton"
                 android:layout_marginStart="0dp"
+                android:checked="@{item.values.isAddressSame()}"
                 android:text="@string/yes" />
 
             <RadioButton
                 android:id="@+id/radioNo"
                 style="@style/CheckBoxButton"
+                android:checked="@{!item.values.isAddressSame()}"
                 android:text="@string/no"
                 tools:checked="true" />
         </RadioGroup>
+
+        <TextView
+            style="@style/SecondaryNormalSmallText"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/billing_address"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText" />
 
         <TextView
             android:id="@+id/textBillingAddress"
@@ -242,6 +270,7 @@
                 android:id="@+id/editBillingAddress"
                 style="@style/DefaultEditText"
                 android:focusable="false"
+                android:text="@={item.values.billingAddress}"
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -260,7 +289,8 @@
                 android:id="@+id/editBillingUnit"
                 style="@style/DefaultEditText"
                 android:digits="@string/name_char"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="@{item.values.billingUnit}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -278,6 +308,7 @@
                 android:id="@+id/editBillingAddressLineOne"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.billingAddress1}"
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -296,6 +327,7 @@
                 android:id="@+id/editBillingAddressLineTwo"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.billingAddress2}"
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -313,6 +345,7 @@
                 android:id="@+id/editBillingZipcode"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.billingZipcode}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -331,6 +364,7 @@
                 android:id="@+id/editBillingLatitude"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.billingLat}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -349,6 +383,7 @@
                 android:id="@+id/editBillingLongitude"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.billingLng}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -368,6 +403,7 @@
                 android:id="@+id/editBillingCity"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.billingCity}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -386,6 +422,7 @@
                 android:id="@+id/editBillingState"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.billingState}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -404,6 +441,7 @@
                 android:id="@+id/editBillingCountry"
                 style="@style/DefaultEditText"
                 android:enabled="false"
+                android:text="@={item.values.billingCountry}"
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>

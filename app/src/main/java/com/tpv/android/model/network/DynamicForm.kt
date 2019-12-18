@@ -44,36 +44,55 @@ data class Validations(
 )
 
 data class Values(
-        @SerializedName("billing_address_1")
-        var billingAddress1: String?,
-        @SerializedName("billing_address_2")
-        var billingAddress2: String?,
-        @SerializedName("billing_city")
-        var billingCity: String?,
-        @SerializedName("billing_state")
-        var billingState: String?,
-        @SerializedName("billing_zipcode")
-        var billingZipcode: String?,
-        @SerializedName("is_billing_address_same_as_service_address")
-        var isBillingAddressSameAsServiceAddress: Boolean?,
-        @SerializedName("service_address_1")
-        var serviceAddress1: String?,
-        @SerializedName("service_address_2")
-        var serviceAddress2: String?,
-        @SerializedName("service_city")
-        var serviceCity: String?,
-        @SerializedName("service_state")
-        var serviceState: String?,
-        @SerializedName("service_zipcode")
-        var serviceZipcode: String?,
+
         @SerializedName("first_name")
         var firstName: String?,
         @SerializedName("middle_initial")
         var middleName: String?,
         @SerializedName("last_name")
         var lastName: String?,
+
         @SerializedName("value")
         var value: String?,
+
+        @SerializedName("billing_address_1")
+        var billingAddress1: String?,
+        @SerializedName("billing_address_2")
+        var billingAddress2: String?,
+        @SerializedName("billing_zipcode")
+        var billingZipcode: String?,
+        @SerializedName("billing_city")
+        var billingCity: String?,
+        @SerializedName("billing_state")
+        var billingState: String?,
+        @SerializedName("service_address_1")
+        var serviceAddress1: String?,
+        @SerializedName("service_address_2")
+        var serviceAddress2: String?,
+        @SerializedName("service_zipcode")
+        var serviceZipcode: String?,
+        @SerializedName("service_city")
+        var serviceCity: String?,
+        @SerializedName("service_state")
+        var serviceState: String?,
+        @SerializedName("is_billing_address_same_as_service_address")
+        var isAddressSame: Boolean?,
+        @SerializedName("billing_unit")
+        var billingUnit: String?,
+        @SerializedName("service_unit")
+        var serviceUnit: String?,
+        @SerializedName("billing_country")
+        var billingCountry: String?,
+        @SerializedName("service_country")
+        var serviceCountry: String?,
+
+        var serviceAddress: String?,
+        var billingAddress: String?,
+        var serviceLat: String?,
+        var serviceLng: String?,
+        var billingLat: String?,
+        var billingLng: String?,
+
         @SerializedName("address_1")
         var address1: String?,
         @SerializedName("address_2")
@@ -82,13 +101,17 @@ data class Values(
         var zipcode: String?,
         @SerializedName("city")
         var city: String?,
-        @SerializedName("State")
+        @SerializedName("state")
         var state: String?,
-        var address:String?,
+        @SerializedName("unit")
         var unit: String?,
+        @SerializedName("country")
+        var country: String?,
+
+        var address: String?,
         var lat: String?,
-        var lng: String?,
-        var country: String?
+        var lng: String?
+
 )
 
 data class DynamicFormReq(

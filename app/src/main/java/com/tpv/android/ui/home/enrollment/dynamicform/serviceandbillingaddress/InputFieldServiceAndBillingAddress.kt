@@ -63,20 +63,6 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(resp: DynamicFormResp) {
         handleBothAddressField(binding, false)
     }
 
-    binding.editServiceAddress.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            if (binding.radioYes.isChecked) {
-                handleBothAddressField(binding, true)
-            }
-        }
-    })
-
     binding.editServiceUnit.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
         }
@@ -86,11 +72,11 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(resp: DynamicFormResp) {
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if (binding.radioYes.isChecked) {
-                binding.editBillingUnit.value = binding.editServiceUnit.value
+                binding.item?.values?.serviceUnit = binding.editServiceUnit.value
+                handleBothAddressField(binding, true)
             }
         }
     })
-
 }
 
 fun LayoutInputServiceAndBillingAddressBinding.isValid(context: Context?): Boolean {
@@ -126,30 +112,32 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
 
     if (isServiceAddress) {
-        binding.apply {
-            editServiceAddress.value = addressComponent?.address.orEmpty()
-            editServiceAddressLineOne.value = addressComponent?.addressLine1.orEmpty()
-            editServiceAddressLineTwo.value = addressComponent?.addressLine2.orEmpty()
-            editServiceZipcode.value = addressComponent?.zipcode.orEmpty()
-            editServiceLatitude.value = addressComponent?.latitude.orEmpty()
-            editServiceLongitude.value = addressComponent?.longitude.orEmpty()
-            editServiceCountry.value = addressComponent?.country.orEmpty()
-            editServiceCity.value = addressComponent?.city.orEmpty()
-            editServiceState.value = addressComponent?.state.orEmpty()
+        binding.item?.values?.apply {
+            serviceAddress = addressComponent?.address.orEmpty()
+            serviceAddress1 = addressComponent?.addressLine1.orEmpty()
+            serviceAddress2 = addressComponent?.addressLine2.orEmpty()
+            serviceZipcode = addressComponent?.zipcode.orEmpty()
+            serviceLat = addressComponent?.latitude.orEmpty()
+            serviceLng = addressComponent?.longitude.orEmpty()
+            serviceCountry = addressComponent?.country.orEmpty()
+            serviceCountry = addressComponent?.city.orEmpty()
+            serviceState = addressComponent?.state.orEmpty()
         }
+        handleBothAddressField(binding, true)
     } else {
-        binding.apply {
-            editBillingAddress.value = addressComponent?.address.orEmpty()
-            editBillingAddressLineOne.value = addressComponent?.addressLine1.orEmpty()
-            editBillingAddressLineTwo.value = addressComponent?.addressLine2.orEmpty()
-            editBillingZipcode.value = addressComponent?.zipcode.orEmpty()
-            editBillingLatitude.value = addressComponent?.latitude.orEmpty()
-            editBillingLongitude.value = addressComponent?.longitude.orEmpty()
-            editBillingCountry.value = addressComponent?.country.orEmpty()
-            editBillingCity.value = addressComponent?.city.orEmpty()
-            editBillingState.value = addressComponent?.state.orEmpty()
+        binding.item?.values?.apply {
+            billingAddress = addressComponent?.address.orEmpty()
+            billingAddress1 = addressComponent?.addressLine1.orEmpty()
+            billingAddress2 = addressComponent?.addressLine2.orEmpty()
+            billingZipcode = addressComponent?.zipcode.orEmpty()
+            billingLat = addressComponent?.latitude.orEmpty()
+            billingLng = addressComponent?.longitude.orEmpty()
+            billingCountry = addressComponent?.country.orEmpty()
+            billingCity = addressComponent?.city.orEmpty()
+            billingState = addressComponent?.state.orEmpty()
         }
     }
+    binding.invalidateAll()
 
 }
 
@@ -158,31 +146,38 @@ private fun handleBothAddressField(binding: LayoutInputServiceAndBillingAddressB
     if (isSame) {
         binding.editBillingAddress.isEnabled = false
         binding.editBillingUnit.isEnabled = false
-        binding.editBillingAddress?.value = binding.editServiceAddress?.value.orEmpty()
-        binding.editBillingUnit?.value = binding.editServiceUnit?.value.orEmpty()
-        binding.editBillingAddressLineOne?.value = binding.editServiceAddressLineOne?.value.orEmpty()
-        binding.editBillingAddressLineTwo?.value = binding.editServiceAddressLineTwo?.value.orEmpty()
-        binding.editBillingZipcode?.value = binding.editServiceZipcode?.value.orEmpty()
-        binding.editBillingLatitude?.value = binding.editServiceLatitude?.value.orEmpty()
-        binding.editBillingLongitude?.value = binding.editServiceLongitude?.value.orEmpty()
-        binding.editBillingCity?.value = binding.editServiceCity?.value.orEmpty()
-        binding.editBillingState?.value = binding.editServiceState?.value.orEmpty()
-        binding.editBillingCountry?.value = binding.editServiceCountry?.value.orEmpty()
-
+        binding.item?.values?.apply {
+            isAddressSame = isSame
+            billingAddress = serviceAddress
+            billingUnit = serviceUnit
+            billingAddress1 = serviceAddress1
+            billingAddress2 = serviceAddress2
+            billingZipcode = serviceZipcode
+            billingLat = serviceLat
+            billingLng = serviceLng
+            billingCity = serviceCity
+            billingState = serviceState
+            billingCountry = serviceCountry
+        }
     } else {
         binding.editBillingAddress.isEnabled = true
         binding.editBillingUnit.isEnabled = true
-        binding.editBillingAddress?.value = ""
-        binding.editBillingUnit.value = ""
-        binding.editBillingAddressLineOne?.value = ""
-        binding.editBillingAddressLineTwo?.value = ""
-        binding.editBillingZipcode?.value = ""
-        binding.editBillingLatitude?.value = ""
-        binding.editBillingLongitude?.value = ""
-        binding.editBillingCity?.value = ""
-        binding.editBillingState?.value = ""
-        binding.editBillingCountry?.value = ""
+        binding.item?.values?.apply {
+            isAddressSame = isSame
+            billingAddress = ""
+            billingUnit = ""
+            billingAddress1 = ""
+            billingAddress2 = ""
+            billingZipcode = ""
+            billingLat = ""
+            billingLng = ""
+            billingCity = ""
+            billingState = ""
+            billingCountry = ""
+        }
     }
+    binding.invalidateAll()
+
 }
 
 private fun Context.openPlacePicker(binding: LayoutInputServiceAndBillingAddressBinding, isServiceAddress: Boolean) {
