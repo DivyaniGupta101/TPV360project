@@ -47,6 +47,7 @@ import com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress.i
 import com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.setField
+import com.tpv.android.ui.home.enrollment.dynamicform.spinner.setField
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.setupToolbar
 
@@ -171,6 +172,9 @@ class DynamicFormFragment : Fragment() {
                         DynamicField.CHECKBOX.type -> {
                             setFieldOfCheckBox(resp)
                         }
+                        DynamicField.SELECTBOX.type -> {
+                            setFieldOfSpinner(resp)
+                        }
                     }
                 }
 
@@ -281,6 +285,17 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
 
     }
+
+    private fun setFieldOfSpinner(response: DynamicFormResp) {
+        val binding = DataBindingUtil.inflate<LayoutInputSpinnerBinding>(layoutInflater,
+                R.layout.layout_input_spinner,
+                mBinding.fieldContainer,
+                true)
+
+        binding.setField(response)
+        bindingList.add(binding)
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {

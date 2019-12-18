@@ -26,11 +26,6 @@ fun LayoutInputFullNameBinding.isValid(context: Context?): Boolean {
                     context?.getString(R.string.enter_first_name)
             )
             addValidate(
-                    binding.editMiddleName,
-                    EmptyValidator(),
-                    context?.getString(R.string.enter_middle_name)
-            )
-            addValidate(
                     binding.editLastName,
                     EmptyValidator(),
                     context?.getString(R.string.enter_last_name)

@@ -1,4 +1,5 @@
 package com.tpv.android.model.network
+
 import com.google.gson.annotations.SerializedName
 
 data class DynamicFormResp(
@@ -18,7 +19,7 @@ data class DynamicFormResp(
 
 data class Meta(
         @SerializedName("options")
-        val options: List<Option?>?,
+        var options: ArrayList<Option>?,
         @SerializedName("style_as_a_button")
         val styleAsAButton: Boolean?,
         @SerializedName("placeholder")

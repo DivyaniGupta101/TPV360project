@@ -32,8 +32,7 @@ fun LayoutInputCheckBoxBinding.setField(response: DynamicFormResp) {
 
 fun LayoutInputCheckBoxBinding.isValid(context: Context?): Boolean {
     val binding = this
-    return if (binding.item?.meta?.options?.filter { it?.selected == true }?.isNotEmpty().orFalse()) {
-        context?.toastNow("value= ${binding.item?.meta?.options}")
+    return if (binding.item?.meta?.options?.filter { it.selected == true }?.isNotEmpty().orFalse()) {
         true
     } else {
         val errorMessage = context?.getString(R.string.please_select) + " " + binding.item?.label
