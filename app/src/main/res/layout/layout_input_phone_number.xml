@@ -79,7 +79,8 @@
                             android:digits="@string/number_char"
                             android:inputType="phone"
                             android:maxLength="10"
-                            android:paddingEnd="52dp" />
+                            android:paddingEnd="52dp"
+                            android:text="@={item.values.value}" />
 
 
                         <TextView
