@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.show
-import com.livinglifetechway.k4kotlin.core.toastNow
 import com.tpv.android.R
+import com.tpv.android.databinding.ItemInputCheckBoxBinding
 import com.tpv.android.databinding.LayoutInputCheckBoxBinding
-import com.tpv.android.databinding.RowInputCheckBoxBinding
 import com.tpv.android.model.network.DynamicFormResp
 
 fun LayoutInputCheckBoxBinding.setField(response: DynamicFormResp) {
@@ -21,8 +20,8 @@ fun LayoutInputCheckBoxBinding.setField(response: DynamicFormResp) {
 
     if (list?.isNotEmpty().orFalse()) {
         list?.forEach {
-            val bind = DataBindingUtil.inflate<RowInputCheckBoxBinding>(LayoutInflater.from(context),
-                    R.layout.row_input_check_box,
+            val bind = DataBindingUtil.inflate<ItemInputCheckBoxBinding>(LayoutInflater.from(context),
+                    R.layout.item_input_check_box,
                     binding.checkBoxContainer,
                     true)
             bind.item = it

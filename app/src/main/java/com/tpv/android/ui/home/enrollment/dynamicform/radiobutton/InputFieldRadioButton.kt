@@ -6,8 +6,8 @@ import androidx.databinding.DataBindingUtil
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
+import com.tpv.android.databinding.ItemInputRadioButtonBinding
 import com.tpv.android.databinding.LayoutInputRadioButtonBinding
-import com.tpv.android.databinding.RowInputRadioButtonBinding
 import com.tpv.android.model.network.DynamicFormResp
 
 fun LayoutInputRadioButtonBinding.setField(response: DynamicFormResp) {
@@ -19,8 +19,8 @@ fun LayoutInputRadioButtonBinding.setField(response: DynamicFormResp) {
 
     if (list?.isNotEmpty().orFalse()) {
         list?.forEach {
-            val bind = DataBindingUtil.inflate<RowInputRadioButtonBinding>(LayoutInflater.from(context),
-                    R.layout.row_input_radio_button,
+            val bind = DataBindingUtil.inflate<ItemInputRadioButtonBinding>(LayoutInflater.from(context),
+                    R.layout.item_input_radio_button,
                     binding.radioContainer,
                     true)
             bind.item = it
