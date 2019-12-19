@@ -19,6 +19,7 @@ import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.R
 import com.tpv.android.databinding.*
 import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.home.enrollment.dynamicform.address.fillAddressFields
@@ -26,6 +27,8 @@ import com.tpv.android.ui.home.enrollment.dynamicform.address.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.address.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.checkbox.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.checkbox.setField
+import com.tpv.android.ui.home.enrollment.dynamicform.email.isValid
+import com.tpv.android.ui.home.enrollment.dynamicform.email.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.fullname.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.fullname.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.heading.setField
@@ -72,28 +75,31 @@ class DynamicFormFragment : Fragment() {
     }
 
     fun initialize() {
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
         currentPage = arguments?.let { DynamicFormFragmentArgs.fromBundle(it) }?.item.orZero()
         totalPage = mViewModel.dynamicForm?.size.orZero()
 
+        //Check next page is Available or not
         if (currentPage == totalPage) {
             hasNext = false
         } else hasNext = currentPage < totalPage.orZero()
 
-
+        //Inflate all the views
         inflateViews()
 
-
         mBinding.btnNext.onClick {
+
             hideKeyboard()
 
             val validList: ArrayList<Boolean> = ArrayList()
-
             bindingList.forEach { view ->
                 validList.add(checkValid(view))
             }
 
+            //Check if all validation is true then check have next page then
+            //Load this page again else sent to client info screen
             if (!validList.contains(false)) {
                 if (hasNext) {
                     currentPage += 1
@@ -105,6 +111,9 @@ class DynamicFormFragment : Fragment() {
         }
     }
 
+    /**
+     * Check validation of inflated views
+     */
     private fun checkValid(view: Any): Boolean {
         return when (view) {
             is LayoutInputFullNameBinding -> {
@@ -131,6 +140,9 @@ class DynamicFormFragment : Fragment() {
             is LayoutInputCheckBoxBinding -> {
                 view.isValid(context)
             }
+            is LayoutInputEmailAddressBinding -> {
+                view.isValid(context)
+            }
             else -> {
                 return true
             }
@@ -141,6 +153,7 @@ class DynamicFormFragment : Fragment() {
 
     private fun inflateViews() {
 
+        //Handle page indicator view
         for (pageNumber in 1..totalPage.orZero()) {
             val binding = DataBindingUtil.inflate<LayoutHighlightIndicatorBinding>(layoutInflater,
                     R.layout.layout_highlight_indicator,
@@ -149,8 +162,6 @@ class DynamicFormFragment : Fragment() {
             binding.currentPage = currentPage
             binding.pageNumber = pageNumber
         }
-
-
 
 
         mViewModel.dynamicForm?.get(currentPage)?.forEach { response ->
@@ -162,7 +173,7 @@ class DynamicFormFragment : Fragment() {
                     setFieldsOfSinglLineEditText(response)
                 }
                 DynamicField.EMAIL.type -> {
-                    setFieldsOfSinglLineEditText(response)
+                    setFieldsOfEmailAddress(response)
                 }
                 DynamicField.PHONENUMBER.type -> {
                     setFieldsOfPhoneNumber(response)
@@ -196,6 +207,22 @@ class DynamicFormFragment : Fragment() {
 
     }
 
+    /**
+     * Inflate email address view
+     */
+    private fun setFieldsOfEmailAddress(response: DynamicFormResp) {
+        val binding = DataBindingUtil.inflate<LayoutInputEmailAddressBinding>(layoutInflater,
+                R.layout.layout_input_email_address,
+                mBinding.fieldContainer,
+                true)
+
+        binding.setField(response)
+        bindingList.add(binding)
+    }
+
+    /**
+     * Inflate single line edit text view
+     */
     private fun setFieldsOfSinglLineEditText(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputSingleLineEditTextBinding>(layoutInflater,
                 R.layout.layout_input_single_line_edit_text,
@@ -206,7 +233,9 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
     }
 
-
+    /**
+     * Inflate full name view
+     */
     private fun setFieldsOfFullName(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputFullNameBinding>(layoutInflater,
                 R.layout.layout_input_full_name,
@@ -217,6 +246,9 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
     }
 
+    /**
+     * Inflate heading view
+     */
     private fun setFieldsOfHeading(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputHeadingBinding>(layoutInflater,
                 R.layout.layout_input_heading,
@@ -227,6 +259,9 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
     }
 
+    /**
+     * Inflate label view
+     */
     private fun setFieldsOfLabel(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputLabelBinding>(layoutInflater,
                 R.layout.layout_input_label,
@@ -237,6 +272,9 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
     }
 
+    /**
+     * Inflate phoneNumber view
+     */
     private fun setFieldsOfPhoneNumber(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputPhoneNumberBinding>(layoutInflater,
                 R.layout.layout_input_phone_number,
@@ -247,6 +285,9 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
     }
 
+    /**
+     * Inflate address view
+     */
     private fun setFieldsOfAddress(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputAddressBinding>(layoutInflater,
                 R.layout.layout_input_address,
@@ -256,7 +297,9 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
     }
 
-
+    /**
+     * Inflate billing and service address view
+     */
     private fun setFieldOfBillingAndServiceAddress(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputServiceAndBillingAddressBinding>(layoutInflater,
                 R.layout.layout_input_service_and_billing_address,
@@ -266,6 +309,9 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
     }
 
+    /**
+     * Inflate multi line edit text view
+     */
     private fun setFieldOfMultiLineEditText(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputMultiLineEditTextBinding>(layoutInflater,
                 R.layout.layout_input_multi_line_edit_text,
@@ -276,6 +322,9 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
     }
 
+    /**
+     * Inflate radio button view
+     */
     private fun setFieldOfRadioButton(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputRadioButtonBinding>(layoutInflater,
                 R.layout.layout_input_radio_button,
@@ -286,6 +335,9 @@ class DynamicFormFragment : Fragment() {
         bindingList.add(binding)
     }
 
+    /**
+     * Inflate check box view
+     */
     private fun setFieldOfCheckBox(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputCheckBoxBinding>(layoutInflater,
                 R.layout.layout_input_check_box,
@@ -297,6 +349,9 @@ class DynamicFormFragment : Fragment() {
 
     }
 
+    /**
+     * Inflate spinner(dropdown) view
+     */
     private fun setFieldOfSpinner(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputSpinnerBinding>(layoutInflater,
                 R.layout.layout_input_spinner,
@@ -310,11 +365,13 @@ class DynamicFormFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == HomeActivity.ADDRESS_REQUEST_CODE) {
 
+            if (requestCode == HomeActivity.ADDRESS_REQUEST_CODE) {
                 val id = HomeActivity.ADDRESS_REQUEST_CODE - 5000
                 HomeActivity.ADDRESS_REQUEST_CODE = 5000
 
+                //Get binding from list if layout is address then check id is same
+                // Then set addressComponent in addressFields
                 bindingList.forEach { binding ->
                     when (binding) {
                         is LayoutInputAddressBinding -> {
@@ -324,12 +381,12 @@ class DynamicFormFragment : Fragment() {
                         }
                     }
                 }
-
             } else if (requestCode == HomeActivity.BILLING_ADDRESS_REQUEST_CODE) {
-
                 val id = HomeActivity.BILLING_ADDRESS_REQUEST_CODE - 5000
                 HomeActivity.BILLING_ADDRESS_REQUEST_CODE = 5000
 
+                //Get binding from list if layout is serviceAndBillingAddress then check id is same
+                // Then set addressComponent in billingAddressFields
                 bindingList.forEach { binding ->
                     when (binding) {
                         is LayoutInputServiceAndBillingAddressBinding -> {
@@ -340,10 +397,11 @@ class DynamicFormFragment : Fragment() {
                     }
                 }
             } else if (requestCode == HomeActivity.SERVICE_ADDRESS_REQUEST_CODE) {
-
                 val id = HomeActivity.SERVICE_ADDRESS_REQUEST_CODE - 5000
                 HomeActivity.SERVICE_ADDRESS_REQUEST_CODE = 5000
 
+                //Get binding from list if layout is serviceAndBillingAddress then check id is same
+                // Then set addressComponent in serviceAddressFields
                 bindingList.forEach { binding ->
                     when (binding) {
                         is LayoutInputServiceAndBillingAddressBinding -> {

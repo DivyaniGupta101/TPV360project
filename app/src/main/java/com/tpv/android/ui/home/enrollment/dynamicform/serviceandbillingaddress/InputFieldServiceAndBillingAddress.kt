@@ -34,12 +34,12 @@ private var addressField =
                 Place.Field.LAT_LNG)
 
 
-fun LayoutInputServiceAndBillingAddressBinding.setField(resp: DynamicFormResp) {
+fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormResp) {
 
     val binding = this
     val context = binding.editServiceAddress.context
 
-    binding.item = resp
+    binding.item = response
 
     // AutoPlace picker
     if (!Places.isInitialized()) {
@@ -141,6 +141,10 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
 
 }
 
+/**
+ * If billing address and service address are same then save all values of service address fields in billing address fields
+ * Else set blank values in all billing address fields
+ */
 private fun handleBothAddressField(binding: LayoutInputServiceAndBillingAddressBinding, isSame: Boolean) {
 
     if (isSame) {

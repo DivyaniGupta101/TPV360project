@@ -4,9 +4,9 @@ import com.tpv.android.databinding.LayoutInputLabelBinding
 import com.tpv.android.model.network.DynamicFormResp
 
 
-fun LayoutInputLabelBinding.setField(resp: DynamicFormResp) {
+fun LayoutInputLabelBinding.setField(response: DynamicFormResp) {
     val binding = this
-    binding.item = resp
+    binding.item = response
 
 }
 

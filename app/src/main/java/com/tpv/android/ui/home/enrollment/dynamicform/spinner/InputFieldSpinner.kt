@@ -16,6 +16,7 @@ fun LayoutInputSpinnerBinding.setField(response: DynamicFormResp) {
 
     binding.spinner?.setItems(spinnerValueList as ArrayList<String>?)
 
+    //Check if listOfOption contain any true value then set that item as a selected
     if (listOfOption?.filter { it.selected == true }?.isNotEmpty().orFalse()) {
         val selectedItem = listOfOption?.find { it.selected == true }?.option
         binding.spinner?.setSelection(spinnerValueList?.indexOf(selectedItem).orZero())

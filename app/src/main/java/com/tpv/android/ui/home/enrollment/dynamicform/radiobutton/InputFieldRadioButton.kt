@@ -13,12 +13,12 @@ import com.tpv.android.model.network.DynamicFormResp
 fun LayoutInputRadioButtonBinding.setField(response: DynamicFormResp) {
     val binding = this
     val context = binding.radioContainer.context
-    val list = response.meta?.options
+    val listOfRadioButton = response.meta?.options
 
     binding.item = response
 
-    if (list?.isNotEmpty().orFalse()) {
-        list?.forEach {
+    if (listOfRadioButton?.isNotEmpty().orFalse()) {
+        listOfRadioButton?.forEach {
             val bind = DataBindingUtil.inflate<ItemInputRadioButtonBinding>(LayoutInflater.from(context),
                     R.layout.item_input_radio_button,
                     binding.radioContainer,

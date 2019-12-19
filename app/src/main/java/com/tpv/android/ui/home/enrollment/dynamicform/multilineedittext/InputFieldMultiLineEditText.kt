@@ -10,9 +10,9 @@ import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
 
-fun LayoutInputMultiLineEditTextBinding.setField(resp: DynamicFormResp) {
+fun LayoutInputMultiLineEditTextBinding.setField(response: DynamicFormResp) {
     val binding = this
-    binding.item = resp
+    binding.item = response
 }
 
 

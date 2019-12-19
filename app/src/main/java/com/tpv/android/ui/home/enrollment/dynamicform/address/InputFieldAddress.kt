@@ -10,7 +10,6 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
-import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.LayoutInputAddressBinding
 import com.tpv.android.helper.addressComponents
@@ -31,12 +30,12 @@ private var addressField =
                 Place.Field.LAT_LNG)
 
 
-fun LayoutInputAddressBinding.setField(resp: DynamicFormResp) {
+fun LayoutInputAddressBinding.setField(response: DynamicFormResp) {
 
     val binding = this
     val context = binding.editAddress.context
 
-    binding.item = resp
+    binding.item = response
 
     // AutoPlace picker
     if (!Places.isInitialized()) {
@@ -44,13 +43,7 @@ fun LayoutInputAddressBinding.setField(resp: DynamicFormResp) {
     }
 
     binding.editAddress.onClick {
-        if (context is HomeActivity) {
-            HomeActivity.ADDRESS_REQUEST_CODE = HomeActivity.ADDRESS_REQUEST_CODE + item?.id.orZero()
-            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, addressField)
-                    .setCountry(AppConstant.PLACE_COUNTRY)
-                    .build(context)
-            binding.root.findFragment<Fragment>().startActivityForResult(intent, HomeActivity.ADDRESS_REQUEST_CODE)
-        }
+        context.openPlacePicker(binding)
     }
 
 }
@@ -58,17 +51,18 @@ fun LayoutInputAddressBinding.setField(resp: DynamicFormResp) {
 fun LayoutInputAddressBinding.fillAddressFields(fillAddressFields: Place?) {
     val binding = this
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
-    binding.apply {
-        editAddress.value = addressComponent?.address.orEmpty()
-        editAddressLineOne.value = addressComponent?.addressLine1.orEmpty()
-        editAddressLineTwo.value = addressComponent?.addressLine2.orEmpty()
-        editZipcode.value = addressComponent?.zipcode.orEmpty()
-        editLatitude.value = addressComponent?.latitude.orEmpty()
-        editLongitude.value = addressComponent?.longitude.orEmpty()
-        editCountry.value = addressComponent?.country.orEmpty()
-        editCity.value = addressComponent?.city.orEmpty()
-        editState.value = addressComponent?.state.orEmpty()
+    binding.item?.values?.apply {
+        address = addressComponent?.address.orEmpty()
+        address1 = addressComponent?.addressLine1.orEmpty()
+        address2 = addressComponent?.addressLine2.orEmpty()
+        zipcode = addressComponent?.zipcode.orEmpty()
+        lat = addressComponent?.latitude.orEmpty()
+        lng = addressComponent?.longitude.orEmpty()
+        country = addressComponent?.country.orEmpty()
+        city = addressComponent?.city.orEmpty()
+        state = addressComponent?.state.orEmpty()
     }
+    binding.invalidateAll()
 }
 
 fun LayoutInputAddressBinding.isValid(context: Context?): Boolean {
@@ -89,5 +83,16 @@ fun LayoutInputAddressBinding.isValid(context: Context?): Boolean {
         }.validate()
     } else {
         return true
+    }
+}
+
+private fun Context.openPlacePicker(binding: LayoutInputAddressBinding) {
+    val context = this
+    if (context is HomeActivity) {
+        HomeActivity.ADDRESS_REQUEST_CODE = HomeActivity.ADDRESS_REQUEST_CODE + binding.item?.id.orZero()
+        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, addressField)
+                .setCountry(AppConstant.PLACE_COUNTRY)
+                .build(context)
+        binding.root.findFragment<Fragment>().startActivityForResult(intent, HomeActivity.ADDRESS_REQUEST_CODE)
     }
 }

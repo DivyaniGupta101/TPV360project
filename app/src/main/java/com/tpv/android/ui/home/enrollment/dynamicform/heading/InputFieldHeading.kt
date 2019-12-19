@@ -5,8 +5,8 @@ import com.tpv.android.databinding.LayoutInputHeadingBinding
 import com.tpv.android.model.network.DynamicFormResp
 
 
-fun LayoutInputHeadingBinding.setField(resp: DynamicFormResp) {
+fun LayoutInputHeadingBinding.setField(response: DynamicFormResp) {
     val binding = this
-    binding.item = resp
+    binding.item = response
 }
 

@@ -72,7 +72,6 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editAddressLineOne"
                 style="@style/DefaultEditText"
                 android:enabled="false"
                 android:text="@={item.values.address1}"
@@ -91,7 +90,6 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editAddressLineTwo"
                 style="@style/DefaultEditText"
                 android:enabled="false"
                 android:text="@={item.values.address2}"
@@ -109,7 +107,6 @@
             android:layout_marginStart="@dimen/_8sdp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editZipcode"
                 style="@style/DefaultEditText"
                 android:enabled="false"
                 android:text="@={item.values.zipcode}"
@@ -128,7 +125,6 @@
             android:layout_marginStart="@dimen/_8sdp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editLatitude"
                 style="@style/DefaultEditText"
                 android:enabled="false"
                 android:text="@={item.values.lat}"
@@ -147,7 +143,6 @@
             android:layout_marginStart="@dimen/_8sdp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editLongitude"
                 style="@style/DefaultEditText"
                 android:enabled="false"
                 android:text="@={item.values.lng}"
@@ -167,7 +162,6 @@
             android:layout_marginStart="@dimen/_8sdp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editCity"
                 style="@style/DefaultEditText"
                 android:enabled="false"
                 android:text="@={item.values.city}"
@@ -186,7 +180,6 @@
             android:layout_marginStart="@dimen/_8sdp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editState"
                 style="@style/DefaultEditText"
                 android:enabled="false"
                 android:text="@={item.values.state}"
@@ -205,7 +198,6 @@
             android:layout_marginStart="@dimen/_8sdp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editCountry"
                 style="@style/DefaultEditText"
                 android:enabled="false"
                 android:text="@={item.values.country}"

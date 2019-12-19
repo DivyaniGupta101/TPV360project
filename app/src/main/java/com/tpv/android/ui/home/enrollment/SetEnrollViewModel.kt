@@ -15,11 +15,9 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var utilitiesList: ArrayList<UtilityResp> = ArrayList()
     var zipcode: ZipCodeResp? = null
     var programList: ArrayList<ProgramsResp> = ArrayList()
-    var relationShipList: ArrayList<String> = ArrayList()
     var customerData: CustomerData = CustomerData()
     var savedLeadDetail: SaveLeadsDetailResp? = null
     var recordingFile: String = ""
-    var isElectricServiceAddressSame: Boolean? = false
     var customerDataList: ArrayList<CustomerData?> = ArrayList()
     var isAgreeWithCondition: Boolean = false
     var signature: Bitmap? = null
@@ -102,8 +100,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         savedLeadDetail = null
         recordingFile = ""
         customerDataList.clear()
-        isElectricServiceAddressSame = false
-        relationShipList.clear()
         isAgreeWithCondition = false
         signature = null
         dynamicForm = LinkedHashMap()

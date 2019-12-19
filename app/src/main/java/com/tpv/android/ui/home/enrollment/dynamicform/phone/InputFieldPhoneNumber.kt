@@ -35,14 +35,14 @@ var verifiedNumber: String? = null
 var countryCodeList = arrayListOf("+1")
 
 
-fun LayoutInputPhoneNumberBinding.setField(resp: DynamicFormResp,
+fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
                                            viewModel: SetEnrollViewModel,
                                            bindingDynamicForm: FragmentDynamicFormBinding) {
 
     val context = bindingDynamicForm.btnNext.context
     val bindingInputPhone = this
 
-    bindingInputPhone.item = resp
+    bindingInputPhone.item = response
 
     bindingInputPhone.spinnerCountryCode.setItems(countryCodeList)
 
@@ -50,10 +50,9 @@ fun LayoutInputPhoneNumberBinding.setField(resp: DynamicFormResp,
 
         context.hideKeyBoard()
 
-        if (bindingInputPhone.editPhoneNumber.value.isNotEmpty()) {
+        //Check if phone number is valid then only able to call api generate otp
+        if (bindingInputPhone.isValid(context)) {
             context.generateOTPApiCall(bindingInputPhone, bindingDynamicForm, viewModel)
-        } else {
-            bindingInputPhone.isValid(context)
         }
     }
 
@@ -66,6 +65,7 @@ fun LayoutInputPhoneNumberBinding.setField(resp: DynamicFormResp,
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            //Check if number is already verified call handleVerifiedText method
             if (s.toString().equals(verifiedNumber)) {
                 context.handleVerifiedText(bindingInputPhone, false)
             } else {
@@ -101,6 +101,10 @@ fun LayoutInputPhoneNumberBinding.isValid(context: Context?): Boolean {
     }
 }
 
+/**
+ * Generate otp on this number
+ * On success open otp Dialog
+ */
 private fun Context.generateOTPApiCall(bindingInputPhone: LayoutInputPhoneNumberBinding,
                                        bindingDynamicForm: FragmentDynamicFormBinding,
                                        viewModel: SetEnrollViewModel) {
@@ -109,7 +113,7 @@ private fun Context.generateOTPApiCall(bindingInputPhone: LayoutInputPhoneNumber
     bindingDynamicForm.lifecycleOwner?.let {
         liveData.observe(it, Observer {
             it.ifSuccess {
-                context.showOTPDialog(bindingInputPhone, bindingDynamicForm, viewModel)
+                context.otpDialog(bindingInputPhone, bindingDynamicForm, viewModel)
             }
         })
     }
@@ -119,9 +123,13 @@ private fun Context.generateOTPApiCall(bindingInputPhone: LayoutInputPhoneNumber
 
 }
 
-private fun Context.showOTPDialog(bindingInputPhone: LayoutInputPhoneNumberBinding
-                                  , bindingDynamicForm: FragmentDynamicFormBinding,
-                                  viewModel: SetEnrollViewModel) {
+/**
+ * On click of submit button call verify otp api
+ * On click of resend otp call generate api
+ */
+private fun Context.otpDialog(bindingInputPhone: LayoutInputPhoneNumberBinding
+                              , bindingDynamicForm: FragmentDynamicFormBinding,
+                              viewModel: SetEnrollViewModel) {
     val context = this
 
     val binding = DataBindingUtil.inflate<DialogOtpBinding>(LayoutInflater.from(this),
@@ -146,6 +154,7 @@ private fun Context.showOTPDialog(bindingInputPhone: LayoutInputPhoneNumberBindi
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            //Only submit button enable while otp number fill
             binding.btnSubmit.isEnabled = (start == 5 && count == 1)
         }
     })
@@ -166,6 +175,10 @@ private fun Context.showOTPDialog(bindingInputPhone: LayoutInputPhoneNumberBindi
     }
 }
 
+/**
+ * On success call handleVerifiedText method and dismiss otp dialog
+ * Add this number in verifiedNumber
+ */
 private fun Context.verifyOTPApiCall(bindingInputPhone: LayoutInputPhoneNumberBinding,
                                      dialog: AlertDialog,
                                      bindingOtpDialog: DialogOtpBinding,
@@ -189,10 +202,12 @@ private fun Context.verifyOTPApiCall(bindingInputPhone: LayoutInputPhoneNumberBi
             }
         })
     }
-
     bindingOtpDialog.resource = liveData as LiveData<Resource<Any, APIError>>
 }
 
+/**
+ * Check if isEditable is true then button should be enable and change text and text color
+ */
 private fun Context.handleVerifiedText(bindingInputPhone: LayoutInputPhoneNumberBinding, isEditable: Boolean) {
     val context = this
 
