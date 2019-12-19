@@ -37,6 +37,7 @@ import com.tpv.android.databinding.FragmentStatementBinding
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.internal.DialogText
 import com.tpv.android.model.network.ContractReq
+import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.SaveLeadsDetailReq
 import com.tpv.android.model.network.SaveLeadsDetailResp
 import com.tpv.android.network.error.AlertErrorHandler
@@ -46,7 +47,6 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
-import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.glide.GlideApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -220,31 +220,23 @@ class StatementFragment : Fragment() {
      * Also check if recording is not empty then call save recording API else call save Signature API
      */
     private fun saveCustomerDataApiCall() {
-        var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
-        when (mViewModel.planType) {
-            Plan.DUALFUEL.value -> {
-                liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
-                        clientid = Pref.user?.clientId.toString(),
-                        commodity = mViewModel.planType,
-                        gasutilityId = mViewModel.utilitiesList.find { it?.commodity == Plan.GASFUEL.value }?.utid.toString(),
-                        gasprogramid = mViewModel.programList.find { it.utilityType == Plan.GASFUEL.value }?.id,
-                        electricutilityId = mViewModel.utilitiesList.find { it?.commodity == Plan.ELECTRICFUEL.value }?.utid.toString(),
-                        electricprogramid = mViewModel.programList.find { it.utilityType == Plan.ELECTRICFUEL.value }?.id,
-                        fields = arrayListOf(mViewModel.customerData),
-                        zipcode = mViewModel.zipcode?.zipcode)
-                )
-            }
-            else -> {
-                liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
-                        clientid = Pref.user?.clientId.toString(),
-                        commodity = mViewModel.planType,
-                        programId = mViewModel.programList.get(0).id,
-                        utilityId = mViewModel.utilitiesList.get(0)?.utid.toString(),
-                        zipcode = mViewModel.zipcode?.zipcode,
-                        fields = arrayListOf(mViewModel.customerData)))
-            }
+
+//        TODO("Test this code")
+        val list = ArrayList<DynamicFormResp>()
+        for (i in 1..mViewModel.dynamicForm?.size.orZero()) {
+            list.addAll(mViewModel.dynamicForm?.get(i).orEmpty())
         }
 
+
+        var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
+
+        liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
+                clientid = Pref.user?.clientId.toString(),
+                commodity = mViewModel.planType,
+                programId = mViewModel.programList.get(0).id,
+                utilityId = mViewModel.utilitiesList.get(0)?.utid.toString(),
+                zipcode = mViewModel.zipcode?.zipcode,
+                fields = arrayListOf(mViewModel.customerData)))
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.savedLeadDetail = it
