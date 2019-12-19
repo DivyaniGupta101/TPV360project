@@ -89,7 +89,7 @@ class ProgramsListingFragment : Fragment() {
                     mViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
                 }
             }
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_programsListingFragment_to_dynamicFormFragment)
+            Navigation.findNavController(mBinding.root).navigateSafe(ProgramsListingFragmentDirections.actionProgramsListingFragmentToDynamicFormFragment(1))
         }
     }
 

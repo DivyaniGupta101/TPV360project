@@ -78,19 +78,6 @@ class CommodityFragment : Fragment() {
         liveData.observe(this, Observer {
             it.ifSuccess {
                 mViewModel.planType = type
-
-                val list: ArrayList<DynamicFormResp> = ArrayList()
-                var page = 1
-                it?.forEach { dynamicFormResp ->
-                    if (dynamicFormResp.type == DynamicField.SEPARATE.type) {
-                        mViewModel.dynamicForm?.put(page, list)
-                        page = page++
-                        list.clear()
-                    } else {
-                        list.add(dynamicFormResp)
-                    }
-                }
-
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_commodityFragment_to_plansZipcodeFragment)
             }
         })

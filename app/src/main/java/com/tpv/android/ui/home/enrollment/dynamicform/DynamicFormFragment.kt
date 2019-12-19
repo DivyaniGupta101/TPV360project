@@ -52,15 +52,16 @@ class DynamicFormFragment : Fragment() {
     private lateinit var mBinding: FragmentDynamicFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var bindingList: ArrayList<Any> = ArrayList()
-    private var totalPage: Int? = null
+    private var totalPage: Int = 1
     private var hasNext: Boolean = false
+    private var currentPage = 1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dynamic_form, container, false)
 
         mBinding.lifecycleOwner = this
-        mViewModel = ViewModelProviders.of(this).get(SetEnrollViewModel::class.java)
+        activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
 
         return mBinding.root
     }
@@ -73,18 +74,15 @@ class DynamicFormFragment : Fragment() {
     fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
-        totalPage = mViewModel.dynamicForm?.size
+        currentPage = arguments?.let { DynamicFormFragmentArgs.fromBundle(it) }?.item.orZero()
+        totalPage = mViewModel.dynamicForm?.size.orZero()
 
-        if (mViewModel.dynamicFormCurrentPage == totalPage) {
+        if (currentPage == totalPage) {
             hasNext = false
-        } else if (mViewModel.dynamicFormCurrentPage < totalPage.orZero()) {
-            hasNext = true
-        } else {
-            hasNext = false
-        }
+        } else hasNext = currentPage < totalPage.orZero()
 
 
-        inflateViews(totalPage)
+        inflateViews()
 
 
         mBinding.btnNext.onClick {
@@ -98,10 +96,10 @@ class DynamicFormFragment : Fragment() {
 
             if (!validList.contains(false)) {
                 if (hasNext) {
-                    mViewModel.dynamicFormCurrentPage = mViewModel.dynamicFormCurrentPage + 1
-                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
+                    currentPage += 1
+                    Navigation.findNavController(mBinding.root).navigateSafe(DynamicFormFragmentDirections.actionDynamicFormFragmentSelf(currentPage))
                 } else {
-                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_self)
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
                 }
             }
         }
@@ -141,21 +139,21 @@ class DynamicFormFragment : Fragment() {
     }
 
 
-    private fun inflateViews(totalPage: Int?) {
+    private fun inflateViews() {
 
-        for (pageNumber in 0..totalPage.orZero()) {
+        for (pageNumber in 1..totalPage.orZero()) {
             val binding = DataBindingUtil.inflate<LayoutHighlightIndicatorBinding>(layoutInflater,
                     R.layout.layout_highlight_indicator,
                     mBinding.indicatorContainer,
                     true)
-            binding.currentPage = mViewModel.dynamicFormCurrentPage
+            binding.currentPage = currentPage
             binding.pageNumber = pageNumber
         }
 
 
 
 
-        mViewModel.dynamicForm?.get(mViewModel.dynamicFormCurrentPage)?.forEach { response ->
+        mViewModel.dynamicForm?.get(currentPage)?.forEach { response ->
             when (response.type) {
                 DynamicField.FULLNAME.type -> {
                     setFieldsOfFullName(response)

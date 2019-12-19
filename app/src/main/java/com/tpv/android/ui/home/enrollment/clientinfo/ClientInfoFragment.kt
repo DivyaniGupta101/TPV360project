@@ -54,7 +54,7 @@ class ClientInfoFragment : Fragment() {
         }
 
         mBinding.imageEdit.onClick {
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_personalDetailFormFragment)
+            Navigation.findNavController(mBinding.root).navigateSafe(ClientInfoFragmentDirections.actionClientInfoFragmentToDynamicFormFragment(1))
         }
     }
 

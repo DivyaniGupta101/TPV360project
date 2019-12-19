@@ -131,8 +131,8 @@
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
         <action
-            android:id="@+id/action_clientInfoFragment_to_personalDetailFormFragment"
-            app:destination="@id/personalDetailFormFragment"
+            android:id="@+id/action_clientInfoFragment_to_dynamicFormFragment"
+            app:destination="@id/dynamicFormFragment"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
@@ -204,6 +204,9 @@
         android:name="com.tpv.android.ui.home.enrollment.dynamicform.DynamicFormFragment"
         android:label="DynamicFormFragment"
         tools:layout="@layout/fragment_dynamic_form">
+        <argument
+            android:name="item"
+            app:argType="integer" />
         <action
             android:id="@+id/action_dynamicFormFragment_self"
             app:destination="@id/dynamicFormFragment"

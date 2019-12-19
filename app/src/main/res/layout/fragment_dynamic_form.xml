@@ -40,15 +40,15 @@
                 android:paddingTop="@dimen/_4sdp"
                 android:paddingEnd="@dimen/_18sdp"
                 android:paddingBottom="@dimen/_18sdp" />
+
             <LinearLayout
                 android:id="@+id/indicatorContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/_18sdp"
-                android:paddingTop="@dimen/_4sdp"
-                android:paddingEnd="@dimen/_18sdp"
-                android:paddingBottom="@dimen/_18sdp" />
+                android:paddingEnd="@dimen/_18sdp" />
 
             <TextView
                 android:id="@+id/btnNext"

@@ -4,6 +4,8 @@ import android.graphics.Bitmap
 import com.tpv.android.data.AppRepository
 import com.tpv.android.model.network.*
 import com.tpv.android.network.resources.CoroutineScopedViewModel
+import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.utils.enums.DynamicField
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -21,12 +23,42 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var customerDataList: ArrayList<CustomerData?> = ArrayList()
     var isAgreeWithCondition: Boolean = false
     var signature: Bitmap? = null
-    var dynamicFormCurrentPage: Int = 1
     var dynamicForm: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
 
-
     fun getDynamicForm(dynamicFormReq: DynamicFormReq) = with(AppRepository) {
-        getDynamicFormCall(dynamicFormReq)
+        val result = getDynamicFormCall(dynamicFormReq)
+
+        result.observeForever {
+            it.ifSuccess {
+
+                var list: ArrayList<DynamicFormResp> = ArrayList()
+                var page = 1
+                val totalPage = it?.filter { it.type == DynamicField.SEPARATE.type }?.size?.plus(1)
+
+                it?.forEachIndexed { index, dynamicFormResp ->
+
+                    if (page != totalPage) {
+
+                        if (dynamicFormResp.type == DynamicField.SEPARATE.type) {
+                            dynamicForm?.put(page, list)
+                            page += 1
+                            list = ArrayList()
+                        } else {
+                            list.add(dynamicFormResp)
+                        }
+
+                    } else {
+
+                        list.add(dynamicFormResp)
+                        if (index == it.size.minus(1)) {
+                            dynamicForm?.put(page, list)
+                        }
+
+                    }
+                }
+            }
+        }
+        result
     }
 
     fun saveLeadDetail(leadsDetailReq: SaveLeadsDetailReq) = with(AppRepository)
@@ -74,6 +106,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         relationShipList.clear()
         isAgreeWithCondition = false
         signature = null
-        dynamicFormCurrentPage = 1
+        dynamicForm = LinkedHashMap()
     }
 }
