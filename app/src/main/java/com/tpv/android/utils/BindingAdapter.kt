@@ -2,7 +2,9 @@ package com.tpv.android.utils
 
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.text.InputFilter
 import android.view.View
+import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -228,6 +230,17 @@ object BindingAdapter {
             textView.background = textView.context.getDrawable(R.drawable.bg_selected_page_indicator)
         } else {
             textView.background = textView.context.getDrawable(R.drawable.bg_unselected_page_indicator)
+        }
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("editTextMaxLength")
+    fun editTextMaxLength(editText: EditText, length: Int) {
+        if (length != 0) {
+            val arrayOfInputFilters = arrayOfNulls<InputFilter>(1)
+            arrayOfInputFilters[0] = InputFilter.LengthFilter(length)
+            editText.filters = arrayOfInputFilters
         }
     }
 }

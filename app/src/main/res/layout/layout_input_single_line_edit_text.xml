@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -7,6 +8,10 @@
         <variable
             name="item"
             type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
+            name="key"
+            type="com.tpv.android.utils.AppConstant" />
     </data>
 
     <LinearLayout
@@ -36,7 +41,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText"
                 style="@style/DefaultEditText"
-                android:text="@={item.values.value}" />
+                android:text='@={item.values[key.VALUE]}'
+                app:editTextMaxLength="@{item.validations.length}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

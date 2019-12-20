@@ -10,16 +10,18 @@ import com.tpv.android.R
 import com.tpv.android.databinding.ItemInputCheckBoxBinding
 import com.tpv.android.databinding.LayoutInputCheckBoxBinding
 import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.model.network.Option
+import com.tpv.android.utils.AppConstant
 
 fun LayoutInputCheckBoxBinding.setField(response: DynamicFormResp) {
     val binding = this
     val context = binding.checkBoxContainer.context
-    val listOfCheckBox = response.meta?.options
 
     binding.item = response
+    binding.item?.values = linkedMapOf(AppConstant.OPTIONS to response.meta?.options as Any)
 
-    if (listOfCheckBox?.isNotEmpty().orFalse()) {
-        listOfCheckBox?.forEach {
+    if (binding.item?.values?.isNotEmpty().orFalse()) {
+        (binding.item?.values?.get(AppConstant.OPTIONS) as ArrayList<Option>).forEach {
             val bind = DataBindingUtil.inflate<ItemInputCheckBoxBinding>(LayoutInflater.from(context),
                     R.layout.item_input_check_box,
                     binding.checkBoxContainer,

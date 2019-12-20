@@ -51,17 +51,15 @@ fun LayoutInputAddressBinding.setField(response: DynamicFormResp) {
 fun LayoutInputAddressBinding.fillAddressFields(fillAddressFields: Place?) {
     val binding = this
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
-    binding.item?.values?.apply {
-        address = addressComponent?.address.orEmpty()
-        address1 = addressComponent?.addressLine1.orEmpty()
-        address2 = addressComponent?.addressLine2.orEmpty()
-        zipcode = addressComponent?.zipcode.orEmpty()
-        lat = addressComponent?.latitude.orEmpty()
-        lng = addressComponent?.longitude.orEmpty()
-        country = addressComponent?.country.orEmpty()
-        city = addressComponent?.city.orEmpty()
-        state = addressComponent?.state.orEmpty()
-    }
+    binding.item?.address = addressComponent?.address.orEmpty()
+    binding.item?.values?.set(AppConstant.ADDRESS1, addressComponent?.addressLine1.orEmpty())
+    binding.item?.values?.set(AppConstant.ADDRESS2, addressComponent?.addressLine2.orEmpty())
+    binding.item?.values?.set(AppConstant.ZIPCODE, addressComponent?.zipcode.orEmpty())
+    binding.item?.values?.set(AppConstant.LAT, addressComponent?.latitude.orEmpty())
+    binding.item?.values?.set(AppConstant.LNG, addressComponent?.longitude.orEmpty())
+    binding.item?.values?.set(AppConstant.COUNTRY, addressComponent?.country.orEmpty())
+    binding.item?.values?.set(AppConstant.CITY, addressComponent?.city.orEmpty())
+    binding.item?.values?.set(AppConstant.STATE, addressComponent?.state.orEmpty())
     binding.invalidateAll()
 }
 

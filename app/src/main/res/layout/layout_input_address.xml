@@ -7,6 +7,10 @@
         <variable
             name="item"
             type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
+            name="key"
+            type="com.tpv.android.utils.AppConstant" />
     </data>
 
     <LinearLayout
@@ -37,7 +41,7 @@
                 android:id="@+id/editAddress"
                 style="@style/DefaultEditText"
                 android:focusable="false"
-                android:text="@={item.values.address}"
+                android:text="@{item.address}"
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,7 +61,7 @@
                 style="@style/DefaultEditText"
                 android:digits="@string/name_char"
                 android:inputType="text"
-                android:text="@={item.values.unit}" />
+                android:text='@={item.values[key.UNIT]}' />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -74,7 +78,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/DefaultEditText"
                 android:enabled="false"
-                android:text="@={item.values.address1}"
+                android:text='@={item.values[key.ADDRESS1]}'
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +96,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/DefaultEditText"
                 android:enabled="false"
-                android:text="@={item.values.address2}"
+                android:text='@={item.values[key.ADDRESS2]}'
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +113,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/DefaultEditText"
                 android:enabled="false"
-                android:text="@={item.values.zipcode}"
+                android:text='@={item.values[key.ZIPCODE]}'
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -127,7 +131,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/DefaultEditText"
                 android:enabled="false"
-                android:text="@={item.values.lat}"
+                android:text='@={item.values[key.LAT]}'
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -145,7 +149,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/DefaultEditText"
                 android:enabled="false"
-                android:text="@={item.values.lng}"
+                android:text='@={item.values[key.LNG]}'
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -164,7 +168,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/DefaultEditText"
                 android:enabled="false"
-                android:text="@={item.values.city}"
+                android:text='@={item.values[key.CITY]}'
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -182,7 +186,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/DefaultEditText"
                 android:enabled="false"
-                android:text="@={item.values.state}"
+                android:text='@={item.values[key.STATE]}'
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -200,7 +204,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/DefaultEditText"
                 android:enabled="false"
-                android:text="@={item.values.country}"
+                android:text='@={item.values[key.COUNTRY]}'
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>

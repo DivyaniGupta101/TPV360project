@@ -7,6 +7,10 @@
         <variable
             name="item"
             type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
+            name="key"
+            type="com.tpv.android.utils.AppConstant" />
     </data>
 
     <LinearLayout
@@ -35,7 +39,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editFirstName"
                 style="@style/DefaultEditText"
-                android:text="@={item.values.firstName}" />
+                android:text='@={item.values[key.FIRSTNAME]}' />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +56,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editMiddleName"
                 style="@style/DefaultEditText"
-                android:text="@={item.values.middleName}" />
+                android:text='@={item.values[key.MIDDLENAME]}' />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,7 +73,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editLastName"
                 style="@style/DefaultEditText"
-                android:text="@={item.values.lastName}" />
+                android:text='@={item.values[key.LASTNAME]}' />
 
         </com.google.android.material.textfield.TextInputLayout>
 

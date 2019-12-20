@@ -1,6 +1,7 @@
 package com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress
 
 
+//import com.tpv.android.model.network.BillingAndServiceAddress
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
@@ -72,7 +73,7 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if (binding.radioYes.isChecked) {
-                binding.item?.values?.serviceUnit = binding.editServiceUnit.value
+                binding.item?.values?.set(AppConstant.SERVICEUNIT, binding.editServiceUnit.value)
                 handleBothAddressField(binding, true)
             }
         }
@@ -112,30 +113,26 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
 
     if (isServiceAddress) {
-        binding.item?.values?.apply {
-            serviceAddress = addressComponent?.address.orEmpty()
-            serviceAddress1 = addressComponent?.addressLine1.orEmpty()
-            serviceAddress2 = addressComponent?.addressLine2.orEmpty()
-            serviceZipcode = addressComponent?.zipcode.orEmpty()
-            serviceLat = addressComponent?.latitude.orEmpty()
-            serviceLng = addressComponent?.longitude.orEmpty()
-            serviceCountry = addressComponent?.country.orEmpty()
-            serviceCountry = addressComponent?.city.orEmpty()
-            serviceState = addressComponent?.state.orEmpty()
-        }
+        binding.item?.serviceAddress = addressComponent?.address.orEmpty()
+        binding.item?.values?.set(AppConstant.SERVICEADDRESS1, addressComponent?.addressLine1.orEmpty())
+        binding.item?.values?.set(AppConstant.SERVICEADDRESS2, addressComponent?.addressLine2.orEmpty())
+        binding.item?.values?.set(AppConstant.SERVICEZIPCODE, addressComponent?.zipcode.orEmpty())
+        binding.item?.values?.set(AppConstant.SERVICELAT, addressComponent?.latitude.orEmpty())
+        binding.item?.values?.set(AppConstant.SERVICELNG, addressComponent?.longitude.orEmpty())
+        binding.item?.values?.set(AppConstant.SERVICECOUNTRY, addressComponent?.country.orEmpty())
+        binding.item?.values?.set(AppConstant.SERVICECITY, addressComponent?.city.orEmpty())
+        binding.item?.values?.set(AppConstant.SERVICESTATE, addressComponent?.state.orEmpty())
         handleBothAddressField(binding, true)
     } else {
-        binding.item?.values?.apply {
-            billingAddress = addressComponent?.address.orEmpty()
-            billingAddress1 = addressComponent?.addressLine1.orEmpty()
-            billingAddress2 = addressComponent?.addressLine2.orEmpty()
-            billingZipcode = addressComponent?.zipcode.orEmpty()
-            billingLat = addressComponent?.latitude.orEmpty()
-            billingLng = addressComponent?.longitude.orEmpty()
-            billingCountry = addressComponent?.country.orEmpty()
-            billingCity = addressComponent?.city.orEmpty()
-            billingState = addressComponent?.state.orEmpty()
-        }
+        binding.item?.billingAddress = addressComponent?.address.orEmpty()
+        binding.item?.values?.set(AppConstant.BILLINGADDRESS1, addressComponent?.addressLine1.orEmpty())
+        binding.item?.values?.set(AppConstant.BILLINGADDRESS2, addressComponent?.addressLine2.orEmpty())
+        binding.item?.values?.set(AppConstant.BILLINGZIPCODE, addressComponent?.zipcode.orEmpty())
+        binding.item?.values?.set(AppConstant.BILLINGLAT, addressComponent?.latitude.orEmpty())
+        binding.item?.values?.set(AppConstant.BILLINGLNG, addressComponent?.longitude.orEmpty())
+        binding.item?.values?.set(AppConstant.BILLINGCOUNTRY, addressComponent?.country.orEmpty())
+        binding.item?.values?.set(AppConstant.BILLINGCITY, addressComponent?.city.orEmpty())
+        binding.item?.values?.set(AppConstant.BILLINGSTATE, addressComponent?.state.orEmpty())
     }
     binding.invalidateAll()
 
@@ -150,35 +147,31 @@ private fun handleBothAddressField(binding: LayoutInputServiceAndBillingAddressB
     if (isSame) {
         binding.editBillingAddress.isEnabled = false
         binding.editBillingUnit.isEnabled = false
-        binding.item?.values?.apply {
-            isAddressSame = isSame
-            billingAddress = serviceAddress
-            billingUnit = serviceUnit
-            billingAddress1 = serviceAddress1
-            billingAddress2 = serviceAddress2
-            billingZipcode = serviceZipcode
-            billingLat = serviceLat
-            billingLng = serviceLng
-            billingCity = serviceCity
-            billingState = serviceState
-            billingCountry = serviceCountry
-        }
+        binding.item?.billingAddress = binding.item?.serviceAddress
+        binding.item?.isAddressSame = isSame
+        binding.item?.values?.set(AppConstant.BILLINGUNIT, binding.item?.values?.getValue(AppConstant.SERVICEUNIT).toString())
+        binding.item?.values?.set(AppConstant.BILLINGADDRESS1, binding.item?.values?.getValue(AppConstant.SERVICEADDRESS1).toString())
+        binding.item?.values?.set(AppConstant.BILLINGADDRESS2, binding.item?.values?.getValue(AppConstant.SERVICEADDRESS2).toString())
+        binding.item?.values?.set(AppConstant.BILLINGZIPCODE, binding.item?.values?.getValue(AppConstant.SERVICEZIPCODE).toString())
+        binding.item?.values?.set(AppConstant.BILLINGLAT, binding.item?.values?.getValue(AppConstant.SERVICELAT).toString())
+        binding.item?.values?.set(AppConstant.BILLINGLNG, binding.item?.values?.getValue(AppConstant.SERVICELNG).toString())
+        binding.item?.values?.set(AppConstant.BILLINGCOUNTRY, binding.item?.values?.getValue(AppConstant.SERVICECOUNTRY).toString())
+        binding.item?.values?.set(AppConstant.BILLINGCITY, binding.item?.values?.getValue(AppConstant.SERVICECITY).toString())
+        binding.item?.values?.set(AppConstant.BILLINGSTATE, binding.item?.values?.getValue(AppConstant.SERVICESTATE).toString())
     } else {
         binding.editBillingAddress.isEnabled = true
         binding.editBillingUnit.isEnabled = true
-        binding.item?.values?.apply {
-            isAddressSame = isSame
-            billingAddress = ""
-            billingUnit = ""
-            billingAddress1 = ""
-            billingAddress2 = ""
-            billingZipcode = ""
-            billingLat = ""
-            billingLng = ""
-            billingCity = ""
-            billingState = ""
-            billingCountry = ""
-        }
+        binding.item?.billingAddress = ""
+        binding.item?.isAddressSame = isSame
+        binding.item?.values?.set(AppConstant.BILLINGUNIT, "")
+        binding.item?.values?.set(AppConstant.BILLINGADDRESS1, "")
+        binding.item?.values?.set(AppConstant.BILLINGADDRESS2, "")
+        binding.item?.values?.set(AppConstant.BILLINGZIPCODE, "")
+        binding.item?.values?.set(AppConstant.BILLINGLAT, "")
+        binding.item?.values?.set(AppConstant.BILLINGLNG, "")
+        binding.item?.values?.set(AppConstant.BILLINGCOUNTRY, "")
+        binding.item?.values?.set(AppConstant.BILLINGCITY, "")
+        binding.item?.values?.set(AppConstant.BILLINGSTATE, "")
     }
     binding.invalidateAll()
 

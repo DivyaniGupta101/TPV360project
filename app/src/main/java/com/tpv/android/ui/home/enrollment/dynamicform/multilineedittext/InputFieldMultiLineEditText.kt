@@ -1,5 +1,6 @@
 package com.tpv.android.ui.home.enrollment.dynamicform.multilineedittext
 
+//import com.tpv.android.model.network.Values
 import android.content.Context
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.R
@@ -18,7 +19,6 @@ fun LayoutInputMultiLineEditTextBinding.setField(response: DynamicFormResp) {
 
 fun LayoutInputMultiLineEditTextBinding.isValid(context: Context?): Boolean {
     val binding = this
-
     return if (binding.item?.validations?.required.orFalse()) {
         Validator(TextInputValidationErrorHandler()) {
             addValidate(

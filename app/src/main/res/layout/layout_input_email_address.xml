@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="item"
             type="com.tpv.android.model.network.DynamicFormResp" />
+<variable
+    name="key"
+    type="com.tpv.android.utils.AppConstant" />
     </data>
 
     <LinearLayout
@@ -37,7 +41,8 @@
                 android:id="@+id/editText"
                 style="@style/DefaultEditText"
                 android:inputType="textEmailAddress"
-                android:text="@={item.values.value}" />
+                android:text='@={item.values[key.VALUE]}'
+                app:editTextMaxLength="@{item.validations.length}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

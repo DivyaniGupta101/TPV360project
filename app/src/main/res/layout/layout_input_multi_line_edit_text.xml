@@ -7,6 +7,10 @@
         <variable
             name="item"
             type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
+            name="key"
+            type="com.tpv.android.utils.AppConstant" />
     </data>
 
     <LinearLayout
@@ -38,7 +42,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText"
                     style="@style/SquareBorderEditText"
-                    android:text="@={item.values.value}" />
+                    android:text='@={item.values[key.VALUE]}'  />
             </LinearLayout>
 
         </com.google.android.material.textfield.TextInputLayout>

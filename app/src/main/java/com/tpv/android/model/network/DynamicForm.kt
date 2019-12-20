@@ -14,7 +14,12 @@ data class DynamicFormResp(
         @SerializedName("validations")
         val validations: Validations?,
         @SerializedName("values")
-        val values: Values?
+        var values: LinkedHashMap<String, Any>,
+        var address: String? = "",
+        var serviceAddress: String? = "",
+        var billingAddress: String? = "",
+        var isAddressSame: Boolean = false
+
 )
 
 data class Meta(
@@ -37,87 +42,9 @@ data class Validations(
         @SerializedName("required")
         val required: Boolean?,
         @SerializedName("length")
-        val length: String?,
+        val length: Int?,
         @SerializedName("verify")
         val verify: Boolean?
-
-)
-
-data class Values(
-
-        @SerializedName("first_name")
-        var firstName: String?,
-        @SerializedName("middle_initial")
-        var middleName: String?,
-        @SerializedName("last_name")
-        var lastName: String?,
-
-        @SerializedName("value")
-        var value: String?,
-
-        @SerializedName("billing_address_1")
-        var billingAddress1: String?,
-        @SerializedName("billing_address_2")
-        var billingAddress2: String?,
-        @SerializedName("billing_zipcode")
-        var billingZipcode: String?,
-        @SerializedName("billing_city")
-        var billingCity: String?,
-        @SerializedName("billing_state")
-        var billingState: String?,
-        @SerializedName("service_address_1")
-        var serviceAddress1: String?,
-        @SerializedName("service_address_2")
-        var serviceAddress2: String?,
-        @SerializedName("service_zipcode")
-        var serviceZipcode: String?,
-        @SerializedName("service_city")
-        var serviceCity: String?,
-        @SerializedName("service_state")
-        var serviceState: String?,
-        @SerializedName("is_billing_address_same_as_service_address")
-        var isAddressSame: Boolean?,
-        @SerializedName("billing_unit")
-        var billingUnit: String?,
-        @SerializedName("service_unit")
-        var serviceUnit: String?,
-        @SerializedName("billing_country")
-        var billingCountry: String?,
-        @SerializedName("service_country")
-        var serviceCountry: String?,
-        @SerializedName("service_lat")
-        var serviceLat: String?,
-        @SerializedName("service_lng")
-        var serviceLng: String?,
-        @SerializedName("billing_lat")
-        var billingLat: String?,
-        @SerializedName("billing_lng")
-        var billingLng: String?,
-
-        var serviceAddress: String?,
-        var billingAddress: String?,
-
-
-        @SerializedName("address_1")
-        var address1: String?,
-        @SerializedName("address_2")
-        var address2: String?,
-        @SerializedName("zipcode")
-        var zipcode: String?,
-        @SerializedName("city")
-        var city: String?,
-        @SerializedName("state")
-        var state: String?,
-        @SerializedName("unit")
-        var unit: String?,
-        @SerializedName("country")
-        var country: String?,
-        @SerializedName("lat")
-        var lat: String?,
-        @SerializedName("lng")
-        var lng: String?,
-
-        var address: String?
 
 )
 

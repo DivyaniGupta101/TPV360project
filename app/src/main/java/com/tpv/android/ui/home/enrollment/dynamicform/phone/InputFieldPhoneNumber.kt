@@ -1,5 +1,6 @@
 package com.tpv.android.ui.home.enrollment.dynamicform.phone
 
+//import com.tpv.android.model.network.Values
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -80,7 +81,6 @@ fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
 fun LayoutInputPhoneNumberBinding.isValid(context: Context?): Boolean {
 
     val bindingInputPhone = this
-
     return if (bindingInputPhone.item?.validations?.required.orFalse()) {
         Validator(TextInputValidationErrorHandler()) {
             addValidate(

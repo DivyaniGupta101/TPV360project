@@ -34,6 +34,4 @@ fun LayoutInputFullNameBinding.isValid(context: Context?): Boolean {
     } else {
         true
     }
-
-
 }
