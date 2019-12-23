@@ -5,7 +5,6 @@
 
     <data>
 
-        <import type="android.text.TextUtils" />
 
         <variable
             name="item"
@@ -47,13 +46,18 @@
             style="@style/TextInputLayout"
             android:layout_marginStart="@dimen/_8sdp">
 
+            <LinearLayout style="@style/SquareBorderTextLinearLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editServiceAddress"
-                style="@style/DefaultEditText"
-                android:focusable="false"
-                android:text="@{item.serviceAddress}"
-                android:textColor="@color/colorSecondaryText" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editServiceAddress"
+                    style="@style/SquareBorderEditText"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:hint="@string/tap_to_enter_address"
+                    android:maxLines="2"
+                    android:text="@{item.serviceAddress}"
+                    android:textColor="@color/colorSecondaryText" />
+            </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -117,7 +121,8 @@
             android:id="@+id/textServiceZipcode"
             style="@style/SecondaryNormalTextWithTopSpacing"
             android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/zip_code" />
+            android:text="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
+            tools:text="City, State, Zipcode" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/TextInputLayout"
@@ -127,85 +132,10 @@
                 android:id="@+id/editServiceZipcode"
                 style="@style/DefaultEditText"
                 android:enabled="false"
-                android:text='@={item.values[key.SERVICEZIPCODE]}'
-                android:textColor="@color/colorSecondaryText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textServiceLatitude"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/latitude" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editServiceLatitude"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:text='@={item.values[key.SERVICELAT]}'
-                android:textColor="@color/colorSecondaryText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textServiceLongitude"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/longitude" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editServiceLongitude"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:text='@={item.values[key.SERVICELNG]}'
-                android:textColor="@color/colorSecondaryText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <TextView
-            android:id="@+id/textServiceCity"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/city" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editServiceCity"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:text='@={item.values[key.SERVICECITY]}'
-                android:textColor="@color/colorSecondaryText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textServiceState"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/state" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editServiceState"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:text='@={item.values[key.SERVICESTATE]}'
-                android:textColor="@color/colorSecondaryText" />
+                android:textColor="@color/colorSecondaryText"
+                app:city="@{item.values[key.SERVICECITY]}"
+                app:state="@{item.values[key.SERVICESTATE]}"
+                app:zipcode="@{item.values[key.SERVICEZIPCODE]}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -225,6 +155,26 @@
                 android:enabled="false"
                 android:text='@={item.values[key.SERVICECOUNTRY]}'
                 android:textColor="@color/colorSecondaryText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textServiceLatitude"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/location" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceLatitude"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText"
+                app:lat="@{item.values[key.SERVICELAT]}"
+                app:lng="@{item.values[key.SERVICELNG]}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -274,13 +224,18 @@
             style="@style/TextInputLayout"
             android:layout_marginStart="@dimen/_8sdp">
 
+            <LinearLayout style="@style/SquareBorderTextLinearLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editBillingAddress"
-                style="@style/DefaultEditText"
-                android:focusable="false"
-                android:text="@{item.billingAddress}"
-                android:textColor="@color/colorSecondaryText" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editBillingAddress"
+                    style="@style/SquareBorderEditText"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:hint="@string/tap_to_enter_address"
+                    android:maxLines="2"
+                    android:text="@{item.billingAddress}"
+                    android:textColor="@color/colorSecondaryText" />
+            </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -344,7 +299,7 @@
             android:id="@+id/textBillingZipcode"
             style="@style/SecondaryNormalTextWithTopSpacing"
             android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/zip_code" />
+            android:text="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/TextInputLayout"
@@ -354,85 +309,10 @@
                 android:id="@+id/editBillingZipcode"
                 style="@style/DefaultEditText"
                 android:enabled="false"
-                android:text='@={item.values[key.BILLINGZIPCODE]}'
-                android:textColor="@color/colorSecondaryText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textBillingLatitude"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/latitude" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editBillingLatitude"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:text='@={item.values[key.BILLINGLAT]}'
-                android:textColor="@color/colorSecondaryText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textBillingLongitude"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/longitude" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editBillingLongitude"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:text='@={item.values[key.BILLINGLNG]}'
-                android:textColor="@color/colorSecondaryText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <TextView
-            android:id="@+id/textBillingCity"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/city" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editBillingCity"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:text='@={item.values[key.BILLINGCITY]}'
-                android:textColor="@color/colorSecondaryText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textBillingState"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/state" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editBillingState"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:text='@={item.values[key.BILLINGSTATE]}'
-                android:textColor="@color/colorSecondaryText" />
+                android:textColor="@color/colorSecondaryText"
+                app:city="@{item.values[key.BILLINGCITY]}"
+                app:state="@{item.values[key.BILLINGSTATE]}"
+                app:zipcode="@{item.values[key.BILLINGZIPCODE]}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -454,6 +334,27 @@
                 android:textColor="@color/colorSecondaryText" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textBillingLatitude"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/location" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout"
+            android:layout_marginStart="@dimen/_8sdp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingLatitude"
+                style="@style/DefaultEditText"
+                android:enabled="false"
+                android:textColor="@color/colorSecondaryText"
+                app:lat="@{item.values[key.BILLINGLAT]}"
+                app:lng="@{item.values[key.BILLINGLNG]}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
 
