@@ -27,13 +27,6 @@
             android:textColor="@color/colorTertiaryText"
             tools:text="Full name" />
 
-        <TextView
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            visibleIf="@{item.meta.placeHolder != null}"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@{item.meta.placeHolder}"
-            tools:text="@string/last_name" />
-
         <com.google.android.material.textfield.TextInputLayout
             style="@style/TextInputLayout"
             android:layout_marginStart="@dimen/_8sdp">
@@ -41,6 +34,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText"
                 style="@style/DefaultEditText"
+                android:hint="@{item.meta.placeHolder}"
                 android:text='@={item.values[key.VALUE]}'
                 app:editTextMaxLength="@{item.validations.length}" />
 

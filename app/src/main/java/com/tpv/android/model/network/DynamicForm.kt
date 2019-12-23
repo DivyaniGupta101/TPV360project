@@ -27,6 +27,8 @@ data class Meta(
         var options: ArrayList<Option>?,
         @SerializedName("style_as_a_button")
         val styleAsAButton: Boolean?,
+        @SerializedName("is_primary")
+        val isPrimary: Boolean?,
         @SerializedName("placeholder")
         val placeHolder: String?
 )
