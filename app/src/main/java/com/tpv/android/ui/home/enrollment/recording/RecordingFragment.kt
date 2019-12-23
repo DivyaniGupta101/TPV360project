@@ -25,6 +25,7 @@ import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.actionDialog
 import com.tpv.android.utils.audio.AudioDataReceivedListener
 import com.tpv.android.utils.audio.RecordingThread
+import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 import java.io.File
@@ -62,7 +63,7 @@ class RecordingFragment : Fragment() {
     }
 
     private fun initialize() {
-        mBinding.item = mViewModel.customerData
+        mBinding.item = mViewModel.dynamicFormReq.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
 
         setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, backIconClickListener = {
             if (recordedFile?.isNotEmpty().orFalse()) {

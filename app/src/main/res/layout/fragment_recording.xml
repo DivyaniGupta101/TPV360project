@@ -9,7 +9,11 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.network.CustomerData" />
+            type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
+            name="key"
+            type="com.tpv.android.utils.AppConstant" />
     </data>
 
     <LinearLayout
@@ -35,7 +39,7 @@
                     style="@style/PrimaryBoldText"
                     android:paddingStart="@dimen/_16sdp"
                     android:paddingTop="@dimen/_16sdp"
-                    android:text="@{item.authorizedFirstName + ' ' + item.authorizedLastName}"
+                    android:text='@{item.values[key.FIRSTNAME] + " " + item.values[key.LASTNAME]}'
                     android:textAllCaps="true"
                     android:textColor="@color/colorTertiaryText"
                     tools:text="@string/customer_name" />

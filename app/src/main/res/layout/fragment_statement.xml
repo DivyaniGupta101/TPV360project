@@ -21,11 +21,13 @@
             name="errorHandler"
             type="com.tpv.android.network.error.ErrorHandler" />
 
+        <variable
+            name="phone"
+            type="String" />
 
         <variable
-            name="item"
-            type="com.tpv.android.model.network.CustomerData" />
-
+            name="name"
+            type="String" />
 
     </data>
 
@@ -80,7 +82,7 @@
                                 style="@style/PrimaryBoldText"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:text="@{item.authorizedFirstName+ ' '+ item.authorizedLastName}"
+                                android:text="@{name}"
                                 tools:text="smithan michel" />
                         </LinearLayout>
 
@@ -100,7 +102,7 @@
                                 style="@style/PrimaryBoldText"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:text="@{item.phoneNumber}"
+                                android:text="@{phone}"
                                 tools:text="smithan michel" />
                         </LinearLayout>
 
