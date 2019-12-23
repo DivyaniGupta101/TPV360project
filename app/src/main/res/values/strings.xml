@@ -178,5 +178,7 @@
     <string name="name_char">ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-0123456789</string>
     <string name="number_char">0123456789</string>
     <string name="msg_location">Enable to retrieve your location at this moment. Please try again later</string>
+    <string name="tap_to_enter_address">Tap to enter address</string>
+    <string name="location">Location (Latitude/Longitude)</string>
 
 </resources>

@@ -243,5 +243,48 @@ object BindingAdapter {
             editText.filters = arrayOfInputFilters
         }
     }
+
+
+    @JvmStatic
+    @BindingAdapter("city", "state", "zipcode")
+    fun editTextCombineValues(editText: EditText, city: String, state: String, zipcode: String) {
+        var value: String = ""
+        if (city.isNotEmpty()) {
+            value = city
+        }
+        if (state.isNotEmpty()) {
+            if (value.isNotEmpty()) {
+                value = value + ", " + state
+            } else {
+                value = state
+            }
+        }
+        if (zipcode.isNotEmpty()) {
+            if (value.isNotEmpty()) {
+                value = value + ", " + zipcode
+            } else {
+                value = zipcode
+            }
+        }
+        editText.setText(value)
+    }
+
+
+    @JvmStatic
+    @BindingAdapter(value = ["lat", "lng"], requireAll = true)
+    fun editCombineLocation(editText: EditText, lat: String, lng: String) {
+        var value: String = ""
+        if (lat.isNotEmpty()) {
+            value = lat
+        }
+        if (lng.isNotEmpty()) {
+            if (value.isNotEmpty()) {
+                value = value + ", " + lng
+            } else {
+                value = lng
+            }
+        }
+        editText.setText(value)
+    }
 }
 
