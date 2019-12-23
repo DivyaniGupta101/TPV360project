@@ -37,21 +37,18 @@ import com.tpv.android.databinding.FragmentStatementBinding
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.internal.DialogText
 import com.tpv.android.model.network.ContractReq
-import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.SaveLeadsDetailReq
 import com.tpv.android.model.network.SaveLeadsDetailResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
-import com.tpv.android.ui.home.HomeActivity
+import com.tpv.android.ui.home.TransparentActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
+import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.glide.GlideApp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.io.File
 
 
@@ -116,7 +113,10 @@ class StatementFragment : Fragment() {
 
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        mBinding.item = mViewModel.customerData
+        mBinding.phone = mViewModel.dynamicFormReq.find { it.type == DynamicField.PHONENUMBER.type && it.meta?.isPrimary == true }?.values?.get(AppConstant.VALUE) as String
+
+        val fullNameResponse = mViewModel.dynamicFormReq.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }?.values
+        mBinding.name = fullNameResponse?.get(AppConstant.FIRSTNAME) as String + " " + fullNameResponse.get(AppConstant.LASTNAME) as String
 
         mBinding.checkContract.setOnCheckedChangeListener { buttonView, isChecked ->
             setButtonEnable()
@@ -159,7 +159,8 @@ class StatementFragment : Fragment() {
             location = context?.let { LocationHelper.getLastKnownLocation(it) }
 
             if (location == null) {
-                createLocationRequest()
+                startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
+                //   createLocationRequest()
             } else {
                 if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
                     checkRadius(location?.latitude, location?.longitude)
@@ -193,7 +194,21 @@ class StatementFragment : Fragment() {
             // location requests here.
             // ...
             uiScope.launch {
-                location = context?.let { LocationHelper.getLastKnownLocation(it) }
+                var count = 0
+                for (i in 1..3) {
+                    location = context?.let { LocationHelper.getLastKnownLocation(it) }
+                    count += 1
+                    if (location != null) {
+                        checkRadius(location?.latitude, location?.longitude)
+                        break
+                    } else {
+                        if (count < 3) {
+                            delay(500)
+                        } else {
+                            context?.infoDialog(subTitleText = getString(R.string.msg_location))
+                        }
+                    }
+                }
             }
         }
 
@@ -205,7 +220,7 @@ class StatementFragment : Fragment() {
                     // Show the dialog by calling startResolutionForResult(),
                     // and check the result in onActivityResult().
                     exception.startResolutionForResult(activity,
-                            HomeActivity.REQUEST_CHECK_SETTINGS)
+                            TransparentActivity.REQUEST_CHECK_SETTINGS)
                 } catch (sendEx: IntentSender.SendIntentException) {
                     // Ignore the error.
                 }
@@ -220,13 +235,6 @@ class StatementFragment : Fragment() {
      * Also check if recording is not empty then call save recording API else call save Signature API
      */
     private fun saveCustomerDataApiCall() {
-
-//        TODO("Test this code")
-        val list = ArrayList<DynamicFormResp>()
-        for (i in 1..mViewModel.dynamicForm?.size.orZero()) {
-            list.addAll(mViewModel.dynamicForm?.get(i).orEmpty())
-        }
-
 
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
 
@@ -346,10 +354,24 @@ class StatementFragment : Fragment() {
 
     private fun checkRadius(latitude: Double?, longitude: Double?) {
         try {
+            var lat = ""
+            var lng = ""
             val result = FloatArray(1)
+            val response = mViewModel.dynamicFormReq.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
+            when (response?.type) {
+                DynamicField.ADDRESS.type -> {
+                    lat = response.values.get(AppConstant.LAT) as String
+                    lng = response.values.get(AppConstant.LNG) as String
+                }
+                DynamicField.BOTHADDRESS.type -> {
+                    lat = response.values.get(AppConstant.SERVICELAT) as String
+                    lng = response.values.get(AppConstant.SERVICELNG) as String
+                }
 
-            Location.distanceBetween(mViewModel.customerDataList.get(0)?.serviceLatitude?.toDouble().orZero(),
-                    mViewModel.customerDataList.get(0)?.serviceLongitude?.toDouble().orZero()
+            }
+
+            Location.distanceBetween(lat.toDouble().orZero(),
+                    lng.toDouble().orZero()
                     , latitude.orZero(), longitude.orZero(), result)
 
             if (result.isNotEmpty()) {

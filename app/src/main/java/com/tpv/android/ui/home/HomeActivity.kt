@@ -202,14 +202,4 @@ class HomeActivity : AppCompatActivity() {
 
     private fun closeDrawer() = mBinding.drawerLayout.closeDrawer(GravityCompat.END)
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == StatementFragment.REQUEST_GPS_SETTINGS) {
-                StatementFragment().onActivityResult(requestCode, resultCode, data);
-            } else {
-                super.onActivityResult(requestCode, resultCode, data)
-            }
-        }
-    }
-
 }

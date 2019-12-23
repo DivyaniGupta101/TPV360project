@@ -18,7 +18,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.home.SettingsActivity"></activity>
+        <activity android:name=".ui.home.TransparentActivity"
+            android:theme="@style/Transparent"/>
+        <activity android:name=".ui.home.SettingsActivity" />
         <activity
             android:name=".ui.home.HomeActivity"
             android:screenOrientation="portrait"
