@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.text.TextUtils" />
         <variable
             name="item"
             type="com.tpv.android.model.network.DynamicFormResp" />
@@ -26,6 +26,7 @@
             android:text="@{item.label}"
             android:textAllCaps="true"
             android:textColor="@color/colorTertiaryText"
+            app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
             tools:text="phone_number" />
 
         <LinearLayout
