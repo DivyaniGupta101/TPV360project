@@ -6,6 +6,7 @@
     <data>
         <import type="android.text.TextUtils" />
 
+
         <variable
             name="item"
             type="com.tpv.android.model.network.DynamicFormResp" />
@@ -19,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <TextView
             style="@style/SecondaryNormalTextWithTopSpacing"
             android:text="@{item.label}"
@@ -140,7 +140,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/textServiceCountry"
             style="@style/SecondaryNormalTextWithTopSpacing"
             android:layout_marginStart="@dimen/_8sdp"
             android:text="@string/country" />
@@ -150,7 +149,6 @@
             android:layout_marginStart="@dimen/_8sdp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editServiceCountry"
                 style="@style/DefaultEditText"
                 android:enabled="false"
                 android:text='@={item.values[key.SERVICECOUNTRY]}'
@@ -317,7 +315,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/textBillingCountry"
             style="@style/SecondaryNormalTextWithTopSpacing"
             android:layout_marginStart="@dimen/_8sdp"
             android:text="@string/country" />
@@ -327,7 +324,6 @@
             android:layout_marginStart="@dimen/_8sdp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editBillingCountry"
                 style="@style/DefaultEditText"
                 android:enabled="false"
                 android:text='@={item.values[key.BILLINGCOUNTRY]}'
