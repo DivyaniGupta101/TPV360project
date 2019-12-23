@@ -105,6 +105,11 @@ class DynamicFormFragment : Fragment() {
                     currentPage += 1
                     Navigation.findNavController(mBinding.root).navigateSafe(DynamicFormFragmentDirections.actionDynamicFormFragmentSelf(currentPage))
                 } else {
+                    mViewModel.dynamicForm?.forEach {
+                        for (key in 1..totalPage) {
+                            mViewModel.dynamicFormReq.addAll(mViewModel.dynamicForm?.get(key).orEmpty())
+                        }
+                    }
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
                 }
             }

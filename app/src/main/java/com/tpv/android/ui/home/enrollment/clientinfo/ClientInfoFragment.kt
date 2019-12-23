@@ -16,6 +16,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClientInfoBinding
 import com.tpv.android.databinding.ItemProgramsBinding
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -43,7 +44,7 @@ class ClientInfoFragment : Fragment() {
         mBinding.textElectric.hide()
         mBinding.textGas.hide()
 
-        mBinding.item = mViewModel.customerData
+        mBinding.item = mViewModel.dynamicFormReq.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
 
         setupToolbar(mBinding.toolbar, getString(R.string.client_info), showBackIcon = true)
 

@@ -22,6 +22,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var isAgreeWithCondition: Boolean = false
     var signature: Bitmap? = null
     var dynamicForm: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
+    var dynamicFormReq = ArrayList<DynamicFormResp>()
 
     fun getDynamicForm(dynamicFormReq: DynamicFormReq) = with(AppRepository) {
         val result = getDynamicFormCall(dynamicFormReq)
