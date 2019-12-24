@@ -19,6 +19,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var isAgreeWithCondition: Boolean = false
     var signature: Bitmap? = null
     var formPageMap: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
+    var duplicatePageMap: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
     var dynamicFormData = ArrayList<DynamicFormResp>()
 
     fun getDynamicForm(dynamicFormReq: DynamicFormReq) = with(AppRepository) {
@@ -36,7 +37,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
                     if (page != totalPage) {
 
                         if (dynamicFormResp.type == DynamicField.SEPARATE.type) {
-                            formPageMap?.put(page, list)
+                            duplicatePageMap?.put(page, list)
                             page += 1
                             list = ArrayList()
                         } else {
@@ -47,7 +48,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
 
                         list.add(dynamicFormResp)
                         if (index == it.size.minus(1)) {
-                            formPageMap?.put(page, list)
+                            duplicatePageMap?.put(page, list)
                         }
 
                     }
@@ -98,5 +99,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         isAgreeWithCondition = false
         signature = null
         formPageMap = LinkedHashMap()
+        duplicatePageMap = LinkedHashMap()
     }
 }

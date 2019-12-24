@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.*
+import com.google.gson.Gson
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.invisible
@@ -30,7 +31,9 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
+import java.lang.reflect.Type
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * handle toolbar text and image hide/show and clickListener
@@ -249,3 +252,14 @@ fun Context.bitmapToFile(imageBitmap: Bitmap?): File {
 }
 
 
+fun <V : Any> LinkedHashMap<Int, List<V>>.copy(t: Type): LinkedHashMap<Int, List<V>> {
+    val copy = LinkedHashMap<Int, List<V>>()
+    for (entry in this.entries) {
+        copy[entry.key] = ArrayList<V>()
+        for (value in entry.value) {
+            val json = Gson().toJson(value)
+            (copy[entry.key] as ArrayList).add(Gson().fromJson(json, t))
+        }
+    }
+    return copy
+}

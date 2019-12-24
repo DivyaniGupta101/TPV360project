@@ -11,21 +11,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.gson.reflect.TypeToken
 import com.livinglifetechway.k4kotlin.core.*
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentProgramsListingBinding
 import com.tpv.android.databinding.ItemProgramsBinding
+import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.ProgramsResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.copy
 import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
+
 
 class ProgramsListingFragment : Fragment() {
     private lateinit var mBinding: FragmentProgramsListingBinding
@@ -89,6 +93,8 @@ class ProgramsListingFragment : Fragment() {
                     mViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
                 }
             }
+
+            mViewModel.formPageMap = mViewModel.duplicatePageMap?.copy(object : TypeToken<DynamicFormResp>() {}.type)
             Navigation.findNavController(mBinding.root).navigateSafe(ProgramsListingFragmentDirections.actionProgramsListingFragmentToDynamicFormFragment(1))
         }
     }

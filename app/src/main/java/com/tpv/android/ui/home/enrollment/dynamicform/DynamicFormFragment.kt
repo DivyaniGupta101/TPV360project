@@ -18,6 +18,7 @@ import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.R
 import com.tpv.android.databinding.*
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.ui.home.HomeActivity
@@ -51,7 +52,7 @@ import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
 
-class DynamicFormFragment : Fragment() {
+class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
     private lateinit var mBinding: FragmentDynamicFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
@@ -75,12 +76,21 @@ class DynamicFormFragment : Fragment() {
         initialize()
     }
 
+    override fun handleOnBackPressed(): Boolean {
+        saveOldData()
+        return true
+    }
+
     fun initialize() {
+
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
-        setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
         currentPage = arguments?.let { DynamicFormFragmentArgs.fromBundle(it) }?.item.orZero()
-        totalPage = mViewModel.formPageMap?.size.orZero()
+        totalPage = mViewModel.duplicatePageMap?.size.orZero()
+
+        setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true, backIconClickListener = {
+            saveOldData()
+        })
 
         //Check next page is Available or not
         if (currentPage == totalPage) {
@@ -102,19 +112,23 @@ class DynamicFormFragment : Fragment() {
             //Check if all validation is true then check have next page then
             //Load this page again else sent to client info screen
             if (!validList.contains(false)) {
+                mViewModel.formPageMap?.put(currentPage, mViewModel.duplicatePageMap?.get(currentPage).orEmpty())
                 if (hasNext) {
                     currentPage += 1
                     Navigation.findNavController(mBinding.root).navigateSafe(DynamicFormFragmentDirections.actionDynamicFormFragmentSelf(currentPage))
                 } else {
-                    mViewModel.formPageMap?.forEach {
-                        for (key in 1..totalPage) {
-                            mViewModel.dynamicFormData.addAll(mViewModel.formPageMap?.get(key).orEmpty())
-                        }
+                    mViewModel.dynamicFormData.clear()
+                    for (key in 1..mViewModel.formPageMap?.size.orZero()) {
+                        mViewModel.dynamicFormData.addAll(mViewModel.formPageMap?.get(key).orEmpty())
                     }
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
                 }
             }
         }
+    }
+
+    private fun saveOldData() {
+        mViewModel.duplicatePageMap?.put(currentPage, mViewModel.formPageMap?.get(currentPage).orEmpty())
     }
 
     /**
@@ -170,7 +184,7 @@ class DynamicFormFragment : Fragment() {
         }
 
 
-        mViewModel.formPageMap?.get(currentPage)?.forEach { response ->
+        mViewModel.duplicatePageMap?.get(currentPage)?.forEach { response ->
             when (response.type) {
                 DynamicField.FULLNAME.type -> {
                     setFieldsOfFullName(response)
