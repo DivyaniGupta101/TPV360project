@@ -44,7 +44,7 @@ class ClientInfoFragment : Fragment() {
         mBinding.textElectric.hide()
         mBinding.textGas.hide()
 
-        mBinding.item = mViewModel.dynamicFormReq.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
+        mBinding.item = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
 
         setupToolbar(mBinding.toolbar, getString(R.string.client_info), showBackIcon = true)
 

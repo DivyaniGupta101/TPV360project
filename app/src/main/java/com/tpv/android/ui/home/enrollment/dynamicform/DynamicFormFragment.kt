@@ -80,7 +80,7 @@ class DynamicFormFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true)
 
         currentPage = arguments?.let { DynamicFormFragmentArgs.fromBundle(it) }?.item.orZero()
-        totalPage = mViewModel.dynamicForm?.size.orZero()
+        totalPage = mViewModel.formPageMap?.size.orZero()
 
         //Check next page is Available or not
         if (currentPage == totalPage) {
@@ -106,9 +106,9 @@ class DynamicFormFragment : Fragment() {
                     currentPage += 1
                     Navigation.findNavController(mBinding.root).navigateSafe(DynamicFormFragmentDirections.actionDynamicFormFragmentSelf(currentPage))
                 } else {
-                    mViewModel.dynamicForm?.forEach {
+                    mViewModel.formPageMap?.forEach {
                         for (key in 1..totalPage) {
-                            mViewModel.dynamicFormReq.addAll(mViewModel.dynamicForm?.get(key).orEmpty())
+                            mViewModel.dynamicFormData.addAll(mViewModel.formPageMap?.get(key).orEmpty())
                         }
                     }
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
@@ -170,7 +170,7 @@ class DynamicFormFragment : Fragment() {
         }
 
 
-        mViewModel.dynamicForm?.get(currentPage)?.forEach { response ->
+        mViewModel.formPageMap?.get(currentPage)?.forEach { response ->
             when (response.type) {
                 DynamicField.FULLNAME.type -> {
                     setFieldsOfFullName(response)

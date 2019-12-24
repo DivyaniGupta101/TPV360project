@@ -111,9 +111,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             gasUtilityResp?.let { mSetEnrollViewModel.utilitiesList.add(it) }
         }
 
-        //Get detail of selected zipcode and then add in viewModel variable "zipcode"
-        mSetEnrollViewModel.zipcode = mZipcodeList.find { it.zipcode == mBinding.textZipcode.value }
-
         mViewModel.clearZipCodeListData()
     }
 

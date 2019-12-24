@@ -113,9 +113,9 @@ class StatementFragment : Fragment() {
 
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        mBinding.phone = mViewModel.dynamicFormReq.find { it.type == DynamicField.PHONENUMBER.type && it.meta?.isPrimary == true }?.values?.get(AppConstant.VALUE) as String
+        mBinding.phone = mViewModel.dynamicFormData.find { it.type == DynamicField.PHONENUMBER.type && it.meta?.isPrimary == true }?.values?.get(AppConstant.VALUE) as String
 
-        val fullNameResponse = mViewModel.dynamicFormReq.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }?.values
+        val fullNameResponse = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }?.values
         mBinding.name = fullNameResponse?.get(AppConstant.FIRSTNAME) as String + " " + fullNameResponse.get(AppConstant.LASTNAME) as String
 
         mBinding.checkContract.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -242,14 +242,14 @@ class StatementFragment : Fragment() {
                 clientid = Pref.user?.clientId.toString(),
                 commodity = mViewModel.planType,
                 programId = mViewModel.programList.get(0).id,
-                utilityId = mViewModel.utilitiesList.get(0)?.utid.toString(),
-                zipcode = mViewModel.zipcode?.zipcode,
-                fields = arrayListOf(mViewModel.customerData)))
+                utilityId = mViewModel.utilitiesList.get(0).utid.toString(),
+                zipcode = "",
+                fields = arrayListOf()))
         liveData.observe(this, Observer {
             it?.ifSuccess {
-                mViewModel.savedLeadDetail = it
+                mViewModel.savedLeadResp = it
 
-                mViewModel.saveContract(contractReq = ContractReq(mViewModel.savedLeadDetail?.id))
+                mViewModel.saveContract(contractReq = ContractReq(mViewModel.savedLeadResp?.id))
 
                 if (mViewModel.recordingFile.isNotEmpty()) {
                     saveRecordingApiCall()
@@ -269,7 +269,7 @@ class StatementFragment : Fragment() {
     private fun saveRecordingApiCall() {
         val liveData =
                 File(mViewModel.recordingFile).toMultipartBody("media", "audio/*")?.let {
-                    mViewModel.saveMedia(mViewModel.savedLeadDetail?.id.toRequestBody(),
+                    mViewModel.saveMedia(mViewModel.savedLeadResp?.id.toRequestBody(),
                             it)
                 }
         liveData?.observe(this, Observer {
@@ -287,7 +287,7 @@ class StatementFragment : Fragment() {
     private fun saveSignatureApiCall() {
 
         val liveData = context?.bitmapToFile(mSignImage).toMultipartBody("media", "image/jpeg")?.let {
-            mViewModel.saveMedia(mViewModel.savedLeadDetail?.id.toRequestBody(),
+            mViewModel.saveMedia(mViewModel.savedLeadResp?.id.toRequestBody(),
                     it)
         }
         liveData?.observe(this, Observer {
@@ -357,7 +357,7 @@ class StatementFragment : Fragment() {
             var lat = ""
             var lng = ""
             val result = FloatArray(1)
-            val response = mViewModel.dynamicFormReq.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
+            val response = mViewModel.dynamicFormData.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
             when (response?.type) {
                 DynamicField.ADDRESS.type -> {
                     lat = response.values.get(AppConstant.LAT) as String

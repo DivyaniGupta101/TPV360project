@@ -82,8 +82,9 @@
     <string name="msg_confirmation_again_record">You want to record again? \n Current recording will be deleted.</string>
     <string name="no_data_found">No Leads Available</string>
     <string name="error">Error</string>
-    <string name="msg_zipcode_not_match">Your current location does not match with your service loaction.</string>
+    <string name="msg_zipcode_not_match">Your current location does not match with your service location.</string>
     <string name="msg_gps_location">Your GPS Location seams to be off. Please turn on GPS and try again.</string>
+    <string name="msg_location">Enable to retrieve your location at this moment. Please try again later</string>
 
 
     <!-- LeadList-->
@@ -177,7 +178,6 @@
     <string name="unit">Unit</string>
     <string name="name_char">ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-0123456789</string>
     <string name="number_char">0123456789</string>
-    <string name="msg_location">Enable to retrieve your location at this moment. Please try again later</string>
     <string name="tap_to_enter_address">Tap to enter address</string>
     <string name="location">Location (Latitude/Longitude)</string>
 

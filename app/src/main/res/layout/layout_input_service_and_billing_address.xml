@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.text.TextUtils" />
 
 
@@ -219,6 +220,7 @@
             android:text="@string/address" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputBillingAddress"
             style="@style/TextInputLayout"
             android:layout_marginStart="@dimen/_8sdp">
 
@@ -243,6 +245,7 @@
             android:text="@string/unit" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputBillingUnit"
             style="@style/TextInputLayout"
             android:layout_marginStart="@dimen/_8sdp">
 

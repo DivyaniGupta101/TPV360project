@@ -12,6 +12,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
@@ -82,28 +83,50 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
 
 fun LayoutInputServiceAndBillingAddressBinding.isValid(context: Context?): Boolean {
     val binding = this
-    return Validator(TextInputValidationErrorHandler()) {
-        addValidate(
-                binding.editServiceAddress,
-                EmptyValidator(),
-                context?.getString(R.string.enter_service_address)
-        )
-        addValidate(
-                binding.editServiceUnit,
-                EmptyValidator(),
-                context?.getString(R.string.enter_service_unit)
-        )
-        addValidate(
-                binding.editBillingAddress,
-                EmptyValidator(),
-                context?.getString(R.string.enter_billing_address)
-        )
-        addValidate(
-                binding.editBillingUnit,
-                EmptyValidator(),
-                context?.getString(R.string.enter_billing_unit)
-        )
-    }.validate()
+    return if (binding.item?.isAddressSame.orFalse()) {
+
+        binding.textInputBillingAddress.error = null
+        binding.editBillingAddress.error = null
+
+        binding.textInputBillingUnit.error = null
+        binding.editBillingUnit.error = null
+
+        Validator(TextInputValidationErrorHandler()) {
+            addValidate(
+                    binding.editServiceAddress,
+                    EmptyValidator(),
+                    context?.getString(R.string.enter_service_address)
+            )
+            addValidate(
+                    binding.editServiceUnit,
+                    EmptyValidator(),
+                    context?.getString(R.string.enter_service_unit)
+            )
+        }.validate()
+    } else {
+        Validator(TextInputValidationErrorHandler()) {
+            addValidate(
+                    binding.editServiceAddress,
+                    EmptyValidator(),
+                    context?.getString(R.string.enter_service_address)
+            )
+            addValidate(
+                    binding.editServiceUnit,
+                    EmptyValidator(),
+                    context?.getString(R.string.enter_service_unit)
+            )
+            addValidate(
+                    binding.editBillingAddress,
+                    EmptyValidator(),
+                    context?.getString(R.string.enter_billing_address)
+            )
+            addValidate(
+                    binding.editBillingUnit,
+                    EmptyValidator(),
+                    context?.getString(R.string.enter_billing_unit)
+            )
+        }.validate()
+    }
 }
 
 
@@ -122,7 +145,7 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
         binding.item?.values?.set(AppConstant.SERVICECOUNTRY, addressComponent?.country.orEmpty())
         binding.item?.values?.set(AppConstant.SERVICECITY, addressComponent?.city.orEmpty())
         binding.item?.values?.set(AppConstant.SERVICESTATE, addressComponent?.state.orEmpty())
-        handleBothAddressField(binding, true)
+        handleBothAddressField(binding, binding.item?.isAddressSame.orFalse())
     } else {
         binding.item?.billingAddress = addressComponent?.address.orEmpty()
         binding.item?.values?.set(AppConstant.BILLINGADDRESS1, addressComponent?.addressLine1.orEmpty())
@@ -144,11 +167,12 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
  */
 private fun handleBothAddressField(binding: LayoutInputServiceAndBillingAddressBinding, isSame: Boolean) {
 
+    binding.item?.isAddressSame = isSame
+    binding.editBillingAddress.isEnabled = !isSame
+    binding.editBillingUnit.isEnabled = !isSame
+
     if (isSame) {
-        binding.editBillingAddress.isEnabled = false
-        binding.editBillingUnit.isEnabled = false
         binding.item?.billingAddress = binding.item?.serviceAddress
-        binding.item?.isAddressSame = isSame
         binding.item?.values?.set(AppConstant.BILLINGUNIT, binding.item?.values?.getValue(AppConstant.SERVICEUNIT).toString())
         binding.item?.values?.set(AppConstant.BILLINGADDRESS1, binding.item?.values?.getValue(AppConstant.SERVICEADDRESS1).toString())
         binding.item?.values?.set(AppConstant.BILLINGADDRESS2, binding.item?.values?.getValue(AppConstant.SERVICEADDRESS2).toString())
@@ -159,10 +183,7 @@ private fun handleBothAddressField(binding: LayoutInputServiceAndBillingAddressB
         binding.item?.values?.set(AppConstant.BILLINGCITY, binding.item?.values?.getValue(AppConstant.SERVICECITY).toString())
         binding.item?.values?.set(AppConstant.BILLINGSTATE, binding.item?.values?.getValue(AppConstant.SERVICESTATE).toString())
     } else {
-        binding.editBillingAddress.isEnabled = true
-        binding.editBillingUnit.isEnabled = true
         binding.item?.billingAddress = ""
-        binding.item?.isAddressSame = isSame
         binding.item?.values?.set(AppConstant.BILLINGUNIT, "")
         binding.item?.values?.set(AppConstant.BILLINGADDRESS1, "")
         binding.item?.values?.set(AppConstant.BILLINGADDRESS2, "")

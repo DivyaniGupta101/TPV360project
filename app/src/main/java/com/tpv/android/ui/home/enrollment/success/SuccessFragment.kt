@@ -59,7 +59,7 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         setupToolbar(mBinding.toolbar, getString(R.string.success))
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
-        mBinding.item = mViewModel.savedLeadDetail
+        mBinding.item = mViewModel.savedLeadResp
 
         mVerificationType.add(getString(R.string.email))
         mVerificationType.add(getString(R.string.phone))
@@ -105,7 +105,7 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
 
     private fun selfVerificationApiCall() {
 
-        val liveData = mViewModel.selfVerification(SuccessReq(verificationType = mVerificationType.joinToString(separator = ","), leadId = mViewModel.savedLeadDetail?.id))
+        val liveData = mViewModel.selfVerification(SuccessReq(verificationType = mVerificationType.joinToString(separator = ","), leadId = mViewModel.savedLeadResp?.id))
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.clearSavedData()

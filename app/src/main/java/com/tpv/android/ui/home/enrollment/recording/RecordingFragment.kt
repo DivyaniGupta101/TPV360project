@@ -63,7 +63,7 @@ class RecordingFragment : Fragment() {
     }
 
     private fun initialize() {
-        mBinding.item = mViewModel.dynamicFormReq.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
+        mBinding.item = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
 
         setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, backIconClickListener = {
             if (recordedFile?.isNotEmpty().orFalse()) {

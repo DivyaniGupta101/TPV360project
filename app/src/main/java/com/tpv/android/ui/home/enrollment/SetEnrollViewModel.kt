@@ -13,16 +13,13 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
 
     var planType: String = ""
     var utilitiesList: ArrayList<UtilityResp> = ArrayList()
-    var zipcode: ZipCodeResp? = null
     var programList: ArrayList<ProgramsResp> = ArrayList()
-    var customerData: CustomerData = CustomerData()
-    var savedLeadDetail: SaveLeadsDetailResp? = null
+    var savedLeadResp: SaveLeadsDetailResp? = null
     var recordingFile: String = ""
-    var customerDataList: ArrayList<CustomerData?> = ArrayList()
     var isAgreeWithCondition: Boolean = false
     var signature: Bitmap? = null
-    var dynamicForm: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
-    var dynamicFormReq = ArrayList<DynamicFormResp>()
+    var formPageMap: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
+    var dynamicFormData = ArrayList<DynamicFormResp>()
 
     fun getDynamicForm(dynamicFormReq: DynamicFormReq) = with(AppRepository) {
         val result = getDynamicFormCall(dynamicFormReq)
@@ -39,7 +36,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
                     if (page != totalPage) {
 
                         if (dynamicFormResp.type == DynamicField.SEPARATE.type) {
-                            dynamicForm?.put(page, list)
+                            formPageMap?.put(page, list)
                             page += 1
                             list = ArrayList()
                         } else {
@@ -50,7 +47,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
 
                         list.add(dynamicFormResp)
                         if (index == it.size.minus(1)) {
-                            dynamicForm?.put(page, list)
+                            formPageMap?.put(page, list)
                         }
 
                     }
@@ -95,14 +92,11 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     fun clearSavedData() {
         utilitiesList.clear()
         planType = ""
-        zipcode = null
         programList.clear()
-        customerData = CustomerData()
-        savedLeadDetail = null
+        savedLeadResp = null
         recordingFile = ""
-        customerDataList.clear()
         isAgreeWithCondition = false
         signature = null
-        dynamicForm = LinkedHashMap()
+        formPageMap = LinkedHashMap()
     }
 }
