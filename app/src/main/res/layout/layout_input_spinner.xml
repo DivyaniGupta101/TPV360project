@@ -19,10 +19,9 @@
 
         <TextView
             android:id="@+id/textTitle"
-            style="@style/SecondaryNormalTextWithTopSpacing"
+            style="@style/TertiaryBoldTextWithTopSpacing"
             android:text="@{item.label}"
             android:textAllCaps="true"
-            android:textColor="@color/colorTertiaryText"
             app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
             tools:text="@string/address" />
 

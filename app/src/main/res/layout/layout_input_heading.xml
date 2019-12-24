@@ -18,9 +18,9 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/SecondaryNormalTextWithTopSpacing"
+            style="@style/PrimaryMediumBoldText"
+            android:layout_marginTop="@dimen/_8sdp"
             android:text="@{item.label}"
-            android:textAllCaps="true"
             android:textColor="@color/colorTertiaryText"
             app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
             tools:text="Full name" />

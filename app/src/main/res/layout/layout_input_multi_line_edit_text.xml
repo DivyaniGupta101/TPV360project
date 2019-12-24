@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.text.TextUtils" />
+
         <variable
             name="item"
             type="com.tpv.android.model.network.DynamicFormResp" />
@@ -21,11 +23,10 @@
 
         <TextView
             android:id="@+id/textTitle"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
+            style="@style/TertiaryBoldTextWithTopSpacing"
             android:text="@{item.label}"
             android:textAllCaps="true"
-            android:textColor="@color/colorTertiaryText"
+            app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
             tools:text="Full name" />
 
         <com.google.android.material.textfield.TextInputLayout

@@ -13,16 +13,18 @@
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            style="@style/SecondaryNormalTextWithTopSpacing"
+            style="@style/TertiaryBoldTextWithTopSpacing"
             android:text="@{item.label}"
+            android:textAllCaps="true"
             app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
             tools:text="Full name" />
 
-
     </LinearLayout>
+
+
 </layout>

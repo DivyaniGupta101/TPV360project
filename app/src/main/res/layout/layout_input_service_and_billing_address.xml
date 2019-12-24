@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.text.TextUtils" />
 
 
@@ -20,11 +21,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
-            style="@style/SecondaryNormalTextWithTopSpacing"
+            style="@style/TertiaryBoldTextWithTopSpacing"
             android:text="@{item.label}"
             android:textAllCaps="true"
-            android:textColor="@color/colorTertiaryText"
             app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
             tools:text="@string/address" />
 

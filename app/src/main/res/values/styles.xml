@@ -144,6 +144,12 @@
         <item name="android:layout_marginTop">@dimen/_8sdp</item>
     </style>
 
+    <style name="TertiaryBoldTextWithTopSpacing" parent="PrimaryBoldText">
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+        <item name="android:textColor">@color/colorTertiaryText</item>
+
+    </style>
+
 
     <!--    Details Forms-->
     <style name="CheckBoxButton" parent="PrimaryNormalText">
