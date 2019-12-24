@@ -30,7 +30,9 @@ data class Meta(
         @SerializedName("is_primary")
         val isPrimary: Boolean?,
         @SerializedName("placeholder")
-        val placeHolder: String?
+        val placeHolder: String?,
+        @SerializedName("text")
+        val text: String?
 )
 
 data class Option(

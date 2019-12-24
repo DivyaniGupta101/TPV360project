@@ -32,6 +32,7 @@ import com.tpv.android.ui.home.enrollment.dynamicform.email.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.fullname.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.fullname.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.heading.setField
+import com.tpv.android.ui.home.enrollment.dynamicform.infotext.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.label.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.multilineedittext.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.multilineedittext.setField
@@ -207,6 +208,9 @@ class DynamicFormFragment : Fragment() {
                 DynamicField.SELECTBOX.type -> {
                     setFieldOfSpinner(response)
                 }
+                DynamicField.TEXT.type -> {
+                    setFieldOfMessageInfo(response)
+                }
             }
         }
 
@@ -360,6 +364,17 @@ class DynamicFormFragment : Fragment() {
     private fun setFieldOfSpinner(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputSpinnerBinding>(layoutInflater,
                 R.layout.layout_input_spinner,
+                mBinding.fieldContainer,
+                true)
+
+        binding.setField(response)
+        bindingList.add(binding)
+    }
+
+
+    private fun setFieldOfMessageInfo(response: DynamicFormResp) {
+        val binding = DataBindingUtil.inflate<LayoutInputTextInfoBinding>(layoutInflater,
+                R.layout.layout_input_text_info,
                 mBinding.fieldContainer,
                 true)
 

@@ -21,7 +21,7 @@ enum class MenuItem(val value: String) {
     LOGOUT("logout")
 }
 
-enum class DynamicField (val type:String){
+enum class DynamicField(val type: String) {
     FULLNAME("full_name"),
     ADDRESS("address"),
     TEXTBOX("textbox"),
@@ -35,7 +35,7 @@ enum class DynamicField (val type:String){
     PHONENUMBER("phone_number"),
     EMAIL("email"),
     BOTHADDRESS("service_and_billing_address"),
-
+    TEXT("text")
 
 
 }
