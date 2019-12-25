@@ -193,9 +193,4 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.getCommodityCall() = dataApi<List<CommodityResp>, APIError> {
-        fromNetwork {
-            ApiClient.service.getCommodity(Pref.user?.clientId.toString()).getResult().map { it?.data.orEmpty() }
-        }
-    }
 }

@@ -54,20 +54,9 @@ class CommodityFragment : Fragment() {
     private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.commodity), showBackIcon = true, showMenuIcon = true)
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
-        getCommodityApiCall()
         setRecyclerView()
     }
 
-    private fun getCommodityApiCall() {
-        val liveData = mViewModelCommodity.getCommodity()
-        liveData.observe(this, Observer {
-            it?.ifSuccess {
-                Log.d("Commodity Fragment:", "List $it")
-            }
-
-        })
-        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-    }
 
     private fun setRecyclerView() {
 
