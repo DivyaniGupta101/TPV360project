@@ -96,7 +96,7 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
             }
         }
     })
-    binding.editBillingAddressLineTwo.addTextChangedListener(object : TextWatcher {
+    binding.editServiceAddressLineTwo.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
         }
 

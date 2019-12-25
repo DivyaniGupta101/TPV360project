@@ -47,8 +47,7 @@
                 style="@style/DefaultEditText"
                 android:focusable="false"
                 android:hint="@string/address_line_1"
-                android:text='@={item.values[key.SERVICEADDRESS1]}'
-                android:textColor="@color/colorSecondaryText" />
+                android:text='@={item.values[key.SERVICEADDRESS1]}' />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -69,7 +68,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/AddressFormTextInputLayout"
-                android:layout_weight="3">
+                android:layout_weight="2">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editServiceUnit"
@@ -90,7 +89,6 @@
                 style="@style/DefaultEditText"
                 android:focusable="false"
                 android:hint="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
-                android:textColor="@color/colorSecondaryText"
                 app:city="@{item.values[key.SERVICECITY]}"
                 app:state="@{item.values[key.SERVICESTATE]}"
                 app:zipcode="@{item.values[key.SERVICEZIPCODE]}" />
@@ -104,8 +102,7 @@
                 style="@style/DefaultEditText"
                 android:focusable="false"
                 android:hint="@string/country"
-                android:text='@={item.values[key.SERVICECOUNTRY]}'
-                android:textColor="@color/colorSecondaryText" />
+                android:text='@={item.values[key.SERVICECOUNTRY]}' />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,7 +154,7 @@
                 android:focusable="false"
                 android:hint="@string/address_line_1"
                 android:text='@={item.values[key.BILLINGADDRESS1]}'
-                android:textColor="@color/colorSecondaryText" />
+                android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -181,7 +178,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/AddressFormTextInputLayout"
-                android:layout_weight="3">
+                android:layout_weight="2">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -206,7 +203,7 @@
                 android:focusable="false"
                 android:hint="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
                 android:maxLines="1"
-                android:textColor="@color/colorSecondaryText"
+                android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }"
                 app:city="@{item.values[key.BILLINGCITY]}"
                 app:state="@{item.values[key.BILLINGSTATE]}"
                 app:zipcode="@{item.values[key.BILLINGZIPCODE]}" />
@@ -223,7 +220,8 @@
                 android:focusable="false"
                 android:hint="@string/country"
                 android:text='@={item.values[key.BILLINGCOUNTRY]}'
-                android:textColor="@color/colorSecondaryText" />
+                android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }" />
+
 
         </com.google.android.material.textfield.TextInputLayout>
 

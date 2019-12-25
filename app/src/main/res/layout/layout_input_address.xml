@@ -36,8 +36,7 @@
                 style="@style/DefaultEditText"
                 android:focusable="false"
                 android:hint="@string/address_line_1"
-                android:text='@={item.values[key.ADDRESS1]}'
-                android:textColor="@color/colorSecondaryText" />
+                android:text='@={item.values[key.ADDRESS1]}' />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -59,7 +58,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/AddressFormTextInputLayout"
-                android:layout_weight="3">
+                android:layout_weight="2">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -81,7 +80,6 @@
                 style="@style/DefaultEditText"
                 android:focusable="false"
                 android:hint="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
-                android:textColor="@color/colorSecondaryText"
                 app:city="@{item.values[key.CITY]}"
                 app:state="@{item.values[key.STATE]}"
                 app:zipcode="@{item.values[key.ZIPCODE]}"
@@ -96,8 +94,7 @@
                 style="@style/DefaultEditText"
                 android:focusable="false"
                 android:hint="@string/country"
-                android:text='@={item.values[key.COUNTRY]}'
-                android:textColor="@color/colorSecondaryText" />
+                android:text='@={item.values[key.COUNTRY]}' />
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>

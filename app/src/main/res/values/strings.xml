@@ -175,8 +175,8 @@
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
     <string name="address">Address</string>
-    <string name="unit">Unit</string>
-    <string name="name_char">ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-0123456789</string>
+    <string name="unit">Unit No.</string>
+    <string name="name_char">ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿabcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ-0123456789</string>
     <string name="number_char">0123456789</string>
     <string name="tap_to_enter_address">Tap to enter address</string>
     <string name="location">Location (Latitude/Longitude)</string>
