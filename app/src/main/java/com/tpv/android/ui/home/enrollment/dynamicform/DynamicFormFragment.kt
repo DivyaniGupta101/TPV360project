@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.libraries.places.widget.Autocomplete
+import com.google.gson.reflect.TypeToken
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
@@ -47,6 +48,7 @@ import com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress.s
 import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.spinner.setField
+import com.tpv.android.utils.copy
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -112,7 +114,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             //Check if all validation is true then check have next page then
             //Load this page again else sent to client info screen
             if (!validList.contains(false)) {
-                mViewModel.formPageMap?.put(currentPage, mViewModel.duplicatePageMap?.get(currentPage).orEmpty())
+                mViewModel.formPageMap?.set(currentPage, mViewModel.duplicatePageMap?.copy(object : TypeToken<DynamicFormResp>() {}.type)?.get(currentPage).orEmpty())
                 if (hasNext) {
                     currentPage += 1
                     Navigation.findNavController(mBinding.root).navigateSafe(DynamicFormFragmentDirections.actionDynamicFormFragmentSelf(currentPage))
@@ -128,7 +130,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
     }
 
     private fun saveOldData() {
-        mViewModel.duplicatePageMap?.put(currentPage, mViewModel.formPageMap?.get(currentPage).orEmpty())
+        mViewModel.duplicatePageMap?.set(currentPage, mViewModel.formPageMap?.copy(object : TypeToken<DynamicFormResp>() {}.type)?.get(currentPage).orEmpty())
     }
 
     /**
@@ -399,54 +401,58 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                when (requestCode) {
+                    HomeActivity.ADDRESS_REQUEST_CODE -> {
+                        val id = HomeActivity.ADDRESS_REQUEST_CODE - 5000
+                        HomeActivity.ADDRESS_REQUEST_CODE = 5000
 
-            if (requestCode == HomeActivity.ADDRESS_REQUEST_CODE) {
-                val id = HomeActivity.ADDRESS_REQUEST_CODE - 5000
-                HomeActivity.ADDRESS_REQUEST_CODE = 5000
-
-                //Get binding from list if layout is address then check id is same
-                // Then set addressComponent in addressFields
-                bindingList.forEach { binding ->
-                    when (binding) {
-                        is LayoutInputAddressBinding -> {
-                            if (binding.item?.id?.equals(id).orFalse()) {
-                                binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) })
+                        //Get binding from list if layout is address then check id is same
+                        // Then set addressComponent in addressFields
+                        bindingList.forEach { binding ->
+                            when (binding) {
+                                is LayoutInputAddressBinding -> {
+                                    if (binding.item?.id?.equals(id).orFalse()) {
+                                        binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) })
+                                    }
+                                }
                             }
                         }
                     }
-                }
-            } else if (requestCode == HomeActivity.BILLING_ADDRESS_REQUEST_CODE) {
-                val id = HomeActivity.BILLING_ADDRESS_REQUEST_CODE - 5000
-                HomeActivity.BILLING_ADDRESS_REQUEST_CODE = 5000
+                    HomeActivity.BILLING_ADDRESS_REQUEST_CODE -> {
+                        val id = HomeActivity.BILLING_ADDRESS_REQUEST_CODE - 5000
+                        HomeActivity.BILLING_ADDRESS_REQUEST_CODE = 5000
 
-                //Get binding from list if layout is serviceAndBillingAddress then check id is same
-                // Then set addressComponent in billingAddressFields
-                bindingList.forEach { binding ->
-                    when (binding) {
-                        is LayoutInputServiceAndBillingAddressBinding -> {
-                            if (binding.item?.id?.equals(id).orFalse()) {
-                                binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) }, false)
+                        //Get binding from list if layout is serviceAndBillingAddress then check id is same
+                        // Then set addressComponent in billingAddressFields
+                        bindingList.forEach { binding ->
+                            when (binding) {
+                                is LayoutInputServiceAndBillingAddressBinding -> {
+                                    if (binding.item?.id?.equals(id).orFalse()) {
+                                        binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) }, false)
+                                    }
+                                }
                             }
                         }
                     }
-                }
-            } else if (requestCode == HomeActivity.SERVICE_ADDRESS_REQUEST_CODE) {
-                val id = HomeActivity.SERVICE_ADDRESS_REQUEST_CODE - 5000
-                HomeActivity.SERVICE_ADDRESS_REQUEST_CODE = 5000
+                    HomeActivity.SERVICE_ADDRESS_REQUEST_CODE -> {
+                        val id = HomeActivity.SERVICE_ADDRESS_REQUEST_CODE - 5000
+                        HomeActivity.SERVICE_ADDRESS_REQUEST_CODE = 5000
 
-                //Get binding from list if layout is serviceAndBillingAddress then check id is same
-                // Then set addressComponent in serviceAddressFields
-                bindingList.forEach { binding ->
-                    when (binding) {
-                        is LayoutInputServiceAndBillingAddressBinding -> {
-                            if (binding.item?.id?.equals(id).orFalse()) {
-                                binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) }, true)
+                        //Get binding from list if layout is serviceAndBillingAddress then check id is same
+                        // Then set addressComponent in serviceAddressFields
+                        bindingList.forEach { binding ->
+                            when (binding) {
+                                is LayoutInputServiceAndBillingAddressBinding -> {
+                                    if (binding.item?.id?.equals(id).orFalse()) {
+                                        binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) }, true)
+                                    }
+                                }
                             }
                         }
                     }
+                    else -> super.onActivityResult(requestCode, resultCode, data)
                 }
-            } else {
-                super.onActivityResult(requestCode, resultCode, data)
             }
         }
     }
