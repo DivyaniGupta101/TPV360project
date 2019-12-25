@@ -33,7 +33,7 @@ private var addressField =
 fun LayoutInputAddressBinding.setField(response: DynamicFormResp) {
 
     val binding = this
-    val context = binding.editAddress.context
+    val context = binding.editUnit.context
 
     binding.item = response
 
@@ -42,7 +42,16 @@ fun LayoutInputAddressBinding.setField(response: DynamicFormResp) {
         context?.let { Places.initialize(it, AppConstant.ADDRESSPICKER_KEY, Locale.US) }
     }
 
-    binding.editAddress.onClick {
+    binding.editAddressLineOne.onClick {
+        context.openPlacePicker(binding)
+    }
+    binding.editCountry.onClick {
+        context.openPlacePicker(binding)
+    }
+    binding.editZipcode.onClick {
+        context.openPlacePicker(binding)
+    }
+    binding.editAddressLineTwo.onClick {
         context.openPlacePicker(binding)
     }
 
@@ -68,15 +77,10 @@ fun LayoutInputAddressBinding.isValid(context: Context?): Boolean {
     return if (binding.item?.validations?.required.orFalse()) {
         Validator(TextInputValidationErrorHandler()) {
             addValidate(
-                    binding.editAddress,
+                    binding.editAddressLineOne,
                     EmptyValidator(),
                     context?.getString(R.string.enter_address)
 
-            )
-            addValidate(
-                    binding.editUnit,
-                    EmptyValidator(),
-                    context?.getString(R.string.enter_unit)
             )
         }.validate()
     } else {

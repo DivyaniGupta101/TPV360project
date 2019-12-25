@@ -2,6 +2,7 @@ package com.tpv.android.ui.home.enrollment.commodity
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +19,11 @@ import com.tpv.android.databinding.FragmentCommodityBinding
 import com.tpv.android.databinding.ItemCommodityBinding
 import com.tpv.android.model.internal.Commodity
 import com.tpv.android.model.network.DynamicFormReq
-import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
-import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.navigateSafe
@@ -34,6 +33,7 @@ import com.tpv.android.utils.setupToolbar
 class CommodityFragment : Fragment() {
     private lateinit var mBinding: FragmentCommodityBinding
     private lateinit var mViewModel: SetEnrollViewModel
+    private lateinit var mViewModelCommodity: CommodityViewModel
     private var mList: ArrayList<Commodity> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +41,7 @@ class CommodityFragment : Fragment() {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_commodity, container, false)
         activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
+        mViewModelCommodity = ViewModelProviders.of(this).get(CommodityViewModel::class.java)
         mBinding.lifecycleOwner = this
         return mBinding.root
     }
@@ -53,10 +54,23 @@ class CommodityFragment : Fragment() {
     private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.commodity), showBackIcon = true, showMenuIcon = true)
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+        getCommodityApiCall()
         setRecyclerView()
     }
 
+    private fun getCommodityApiCall() {
+        val liveData = mViewModelCommodity.getCommodity()
+        liveData.observe(this, Observer {
+            it?.ifSuccess {
+                Log.d("Commodity Fragment:", "List $it")
+            }
+
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
+
     private fun setRecyclerView() {
+
 
         mList.clear()
         mList.add(Commodity(context?.getDrawable(R.drawable.ic_fire_gray), getString(R.string.dual_fuel), Plan.DUALFUEL.value))

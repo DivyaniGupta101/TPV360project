@@ -11,6 +11,7 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.livinglifetechway.k4kotlin.core.androidx.color
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
@@ -39,7 +40,7 @@ private var addressField =
 fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormResp) {
 
     val binding = this
-    val context = binding.editServiceAddress.context
+    val context = binding.editBillingAddressLineOne.context
 
     binding.item = response
 
@@ -48,12 +49,28 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
         context?.let { Places.initialize(it, AppConstant.ADDRESSPICKER_KEY, Locale.US) }
     }
 
-    binding.editServiceAddress.onClick {
+    binding.editBillingAddressLineOne.onClick {
+        context.openPlacePicker(binding, false)
+    }
+
+    binding.editBillingZipcode.onClick {
+        context.openPlacePicker(binding, false)
+    }
+
+    binding.editBillingCountry.onClick {
+        context.openPlacePicker(binding, false)
+    }
+
+    binding.editServiceAddressLineOne.onClick {
         context.openPlacePicker(binding, true)
     }
 
-    binding.editBillingAddress.onClick {
-        context.openPlacePicker(binding, false)
+    binding.editServiceZipcode.onClick {
+        context.openPlacePicker(binding, true)
+    }
+
+    binding.editServiceCountry.onClick {
+        context.openPlacePicker(binding, true)
     }
 
     binding.radioYes.onClick {
@@ -79,51 +96,51 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
             }
         }
     })
+    binding.editBillingAddressLineTwo.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (binding.radioYes.isChecked) {
+                binding.item?.values?.set(AppConstant.SERVICEADDRESS2, binding.editServiceAddressLineTwo.value)
+                handleBothAddressField(binding, true)
+            }
+        }
+    })
 }
 
 fun LayoutInputServiceAndBillingAddressBinding.isValid(context: Context?): Boolean {
     val binding = this
     return if (binding.item?.isAddressSame.orFalse()) {
 
-        binding.textInputBillingAddress.error = null
-        binding.editBillingAddress.error = null
+        binding.textInputBillingAddressLineOne.error = null
+        binding.editBillingAddressLineOne.error = null
 
-        binding.textInputBillingUnit.error = null
-        binding.editBillingUnit.error = null
+        binding.textInputServiceAddressLineOne.error = null
+        binding.editServiceAddressLineOne.error = null
 
         Validator(TextInputValidationErrorHandler()) {
             addValidate(
-                    binding.editServiceAddress,
+                    binding.editServiceAddressLineOne,
                     EmptyValidator(),
                     context?.getString(R.string.enter_service_address)
             )
-            addValidate(
-                    binding.editServiceUnit,
-                    EmptyValidator(),
-                    context?.getString(R.string.enter_service_unit)
-            )
+
         }.validate()
     } else {
         Validator(TextInputValidationErrorHandler()) {
             addValidate(
-                    binding.editServiceAddress,
+                    binding.editServiceAddressLineOne,
                     EmptyValidator(),
                     context?.getString(R.string.enter_service_address)
             )
             addValidate(
-                    binding.editServiceUnit,
-                    EmptyValidator(),
-                    context?.getString(R.string.enter_service_unit)
-            )
-            addValidate(
-                    binding.editBillingAddress,
+                    binding.editBillingAddressLineOne,
                     EmptyValidator(),
                     context?.getString(R.string.enter_billing_address)
-            )
-            addValidate(
-                    binding.editBillingUnit,
-                    EmptyValidator(),
-                    context?.getString(R.string.enter_billing_unit)
             )
         }.validate()
     }
@@ -167,9 +184,8 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
  */
 private fun handleBothAddressField(binding: LayoutInputServiceAndBillingAddressBinding, isSame: Boolean) {
 
+    val context = binding.editBillingUnit.context
     binding.item?.isAddressSame = isSame
-    binding.editBillingAddress.isEnabled = !isSame
-    binding.editBillingUnit.isEnabled = !isSame
 
     if (isSame) {
         binding.item?.billingAddress = binding.item?.serviceAddress
@@ -182,6 +198,8 @@ private fun handleBothAddressField(binding: LayoutInputServiceAndBillingAddressB
         binding.item?.values?.set(AppConstant.BILLINGCOUNTRY, binding.item?.values?.getValue(AppConstant.SERVICECOUNTRY).toString())
         binding.item?.values?.set(AppConstant.BILLINGCITY, binding.item?.values?.getValue(AppConstant.SERVICECITY).toString())
         binding.item?.values?.set(AppConstant.BILLINGSTATE, binding.item?.values?.getValue(AppConstant.SERVICESTATE).toString())
+        binding.editBillingUnit.setTextColor(context?.color(R.color.colorSecondaryText).orZero())
+        binding.editBillingAddressLineTwo.setTextColor(context?.color(R.color.colorSecondaryText).orZero())
     } else {
         binding.item?.billingAddress = ""
         binding.item?.values?.set(AppConstant.BILLINGUNIT, "")

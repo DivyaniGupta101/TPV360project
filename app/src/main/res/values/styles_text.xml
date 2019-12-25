@@ -61,6 +61,12 @@
         <item name="android:inputType">text</item>
     </style>
 
+    <style name="AddressFormTextInputLayout" parent="TextInputLayout">
+        <item name="hintEnabled">false</item>
+        <item name="android:layout_marginStart">@dimen/_8sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_8sdp</item>
+    </style>
+
     <style name="DefaultEditText">
         <item name="android:maxLines">1</item>
         <item name="android:layout_height">wrap_content</item>

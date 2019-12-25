@@ -37,102 +37,59 @@
             android:textAllCaps="true"
             android:textColor="@color/colorTertiaryText" />
 
-        <TextView
-            android:id="@+id/textServiceAddress"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/address" />
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <LinearLayout style="@style/SquareBorderTextLinearLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editServiceAddress"
-                    style="@style/SquareBorderEditText"
-                    android:ellipsize="end"
-                    android:focusable="false"
-                    android:hint="@string/tap_to_enter_address"
-                    android:maxLines="2"
-                    android:text="@{item.serviceAddress}"
-                    android:textColor="@color/colorSecondaryText" />
-            </LinearLayout>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textServiceUnit"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/unit" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editServiceUnit"
-                style="@style/DefaultEditText"
-                android:digits="@string/name_char"
-                android:inputType="text"
-                android:text='@={item.values[key.SERVICEUNIT]}' />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textServiceAddressLineOne"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/address_line_1" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
+            android:id="@+id/textInputBillingAddressLineOne"
+            style="@style/AddressFormTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editServiceAddressLineOne"
                 style="@style/DefaultEditText"
-                android:enabled="false"
+                android:focusable="false"
+                android:hint="@string/address_line_1"
                 android:text='@={item.values[key.SERVICEADDRESS1]}'
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textServiceAddressLineTwo"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/address_line_2" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AddressFormTextInputLayout"
+                android:layout_weight="1">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editServiceAddressLineTwo"
+                    style="@style/DefaultEditText"
+                    android:hint="@string/address_line_2"
+                    android:text='@={item.values[key.SERVICEADDRESS2]}' />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editServiceAddressLineTwo"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:text='@={item.values[key.SERVICEADDRESS2]}'
-                android:textColor="@color/colorSecondaryText" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AddressFormTextInputLayout"
+                android:layout_weight="3">
 
-        <TextView
-            android:id="@+id/textServiceZipcode"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
-            tools:text="City, State, Zipcode" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editServiceUnit"
+                    style="@style/DefaultEditText"
+                    android:digits="@string/name_char"
+                    android:ellipsize="end"
+                    android:hint="@string/unit"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text='@={item.values[key.SERVICEUNIT]}' />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
+        <com.google.android.material.textfield.TextInputLayout style="@style/AddressFormTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editServiceZipcode"
                 style="@style/DefaultEditText"
-                android:enabled="false"
+                android:focusable="false"
+                android:hint="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
                 android:textColor="@color/colorSecondaryText"
                 app:city="@{item.values[key.SERVICECITY]}"
                 app:state="@{item.values[key.SERVICESTATE]}"
@@ -140,40 +97,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/country" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
+        <com.google.android.material.textfield.TextInputLayout style="@style/AddressFormTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServiceCountry"
                 style="@style/DefaultEditText"
-                android:enabled="false"
+                android:focusable="false"
+                android:hint="@string/country"
                 android:text='@={item.values[key.SERVICECOUNTRY]}'
                 android:textColor="@color/colorSecondaryText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textServiceLatitude"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/location" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editServiceLatitude"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:textColor="@color/colorSecondaryText"
-                app:lat="@{item.values[key.SERVICELAT]}"
-                app:lng="@{item.values[key.SERVICELNG]}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -213,103 +145,67 @@
             android:textAllCaps="true"
             android:textColor="@color/colorTertiaryText" />
 
-        <TextView
-            android:id="@+id/textBillingAddress"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/address" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputBillingAddress"
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <LinearLayout style="@style/SquareBorderTextLinearLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editBillingAddress"
-                    style="@style/SquareBorderEditText"
-                    android:ellipsize="end"
-                    android:focusable="false"
-                    android:hint="@string/tap_to_enter_address"
-                    android:maxLines="2"
-                    android:text="@{item.billingAddress}"
-                    android:textColor="@color/colorSecondaryText" />
-            </LinearLayout>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textBillingUnit"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/unit" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputBillingUnit"
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editBillingUnit"
-                style="@style/DefaultEditText"
-                android:digits="@string/name_char"
-                android:inputType="text"
-                android:text='@={item.values[key.BILLINGUNIT]}' />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textBillingAddressLineOne"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/address_line_1" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
+            android:id="@+id/textInputServiceAddressLineOne"
+            style="@style/AddressFormTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editBillingAddressLineOne"
                 style="@style/DefaultEditText"
-                android:enabled="false"
+                android:enabled="@{!item.addressSame}"
+                android:focusable="false"
+                android:hint="@string/address_line_1"
                 android:text='@={item.values[key.BILLINGADDRESS1]}'
                 android:textColor="@color/colorSecondaryText" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textBillingAddressLineTwo"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/address_line_2" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AddressFormTextInputLayout"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editBillingAddressLineTwo"
+                    style="@style/DefaultEditText"
+                    android:enabled="@{!item.addressSame}"
+                    android:hint="@string/address_line_2"
+                    android:text='@={item.values[key.BILLINGADDRESS2]}'
+                    android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editBillingAddressLineTwo"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:text='@={item.values[key.BILLINGADDRESS2]}'
-                android:textColor="@color/colorSecondaryText" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AddressFormTextInputLayout"
+                android:layout_weight="3">
 
-        <TextView
-            android:id="@+id/textBillingZipcode"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editBillingUnit"
+                    style="@style/DefaultEditText"
+                    android:digits="@string/name_char"
+                    android:enabled="@{!item.addressSame}"
+                    android:hint="@string/unit"
+                    android:inputType="text"
+                    android:text='@={item.values[key.BILLINGUNIT]}'
+                    android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/AddressFormTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editBillingZipcode"
                 style="@style/DefaultEditText"
-                android:enabled="false"
+                android:ellipsize="end"
+                android:enabled="@{!item.addressSame}"
+                android:focusable="false"
+                android:hint="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
+                android:maxLines="1"
                 android:textColor="@color/colorSecondaryText"
                 app:city="@{item.values[key.BILLINGCITY]}"
                 app:state="@{item.values[key.BILLINGSTATE]}"
@@ -317,40 +213,17 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/country" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
+        <com.google.android.material.textfield.TextInputLayout style="@style/AddressFormTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingCountry"
                 style="@style/DefaultEditText"
-                android:enabled="false"
+                android:enabled="@{!item.addressSame}"
+                android:focusable="false"
+                android:hint="@string/country"
                 android:text='@={item.values[key.BILLINGCOUNTRY]}'
                 android:textColor="@color/colorSecondaryText" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textBillingLatitude"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:text="@string/location" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_marginStart="@dimen/_8sdp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editBillingLatitude"
-                style="@style/DefaultEditText"
-                android:enabled="false"
-                android:textColor="@color/colorSecondaryText"
-                app:lat="@{item.values[key.BILLINGLAT]}"
-                app:lng="@{item.values[key.BILLINGLNG]}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
