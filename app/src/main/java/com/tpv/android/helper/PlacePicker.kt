@@ -23,7 +23,7 @@ fun addressComponents(place: Place): AddressComponent? {
         address2 = if (address2.isEmpty()) {
             route
         } else {
-            " $route"
+            "$route"
         }
     }
 
