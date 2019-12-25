@@ -57,8 +57,8 @@ class LoginFragment : Fragment() {
             activity?.finish()
         }
         if (BuildConfig.DEBUG) {
-            mBinding.editEmail.setText("inx_sales@mailinator.com")
-            mBinding.editPassword.setText("123456")
+            mBinding.editEmail.setText("test.sales@mailinator.com")
+            mBinding.editPassword.setText("Admin1!")
 
         }
 
