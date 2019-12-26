@@ -112,7 +112,7 @@
     <string name="return_to_login">Return to Login</string>
     <string name="username">User Name</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="gas_utility">Gas Utility</string>
+    <string name="utility">Utility</string>
     <string name="electric_utility">Electric Utility</string>
     <string name="validity">Validity</string>
     <string name="early_termination">Early Termination</string>

@@ -13,7 +13,7 @@ data class CommodityResp(
 
 data class Commodity(
         @SerializedName("id")
-        val id: Int?,
+        val id: String?,
         @SerializedName("name")
         val name: String?
 )

@@ -60,55 +60,15 @@
                         android:id="@+id/textZipcode"
                         style="@style/DefaultEditText"
                         android:layout_width="match_parent"
+                        android:digits="@string/number_char"
                         android:inputType="phone"
-                        android:maxLength="5"
-                        android:digits="@string/number_char"/>
+                        android:maxLength="5" />
 
-                    <TextView
-                        android:id="@+id/textGas"
-                        style="@style/SecondaryNormalText"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:text="@string/gas_utility"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
-
-                    <Spinner
-                        android:id="@+id/spinnerGas"
+                    <LinearLayout
+                        android:id="@+id/spinnerContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
-
-                    <View
-                        android:id="@+id/dividerGas"
-                        style="@style/Divider"
-                        android:layout_width="match_parent"
-                        android:background="@color/colorDarkDivider"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
-
-                    <TextView
-                        android:id="@+id/textElectric"
-                        style="@style/SecondaryNormalText"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:text="@string/electric_utility"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
-
-                    <Spinner
-                        android:id="@+id/spinnerElectricity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
-
-                    <View
-                        android:id="@+id/dividerElectric"
-                        style="@style/Divider"
-                        android:layout_width="match_parent"
-                        android:background="@color/colorDarkDivider"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
+                        android:orientation="vertical" />
 
                     <TextView
                         android:id="@+id/btnNext"

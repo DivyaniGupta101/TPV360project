@@ -3,6 +3,7 @@ package com.tpv.android.ui.home.enrollment.planszipcode
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
+import com.tpv.android.databinding.LayoutPlanZipcodeSpinnerBinding
 import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.network.UtilityReq
 import com.tpv.android.model.network.UtilityResp
@@ -30,7 +32,6 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
-import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -43,6 +44,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private lateinit var mViewModel: PlansZipcodeViewModel
     private var lastSearchZipCode = ""
+    val bindingList: ArrayList<LayoutPlanZipcodeSpinnerBinding> = ArrayList()
 
     private val mHandler = Handler()
 
@@ -104,16 +106,10 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
         mSetEnrollViewModel.selectedUtilityList.clear()
 
-        //Get detail of selected utility and then add in viewModel variable "selectedUtilityList"
-        if (mBinding.spinnerElectricity.isShown) {
-            val electricUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerElectricity.selectedItem && it.commodity == Plan.ELECTRICFUEL.value }
-            electricUtilityResp?.let { mSetEnrollViewModel.selectedUtilityList.add(it) }
+        bindingList.forEach { binding ->
+            val utilities = mUtilityList.find { it.fullname == binding.spinner.selectedItem && it.commodityId == binding.item?.id }
+            utilities?.let { mSetEnrollViewModel.selectedUtilityList.add(it) }
         }
-        if (mBinding.spinnerGas.isShown) {
-            val gasUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerGas.selectedItem && it.commodity == Plan.GASFUEL.value }
-            gasUtilityResp?.let { mSetEnrollViewModel.selectedUtilityList.add(it) }
-        }
-
         mViewModel.clearZipCodeListData()
     }
 
@@ -182,7 +178,9 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 hideKeyboard()
                 getUtilityListApiCall(mBinding.textZipcode.value)
             } else {
-                hideAllSpinner()
+                mBinding.spinnerContainer.removeAllViews()
+                hideViews()
+                mBinding.btnNext.isEnabled = false
             }
         }
     }
@@ -191,7 +189,10 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      * Get Utilities details as per zipcode and selected planId
      */
     private fun getUtilityListApiCall(zipcode: String) {
-        val liveData = mViewModel.getUtility(UtilityReq(zipcode = zipcode, commodity = mSetEnrollViewModel.planId))
+        Log.d("Plan Zipcode", "${UtilityReq(zipcode = zipcode, commodity =
+        android.text.TextUtils.join(",", mSetEnrollViewModel.utilityList.map { it.id }))}")
+        val liveData = mViewModel.getUtility(UtilityReq(zipcode = zipcode, commodity =
+        android.text.TextUtils.join(",", mSetEnrollViewModel.utilityList.map { it.id })))
         liveData.observe(this, Observer {
             it.ifSuccess {
                 mUtilityList.clear()
@@ -199,39 +200,11 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 setUtilitySpinners()
             }
             it.ifFailure { _, _ ->
-                hideAllSpinner()
+                hideViews()
             }
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-    }
-
-    /**
-     * Find electric utilities From List and then set in spinner
-     * And if list is empty then hide spinner
-     */
-    private fun setElectricSpinner() {
-        val listOfElectricUtility = mUtilityList.filter { it.commodity.equals(Plan.ELECTRICFUEL.value) }.map { it.fullname.orEmpty() }
-        mBinding.spinnerElectricity.setItems(ArrayList(listOfElectricUtility))
-        if (listOfElectricUtility.isNotEmpty()) {
-            showElectricSpinner()
-        } else {
-            showNoUtilityDialog()
-        }
-    }
-
-    /**
-     * Find gas utilities From List and then set in spinner
-     *  And if list is empty then hide spinner
-     */
-    private fun setGasSpinner() {
-        val listOfGasUtility = mUtilityList.filter { it.commodity.equals(Plan.GASFUEL.value) }.map { it.fullname.orEmpty() }
-        mBinding.spinnerGas.setItems(ArrayList(listOfGasUtility))
-        if (listOfGasUtility.isNotEmpty()) {
-            showGasSpinner()
-        } else {
-            showNoUtilityDialog()
-        }
     }
 
     /**
@@ -245,59 +218,41 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      * For instance, If user select "Dual Fuel" then gas and electric both spinner will show.
      */
     private fun setUtilitySpinners() {
-        when (mSetEnrollViewModel.planId) {
-            Plan.DUALFUEL.value -> {
-                setGasSpinner()
-                setElectricSpinner()
-                if (mBinding.spinnerGas.isShown && mBinding.spinnerElectricity.isShown) {
-                    mBinding.btnNext.isEnabled = true
-                } else {
-                    hideAllSpinner()
+        bindingList.clear()
+
+        mSetEnrollViewModel.utilityList.forEach { commodity ->
+
+            val binding = DataBindingUtil.inflate<LayoutPlanZipcodeSpinnerBinding>(layoutInflater,
+                    R.layout.layout_plan_zipcode_spinner,
+                    mBinding.spinnerContainer,
+                    true)
+            binding.item = commodity
+
+            bindingList.add(binding)
+
+            val spinnerList = mUtilityList.filter { it.commodityId == commodity.id }.map { it.fullname.orEmpty() }
+            if (spinnerList.isNotEmpty()) {
+                binding.spinner.setItems(ArrayList(spinnerList))
+                mBinding.btnNext.isEnabled = true
+            } else {
+
+                mBinding.btnNext.isEnabled = false
+                bindingList.forEach {
+                    it.textTitle.hide()
+                    it.spinner.hide()
+                    it.divider.hide()
                 }
+                showNoUtilityDialog()
             }
-            Plan.ELECTRICFUEL.value -> {
-                setElectricSpinner()
-                if (mBinding.spinnerElectricity.isShown) {
-                    mBinding.btnNext.isEnabled = true
-                }
-            }
-            Plan.GASFUEL.value -> {
-                setGasSpinner()
-                if (mBinding.spinnerGas.isShown) {
-                    mBinding.btnNext.isEnabled = true
-                }
-            }
+
         }
-    }
-
-    /**
-     * Show Electric DropDown and Title Text
-     */
-    private fun showElectricSpinner() {
-        mBinding.textElectric.show()
-        mBinding.dividerElectric.show()
-        mBinding.spinnerElectricity.show()
-    }
-
-    /**
-     * Show Gas DropDown and Title Text
-     */
-    private fun showGasSpinner() {
-        mBinding.textGas.show()
-        mBinding.dividerGas.show()
-        mBinding.spinnerGas.show()
     }
 
     /**
      * hide all the spinners and all the label texts and dividers
      */
-    private fun hideAllSpinner() {
-        mBinding.textElectric.hide()
-        mBinding.textGas.hide()
-        mBinding.spinnerElectricity.hide()
-        mBinding.spinnerGas.hide()
-        mBinding.dividerGas.hide()
-        mBinding.dividerElectric.hide()
+    private fun hideViews() {
+        mBinding.spinnerContainer.removeAllViews()
         mBinding.btnNext.isEnabled = false
     }
 }
