@@ -115,7 +115,7 @@ object AppRepository {
                     it?.data?.map {
                         it.utilityType = utilityList.get(index).commodity
                     }
-                    result.add(utilityList.get(index).commodity + " Programs")
+                    result.add(utilityList.get(index).commodity + " Utility")
                     result.addAll(it?.data.orEmpty())
                 }
 

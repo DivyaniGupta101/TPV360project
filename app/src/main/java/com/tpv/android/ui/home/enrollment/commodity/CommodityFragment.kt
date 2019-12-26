@@ -50,7 +50,7 @@ class CommodityFragment : Fragment() {
     }
 
     private fun initialize() {
-        setupToolbar(mBinding.toolbar, getString(R.string.commodity), showBackIcon = true, showMenuIcon = true)
+        setupToolbar(mBinding.toolbar, getString(R.string.lead_enroll), showBackIcon = true, showMenuIcon = true)
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         getCommodityApiCall()
         setRecyclerView()

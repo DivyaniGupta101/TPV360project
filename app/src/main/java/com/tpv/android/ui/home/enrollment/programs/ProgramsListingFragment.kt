@@ -18,6 +18,7 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentProgramsListingBinding
 import com.tpv.android.databinding.ItemProgramsBinding
+import com.tpv.android.model.internal.itemSelection
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.ProgramsResp
 import com.tpv.android.network.error.AlertErrorHandler
@@ -36,6 +37,7 @@ class ProgramsListingFragment : Fragment() {
     private var mLastSelectedGasPosition: Int? = null
     private var mLastSelectedElectricPosition: Int? = null
     private lateinit var mViewModel: SetEnrollViewModel
+    private var mLastSelected: ArrayList<itemSelection> = ArrayList()
 
     private var mList: ArrayList<Any> = ArrayList()
 
@@ -58,14 +60,14 @@ class ProgramsListingFragment : Fragment() {
 
         setupToolbar(mBinding.toolbar, getString(R.string.select_plan), showBackIcon = true)
 
-        if (mLastSelectedGasPosition != null) {
-            (mList[mLastSelectedGasPosition.orZero()] as ProgramsResp).isSelcected = true
-            mBinding.listPrograms.adapter?.notifyDataSetChanged()
-        }
-        if (mLastSelectedElectricPosition != null) {
-            (mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp).isSelcected = true
-            mBinding.listPrograms.adapter?.notifyDataSetChanged()
-        }
+//        if (mLastSelectedGasPosition != null) {
+//            (mList[mLastSelectedGasPosition.orZero()] as ProgramsResp).isSelcected = true
+//            mBinding.listPrograms.adapter?.notifyDataSetChanged()
+//        }
+//        if (mLastSelectedElectricPosition != null) {
+//            (mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp).isSelcected = true
+//            mBinding.listPrograms.adapter?.notifyDataSetChanged()
+//        }
 
         //If mList is empty then getPrograms from api and then set in recyclerView else only set in recyclerView
         if (mList.isEmpty()) {
@@ -127,7 +129,8 @@ class ProgramsListingFragment : Fragment() {
                         }
                     }
                     onClick {
-                        itemSelection(type = it.binding.item?.utilityType.orEmpty(), selectedPosition = it.adapterPosition)
+                        itemSelection(utilityId = it.binding.item?.utilityId.orEmpty(),
+                                selectedItemId = it.binding.item?.id.orEmpty())
                         handleNextButtonState()
                     }
                 }
@@ -142,43 +145,40 @@ class ProgramsListingFragment : Fragment() {
      */
 
     private fun handleNextButtonState() {
-        mBinding.btnNext.isEnabled = when (this.mViewModel.planId) {
-            Plan.ELECTRICFUEL.value -> {
-                mLastSelectedElectricPosition != null
-            }
-            Plan.GASFUEL.value -> {
-                mLastSelectedGasPosition != null
-            }
-            Plan.DUALFUEL.value -> {
-                (mLastSelectedElectricPosition != null && mLastSelectedGasPosition != null)
-            }
-            else -> {
-                false
-            }
-        }
+        mBinding.btnNext.isEnabled = mLastSelected.size == mViewModel.selectedUtilityList.size
     }
+
 
     /**
      * Handle itemSelection, only one item from each GASFUEL and ELECTRICFUEL should be selected
      * Other will be unSelected automatically
      */
-    private fun itemSelection(type: String, selectedPosition: Int) {
-        when (type) {
-            Plan.GASFUEL.value -> {
-                if (mLastSelectedGasPosition != null) {
-                    (mList[mLastSelectedGasPosition.orZero()] as ProgramsResp).isSelcected = false
+    private fun itemSelection(utilityId: String, selectedItemId: String) {
+        val lastSelectedList = mLastSelected.filter { it.utilityId == utilityId }
+        if (lastSelectedList.isNotEmpty()) {
+
+            lastSelectedList.forEach { lastSelected ->
+                mList.forEach {
+                    if (it is ProgramsResp) {
+                        if (it.id == lastSelected.lastSelected) {
+                            it.isSelcected = false
+                        }
+                    }
                 }
-                (mList[selectedPosition] as ProgramsResp).isSelcected = true
-                mLastSelectedGasPosition = selectedPosition
             }
-            Plan.ELECTRICFUEL.value -> {
-                if (mLastSelectedElectricPosition != null) {
-                    (mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp).isSelcected = false
+            mLastSelected.removeAll { it.utilityId == utilityId }
+            itemSelection(utilityId, selectedItemId)
+        } else {
+            mList.forEach {
+                if (it is ProgramsResp) {
+                    if (it.id == selectedItemId) {
+                        it.isSelcected = true
+                        mLastSelected.add(itemSelection(it.utilityId, it.id))
+                    }
                 }
-                (mList[selectedPosition] as ProgramsResp).isSelcected = true
-                mLastSelectedElectricPosition = selectedPosition
             }
         }
+
         mBinding.listPrograms.adapter?.notifyDataSetChanged()
 
     }

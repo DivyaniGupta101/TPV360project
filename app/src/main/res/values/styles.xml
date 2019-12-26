@@ -113,8 +113,8 @@
     </style>
 
     <style name="SlideMenuItemProfileImage">
-        <item name="android:layout_width">@dimen/_50sdp</item>
-        <item name="android:layout_height">@dimen/_50sdp</item>
+        <item name="android:layout_width">@dimen/_40sdp</item>
+        <item name="android:layout_height">@dimen/_40sdp</item>
     </style>
 
     <style name="SlideMenuItemText" parent="PrimaryNormalText">

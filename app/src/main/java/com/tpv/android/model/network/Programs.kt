@@ -17,6 +17,8 @@ data class ProgramsResp(
         var earlyterminationfee: String?,
         @SerializedName("Rate")
         var rate: String?,
+        @SerializedName("utility_id")
+        var utilityId: String?,
         @SerializedName("Term")
         var term: String?,
         @SerializedName("State")
