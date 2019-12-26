@@ -79,4 +79,8 @@ interface ApiInterface {
     @POST("getform")
     fun getDynamicForm(@Body dynamicFormReq: DynamicFormReq): Call<CommonResponse<List<DynamicFormResp>>>
 
+    //LeadDetail
+    @GET("clients/{id}/forms")
+    fun getCommodity(@Path("id") id: String?): Call<CommonResponse<List<CommodityResp>>>
+
 }
