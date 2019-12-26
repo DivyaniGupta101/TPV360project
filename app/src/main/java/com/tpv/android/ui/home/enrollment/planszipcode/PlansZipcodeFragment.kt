@@ -76,14 +76,17 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
     private fun initialize() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+        val toolbarTitle = arguments?.let { PlansZipcodeFragmentArgs.fromBundle(it).item }
 
         //Set toolbar title as per utility
-        setToolbar()
+        setupToolbar(mBinding.toolbar, toolbarTitle.orEmpty(), showBackIcon = true) {
+            mSetEnrollViewModel.clearSavedData()
+        }
 
         setAutoCompleterTextView()
 
-        //Check if utilitiesList list available then show respective value in dropdown
-        if (mSetEnrollViewModel.utilitiesList.isNotEmpty()) {
+        //Check if selectedUtilityList list available then show respective value in dropdown
+        if (mSetEnrollViewModel.selectedUtilityList.isNotEmpty()) {
             setUtilitySpinners()
         }
 
@@ -99,38 +102,19 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      */
     private fun setData() {
 
-        mSetEnrollViewModel.utilitiesList.clear()
+        mSetEnrollViewModel.selectedUtilityList.clear()
 
-        //Get detail of selected utility and then add in viewModel variable "utilitiesList"
+        //Get detail of selected utility and then add in viewModel variable "selectedUtilityList"
         if (mBinding.spinnerElectricity.isShown) {
             val electricUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerElectricity.selectedItem && it.commodity == Plan.ELECTRICFUEL.value }
-            electricUtilityResp?.let { mSetEnrollViewModel.utilitiesList.add(it) }
+            electricUtilityResp?.let { mSetEnrollViewModel.selectedUtilityList.add(it) }
         }
         if (mBinding.spinnerGas.isShown) {
             val gasUtilityResp = mUtilityList.find { it.fullname == mBinding.spinnerGas.selectedItem && it.commodity == Plan.GASFUEL.value }
-            gasUtilityResp?.let { mSetEnrollViewModel.utilitiesList.add(it) }
+            gasUtilityResp?.let { mSetEnrollViewModel.selectedUtilityList.add(it) }
         }
 
         mViewModel.clearZipCodeListData()
-    }
-
-    /**
-     * Set toolbar title according to selection of fuel in previous screen.
-     * For example, if user select gas fuel then title should be "Natural Gas"
-     */
-    private fun setToolbar() {
-        var toolbarTitle = ""
-        if (mSetEnrollViewModel.planType.equals(Plan.GASFUEL.value)) {
-            toolbarTitle = getString(R.string.natural_gas)
-        } else if (mSetEnrollViewModel.planType.equals(Plan.ELECTRICFUEL.value)) {
-            toolbarTitle = getString(R.string.electricity)
-        } else {
-            toolbarTitle = getString(R.string.dual_fuel)
-        }
-
-        setupToolbar(mBinding.toolbar, toolbarTitle, showBackIcon = true) {
-            mSetEnrollViewModel.clearSavedData()
-        }
     }
 
     private fun setAutoCompleterTextView() {
@@ -204,10 +188,10 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     }
 
     /**
-     * Get Utilities details as per zipcode and selected planType
+     * Get Utilities details as per zipcode and selected planId
      */
     private fun getUtilityListApiCall(zipcode: String) {
-        val liveData = mViewModel.getUtility(UtilityReq(zipcode = zipcode, commodity = mSetEnrollViewModel.planType))
+        val liveData = mViewModel.getUtility(UtilityReq(zipcode = zipcode, commodity = mSetEnrollViewModel.planId))
         liveData.observe(this, Observer {
             it.ifSuccess {
                 mUtilityList.clear()
@@ -261,7 +245,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      * For instance, If user select "Dual Fuel" then gas and electric both spinner will show.
      */
     private fun setUtilitySpinners() {
-        when (mSetEnrollViewModel.planType) {
+        when (mSetEnrollViewModel.planId) {
             Plan.DUALFUEL.value -> {
                 setGasSpinner()
                 setElectricSpinner()

@@ -2,7 +2,6 @@ package com.tpv.android.ui.home.enrollment.commodity
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,7 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentCommodityBinding
 import com.tpv.android.databinding.ItemCommodityBinding
-import com.tpv.android.model.internal.Commodity
+import com.tpv.android.model.network.CommodityResp
 import com.tpv.android.model.network.DynamicFormReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -25,7 +24,6 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.enums.MenuItem
-import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
@@ -34,7 +32,7 @@ class CommodityFragment : Fragment() {
     private lateinit var mBinding: FragmentCommodityBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private lateinit var mViewModelCommodity: CommodityViewModel
-    private var mList: ArrayList<Commodity> = ArrayList()
+    private var mList: ArrayList<CommodityResp> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -62,7 +60,9 @@ class CommodityFragment : Fragment() {
         val liveData = mViewModelCommodity.getCommodity()
         liveData.observe(this, Observer {
             it?.ifSuccess {
-                Log.d("Commodity Fragment:", "List $it")
+                mList.clear()
+                mList.addAll(it.orEmpty())
+                setRecyclerView()
             }
 
         })
@@ -70,29 +70,22 @@ class CommodityFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-
-
-        mList.clear()
-        mList.add(Commodity(context?.getDrawable(R.drawable.ic_fire_gray), getString(R.string.dual_fuel), Plan.DUALFUEL.value))
-        mList.add(Commodity(context?.getDrawable(R.drawable.ic_idea_gray), getString(R.string.electricity), Plan.ELECTRICFUEL.value))
-        mList.add(Commodity(context?.getDrawable(R.drawable.ic_natural_gas_gray), getString(R.string.natural_gas), Plan.GASFUEL.value))
-
         LiveAdapter(mList, BR.item)
-                .map<Commodity, ItemCommodityBinding>(R.layout.item_commodity) {
+                .map<CommodityResp, ItemCommodityBinding>(R.layout.item_commodity) {
                     onClick { holder ->
-                        getDynamicFormApiCall(holder.binding.item?.planType.orEmpty())
+                        getDynamicFormApiCall(holder.binding.item?.id.toString(), holder.binding.item?.formname)
                     }
                 }
                 .into(mBinding.listPlans)
     }
 
-    private fun getDynamicFormApiCall(type: String) {
-        val liveData = mViewModel.getDynamicForm(DynamicFormReq(clientid = "102",
-                commodity = "Electric", programid = "716"))
+    private fun getDynamicFormApiCall(id: String, title: String?) {
+        val liveData = mViewModel.getDynamicForm(DynamicFormReq(formId = id))
         liveData.observe(this, Observer {
             it.ifSuccess {
-                mViewModel.planType = type
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_commodityFragment_to_plansZipcodeFragment)
+                mViewModel.utilityList.addAll(mList.find { it.id.toString() == id }?.commodities.orEmpty())
+                mViewModel.planId = id
+                Navigation.findNavController(mBinding.root).navigateSafe(CommodityFragmentDirections.actionCommodityFragmentToPlansZipcodeFragment(title.orEmpty()))
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>

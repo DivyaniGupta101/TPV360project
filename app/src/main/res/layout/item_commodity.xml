@@ -10,7 +10,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.internal.Commodity" />
+            type="com.tpv.android.model.network.CommodityResp" />
 
     </data>
 
@@ -33,22 +33,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackground"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/_28sdp">
 
                 <ImageView
-                    placeholder="@{item.icon}"
                     android:layout_width="@dimen/_36sdp"
                     android:layout_height="@dimen/_36sdp"
+                    android:visibility="gone"
                     app:dynamicTintColor="@{R.color.colorSecondaryImageTint}"
                     tools:src="@drawable/ic_idea_gray" />
 
-                <View style="@style/DividerPrimary" />
+                <View
+                    style="@style/DividerPrimary"
+                    android:visibility="gone" />
 
                 <TextView
                     style="@style/PrimaryBoldText"
-                    android:layout_gravity="center_vertical"
-                    android:text="@{item.title}"
+                    android:text="@{item.formname}"
                     tools:text="@string/dual_fuel" />
 
             </LinearLayout>

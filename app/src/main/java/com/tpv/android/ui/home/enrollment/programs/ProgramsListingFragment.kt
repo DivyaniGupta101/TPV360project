@@ -81,7 +81,7 @@ class ProgramsListingFragment : Fragment() {
         mBinding.btnNext.onClick {
             mViewModel.programList.clear()
 
-            when (mViewModel.planType) {
+            when (mViewModel.planId) {
                 Plan.GASFUEL.value -> {
                     mViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
                 }
@@ -101,7 +101,7 @@ class ProgramsListingFragment : Fragment() {
 
     private fun getProgramsApiCall() {
 
-        val liveData = this.mViewModel.getPrograms(this.mViewModel.utilitiesList)
+        val liveData = this.mViewModel.getPrograms(this.mViewModel.selectedUtilityList)
 
         liveData.observe(this, Observer {
             it.ifSuccess {
@@ -142,7 +142,7 @@ class ProgramsListingFragment : Fragment() {
      */
 
     private fun handleNextButtonState() {
-        mBinding.btnNext.isEnabled = when (this.mViewModel.planType) {
+        mBinding.btnNext.isEnabled = when (this.mViewModel.planId) {
             Plan.ELECTRICFUEL.value -> {
                 mLastSelectedElectricPosition != null
             }

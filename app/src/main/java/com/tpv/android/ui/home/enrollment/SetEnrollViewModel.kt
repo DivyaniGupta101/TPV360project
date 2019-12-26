@@ -11,8 +11,8 @@ import okhttp3.RequestBody
 
 class SetEnrollViewModel : CoroutineScopedViewModel() {
 
-    var planType: String = ""
-    var utilitiesList: ArrayList<UtilityResp> = ArrayList()
+    var planId: String = ""
+    var selectedUtilityList: ArrayList<UtilityResp> = ArrayList()
     var programList: ArrayList<ProgramsResp> = ArrayList()
     var savedLeadResp: SaveLeadsDetailResp? = null
     var recordingFile: String = ""
@@ -21,6 +21,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var formPageMap: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
     var duplicatePageMap: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
     var dynamicFormData = ArrayList<DynamicFormResp>()
+    var utilityList: ArrayList<Commodity> = ArrayList()
 
     fun getDynamicForm(dynamicFormReq: DynamicFormReq) = with(AppRepository) {
         val result = getDynamicFormCall(dynamicFormReq)
@@ -91,8 +92,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
      * Remove stored values in viewModel
      */
     fun clearSavedData() {
-        utilitiesList.clear()
-        planType = ""
+        selectedUtilityList.clear()
+        planId = ""
         programList.clear()
         savedLeadResp = null
         recordingFile = ""
@@ -100,5 +101,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         signature = null
         formPageMap = LinkedHashMap()
         duplicatePageMap = LinkedHashMap()
+        utilityList.clear()
     }
 }
