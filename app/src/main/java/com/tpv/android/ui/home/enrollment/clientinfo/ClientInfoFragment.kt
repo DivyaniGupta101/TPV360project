@@ -9,15 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClientInfoBinding
 import com.tpv.android.databinding.ItemProgramsBinding
+import com.tpv.android.databinding.ItemTitleProgramsBinding
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.enums.DynamicField
-import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
@@ -41,8 +39,6 @@ class ClientInfoFragment : Fragment() {
     }
 
     private fun initialize() {
-        mBinding.textElectric.hide()
-        mBinding.textGas.hide()
 
         mBinding.item = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
 
@@ -62,18 +58,11 @@ class ClientInfoFragment : Fragment() {
     private fun setProgramInformation() {
         mViewModel.programList.forEach { programsResp ->
 
-            when (programsResp.utilityType) {
-                Plan.GASFUEL.value -> {
-                    mBinding.textGas.show()
-                    mViewGroup = mBinding.gasInforamtionContainer
-                }
-                Plan.ELECTRICFUEL.value -> {
-                    mBinding.textElectric.show()
-                    mViewGroup = mBinding.electricInforamtionContainer
-                }
-            }
 
-            val binding = DataBindingUtil.inflate<ItemProgramsBinding>(layoutInflater, R.layout.item_programs, mViewGroup, true)
+            val titleBinding = DataBindingUtil.inflate<ItemTitleProgramsBinding>(layoutInflater, R.layout.item_title_programs, mBinding.infoContainer, true)
+            titleBinding.item = mViewModel.selectedUtilityList.find { it.utid.toString() == programsResp.utilityId }?.commodity
+
+            val binding = DataBindingUtil.inflate<ItemProgramsBinding>(layoutInflater, R.layout.item_programs, mBinding.infoContainer, true)
             binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_border)
             binding.item = programsResp
 

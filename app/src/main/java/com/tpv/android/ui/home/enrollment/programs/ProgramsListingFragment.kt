@@ -12,7 +12,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.gson.reflect.TypeToken
-import com.livinglifetechway.k4kotlin.core.*
+import com.livinglifetechway.k4kotlin.core.hide
+import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orFalse
+import com.livinglifetechway.k4kotlin.core.show
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -27,7 +30,6 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.copy
-import com.tpv.android.utils.enums.Plan
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
@@ -60,15 +62,6 @@ class ProgramsListingFragment : Fragment() {
 
         setupToolbar(mBinding.toolbar, getString(R.string.select_plan), showBackIcon = true)
 
-//        if (mLastSelectedGasPosition != null) {
-//            (mList[mLastSelectedGasPosition.orZero()] as ProgramsResp).isSelcected = true
-//            mBinding.listPrograms.adapter?.notifyDataSetChanged()
-//        }
-//        if (mLastSelectedElectricPosition != null) {
-//            (mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp).isSelcected = true
-//            mBinding.listPrograms.adapter?.notifyDataSetChanged()
-//        }
-
         //If mList is empty then getPrograms from api and then set in recyclerView else only set in recyclerView
         if (mList.isEmpty()) {
             getProgramsApiCall()
@@ -82,17 +75,11 @@ class ProgramsListingFragment : Fragment() {
         //Save ProgramDetail in viewModel
         mBinding.btnNext.onClick {
             mViewModel.programList.clear()
-
-            when (mViewModel.planId) {
-                Plan.GASFUEL.value -> {
-                    mViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
-                }
-                Plan.ELECTRICFUEL.value -> {
-                    mViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
-                }
-                Plan.DUALFUEL.value -> {
-                    mViewModel.programList.add(mList[mLastSelectedGasPosition.orZero()] as ProgramsResp)
-                    mViewModel.programList.add(mList[mLastSelectedElectricPosition.orZero()] as ProgramsResp)
+            mList.forEach {
+                if (it is ProgramsResp) {
+                    if (mLastSelected.contains(itemSelection(it.utilityId, it.id))) {
+                        mViewModel.programList.add(it)
+                    }
                 }
             }
 
@@ -103,7 +90,7 @@ class ProgramsListingFragment : Fragment() {
 
     private fun getProgramsApiCall() {
 
-        val liveData = this.mViewModel.getPrograms(this.mViewModel.selectedUtilityList)
+        val liveData = mViewModel.getPrograms(mViewModel.selectedUtilityList)
 
         liveData.observe(this, Observer {
             it.ifSuccess {

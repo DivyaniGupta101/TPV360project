@@ -95,6 +95,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         mBinding.btnNext?.onClick {
             setData()
             hideKeyboard()
+            mSetEnrollViewModel.zipcode = mBinding.textZipcode.value
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
     }
