@@ -113,12 +113,14 @@ class StatementFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (mViewModel.dynamicFormData.filter { it.type == DynamicField.PHONENUMBER.type }.isNotEmpty()) {
+            mBinding.phone = mViewModel.dynamicFormData.find { it.type == DynamicField.PHONENUMBER.type && it.meta?.isPrimary == true }?.values?.get(AppConstant.VALUE) as String
 
-        mBinding.phone = mViewModel.dynamicFormData.find { it.type == DynamicField.PHONENUMBER.type && it.meta?.isPrimary == true }?.values?.get(AppConstant.VALUE) as String
-
-        val fullNameResponse = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }?.values
-        mBinding.name = fullNameResponse?.get(AppConstant.FIRSTNAME) as String + " " + fullNameResponse.get(AppConstant.LASTNAME) as String
-
+        }
+        if(mViewModel.dynamicFormData.filter { it.type == DynamicField.FULLNAME.type  }.isNotEmpty()){
+            val fullNameResponse = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }?.values
+            mBinding.name = fullNameResponse?.get(AppConstant.FIRSTNAME) as String + " " + fullNameResponse.get(AppConstant.LASTNAME) as String
+        }
         mBinding.checkContract.setOnCheckedChangeListener { buttonView, isChecked ->
             setButtonEnable()
         }

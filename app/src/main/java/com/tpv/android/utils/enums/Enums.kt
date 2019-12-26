@@ -22,7 +22,7 @@ enum class MenuItem(val value: String) {
 }
 
 enum class DynamicField(val type: String) {
-    FULLNAME("full_name"),
+    FULLNAME("fullname"),
     ADDRESS("address"),
     TEXTBOX("textbox"),
     TEXTAREA("textarea"),
