@@ -18,7 +18,8 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/label"
-            style="@style/TertiaryBoldTextWithTopSpacing"
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:textColor="@color/colorTertiaryText"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@{item.label}"

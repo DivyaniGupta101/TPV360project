@@ -22,7 +22,8 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatTextView
-                style="@style/TertiaryBoldTextWithTopSpacing"
+                style="@style/SecondaryNormalTextWithTopSpacing"
+                android:textColor="@color/colorTertiaryText"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/service_address"
@@ -50,7 +51,8 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatTextView
-                style="@style/TertiaryBoldTextWithTopSpacing"
+                style="@style/SecondaryNormalText"
+                android:textColor="@color/colorTertiaryText"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/billing_address"
