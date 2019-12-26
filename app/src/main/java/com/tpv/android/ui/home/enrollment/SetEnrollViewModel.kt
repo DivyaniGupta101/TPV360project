@@ -22,6 +22,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var duplicatePageMap: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
     var dynamicFormData = ArrayList<DynamicFormResp>()
     var utilityList: ArrayList<Commodity> = ArrayList()
+    var zipcode: String = ""
 
     fun getDynamicForm(dynamicFormReq: DynamicFormReq) = with(AppRepository) {
         val result = getDynamicFormCall(dynamicFormReq)
@@ -102,5 +103,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         formPageMap = LinkedHashMap()
         duplicatePageMap = LinkedHashMap()
         utilityList.clear()
+        zipcode = ""
     }
 }

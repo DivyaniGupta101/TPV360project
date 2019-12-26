@@ -15,9 +15,6 @@ data class DynamicFormResp(
         val validations: Validations?,
         @SerializedName("values")
         var values: LinkedHashMap<String, Any>,
-        var address: String? = "",
-        var serviceAddress: String? = "",
-        var billingAddress: String? = "",
         var isAddressSame: Boolean = false,
         var leadDetailText: String? = ""
 )

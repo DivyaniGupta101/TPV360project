@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,9 +35,9 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
-import com.tpv.android.helper.Pref
 import com.tpv.android.model.internal.DialogText
 import com.tpv.android.model.network.ContractReq
+import com.tpv.android.model.network.OtherData
 import com.tpv.android.model.network.SaveLeadsDetailReq
 import com.tpv.android.model.network.SaveLeadsDetailResp
 import com.tpv.android.network.error.AlertErrorHandler
@@ -237,14 +238,16 @@ class StatementFragment : Fragment() {
     private fun saveCustomerDataApiCall() {
 
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
-
+        Log.d("statement : request = ", "${SaveLeadsDetailReq(
+                formId = mViewModel.planId,
+                fields = mViewModel.dynamicFormData,
+                other = OtherData(programId = android.text.TextUtils.join(",", mViewModel.selectedUtilityList.map { it.utid }),
+                        zipcode = mViewModel.zipcode))}")
         liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
-                clientid = Pref.user?.clientId.toString(),
-                commodity = mViewModel.planId,
-                programId = mViewModel.programList.get(0).id,
-                utilityId = mViewModel.selectedUtilityList.get(0).utid.toString(),
-                zipcode = "",
-                fields = arrayListOf()))
+                formId = mViewModel.planId,
+                fields = mViewModel.dynamicFormData,
+                other = OtherData(programId = android.text.TextUtils.join(",", mViewModel.selectedUtilityList.map { it.utid }),
+                        zipcode = mViewModel.zipcode)))
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.savedLeadResp = it

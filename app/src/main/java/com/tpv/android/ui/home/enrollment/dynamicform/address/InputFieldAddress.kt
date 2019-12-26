@@ -60,7 +60,6 @@ fun LayoutInputAddressBinding.setField(response: DynamicFormResp) {
 fun LayoutInputAddressBinding.fillAddressFields(fillAddressFields: Place?) {
     val binding = this
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
-    binding.item?.address = addressComponent?.address.orEmpty()
     binding.item?.values?.set(AppConstant.ADDRESS1, addressComponent?.addressLine1.orEmpty())
     binding.item?.values?.set(AppConstant.ADDRESS2, addressComponent?.addressLine2.orEmpty())
     binding.item?.values?.set(AppConstant.ZIPCODE, addressComponent?.zipcode.orEmpty())

@@ -153,7 +153,6 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
 
     if (isServiceAddress) {
-        binding.item?.serviceAddress = addressComponent?.address.orEmpty()
         binding.item?.values?.set(AppConstant.SERVICEADDRESS1, addressComponent?.addressLine1.orEmpty())
         binding.item?.values?.set(AppConstant.SERVICEADDRESS2, addressComponent?.addressLine2.orEmpty())
         binding.item?.values?.set(AppConstant.SERVICEZIPCODE, addressComponent?.zipcode.orEmpty())
@@ -164,7 +163,6 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
         binding.item?.values?.set(AppConstant.SERVICESTATE, addressComponent?.state.orEmpty())
         handleBothAddressField(binding, binding.item?.isAddressSame.orFalse())
     } else {
-        binding.item?.billingAddress = addressComponent?.address.orEmpty()
         binding.item?.values?.set(AppConstant.BILLINGADDRESS1, addressComponent?.addressLine1.orEmpty())
         binding.item?.values?.set(AppConstant.BILLINGADDRESS2, addressComponent?.addressLine2.orEmpty())
         binding.item?.values?.set(AppConstant.BILLINGZIPCODE, addressComponent?.zipcode.orEmpty())
@@ -188,7 +186,6 @@ private fun handleBothAddressField(binding: LayoutInputServiceAndBillingAddressB
     binding.item?.isAddressSame = isSame
 
     if (isSame) {
-        binding.item?.billingAddress = binding.item?.serviceAddress
         binding.item?.values?.set(AppConstant.BILLINGUNIT, binding.item?.values?.getValue(AppConstant.SERVICEUNIT).toString())
         binding.item?.values?.set(AppConstant.BILLINGADDRESS1, binding.item?.values?.getValue(AppConstant.SERVICEADDRESS1).toString())
         binding.item?.values?.set(AppConstant.BILLINGADDRESS2, binding.item?.values?.getValue(AppConstant.SERVICEADDRESS2).toString())
@@ -201,7 +198,6 @@ private fun handleBothAddressField(binding: LayoutInputServiceAndBillingAddressB
         binding.editBillingUnit.setTextColor(context?.color(R.color.colorSecondaryText).orZero())
         binding.editBillingAddressLineTwo.setTextColor(context?.color(R.color.colorSecondaryText).orZero())
     } else {
-        binding.item?.billingAddress = ""
         binding.item?.values?.set(AppConstant.BILLINGUNIT, "")
         binding.item?.values?.set(AppConstant.BILLINGADDRESS1, "")
         binding.item?.values?.set(AppConstant.BILLINGADDRESS2, "")

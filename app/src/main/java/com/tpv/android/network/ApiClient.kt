@@ -1,5 +1,6 @@
 package com.tpv.android.network
 
+import com.google.gson.GsonBuilder
 import com.tpv.android.BuildConfig
 import com.tpv.android.helper.Pref
 import okhttp3.*
@@ -23,7 +24,7 @@ object ApiClient {
     val service: ApiInterface by lazy {
         val builder = Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
         val client = OkHttpClient.Builder()
         client.connectTimeout(30, TimeUnit.SECONDS)
         client.readTimeout(30, TimeUnit.SECONDS)
