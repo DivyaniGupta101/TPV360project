@@ -8,7 +8,7 @@ data class DynamicFormResp(
         @SerializedName("type")
         val type: String?,
         @SerializedName("label")
-        val label: String?,
+        var label: String?,
         @SerializedName("meta")
         val meta: Meta?,
         @SerializedName("validations")
@@ -18,8 +18,8 @@ data class DynamicFormResp(
         var address: String? = "",
         var serviceAddress: String? = "",
         var billingAddress: String? = "",
-        var isAddressSame: Boolean = false
-
+        var isAddressSame: Boolean = false,
+        var leadDetailText: String? = ""
 )
 
 data class Meta(

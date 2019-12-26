@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.DynamicFormResp" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TertiaryBoldTextWithTopSpacing"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/service_address"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_10sdp"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/serviceValue"
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_10sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TertiaryBoldTextWithTopSpacing"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/billing_address"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_10sdp"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/billingValue"
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_10sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

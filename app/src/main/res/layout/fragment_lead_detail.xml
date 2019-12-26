@@ -1,187 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
 
-    <LinearLayout
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/leadDetailContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/_18sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingEnd="@dimen/_18sdp"
+                    android:paddingBottom="@dimen/_18sdp">
+
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
 
         <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/_24sdp"
-                android:paddingEnd="@dimen/_24sdp"
-                android:paddingBottom="@dimen/_24sdp">
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Personal Details"
-                    android:textColor="@color/colorTertiaryText" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Authorized Name" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="first middle last" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Phone Number" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="0000000000" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Email" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="example@example.com" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Auth Relationship" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="Account Holder" />
-
-                <View
-                    style="@style/Divider"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/colorDarkDivider" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Electric Details"
-                    android:textColor="@color/colorTertiaryText" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Service Address" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="s1\nAddress 1 \nAddress 2\n City, Florida, 303030 \nUSA" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Billing Address" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="s1\nAddress 1 \nAddress 2\n City, Florida, 303030 \nUSA" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Billing Name" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="first middle User" />
-
-                <View
-                    style="@style/Divider"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/colorDarkDivider" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Gas Details"
-                    android:textColor="@color/colorTertiaryText" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Service Address" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="s1\nAddress 1 \nAddress 2\n City, Florida, 303030 \nUSA" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Billing Address" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="s1\nAddress 1 \nAddress 2\n City, Florida, 303030 \nUSA" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Billing Name" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="Test testttt User" />
-
-                <View
-                    style="@style/Divider"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/colorDarkDivider" />
-
-                <TextView
-                    style="@style/PrimaryMediumBoldText"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:text="Other Widgets"
-                    android:textColor="@color/colorTertiaryText" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Text area" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="Test string" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Gender" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="Male" />
-
-                <TextView
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:text="Commodity" />
-
-                <TextView
-                    style="@style/PrimaryNormalText"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="Gas, Power" />
-
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+            android:id="@+id/incProgressBar"
+            layout="@layout/progress_bar"
+            app:errorHandler="@{errorHandler}"
+            app:resource="@{resource}"
+            app:useBlockingProgress="@{true}"
+            tools:visibility="visible" />
+    </FrameLayout>
 
 </layout>

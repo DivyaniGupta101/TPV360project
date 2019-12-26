@@ -73,7 +73,7 @@ interface ApiInterface {
 
     //LeadDetail
     @GET("leads/{id}")
-    fun getLeadDetail(@Path("id") id: String?): Call<CommonResponse<LinkedHashMap<String?, String?>>>
+    fun getLeadDetail(@Path("id") id: String?): Call<CommonResponse<List<DynamicFormResp>>>
 
     //GetForm
     @POST("getform")
