@@ -53,10 +53,7 @@ data class Validations(
 )
 
 data class DynamicFormReq(
-        @SerializedName("clientid")
-        val clientid: String?,
-        @SerializedName("commodity")
-        val commodity: String?,
-        @SerializedName("programid")
-        val programid: String?
+        @SerializedName("form_id")
+        val formId: String?
+
 )
