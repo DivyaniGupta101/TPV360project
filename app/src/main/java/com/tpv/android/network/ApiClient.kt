@@ -16,7 +16,7 @@ object ApiClient {
 //        "http://192.168.0.19:8000/api/"
         "https://newdev.tpv.plus/api/"
 //        "https://newdemo.tpv.plus/api/"
-//        "http://test.tpv.plus/api/"
+//        "https://test.tpv.plus/api/"
 
 
     } else {
