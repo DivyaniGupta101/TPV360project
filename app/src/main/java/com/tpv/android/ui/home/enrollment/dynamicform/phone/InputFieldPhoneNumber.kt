@@ -45,6 +45,11 @@ fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
 
     bindingInputPhone.item = response
 
+    if (bindingInputPhone.item?.validations?.verify.orFalse()) {
+        bindingInputPhone.textVerify.show()
+    } else {
+        bindingInputPhone.textVerify.hide()
+    }
     bindingInputPhone.spinnerCountryCode.setItems(countryCodeList)
 
     bindingInputPhone.textVerify.onClick {
