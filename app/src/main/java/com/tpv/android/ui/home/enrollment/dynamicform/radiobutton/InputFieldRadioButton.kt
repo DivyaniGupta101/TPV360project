@@ -36,7 +36,7 @@ fun LayoutInputRadioButtonBinding.isValid(context: Context?): Boolean {
     return if (binding.item?.meta?.options?.filter { it.selected == true }?.isNotEmpty().orFalse()) {
         true
     } else {
-        val errorMessage = context?.getString(R.string.please_select) + " " + binding.item?.label
+        val errorMessage = context?.getString(R.string.please_select) + " " + binding.item?.label?.toLowerCase()
         binding.textError.text = errorMessage
         binding.textError.show()
         false
