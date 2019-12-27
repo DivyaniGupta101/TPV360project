@@ -108,18 +108,16 @@
 
                     <com.newventuresoftware.waveform.WaveformView
                         android:id="@+id/waveformView"
+                        style="@style/RecordingWaves"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_70sdp"
                         android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginEnd="@dimen/_25sdp"
                         android:background="#FFF"
                         android:visibility="visible"
-                        app:barPerSec="2"
                         app:gravity="1"
                         app:mode="RECORDING"
-                        app:speed="4"
                         app:waveformColor="@color/colorWave"
-                        app:waveformStrokeThickness="10"
                         tools:visibility="visible" />
 
                     <FrameLayout

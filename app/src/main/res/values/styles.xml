@@ -186,4 +186,10 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="RecordingWaves">
+        <item name="barPerSec">12</item>
+        <item name="speed">14</item>
+        <item name="waveformStrokeThickness">22</item>
+    </style>
+
 </resources>

@@ -50,5 +50,9 @@
         <item name="android:layout_marginTop">@dimen/_28sdp</item>
     </style>
 
-
+    <style name="RecordingWaves">
+        <item name="barPerSec">12</item>
+        <item name="speed">30</item>
+        <item name="waveformStrokeThickness">40</item>
+    </style>
 </resources>
