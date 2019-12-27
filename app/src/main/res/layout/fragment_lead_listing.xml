@@ -47,6 +47,7 @@
             android:background="@color/colorDarkDivider" />
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/bottomStatusContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

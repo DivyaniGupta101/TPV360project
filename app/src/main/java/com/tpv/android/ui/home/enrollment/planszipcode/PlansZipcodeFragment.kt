@@ -220,7 +220,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      */
     private fun setUtilitySpinners() {
         bindingList.clear()
-
+        var noUtility = false
         mSetEnrollViewModel.utilityList.forEach { commodity ->
 
             val binding = DataBindingUtil.inflate<LayoutPlanZipcodeSpinnerBinding>(layoutInflater,
@@ -243,8 +243,12 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                     it.spinner.hide()
                     it.divider.hide()
                 }
-                showNoUtilityDialog()
+                noUtility = true
             }
+
+        }
+        if (noUtility) {
+            showNoUtilityDialog()
 
         }
     }
