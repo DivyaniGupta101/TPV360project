@@ -79,7 +79,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
+                        android:layout_weight="0.15"
                         android:orientation="vertical">
 
                         <TextView
@@ -98,7 +98,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
+                        android:layout_weight="0.9"
                         android:orientation="horizontal">
 
                         <View
@@ -111,10 +111,10 @@
                             android:layout_width="0dp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginEnd="@dimen/_8sdp"
-                            android:layout_weight="1"
+                            android:layout_weight="1.5"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="@{ '$'+ ' '  + item.rate}"
+                            android:text="@{ @string/dollar+ item.rate}"
                             tools:text="$12.49" />
 
                         <LinearLayout
@@ -153,7 +153,7 @@
                                 style="@style/PrimaryNormalSmallText"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="@{'$' + ' '+item.earlyterminationfee}"
+                                android:text="@{@string/dollar+item.earlyterminationfee}"
                                 tools:text="$ 00" />
 
 
