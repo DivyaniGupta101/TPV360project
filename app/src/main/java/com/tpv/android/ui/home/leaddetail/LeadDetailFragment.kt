@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
 import com.google.gson.reflect.TypeToken
+import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.R
 import com.tpv.android.databinding.*
 import com.tpv.android.model.network.DynamicFormResp
@@ -120,32 +121,35 @@ class LeadDetailFragment : Fragment() {
 
         setBillingAddress(response, binding)
 
-        val unitNumber = response.values[AppConstant.SERVICEUNIT] as String
-        val addressLineOne = response.values[AppConstant.SERVICEADDRESS1] as String
-        val addressLineTwo = response.values[AppConstant.SERVICEADDRESS2] as String
-        val city = response.values[AppConstant.SERVICECITY] as String
-        val state = response.values[AppConstant.SERVICESTATE] as String
-        val zipcode = response.values[AppConstant.SERVICEZIPCODE] as String
-        val country = response.values[AppConstant.SERVICECOUNTRY] as String
+        val unitNumber = response.values[AppConstant.SERVICEUNIT] as String?
+        val addressLineOne = response.values[AppConstant.SERVICEADDRESS1] as String?
+        val addressLineTwo = response.values[AppConstant.SERVICEADDRESS2] as String?
+        val city = response.values[AppConstant.SERVICECITY] as String?
+        val state = response.values[AppConstant.SERVICESTATE] as String?
+        val zipcode = response.values[AppConstant.SERVICEZIPCODE] as String?
+        val country = response.values[AppConstant.SERVICECOUNTRY] as String?
 
         var text = ""
-        if (unitNumber.isNotEmpty()) {
+        if (unitNumber?.isNotEmpty().orFalse()) {
             text = unitNumber + "\n"
         }
-        text += addressLineOne + "\n"
-        if (addressLineTwo.isNotEmpty()) {
+        if (addressLineOne?.isNotEmpty().orFalse()) {
+            text += addressLineOne + "\n"
+        }
+
+        if (addressLineTwo?.isNotEmpty().orFalse()) {
             text += addressLineTwo + "\n"
         }
-        if (city.isNotEmpty()) {
+        if (city?.isNotEmpty().orFalse()) {
             text += "$city,"
         }
-        if (state.isNotEmpty()) {
+        if (state?.isNotEmpty().orFalse()) {
             text += "$state,"
         }
-        if (zipcode.isNotEmpty()) {
+        if (zipcode?.isNotEmpty().orFalse()) {
             text += zipcode + "\n"
         }
-        if (country.isNotEmpty()) {
+        if (country?.isNotEmpty().orFalse()) {
             text += country + "\n"
         }
         binding.serviceValue.text = text
@@ -153,32 +157,35 @@ class LeadDetailFragment : Fragment() {
 
     private fun setBillingAddress(response: DynamicFormResp, binding: LayoutOutputServiceAndBillingAddressBinding) {
 
-        val unitNumber = response.values[AppConstant.BILLINGUNIT] as String
-        val addressLineOne = response.values[AppConstant.BILLINGADDRESS1] as String
-        val addressLineTwo = response.values[AppConstant.BILLINGADDRESS2] as String
-        val city = response.values[AppConstant.BILLINGCITY] as String
-        val state = response.values[AppConstant.BILLINGSTATE] as String
-        val zipcode = response.values[AppConstant.BILLINGZIPCODE] as String
-        val country = response.values[AppConstant.BILLINGCOUNTRY] as String
+        val unitNumber = response.values[AppConstant.BILLINGUNIT] as String?
+        val addressLineOne = response.values[AppConstant.BILLINGADDRESS1] as String?
+        val addressLineTwo = response.values[AppConstant.BILLINGADDRESS2] as String?
+        val city = response.values[AppConstant.BILLINGCITY] as String?
+        val state = response.values[AppConstant.BILLINGSTATE] as String?
+        val zipcode = response.values[AppConstant.BILLINGZIPCODE] as String?
+        val country = response.values[AppConstant.BILLINGCOUNTRY] as String?
 
         var text = ""
-        if (unitNumber.isNotEmpty()) {
+        if (unitNumber?.isNotEmpty().orFalse()) {
             text = unitNumber + "\n"
         }
-        text = text + addressLineOne + "\n"
-        if (addressLineTwo.isNotEmpty()) {
+        if (addressLineOne?.isNotEmpty().orFalse()) {
+            text = text + addressLineOne + "\n"
+        }
+
+        if (addressLineTwo?.isNotEmpty().orFalse()) {
             text += addressLineTwo + "\n"
         }
-        if (city.isNotEmpty()) {
+        if (city?.isNotEmpty().orFalse()) {
             text += "$city,"
         }
-        if (state.isNotEmpty()) {
+        if (state?.isNotEmpty().orFalse()) {
             text += "$state,"
         }
-        if (zipcode.isNotEmpty()) {
+        if (zipcode?.isNotEmpty().orFalse()) {
             text += zipcode + "\n"
         }
-        if (country.isNotEmpty()) {
+        if (country?.isNotEmpty().orFalse()) {
             text += country + "\n"
         }
         binding.billingValue.text = text
@@ -217,32 +224,34 @@ class LeadDetailFragment : Fragment() {
                 mBinding.leadDetailContainer,
                 true)
 
-        val unitNumber = response.values[AppConstant.UNIT] as String
-        val addressLineOne = response.values[AppConstant.ADDRESS1] as String
-        val addressLineTwo = response.values[AppConstant.ADDRESS2] as String
-        val city = response.values[AppConstant.CITY] as String
-        val state = response.values[AppConstant.STATE] as String
-        val zipcode = response.values[AppConstant.ZIPCODE] as String
-        val country = response.values[AppConstant.COUNTRY] as String
+        val unitNumber = response.values[AppConstant.UNIT] as String?
+        val addressLineOne = response.values[AppConstant.ADDRESS1] as String?
+        val addressLineTwo = response.values[AppConstant.ADDRESS2] as String?
+        val city = response.values[AppConstant.CITY] as String?
+        val state = response.values[AppConstant.STATE] as String?
+        val zipcode = response.values[AppConstant.ZIPCODE] as String?
+        val country = response.values[AppConstant.COUNTRY] as String?
 
         var text = ""
-        if (unitNumber.isNotEmpty()) {
+        if (unitNumber?.isNotEmpty().orFalse()) {
             text = unitNumber + "\n"
         }
-        text += addressLineOne + "\n"
-        if (addressLineTwo.isNotEmpty()) {
+        if (addressLineOne?.isNotEmpty().orFalse()) {
+            text += addressLineOne + "\n"
+        }
+        if (addressLineTwo?.isNotEmpty().orFalse()) {
             text += addressLineTwo + "\n"
         }
-        if (city.isNotEmpty()) {
+        if (city?.isNotEmpty().orFalse()) {
             text += "$city,"
         }
-        if (state.isNotEmpty()) {
+        if (state?.isNotEmpty().orFalse()) {
             text += "$state,"
         }
-        if (zipcode.isNotEmpty()) {
+        if (zipcode?.isNotEmpty().orFalse()) {
             text += zipcode + "\n"
         }
-        if (country.isNotEmpty()) {
+        if (country?.isNotEmpty().orFalse()) {
             text += country + "\n"
         }
         response.leadDetailText = text
@@ -271,7 +280,7 @@ class LeadDetailFragment : Fragment() {
                 R.layout.layout_output_text_fields,
                 mBinding.leadDetailContainer,
                 true)
-        response.leadDetailText = response.values[AppConstant.VALUE] as String
+        response.leadDetailText = response.values[AppConstant.VALUE] as String?
         binding.item = response
     }
 
@@ -282,12 +291,12 @@ class LeadDetailFragment : Fragment() {
                 mBinding.leadDetailContainer,
                 true)
 
-        var text = ""
-        text = response.values.get(AppConstant.FIRSTNAME) as String
-        if ((response.values.get(AppConstant.MIDDLENAME) as String).isNotEmpty()) {
-            text += " " + response.values[AppConstant.MIDDLENAME] as String
+        var text :String?= ""
+        text = response.values.get(AppConstant.FIRSTNAME) as String?
+        if ((response.values.get(AppConstant.MIDDLENAME) as String?)?.isNotEmpty().orFalse()) {
+            text += " " + response.values[AppConstant.MIDDLENAME] as String?
         }
-        text += " " + response.values.get(AppConstant.LASTNAME) as String
+        text += " " + response.values.get(AppConstant.LASTNAME) as String?
 
         response.leadDetailText = text
         binding.item = response

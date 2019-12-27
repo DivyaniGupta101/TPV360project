@@ -131,6 +131,7 @@ class RecordingFragment : Fragment() {
 
         //Initial checking, that if any recording saved then play it else start new recording.
         if (mViewModel.recordingFile.isNotEmpty()) {
+            handleNextButton()
             recordedFile = mViewModel.recordingFile
             handleImages(AUDIO_START)
         } else {

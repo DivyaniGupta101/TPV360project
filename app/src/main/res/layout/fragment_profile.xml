@@ -90,6 +90,7 @@
                         android:enabled="false"
                         android:focusable="false"
                         android:inputType="textEmailAddress"
+                        android:text="@{item.userid}"
                         android:textColor="@color/colorPrimaryText"
                         tools:text="patricia24@gmail.com" />
 
@@ -107,6 +108,7 @@
                         android:enabled="false"
                         android:focusable="false"
                         android:inputType="textEmailAddress"
+                        android:text="@{item.salesCenterName}"
                         android:textColor="@color/colorPrimaryText"
                         tools:text="patricia24@gmail.com" />
 
@@ -124,6 +126,7 @@
                         android:enabled="false"
                         android:focusable="false"
                         android:inputType="textEmailAddress"
+                        android:text="@{item.clientName}"
                         android:textColor="@color/colorPrimaryText"
                         tools:text="patricia24@gmail.com" />
 

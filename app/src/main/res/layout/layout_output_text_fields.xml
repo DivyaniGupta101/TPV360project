@@ -14,17 +14,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/label"
             style="@style/SecondaryNormalTextWithTopSpacing"
-            android:textColor="@color/colorTertiaryText"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@{item.label}"
+            android:textColor="@color/colorTertiaryText"
             app:autoSizeMaxTextSize="@dimen/_12sdp"
-            app:autoSizeMinTextSize="@dimen/_10sdp"
+            app:autoSizeMinTextSize="@dimen/_8sdp"
             app:autoSizeTextType="uniform"
             tools:text="@string/name_char" />
 

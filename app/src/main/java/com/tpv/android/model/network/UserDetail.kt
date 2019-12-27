@@ -40,5 +40,9 @@ data class UserDetail(
         @SerializedName("deactivationreason")
         var deactivationreason: String?,
         @SerializedName("hire_options")
-        var hireOptions: String?
+        var hireOptions: String?,
+        @SerializedName("client_name")
+        var ClientName: String?,
+        @SerializedName("sales_center_name")
+        var salesCenterName: String?
 )
