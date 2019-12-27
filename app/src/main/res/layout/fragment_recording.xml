@@ -54,11 +54,16 @@
                     android:paddingEnd="@dimen/_24sdp"
                     android:paddingBottom="@dimen/_24sdp">
 
-
-                    <TextView
-                        style="@style/SecondaryNormalText"
-                        android:gravity="center"
+                    <CheckBox
+                        android:id="@+id/checkRecording"
+                        style="@style/PrimaryNormalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:checked="true"
+                        android:gravity="top"
                         android:text="@string/msg_recording" />
+
 
                     <FrameLayout
                         android:layout_width="wrap_content"
@@ -179,10 +184,11 @@
                     </LinearLayout>
                 </LinearLayout>
 
-
                 <TextView
                     android:id="@+id/btnNext"
                     style="@style/ButtonPrimary"
+                    android:background="@drawable/button_background_state"
+                    android:enabled="false"
                     android:text="@string/next" />
 
                 <TextView

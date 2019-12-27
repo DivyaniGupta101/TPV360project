@@ -71,6 +71,10 @@ class RecordingFragment : Fragment() {
             }
         })
 
+        mBinding.checkRecording?.onClick {
+            handleNextButton()
+        }
+
 
         mBinding.textSkip.onClick {
             if (recordedFile.isNullOrEmpty()) {
@@ -195,6 +199,10 @@ class RecordingFragment : Fragment() {
         }
     }
 
+    private fun handleNextButton() {
+        mBinding.btnNext.isEnabled = (recordedFile?.isNotEmpty().orFalse() && mBinding.checkRecording.isChecked)
+    }
+
     /**
      * Start recording and handle image according to state and also make Directory for save recoded file
      */
@@ -240,6 +248,8 @@ class RecordingFragment : Fragment() {
 
         mBinding.seekbarAudio.progress = 0
         mBinding.seekbarAudio.max = mediaPlayer.duration - (mediaPlayer.duration % 1000)
+
+        handleNextButton()
     }
 
 

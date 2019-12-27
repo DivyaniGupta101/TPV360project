@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -23,10 +24,11 @@
             app:visibleIf="@{!TextUtils.isEmpty(item.label)}" />
 
         <TextView
-            style="@style/SecondaryNormalSmallText"
+            style="@style/SecondaryNormalText"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:text="@{item.meta.text}" />
+            android:text="@{item.meta.text}"
+            tools:text="@string/number_char" />
 
     </LinearLayout>
 </layout>

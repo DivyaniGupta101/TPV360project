@@ -81,21 +81,21 @@ object BindingAdapter {
         val context = textView.context
         when (status) {
             LeadStatus.PENDING.value -> {
-                textView.setText(context?.getString(R.string.pending))
+                textView.text = context?.getString(R.string.pending)
                 textView.setTextColor(context.color(R.color.colorPendingText))
             }
             LeadStatus.VERIFIED.value -> {
-                textView.setText(context?.getString(R.string.verified))
+                textView.text = context?.getString(R.string.verified)
                 textView.setTextColor(context.color(R.color.colorVerifiedText))
             }
 
             LeadStatus.DECLINED.value -> {
-                textView.setText(context?.getString(R.string.declined))
+                textView.text = context?.getString(R.string.declined)
                 textView.setTextColor(context.color(R.color.colorDecliendText))
             }
 
             LeadStatus.DISCONNECTED.value -> {
-                textView.setText(context?.getString(R.string.disconnected))
+                textView.text = context?.getString(R.string.disconnected)
                 textView.setTextColor(context.color(R.color.colorDisconnectedText))
             }
         }
@@ -254,14 +254,14 @@ object BindingAdapter {
         }
         if (state.isNotEmpty()) {
             if (value.isNotEmpty()) {
-                value = value + ", " + state
+                value = "$value, $state"
             } else {
                 value = state
             }
         }
         if (zipcode.isNotEmpty()) {
             if (value.isNotEmpty()) {
-                value = value + ", " + zipcode
+                value = "$value, $zipcode"
             } else {
                 value = zipcode
             }
@@ -271,20 +271,15 @@ object BindingAdapter {
 
 
     @JvmStatic
-    @BindingAdapter(value = ["lat", "lng"], requireAll = true)
-    fun editCombineLocation(editText: EditText, lat: String, lng: String) {
+    @BindingAdapter(value = ["firstName", "middleName", "lastName"], requireAll = true)
+    fun setCombineFullName(textView: TextView, firstName: String, lastName: String, middleName: String) {
         var value: String = ""
-        if (lat.isNotEmpty()) {
-            value = lat
+        value = firstName
+        if (middleName.isNotEmpty()) {
+            value = "$value  $middleName"
         }
-        if (lng.isNotEmpty()) {
-            if (value.isNotEmpty()) {
-                value = value + ", " + lng
-            } else {
-                value = lng
-            }
-        }
-        editText.setText(value)
+        value = "$value  $lastName"
+        textView.text = value
     }
 }
 

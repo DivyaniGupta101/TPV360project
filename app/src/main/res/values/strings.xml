@@ -15,7 +15,7 @@
     <string name="natural_gas">Natural Gas</string>
     <string name="new_password">New Password</string>
     <string name="forogt_password">Forgot Password</string>
-    <string name="customer_data">Customer Data</string>
+    <string name="customer_data">Customer Details</string>
     <string name="recording">Recording</string>
     <string name="success">Success</string>
     <string name="statement">Statement</string>
@@ -163,7 +163,7 @@
     <string name="power_of_attorney">Power of Attorney</string>
     <string name="family_member">Family Member</string>
     <string name="other">Other</string>
-    <string name="msg_client_info">Please review and confirm that all of the info below Id accurate. You are only a few steps away from being done.</string>
+    <string name="msg_client_info">"Please review and confirm the information below is accurate..</string>
     <string name="msg_recording">I give authorisation to record our conversation</string>
     <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
     <string name="tap_to_open">Tap to open</string>
@@ -181,6 +181,9 @@
     <string name="number_char">0123456789</string>
     <string name="tap_to_enter_address">Tap to enter address</string>
     <string name="location">Location (Latitude/Longitude)</string>
+    <string name="agent_id">Agent Id</string>
+    <string name="sales_center_name">Sales Center Name</string>
+    <string name="client_name">Client Name</string>
 
 
 </resources>

@@ -50,9 +50,6 @@ class ClientInfoFragment : Fragment() {
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_recordingFragment)
         }
 
-        mBinding.imageEdit.onClick {
-            Navigation.findNavController(mBinding.root).navigateSafe(ClientInfoFragmentDirections.actionClientInfoFragmentToDynamicFormFragment(1))
-        }
     }
 
     private fun setProgramInformation() {

@@ -76,7 +76,7 @@
                                 style="@style/SecondaryNormalSmallText"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:text="@string/account_holder_name" />
+                                android:text="@{@string/customer_name + ' ' +':'}" />
 
                             <TextView
                                 style="@style/PrimaryBoldText"
