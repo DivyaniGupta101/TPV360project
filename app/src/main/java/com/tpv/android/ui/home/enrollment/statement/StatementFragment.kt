@@ -240,11 +240,6 @@ class StatementFragment : Fragment() {
     private fun saveCustomerDataApiCall() {
 
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
-        Log.d("statement : request = ", "${SaveLeadsDetailReq(
-                formId = mViewModel.planId,
-                fields = mViewModel.dynamicFormData,
-                other = OtherData(programId = android.text.TextUtils.join(",", mViewModel.selectedUtilityList.map { it.utid }),
-                        zipcode = mViewModel.zipcode))}")
         liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
                 formId = mViewModel.planId,
                 fields = mViewModel.dynamicFormData,

@@ -190,8 +190,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      * Get Utilities details as per zipcode and selected planId
      */
     private fun getUtilityListApiCall(zipcode: String) {
-        Log.d("Plan Zipcode", "${UtilityReq(zipcode = zipcode, commodity =
-        android.text.TextUtils.join(",", mSetEnrollViewModel.utilityList.map { it.id }))}")
         val liveData = mViewModel.getUtility(UtilityReq(zipcode = zipcode, commodity =
         android.text.TextUtils.join(",", mSetEnrollViewModel.utilityList.map { it.id })))
         liveData.observe(this, Observer {
