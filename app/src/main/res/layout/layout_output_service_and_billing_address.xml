@@ -13,33 +13,34 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatTextView
-                style="@style/SecondaryNormalTextWithTopSpacing"
-                android:textColor="@color/colorTertiaryText"
+                style="@style/SecondaryNormalText"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/service_address"
+                android:textColor="@color/colorTertiaryText"
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_10sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
                 app:autoSizeTextType="uniform" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/serviceValue"
                 style="@style/PrimaryNormalText"
                 android:layout_width="0dp"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_weight="1"
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_10sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
                 app:autoSizeTextType="uniform"
                 tools:text="@string/authorised_first_name" />
 
@@ -48,27 +49,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/SecondaryNormalText"
-                android:textColor="@color/colorTertiaryText"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/billing_address"
+                android:textColor="@color/colorTertiaryText"
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_10sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
                 app:autoSizeTextType="uniform" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/billingValue"
                 style="@style/PrimaryNormalText"
                 android:layout_width="0dp"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_weight="1"
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_10sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
                 app:autoSizeTextType="uniform"
                 tools:text="@string/authorised_first_name" />
 

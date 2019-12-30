@@ -29,7 +29,7 @@
             app:autoSizeTextType="uniform"
             tools:text="@string/name_char" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textValue"
             style="@style/PrimaryNormalText"
             android:layout_width="0dp"
@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:text="@{item.leadDetailText}"
             app:autoSizeMaxTextSize="@dimen/_12sdp"
-            app:autoSizeMinTextSize="@dimen/_10sdp"
+            app:autoSizeMinTextSize="@dimen/_8sdp"
             app:autoSizeTextType="uniform"
             tools:text="@string/authorised_first_name" />
 
