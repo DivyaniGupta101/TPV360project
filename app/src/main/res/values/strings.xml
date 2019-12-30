@@ -185,6 +185,7 @@
     <string name="agent_id">Agent Id</string>
     <string name="sales_center_name">Sales Center Name</string>
     <string name="client_name">Client Name</string>
+    <string name="sales_center_id">Sales Center Id</string>
 
 
 </resources>

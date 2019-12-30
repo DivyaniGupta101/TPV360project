@@ -113,6 +113,23 @@
                         tools:text="patricia24@gmail.com" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    style="@style/SecondaryNormalText"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:text="@string/sales_center_id" />
+
+                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/DefaultEditText"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="textEmailAddress"
+                        android:text="@{item.salescenterId}"
+                        android:textColor="@color/colorPrimaryText"
+                        tools:text="patricia24@gmail.com" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     style="@style/SecondaryNormalText"

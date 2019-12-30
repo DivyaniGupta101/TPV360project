@@ -28,7 +28,7 @@ data class UserDetail(
         @SerializedName("client_id")
         var clientId: Int?,
         @SerializedName("salescenter_id")
-        var salescenterId: Int?,
+        var salescenterId: String?,
         @SerializedName("access_level")
         var accessLevel: String?,
         @SerializedName("status")
