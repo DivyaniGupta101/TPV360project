@@ -6,11 +6,13 @@ import com.tpv.android.model.internal.AddressComponent
 
 fun addressComponents(place: Place): AddressComponent? {
 
-//    Address 1 = Location Name
-//    Address 2 = neighborhood + sub locality level 1
-//    City = locality + administrative area 2 if the locality is empty
-//    State = administrative area 1
-//    Zipcode = postal code
+    /**Address 1 = Location Name
+     * Address 2 = neighborhood + sub locality level 1
+     * City = locality + administrative area 2 if the locality is empty
+     * State = administrative area 1
+     * Zipcode = postal code
+     */
+
 
     val placeComponent = AddressComponent("", "", "", "", "", "", "", "", "")
 
