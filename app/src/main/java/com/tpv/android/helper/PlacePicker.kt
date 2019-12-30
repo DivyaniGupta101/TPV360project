@@ -1,6 +1,7 @@
 package com.tpv.android.helper
 
 import com.google.android.libraries.places.api.model.Place
+import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.model.internal.AddressComponent
 
 fun addressComponents(place: Place): AddressComponent? {
@@ -9,23 +10,17 @@ fun addressComponents(place: Place): AddressComponent? {
     val addressComponents = place.addressComponents?.asList()
 
     var city = addressComponents?.find { it.types.find { it == "locality" } != null }?.name
-    if (city.isNullOrBlank()) {
-        city = addressComponents?.find { it.types.find { it == "sublocality_level_1" } != null }?.name
+    if (city.isNullOrEmpty()) {
+        city = addressComponents?.find { it.types.find { it == "administrative_area_level_2" } != null }?.name
     }
 
-    val streetNumber = addressComponents?.find { it.types.find { it == "street_number" } != null }?.name
-    val route = addressComponents?.find { it.types.find { it == "route" } != null }?.name
+    val neighborhood = addressComponents?.find { it.types.find { it == "neighborhood" } != null }?.name
+    val subLocalityLevelOne = addressComponents?.find { it.types.find { it == "sublocality_level_1" } != null }?.name
     var address2 = ""
-    if (!streetNumber.isNullOrBlank()) {
-        address2 = streetNumber
+    if (neighborhood?.isNotEmpty().orFalse() || subLocalityLevelOne?.isNotEmpty().orFalse()) {
+        address2 = neighborhood + subLocalityLevelOne
     }
-    if (!route.isNullOrBlank()) {
-        address2 = if (address2.isEmpty()) {
-            route
-        } else {
-            "$route"
-        }
-    }
+
 
     placeComponent.address = place.address.orEmpty()
     placeComponent.addressLine1 = place.name.orEmpty()
