@@ -20,6 +20,7 @@
     </style>
 
 
+
     <!-- Regular Bold-->
     <style name="PrimaryBoldText" parent="PrimaryNormalText">
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
@@ -41,6 +42,11 @@
     <style name="PrimaryMediumBoldText" parent="PrimaryBoldText">
         <item name="android:textSize">@dimen/_16sdp</item>
         <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <!--    Medium Regular-->
+    <style name="SecondaryMediumNormalText" parent="SecondaryNormalText">
+        <item name="android:textSize">@dimen/_16sdp</item>
     </style>
 
 

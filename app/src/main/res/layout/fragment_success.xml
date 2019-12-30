@@ -104,11 +104,11 @@
                     <TextView
                         android:id="@+id/btnVerify"
                         style="@style/ButtonPrimary"
-                        android:gravity="center"
                         android:layout_marginStart="@dimen/_70sdp"
                         android:layout_marginTop="@dimen/_30sdp"
                         android:layout_marginEnd="@dimen/_70sdp"
                         android:background="@drawable/button_background_state"
+                        android:gravity="center"
                         android:paddingTop="@dimen/_10sdp"
                         android:paddingBottom="@dimen/_10sdp"
                         android:text="@string/verify" />
