@@ -64,12 +64,13 @@
                         android:textColor="@color/colorTertiaryText" />
 
                     <TextView
-                        style="@style/SecondaryNormalText"
+                        style="@style/SecondaryMediumNormalText"
                         android:layout_marginTop="@dimen/_16sdp"
                         android:text="@string/your_reference_id" />
 
                     <TextView
-                        style="@style/PrimaryNormalText"
+                        style="@style/SecondaryMediumNormalText"
+                        android:textColor="@color/colorPrimaryText"
                         android:text="@{item.referenceId}"
                         tools:text="it-it-iso-1356" />
 
