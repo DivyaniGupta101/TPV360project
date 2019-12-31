@@ -3,7 +3,6 @@ package com.tpv.android.ui.home.enrollment.planszipcode
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,7 +79,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         val toolbarTitle = arguments?.let { PlansZipcodeFragmentArgs.fromBundle(it).item }
 
-        //Set toolbar title as per utility
         setupToolbar(mBinding.toolbar, toolbarTitle.orEmpty(), showBackIcon = true) {
             mSetEnrollViewModel.clearSavedData()
         }
@@ -93,9 +91,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         }
 
         mBinding.btnNext?.onClick {
-            setData()
             hideKeyboard()
-            mSetEnrollViewModel.zipcode = mBinding.textZipcode.value
+            setData()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
     }
@@ -105,6 +102,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      */
     private fun setData() {
 
+        mSetEnrollViewModel.zipcode = mBinding.textZipcode.value
         mSetEnrollViewModel.selectedUtilityList.clear()
 
         bindingList.forEach { binding ->
@@ -114,11 +112,12 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         mViewModel.clearZipCodeListData()
     }
 
+    /**
+     * Get value for zipcode and handle click of autoCompleteTextView
+     */
     private fun setAutoCompleterTextView() {
-        mBinding.textZipcode.threshold = 1
 
-        /*  val autoCompleteAdapter = ArrayAdapter<String>(context, android.R.layout.simple_selectable_list_item, mZipcodeList.map { it.label })
-          mBinding.textZipcode.setAdapter(autoCompleteAdapter)*/
+        mBinding.textZipcode.threshold = 1
 
         val adaptor = object : ArrayAdapter<ZipCodeResp>(context, android.R.layout.simple_selectable_list_item, ArrayList<ZipCodeResp>()) {
 
@@ -217,8 +216,9 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      * For instance, If user select "Dual Fuel" then gas and electric both spinner will show.
      */
     private fun setUtilitySpinners() {
+        var isUtilitiesNotAvailable = false
+
         bindingList.clear()
-        var noUtility = false
         mSetEnrollViewModel.utilityList.forEach { commodity ->
 
             val binding = DataBindingUtil.inflate<LayoutPlanZipcodeSpinnerBinding>(layoutInflater,
@@ -229,10 +229,16 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
             bindingList.add(binding)
 
+            //Get values for dropdown
             val spinnerList = mUtilityList.filter { it.commodityId == commodity.id }.map { it.fullname.orEmpty() }
+
+            //Check if spinnerList is not empty then set value in dropdown and set next button enable
+            //Else hide all dropDown and divider and text and set next button enable false and show no utility dialog
             if (spinnerList.isNotEmpty()) {
+
                 binding.spinner.setItems(ArrayList(spinnerList))
                 mBinding.btnNext.isEnabled = true
+
             } else {
 
                 mBinding.btnNext.isEnabled = false
@@ -241,11 +247,10 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                     it.spinner.hide()
                     it.divider.hide()
                 }
-                noUtility = true
+                isUtilitiesNotAvailable = true
             }
-
         }
-        if (noUtility) {
+        if (isUtilitiesNotAvailable) {
             showNoUtilityDialog()
 
         }

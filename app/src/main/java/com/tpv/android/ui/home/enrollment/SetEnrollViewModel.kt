@@ -31,12 +31,17 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
             it.ifSuccess {
 
                 var list: ArrayList<DynamicFormResp> = ArrayList()
+
+                //Get total page using separate tye
                 var page = 1
                 val totalPage = it?.filter { it.type == DynamicField.SEPARATE.type }?.size?.plus(1)
 
                 it?.forEachIndexed { index, dynamicFormResp ->
 
+                    //Check if value page is last page then only add value don't need to check type
                     if (page != totalPage) {
+
+                        //Mapping using page number as key and value as data between two separate type
 
                         if (dynamicFormResp.type == DynamicField.SEPARATE.type) {
                             duplicatePageMap?.put(page, list)

@@ -146,7 +146,9 @@ fun LayoutInputServiceAndBillingAddressBinding.isValid(context: Context?): Boole
     }
 }
 
-
+/**
+ * Get values from addressPicker and set in model class
+ */
 fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFields: Place?, isServiceAddress: Boolean) {
 
     val binding = this

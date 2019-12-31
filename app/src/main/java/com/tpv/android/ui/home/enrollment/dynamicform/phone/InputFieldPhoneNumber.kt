@@ -45,6 +45,7 @@ fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
 
     bindingInputPhone.item = response
 
+    //Check if verify is true then show verify text else hide
     if (bindingInputPhone.item?.validations?.verify.orFalse()) {
         bindingInputPhone.textVerify.show()
     } else {

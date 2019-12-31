@@ -1,6 +1,5 @@
 package com.tpv.android.ui.home
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -31,7 +30,6 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
-import com.tpv.android.ui.home.enrollment.statement.StatementFragment
 import com.tpv.android.utils.actionDialog
 import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.navigateSafe
@@ -40,7 +38,6 @@ import com.tpv.android.utils.navigateSafe
 class HomeActivity : AppCompatActivity() {
 
     companion object {
-        var REQUEST_CHECK_SETTINGS = 1234
         var ADDRESS_REQUEST_CODE = 5000
         var SERVICE_ADDRESS_REQUEST_CODE = 5000
         var BILLING_ADDRESS_REQUEST_CODE = 5000
@@ -120,10 +117,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun settingDialog() {
-
-    }
-
     private fun getProfileApiCall() {
         mViewModel.getProfile().observe(this, Observer {
             it.ifSuccess { userDetail ->
@@ -171,23 +164,20 @@ class HomeActivity : AppCompatActivity() {
     /**
      * open slide menu
      */
-    fun openMenu() {
-        mBinding.drawerLayout.openDrawer(GravityCompat.END)
-    }
+    fun openMenu() = mBinding.drawerLayout.openDrawer(GravityCompat.END)
+
 
     /**
      * lock swipe to open menu
      */
-    fun lockSwipeModeMenu() {
-        mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-    }
+    fun lockSwipeModeMenu() = mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
 
     /**
      * unlock swipe to open menu
      */
-    fun unLockSwipeModeMenu() {
-        mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-    }
+    fun unLockSwipeModeMenu() = mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+
 
     override fun onBackPressed() {
         if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
@@ -200,6 +190,9 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * close drawer
+     */
     private fun closeDrawer() = mBinding.drawerLayout.closeDrawer(GravityCompat.END)
 
 }

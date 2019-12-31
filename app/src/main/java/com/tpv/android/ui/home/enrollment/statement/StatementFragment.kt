@@ -12,7 +12,6 @@ import android.graphics.drawable.ColorDrawable
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -113,11 +112,15 @@ class StatementFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        //Get value for phonenumber
         if (mViewModel.dynamicFormData.filter { it.type == DynamicField.PHONENUMBER.type }.isNotEmpty()) {
             mBinding.phone = mViewModel.dynamicFormData.find { it.type == DynamicField.PHONENUMBER.type && it.meta?.isPrimary == true }?.values?.get(AppConstant.VALUE) as String
 
         }
-        if(mViewModel.dynamicFormData.filter { it.type == DynamicField.FULLNAME.type  }.isNotEmpty()){
+
+        //Get value for Customer Name
+        if (mViewModel.dynamicFormData.filter { it.type == DynamicField.FULLNAME.type }.isNotEmpty()) {
             val fullNameResponse = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }?.values
             mBinding.name = fullNameResponse?.get(AppConstant.FIRSTNAME) as String + " " + fullNameResponse.get(AppConstant.LASTNAME) as String
         }
@@ -233,7 +236,7 @@ class StatementFragment : Fragment() {
 
     /**
      * Call API for save customer data
-     * But before thet chaek if planId is DUEL FUEL then parameters will be change than GAS or ELECTRIC
+     * But before thet check if planId is DUEL FUEL then parameters will be change than GAS or ELECTRIC
      * On success of saveCustomerDataApiCall api, call saveContract API
      * Also check if recording is not empty then call save recording API else call save Signature API
      */
@@ -282,7 +285,7 @@ class StatementFragment : Fragment() {
     }
 
     /**
-     * save SignatureImage
+     * Save signatureImage
      */
     private fun saveSignatureApiCall() {
 
@@ -301,7 +304,7 @@ class StatementFragment : Fragment() {
     }
 
     /**
-     * if checkBox is selected and signature image both  are available then only nextButton is enabled
+     * if checkBox is selected and signature image both are available then only nextButton is enabled
      */
     private fun setButtonEnable() {
         mBinding.btnNext.isEnabled = if (mBinding.checkContract.isChecked && mSignImage != null) true else false

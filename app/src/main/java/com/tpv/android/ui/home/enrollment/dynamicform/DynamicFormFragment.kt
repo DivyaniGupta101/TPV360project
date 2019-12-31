@@ -129,6 +129,9 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         }
     }
 
+    /**
+     * Replace updated values with old values
+     */
     private fun saveOldData() {
         mViewModel.duplicatePageMap?.set(currentPage, mViewModel.formPageMap?.copy(object : TypeToken<DynamicFormResp>() {}.type)?.get(currentPage).orEmpty())
     }
@@ -172,7 +175,9 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
     }
 
-
+    /**
+     * Inflate different view on basis of type
+     */
     private fun inflateViews() {
 
         //Handle page indicator view
@@ -387,7 +392,9 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         bindingList.add(binding)
     }
 
-
+    /**
+     * Inflate messageInfo in view
+     */
     private fun setFieldOfMessageInfo(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputTextInfoBinding>(layoutInflater,
                 R.layout.layout_input_text_info,
@@ -429,7 +436,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                             when (binding) {
                                 is LayoutInputServiceAndBillingAddressBinding -> {
                                     if (binding.item?.id?.equals(id).orFalse()) {
-                                        binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) }, false)
+                                        binding.fillAddressFields(data.let { Autocomplete.getPlaceFromIntent(it) }, false)
                                     }
                                 }
                             }
@@ -445,7 +452,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                             when (binding) {
                                 is LayoutInputServiceAndBillingAddressBinding -> {
                                     if (binding.item?.id?.equals(id).orFalse()) {
-                                        binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) }, true)
+                                        binding.fillAddressFields(data.let { Autocomplete.getPlaceFromIntent(it) }, true)
                                     }
                                 }
                             }

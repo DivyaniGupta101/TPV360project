@@ -88,6 +88,9 @@ class ProgramsListingFragment : Fragment() {
         }
     }
 
+    /**
+     * Get programs
+     */
     private fun getProgramsApiCall() {
 
         val liveData = mViewModel.getPrograms(mViewModel.selectedUtilityList)
@@ -126,9 +129,7 @@ class ProgramsListingFragment : Fragment() {
     }
 
     /**
-     * if Plan type is Electric or Gas then there should be one item selected then only button will be disabled
-     * If plan type is Duel Fuel then there should be one item selected from gas list
-     * And one from electric list then only button will be disabled
+     * Check there should be one item selected from all the categories of programs then only button should be enable
      */
 
     private fun handleNextButtonState() {
@@ -137,11 +138,15 @@ class ProgramsListingFragment : Fragment() {
 
 
     /**
-     * Handle itemSelection, only one item from each GASFUEL and ELECTRICFUEL should be selected
+     * Handle itemSelection, only one item from each categories should be selected
      * Other will be unSelected automatically
      */
     private fun itemSelection(utilityId: String, selectedItemId: String) {
+        //Get list of data which contain same utilityId
         val lastSelectedList = mLastSelected.filter { it.utilityId == utilityId }
+
+        //"lastSelectedList" is empty then add in list
+        // Else  set all other value as false also remove all other values and add latest selected value
         if (lastSelectedList.isNotEmpty()) {
 
             lastSelectedList.forEach { lastSelected ->
@@ -165,9 +170,7 @@ class ProgramsListingFragment : Fragment() {
                 }
             }
         }
-
         mBinding.listPrograms.adapter?.notifyDataSetChanged()
-
     }
 
 }

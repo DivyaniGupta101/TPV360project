@@ -56,6 +56,9 @@ class CommodityFragment : Fragment() {
         setRecyclerView()
     }
 
+    /**
+     * Get list of commodity
+     */
     private fun getCommodityApiCall() {
         val liveData = mViewModelCommodity.getCommodity()
         liveData.observe(this, Observer {
@@ -79,6 +82,9 @@ class CommodityFragment : Fragment() {
                 .into(mBinding.listPlans)
     }
 
+    /**
+     * Get dynamic form
+     */
     private fun getDynamicFormApiCall(id: String, title: String?) {
         val liveData = mViewModel.getDynamicForm(DynamicFormReq(formId = id))
         liveData.observe(this, Observer {

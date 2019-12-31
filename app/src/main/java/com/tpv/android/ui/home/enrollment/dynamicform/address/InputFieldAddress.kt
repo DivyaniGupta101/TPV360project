@@ -51,12 +51,11 @@ fun LayoutInputAddressBinding.setField(response: DynamicFormResp) {
     binding.editZipcode.onClick {
         context.openPlacePicker(binding)
     }
-    binding.editAddressLineTwo.onClick {
-        context.openPlacePicker(binding)
-    }
-
 }
 
+/**
+ * Get value from addressPicker response and set in model class
+ */
 fun LayoutInputAddressBinding.fillAddressFields(fillAddressFields: Place?) {
     val binding = this
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
@@ -79,7 +78,6 @@ fun LayoutInputAddressBinding.isValid(context: Context?): Boolean {
                     binding.editAddressLineOne,
                     EmptyValidator(),
                     context?.getString(R.string.enter_address)
-
             )
         }.validate()
     } else {
@@ -87,6 +85,9 @@ fun LayoutInputAddressBinding.isValid(context: Context?): Boolean {
     }
 }
 
+/**
+ * Open address picker
+ */
 private fun Context.openPlacePicker(binding: LayoutInputAddressBinding) {
     val context = this
     if (context is HomeActivity) {

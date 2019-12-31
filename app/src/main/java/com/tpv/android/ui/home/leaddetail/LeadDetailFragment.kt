@@ -50,6 +50,9 @@ class LeadDetailFragment : Fragment() {
         getLeadDetailApiCall()
     }
 
+    /**
+     * Get leadDetail data and inflate in views
+     */
     private fun getLeadDetailApiCall() {
         val liveData = mViewModel.getLeadDetail(arguments?.let { LeadDetailFragmentArgs.fromBundle(it) }?.item)
         liveData.observe(this, Observer {
@@ -109,10 +112,16 @@ class LeadDetailFragment : Fragment() {
         }
     }
 
+    /**
+     * Inflate view for both billing and service address
+     */
     private fun setBothAddress(response: DynamicFormResp) {
         setServiceAddress(response)
     }
 
+    /**
+     * Inflate service address view
+     */
     private fun setServiceAddress(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutOutputServiceAndBillingAddressBinding>(layoutInflater,
                 R.layout.layout_output_service_and_billing_address,
@@ -155,6 +164,9 @@ class LeadDetailFragment : Fragment() {
         binding.serviceValue.text = text
     }
 
+    /**
+     * Set value for billing address
+     */
     private fun setBillingAddress(response: DynamicFormResp, binding: LayoutOutputServiceAndBillingAddressBinding) {
 
         val unitNumber = response.values[AppConstant.BILLINGUNIT] as String?
@@ -191,6 +203,9 @@ class LeadDetailFragment : Fragment() {
         binding.billingValue.text = text
     }
 
+    /**
+     * Inflate view for label
+     */
     private fun setLabelField(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputLabelBinding>(layoutInflater,
                 R.layout.layout_input_label,
@@ -201,6 +216,9 @@ class LeadDetailFragment : Fragment() {
 
     }
 
+    /**
+     * Inflate view for heading
+     */
     private fun setHeadingField(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutInputHeadingBinding>(layoutInflater,
                 R.layout.layout_input_heading,
@@ -210,6 +228,9 @@ class LeadDetailFragment : Fragment() {
 
     }
 
+    /**
+     * Inflate view for separate or divider
+     */
     private fun setSeparateField() {
         DataBindingUtil.inflate<LayoutOutputSeparateBinding>(layoutInflater,
                 R.layout.layout_output_separate,
@@ -217,6 +238,9 @@ class LeadDetailFragment : Fragment() {
                 true)
     }
 
+    /**
+     * Inflate view for address
+     */
     private fun setAddress(response: DynamicFormResp) {
 
         val binding = DataBindingUtil.inflate<LayoutOutputTextFieldsBinding>(layoutInflater,
@@ -259,6 +283,9 @@ class LeadDetailFragment : Fragment() {
         binding.item = response
     }
 
+    /**
+     * Inflate view for selection fields value(radioButton,checkBox,spinner)
+     */
     private fun setSelectionField(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutOutputTextFieldsBinding>(layoutInflater,
                 R.layout.layout_output_text_fields,
@@ -275,6 +302,9 @@ class LeadDetailFragment : Fragment() {
         binding.item = response
     }
 
+    /**
+     * Inflate view for single line field
+     */
     private fun setSingleField(response: DynamicFormResp) {
         val binding = DataBindingUtil.inflate<LayoutOutputTextFieldsBinding>(layoutInflater,
                 R.layout.layout_output_text_fields,
@@ -284,6 +314,9 @@ class LeadDetailFragment : Fragment() {
         binding.item = response
     }
 
+    /**
+     * Inflate view for full name
+     */
     private fun setFullNameField(response: DynamicFormResp) {
 
         val binding = DataBindingUtil.inflate<LayoutOutputTextFieldsBinding>(layoutInflater,
@@ -291,7 +324,7 @@ class LeadDetailFragment : Fragment() {
                 mBinding.leadDetailContainer,
                 true)
 
-        var text :String?= ""
+        var text: String? = ""
         text = response.values.get(AppConstant.FIRSTNAME) as String?
         if ((response.values.get(AppConstant.MIDDLENAME) as String?)?.isNotEmpty().orFalse()) {
             text += " " + response.values[AppConstant.MIDDLENAME] as String?
