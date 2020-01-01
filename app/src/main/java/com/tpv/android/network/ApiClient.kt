@@ -3,6 +3,7 @@ package com.tpv.android.network
 import com.google.gson.GsonBuilder
 import com.tpv.android.BuildConfig
 import com.tpv.android.helper.Pref
+import com.tpv.android.utils.AppConfig
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,18 +12,14 @@ import java.util.concurrent.TimeUnit
 
 object ApiClient {
     lateinit var retrofit: Retrofit
-    private val BASE_URL: String = if (BuildConfig.DEBUG) {
-//        "https://dev.tpv.plus/api/"
-//        "http://192.168.0.19:8000/api/"
-        "https://newdev.tpv.plus/api/"
-//        "https://newdemo.tpv.plus/api/"
-//        "https://test.tpv.plus/api/"
-
-
-    } else {
-        "https://spark.tpv.plus/api/"
-    }
-
+    private val BASE_URL: String = AppConfig.BASEURL
+    // Server URLS :
+    // "https://dev.tpv.plus/api/"
+    // "http://192.168.0.19:8000/api/"
+    // "https://newdev.tpv.plus/api/"
+    // "https://newdemo.tpv.plus/api/"
+    // "https://test.tpv.plus/api/"
+    // "https://spark.tpv.plus/api/"
 
     val service: ApiInterface by lazy {
         val builder = Retrofit.Builder()

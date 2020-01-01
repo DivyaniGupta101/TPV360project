@@ -21,6 +21,21 @@ android {
         versionName "0.4.12"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        debug {
+            keyAlias 'inexture'
+            keyPassword 'Inexture123?'
+            storeFile file('inexture-keystore-debug.jks')
+            storePassword 'Inexture123?'
+        }
+//        release {
+//            keyAlias 'ryec'
+//            keyPassword 'Ryec123?'
+//            storeFile file('ryec_release.jks')
+//            storePassword 'Ryec123?'
+//        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -37,6 +52,33 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+    }
+    flavorDimensions 'tpv'
+    productFlavors {
+        newdemo {
+            dimension = 'tpv'
+            applicationId = 'com.tpv.android'
+            versionCode = 16
+            versionName = '0.4.12'
+            targetSdkVersion 28
+            minSdkVersion 21
+        }
+        newdev {
+            dimension = 'tpv'
+            applicationId = 'com.tpv.android'
+            versionCode = 16
+            versionName = '0.4.12'
+            targetSdkVersion 28
+            minSdkVersion 21
+        }
+        tpvtest {
+            dimension = 'tpv'
+            applicationId = 'com.tpv.android'
+            versionCode = 16
+            versionName = '0.4.12'
+            targetSdkVersion 28
+            minSdkVersion 21
+        }
     }
 }
 
