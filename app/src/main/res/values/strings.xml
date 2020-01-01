@@ -186,6 +186,7 @@
     <string name="sales_center_name">Sales Center Name</string>
     <string name="client_name">Client Name</string>
     <string name="sales_center_id">Sales Center Id</string>
+    <string name="msg_unable_record">Unable to record while another call is in progress.</string>
 
 
 </resources>

@@ -2,6 +2,8 @@ package com.tpv.android.ui.home.enrollment.recording
 
 
 import android.Manifest
+import android.content.Context
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.SystemClock
@@ -13,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.androidx.alert
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
@@ -29,6 +32,7 @@ import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 import java.io.File
+
 
 class RecordingFragment : Fragment() {
 
@@ -208,26 +212,37 @@ class RecordingFragment : Fragment() {
      * Start recording and handle image according to state and also make Directory for save recoded file
      */
     private fun handleRecordStart() {
-        runWithPermissions(Manifest.permission.RECORD_AUDIO) {
+        val audioManager = context?.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        if (audioManager.mode == 0) {
+            runWithPermissions(Manifest.permission.RECORD_AUDIO) {
 
-            val folder = File(context?.filesDir?.absolutePath + "/recordings")
-            folder.mkdirs()
-            recordedFile = folder.absolutePath + "/recording.mp3"
+                val folder = File(context?.filesDir?.absolutePath + "/recordings")
+                folder.mkdirs()
+                recordedFile = folder.absolutePath + "/recording.mp3"
 
-            mBinding.waveformView.reset()
+                mBinding.waveformView.reset()
 
-            mRecordingThread = RecordingThread(File(recordedFile),
-                    AudioDataReceivedListener { data ->
-                        mBinding.waveformView.samples = data
-                    }
-            )
-            mRecordingThread?.start()
+                mRecordingThread = RecordingThread(File(recordedFile),
+                        AudioDataReceivedListener { data ->
+                            mBinding.waveformView.samples = data
+                        }
+                )
+                mRecordingThread?.start()
 
-            mBinding.chronometer.stop()
-            mBinding.chronometer.base = SystemClock.elapsedRealtime()
-            mBinding.chronometer.start()
+                mBinding.chronometer.stop()
+                mBinding.chronometer.base = SystemClock.elapsedRealtime()
+                mBinding.chronometer.start()
 
-            handleImages(RECORD_STOP)
+                handleImages(RECORD_STOP)
+            }
+        } else {
+            alert {
+                this.setMessage(getString(R.string.msg_unable_record))
+                this.setPositiveButton(getString(R.string.ok), { dialog, which ->
+                    dialog?.dismiss()
+                }).show()
+            }
+
         }
     }
 
