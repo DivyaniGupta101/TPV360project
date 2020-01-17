@@ -2,10 +2,12 @@ package com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext
 
 import android.content.Context
 import com.livinglifetechway.k4kotlin.core.orFalse
+import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.LayoutInputSingleLineEditTextBinding
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.utils.validation.EmptyValidator
+import com.tpv.android.utils.validation.RegexValidInput
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
@@ -29,6 +31,18 @@ fun LayoutInputSingleLineEditTextBinding.isValid(context: Context?): Boolean {
 
         }.validate()
     } else {
+        Validator(TextInputValidationErrorHandler())
+        {
+            if (binding.editText.value.isNotEmpty()) {
+                if (!binding.item?.validations?.regex.isNullOrEmpty()) {
+                    addValidate(
+                            binding.editText,
+                            RegexValidInput(binding.item?.validations?.regex),
+                            binding.item?.validations?.regexMessage
+                    )
+                }
+            }
+        }.validate()
         return true
     }
 }

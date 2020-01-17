@@ -91,6 +91,10 @@ class EmptyValidator : Validate {
     override fun isValid(s: String): Boolean = s.isNotEmpty()
 }
 
+class RegexValidInput(private val regex: String?) : Validate {
+    override fun isValid(s: String): Boolean = s.matches(Regex(regex.orEmpty()))
+}
+
 /**
  * Simple EmailValidator to validate input email is valid or not
  */
