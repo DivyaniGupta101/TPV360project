@@ -28,6 +28,15 @@ fun LayoutInputMultiLineEditTextBinding.isValid(context: Context?): Boolean {
                     EmptyValidator(),
                     context?.getString(R.string.please_enter) + " " + binding.textTitle.text.toString()
             )
+            if (binding.editText.value.isNotEmpty()) {
+                if (!binding.item?.validations?.regex.isNullOrEmpty()) {
+                    addValidate(
+                            binding.editText,
+                            RegexValidInput(binding.item?.validations?.regex),
+                            binding.item?.validations?.regexMessage
+                    )
+                }
+            }
         }.validate()
     } else {
         Validator(TextInputValidationErrorHandler())
