@@ -27,6 +27,10 @@
     </style>
 
 
+    <style name="spinnerTheme">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
     <!--    Button-->
     <style name="ButtonPrimary">
         <item name="android:foreground">@drawable/rounded_ripple_effect</item>

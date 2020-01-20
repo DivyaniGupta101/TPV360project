@@ -25,7 +25,8 @@
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_36sdp" />
+            android:layout_height="@dimen/_36sdp"
+            android:theme="@style/spinnerTheme"/>
 
         <View
             android:id="@+id/divider"

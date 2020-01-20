@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="@={item.selected}"
-            android:text="@{item.option}" />
+            android:text="@{item.option}"
+            android:buttonTint="@color/colorGray"/>
 
     </LinearLayout>
 </layout>
