@@ -14,11 +14,7 @@
     <color name="colorSky">#2FBFFF</color>
     <color name="colorLightBlack">#41000000</color>
     <color name="colorLightRed">#80FF0000</color>
-
-
     <color name="colorBlack">#000000</color>
-    <color name="colorLGreen">#5d9757</color>
-    <color name="primary_dark">#D32F2F</color>
 
 
     <color name="colorStatusBarColor">@color/colorPrimary</color>
