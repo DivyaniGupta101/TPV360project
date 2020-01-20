@@ -272,13 +272,18 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["firstName", "middleName", "lastName"], requireAll = true)
-    fun setCombineFullName(textView: TextView, firstName: String, lastName: String, middleName: String) {
-        var value: String = ""
-        value = firstName
-        if (middleName.isNotEmpty()) {
+    fun setCombineFullName(textView: TextView, firstName: String?, lastName: String?, middleName: String?) {
+        var value: String? = ""
+        if (firstName?.isNotEmpty().orFalse()) {
+            value = firstName
+        }
+        if (middleName?.isNotEmpty().orFalse()) {
             value = "$value  $middleName"
         }
-        value = "$value  $lastName"
+        if (lastName?.isNotEmpty().orFalse()) {
+            value = "$value  $lastName"
+        }
+
         textView.text = value
     }
 }

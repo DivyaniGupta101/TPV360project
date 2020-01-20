@@ -57,19 +57,22 @@
 
                     <TextView
                         style="@style/PrimaryNormalText"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:gravity="center"
                         android:paddingStart="@dimen/_24sdp"
-                        android:paddingEnd="@dimen/_24sdp"
                         android:paddingTop="@dimen/_16sdp"
-                        android:layout_marginBottom="@dimen/_16sdp"
+                        android:paddingEnd="@dimen/_24sdp"
                         android:text="@string/msg_client_info" />
 
                     <TextView
+                        android:id="@+id/textCustomerName"
                         style="@style/PrimaryBoldText"
                         android:paddingStart="@dimen/_16sdp"
                         android:text="@string/customer_name"
                         android:textAllCaps="true"
-                        android:textColor="@color/colorTertiaryText" />
+                        android:textColor="@color/colorTertiaryText"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
 
                     <TextView
