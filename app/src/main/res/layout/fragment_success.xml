@@ -90,7 +90,6 @@
                             android:id="@+id/checkBoxEmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorGray"
                             android:checked="true"
                             android:text="@string/email"
                             android:textColor="@color/colorBlack" />
@@ -100,7 +99,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_16sdp"
-                            android:buttonTint="@color/colorGray"
                             android:checked="true"
                             android:text="@string/phone"
                             android:textColor="@color/colorBlack" />

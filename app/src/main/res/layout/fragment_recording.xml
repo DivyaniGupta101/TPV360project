@@ -61,7 +61,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_16sdp"
                         android:gravity="top"
-                        android:buttonTint="@color/colorGray"
                         android:text="@string/msg_recording" />
 
 
@@ -77,7 +76,7 @@
                             android:layout_height="@dimen/_60sdp"
                             android:src="@drawable/ic_speaker_white_60dp"
                             android:visibility="visible"
-                            app:dynamicTintColor="@{R.color.colorSecondaryLighText}" />
+                            app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
 
                         <ImageView
                             android:id="@+id/redSpeakerImage"
@@ -113,7 +112,6 @@
                         android:layout_height="@dimen/_70sdp"
                         android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginEnd="@dimen/_25sdp"
-                        android:background="#FFF"
                         android:visibility="visible"
                         app:gravity="1"
                         app:mode="RECORDING"

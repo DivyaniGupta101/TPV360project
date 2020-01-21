@@ -91,7 +91,7 @@ object BindingAdapter {
 
             LeadStatus.DECLINED.value -> {
                 textView.text = context?.getString(R.string.declined)
-                textView.setTextColor(context.color(R.color.colorDecliendText))
+                textView.setTextColor(context.color(R.color.colorDeclinedText))
             }
 
             LeadStatus.DISCONNECTED.value -> {
