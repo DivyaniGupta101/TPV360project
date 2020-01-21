@@ -18,6 +18,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.*
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.Option
+import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
@@ -54,6 +55,7 @@ class LeadDetailFragment : Fragment() {
      * Get leadDetail data and inflate in views
      */
     private fun getLeadDetailApiCall() {
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         val liveData = mViewModel.getLeadDetail(arguments?.let { LeadDetailFragmentArgs.fromBundle(it) }?.item)
         liveData.observe(this, Observer {
             it?.ifSuccess {
