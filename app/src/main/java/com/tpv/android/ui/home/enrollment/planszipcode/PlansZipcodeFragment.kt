@@ -43,7 +43,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private lateinit var mViewModel: PlansZipcodeViewModel
     private var lastSearchZipCode = ""
-    val bindingList: ArrayList<LayoutPlanZipcodeSpinnerBinding> = ArrayList()
+    val bindingList: ObservableArrayList<LayoutPlanZipcodeSpinnerBinding> = ObservableArrayList()
 
     private val mHandler = Handler()
 
@@ -168,6 +168,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             lastSearchZipCode = mZipcodeList[position].zipcode.orEmpty()
             mBinding.textZipcode.value = lastSearchZipCode
             mBinding.textZipcode.setSelection(lastSearchZipCode.length)
+            bindingList.clear()
+            hideViews()
         }
 
         //On click of outside of dropdown, get zipcode from editText
@@ -178,7 +180,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 hideKeyboard()
                 getUtilityListApiCall(mBinding.textZipcode.value)
             } else {
-                mBinding.spinnerContainer.removeAllViews()
                 hideViews()
                 mBinding.btnNext.isEnabled = false
             }
