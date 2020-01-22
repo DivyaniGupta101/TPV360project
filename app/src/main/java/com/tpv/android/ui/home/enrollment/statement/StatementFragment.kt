@@ -6,8 +6,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
-import android.graphics.Bitmap
-import android.graphics.Color
+import android.content.res.Configuration
+import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import android.location.Location
 import android.location.LocationManager
@@ -289,7 +289,7 @@ class StatementFragment : Fragment() {
      */
     private fun saveSignatureApiCall() {
 
-        val liveData = context?.bitmapToFile(mSignImage).toMultipartBody("media", "image/jpeg")?.let {
+        val liveData = context?.bitmapToFile(changeBitmapColor(mSignImage, Color.BLACK)).toMultipartBody("media", "image/jpeg")?.let {
             mViewModel.saveMedia(mViewModel.savedLeadResp?.id.toRequestBody(),
                     it)
         }
@@ -345,7 +345,7 @@ class StatementFragment : Fragment() {
 
         binding?.btnSave?.onClick {
             mBinding.textTapToOpen.hide()
-            mSignImage = binding.signatureView.signatureBitmap
+            mSignImage = binding.signatureView.transparentSignatureBitmap
             GlideApp.with(context)
                     .asBitmap()
                     .load(mSignImage)
@@ -388,7 +388,17 @@ class StatementFragment : Fragment() {
         }
     }
 
-
+    fun changeBitmapColor(sourceBitmap: Bitmap?, color: Int): Bitmap? {
+        val resultBitmap = sourceBitmap?.copy(sourceBitmap.getConfig(), true);
+        val paint = Paint();
+        val filter = LightingColorFilter(color, 1);
+        paint.setColorFilter(filter);
+        resultBitmap?.let {
+            val canvas = Canvas(resultBitmap);
+            canvas.drawBitmap(resultBitmap, 0f, 0f, paint);
+        }
+        return resultBitmap;
+    }
 }
 
 

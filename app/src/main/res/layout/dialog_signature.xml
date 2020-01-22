@@ -49,7 +49,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/square_signature_gray_border">
+                    android:background="@drawable/square_gray_border">
 
                     <com.github.gcacace.signaturepad.views.SignaturePad
                         android:id="@+id/signature_view"
@@ -60,7 +60,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:penColor="@android:color/black" />
+                        app:penColor="@color/colorSignature" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
