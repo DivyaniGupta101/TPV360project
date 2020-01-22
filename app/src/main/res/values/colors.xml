@@ -15,7 +15,7 @@
     <color name="colorLightBlack">#41000000</color>
     <color name="colorLightRed">#80FF0000</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorButtonWhite">#ffffff</color>
+    <color name="colorStaticWhite">#ffffff</color>
 
 
     <color name="colorStatusBarColor">@color/colorPrimary</color>
@@ -30,14 +30,14 @@
     <color name="colorPrimaryText">@color/colorBlack</color>
     <color name="colorSecondaryText">@color/colorGray</color>
     <color name="colorSecondaryLighText">@color/colorLightBlack</color>
-    <color name="colorButtonText">@color/colorButtonWhite</color>
+    <color name="colorButtonText">@color/colorStaticWhite</color>
     <color name="colorPendingText">@color/colorYellow</color>
     <color name="colorVerifiedText">@color/colorGreen</color>
     <color name="colorDeclinedText">@color/colorRed</color>
     <color name="colorDisconnectedText">@color/colorSky</color>
     <color name="colorTertiaryText">@color/colorAccent</color>
     <color name="colorErrorText">@color/colorLightRed</color>
-    <color name="colorProfileImageText">@color/colorWhite</color>
+    <color name="colorProfileImageText">@color/colorStaticWhite</color>
 
 
     <!--    DividerColor-->
