@@ -39,12 +39,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bg_slide_menu" />
+                    style="@style/MenuBGImage" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

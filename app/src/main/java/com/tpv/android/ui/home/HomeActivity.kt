@@ -2,8 +2,6 @@ package com.tpv.android.ui.home
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -75,25 +73,6 @@ class HomeActivity : AppCompatActivity() {
                 MenuItems(getDrawable(R.drawable.ic_logout_white_32dp), getString(R.string.log_out)))
 
         mBinding.navMenu.currentSelected = mLastSelectedItem
-
-        val currentNightMode = resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)
-        var menuImage: Drawable? = getDrawable(R.drawable.bg_slide_menu)
-        when (currentNightMode) {
-            Configuration.UI_MODE_NIGHT_NO -> {
-                menuImage = getDrawable(R.drawable.bg_slide_menu)
-            }
-            // Night mode is not active, we're in day time
-            Configuration.UI_MODE_NIGHT_YES -> {
-                menuImage = getDrawable(R.drawable.bg_slide_menu_header)
-
-            }
-            // Night mode is active, we're at night!
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-                menuImage = getDrawable(R.drawable.bg_slide_menu)
-            }
-        }
-        mBinding.navMenu.imageMenu.setImageDrawable(menuImage)
-
 
 
         if (BuildConfig.DEBUG) {
