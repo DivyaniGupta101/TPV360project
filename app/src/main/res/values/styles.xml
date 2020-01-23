@@ -203,4 +203,10 @@
         <item name="android:scaleType">fitCenter</item>
         <item name="android:src">@drawable/bg_slide_menu</item>
     </style>
+
+    <style name="IconImage">
+        <item name="android:layout_width">@dimen/_80sdp</item>
+        <item name="android:layout_height">@dimen/_80sdp</item>
+        <item name="android:src">@drawable/ic_company_logo_black</item>
+    </style>
 </resources>

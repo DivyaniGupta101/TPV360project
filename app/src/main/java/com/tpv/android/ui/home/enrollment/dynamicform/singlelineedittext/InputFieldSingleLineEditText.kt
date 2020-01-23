@@ -52,7 +52,6 @@ fun LayoutInputSingleLineEditTextBinding.isValid(context: Context?): Boolean {
                 }
             }
         }.validate()
-        return true
     }
 }
 

@@ -39,9 +39,7 @@
                 android:padding="@dimen/_24sdp">
 
                 <ImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:src="@drawable/ic_company_logo_black" />
+                   style="@style/IconImage" />
 
                 <TextView
                     style="@style/PrimaryBigBoldText"

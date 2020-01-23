@@ -8,4 +8,10 @@
         <item name="android:scaleType">fitCenter</item>
         <item name="android:src">@drawable/bg_slide_menu_header</item>
     </style>
+
+    <style name="IconImage">
+        <item name="android:layout_width">@dimen/_80sdp</item>
+        <item name="android:layout_height">@dimen/_80sdp</item>
+        <item name="android:src">@drawable/ic_splash_logo_white</item>
+    </style>
 </resources>

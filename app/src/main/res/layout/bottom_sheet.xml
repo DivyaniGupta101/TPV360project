@@ -10,6 +10,7 @@
         android:id="@+id/bottomSheetContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorScreenBg"
         android:orientation="vertical"
         app:behavior_hideable="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -30,22 +31,22 @@
 
             <RadioButton
                 android:id="@+id/radioPending"
-                style="@style/SecondaryNormalText"
+                style="@style/PrimaryNormalText"
                 android:text="@string/pending" />
 
             <RadioButton
                 android:id="@+id/radioVerified"
-                style="@style/SecondaryNormalText"
+                style="@style/PrimaryNormalText"
                 android:text="@string/verified" />
 
             <RadioButton
                 android:id="@+id/radioDeclined"
-                style="@style/SecondaryNormalText"
+                style="@style/PrimaryNormalText"
                 android:text="@string/declined" />
 
             <RadioButton
                 android:id="@+id/radioDisconnected"
-                style="@style/SecondaryNormalText"
+                style="@style/PrimaryNormalText"
                 android:text="@string/disconnected" />
         </RadioGroup>
 

@@ -51,6 +51,5 @@ fun LayoutInputMultiLineEditTextBinding.isValid(context: Context?): Boolean {
                 }
             }
         }.validate()
-        return true
     }
 }
