@@ -67,7 +67,7 @@ android {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
             versionCode = 16
-            versionName = '0.4.12'
+            versionName = '0.6.0'
             targetSdkVersion 28
             minSdkVersion 21
         }
