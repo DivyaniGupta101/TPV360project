@@ -160,17 +160,31 @@ object AppRepository {
     }
 
 
-    //Generate OTP
+    //Generate OTP For Phone Number
     fun CoroutineScope.generateOTPCall(otpReq: OTPReq) = dataApi<Any?, APIError> {
         fromNetwork {
             ApiClient.service.sendOtp(otpReq).getResult().map { it?.data }
         }
     }
 
-    //Verify OTP
+    //Verify OTP For Phone Number
     fun CoroutineScope.verifyOTPCall(verifyOTPReq: VerifyOTPReq) = dataApi<Any?, APIError> {
         fromNetwork {
             ApiClient.service.verifyOtp(verifyOTPReq).getResult().map { it?.data }
+        }
+    }
+
+    //Generate OTP For Email
+    fun CoroutineScope.generateEmailOTPCall(otpEmailReq: OTPEmailReq) = dataApi<Any?, APIError> {
+        fromNetwork {
+            ApiClient.service.sendEmailOtp(otpEmailReq).getResult().map { it?.data }
+        }
+    }
+
+    //Verify OTP For Phone Number
+    fun CoroutineScope.verifyOTPEmailCall(verifyOTPEmailReq: VerifyOTPEmailReq) = dataApi<Any?, APIError> {
+        fromNetwork {
+            ApiClient.service.verifyEmailOtp(verifyOTPEmailReq).getResult().map { it?.data }
         }
     }
 

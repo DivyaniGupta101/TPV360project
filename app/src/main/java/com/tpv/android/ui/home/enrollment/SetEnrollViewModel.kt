@@ -86,6 +86,14 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         verifyOTPCall(verifyOTPReq)
     }
 
+    fun generateEmailOTP(otpEmailReq: OTPEmailReq) = with(AppRepository) {
+        generateEmailOTPCall(otpEmailReq)
+    }
+
+    fun verifyEmailOTP(verifyOTPEmailReq: VerifyOTPEmailReq) = with(AppRepository) {
+        verifyOTPEmailCall(verifyOTPEmailReq)
+    }
+
     fun getPrograms(utilityList: ArrayList<UtilityResp>) = with(AppRepository) {
         getProgramsCall(utilityList)
     }

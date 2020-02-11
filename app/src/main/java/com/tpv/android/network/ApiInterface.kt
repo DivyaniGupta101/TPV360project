@@ -59,13 +59,21 @@ interface ApiInterface {
     @POST("selfverify")
     fun selfVerify(@Body successReq: SuccessReq): Call<CommonResponse<Any>>
 
-    //Generate OTP
+    //Generate OTP For Phone Number
     @POST("generateotp")
     fun sendOtp(@Body otpReq: OTPReq): Call<CommonResponse<Any>>
 
-    //Verify OTP
+    //Generate OTP
+    @POST("generateotp/email")
+    fun sendEmailOtp(@Body otpEmailReq: OTPEmailReq): Call<CommonResponse<Any>>
+
+    //Verify OTP For Phone Number
     @POST("verifyotp")
     fun verifyOtp(@Body verifyOTPReq: VerifyOTPReq): Call<CommonResponse<Any>>
+
+    //Verify OTP For Email Address
+    @POST("verifyotp")
+    fun verifyEmailOtp(@Body verifyOTPEmailReq: VerifyOTPEmailReq): Call<CommonResponse<Any>>
 
     //ForgotPassword
     @POST("forgotpassword")

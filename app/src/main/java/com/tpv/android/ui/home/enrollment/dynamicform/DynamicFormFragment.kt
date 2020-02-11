@@ -246,7 +246,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
 
-        binding.setField(response)
+        binding.setField(response, mViewModel, mBinding)
         bindingList.add(binding)
     }
 
