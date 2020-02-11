@@ -10,7 +10,7 @@
     </style>
 
     <style name="IconImage">
-        <item name="android:layout_width">@dimen/_130sdp</item>
+        <item name="android:layout_width">@dimen/_120sdp</item>
         <item name="android:layout_height">@dimen/_60sdp</item>
         <item name="android:src">@drawable/ic_company_logo_white</item>
     </style>
