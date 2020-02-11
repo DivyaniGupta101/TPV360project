@@ -72,7 +72,7 @@ interface ApiInterface {
     fun verifyOtp(@Body verifyOTPReq: VerifyOTPReq): Call<CommonResponse<Any>>
 
     //Verify OTP For Email Address
-    @POST("verifyotp")
+    @POST("verifyotp/email")
     fun verifyEmailOtp(@Body verifyOTPEmailReq: VerifyOTPEmailReq): Call<CommonResponse<Any>>
 
     //ForgotPassword

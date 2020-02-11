@@ -26,7 +26,7 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
-import com.tpv.android.ui.home.enrollment.dynamicform.phone.verifiedNumber
+import com.tpv.android.ui.home.enrollment.dynamicform.phone.verifiedEmail
 import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
@@ -56,6 +56,23 @@ fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
             context.generateOTPApiCall(bindingInputEmail, bindingDynamicForm, viewModel)
         }
     }
+
+    bindingInputEmail.editText.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            //Check if number is already verified call handleVerifiedText method
+            if (s.toString().equals(verifiedEmail)) {
+                context.handleVerifiedText(bindingInputEmail, false)
+            } else {
+                context.handleVerifiedText(bindingInputEmail, true)
+            }
+        }
+    })
 
 }
 
@@ -173,7 +190,7 @@ private fun Context.verifyOTPApiCall(bindingInputEmail: LayoutInputEmailAddressB
 
             it.ifSuccess {
 
-                verifiedNumber = bindingInputEmail.editText.value
+                verifiedEmail = bindingInputEmail.editText.value
                 dialog.dismiss()
 
                 context.handleVerifiedText(bindingInputEmail, false)
