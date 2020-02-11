@@ -48,7 +48,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_120sdp"
-                        android:src="@drawable/ic_plan_selection_img" />
+                        android:src="@drawable/plan_selection_img" />
 
 
                     <TextView
