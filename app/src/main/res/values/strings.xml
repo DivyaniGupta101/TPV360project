@@ -179,6 +179,7 @@
     <string name="address">Address</string>
     <string name="unit">Unit No.</string>
     <string name="name_char">ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿabcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ-0123456789</string>
+    <string name="string_char">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="number_char">0123456789</string>
     <string name="tap_to_enter_address">Tap to enter address</string>
     <string name="location">Location (Latitude/Longitude)</string>
