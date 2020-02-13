@@ -27,7 +27,11 @@ fun addressComponents(place: Place): AddressComponent? {
     val subLocalityLevelOne = addressComponents?.find { it.types.find { it == "sublocality_level_1" } != null }?.name
     var address2 = ""
     if (neighborhood?.isNotEmpty().orFalse() || subLocalityLevelOne?.isNotEmpty().orFalse()) {
-        address2 = neighborhood + subLocalityLevelOne
+        if (neighborhood == null) {
+            address2 = subLocalityLevelOne.orEmpty()
+        } else {
+            address2 = neighborhood + subLocalityLevelOne
+        }
     }
 
 
