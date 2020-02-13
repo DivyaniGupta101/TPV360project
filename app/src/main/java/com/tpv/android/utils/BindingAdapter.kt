@@ -286,5 +286,22 @@ object BindingAdapter {
 
         textView.text = value
     }
+
+    @JvmStatic
+    @BindingAdapter("city", "state")
+    fun textViewCombineValues(textView: TextView, city: String?, state: String?) {
+        var value: String = ""
+        if (city?.isNotEmpty().orFalse()) {
+            value = city.orEmpty()
+        }
+        if (state?.isNotEmpty().orFalse()) {
+            if (value.isNotEmpty()) {
+                value = "$value, $state"
+            } else {
+                value = state.orEmpty()
+            }
+        }
+        textView.setText(value)
+    }
 }
 

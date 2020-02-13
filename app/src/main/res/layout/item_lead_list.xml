@@ -175,7 +175,8 @@
                             android:layout_weight="2"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="@{item.city + ',' + ' '+ item.state}"
+                            app:city="@{item.city}"
+                            app:state="@{item.state}"
                             tools:text="NEW YORK" />
                     </LinearLayout>
                 </LinearLayout>
