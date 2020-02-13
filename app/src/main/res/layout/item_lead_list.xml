@@ -55,6 +55,8 @@
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:layout_weight="2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="@{item.refrenceId}"
                             tools:text="It-it-ios-12657" />
                     </LinearLayout>
@@ -76,6 +78,8 @@
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:layout_weight="2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             app:setDate="@{item.createTime}"
                             tools:text="27/08/2018" />
                     </LinearLayout>
@@ -97,6 +101,8 @@
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:layout_weight="2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             app:time="@{item.createTime}"
                             tools:text="09:36:06" />
                     </LinearLayout>
@@ -119,6 +125,8 @@
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:layout_weight="2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="@{item.utility}"
                             tools:text="ALL" />
                     </LinearLayout>
@@ -141,6 +149,8 @@
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:layout_weight="2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="@{item.commodity}"
                             tools:text="GAS" />
                     </LinearLayout>
@@ -163,7 +173,9 @@
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:layout_weight="2"
-                            android:text="@{item.city + ',' + item.state}"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{item.city + ',' + ' '+ item.state}"
                             tools:text="NEW YORK" />
                     </LinearLayout>
                 </LinearLayout>
