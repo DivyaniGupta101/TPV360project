@@ -11,12 +11,22 @@ data class LeadResp(
         var createTime: String?,
         @SerializedName("status")
         var status: String?,
+        @SerializedName("utility")
+        var utility: String?,
+        @SerializedName("commodity")
+        var commodity: String?,
+        @SerializedName("city")
+        var city: String?,
+        @SerializedName("state")
+        var state: String?,
         @SerializedName("disposition")
         var disposition: String?
 
-)data class LeadReq(
-    @SerializedName("leadstatus")
-    val leadstatus: String?,
-    @SerializedName("page")
-    val page: Int?
+)
+
+data class LeadReq(
+        @SerializedName("leadstatus")
+        val leadstatus: String?,
+        @SerializedName("page")
+        val page: Int?
 )
