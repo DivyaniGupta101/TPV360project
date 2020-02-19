@@ -31,10 +31,10 @@ android {
             storePassword 'Inexture123?'
         }
 //        release {
-//            keyAlias 'ryec'
-//            keyPassword 'Ryec123?'
-//            storeFile file('ryec_release.jks')
-//            storePassword 'Ryec123?'
+//            keyAlias 'test'
+//            keyPassword 'Test123?'
+//            storeFile file('test_release.jks')
+//            storePassword 'Test123?'
 //        }
     }
     buildTypes {
