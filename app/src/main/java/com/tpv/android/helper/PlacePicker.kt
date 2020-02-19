@@ -37,7 +37,6 @@ fun addressComponents(place: Place): AddressComponent? {
 
     placeComponent.address = place.address.orEmpty()
     placeComponent.addressLine1 = place.name.orEmpty()
-    placeComponent.addressLine2 = address2
     placeComponent.city = city.orEmpty()
     placeComponent.state = addressComponents?.find { it.types.find { it == "administrative_area_level_1" } != null }?.name.orEmpty()
     placeComponent.latitude = place.latLng?.latitude.toString()
