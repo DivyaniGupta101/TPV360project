@@ -252,7 +252,6 @@ class StatementFragment : Fragment() {
             it?.ifSuccess {
                 mViewModel.savedLeadResp = it
 
-                mViewModel.saveContract(contractReq = ContractReq(mViewModel.savedLeadResp?.id))
 
                 if (mViewModel.recordingFile.isNotEmpty()) {
                     saveRecordingApiCall()

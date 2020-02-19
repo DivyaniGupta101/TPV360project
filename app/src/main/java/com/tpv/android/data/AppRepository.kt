@@ -145,13 +145,6 @@ object AppRepository {
         }
     }
 
-    //Save Contract
-    fun CoroutineScope.saveContractCall(contractReq: ContractReq) = dataApi<Any?, APIError> {
-        fromNetwork {
-            ApiClient.service.sendContract(contractReq).getResult().map { it?.data }
-        }
-    }
-
     //Verification (email,Phone)
     fun CoroutineScope.selfVerificationCall(successReq: SuccessReq) = dataApi<Any?, APIError> {
         fromNetwork {

@@ -42,10 +42,6 @@ interface ApiInterface {
     @POST("getprograms")
     fun getPrograms(@Body programsReq: ProgramsReq): Call<CommonResponse<List<ProgramsResp>>>
 
-    //SaveContract
-    @POST("sendcontract")
-    fun sendContract(@Body contractReq: ContractReq): Call<CommonResponse<Any>>
-
     //Save recording,signature
     @Multipart
     @POST("leadmedia")

@@ -70,9 +70,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         saveLeadDetailCall(leadsDetailReq)
     }
 
-    fun saveContract(contractReq: ContractReq) = with(AppRepository) {
-        saveContractCall(contractReq)
-    }
+
 
     fun saveMedia(leadId: RequestBody, mediaFile: MultipartBody.Part) = with(AppRepository) {
         saveMediaCall(leadId, mediaFile)
