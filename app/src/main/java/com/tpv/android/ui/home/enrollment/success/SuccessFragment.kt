@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.CompoundButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -46,6 +47,15 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         initialize()
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+    }
 
     /**
      * On click of backButton remove stored Data
