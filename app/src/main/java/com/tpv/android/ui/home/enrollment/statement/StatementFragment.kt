@@ -6,7 +6,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
-import android.content.res.Configuration
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import android.location.Location
@@ -35,7 +34,6 @@ import com.tpv.android.R
 import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
 import com.tpv.android.model.internal.DialogText
-import com.tpv.android.model.network.ContractReq
 import com.tpv.android.model.network.OtherData
 import com.tpv.android.model.network.SaveLeadsDetailReq
 import com.tpv.android.model.network.SaveLeadsDetailResp
@@ -288,7 +286,7 @@ class StatementFragment : Fragment() {
      */
     private fun saveSignatureApiCall() {
 
-        val liveData = context?.bitmapToFile(changeBitmapColor(mSignImage, Color.BLACK)).toMultipartBody("media", "image/jpeg")?.let {
+        val liveData = context?.bitmapToFile(changeBitmapColor(mSignImage, Color.BLACK)).toMultipartBody("media", "image/png")?.let {
             mViewModel.saveMedia(mViewModel.savedLeadResp?.id.toRequestBody(),
                     it)
         }

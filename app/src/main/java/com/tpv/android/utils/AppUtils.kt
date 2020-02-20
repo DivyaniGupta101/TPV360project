@@ -230,13 +230,13 @@ fun File?.toMultipartBody(name: String, type: String): MultipartBody.Part? {
  * Convert bitmap into file
  */
 fun Context.bitmapToFile(imageBitmap: Bitmap?): File {
-    val file = File(this.cacheDir, Calendar.getInstance().timeInMillis.toString() + ".jpg")
+    val file = File(this.cacheDir, Calendar.getInstance().timeInMillis.toString() + ".png")
     file.createNewFile()
 
     //Convert bitmap to byte array
     val bitmap = imageBitmap
     val bos = ByteArrayOutputStream()
-    bitmap?.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos)
+    bitmap?.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos)
 
     //write the bytes in file
     var fos: FileOutputStream? = null
