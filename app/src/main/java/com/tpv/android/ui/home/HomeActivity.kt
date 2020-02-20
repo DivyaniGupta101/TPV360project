@@ -3,6 +3,7 @@ package com.tpv.android.ui.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -124,6 +125,11 @@ class HomeActivity : AppCompatActivity() {
                 mBinding.navMenu.item = Pref.user
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        this?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     private fun Context.logOutApiCall() {
