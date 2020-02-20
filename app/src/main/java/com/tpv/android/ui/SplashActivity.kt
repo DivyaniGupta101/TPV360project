@@ -20,10 +20,5 @@ class SplashActivity : AppCompatActivity() {
         finish()
 
     }
-
-    override fun onResume() {
-        super.onResume()
-        this?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
-    }
 }
 
