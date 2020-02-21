@@ -21,6 +21,8 @@ android {
         versionCode 20
         versionName "0.5.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "Boolean", "IS_RECCORDING_ALLOWD", "true"
     }
 
     signingConfigs {

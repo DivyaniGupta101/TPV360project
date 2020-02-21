@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
+import com.tpv.android.BuildConfig
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivityTransparentBinding
 import com.tpv.android.ui.home.enrollment.statement.StatementFragment
@@ -71,7 +72,8 @@ class TransparentActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        this?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        if (!BuildConfig.IS_RECCORDING_ALLOWD)
+            this?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
