@@ -126,7 +126,7 @@
 
                             <TextView
                                 style="@style/SecondaryNormalSmallText"
-                                android:text="@string/validity" />
+                                android:text="@string/term" />
 
                             <TextView
                                 style="@style/PrimaryNormalSmallText"
@@ -160,6 +160,27 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/SecondaryNormalSmallText"
+                                android:text="@string/MSF" />
+
+                            <TextView
+                                style="@style/PrimaryNormalSmallText"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@{@string/dollar+item.monthlysf}"
+                                tools:text="$ 00" />
+
+
+                        </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>

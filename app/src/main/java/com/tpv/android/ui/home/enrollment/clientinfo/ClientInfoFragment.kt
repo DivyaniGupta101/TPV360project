@@ -45,7 +45,7 @@ class ClientInfoFragment : Fragment() {
             mBinding.textCustomerName.show()
             mBinding.item = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
         }
-        setupToolbar(mBinding.toolbar, getString(R.string.client_info), showBackIcon = true)
+        setupToolbar(mBinding.toolbar, getString(R.string.verify_customer_information), showBackIcon = true)
 
         setProgramInformation()
 

@@ -59,7 +59,7 @@
                     <TextView
                         style="@style/PrimaryMediumBoldText"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="@string/thank_you"
+                        android:text="@string/success"
                         android:textAllCaps="true"
                         android:textColor="@color/colorTertiaryText" />
 
@@ -77,7 +77,7 @@
                     <TextView
                         style="@style/PrimaryNormalText"
                         android:layout_marginTop="@dimen/_32sdp"
-                        android:text="@string/self_verification" />
+                        android:text="@string/verification_method" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

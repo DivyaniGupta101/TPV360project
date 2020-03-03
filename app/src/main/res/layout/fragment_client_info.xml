@@ -68,7 +68,7 @@
                         android:id="@+id/textCustomerName"
                         style="@style/PrimaryBoldText"
                         android:paddingStart="@dimen/_16sdp"
-                        android:text="@string/customer_name"
+                        android:text="@string/customer_information"
                         android:textAllCaps="true"
                         android:textColor="@color/colorTertiaryText"
                         android:visibility="gone"

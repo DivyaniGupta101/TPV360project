@@ -56,7 +56,7 @@
 
                     <TextView
                         style="@style/PrimaryBoldText"
-                        android:text="@string/contract_detail"
+                        android:text="@string/terms_and_condition"
                         android:textAllCaps="true"
                         android:textColor="@color/colorTertiaryText" />
 
