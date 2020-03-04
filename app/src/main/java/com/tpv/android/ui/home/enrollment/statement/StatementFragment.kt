@@ -269,8 +269,9 @@ class StatementFragment : Fragment() {
     private fun saveRecordingApiCall() {
         val liveData =
                 File(mViewModel.recordingFile).toMultipartBody("media", "audio/*")?.let {
-                    mViewModel.saveMedia(mViewModel.savedLeadResp?.id.toRequestBody(),
-                            it)
+                    mViewModel.saveMedia(leadId = mViewModel.savedLeadResp?.id.toRequestBody(),
+                            mediaFile = it,lng = location?.longitude.toString().toRequestBody(),
+                            lat = location?.latitude.toString().toRequestBody())
                 }
         liveData?.observe(this, Observer {
             it?.ifSuccess {
@@ -287,8 +288,9 @@ class StatementFragment : Fragment() {
     private fun saveSignatureApiCall() {
 
         val liveData = context?.bitmapToFile(changeBitmapColor(mSignImage, Color.BLACK)).toMultipartBody("media", "image/png")?.let {
-            mViewModel.saveMedia(mViewModel.savedLeadResp?.id.toRequestBody(),
-                    it)
+            mViewModel.saveMedia(leadId = mViewModel.savedLeadResp?.id.toRequestBody(),
+                    mediaFile = it,lat = location?.latitude.toString().toRequestBody(),
+                    lng = location?.longitude.toString().toRequestBody())
         }
         liveData?.observe(this, Observer {
             it.ifSuccess {

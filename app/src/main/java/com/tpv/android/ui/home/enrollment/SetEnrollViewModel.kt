@@ -71,9 +71,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     }
 
 
-
-    fun saveMedia(leadId: RequestBody, mediaFile: MultipartBody.Part) = with(AppRepository) {
-        saveMediaCall(leadId, mediaFile)
+    fun saveMedia(lng: RequestBody, lat: RequestBody, leadId: RequestBody, mediaFile: MultipartBody.Part) = with(AppRepository) {
+        saveMediaCall(lat = lat, lng = lng, leadId = leadId, mediaFile = mediaFile)
     }
 
     fun generateOTP(otpReq: OTPReq) = with(AppRepository) {

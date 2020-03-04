@@ -139,9 +139,9 @@ object AppRepository {
     }
 
     //Save Recording,Signature
-    fun CoroutineScope.saveMediaCall(leadId: RequestBody, mediaFile: MultipartBody.Part) = dataApi<Any?, APIError> {
+    fun CoroutineScope.saveMediaCall(lng: RequestBody, lat: RequestBody, leadId: RequestBody, mediaFile: MultipartBody.Part) = dataApi<Any?, APIError> {
         fromNetwork {
-            ApiClient.service.saveMedia(leadid = leadId, mediaFile = mediaFile).getResult().map { it?.data }
+            ApiClient.service.saveMedia(lat = lat, lng = lng, leadid = leadId, mediaFile = mediaFile).getResult().map { it?.data }
         }
     }
 
