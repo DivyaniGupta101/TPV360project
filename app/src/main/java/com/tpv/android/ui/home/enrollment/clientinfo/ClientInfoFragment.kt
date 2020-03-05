@@ -52,9 +52,9 @@ class ClientInfoFragment : Fragment() {
             mBinding.address = mViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true }
         }
 
-        if (mViewModel.dynamicFormData.find { it.type == DynamicField.TEXTAREA.type && it.meta?.isPrimary == true } != null) {
+        if (mViewModel.dynamicFormData.find { it.type == DynamicField.TEXTBOX.type && it.meta?.isPrimary == true } != null) {
             mBinding.textAccountNumber.show()
-            mBinding.accountNumber = mViewModel.dynamicFormData.find { it.type == DynamicField.TEXTAREA.type && it.meta?.isPrimary == true }
+            mBinding.accountNumber = mViewModel.dynamicFormData.find { it.type == DynamicField.TEXTBOX.type && it.meta?.isPrimary == true }
         }
         setupToolbar(mBinding.toolbar, getString(R.string.verify_customer_information), showBackIcon = true)
 
