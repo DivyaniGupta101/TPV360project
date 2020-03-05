@@ -18,6 +18,14 @@
             type="com.tpv.android.model.network.DynamicFormResp" />
 
         <variable
+            name="address"
+            type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
+            name="accountNumber"
+            type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
             name="key"
             type="com.tpv.android.utils.AppConstant" />
 
@@ -87,6 +95,80 @@
                         app:middleName="@{item.values[key.MIDDLENAME]}"
                         tools:text="Smithan" />
 
+                    <TextView
+                        android:id="@+id/textServiceAddress"
+                        style="@style/PrimaryBoldText"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:paddingStart="@dimen/_16sdp"
+                        android:text="@string/service_address"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTertiaryText"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+
+                    <TextView
+                        style="@style/PrimaryNormalText"
+                        android:layout_marginStart="@dimen/_32sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        app:unit="@{address.values[key.SERVICEUNIT]}"
+                        app:addressLine1="@{address.values[key.SERVICEADDRESS1]}"
+                        app:addressLine2="@{address.values[key.SERVICEADDRESS2]}"
+                        app:city="@{address.values[key.SERVICECITY]}"
+                        app:state="@{address.values[key.SERVICESTATE]}"
+                        app:zipcode="@{address.values[key.SERVICEZIPCODE]}"
+                        app:country="@{address.values[key.SERVICECOUNTRY]}"
+                        tools:text="Smithan" />
+
+                    <TextView
+                        android:id="@+id/textBillingAddress"
+                        style="@style/PrimaryBoldText"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:paddingStart="@dimen/_16sdp"
+                        android:text="@string/billing_address"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTertiaryText"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+
+                    <TextView
+                        style="@style/PrimaryNormalText"
+                        android:layout_marginStart="@dimen/_32sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        app:unit="@{address.values[key.BILLINGUNIT]}"
+                        app:addressLine1="@{address.values[key.BILLINGADDRESS1]}"
+                        app:addressLine2="@{address.values[key.BILLINGADDRESS2]}"
+                        app:city="@{address.values[key.BILLINGCITY]}"
+                        app:state="@{address.values[key.BILLINGSTATE]}"
+                        app:zipcode="@{address.values[key.BILLINGZIPCODE]}"
+                        app:country="@{address.values[key.BILLINGCOUNTRY]}"
+                        tools:text="Smithan" />
+
+                    <TextView
+                        android:id="@+id/textAccountNumber"
+                        style="@style/PrimaryBoldText"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:paddingStart="@dimen/_16sdp"
+                        android:text="@string/account_number"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTertiaryText"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+
+                    <TextView
+                        style="@style/PrimaryNormalText"
+                        android:layout_marginStart="@dimen/_32sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{accountNumber.values[key.VALUE]}"
+                        tools:text="Smithan" />
+
 
                     <TextView
                         style="@style/PrimaryBoldText"
@@ -107,16 +189,17 @@
                         android:id="@+id/btnNext"
                         style="@style/ButtonPrimary"
                         android:text="@string/next" />
+
+                    <include
+                        android:id="@+id/incProgressBar"
+                        layout="@layout/progress_bar"
+                        app:errorHandler="@{errorHandler}"
+                        app:resource="@{resource}"
+                        app:useBlockingProgress="@{true}"
+                        tools:visibility="visible" />
                 </LinearLayout>
             </ScrollView>
 
-            <include
-                android:id="@+id/incProgressBar"
-                layout="@layout/progress_bar"
-                app:errorHandler="@{errorHandler}"
-                app:resource="@{resource}"
-                app:useBlockingProgress="@{true}"
-                tools:visibility="visible" />
         </FrameLayout>
     </LinearLayout>
 </layout>

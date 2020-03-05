@@ -303,5 +303,69 @@ object BindingAdapter {
         }
         textView.setText(value)
     }
+
+
+    @JvmStatic
+    @BindingAdapter(value = ["unit", "addressLine1", "addressLine2", "city", "state", "zipcode", "country"], requireAll = true)
+    fun addressCombineValues(textView: TextView,
+                             unit: String?, addressLine1: String?,
+                             addressLine2: String?, city: String?,
+                             state: String?, zipcode: String?, country: String?) {
+        var address: String = ""
+
+        if (unit?.isNotEmpty().orFalse()) {
+            address = unit.orEmpty()
+        }
+
+        if (addressLine1?.isNotEmpty().orFalse()) {
+            if (address.isNotEmpty()) {
+                address = address + ", " + addressLine1.orEmpty()
+            } else {
+                address = addressLine1.orEmpty()
+            }
+        }
+
+        if (addressLine2?.isNotEmpty().orFalse()) {
+            if (address.isNotEmpty()) {
+                address = address + ", " + addressLine2.orEmpty()
+            } else {
+                address = addressLine2.orEmpty()
+            }
+        }
+
+        if (city?.isNotEmpty().orFalse()) {
+            if (address.isNotEmpty()) {
+                address = address + ", " + city.orEmpty()
+            } else {
+                address = city.orEmpty()
+            }
+        }
+
+        if (state?.isNotEmpty().orFalse()) {
+            if (address.isNotEmpty()) {
+                address = address + ", " + state.orEmpty()
+            } else {
+                address = state.orEmpty()
+            }
+        }
+
+        if (zipcode?.isNotEmpty().orFalse()) {
+            if (address.isNotEmpty()) {
+                address = address + ", " + zipcode.orEmpty()
+            } else {
+                address = zipcode.orEmpty()
+            }
+        }
+
+        if (country?.isNotEmpty().orFalse()) {
+            if (address.isNotEmpty()) {
+                address = address + ", " + country.orEmpty()
+            } else {
+                address = country.orEmpty()
+            }
+        }
+
+        textView.setText(address)
+    }
 }
 
