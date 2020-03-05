@@ -135,12 +135,7 @@ class StatementFragment : Fragment() {
 
             mViewModel.isAgreeWithCondition = mBinding.checkContract.isChecked
             mViewModel.signature = mSignImage
-
-            if (AppConstant.GEO_LOCATION_ENABLE) {
-                getLocation()
-            } else {
-                saveCustomerDataApiCall()
-            }
+            getLocation()
         }
 
         mBinding.imageSign.onClick {
@@ -244,7 +239,7 @@ class StatementFragment : Fragment() {
         liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
                 formId = mViewModel.planId,
                 fields = mViewModel.dynamicFormData,
-                other = OtherData(programId = android.text.TextUtils.join(",", mViewModel.selectedUtilityList.map { it.utid }),
+                other = OtherData(programId = android.text.TextUtils.join(",", mViewModel.programList.map { it.id }),
                         zipcode = mViewModel.zipcode)))
         liveData.observe(this, Observer {
             it?.ifSuccess {
@@ -270,7 +265,7 @@ class StatementFragment : Fragment() {
         val liveData =
                 File(mViewModel.recordingFile).toMultipartBody("media", "audio/*")?.let {
                     mViewModel.saveMedia(leadId = mViewModel.savedLeadResp?.id.toRequestBody(),
-                            mediaFile = it,lng = location?.longitude.toString().toRequestBody(),
+                            mediaFile = it, lng = location?.longitude.toString().toRequestBody(),
                             lat = location?.latitude.toString().toRequestBody())
                 }
         liveData?.observe(this, Observer {
@@ -289,7 +284,7 @@ class StatementFragment : Fragment() {
 
         val liveData = context?.bitmapToFile(changeBitmapColor(mSignImage, Color.BLACK)).toMultipartBody("media", "image/png")?.let {
             mViewModel.saveMedia(leadId = mViewModel.savedLeadResp?.id.toRequestBody(),
-                    mediaFile = it,lat = location?.latitude.toString().toRequestBody(),
+                    mediaFile = it, lat = location?.latitude.toString().toRequestBody(),
                     lng = location?.longitude.toString().toRequestBody())
         }
         liveData?.observe(this, Observer {
@@ -355,35 +350,39 @@ class StatementFragment : Fragment() {
     }
 
     private fun checkRadius(latitude: Double?, longitude: Double?) {
-        try {
-            var lat = ""
-            var lng = ""
-            val result = FloatArray(1)
-            val response = mViewModel.dynamicFormData.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
-            when (response?.type) {
-                DynamicField.ADDRESS.type -> {
-                    lat = response.values.get(AppConstant.LAT) as String
-                    lng = response.values.get(AppConstant.LNG) as String
-                }
-                DynamicField.BOTHADDRESS.type -> {
-                    lat = response.values.get(AppConstant.SERVICELAT) as String
-                    lng = response.values.get(AppConstant.SERVICELNG) as String
+        if (AppConstant.GEO_LOCATION_ENABLE) {
+            try {
+                var lat = ""
+                var lng = ""
+                val result = FloatArray(1)
+                val response = mViewModel.dynamicFormData.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
+                when (response?.type) {
+                    DynamicField.ADDRESS.type -> {
+                        lat = response.values.get(AppConstant.LAT) as String
+                        lng = response.values.get(AppConstant.LNG) as String
+                    }
+                    DynamicField.BOTHADDRESS.type -> {
+                        lat = response.values.get(AppConstant.SERVICELAT) as String
+                        lng = response.values.get(AppConstant.SERVICELNG) as String
+                    }
+
                 }
 
+                Location.distanceBetween(lat.toDouble().orZero(),
+                        lng.toDouble().orZero()
+                        , latitude.orZero(), longitude.orZero(), result)
+
+                if (result.isNotEmpty()) {
+                    if (result[0] < AppConstant.GEO_LOCATION_RADIOUS.toDouble() || result[0] == AppConstant.GEO_LOCATION_RADIOUS.toFloat()) {
+                        saveCustomerDataApiCall()
+                    } else {
+                        context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match))
+                    }
+                }
+            } catch (e: IllegalArgumentException) {
             }
-
-            Location.distanceBetween(lat.toDouble().orZero(),
-                    lng.toDouble().orZero()
-                    , latitude.orZero(), longitude.orZero(), result)
-
-            if (result.isNotEmpty()) {
-                if (result[0] < AppConstant.GEO_LOCATION_RADIOUS.toDouble() || result[0] == AppConstant.GEO_LOCATION_RADIOUS.toFloat()) {
-                    saveCustomerDataApiCall()
-                } else {
-                    context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match))
-                }
-            }
-        } catch (e: IllegalArgumentException) {
+        } else {
+            saveCustomerDataApiCall()
         }
     }
 
