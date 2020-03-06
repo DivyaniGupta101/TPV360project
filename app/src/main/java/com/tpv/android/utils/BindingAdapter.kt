@@ -364,8 +364,7 @@ object BindingAdapter {
                 address = country.orEmpty()
             }
         }
-
-        textView.setText(address)
+        textView.text = address
     }
 }
 

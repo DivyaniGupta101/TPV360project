@@ -84,16 +84,19 @@
 
 
                     <TextView
+                        android:id="@+id/textNameValue"
                         style="@style/PrimaryNormalText"
                         android:layout_marginStart="@dimen/_32sdp"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:visibility="gone"
                         app:firstName="@{item.values[key.FIRSTNAME]}"
                         app:lastName="@{item.values[key.LASTNAME]}"
                         app:middleName="@{item.values[key.MIDDLENAME]}"
-                        tools:text="Smithan" />
+                        tools:text="Smithan"
+                        tools:visibility="visible" />
 
                     <TextView
                         android:id="@+id/textServiceAddress"
@@ -108,18 +111,21 @@
 
 
                     <TextView
+                        android:id="@+id/textServiceAddressValue"
                         style="@style/PrimaryNormalText"
                         android:layout_marginStart="@dimen/_32sdp"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
-                        app:unit="@{address.values[key.SERVICEUNIT]}"
+                        android:visibility="gone"
                         app:addressLine1="@{address.values[key.SERVICEADDRESS1]}"
                         app:addressLine2="@{address.values[key.SERVICEADDRESS2]}"
                         app:city="@{address.values[key.SERVICECITY]}"
-                        app:state="@{address.values[key.SERVICESTATE]}"
-                        app:zipcode="@{address.values[key.SERVICEZIPCODE]}"
                         app:country="@{address.values[key.SERVICECOUNTRY]}"
-                        tools:text="Smithan" />
+                        app:state="@{address.values[key.SERVICESTATE]}"
+                        app:unit="@{address.values[key.SERVICEUNIT]}"
+                        app:zipcode="@{address.values[key.SERVICEZIPCODE]}"
+                        tools:text="Smithan"
+                        tools:visibility="visible" />
 
                     <TextView
                         android:id="@+id/textBillingAddress"
@@ -134,18 +140,21 @@
 
 
                     <TextView
+                        android:id="@+id/textBillingAddressValue"
                         style="@style/PrimaryNormalText"
                         android:layout_marginStart="@dimen/_32sdp"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
-                        app:unit="@{address.values[key.BILLINGUNIT]}"
+                        android:visibility="gone"
                         app:addressLine1="@{address.values[key.BILLINGADDRESS1]}"
                         app:addressLine2="@{address.values[key.BILLINGADDRESS2]}"
                         app:city="@{address.values[key.BILLINGCITY]}"
-                        app:state="@{address.values[key.BILLINGSTATE]}"
-                        app:zipcode="@{address.values[key.BILLINGZIPCODE]}"
                         app:country="@{address.values[key.BILLINGCOUNTRY]}"
-                        tools:text="Smithan" />
+                        app:state="@{address.values[key.BILLINGSTATE]}"
+                        app:unit="@{address.values[key.BILLINGUNIT]}"
+                        app:zipcode="@{address.values[key.BILLINGZIPCODE]}"
+                        tools:text="Smithan"
+                        tools:visibility="visible" />
 
                     <TextView
                         android:id="@+id/textAccountNumber"
@@ -160,6 +169,7 @@
 
 
                     <TextView
+                        android:id="@+id/textAccountNumberValue"
                         style="@style/PrimaryNormalText"
                         android:layout_marginStart="@dimen/_32sdp"
                         android:layout_marginTop="@dimen/_8sdp"
@@ -167,13 +177,15 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="@{accountNumber.values[key.VALUE]}"
-                        tools:text="Smithan" />
+                        android:visibility="gone"
+                        tools:text="Smithan"
+                        tools:visibility="visible" />
 
 
                     <TextView
                         style="@style/PrimaryBoldText"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:paddingStart="@dimen/_16sdp"
-                        android:paddingTop="@dimen/_16sdp"
                         android:text="@string/plan_information"
                         android:textAllCaps="true"
                         android:textColor="@color/colorTertiaryText" />

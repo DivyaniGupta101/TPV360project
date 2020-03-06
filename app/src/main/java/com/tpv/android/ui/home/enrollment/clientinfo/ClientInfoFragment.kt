@@ -42,19 +42,31 @@ class ClientInfoFragment : Fragment() {
     private fun initialize() {
 
         if (mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true } != null) {
-            mBinding.textCustomerName.show()
             mBinding.item = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
+            if (mBinding.textNameValue.text.isNotEmpty()) {
+                mBinding.textCustomerName.show()
+                mBinding.textNameValue.show()
+            }
         }
 
         if (mViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true } != null) {
-            mBinding.textServiceAddress.show()
-            mBinding.textBillingAddress.show()
             mBinding.address = mViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true }
+            if (mBinding.textServiceAddressValue.text.isNotEmpty()) {
+                mBinding.textServiceAddress.show()
+                mBinding.textServiceAddressValue.show()
+            }
+            if (mBinding.textBillingAddressValue.text.isNotEmpty()) {
+                mBinding.textBillingAddress.show()
+                mBinding.textBillingAddressValue.show()
+            }
         }
 
         if (mViewModel.dynamicFormData.find { it.type == DynamicField.TEXTBOX.type && it.meta?.isPrimary == true } != null) {
-            mBinding.textAccountNumber.show()
             mBinding.accountNumber = mViewModel.dynamicFormData.find { it.type == DynamicField.TEXTBOX.type && it.meta?.isPrimary == true }
+            if (mBinding.textAccountNumberValue.text.isNotEmpty()) {
+                mBinding.textAccountNumberValue.show()
+                mBinding.textAccountNumber.show()
+            }
         }
         setupToolbar(mBinding.toolbar, getString(R.string.verify_customer_information), showBackIcon = true)
 
