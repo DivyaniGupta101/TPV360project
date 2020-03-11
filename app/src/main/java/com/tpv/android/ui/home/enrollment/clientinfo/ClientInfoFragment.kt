@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -43,29 +44,38 @@ class ClientInfoFragment : Fragment() {
 
         if (mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true } != null) {
             mBinding.item = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
-            if (mBinding.textNameValue.text.isNotEmpty()) {
-                mBinding.textCustomerName.show()
-                mBinding.textNameValue.show()
+            mBinding.textNameValue.addTextChangedListener {
+                if (mBinding.textNameValue.text.isNotEmpty()) {
+                    mBinding.textCustomerName.show()
+                    mBinding.textNameValue.show()
+                }
             }
         }
 
         if (mViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true } != null) {
             mBinding.address = mViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true }
-            if (mBinding.textServiceAddressValue.text.isNotEmpty()) {
-                mBinding.textServiceAddress.show()
-                mBinding.textServiceAddressValue.show()
+            mBinding.textServiceAddressValue.addTextChangedListener {
+                if (mBinding.textServiceAddressValue.text.isNotEmpty()) {
+                    mBinding.textServiceAddress.show()
+                    mBinding.textServiceAddressValue.show()
+                }
             }
-            if (mBinding.textBillingAddressValue.text.isNotEmpty()) {
-                mBinding.textBillingAddress.show()
-                mBinding.textBillingAddressValue.show()
+
+            mBinding.textBillingAddressValue.addTextChangedListener {
+                if (mBinding.textBillingAddressValue.text.isNotEmpty()) {
+                    mBinding.textBillingAddress.show()
+                    mBinding.textBillingAddressValue.show()
+                }
             }
         }
 
         if (mViewModel.dynamicFormData.find { it.type == DynamicField.TEXTBOX.type && it.meta?.isPrimary == true } != null) {
             mBinding.accountNumber = mViewModel.dynamicFormData.find { it.type == DynamicField.TEXTBOX.type && it.meta?.isPrimary == true }
-            if (mBinding.textAccountNumberValue.text.isNotEmpty()) {
-                mBinding.textAccountNumberValue.show()
-                mBinding.textAccountNumber.show()
+            mBinding.textAccountNumberValue.addTextChangedListener {
+                if (mBinding.textAccountNumberValue.text.isNotEmpty()) {
+                    mBinding.textAccountNumberValue.show()
+                    mBinding.textAccountNumber.show()
+                }
             }
         }
         setupToolbar(mBinding.toolbar, getString(R.string.verify_customer_information), showBackIcon = true)
