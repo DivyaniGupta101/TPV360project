@@ -82,6 +82,14 @@ android {
             targetSdkVersion 28
             minSdkVersion 21
         }
+        prod {
+            dimension = 'tpv'
+            applicationId = 'com.tpv.android'
+            versionCode = 16
+            versionName = '0.4.12'
+            targetSdkVersion 28
+            minSdkVersion 21
+        }
     }
 }
 
