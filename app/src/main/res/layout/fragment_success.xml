@@ -66,7 +66,7 @@
                     <TextView
                         style="@style/SecondaryMediumNormalText"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="@string/your_reference_id" />
+                        android:text="@string/your_verification_id" />
 
                     <TextView
                         style="@style/SecondaryMediumNormalText"
