@@ -42,7 +42,7 @@ object ApiClient {
                             "Bearer ${Pref.token}"
                     )
                     newBuilder.addHeader(
-                            "Accept",
+                            "Content-type",
                             "application/json"
                     )
                     request = newBuilder.build()

@@ -138,6 +138,19 @@ object AppRepository {
         }
     }
 
+    //    SaveLead
+    fun CoroutineScope.validateLeadDetailCall(saveLeadsDetailReq: SaveLeadsDetailReq) = dataApi<ValidateLeadsDetailResp?, APIError> {
+        fromNetwork {
+            ApiClient.service.validateLeadDetail(saveLeadsDetailReq).getResult().map { it?.data }
+        }
+    }
+
+    fun CoroutineScope.cancelLeadCall(id: String) = dataApi<Any?, APIError> {
+        fromNetwork {
+            ApiClient.service.cancelLead(id).getResult().map { it?.data }
+        }
+    }
+
     //Save Recording,Signature
     fun CoroutineScope.saveMediaCall(lng: RequestBody, lat: RequestBody, leadId: RequestBody, mediaFile: MultipartBody.Part) = dataApi<Any?, APIError> {
         fromNetwork {

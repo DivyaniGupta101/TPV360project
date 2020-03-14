@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.LeadValidationError" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/PrimaryBoldText"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="left"
+            android:text="@{item.title}"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            style="@style/SecondaryNormalTextWithTopSpacing"
+            android:gravity="left"
+            android:text="@{item.msg}"
+            android:textSize="@dimen/_10sdp" />
+
+    </LinearLayout>
+</layout>

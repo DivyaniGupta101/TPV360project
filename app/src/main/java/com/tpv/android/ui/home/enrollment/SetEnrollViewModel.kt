@@ -70,6 +70,16 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         saveLeadDetailCall(leadsDetailReq)
     }
 
+    fun validateLeadDetail(leadsDetailReq: SaveLeadsDetailReq) = with(AppRepository)
+    {
+        validateLeadDetailCall(leadsDetailReq)
+    }
+
+    fun cancelLeadDetail(id: String) = with(AppRepository)
+    {
+        cancelLeadCall(id)
+    }
+
 
     fun saveMedia(lng: RequestBody, lat: RequestBody, leadId: RequestBody, mediaFile: MultipartBody.Part) = with(AppRepository) {
         saveMediaCall(lat = lat, lng = lng, leadId = leadId, mediaFile = mediaFile)

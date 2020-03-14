@@ -204,6 +204,9 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
+        bindingList.clear()
+        hideViews()
     }
 
     /**

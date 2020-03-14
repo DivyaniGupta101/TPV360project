@@ -4,24 +4,33 @@ package com.tpv.android.ui.home.enrollment.dynamicform
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.gson.reflect.TypeToken
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
+import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.R
 import com.tpv.android.databinding.*
 import com.tpv.android.helper.OnBackPressCallBack
-import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.model.internal.DialogLeadValidationData
+import com.tpv.android.model.internal.DialogText
+import com.tpv.android.model.network.*
 import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.home.enrollment.dynamicform.address.fillAddressFields
@@ -48,10 +57,8 @@ import com.tpv.android.ui.home.enrollment.dynamicform.serviceandbillingaddress.s
 import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.isValid
 import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.setField
 import com.tpv.android.ui.home.enrollment.dynamicform.spinner.setField
-import com.tpv.android.utils.copy
+import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
-import com.tpv.android.utils.navigateSafe
-import com.tpv.android.utils.setupToolbar
 
 
 class DynamicFormFragment : Fragment(), OnBackPressCallBack {
@@ -123,10 +130,66 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                     for (key in 1..mViewModel.formPageMap?.size.orZero()) {
                         mViewModel.dynamicFormData.addAll(mViewModel.formPageMap?.get(key).orEmpty())
                     }
-                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
+                    validateCustomerDataApiCall()
                 }
             }
         }
+    }
+
+    private fun navigateToInfo() {
+        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
+    }
+
+    /**
+     * Call API for save customer data
+     * But before thet check if planId is DUEL FUEL then parameters will be change than GAS or ELECTRIC
+     * On success of saveCustomerDataApiCall api, call saveContract API
+     * Also check if recording is not empty then call save recording API else call save Signature API
+     */
+    private fun validateCustomerDataApiCall() {
+
+        var liveData: LiveData<Resource<ValidateLeadsDetailResp?, APIError>>? = null
+        liveData = mViewModel.validateLeadDetail(SaveLeadsDetailReq(
+                formId = mViewModel.planId,
+                fields = mViewModel.dynamicFormData,
+                other = OtherData(programId = TextUtils.join(",", mViewModel.programList.map { it.id }),
+                        zipcode = mViewModel.zipcode)))
+        liveData.observe(this, Observer {
+            it?.ifSuccess {
+                if (it?.errors.isNullOrEmpty()) {
+                    navigateToInfo()
+                } else {
+
+                    val title = if (it?.errors?.size == 1) {
+                        "This enrollment triggered the following alert:"
+                    } else {
+                        "This enrollment triggered the following alerts:"
+                    }
+
+                    context?.leadValidationDialog(DialogLeadValidationData(title,
+                            it?.errors.orEmpty(),
+                            getString(R.string.proceed),
+                            getString(R.string.cancel)),
+                            setOnDismissListener = {
+                                mViewModel.cancelLeadDetail(it?.leadTempId
+                                        ?: "0").observe(this, Observer {
+                                    it?.ifSuccess {
+                                        mViewModel.clearSavedData()
+                                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_dashBoardFragment)
+                                    }
+                                })
+                            },
+                            setOnPositiveBtnClickLisener = {
+                                navigateToInfo()
+                            }, setOnNegativeBtnClickLisener = {
+
+                    })
+                }
+
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     /**
