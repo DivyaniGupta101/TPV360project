@@ -53,7 +53,7 @@ interface ApiInterface {
 
     //Save Lead
     @POST("check-lead-validation")
-    fun validateLeadDetail(@Body saveLeadsDetailReq: SaveLeadsDetailReq): Call<CommonResponse<ValidateLeadsDetailResp>>
+    fun validateLeadDetail(@Body saveLeadsDetailReq: SaveLeadsDetailReq): Call<CommonResponse<VelidateLeadsDetailResp>>
 
     //    cancel-lead/21
     @GET("cancel-lead/{id}")

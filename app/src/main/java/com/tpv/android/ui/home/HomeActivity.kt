@@ -113,7 +113,7 @@ class HomeActivity : AppCompatActivity() {
                     getString(R.string.yes),
                     getString(R.string.cancel)), setOnDismissListener = {
                 mBinding.navMenu.currentSelected = mLastSelectedItem
-            }, setOnPositiveBtnClickLisener = {
+            }, setOnPositiveBanClickListener = {
                 context.logOutApiCall()
             })
         }

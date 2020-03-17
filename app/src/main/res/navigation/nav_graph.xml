@@ -196,6 +196,9 @@
         <action
             android:id="@+id/action_dynamicFormFragment_to_dashBoardFragment"
             app:destination="@id/dashBoardFragment" />
+        <action
+            android:id="@+id/action_dynamicFormFragment_to_leadVelidationFragment"
+            app:destination="@id/leadVelidationFragment" />
     </fragment>
 
     <!--    Profile Screen-->
@@ -234,5 +237,16 @@
         app:popExitAnim="@anim/fragment_fade_exit"
         app:popUpTo="@id/dashBoardFragment"
         app:popUpToInclusive="false" />
+    <fragment
+        android:id="@+id/leadVelidationFragment"
+        android:name="com.tpv.android.ui.home.enrollment.leadvelidation.LeadVelidationFragment"
+        android:label="LeadVelidationFragment" >
+        <action
+            android:id="@+id/action_leadVelidationFragment_to_clientInfoFragment"
+            app:destination="@id/clientInfoFragment" />
+        <action
+            android:id="@+id/action_leadVelidationFragment_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment" />
+    </fragment>
 
 </navigation>

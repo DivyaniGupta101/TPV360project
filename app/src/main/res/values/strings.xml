@@ -84,7 +84,7 @@
     <string name="msg_confirmation_again_record">Your current recording will be deleted.</string>
     <string name="no_data_found">No Leads Available</string>
     <string name="error">Error</string>
-    <string name="msg_zipcode_not_match">Your current location does not match the customer\'s service address.</string>
+    <string name="msg_zipcode_not_match">Your current location does not match with your service location.</string>
     <string name="msg_gps_location">Your GPS Location seams to be off. Please turn on GPS and try again.</string>
     <string name="msg_location">Enable to retrieve your location at this moment. Please try again later</string>
 
@@ -159,6 +159,7 @@
     <string name="signature">Signature</string>
     <string name="thank_you">Thank You!</string>
     <string name="your_verification_id">Your verification ID</string>
+    <string name="verification_number">Verification Number</string>
     <string name="verification_method">Choose method of self verification :</string>
     <string name="phone">Phone</string>
     <string name="back_to_dashboard">Back to Dashboard</string>

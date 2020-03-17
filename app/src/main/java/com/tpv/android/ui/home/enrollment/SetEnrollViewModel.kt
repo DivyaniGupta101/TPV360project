@@ -1,6 +1,7 @@
 package com.tpv.android.ui.home.enrollment
 
 import android.graphics.Bitmap
+import android.location.Location
 import com.tpv.android.data.AppRepository
 import com.tpv.android.model.network.*
 import com.tpv.android.network.resources.CoroutineScopedViewModel
@@ -21,6 +22,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var formPageMap: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
     var duplicatePageMap: LinkedHashMap<Int, List<DynamicFormResp>>? = LinkedHashMap()
     var dynamicFormData = ArrayList<DynamicFormResp>()
+    var leadvelidationError: VelidateLeadsDetailResp? = null
+    var location: Location? = null
     var utilityList: ArrayList<Commodity> = ArrayList()
     var zipcode: String = ""
 

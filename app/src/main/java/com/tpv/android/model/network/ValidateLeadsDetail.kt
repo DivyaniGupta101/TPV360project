@@ -2,15 +2,15 @@ package com.tpv.android.model.network
 
 import com.google.gson.annotations.SerializedName
 
-data class ValidateLeadsDetailResp(
+data class VelidateLeadsDetailResp(
         @SerializedName("lead_temp_id")
         var leadTempId: String?,
         @SerializedName("errors")
-        val errors: List<LeadValidationError>
+        val errors: List<LeadVelidationError>
 )
 
 
-data class LeadValidationError(
+data class LeadVelidationError(
         @SerializedName("title")
         val title: String? = "",
         @SerializedName("msg")

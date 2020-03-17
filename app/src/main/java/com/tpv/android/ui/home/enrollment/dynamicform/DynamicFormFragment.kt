@@ -1,8 +1,13 @@
 package com.tpv.android.ui.home.enrollment.dynamicform
 
 
+import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -14,24 +19,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.gson.reflect.TypeToken
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
-import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
 import com.tpv.android.databinding.*
 import com.tpv.android.helper.OnBackPressCallBack
-import com.tpv.android.model.internal.DialogLeadValidationData
-import com.tpv.android.model.internal.DialogText
-import com.tpv.android.model.network.*
+import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.model.network.OtherData
+import com.tpv.android.model.network.SaveLeadsDetailReq
+import com.tpv.android.model.network.VelidateLeadsDetailResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
+import com.tpv.android.ui.home.TransparentActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.home.enrollment.dynamicform.address.fillAddressFields
 import com.tpv.android.ui.home.enrollment.dynamicform.address.isValid
@@ -59,9 +69,14 @@ import com.tpv.android.ui.home.enrollment.dynamicform.singlelineedittext.setFiel
 import com.tpv.android.ui.home.enrollment.dynamicform.spinner.setField
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
+import kotlinx.coroutines.*
 
 
 class DynamicFormFragment : Fragment(), OnBackPressCallBack {
+
+    companion object {
+        var REQUEST_GPS_SETTINGS = 1234
+    }
 
     private lateinit var mBinding: FragmentDynamicFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
@@ -69,6 +84,11 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
     private var totalPage: Int = 1
     private var hasNext: Boolean = false
     private var currentPage = 1
+
+    private val job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
+
+    private var locationManager: LocationManager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -92,7 +112,12 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
     fun initialize() {
 
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+        locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root, false) {
+            mViewModel.clearSavedData()
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_dashBoardFragment)
+        }
 
         currentPage = arguments?.let { DynamicFormFragmentArgs.fromBundle(it) }?.item.orZero()
         totalPage = mViewModel.duplicatePageMap?.size.orZero()
@@ -136,8 +161,14 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         }
     }
 
-    private fun navigateToInfo() {
-        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
+
+    private fun navigateNext() {
+        if (mViewModel.leadvelidationError?.errors.isNullOrEmpty()) {
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
+        } else {
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_leadVelidationFragment)
+        }
+
     }
 
     /**
@@ -148,7 +179,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
      */
     private fun validateCustomerDataApiCall() {
 
-        var liveData: LiveData<Resource<ValidateLeadsDetailResp?, APIError>>? = null
+        var liveData: LiveData<Resource<VelidateLeadsDetailResp?, APIError>>? = null
         liveData = mViewModel.validateLeadDetail(SaveLeadsDetailReq(
                 formId = mViewModel.planId,
                 fields = mViewModel.dynamicFormData,
@@ -156,42 +187,14 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                         zipcode = mViewModel.zipcode)))
         liveData.observe(this, Observer {
             it?.ifSuccess {
-                if (it?.errors.isNullOrEmpty()) {
-                    navigateToInfo()
-                } else {
-
-                    val title = if (it?.errors?.size == 1) {
-                        "This enrollment triggered the following alert:"
-                    } else {
-                        "This enrollment triggered the following alerts:"
-                    }
-
-                    context?.leadValidationDialog(DialogLeadValidationData(title,
-                            it?.errors.orEmpty(),
-                            getString(R.string.proceed),
-                            getString(R.string.cancel)),
-                            setOnDismissListener = {
-                                mViewModel.cancelLeadDetail(it?.leadTempId
-                                        ?: "0").observe(this, Observer {
-                                    it?.ifSuccess {
-                                        mViewModel.clearSavedData()
-                                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_dashBoardFragment)
-                                    }
-                                })
-                            },
-                            setOnPositiveBtnClickLisener = {
-                                navigateToInfo()
-                            }, setOnNegativeBtnClickLisener = {
-
-                    })
-                }
-
+                mViewModel.leadvelidationError = it
+                getLocation()
             }
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
-
+//testram@mailinator.com
     /**
      * Replace updated values with old values
      */
@@ -468,8 +471,139 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         bindingList.add(binding)
     }
 
+    /**
+     * Get user current location
+     * Check location permission
+     * Also check gps is enabled
+     * Then checkRadius else show error message
+     */
+    private fun getLocation() = runWithPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION) {
+        uiScope.launch {
+            mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
+
+            if (mViewModel.location == null) {
+                startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
+                //   createLocationRequest()
+            } else {
+                if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
+                    checkRadius(mViewModel.location?.latitude, mViewModel.location?.longitude)
+                } else {
+                    context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
+                }
+            }
+        }
+    }
+
+    private fun checkRadius(latitude: Double?, longitude: Double?) {
+        if (AppConstant.GEO_LOCATION_ENABLE) {
+            try {
+                var lat = ""
+                var lng = ""
+                val result = FloatArray(1)
+                val response = mViewModel.dynamicFormData.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
+                when (response?.type) {
+                    DynamicField.ADDRESS.type -> {
+                        lat = response.values.get(AppConstant.LAT) as String
+                        lng = response.values.get(AppConstant.LNG) as String
+                    }
+                    DynamicField.BOTHADDRESS.type -> {
+                        lat = response.values.get(AppConstant.SERVICELAT) as String
+                        lng = response.values.get(AppConstant.SERVICELNG) as String
+                    }
+
+                }
+
+                Location.distanceBetween(lat.toDouble().orZero(),
+                        lng.toDouble().orZero(),
+                        latitude.orZero(), longitude.orZero(), result)
+
+                if (result.isNotEmpty()) {
+                    if (result[0] <= AppConstant.GEO_LOCATION_RADIOUS.toFloat()) {
+                        navigateNext()
+                    } else {
+                        context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match), setOnBanClickListener = {
+                            mViewModel.cancelLeadDetail(mViewModel.leadvelidationError?.leadTempId
+                                    ?: "0").observe(this@DynamicFormFragment, Observer {
+                                it?.ifSuccess {
+                                    mViewModel.clearSavedData()
+                                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_dashBoardFragment)
+                                }
+                            })
+                        })
+                    }
+                }
+            } catch (e: IllegalArgumentException) {
+            }
+        } else {
+            navigateNext()
+        }
+    }
+
+    /**
+     * create location request and check gps dialog is enabled or not
+     */
+    private fun createLocationRequest() {
+        val locationRequest = LocationRequest.create()?.apply {
+            interval = 10000
+            fastestInterval = 5000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        val builder = locationRequest?.let {
+            LocationSettingsRequest.Builder()
+                    .addLocationRequest(it)
+        }
+        val client: SettingsClient? = context?.let { LocationServices.getSettingsClient(it) }
+        val task: Task<LocationSettingsResponse>? = client?.checkLocationSettings(builder?.build())
+
+        task?.addOnSuccessListener { locationSettingsResponse ->
+            // All location settings are satisfied. The client can initialize
+            // location requests here.
+            // ...
+            uiScope.launch {
+                var count = 0
+                for (i in 1..3) {
+                    mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
+                    count += 1
+                    if (mViewModel.location != null) {
+                        checkRadius(mViewModel.location?.latitude, mViewModel.location?.longitude)
+                        break
+                    } else {
+                        if (count < 3) {
+                            delay(500)
+                        } else {
+                            context?.infoDialog(subTitleText = getString(R.string.msg_location))
+                        }
+                    }
+                }
+            }
+        }
+
+        task?.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException) {
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    exception.startResolutionForResult(activity,
+                            TransparentActivity.REQUEST_CHECK_SETTINGS)
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
+        }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (requestCode == REQUEST_GPS_SETTINGS) {
+            if (resultCode == Activity.RESULT_OK) {
+                createLocationRequest()
+            }
+        }
+
         if (resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 when (requestCode) {

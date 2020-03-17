@@ -43,6 +43,7 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.TransparentActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.home.enrollment.dynamicform.DynamicFormFragment.Companion.REQUEST_GPS_SETTINGS
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.glide.GlideApp
@@ -51,18 +52,10 @@ import java.io.File
 
 
 class StatementFragment : Fragment() {
-    companion object {
-        var REQUEST_GPS_SETTINGS = 1234
-    }
 
     private lateinit var mBinding: FragmentStatementBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var mSignImage: Bitmap? = null
-    private var location: Location? = null
-    private var locationManager: LocationManager? = null
-
-    private val job = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -76,19 +69,6 @@ class StatementFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
-    }
-
-    /**
-     * Get result from MAIN ACTIVITY onActivityResult method
-     */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_GPS_SETTINGS) {
-            if (resultCode == Activity.RESULT_OK) {
-                createLocationRequest()
-            }
-        }
-
     }
 
     private fun initialize() {
@@ -108,8 +88,6 @@ class StatementFragment : Fragment() {
 
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
-
-        locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         //Get value for phonenumber
         if (mViewModel.dynamicFormData.filter { it.type == DynamicField.PHONENUMBER.type }.isNotEmpty()) {
@@ -135,7 +113,7 @@ class StatementFragment : Fragment() {
 
             mViewModel.isAgreeWithCondition = mBinding.checkContract.isChecked
             mViewModel.signature = mSignImage
-            getLocation()
+            saveCustomerDataApiCall()
         }
 
         mBinding.imageSign.onClick {
@@ -144,86 +122,6 @@ class StatementFragment : Fragment() {
 
         mBinding.textTapToOpen.onClick {
             signatureDialog()
-        }
-    }
-
-    /**
-     * Get user current location
-     * Check location permission
-     * Also check gps is enabled
-     * Then checkRadius else show error message
-     */
-    private fun getLocation() = runWithPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION) {
-        uiScope.launch {
-            location = context?.let { LocationHelper.getLastKnownLocation(it) }
-
-            if (location == null) {
-                startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
-                //   createLocationRequest()
-            } else {
-                if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
-                    checkRadius(location?.latitude, location?.longitude)
-                } else {
-                    context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
-                }
-            }
-        }
-
-    }
-
-    /**
-     * create location request and check gps dialog is enabled or not
-     */
-    private fun createLocationRequest() {
-        val locationRequest = LocationRequest.create()?.apply {
-            interval = 10000
-            fastestInterval = 5000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
-
-        val builder = locationRequest?.let {
-            LocationSettingsRequest.Builder()
-                    .addLocationRequest(it)
-        }
-        val client: SettingsClient? = context?.let { LocationServices.getSettingsClient(it) }
-        val task: Task<LocationSettingsResponse>? = client?.checkLocationSettings(builder?.build())
-
-        task?.addOnSuccessListener { locationSettingsResponse ->
-            // All location settings are satisfied. The client can initialize
-            // location requests here.
-            // ...
-            uiScope.launch {
-                var count = 0
-                for (i in 1..3) {
-                    location = context?.let { LocationHelper.getLastKnownLocation(it) }
-                    count += 1
-                    if (location != null) {
-                        checkRadius(location?.latitude, location?.longitude)
-                        break
-                    } else {
-                        if (count < 3) {
-                            delay(500)
-                        } else {
-                            context?.infoDialog(subTitleText = getString(R.string.msg_location))
-                        }
-                    }
-                }
-            }
-        }
-
-        task?.addOnFailureListener { exception ->
-            if (exception is ResolvableApiException) {
-                // Location settings are not satisfied, but this can be fixed
-                // by showing the user a dialog.
-                try {
-                    // Show the dialog by calling startResolutionForResult(),
-                    // and check the result in onActivityResult().
-                    exception.startResolutionForResult(activity,
-                            TransparentActivity.REQUEST_CHECK_SETTINGS)
-                } catch (sendEx: IntentSender.SendIntentException) {
-                    // Ignore the error.
-                }
-            }
         }
     }
 
@@ -265,8 +163,8 @@ class StatementFragment : Fragment() {
         val liveData =
                 File(mViewModel.recordingFile).toMultipartBody("media", "audio/*")?.let {
                     mViewModel.saveMedia(leadId = mViewModel.savedLeadResp?.id.toRequestBody(),
-                            mediaFile = it, lng = location?.longitude.toString().toRequestBody(),
-                            lat = location?.latitude.toString().toRequestBody())
+                            mediaFile = it, lng = mViewModel.location?.longitude.toString().toRequestBody(),
+                            lat = mViewModel.location?.latitude.toString().toRequestBody())
                 }
         liveData?.observe(this, Observer {
             it?.ifSuccess {
@@ -284,8 +182,8 @@ class StatementFragment : Fragment() {
 
         val liveData = context?.bitmapToFile(changeBitmapColor(mSignImage, Color.BLACK)).toMultipartBody("media", "image/png")?.let {
             mViewModel.saveMedia(leadId = mViewModel.savedLeadResp?.id.toRequestBody(),
-                    mediaFile = it, lat = location?.latitude.toString().toRequestBody(),
-                    lng = location?.longitude.toString().toRequestBody())
+                    mediaFile = it, lat = mViewModel.location?.latitude.toString().toRequestBody(),
+                    lng = mViewModel.location?.longitude.toString().toRequestBody())
         }
         liveData?.observe(this, Observer {
             it.ifSuccess {
@@ -346,43 +244,6 @@ class StatementFragment : Fragment() {
                     .into(mBinding.imageSign)
             dialog?.dismiss()
             setButtonEnable()
-        }
-    }
-
-    private fun checkRadius(latitude: Double?, longitude: Double?) {
-        if (AppConstant.GEO_LOCATION_ENABLE) {
-            try {
-                var lat = ""
-                var lng = ""
-                val result = FloatArray(1)
-                val response = mViewModel.dynamicFormData.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
-                when (response?.type) {
-                    DynamicField.ADDRESS.type -> {
-                        lat = response.values.get(AppConstant.LAT) as String
-                        lng = response.values.get(AppConstant.LNG) as String
-                    }
-                    DynamicField.BOTHADDRESS.type -> {
-                        lat = response.values.get(AppConstant.SERVICELAT) as String
-                        lng = response.values.get(AppConstant.SERVICELNG) as String
-                    }
-
-                }
-
-                Location.distanceBetween(lat.toDouble().orZero(),
-                        lng.toDouble().orZero()
-                        , latitude.orZero(), longitude.orZero(), result)
-
-                if (result.isNotEmpty()) {
-                    if (result[0] < AppConstant.GEO_LOCATION_RADIOUS.toDouble() || result[0] == AppConstant.GEO_LOCATION_RADIOUS.toFloat()) {
-                        saveCustomerDataApiCall()
-                    } else {
-                        context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match))
-                    }
-                }
-            } catch (e: IllegalArgumentException) {
-            }
-        } else {
-            saveCustomerDataApiCall()
         }
     }
 

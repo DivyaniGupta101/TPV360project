@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task
 import com.tpv.android.BuildConfig
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivityTransparentBinding
+import com.tpv.android.ui.home.enrollment.dynamicform.DynamicFormFragment.Companion.REQUEST_GPS_SETTINGS
 import com.tpv.android.ui.home.enrollment.statement.StatementFragment
 
 class TransparentActivity : AppCompatActivity() {
@@ -79,7 +80,7 @@ class TransparentActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == StatementFragment.REQUEST_GPS_SETTINGS) {
+            if (requestCode == REQUEST_GPS_SETTINGS) {
                 setResult(resultCode)
                 finish()
             } else {

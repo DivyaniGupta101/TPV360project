@@ -90,7 +90,7 @@ class RecordingFragment : Fragment() {
                         getString(R.string.msg_skip),
                         getString(R.string.skip_btn),
                         getString(R.string.cancel)),
-                        setOnPositiveBtnClickLisener = {
+                        setOnPositiveBanClickListener = {
                             recordedFile = ""
                             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
                         }
@@ -190,7 +190,7 @@ class RecordingFragment : Fragment() {
                     getString(R.string.msg_confirmation_again_record),
                     getString(R.string.yes),
                     getString(R.string.cancel)),
-                    setOnPositiveBtnClickLisener = {
+                    setOnPositiveBanClickListener = {
                         if (mediaPlayer.isPlaying) {
                             mBinding.chronometer.stop()
                             mBinding.seekbarAudio.progress = 0

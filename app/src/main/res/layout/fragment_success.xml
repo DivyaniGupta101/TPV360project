@@ -75,6 +75,17 @@
                         tools:text="it-it-iso-1356" />
 
                     <TextView
+                        style="@style/SecondaryMediumNormalText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/verification_number" />
+
+                    <TextView
+                        style="@style/SecondaryMediumNormalText"
+                        android:text="@{item.phoneNumber}"
+                        android:textColor="@color/colorPrimaryText"
+                        tools:text="it-it-iso-1356" />
+
+                    <TextView
                         style="@style/PrimaryNormalText"
                         android:layout_marginTop="@dimen/_32sdp"
                         android:text="@string/verification_method" />

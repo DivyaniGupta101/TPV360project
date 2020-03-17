@@ -68,7 +68,7 @@ class ForgotPasswordFragment : Fragment() {
             it.ifSuccess {
                 context?.infoDialog(subTitleText = it?.message.orEmpty(),
                         title = getString(R.string.success),
-                        setOnBtnClickLisener = {
+                        setOnBanClickListener = {
                             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_forgotPasswordFragment_to_loginFragment)
                         })
             }

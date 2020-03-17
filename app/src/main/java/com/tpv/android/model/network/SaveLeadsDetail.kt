@@ -6,8 +6,9 @@ data class SaveLeadsDetailResp(
         @SerializedName("id")
         var id: String?,
         @SerializedName("reference_id")
-        var referenceId: String?
-
+        var referenceId: String?,
+        @SerializedName("phone_number")
+        var phoneNumber: String?
 )
 
 data class SaveLeadsDetailReq(
