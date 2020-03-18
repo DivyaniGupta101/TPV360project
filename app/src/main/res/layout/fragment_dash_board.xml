@@ -52,38 +52,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/_62sdp"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_24sdp">
+                    android:orientation="vertical">
 
-
-                    <LinearLayout
+                    <include
+                        android:id="@+id/includeItemDashboardPending"
+                        layout="@layout/item_dashboard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <include
-                            android:id="@+id/includeItemDashboardPending"
-                            layout="@layout/item_dashboard"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:item="@{item[0]}" />
-
-                        <View
-                            style="@style/Divider"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/_32sdp" />
-
-                        <include
-                            android:id="@+id/includeItemDashboardVerified"
-                            layout="@layout/item_dashboard"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:item="@{item[1]}" />
-
-                    </LinearLayout>
+                        android:layout_weight="1"
+                        app:item="@{item[0]}" />
 
                     <View
                         style="@style/Divider"
@@ -91,33 +70,57 @@
                         android:layout_marginStart="@dimen/_32sdp"
                         android:layout_marginEnd="@dimen/_32sdp" />
 
-                    <LinearLayout
+                    <include
+                        android:id="@+id/includeItemDashboardVerified"
+                        layout="@layout/item_dashboard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        app:item="@{item[1]}" />
 
-                        <include
-                            android:id="@+id/includeItemDashboardDeclined"
-                            layout="@layout/item_dashboard"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:item="@{item[2]}" />
 
-                        <View
-                            style="@style/Divider"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/_32sdp" />
+                    <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        android:layout_marginStart="@dimen/_32sdp"
+                        android:layout_marginEnd="@dimen/_32sdp" />
 
-                        <include
-                            android:id="@+id/includeItemDashboardDisconnected"
-                            layout="@layout/item_dashboard"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:item="@{item[3]}" />
+                    <include
+                        android:id="@+id/includeItemDashboardDeclined"
+                        layout="@layout/item_dashboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:item="@{item[2]}" />
 
-                    </LinearLayout>
+                    <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        android:layout_marginStart="@dimen/_32sdp"
+                        android:layout_marginEnd="@dimen/_32sdp" />
+
+                    <include
+                        android:id="@+id/includeItemDashboardDisconnected"
+                        layout="@layout/item_dashboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:item="@{item[3]}" />
+
+                    <View
+                        style="@style/Divider"
+                        android:layout_width="match_parent"
+                        android:layout_marginStart="@dimen/_32sdp"
+                        android:layout_marginEnd="@dimen/_32sdp" />
+
+                    <include
+                        android:id="@+id/includeItemDashboardCancelled"
+                        layout="@layout/item_dashboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:item="@{item[4]}" />
+
                 </LinearLayout>
 
                 <ImageView

@@ -23,7 +23,7 @@
     <!--    Lead Listing Screen-->
     <fragment
         android:id="@+id/leadListingFragment"
-        android:name="com.tpv.android.ui.leadlisting.LeadListingFragment"
+        android:name="com.tpv.android.ui.home.leadlisting.LeadListingFragment"
         android:label="LeadListingFragment"
         tools:layout="@layout/fragment_lead_listing">
         <argument

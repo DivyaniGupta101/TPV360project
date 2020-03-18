@@ -98,6 +98,11 @@ object BindingAdapter {
                 textView.text = context?.getString(R.string.disconnected)
                 textView.setTextColor(context.color(R.color.colorDisconnectedText))
             }
+
+            LeadStatus.CANCELLED.value -> {
+                textView.text = context?.getString(R.string.cancelled)
+                textView.setTextColor(context.color(R.color.colorCancelledText))
+            }
         }
     }
 

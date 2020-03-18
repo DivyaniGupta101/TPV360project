@@ -11,7 +11,8 @@ enum class LeadStatus(val value: String) {
     PENDING("pending"),
     VERIFIED("verified"),
     DECLINED("decline"),
-    DISCONNECTED("hangup")
+    DISCONNECTED("hangup"),
+    CANCELLED("cancel")
 }
 
 enum class MenuItem(val value: String) {

@@ -94,18 +94,17 @@
     <!--    DashBoard-->
     <style name="DashboardMenuItemImage">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
     <style name="DashboardItem">
         <item name="android:background">?selectableItemBackground</item>
-        <item name="android:gravity">center</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:padding">@dimen/_24sdp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">@dimen/_18sdp</item>
     </style>
 
     <style name="DashboardLeadText" parent="SecondaryNormalSmallText">
-        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
 

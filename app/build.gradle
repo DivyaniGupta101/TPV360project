@@ -21,8 +21,6 @@ android {
         versionCode 23
         versionName "0.5.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField "Boolean", "IS_RECCORDING_ALLOWD", "true"
     }
 
     signingConfigs {
@@ -56,9 +54,18 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
-    flavorDimensions 'tpv'
+    flavorDimensions 'tpv', 'screenshot'
     productFlavors {
-        newdemo {
+
+        Allow {
+            dimension = 'screenshot'
+        }
+
+        NotAllow {
+            dimension = 'screenshot'
+        }
+
+        NewDemo {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
             versionCode = 16
@@ -66,7 +73,7 @@ android {
             targetSdkVersion 28
             minSdkVersion 21
         }
-        newdev {
+        NewDev {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
             versionCode = 16
@@ -74,7 +81,7 @@ android {
             targetSdkVersion 28
             minSdkVersion 21
         }
-        tpvtest {
+        TpvTest {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
             versionCode = 16
@@ -82,13 +89,33 @@ android {
             targetSdkVersion 28
             minSdkVersion 21
         }
-        prod {
+        Prod {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
             versionCode = 16
             versionName = '0.4.12'
             targetSdkVersion 28
             minSdkVersion 21
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def type = variant.buildType.name
+            def flavor = variant.productFlavors[0].name
+            def screenshot = variant.productFlavors[1].name
+            def date = new Date()
+            def today = date.format('yyyy-MM-dd')
+
+            def outputDirPath = new File("${project.rootDir.absolutePath}/apks/${type}/TPVPlus-${today}/Screenshot${screenshot}")
+            variant.packageApplicationProvider.get().outputDirectory = outputDirPath
+
+            output.outputFileName = "TPVPlus-${today}-${flavor}.apk"
+        }
+        variant.assemble.doLast {
+            variant.outputs.each { output ->
+                delete "${output.outputFile.parent}/output.json"
+            }
         }
     }
 }

@@ -31,6 +31,7 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
+import com.tpv.android.utils.Screenshot
 import com.tpv.android.utils.actionDialog
 import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.navigateSafe
@@ -129,7 +130,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (!BuildConfig.IS_RECCORDING_ALLOWD)
+        if (!Screenshot.allow)
             this?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
     }
 

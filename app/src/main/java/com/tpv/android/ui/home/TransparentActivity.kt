@@ -15,6 +15,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.ActivityTransparentBinding
 import com.tpv.android.ui.home.enrollment.dynamicform.DynamicFormFragment.Companion.REQUEST_GPS_SETTINGS
 import com.tpv.android.ui.home.enrollment.statement.StatementFragment
+import com.tpv.android.utils.Screenshot
 
 class TransparentActivity : AppCompatActivity() {
 
@@ -73,7 +74,7 @@ class TransparentActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (!BuildConfig.IS_RECCORDING_ALLOWD)
+        if (!Screenshot.allow)
             this?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
     }
 

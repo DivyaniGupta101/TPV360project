@@ -1,4 +1,4 @@
-package com.tpv.android.ui.leadlisting
+package com.tpv.android.ui.home.leadlisting
 
 
 import android.os.Bundle
@@ -25,7 +25,6 @@ import com.tpv.android.model.network.LeadResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
-import com.tpv.android.ui.home.leadlisting.LeadListingViewModel
 import com.tpv.android.utils.enums.LeadStatus
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -92,6 +91,10 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
                 setTitleAndRecyclerView(LeadStatus.DISCONNECTED.value)
                 dialog.dismiss()
             }
+            binding.radioCancelled.onClick {
+                setTitleAndRecyclerView(LeadStatus.CANCELLED.value)
+                dialog.dismiss()
+            }
             // Check if any radioButton text match with mBinding.textStatus.text
             // Then add in listOfRadioButton and then set that item as selected
             val listOfRadioButton = ArrayList<RadioButton>()
@@ -129,6 +132,10 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
                 toolBarTitle = getString(R.string.disconnected_calls)
                 mBinding.textStatus.text = getString(R.string.disconnected)
             }
+            LeadStatus.CANCELLED.value -> {
+                toolBarTitle = getString(R.string.cancelled_leads)
+                mBinding.textStatus.text = getString(R.string.cancelled)
+            }
         }
         setupToolbar(mBinding.toolbar, toolBarTitle, showMenuIcon = false, showBackIcon = true, backIconClickListener = {
             mViewModel.mLastSelectedStatus = ""
@@ -158,6 +165,4 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
             mViewModel.getLeadList(leadStatus, page)
         }
     }
-
-
 }

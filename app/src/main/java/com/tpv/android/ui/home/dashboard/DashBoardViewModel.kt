@@ -22,7 +22,8 @@ class DashBoardViewModel : CoroutineScopedViewModel() {
                     DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_pending), context.getString(R.string.pending_leads), "-", LeadStatus.PENDING.value),
                     DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_verified), context.getString(R.string.verified_leads), "-", LeadStatus.VERIFIED.value),
                     DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_declined), context.getString(R.string.declined_leads), "-", LeadStatus.DECLINED.value),
-                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_disconnected), context.getString(R.string.disconnected_calls), "-", LeadStatus.DISCONNECTED.value)
+                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_disconnected), context.getString(R.string.disconnected_calls), "-", LeadStatus.DISCONNECTED.value),
+                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_cancelled), context.getString(R.string.cancelled_leads), "-", LeadStatus.CANCELLED.value)
             )
         }
         getDashBoardCall().observeForever {
@@ -32,7 +33,6 @@ class DashBoardViewModel : CoroutineScopedViewModel() {
                 it?.forEach { dashboard ->
                     dashBoardStatusCount.find { it.statusType == dashboard.status }?.apply {
                         statusCount = dashboard.value.toString()
-
                     }
                 }
                 dashBoardCountMutableLiveData.value = dashBoardStatusCount

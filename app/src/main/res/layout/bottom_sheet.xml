@@ -48,6 +48,11 @@
                 android:id="@+id/radioDisconnected"
                 style="@style/PrimaryNormalText"
                 android:text="@string/disconnected" />
+
+            <RadioButton
+                android:id="@+id/radioCancelled"
+                style="@style/PrimaryNormalText"
+                android:text="@string/cancelled" />
         </RadioGroup>
 
 
