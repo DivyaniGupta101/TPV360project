@@ -16,8 +16,17 @@
             type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
 
         <variable
+            name="leadValidationResource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
             name="errorHandler"
             type="com.tpv.android.network.error.ErrorHandler" />
+
+        <variable
+            name="leadValidationErrorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+
     </data>
 
     <FrameLayout
@@ -69,6 +78,14 @@
             layout="@layout/progress_bar"
             app:errorHandler="@{errorHandler}"
             app:resource="@{resource}"
+            app:useBlockingProgress="@{true}"
+            tools:visibility="visible" />
+
+        <include
+            android:id="@+id/leadValidationIncProgressBar"
+            layout="@layout/progress_bar"
+            app:errorHandler="@{leadValidationErrorHandler}"
+            app:resource="@{leadValidationResource}"
             app:useBlockingProgress="@{true}"
             tools:visibility="visible" />
     </FrameLayout>

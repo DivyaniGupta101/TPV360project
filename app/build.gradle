@@ -99,25 +99,25 @@ android {
         }
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            def type = variant.buildType.name
-            def flavor = variant.productFlavors[0].name
-            def screenshot = variant.productFlavors[1].name
-            def date = new Date()
-            def today = date.format('yyyy-MM-dd')
-
-            def outputDirPath = new File("${project.rootDir.absolutePath}/apks/${type}/TPVPlus-${today}/Screenshot${screenshot}")
-            variant.packageApplicationProvider.get().outputDirectory = outputDirPath
-
-            output.outputFileName = "TPVPlus-${today}-${flavor}.apk"
-        }
-        variant.assemble.doLast {
-            variant.outputs.each { output ->
-                delete "${output.outputFile.parent}/output.json"
-            }
-        }
-    }
+//    applicationVariants.all { variant ->
+//        variant.outputs.all { output ->
+//            def type = variant.buildType.name
+//            def flavor = variant.productFlavors[0].name
+//            def screenshot = variant.productFlavors[1].name
+//            def date = new Date()
+//            def today = date.format('yyyy-MM-dd')
+//
+//            def outputDirPath = new File("${project.rootDir.absolutePath}/apks/${type}/TPVPlus-${today}/Screenshot${screenshot}")
+//            variant.packageApplicationProvider.get().outputDirectory = outputDirPath
+//
+//            output.outputFileName = "TPVPlus-${today}-${flavor}.apk"
+//        }
+//        variant.assemble.doLast {
+//            variant.outputs.each { output ->
+//                delete "${output.outputFile.parent}/output.json"
+//            }
+//        }
+//    }
 }
 
 dependencies {

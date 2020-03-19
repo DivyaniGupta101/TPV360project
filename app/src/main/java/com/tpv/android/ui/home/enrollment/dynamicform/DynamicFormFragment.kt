@@ -1,6 +1,5 @@
 package com.tpv.android.ui.home.enrollment.dynamicform
 
-
 import android.Manifest
 import android.app.Activity
 import android.content.Context
@@ -71,7 +70,6 @@ import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
 import kotlinx.coroutines.*
 
-
 class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
     companion object {
@@ -114,7 +112,9 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        mBinding.errorHandler = AlertErrorHandler(mBinding.root, false) {
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+
+        mBinding.leadValidationErrorHandler = AlertErrorHandler(mBinding.root, false) {
             mViewModel.clearSavedData()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_dashBoardFragment)
         }
@@ -127,9 +127,11 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         })
 
         //Check next page is Available or not
-        if (currentPage == totalPage) {
-            hasNext = false
-        } else hasNext = currentPage < totalPage.orZero()
+        hasNext = if (currentPage == totalPage) {
+            false
+        } else {
+            currentPage < totalPage.orZero()
+        }
 
         //Inflate all the views
         inflateViews()
@@ -161,14 +163,12 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         }
     }
 
-
     private fun navigateNext() {
         if (mViewModel.leadvelidationError?.errors.isNullOrEmpty()) {
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
         } else {
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_leadVelidationFragment)
         }
-
     }
 
     /**
@@ -192,9 +192,9 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             }
         })
 
-        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+        mBinding.leadValidationResource = liveData as LiveData<Resource<Any, APIError>>
     }
-//testram@mailinator.com
+
     /**
      * Replace updated values with old values
      */
@@ -522,13 +522,19 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                         navigateNext()
                     } else {
                         context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match), setOnBanClickListener = {
-                            mViewModel.cancelLeadDetail(mViewModel.leadvelidationError?.leadTempId
-                                    ?: "0").observe(this@DynamicFormFragment, Observer {
+
+                            var liveData: LiveData<Resource<Any?, APIError>>? = null
+                            liveData = mViewModel
+                                    .cancelLeadDetail(mViewModel.leadvelidationError?.leadTempId
+                                            ?: "0")
+                            liveData.observe(this@DynamicFormFragment, Observer {
                                 it?.ifSuccess {
                                     mViewModel.clearSavedData()
                                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_dashBoardFragment)
                                 }
                             })
+
+                            mBinding.leadValidationResource = liveData as LiveData<Resource<Any, APIError>>
                         })
                     }
                 }
