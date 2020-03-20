@@ -101,6 +101,12 @@ android {
         }
     }
 
+/**
+ To generate all debug builds uncomment below code block and
+ execute task from
+ gradle > TPVPlusAndroid > app > Tasks > build > assembleDebug
+ **/
+
 //    applicationVariants.all { variant ->
 //        variant.outputs.all { output ->
 //            def type = variant.buildType.name
@@ -120,6 +126,7 @@ android {
 //            }
 //        }
 //    }
+
 }
 
 dependencies {
