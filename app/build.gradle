@@ -7,9 +7,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 apply plugin: 'androidx.navigation.safeargs'
-
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.github.dcendents.android-maven'
 
+// Apply the Crashlytics Gradle plugin
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 28
@@ -18,8 +20,8 @@ android {
         minSdkVersion 21
 
         targetSdkVersion 28
-        versionCode 23
-        versionName "0.5.5"
+        versionCode 24
+        versionName "0.5.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -68,32 +70,32 @@ android {
         NewDemo {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
-            versionCode = 16
-            versionName = '0.4.12'
+            versionCode = 17
+            versionName = '0.4.13'
             targetSdkVersion 28
             minSdkVersion 21
         }
         NewDev {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
-            versionCode = 16
-            versionName = '0.6.0'
+            versionCode = 17
+            versionName = '0.6.1'
             targetSdkVersion 28
             minSdkVersion 21
         }
         TpvTest {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
-            versionCode = 16
-            versionName = '0.4.12'
+            versionCode = 17
+            versionName = '0.4.13'
             targetSdkVersion 28
             minSdkVersion 21
         }
         Prod {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
-            versionCode = 16
-            versionName = '0.4.12'
+            versionCode = 17
+            versionName = '0.4.13'
             targetSdkVersion 28
             minSdkVersion 21
         }
@@ -196,4 +198,11 @@ dependencies {
 
     //Place picker dep
     implementation 'com.google.android.libraries.places:places:2.1.0'
+
+    // Recommended: Add the Firebase SDK for Google Analytics.
+    implementation 'com.google.firebase:firebase-analytics:17.2.3'
+
+    // Add the Firebase SDK for Crashlytics.
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta02'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 }
