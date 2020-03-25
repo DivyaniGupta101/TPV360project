@@ -93,8 +93,8 @@
                         android:maxLines="1"
                         android:visibility="gone"
                         app:firstName="@{item.values[key.FIRSTNAME]}"
-                        app:lastName="@{item.values[key.LASTNAME]}"
                         app:middleName="@{item.values[key.MIDDLENAME]}"
+                        app:lastName="@{item.values[key.LASTNAME]}"
                         tools:text="Smithan"
                         tools:visibility="visible" />
 
