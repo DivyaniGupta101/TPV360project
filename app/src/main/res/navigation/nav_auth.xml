@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_auth"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/webviewFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -43,4 +43,8 @@
         android:id="@+id/newPasswordFragment"
         android:name="com.tpv.android.ui.home.newpassword.NewPasswordFragment"
         android:label="NewPasswordFragment" />
+    <fragment
+        android:id="@+id/webviewFragment"
+        android:name="com.tpv.android.ui.home.webview.WebviewFragment"
+        android:label="WebviewFragment" />
 </navigation>
