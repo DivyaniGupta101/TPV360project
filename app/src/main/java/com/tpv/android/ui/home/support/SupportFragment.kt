@@ -53,18 +53,23 @@ class SupportFragment : Fragment() {
             if (isValid()) {
                 hideKeyboard()
 
-                val liveData = mViewModel.getTicket(ticketReq = TicketReq(description = mBinding.editDescription.value,
-                        email = Pref.user?.email,
-                        subject = mBinding.editSubject.value))
-                liveData.observe(this@SupportFragment, Observer {
-                    it.ifSuccess {
-                        Navigation.findNavController(mBinding.root).navigate(R.id.action_supportFragment_to_supportSuccessFragment)
-                    }
-                })
+                createTicketCall()
 
-                mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
             }
         }
+    }
+
+    private fun createTicketCall() {
+        val liveData = mViewModel.getTicket(ticketReq = TicketReq(description = mBinding.editDescription.value,
+                email = Pref.user?.email,
+                subject = mBinding.editSubject.value))
+        liveData.observe(this@SupportFragment, Observer {
+            it.ifSuccess {
+                Navigation.findNavController(mBinding.root).navigate(R.id.action_supportFragment_to_supportSuccessFragment)
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     fun isValid(): Boolean {
