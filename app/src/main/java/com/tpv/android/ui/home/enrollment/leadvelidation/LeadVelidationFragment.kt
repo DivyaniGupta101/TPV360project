@@ -43,9 +43,9 @@ class LeadVelidationFragment : Fragment() {
     private fun initialize() {
 
         val title = if (mViewModel.leadvelidationError?.errors?.size == 1) {
-            "This enrollment triggered the following alert:"
+            getString(R.string.enroll_triggered_alert)
         } else {
-            "This enrollment triggered the following alerts:"
+            getString(R.string.enroll_triggered_alerts)
         }
 
         setupToolbar(mBinding.toolbar, "Alert!", showBackIcon = true)

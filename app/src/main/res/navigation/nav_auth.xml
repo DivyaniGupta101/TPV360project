@@ -45,6 +45,6 @@
         android:label="NewPasswordFragment" />
     <fragment
         android:id="@+id/webviewFragment"
-        android:name="com.tpv.android.ui.home.webview.WebviewFragment"
+        android:name="com.tpv.android.ui.home.support.SupportFragment"
         android:label="WebviewFragment" />
 </navigation>

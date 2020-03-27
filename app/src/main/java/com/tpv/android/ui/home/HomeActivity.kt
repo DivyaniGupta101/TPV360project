@@ -72,6 +72,7 @@ class HomeActivity : AppCompatActivity() {
                 MenuItems(getDrawable(R.drawable.ic_menu_dashboard_white), getString(R.string.dashboard)),
                 MenuItems(getDrawable(R.drawable.ic_menu_profile_white), getString(R.string.profile)),
                 MenuItems(getDrawable(R.drawable.ic_register_white_32dp), getString(R.string.start_enrollment)),
+                MenuItems(getDrawable(R.drawable.ic_menu_email_white_32dp), getString(R.string.support)),
                 MenuItems(getDrawable(R.drawable.ic_logout_white_32dp), getString(R.string.log_out)))
 
         mBinding.navMenu.currentSelected = mLastSelectedItem
@@ -95,6 +96,11 @@ class HomeActivity : AppCompatActivity() {
             mNavController.navigateSafe(R.id.action_global_profileFragment)
         }
 
+        mBinding.navMenu?.layoutSupport?.parentContainer?.onClick {
+            menuItemSelection(MenuItem.SUPPORT.value)
+            closeDrawer()
+            mNavController.navigateSafe(R.id.action_global_supportFragment)
+        }
         mBinding.navMenu?.layoutSetEnroll?.parentContainer?.onClick {
             menuItemSelection(MenuItem.ENROLL.value)
             closeDrawer()

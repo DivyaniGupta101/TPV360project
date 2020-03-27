@@ -38,8 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    style="@style/MenuBGImage" />
+                <ImageView style="@style/MenuBGImage" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -101,10 +100,16 @@
                 app:item="@{menutItemList[2]}" />
 
             <include
+                android:id="@+id/layoutSupport"
+                layout="@layout/item_menu_options"
+                app:isSelected="@{currentSelected == menuItem.SUPPORT.value }"
+                app:item="@{menutItemList[3]}" />
+
+            <include
                 android:id="@+id/layoutLogout"
                 layout="@layout/item_menu_options"
                 app:isSelected="@{currentSelected == menuItem.LOGOUT.value }"
-                app:item="@{menutItemList[3]}" />
+                app:item="@{menutItemList[4]}" />
 
             <Space
                 android:layout_width="match_parent"

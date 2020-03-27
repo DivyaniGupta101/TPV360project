@@ -227,6 +227,15 @@
         app:popExitAnim="@anim/fragment_fade_exit"
         app:popUpTo="@id/dashBoardFragment"
         app:popUpToInclusive="false" />
+    <action
+        android:id="@+id/action_global_supportFragment"
+        app:destination="@+id/supportFragment"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/fragment_fade_enter"
+        app:popExitAnim="@anim/fragment_fade_exit"
+        app:popUpTo="@id/dashBoardFragment"
+        app:popUpToInclusive="false" />
 
     <action
         android:id="@+id/action_global_commodityFragment"
@@ -240,13 +249,50 @@
     <fragment
         android:id="@+id/leadVelidationFragment"
         android:name="com.tpv.android.ui.home.enrollment.leadvelidation.LeadVelidationFragment"
-        android:label="LeadVelidationFragment" >
+        android:label="LeadVelidationFragment">
         <action
             android:id="@+id/action_leadVelidationFragment_to_clientInfoFragment"
-            app:destination="@id/clientInfoFragment" />
+            app:destination="@id/clientInfoFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_leadVelidationFragment_to_dashBoardFragment"
-            app:destination="@id/dashBoardFragment" />
+            app:destination="@id/dashBoardFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
-
+    <fragment
+        android:id="@+id/supportFragment"
+        android:name="com.tpv.android.ui.home.support.SupportFragment"
+        android:label="SupportFragment"
+        tools:layout="@layout/fragment_support">
+        <action
+            android:id="@+id/action_supportFragment_to_supportSuccessFragment"
+            app:destination="@id/supportSuccessFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/dashBoardFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/supportSuccessFragment"
+        android:name="com.tpv.android.ui.home.supportsuccess.SupportSuccessFragment"
+        android:label="SupportSuccessFragment"
+        tools:layout="@layout/fragment_support_success">
+        <action
+            android:id="@+id/action_supportSuccessFragment_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/dashBoardFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

@@ -19,7 +19,8 @@ enum class MenuItem(val value: String) {
     DASHBOARD("dashboard"),
     PROFILE("profile"),
     ENROLL("enroll"),
-    LOGOUT("logout")
+    LOGOUT("logout"),
+    SUPPORT("support")
 }
 
 enum class DynamicField(val type: String) {

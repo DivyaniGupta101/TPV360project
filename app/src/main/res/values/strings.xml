@@ -69,6 +69,8 @@
     <string name="enter_phone_number">Please enter Phone number</string>
     <string name="enter_new_relationship">Enter New Relationship</string>
     <string name="enter_unit">Please enter unit</string>
+    <string name="enter_subject">Please enter subject</string>
+    <string name="enter_description">Please enter description</string>
     <string name="please_enter">Please enter</string>
     <string name="please_select">Please select</string>
 
@@ -132,6 +134,7 @@
     <string name="email">Email</string>
     <string name="billing_address">Billing Address</string>
     <string name="zip_code">Zip Code</string>
+    <string name="ticker_recived_msg">Your ticket has been received.</string>
     <string name="billing_address_msg">Is the billing address same as service address?</string>
     <string name="service_address">Service Address</string>
     <string name="billing_first_name">Billing First Name</string>
@@ -194,6 +197,16 @@
     <string name="client_name">Client Name</string>
     <string name="sales_center_id">Sales Center ID</string>
     <string name="msg_unable_record">Unable to record while another call is in progress.</string>
+    <string name="name">Name</string>
+    <string name="subject">Subject</string>
+    <string name="description">Description</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="support">Support</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enroll_triggered_alert">This enrollment triggered the following alert:</string>
+    <string name="enroll_triggered_alerts">This enrollment triggered the following alerts:</string>
 
 
 </resources>

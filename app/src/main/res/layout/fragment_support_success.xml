@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.home.enrollment.planszipcode.PlansZipcodeFragment">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/_24sdp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120sdp"
+                android:src="@drawable/ic_verified_img" />
+
+            <TextView
+                style="@style/PrimaryMediumBoldText"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/thank_you"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText" />
+
+            <TextView
+                style="@style/SecondaryMediumNormalText"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:gravity="center"
+                android:text="@string/ticker_recived_msg" />
+
+            <TextView
+                android:id="@+id/textBackToDashBoard"
+                style="@style/PrimaryBoldText"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/back_to_dashboard"
+                android:textColor="@color/colorTertiaryText" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
