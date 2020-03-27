@@ -1,9 +1,11 @@
 package com.tpv.android.network
 
+import android.util.Base64
 import com.google.gson.GsonBuilder
 import com.tpv.android.BuildConfig
 import com.tpv.android.helper.Pref
 import com.tpv.android.utils.AppConfig
+import com.tpv.android.utils.AppConstant
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -47,6 +49,17 @@ object ApiClient {
                     )
                     request = newBuilder.build()
                 }
+                if (!Pref.token.isNullOrEmpty() && !request.url().toString().startsWith(BASE_URL)) {
+                    newBuilder.addHeader(
+                            "Authorization",
+                            getAuthToken()
+                    )
+                    newBuilder.addHeader(
+                            "Content-type",
+                            "application/json"
+                    )
+                    request = newBuilder.build()
+                }
             } catch (e: Exception) {
             }
 
@@ -74,5 +87,13 @@ object ApiClient {
         builder.client(client.build())
         retrofit = builder.build()
         retrofit.create(ApiInterface::class.java)
+    }
+
+    private fun getAuthToken(): String {
+        val authToken = AppConstant.TICKET_USERNAME
+        return "Basic " + Base64.encodeToString(
+                authToken.toByteArray(Charsets.UTF_8),
+                Base64.NO_WRAP
+        )
     }
 }

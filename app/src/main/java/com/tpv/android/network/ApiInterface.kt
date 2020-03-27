@@ -95,4 +95,7 @@ interface ApiInterface {
     @GET("clients/{id}/forms")
     fun getCommodity(@Path("id") id: String?): Call<CommonResponse<List<CommodityResp>>>
 
+    @POST("https://tpv360.freshdesk.com/api/v2/tickets")
+    fun getTickets(@Body ticketReq: TicketReq): Call<Any>
+
 }

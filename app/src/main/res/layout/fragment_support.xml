@@ -2,74 +2,106 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+
+
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorScreenBg"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
-
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorScreenBg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_24sdp"
-                tools:context=".ui.home.profile.ProfileFragment">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textTitle"
-                    style="@style/TertiaryBoldTextWithTopSpacing"
-                    android:layout_marginTop="0dp"
-                    android:text="@string/contact_us"
-                    android:textAllCaps="true" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_24sdp"
+                    tools:context=".ui.home.profile.ProfileFragment">
+
+                    <TextView
+                        android:id="@+id/textTitle"
+                        style="@style/TertiaryBoldTextWithTopSpacing"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/contact_us"
+                        android:textAllCaps="true" />
 
 
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/subject" />
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/subject" />
 
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editSubject"
-                        style="@style/DefaultEditText"
-                        android:textColor="@color/colorPrimaryText" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/description" />
-
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-                    <LinearLayout style="@style/SquareBorderTextLinearLayout">
+                    <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editDescription"
-                            style="@style/SquareBorderEditText" />
-                    </LinearLayout>
+                            android:id="@+id/editSubject"
+                            style="@style/DefaultEditText"
+                            android:textColor="@color/colorPrimaryText" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/btnSubmit"
-                    style="@style/ButtonPrimary"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:background="@drawable/button_background_state"
-                    android:text="@string/submit" />
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/description" />
+
+                    <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+                        <LinearLayout style="@style/SquareBorderTextLinearLayout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editDescription"
+                                style="@style/SquareBorderEditText" />
+                        </LinearLayout>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/btnSubmit"
+                        style="@style/ButtonPrimary"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@drawable/button_background_state"
+                        android:text="@string/submit" />
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/incProgressBar"
+            app:errorHandler="@{errorHandler}"
+            app:resource="@{resource}"
+            app:useBlockingProgress="@{true}"
+            layout="@layout/progress_bar"
+            tools:visibility="visible" />
+    </FrameLayout>
 </layout>

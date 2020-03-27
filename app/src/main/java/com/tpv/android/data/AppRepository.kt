@@ -218,4 +218,10 @@ object AppRepository {
             ApiClient.service.getCommodity(Pref.user?.clientId.toString()).getResult().map { it?.data.orEmpty() }
         }
     }
+
+    fun CoroutineScope.getTicketCall(ticketReq: TicketReq) = dataApi<Any, APIError> {
+        fromNetwork {
+            ApiClient.service.getTickets(ticketReq = ticketReq).getResult()
+        }
+    }
 }
