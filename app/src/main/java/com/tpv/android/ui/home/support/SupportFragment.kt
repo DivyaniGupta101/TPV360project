@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
-import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentSupportBinding
 import com.tpv.android.helper.Pref
@@ -49,23 +48,41 @@ class SupportFragment : Fragment() {
 
     private fun initalize() {
         setupToolbar(mBinding.toolbar, getString(R.string.support), showBackIcon = true)
+        mBinding.spinner.setItems(arrayListOf(getString(R.string.low),
+                getString(R.string.medium),
+                getString(R.string.high),
+                getString(R.string.urgent)))
+
+        mBinding.editSubject.doOnTextChanged { text, start, count, after ->
+            mBinding.textSuccessful.hide()
+        }
+        mBinding.editDescription.doOnTextChanged { text, start, count, after ->
+            mBinding.textSuccessful.hide()
+        }
+
         mBinding.btnSubmit.onClick {
             if (isValid()) {
                 hideKeyboard()
-
                 createTicketCall()
-
             }
         }
     }
 
     private fun createTicketCall() {
-        val liveData = mViewModel.getTicket(ticketReq = TicketReq(description = mBinding.editDescription.value,
-                email = Pref.user?.email,
-                subject = mBinding.editSubject.value))
+        val liveData = mViewModel.getTicket(
+                ticketReq = TicketReq(description = mBinding.editDescription.value,
+                        email = Pref.user?.email,
+                        subject = mBinding.editSubject.value,
+                        priority = mBinding.spinner.selectedItemPosition + 1))
         liveData.observe(this@SupportFragment, Observer {
             it.ifSuccess {
-                Navigation.findNavController(mBinding.root).navigate(R.id.action_supportFragment_to_supportSuccessFragment)
+                mBinding.editSubject.clear()
+                mBinding.editDescription.clear()
+                mBinding.spinner.setSelection(0)
+                mBinding.incProgressBar.progressBarView.hide()
+                mBinding.textSuccessful.show()
+
+//                Navigation.findNavController(mBinding.root).navigate(R.id.action_supportFragment_to_supportSuccessFragment)
             }
         })
 

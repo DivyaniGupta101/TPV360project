@@ -34,6 +34,7 @@
     <color name="colorButtonText">@color/colorStaticWhite</color>
     <color name="colorPendingText">@color/colorYellow</color>
     <color name="colorVerifiedText">@color/colorGreen</color>
+    <color name="colorTicketSaveText">@color/colorGreen</color>
     <color name="colorDeclinedText">@color/colorRed</color>
     <color name="colorDisconnectedText">@color/colorSky</color>
     <color name="colorCancelledText">@color/colorPurple</color>

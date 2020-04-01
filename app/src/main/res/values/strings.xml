@@ -134,7 +134,7 @@
     <string name="email">Email</string>
     <string name="billing_address">Billing Address</string>
     <string name="zip_code">Zip Code</string>
-    <string name="ticker_recived_msg">Your ticket has been received.</string>
+    <string name="ticker_recived_msg">Your ticket has been submitted successfully.</string>
     <string name="billing_address_msg">Is the billing address same as service address?</string>
     <string name="service_address">Service Address</string>
     <string name="billing_first_name">Billing First Name</string>
@@ -207,6 +207,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enroll_triggered_alert">This enrollment triggered the following alert:</string>
     <string name="enroll_triggered_alerts">This enrollment triggered the following alerts:</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
+    <string name="urgent">Urgent</string>
+    <string name="priority">Priority</string>
 
 
 </resources>
