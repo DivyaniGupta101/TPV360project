@@ -36,7 +36,7 @@
                 style="@style/SecondaryMediumNormalText"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:gravity="center"
-                android:text="@string/ticker_recived_msg" />
+                android:text="@string/ticket_recived_msg" />
 
             <TextView
                 android:id="@+id/textBackToDashBoard"

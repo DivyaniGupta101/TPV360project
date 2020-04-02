@@ -134,7 +134,7 @@
     <string name="email">Email</string>
     <string name="billing_address">Billing Address</string>
     <string name="zip_code">Zip Code</string>
-    <string name="ticker_recived_msg">Your ticket has been submitted successfully.</string>
+    <string name="ticket_recived_msg">Your ticket has been submitted successfully.</string>
     <string name="billing_address_msg">Is the billing address same as service address?</string>
     <string name="service_address">Service Address</string>
     <string name="billing_first_name">Billing First Name</string>

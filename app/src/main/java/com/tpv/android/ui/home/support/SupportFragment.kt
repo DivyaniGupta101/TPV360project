@@ -81,7 +81,7 @@ class SupportFragment : Fragment() {
                         priority = mBinding.spinner.selectedItemPosition + 1))
         liveData.observe(this@SupportFragment, Observer {
             it.ifSuccess {
-                context?.infoDialog(getString(R.string.thank_you), getString(R.string.ticker_recived_msg), setOnButtonClickListener =
+                context?.infoDialog(getString(R.string.thank_you), getString(R.string.ticket_recived_msg), setOnButtonClickListener =
                 {
                     Navigation.findNavController(mBinding.root).navigateUp()
                 },showImageError = false)

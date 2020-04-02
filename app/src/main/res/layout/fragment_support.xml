@@ -105,7 +105,7 @@
                         android:layout_margin="@dimen/_8sdp"
                         android:background="?selectableItemBackground"
                         android:gravity="center"
-                        android:text="@string/ticker_recived_msg"
+                        android:text="@string/ticket_recived_msg"
                         android:textColor="@color/colorTicketSaveText"
                         android:visibility="gone"
                         tools:visibility="visible"/>
