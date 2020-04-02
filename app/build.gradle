@@ -61,6 +61,7 @@ android {
 
         Allow {
             dimension = 'screenshot'
+            applicationIdSuffix ".allowss"
         }
 
         NotAllow {
@@ -70,6 +71,7 @@ android {
         NewDemo {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
+            applicationIdSuffix ".demo"
             versionCode = 17
             versionName = '0.4.13'
             targetSdkVersion 28
@@ -78,6 +80,7 @@ android {
         NewDev {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
+            applicationIdSuffix ".dev"
             versionCode = 17
             versionName = '0.6.1'
             targetSdkVersion 28
@@ -86,6 +89,7 @@ android {
         TpvTest {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
+            applicationIdSuffix ".test"
             versionCode = 17
             versionName = '0.4.13'
             targetSdkVersion 28
@@ -94,6 +98,7 @@ android {
         Prod {
             dimension = 'tpv'
             applicationId = 'com.tpv.android'
+            applicationIdSuffix ".prod"
             versionCode = 17
             versionName = '0.4.13'
             targetSdkVersion 28
