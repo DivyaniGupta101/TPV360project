@@ -521,7 +521,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                     if (result[0] <= AppConstant.GEO_LOCATION_RADIOUS.toFloat()) {
                         navigateNext()
                     } else {
-                        context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match), setOnBanClickListener = {
+                        context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match), setOnButtonClickListener = {
 
                             var liveData: LiveData<Resource<Any?, APIError>>? = null
                             liveData = mViewModel

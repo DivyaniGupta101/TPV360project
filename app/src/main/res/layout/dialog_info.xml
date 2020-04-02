@@ -38,6 +38,7 @@
                     android:padding="@dimen/_8sdp">
 
                     <ImageView
+                        android:id="@+id/imageError"
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_50sdp"
                         android:src="@drawable/ic_alert_gray"
@@ -66,7 +67,7 @@
                     android:layout_marginBottom="@dimen/_16sdp"
                     android:text="@{item.positiveButtonText}"
                     android:textAllCaps="true"
-                    tools:text="@string/ok"/>
+                    tools:text="@string/ok" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

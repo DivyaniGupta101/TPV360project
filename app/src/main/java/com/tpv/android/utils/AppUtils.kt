@@ -103,7 +103,8 @@ fun Context.infoDialog(title: String? = getString(R.string.error),
                        btnText: String? = getString(R.string.ok),
                        isCancelable: Boolean = false,
                        setOnDismissListener: (() -> Unit)? = null,
-                       setOnBanClickListener: (() -> Unit)? = null) {
+                       setOnButtonClickListener: (() -> Unit)? = null,
+                       showImageError: Boolean = true) {
     val binding = DataBindingUtil.inflate<DialogInfoBinding>(LayoutInflater.from(this), R.layout.dialog_info, null, false)
     val dialog = AlertDialog.Builder(this)
             .setView(binding.root).show()
@@ -112,12 +113,17 @@ fun Context.infoDialog(title: String? = getString(R.string.error),
     dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     dialog?.setCanceledOnTouchOutside(isCancelable)
 
+    if (showImageError) {
+        binding.imageError.show()
+    } else {
+        binding.imageError.hide()
+    }
     dialog?.setOnDismissListener {
         setOnDismissListener?.invoke()
     }
 
     binding?.btnYes?.onClick {
-        setOnBanClickListener?.invoke()
+        setOnButtonClickListener?.invoke()
         dialog.dismiss()
     }
 }

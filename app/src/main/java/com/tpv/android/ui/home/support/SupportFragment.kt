@@ -10,8 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.livinglifetechway.k4kotlin.core.*
+import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
+import com.livinglifetechway.k4kotlin.core.hide
+import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.setItems
+import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentSupportBinding
 import com.tpv.android.helper.Pref
@@ -20,6 +24,7 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.setupToolbar
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
@@ -76,11 +81,10 @@ class SupportFragment : Fragment() {
                         priority = mBinding.spinner.selectedItemPosition + 1))
         liveData.observe(this@SupportFragment, Observer {
             it.ifSuccess {
-                mBinding.editSubject.clear()
-                mBinding.editDescription.clear()
-                mBinding.spinner.setSelection(0)
-                mBinding.incProgressBar.progressBarView.hide()
-                mBinding.textSuccessful.show()
+                context?.infoDialog("", getString(R.string.ticker_recived_msg), setOnButtonClickListener =
+                {
+                    Navigation.findNavController(mBinding.root).navigateUp()
+                },showImageError = false)
 
 //                Navigation.findNavController(mBinding.root).navigate(R.id.action_supportFragment_to_supportSuccessFragment)
             }
