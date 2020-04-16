@@ -88,7 +88,7 @@
     <string name="error">Error</string>
     <string name="msg_zipcode_not_match">Your current location does not match the customer\'s service address.</string>
     <string name="msg_gps_location">Your GPS Location seams to be off. Please turn on GPS and try again.</string>
-    <string name="msg_location">Enable to retrieve your location at this moment. Please try again later</string>
+    <string name="msg_location">Unable to retrieve your location at this moment. Please try again later</string>
 
 
     <!-- LeadList-->
