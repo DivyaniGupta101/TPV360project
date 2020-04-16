@@ -15,6 +15,10 @@ data class SaveLeadsDetailReq(
 
         @SerializedName("form_id")
         val formId: String? = "",
+        @SerializedName("agent_lat")
+        val agentLat: String? = "",
+        @SerializedName("agent_lng")
+        val agentLng: String? = "",
         @SerializedName("other")
         val other: OtherData?,
         @SerializedName("fields")

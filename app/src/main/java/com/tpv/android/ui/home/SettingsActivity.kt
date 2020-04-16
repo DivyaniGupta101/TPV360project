@@ -37,6 +37,7 @@ class SettingsActivity : AppCompatActivity() {
                 AppConstant.GEO_LOCATION_RADIOUS = mBinding.editLocationRadius.value
             }
             AppConstant.GEO_LOCATION_ENABLE = mBinding.switchLocationGeo.isChecked
+            AppConstant.CURRENT_GEO_LOCATION = mBinding.switchLocation.isChecked
             finish()
         }
 

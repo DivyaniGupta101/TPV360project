@@ -157,7 +157,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                     for (key in 1..mViewModel.formPageMap?.size.orZero()) {
                         mViewModel.dynamicFormData.addAll(mViewModel.formPageMap?.get(key).orEmpty())
                     }
-                    validateCustomerDataApiCall()
+                    getLocation()
                 }
             }
         }
@@ -177,10 +177,31 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
      * On success of saveCustomerDataApiCall api, call saveContract API
      * Also check if recording is not empty then call save recording API else call save Signature API
      */
-    private fun validateCustomerDataApiCall() {
+    private fun validateCustomerDataApiCall(latitude: Double?, longitude: Double?) {
+        var lat = ""
+        var lng = ""
+
+        if (AppConstant.CURRENT_GEO_LOCATION) {
+            lat = latitude.toString()
+            lng = longitude.toString()
+        } else {
+            val response = mViewModel.dynamicFormData.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
+            when (response?.type) {
+                DynamicField.ADDRESS.type -> {
+                    lat = response.values.get(AppConstant.LAT) as String
+                    lng = response.values.get(AppConstant.LNG) as String
+                }
+                DynamicField.BOTHADDRESS.type -> {
+                    lat = response.values.get(AppConstant.SERVICELAT) as String
+                    lng = response.values.get(AppConstant.SERVICELNG) as String
+                }
+            }
+        }
 
         var liveData: LiveData<Resource<VelidateLeadsDetailResp?, APIError>>? = null
         liveData = mViewModel.validateLeadDetail(SaveLeadsDetailReq(
+                agentLat = lat,
+                agentLng = lng,
                 formId = mViewModel.planId,
                 fields = mViewModel.dynamicFormData,
                 other = OtherData(programId = TextUtils.join(",", mViewModel.programList.map { it.id }),
@@ -188,7 +209,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.leadvelidationError = it
-                getLocation()
+                navigateNext()
             }
         })
 
@@ -486,7 +507,8 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 //   createLocationRequest()
             } else {
                 if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
-                    checkRadius(mViewModel.location?.latitude, mViewModel.location?.longitude)
+                    validateCustomerDataApiCall(mViewModel.location?.latitude, mViewModel.location?.longitude)
+//                    checkRadius(mViewModel.location?.latitude, mViewModel.location?.longitude)
                 } else {
                     context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
                 }

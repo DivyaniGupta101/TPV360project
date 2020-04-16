@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -16,6 +17,9 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLeadVelidationBinding
 import com.tpv.android.databinding.ItemLeadVelidationBinding
 import com.tpv.android.model.network.LeadVelidationError
+import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.navigateSafe
@@ -42,6 +46,8 @@ class LeadVelidationFragment : Fragment() {
 
     private fun initialize() {
 
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+
         val title = if (mViewModel.leadvelidationError?.errors?.size == 1) {
             getString(R.string.enroll_triggered_alert)
         } else {
@@ -57,13 +63,17 @@ class LeadVelidationFragment : Fragment() {
                 .into(mBinding.errorList)
 
         mBinding.btnCancel?.onClick {
-            mViewModel.cancelLeadDetail(mViewModel.leadvelidationError?.leadTempId
-                    ?: "0").observe(this@LeadVelidationFragment, Observer {
+            val liveData = mViewModel.cancelLeadDetail(mViewModel.leadvelidationError?.leadTempId
+                    ?: "0")
+            liveData.observe(this@LeadVelidationFragment, Observer {
                 it?.ifSuccess {
                     mViewModel.clearSavedData()
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_leadVelidationFragment_to_dashBoardFragment)
                 }
             })
+
+            mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
         }
 
         mBinding.btnYes?.onClick {
