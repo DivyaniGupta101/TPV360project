@@ -248,7 +248,7 @@
         app:popUpToInclusive="false" />
     <fragment
         android:id="@+id/leadVelidationFragment"
-        android:name="com.tpv.android.ui.home.enrollment.leadvelidation.LeadVelidationFragment"
+        android:name="com.tpv.android.ui.home.enrollment.leadvelidation.LeadValidationFragment"
         android:label="LeadVelidationFragment">
         <action
             android:id="@+id/action_leadVelidationFragment_to_clientInfoFragment"

@@ -14,8 +14,8 @@ import com.livinglifetechway.k4kotlin.core.onClick
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
-import com.tpv.android.databinding.FragmentLeadVelidationBinding
-import com.tpv.android.databinding.ItemLeadVelidationBinding
+import com.tpv.android.databinding.FragmentLeadValidationBinding
+import com.tpv.android.databinding.ItemLeadValidationBinding
 import com.tpv.android.model.network.LeadVelidationError
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -25,15 +25,15 @@ import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
-class LeadVelidationFragment : Fragment() {
-    private lateinit var mBinding: FragmentLeadVelidationBinding
+class LeadValidationFragment : Fragment() {
+    private lateinit var mBinding: FragmentLeadValidationBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var mViewGroup: ViewGroup? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_lead_velidation, container, false)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_lead_validation, container, false)
         mBinding.lifecycleOwner = this
         activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         return mBinding.root
@@ -59,13 +59,13 @@ class LeadVelidationFragment : Fragment() {
         mBinding.title = title
 
         LiveAdapter(mViewModel.leadvelidationError?.errors, BR.item)
-                .map<LeadVelidationError, ItemLeadVelidationBinding>(R.layout.item_lead_velidation)
+                .map<LeadVelidationError, ItemLeadValidationBinding>(R.layout.item_lead_validation)
                 .into(mBinding.errorList)
 
         mBinding.btnCancel?.onClick {
             val liveData = mViewModel.cancelLeadDetail(mViewModel.leadvelidationError?.leadTempId
                     ?: "0")
-            liveData.observe(this@LeadVelidationFragment, Observer {
+            liveData.observe(this@LeadValidationFragment, Observer {
                 it?.ifSuccess {
                     mViewModel.clearSavedData()
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_leadVelidationFragment_to_dashBoardFragment)
