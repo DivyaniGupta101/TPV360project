@@ -18,10 +18,9 @@ android {
     defaultConfig {
         applicationId "com.tpv.android"
         minSdkVersion 21
-
         targetSdkVersion 28
-        versionCode 26
-        versionName "0.5.8"
+        versionCode 27
+        versionName "0.5.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -70,39 +69,19 @@ android {
 
         NewDemo {
             dimension = 'tpv'
-            applicationId = 'com.tpv.android'
             applicationIdSuffix ".demo"
-            versionCode = 17
-            versionName = '0.4.13'
-            targetSdkVersion 28
-            minSdkVersion 21
         }
         NewDev {
             dimension = 'tpv'
-            applicationId = 'com.tpv.android'
             applicationIdSuffix ".dev"
-            versionCode = 17
-            versionName = '0.6.1'
-            targetSdkVersion 28
-            minSdkVersion 21
         }
         TpvTest {
             dimension = 'tpv'
-            applicationId = 'com.tpv.android'
             applicationIdSuffix ".test"
-            versionCode = 17
-            versionName = '0.4.13'
-            targetSdkVersion 28
-            minSdkVersion 21
         }
         Prod {
             dimension = 'tpv'
-            applicationId = 'com.tpv.android'
             applicationIdSuffix ".prod"
-            versionCode = 17
-            versionName = '0.4.13'
-            targetSdkVersion 28
-            minSdkVersion 21
         }
     }
 
