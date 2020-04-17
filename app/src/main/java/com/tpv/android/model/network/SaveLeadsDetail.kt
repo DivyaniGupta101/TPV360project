@@ -12,7 +12,7 @@ data class SaveLeadsDetailResp(
 )
 
 data class SaveLeadsDetailReq(
-        @SerializedName("lead_temp_id")
+        @SerializedName("lead_tmp_id")
         var leadTempId: String?,
         @SerializedName("form_id")
         val formId: String? = "",
