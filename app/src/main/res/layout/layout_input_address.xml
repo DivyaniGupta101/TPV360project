@@ -66,7 +66,9 @@
                     style="@style/DefaultEditText"
                     android:digits="@string/name_char"
                     android:hint="@string/unit"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
+                    android:singleLine="true"
                     android:text='@={item.values[key.UNIT]}' />
             </com.google.android.material.textfield.TextInputLayout>
 

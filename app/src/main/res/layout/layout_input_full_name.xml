@@ -43,8 +43,11 @@
                 android:id="@+id/editFirstName"
                 style="@style/DefaultEditText"
                 android:digits="@string/string_char"
+                android:imeOptions="actionNext"
                 android:inputType="textCapSentences"
+                android:singleLine="true"
                 android:text='@={item.values[key.FIRSTNAME]}' />
+
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +65,9 @@
                 android:id="@+id/editMiddleName"
                 style="@style/DefaultEditText"
                 android:digits="@string/string_char"
+                android:imeOptions="actionNext"
                 android:inputType="textCapSentences"
+                android:singleLine="true"
                 android:text='@={item.values[key.MIDDLENAME]}' />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -81,7 +86,9 @@
                 android:id="@+id/editLastName"
                 style="@style/DefaultEditText"
                 android:digits="@string/string_char"
+                android:imeOptions="actionNext"
                 android:inputType="textCapSentences"
+                android:singleLine="true"
                 android:text='@={item.values[key.LASTNAME]}' />
 
         </com.google.android.material.textfield.TextInputLayout>
