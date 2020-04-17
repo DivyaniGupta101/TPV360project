@@ -12,13 +12,10 @@ data class SaveLeadsDetailResp(
 )
 
 data class SaveLeadsDetailReq(
-
+        @SerializedName("lead_temp_id")
+        var leadTempId: String?,
         @SerializedName("form_id")
         val formId: String? = "",
-        @SerializedName("agent_lat")
-        val agentLat: String? = "",
-        @SerializedName("agent_lng")
-        val agentLng: String? = "",
         @SerializedName("other")
         val other: OtherData?,
         @SerializedName("fields")

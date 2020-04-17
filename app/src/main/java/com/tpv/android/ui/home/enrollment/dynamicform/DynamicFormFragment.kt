@@ -33,7 +33,7 @@ import com.tpv.android.databinding.*
 import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.OtherData
-import com.tpv.android.model.network.SaveLeadsDetailReq
+import com.tpv.android.model.network.ValidateLeadsDetailReq
 import com.tpv.android.model.network.VelidateLeadsDetailResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -199,7 +199,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         }
 
         var liveData: LiveData<Resource<VelidateLeadsDetailResp?, APIError>>? = null
-        liveData = mViewModel.validateLeadDetail(SaveLeadsDetailReq(
+        liveData = mViewModel.validateLeadDetail(ValidateLeadsDetailReq(
                 agentLat = lat,
                 agentLng = lng,
                 formId = mViewModel.planId,

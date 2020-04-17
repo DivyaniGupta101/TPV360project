@@ -73,9 +73,9 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         saveLeadDetailCall(leadsDetailReq)
     }
 
-    fun validateLeadDetail(leadsDetailReq: SaveLeadsDetailReq) = with(AppRepository)
+    fun validateLeadDetail(validateDetailReq: ValidateLeadsDetailReq) = with(AppRepository)
     {
-        validateLeadDetailCall(leadsDetailReq)
+        validateLeadDetailCall(validateDetailReq)
     }
 
     fun cancelLeadDetail(id: String) = with(AppRepository)

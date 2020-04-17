@@ -16,3 +16,16 @@ data class LeadVelidationError(
         @SerializedName("msg")
         val msg: String? = ""
 )
+
+data class ValidateLeadsDetailReq(
+        @SerializedName("form_id")
+        val formId: String? = "",
+        @SerializedName("agent_lat")
+        val agentLat: String? = "",
+        @SerializedName("agent_lng")
+        val agentLng: String? = "",
+        @SerializedName("other")
+        val other: OtherData?,
+        @SerializedName("fields")
+        val fields: List<DynamicFormResp>
+)

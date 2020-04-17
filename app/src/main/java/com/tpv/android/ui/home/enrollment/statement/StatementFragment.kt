@@ -1,15 +1,8 @@
 package com.tpv.android.ui.home.enrollment.statement
 
 
-import android.Manifest
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.content.IntentSender
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,14 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.github.gcacace.signaturepad.views.SignaturePad
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
-import com.google.android.gms.tasks.Task
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.orFalse
-import com.livinglifetechway.k4kotlin.core.orZero
-import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
@@ -41,13 +28,10 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
-import com.tpv.android.ui.home.TransparentActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
-import com.tpv.android.ui.home.enrollment.dynamicform.DynamicFormFragment.Companion.REQUEST_GPS_SETTINGS
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.glide.GlideApp
-import kotlinx.coroutines.*
 import java.io.File
 
 
@@ -135,6 +119,7 @@ class StatementFragment : Fragment() {
 
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
         liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
+                leadTempId = mViewModel.leadvelidationError?.leadTempId,
                 formId = mViewModel.planId,
                 fields = mViewModel.dynamicFormData,
                 other = OtherData(programId = android.text.TextUtils.join(",", mViewModel.programList.map { it.id }),
@@ -142,8 +127,6 @@ class StatementFragment : Fragment() {
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.savedLeadResp = it
-
-
                 if (mViewModel.recordingFile.isNotEmpty()) {
                     saveRecordingApiCall()
                 } else {

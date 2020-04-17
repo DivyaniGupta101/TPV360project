@@ -139,9 +139,9 @@ object AppRepository {
     }
 
     //    SaveLead
-    fun CoroutineScope.validateLeadDetailCall(saveLeadsDetailReq: SaveLeadsDetailReq) = dataApi<VelidateLeadsDetailResp?, APIError> {
+    fun CoroutineScope.validateLeadDetailCall(validateLeadsDetailReq: ValidateLeadsDetailReq) = dataApi<VelidateLeadsDetailResp?, APIError> {
         fromNetwork {
-            ApiClient.service.validateLeadDetail(saveLeadsDetailReq).getResult().map { it?.data }
+            ApiClient.service.validateLeadDetail(validateLeadsDetailReq).getResult().map { it?.data }
         }
     }
 
