@@ -2,7 +2,10 @@ package com.tpv.android.model.network
 
 import com.google.gson.annotations.SerializedName
 
-data class OTPReq(@SerializedName("phonenumber") val phonenumber: String? = "")
+data class OTPReq(@SerializedName("phonenumber") val phonenumber: String? = "",
+                  @SerializedName("otp_type")
+                  val otpType: String?)
+
 data class OTPEmailReq(@SerializedName("email") val emailAddress: String? = "")
 
 data class VerifyOTPReq(

@@ -42,5 +42,7 @@ object AppConstant : KotprefModel() {
     const val BILLINGLNG = "billing_lng"
     const val SERVICELAT = "service_lat"
     const val SERVICELNG = "service_lng"
+    const val VOICE = "voice"
+    const val SMS = "sms"
 
 }

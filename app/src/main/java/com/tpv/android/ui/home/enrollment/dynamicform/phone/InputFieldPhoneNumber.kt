@@ -15,6 +15,7 @@ import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.color
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogOtpBinding
+import com.tpv.android.databinding.DialogSelectVerificationBinding
 import com.tpv.android.databinding.FragmentDynamicFormBinding
 import com.tpv.android.databinding.LayoutInputPhoneNumberBinding
 import com.tpv.android.model.internal.DialogText
@@ -27,6 +28,7 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.ui.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.PhoneNumberValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
@@ -34,7 +36,6 @@ import com.tpv.android.utils.validation.Validator
 
 var verifiedEmail: String? = null
 var countryCodeList = arrayListOf("+1")
-
 
 fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
                                            viewModel: SetEnrollViewModel,
@@ -59,7 +60,7 @@ fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
 
         //Check if phone number is valid then only able to call api generate otp
         if (bindingInputPhone.isValid(context)) {
-            context.generateOTPApiCall(bindingInputPhone, bindingDynamicForm, viewModel)
+            context.selectMethodDialog(bindingInputPhone, bindingDynamicForm, viewModel)
         }
     }
 
@@ -80,6 +81,47 @@ fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
             }
         }
     })
+
+}
+
+/**
+ * On click of submit button call generate otp api
+ */
+
+private fun Context.selectMethodDialog(bindingInputPhone: LayoutInputPhoneNumberBinding, bindingDynamicForm: FragmentDynamicFormBinding, viewModel: SetEnrollViewModel) {
+    val context = this
+    var selectedMethod = AppConstant.SMS
+
+    val dialogSelectVerificationBinding = DataBindingUtil.inflate<DialogSelectVerificationBinding>(LayoutInflater.from(this),
+            R.layout.dialog_select_verification, null, false)
+
+    val dialog = AlertDialog.Builder(context)
+            .setView(dialogSelectVerificationBinding.root).show()
+    dialog?.setCanceledOnTouchOutside(false)
+    dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+
+    dialogSelectVerificationBinding.lifecycleOwner = bindingDynamicForm.lifecycleOwner
+    dialogSelectVerificationBinding.errorHandler = AlertErrorHandler(dialogSelectVerificationBinding.root)
+
+    dialogSelectVerificationBinding.item = DialogText(getString(R.string.select_verification_method),
+            "", getString(R.string.send_otp), getString(R.string.cancel))
+
+    dialogSelectVerificationBinding?.btnSms?.onClick {
+        selectedMethod = AppConstant.SMS
+    }
+
+    dialogSelectVerificationBinding?.btnVoice?.onClick {
+        selectedMethod = AppConstant.VOICE
+    }
+
+    dialogSelectVerificationBinding?.btnCancel?.onClick {
+        dialog.dismiss()
+    }
+    dialogSelectVerificationBinding?.btnSubmit?.onClick {
+        dialog.dismiss()
+        context.generateOTPApiCall(bindingDynamicForm, bindingInputPhone, viewModel, selectedMethod)
+    }
 
 }
 
@@ -111,15 +153,16 @@ fun LayoutInputPhoneNumberBinding.isValid(context: Context?): Boolean {
  * Generate otp on this number
  * On success open otp Dialog
  */
-private fun Context.generateOTPApiCall(bindingInputPhone: LayoutInputPhoneNumberBinding,
-                                       bindingDynamicForm: FragmentDynamicFormBinding,
-                                       viewModel: SetEnrollViewModel) {
+private fun Context.generateOTPApiCall(bindingDynamicForm: FragmentDynamicFormBinding,
+                                       bindingInputPhone: LayoutInputPhoneNumberBinding,
+                                       viewModel: SetEnrollViewModel,
+                                       selectedMethod: String) {
     val context = this
-    val liveData = viewModel.generateOTP(OTPReq(phonenumber = bindingInputPhone.editPhoneNumber.value))
+    val liveData = viewModel.generateOTP(OTPReq(phonenumber = bindingInputPhone.editPhoneNumber.value, otpType = selectedMethod))
     bindingDynamicForm.lifecycleOwner?.let {
         liveData.observe(it, Observer {
             it.ifSuccess {
-                context.otpDialog(bindingInputPhone, bindingDynamicForm, viewModel)
+                context.otpDialog(bindingDynamicForm, bindingInputPhone, viewModel, selectedMethod)
             }
         })
     }
@@ -133,9 +176,10 @@ private fun Context.generateOTPApiCall(bindingInputPhone: LayoutInputPhoneNumber
  * On click of submit button call verify otp api
  * On click of resend otp call generate api
  */
-private fun Context.otpDialog(bindingInputPhone: LayoutInputPhoneNumberBinding
-                              , bindingDynamicForm: FragmentDynamicFormBinding,
-                              viewModel: SetEnrollViewModel) {
+private fun Context.otpDialog(bindingDynamicForm: FragmentDynamicFormBinding,
+                              bindingInputPhone: LayoutInputPhoneNumberBinding,
+                              viewModel: SetEnrollViewModel,
+                              selectedMethod: String) {
     val context = this
 
     val binding = DataBindingUtil.inflate<DialogOtpBinding>(LayoutInflater.from(this),
@@ -171,13 +215,13 @@ private fun Context.otpDialog(bindingInputPhone: LayoutInputPhoneNumberBinding
                 viewModel)
     }
 
-    binding.btnCancel?.onClick {
+    binding.btnCancel.onClick {
         dialog.dismiss()
     }
 
-    binding.textResendOTP?.onClick {
+    binding.textResendOTP.onClick {
         dialog.dismiss()
-        context.generateOTPApiCall(bindingInputPhone, bindingDynamicForm, viewModel)
+        context.generateOTPApiCall(bindingDynamicForm, bindingInputPhone, viewModel, selectedMethod)
     }
 }
 
