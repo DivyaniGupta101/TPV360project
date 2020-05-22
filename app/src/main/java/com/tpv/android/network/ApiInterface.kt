@@ -106,4 +106,5 @@ interface ApiInterface {
 
     @GET("agent-current-activity")
     fun getCurrentActivity(): Call<CommonResponse<CurrentActivityResponse>>
+
 }
