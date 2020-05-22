@@ -20,7 +20,8 @@ enum class MenuItem(val value: String) {
     PROFILE("profile"),
     ENROLL("enroll"),
     LOGOUT("logout"),
-    SUPPORT("support")
+    SUPPORT("support"),
+    TIMECLOCK("timeclock")
 }
 
 enum class DynamicField(val type: String) {

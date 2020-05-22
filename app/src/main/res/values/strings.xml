@@ -8,6 +8,7 @@
     <string name="start_enrollment">Begin Enrollment</string>
     <string name="commodity">Commodity</string>
     <string name="programs">programs</string>
+    <string name="time_clock">Time Clock</string>
     <string name="log_out">Log out</string>
     <string name="setting">Settings</string>
     <string name="dual_fuel">Dual Fuel</string>
@@ -158,7 +159,9 @@
     <string name="gas">Gas</string>
     <string name="electric">Electric</string>
     <string name="terms_and_condition">Terms and Conditions</string>
-    <string name="msg_statement">These Terms and Conditions apply to customers offered the XYZ Energy Price Promise. If there is any conflict between these Terms and Conditions and the XYZ Energy Residential Agreement, these Terms and Conditions shall prevail. Any capitalised terms set out in these terms which are not defined in these Terms and Conditions have the same meaning as set out in the XYZ Energy Residential Agreement.Availability.\n\nThe XYZ Energy Price Promise is only available for residential customers who have been offered the XYZ Energy Price Promise. The XYZ Energy Price Promise is only available in a selected number of regions and for a limited period of time. The XYZ Energy Price Promise offer may be extended to other regions and for additional time at XYZ Energy\'s sole discretion.\n\nThe Price Promise applies only to fixed and variable electricity Energy rates paid on a monthly basis based on billing days or metered Energy. The Price Promise does not apply to Delivery charges or any LPG or Natural Gas related charges. Any other credits or fees you may receive or incur from time to time in accordance with the XYZ Energy Residential Agreement are not subject to the Price Promise.\n\nPrice Protection applies to your Energy Rate for two years from the date you originally switched to this product and does not apply to charges under Delivery on your Price Plan which includes Network Services, Retailer Services and Metering. Beyond the Price Protection period we will give you notice of any change in accordance with the XYZ Energy Residential Agreement.\n\nIf you accept the supply of Energy from Us pursuant to Our Price Promise then this Agreement is conditional on XYZ Energy being satisfied in all respects with the rates You are currently paying You electricity provider and any PPD You receive from them, as well as whether or not We are using the correct configuration for Your account. XYZ Energy reserves the right to request a copy of your most recent electricity bill from your current electricity provider and to contact your local Lines Company to satisfy itself as to these matters. \n\nThe Price Promise cannot be taken to another network, but can be taken between properties on the same network if the price plan is still available.\n\nXYZ Energy seeks to pass through Network Service Charges. XYZ Energy seeks to recover the total charge it faces across all relevant consumers. An individual consumer’s charges may differ between the levelled charge and the underlying Network Charge due to changes in the timing of consumption.</string>
+    <string name="msg_statement">
+        These Terms and Conditions apply to customers offered the XYZ Energy Price Promise. If there is any conflict between these Terms and Conditions and the XYZ Energy Residential Agreement, these Terms and Conditions shall prevail. Any capitalised terms set out in these terms which are not defined in these Terms and Conditions have the same meaning as set out in the XYZ Energy Residential Agreement.\n\nAvailability.\nThe XYZ Energy Price Promise is only available for residential customers who have been offered the XYZ Energy Price Promise. The XYZ Energy Price Promise is only available in a selected number of regions and for a limited period of time. The XYZ Energy Price Promise offer may be extended to other regions and for additional time at XYZ Energy\'s sole discretion. The Price Promise applies only to fixed and variable electricity Energy rates paid on a monthly basis based on billing days or metered Energy. The Price Promise does not apply to Delivery charges or any LPG or Natural Gas related charges. Any other credits or fees you may receive or incur from time to time in accordance with the XYZ Energy Residential Agreement are not subject to the Price Promise. Price Protection applies to your Energy Rate for two years from the date you originally switched to this product and does not apply to charges under Delivery on your Price Plan which includes Network Services, Retailer Services and Metering. Beyond the Price Protection period we will give you notice of any change in accordance with the XYZ Energy Residential Agreement.\n\nIf you accept the supply of Energy from Us pursuant to Our Price Promise then this Agreement is conditional on XYZ Energy being satisfied in all respects with the rates You are currently paying You electricity provider and any PPD You receive from them, as well as whether or not We are using the correct configuration for Your account. XYZ Energy reserves the right to request a copy of your most recent electricity bill from your current electricity provider and to contact your local Lines Company to satisfy itself as to these matters.  The Price Promise cannot be taken to another network, but can be taken between properties on the same network if the price plan is still available.\n\nXYZ Energy seeks to pass through Network Service Charges. XYZ Energy seeks to recover the total charge it faces across all relevant consumers. An individual consumer/’s charges may differ between the levelled charge and the underlying Network Charge due to changes in the timing of consumption.
+    </string>
     <string name="msg_agree_statement">I verify that I have read and agree to the terms and conditions.</string>
     <string name="account_holder_name">Account Holder Name :</string>
     <string name="signature">Signature</string>
@@ -212,6 +215,16 @@
     <string name="high">High</string>
     <string name="urgent">Urgent</string>
     <string name="priority">Priority</string>
+    <string name="select_verification_method">Select Verification Method</string>
+    <string name="sms">SMS</string>
+    <string name="voice">Voice</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="clock_in">Clock IN</string>
+    <string name="clock_out">Clock OUT</string>
+    <string name="go_on_break">Go on Break</string>
+    <string name="back_from_break">Back from Break</string>
+    <string name="customer_visit_arrival">Customer Visit Arrival</string>
+    <string name="customer_visit_departure">Customer Visit Departure</string>
 
 
 </resources>

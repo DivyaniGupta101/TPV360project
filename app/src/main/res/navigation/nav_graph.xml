@@ -236,7 +236,15 @@
         app:popExitAnim="@anim/fragment_fade_exit"
         app:popUpTo="@id/dashBoardFragment"
         app:popUpToInclusive="false" />
-
+    <action
+        android:id="@+id/action_global_clockTimeFragment"
+        app:destination="@+id/clockTimeFragment"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/fragment_fade_enter"
+        app:popExitAnim="@anim/fragment_fade_exit"
+        app:popUpTo="@id/dashBoardFragment"
+        app:popUpToInclusive="false" />
     <action
         android:id="@+id/action_global_commodityFragment"
         app:destination="@+id/commodityFragment"
@@ -295,4 +303,8 @@
             app:popUpTo="@id/dashBoardFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/clockTimeFragment"
+        android:name="com.tpv.android.ui.home.clocktime.ClockTimeFragment"
+        android:label="ClockTimeFragment" />
 </navigation>

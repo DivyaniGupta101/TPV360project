@@ -1,0 +1,249 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.CurrentActivityResponse" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+
+        <variable
+            name="activityType"
+            type="String" />
+
+        <variable
+            name="isClockIn"
+            type="Boolean" />
+
+        <variable
+            name="isOnBreak"
+            type="Boolean" />
+
+        <variable
+            name="isCustomerVisit"
+            type="Boolean" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="com.tpv.android.ui.home.clocktime.ClockTimeFragment">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textTimer"
+                        style="@style/PrimaryBigNormalText"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        tools:text="1:00:25" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_40sdp"
+                        android:layout_marginBottom="@dimen/_40sdp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/btnClock"
+                            style="@style/BorderButtonWithEnable"
+                            android:layout_width="match_parent"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:padding="@dimen/_8sdp"
+                            android:text="@string/clock_in"
+                            app:selectButtonClick="@{isClockIn}" />
+
+                        <TextView
+                            android:id="@+id/btnBreak"
+                            style="@style/BorderButtonWithEnable"
+                            android:layout_width="match_parent"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:padding="@dimen/_8sdp"
+                            android:text="@string/go_on_break"
+                            app:selectButtonClick="@{isOnBreak}" />
+
+                        <TextView
+                            android:id="@+id/btnCustomerVisit"
+                            style="@style/BorderButtonWithEnable"
+                            android:layout_width="match_parent"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:text="@string/customer_visit_arrival"
+                            app:selectButtonClick="@{isCustomerVisit}" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/_8sdp"
+                        android:paddingEnd="@dimen/_8sdp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="@dimen/_8sdp"
+                            app:cardUseCompatPadding="true">
+
+                            <LinearLayout
+                                android:id="@+id/mainContainer"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/bg_rectangle_border"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:orientation="vertical"
+                                android:padding="@dimen/_8sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        style="@style/PrimaryNormalText"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:text="Today's statistics" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:orientation="horizontal">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/SecondaryNormalText"
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:text="Working"
+                                            android:textColor="@color/colorTertiaryText" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/PrimaryNormalText"
+                                            android:layout_width="0dp"
+                                            android:layout_marginStart="@dimen/_8sdp"
+                                            android:layout_weight="1"
+                                            android:text="@{item.workingTime}"
+                                            tools:text="08:24" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:orientation="horizontal">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/SecondaryNormalText"
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:text="Break"
+                                            android:textColor="@color/colorTertiaryText" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/PrimaryNormalText"
+                                            android:layout_width="0dp"
+                                            android:layout_marginStart="@dimen/_8sdp"
+                                            android:layout_weight="1"
+                                            android:text="@{item.breakTime}"
+                                            tools:text="08:24" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:orientation="horizontal">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/SecondaryNormalText"
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:text="Transit"
+                                            android:textColor="@color/colorTertiaryText" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/PrimaryNormalText"
+                                            android:layout_width="0dp"
+                                            android:layout_marginStart="@dimen/_8sdp"
+                                            android:layout_weight="1"
+                                            android:text="@{item.transitTime}"
+                                            tools:text="08:24" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:orientation="horizontal">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/SecondaryNormalText"
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:text="Total Clocked"
+                                            android:textColor="@color/colorTertiaryText" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/serviceValue"
+                                            style="@style/PrimaryNormalText"
+                                            android:layout_width="0dp"
+                                            android:layout_marginStart="@dimen/_8sdp"
+                                            android:layout_weight="1"
+                                            android:text="@{item.totalTime}"
+                                            tools:text="08:24" />
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/incProgressBar"
+            layout="@layout/progress_bar"
+            app:errorHandler="@{errorHandler}"
+            app:resource="@{resource}"
+            app:useBlockingProgress="@{true}"
+            tools:visibility="visible" />
+    </FrameLayout>
+</layout>

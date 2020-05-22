@@ -98,4 +98,12 @@ interface ApiInterface {
     @POST("https://tpv360.freshdesk.com/api/v2/tickets")
     fun getTickets(@Body ticketReq: TicketReq): Call<Any>
 
+    @POST("agent-activity")
+    fun setAgentActivity(@Body agentActivityRequest: AgentActivityRequest): Call<CommonResponse<Any>>
+
+    @POST("agent-locations")
+    fun setLocation(@Body agentLocationRequest: AgentLocationRequest): Call<CommonResponse<Any>>
+
+    @GET("agent-current-activity")
+    fun getCurrentActivity(): Call<CommonResponse<CurrentActivityResponse>>
 }

@@ -104,12 +104,17 @@
                 layout="@layout/item_menu_options"
                 app:isSelected="@{currentSelected == menuItem.SUPPORT.value }"
                 app:item="@{menutItemList[3]}" />
+            <include
+                android:id="@+id/layoutTimeClock"
+                layout="@layout/item_menu_options"
+                app:isSelected="@{currentSelected == menuItem.TIMECLOCK.value }"
+                app:item="@{menutItemList[4]}" />
 
             <include
                 android:id="@+id/layoutLogout"
                 layout="@layout/item_menu_options"
                 app:isSelected="@{currentSelected == menuItem.LOGOUT.value }"
-                app:item="@{menutItemList[4]}" />
+                app:item="@{menutItemList[5]}" />
 
             <Space
                 android:layout_width="match_parent"

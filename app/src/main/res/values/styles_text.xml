@@ -33,14 +33,17 @@
     <!--    Big Bold-->
     <style name="PrimaryBigBoldText" parent="PrimaryBoldText">
         <item name="android:textSize">@dimen/_24sdp</item>
-        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
 
     <!--    Medium Bold-->
     <style name="PrimaryMediumBoldText" parent="PrimaryBoldText">
         <item name="android:textSize">@dimen/_16sdp</item>
-        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="PrimaryBigNormalText" parent="PrimaryBigBoldText">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+
     </style>
 
     <!--    Medium Regular-->
@@ -82,6 +85,7 @@
         <item name="android:inputType">text|textCapSentences</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textColorHint">@color/colorGray</item>
+        <item name="android:imeOptions">actionNext</item>
 
     </style>
 

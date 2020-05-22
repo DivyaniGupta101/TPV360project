@@ -76,8 +76,10 @@
                     android:digits="@string/name_char"
                     android:ellipsize="end"
                     android:hint="@string/unit"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:text='@={item.values[key.SERVICEUNIT]}' />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -187,7 +189,9 @@
                     android:digits="@string/name_char"
                     android:enabled="@{!item.addressSame}"
                     android:hint="@string/unit"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
+                    android:singleLine="true"
                     android:text='@={item.values[key.BILLINGUNIT]}'
                     android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }" />
             </com.google.android.material.textfield.TextInputLayout>

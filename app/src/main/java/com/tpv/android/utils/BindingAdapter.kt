@@ -229,6 +229,27 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("selectButtonClick")
+    fun setButtonClick(view: View, isClicked: Boolean) {
+        if (isClicked) {
+            if (view is TextView) {
+                view.background = view.context?.getDrawable(R.drawable.button_background_state)
+                view.setTextColor(view.context?.color(R.color.colorButtonText).orZero())
+            }
+        } else {
+            if (view is TextView) {
+                if (view.isEnabled) {
+                    view.setTextColor(view.context?.color(R.color.colorCancelButtonBorder).orZero())
+                } else {
+                    view.setTextColor(view.context?.color(R.color.colorEditTextBorder).orZero())
+                }
+                view.background = view.context?.getDrawable(R.drawable.button_border_background_state)
+            }
+        }
+    }
+
+
+    @JvmStatic
     @BindingAdapter(value = ["currentPage", "pageNumber"], requireAll = true)
     fun handleHighlightOfIndicator(textView: TextView, currentPage: Int, pageNumber: Int) {
         if (currentPage == pageNumber) {

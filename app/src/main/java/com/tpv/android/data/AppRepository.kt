@@ -224,4 +224,22 @@ object AppRepository {
             ApiClient.service.getTickets(ticketReq = ticketReq).getResult()
         }
     }
+
+    fun CoroutineScope.getCurrentActivityCall() = dataApi<CurrentActivityResponse?, APIError> {
+        fromNetwork {
+            ApiClient.service.getCurrentActivity().getResult().map { it?.data }
+        }
+    }
+
+    fun CoroutineScope.setAgentActivityCall(agentActivityRequest: AgentActivityRequest) = dataApi<Any?, APIError> {
+        fromNetwork {
+            ApiClient.service.setAgentActivity(agentActivityRequest).getResult().map { it }
+        }
+    }
+
+    fun CoroutineScope.setLocationCall(agentLocationRequest: AgentLocationRequest) = dataApi<Any?, APIError> {
+        fromNetwork {
+            ApiClient.service.setLocation(agentLocationRequest).getResult().map { it }
+        }
+    }
 }

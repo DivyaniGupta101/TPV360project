@@ -73,7 +73,8 @@ class HomeActivity : AppCompatActivity() {
                 MenuItems(getDrawable(R.drawable.ic_menu_profile_white), getString(R.string.profile)),
                 MenuItems(getDrawable(R.drawable.ic_register_white_32dp), getString(R.string.start_enrollment)),
                 MenuItems(getDrawable(R.drawable.ic_menu_email_white_32dp), getString(R.string.support)),
-                MenuItems(getDrawable(R.drawable.ic_logout_white_32dp), getString(R.string.log_out)))
+                MenuItems(getDrawable(R.drawable.ic_menu_white_access_time_32dp), getString(R.string.time_clock)),
+                MenuItems(getDrawable(R.drawable.ic_menu_logout_white_32dp), getString(R.string.log_out)))
 
         mBinding.navMenu.currentSelected = mLastSelectedItem
 
@@ -94,6 +95,12 @@ class HomeActivity : AppCompatActivity() {
             menuItemSelection(MenuItem.PROFILE.value)
             closeDrawer()
             mNavController.navigateSafe(R.id.action_global_profileFragment)
+        }
+
+        mBinding.navMenu?.layoutTimeClock?.parentContainer?.onClick {
+            menuItemSelection(MenuItem.TIMECLOCK.value)
+            closeDrawer()
+            mNavController.navigateSafe(R.id.action_global_clockTimeFragment)
         }
 
         mBinding.navMenu?.layoutSupport?.parentContainer?.onClick {

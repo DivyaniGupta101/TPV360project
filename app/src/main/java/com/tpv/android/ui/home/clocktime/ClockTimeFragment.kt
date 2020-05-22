@@ -1,0 +1,411 @@
+package com.tpv.android.ui.home.clocktime
+
+import ClockTimeLocationListener
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.location.LocationListener
+import android.location.LocationManager
+import android.os.Bundle
+import android.os.Handler
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProviders
+import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orFalse
+import com.livinglifetechway.k4kotlin.core.orZero
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import com.tpv.android.R
+import com.tpv.android.databinding.FragmentClockTimeBinding
+import com.tpv.android.model.network.AgentActivityRequest
+import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.ui.home.HomeViewModel
+import com.tpv.android.ui.home.TransparentActivity
+import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.LocationHelper
+import com.tpv.android.utils.infoDialog
+import com.tpv.android.utils.setupToolbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.util.*
+
+
+/**
+ * A simple [Fragment] subclass.
+ */
+class ClockTimeFragment : Fragment() {
+    lateinit var mBinding: FragmentClockTimeBinding
+    private lateinit var mViewModel: HomeViewModel
+    private lateinit var mClockTimeViewModel: ClockTimeViewModel
+
+    private val job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
+    private var locationManager: LocationManager? = null
+    private var locationListener: LocationListener? = null
+    private var seconds = 0
+
+    private var running = false
+    private var isPause = false
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_clock_time, container, false)
+        mBinding.lifecycleOwner = this
+        activity?.let { mViewModel = ViewModelProviders.of(it).get(HomeViewModel::class.java) }
+        mClockTimeViewModel = ViewModelProviders.of(this).get(ClockTimeViewModel::class.java)
+        return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupToolbar(mBinding.toolbar, title = getString(R.string.time_clock), showBackIcon = true)
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+
+        getLocation()
+        getCurrentActivity()
+
+        locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationListener = ClockTimeLocationListener(mViewModel, mClockTimeViewModel)
+
+        mBinding.btnBreak.isEnabled = false
+        mBinding.btnCustomerVisit.isEnabled = false
+
+        if (mBinding.btnCustomerVisit.tag == null) {
+            mBinding.btnCustomerVisit.tag = AppConstant.ARRIVALIN
+        }
+
+        if (mBinding.btnClock.tag == null) {
+            mBinding.btnClock.tag = AppConstant.CLOCKIN
+        }
+
+        if (mBinding.btnBreak.tag == null) {
+            mBinding.btnBreak.tag = AppConstant.BREAKIN
+        }
+
+        mBinding.btnCustomerVisit.onClick {
+            setTextAndButton(mBinding.btnCustomerVisit)
+        }
+        mBinding.btnClock.onClick {
+            setTextAndButton(mBinding.btnClock)
+        }
+        mBinding.btnBreak.onClick {
+            setTextAndButton(mBinding.btnBreak)
+        }
+    }
+
+    /**
+     * Get current user's activity from api
+     */
+    private fun getCurrentActivity() {
+
+        val liveData = mClockTimeViewModel.getCurrentActivity()
+        liveData.observe(this, androidx.lifecycle.Observer {
+            it?.ifSuccess {
+                mBinding.item = it
+                setButtonSelectionFromData()
+            }
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
+
+    /**
+     * Get user's activity and handle button selection
+     */
+    private fun setButtonSelectionFromData() {
+
+        if (mBinding.item?.isClockIn.orFalse() && mBinding.item?.isBreakIn.orFalse()) {
+            mBinding.btnClock.tag = AppConstant.CLOCKIN
+            mBinding.btnBreak.tag = AppConstant.BREAKIN
+            setTextAndButton(mBinding.btnClock, false)
+            setTextAndButton(mBinding.btnBreak, false)
+        } else if (mBinding.item?.isClockIn.orFalse() && mBinding.item?.isArrivalIn.orFalse()) {
+            mBinding.btnClock.tag = AppConstant.CLOCKIN
+            mBinding.btnCustomerVisit.tag = AppConstant.ARRIVALIN
+            setTextAndButton(mBinding.btnClock, false)
+            setTextAndButton(mBinding.btnCustomerVisit, false)
+        } else if (mBinding.item?.isClockIn.orFalse()) {
+            mBinding.btnClock.tag = AppConstant.CLOCKIN
+            setTextAndButton(mBinding.btnClock, false)
+        } else if (mBinding.item?.isArrivalIn.orFalse()) {
+            mBinding.btnCustomerVisit.tag = AppConstant.ARRIVALIN
+            setTextAndButton(mBinding.btnCustomerVisit, false)
+        } else if (mBinding.item?.isBreakIn.orFalse()) {
+            mBinding.btnBreak.tag = AppConstant.BREAKIN
+            setTextAndButton(mBinding.btnBreak, false)
+        }
+    }
+
+    /**
+     * Handle button text and background and api call
+     */
+    private fun setTextAndButton(view: TextView, isApiCall: Boolean = true) {
+        setButtonBackground(view)
+
+        when (view.tag) {
+            AppConstant.ARRIVALIN -> {
+                mBinding.btnCustomerVisit.setText(R.string.customer_visit_departure)
+                seconds = mBinding.item?.currentTime.orZero()
+                handleButtonState(AppConstant.ARRIVALIN)
+                setTimerAndApiCall(AppConstant.ARRIVALIN, isApiCall)
+            }
+            AppConstant.ARRIVALOUT -> {
+                mBinding.btnCustomerVisit.setText(R.string.customer_visit_arrival)
+                seconds = mBinding.item?.currentTime.orZero()
+                handleButtonState(AppConstant.ARRIVALOUT)
+                setTimerAndApiCall(AppConstant.ARRIVALOUT, isApiCall)
+            }
+            AppConstant.CLOCKIN -> {
+                mBinding.btnClock.setText(R.string.clock_out)
+                seconds = mBinding.item?.currentTime.orZero()
+                handleButtonState(AppConstant.CLOCKIN)
+                setTimerAndApiCall(AppConstant.CLOCKIN, isApiCall)
+                Timer()
+            }
+            AppConstant.CLOCKOUT -> {
+                mBinding.btnClock.setText(R.string.clock_in)
+                mBinding.btnCustomerVisit.setText(getString(R.string.customer_visit_arrival))
+                mBinding.btnBreak.setText(getString(R.string.go_on_break))
+                seconds = 0
+                handleButtonState(AppConstant.CLOCKOUT)
+                setTimerAndApiCall(AppConstant.CLOCKOUT, isApiCall)
+            }
+
+            AppConstant.BREAKIN -> {
+                mBinding.btnBreak.setText(R.string.back_from_break)
+                handleButtonState(AppConstant.BREAKIN)
+                setTimerAndApiCall(AppConstant.BREAKIN, isApiCall)
+            }
+            AppConstant.BREAKOUT -> {
+                mBinding.btnBreak.setText(R.string.go_on_break)
+                seconds = mBinding.item?.currentTime.orZero()
+                handleButtonState(AppConstant.BREAKOUT)
+                setTimerAndApiCall(AppConstant.BREAKOUT, isApiCall)
+            }
+        }
+    }
+
+
+    /**
+     * Handle button disable and enable state
+     */
+    private fun handleButtonState(state: String) {
+        when (state) {
+            AppConstant.CLOCKIN -> {
+                mBinding.btnBreak.isEnabled = true
+                mBinding.btnCustomerVisit.isEnabled = true
+                mBinding.btnClock.tag = AppConstant.CLOCKOUT
+            }
+            AppConstant.CLOCKOUT -> {
+                mBinding.btnBreak.isEnabled = false
+                mBinding.btnCustomerVisit.isEnabled = false
+                mBinding.btnClock.tag = AppConstant.CLOCKIN
+            }
+            AppConstant.ARRIVALIN -> {
+                mBinding.btnCustomerVisit.isEnabled = true
+                mBinding.btnBreak.isEnabled = true
+                mBinding.btnCustomerVisit.tag = AppConstant.ARRIVALOUT
+            }
+            AppConstant.ARRIVALOUT -> {
+                mBinding.btnCustomerVisit.isEnabled = true
+                mBinding.btnBreak.isEnabled = true
+                mBinding.btnCustomerVisit.tag = AppConstant.ARRIVALIN
+            }
+            AppConstant.BREAKOUT -> {
+                mBinding.btnCustomerVisit.isEnabled = true
+                mBinding.btnBreak.isEnabled = true
+                mBinding.btnBreak.tag = AppConstant.BREAKIN
+            }
+            AppConstant.BREAKIN -> {
+                mBinding.btnCustomerVisit.isEnabled = false
+                mBinding.btnBreak.isEnabled = true
+                mBinding.btnBreak.tag = AppConstant.BREAKOUT
+            }
+        }
+
+    }
+
+    /**
+     * Handle button's background
+     */
+    private fun setButtonBackground(view: View) {
+        when (view) {
+            mBinding.btnBreak -> {
+                mBinding.isClockIn = false
+                mBinding.isCustomerVisit = false
+                mBinding.isOnBreak = !mBinding.isOnBreak.orFalse()
+            }
+            mBinding.btnClock -> {
+                mBinding.isOnBreak = false
+                mBinding.isCustomerVisit = false
+                mBinding.isClockIn = !mBinding.isClockIn.orFalse()
+            }
+            mBinding.btnCustomerVisit -> {
+                mBinding.isOnBreak = false
+                mBinding.isClockIn = false
+                mBinding.isCustomerVisit = !mBinding.isCustomerVisit.orFalse()
+
+            }
+        }
+
+    }
+
+    /**
+     * handle timer and set in textView
+     */
+    private fun Timer() {
+        val handler = Handler()
+
+        handler.post(object : Runnable {
+            override fun run() {
+                val hours = seconds / 3600
+                val minutes = seconds % 3600 / 60
+                val secs = seconds % 60
+
+
+                mBinding.textTimer.text = String.format(Locale.getDefault(),
+                        "%d:%02d:%02d", hours,
+                        minutes, secs)
+
+                if (running) {
+                    seconds++;
+                }
+
+                handler.postDelayed(this, 1000)
+            }
+        })
+    }
+
+    /**
+     * set timer pause and play
+     */
+    private fun setTimerAndApiCall(activityType: String, isApiCall: Boolean = true) {
+        when (activityType) {
+            AppConstant.BREAKIN -> {
+                isPause = true
+                running = false
+                if (isApiCall) {
+                    setAgentActivityCall(AppConstant.BREAKIN)
+                }
+            }
+            AppConstant.BREAKOUT -> {
+                running = true
+                isPause = false
+                if (isApiCall) {
+                    setAgentActivityCall(AppConstant.BREAKOUT)
+                }
+            }
+            AppConstant.CLOCKIN -> {
+                running = true
+                isPause = false
+                updateLocation()
+                if (isApiCall) {
+                    setAgentActivityCall(AppConstant.CLOCKIN)
+                }
+            }
+            AppConstant.CLOCKOUT -> {
+                running = false
+                isPause = false
+                stopLocationUpdate()
+                if (isApiCall) {
+                    setAgentActivityCall(AppConstant.CLOCKOUT)
+                }
+            }
+            AppConstant.ARRIVALOUT -> {
+                running = true
+                if (isApiCall) {
+                    setAgentActivityCall(AppConstant.ARRIVALOUT)
+                }
+            }
+            AppConstant.ARRIVALIN -> {
+                running = true
+                if (isApiCall) {
+                    setAgentActivityCall(AppConstant.ARRIVALIN)
+                }
+            }
+        }
+    }
+
+    /**
+     * send current status of user's activity in Api
+     */
+    private fun setAgentActivityCall(activityType: String) {
+
+        val liveData = mClockTimeViewModel.setAgentActivity(
+                AgentActivityRequest(activityType,
+                        lat = mViewModel.location?.latitude.toString(),
+                        lng = mViewModel.location?.longitude.toString()))
+        liveData.observe(this, androidx.lifecycle.Observer {
+            it?.ifSuccess {
+                getCurrentActivity()
+            }
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
+
+
+    /**
+     * Get location using location manager
+     */
+    @SuppressLint("MissingPermission")
+    private fun getLocation() = runWithPermissions(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    ) {
+        uiScope.launch {
+            mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
+
+            if (mViewModel.location == null) {
+                startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
+            } else {
+                if (!locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
+                    context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
+                }
+            }
+        }
+    }
+
+    /**
+     * Update location every one minute and minimum distance is more than 50 meter
+     */
+    @SuppressLint("MissingPermission")
+    public fun updateLocation() {
+        if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
+
+            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    1000,
+                    50f,
+                    locationListener)
+
+        } else {
+            context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
+        }
+    }
+
+    /**
+     * Remove location update
+     */
+    private fun stopLocationUpdate() {
+        locationManager?.removeUpdates(locationListener)
+    }
+
+
+}
+
+
+
+
+
+
