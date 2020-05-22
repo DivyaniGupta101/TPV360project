@@ -104,6 +104,8 @@ class ClockTimeFragment : Fragment() {
         mBinding.btnBreak.onClick {
             setTextAndButton(mBinding.btnBreak)
         }
+
+        Timer()
     }
 
     /**
@@ -172,7 +174,6 @@ class ClockTimeFragment : Fragment() {
                 seconds = mBinding.item?.currentTime.orZero()
                 handleButtonState(AppConstant.CLOCKIN)
                 setTimerAndApiCall(AppConstant.CLOCKIN, isApiCall)
-                Timer()
             }
             AppConstant.CLOCKOUT -> {
                 mBinding.btnClock.setText(R.string.clock_in)
