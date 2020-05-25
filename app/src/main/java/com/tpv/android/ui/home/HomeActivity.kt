@@ -30,6 +30,7 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.ui.NotificationForegroundService
 import com.tpv.android.ui.auth.AuthActivity
 import com.tpv.android.utils.Screenshot
 import com.tpv.android.utils.actionDialog
@@ -133,6 +134,12 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun stopForeGroundService() {
+        val intent = Intent(this, NotificationForegroundService::class.java)
+        intent.action = NotificationForegroundService.STOPACTION
+        this?.startService(intent)
+    }
+
     private fun getProfileApiCall() {
         mViewModel.getProfile().observe(this, Observer {
             it.ifSuccess { userDetail ->
@@ -151,6 +158,7 @@ class HomeActivity : AppCompatActivity() {
         val liveData = mViewModel.logout()
         liveData.observe(this@HomeActivity, Observer {
             it?.ifSuccess {
+                stopForeGroundService()
                 this.startActivity<AuthActivity>()
                 finish()
             }
