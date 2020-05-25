@@ -142,6 +142,9 @@ class ClockTimeFragment : Fragment() {
         } else if (mBinding.item?.isBreakIn.orFalse()) {
             mBinding.btnBreak.tag = AppConstant.BREAKIN
             setTextAndButton(mBinding.btnBreak, false)
+        } else {
+            mBinding.btnClock.tag = AppConstant.CLOCKOUT
+            setTextAndButton(mBinding.btnClock, false)
         }
     }
 
@@ -149,7 +152,9 @@ class ClockTimeFragment : Fragment() {
      * Handle button text and background and api call
      */
     private fun setTextAndButton(view: TextView, isApiCall: Boolean = true) {
-        setButtonBackground(view)
+        if (!isApiCall) {
+            setButtonBackground()
+        }
 
         when (view.tag) {
             AppConstant.ARRIVALIN -> {
@@ -236,26 +241,10 @@ class ClockTimeFragment : Fragment() {
     /**
      * Handle button's background
      */
-    private fun setButtonBackground(view: View) {
-        when (view) {
-            mBinding.btnBreak -> {
-                mBinding.isClockIn = false
-                mBinding.isCustomerVisit = false
-                mBinding.isOnBreak = !mBinding.isOnBreak.orFalse()
-            }
-            mBinding.btnClock -> {
-                mBinding.isOnBreak = false
-                mBinding.isCustomerVisit = false
-                mBinding.isClockIn = !mBinding.isClockIn.orFalse()
-            }
-            mBinding.btnCustomerVisit -> {
-                mBinding.isOnBreak = false
-                mBinding.isClockIn = false
-                mBinding.isCustomerVisit = !mBinding.isCustomerVisit.orFalse()
-
-            }
-        }
-
+    private fun setButtonBackground() {
+        mBinding.isOnBreak = mBinding.item?.isBreakIn.orFalse()
+        mBinding.isClockIn = mBinding.item?.isClockIn.orFalse()
+        mBinding.isCustomerVisit = mBinding.item?.isArrivalIn.orFalse()
     }
 
     /**
