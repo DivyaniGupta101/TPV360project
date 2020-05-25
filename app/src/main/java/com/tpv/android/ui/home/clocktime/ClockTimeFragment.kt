@@ -1,11 +1,8 @@
 package com.tpv.android.ui.home.clocktime
 
-import ClockTimeLocationListener
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
@@ -28,6 +25,7 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.ui.NotificationForegroundService
 import com.tpv.android.ui.home.HomeViewModel
 import com.tpv.android.ui.home.TransparentActivity
 import com.tpv.android.utils.AppConstant
@@ -48,12 +46,11 @@ class ClockTimeFragment : Fragment() {
     lateinit var mBinding: FragmentClockTimeBinding
     private lateinit var mViewModel: HomeViewModel
     private lateinit var mClockTimeViewModel: ClockTimeViewModel
+    private var seconds = 0
 
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
     private var locationManager: LocationManager? = null
-    private var locationListener: LocationListener? = null
-    private var seconds = 0
 
     private var running = false
     private var isPause = false
@@ -77,8 +74,6 @@ class ClockTimeFragment : Fragment() {
         getLocation()
         getCurrentActivity()
 
-        locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationListener = ClockTimeLocationListener(mViewModel, mClockTimeViewModel)
 
         mBinding.btnBreak.isEnabled = false
         mBinding.btnCustomerVisit.isEnabled = false
@@ -311,7 +306,7 @@ class ClockTimeFragment : Fragment() {
             AppConstant.CLOCKIN -> {
                 running = true
                 isPause = false
-                updateLocation()
+                startForeGroundService()
                 if (isApiCall) {
                     setAgentActivityCall(AppConstant.CLOCKIN)
                 }
@@ -319,7 +314,7 @@ class ClockTimeFragment : Fragment() {
             AppConstant.CLOCKOUT -> {
                 running = false
                 isPause = false
-                stopLocationUpdate()
+                stopForeGroundService()
                 if (isApiCall) {
                     setAgentActivityCall(AppConstant.CLOCKOUT)
                 }
@@ -339,6 +334,18 @@ class ClockTimeFragment : Fragment() {
         }
     }
 
+    private fun stopForeGroundService() {
+        val intent = Intent(activity, NotificationForegroundService::class.java)
+        intent.action = NotificationForegroundService.STOPACTION
+        activity?.startService(intent)
+    }
+
+    private fun startForeGroundService() {
+        val intent = Intent(activity, NotificationForegroundService::class.java)
+        intent.putExtra(NotificationForegroundService.LOCATIONKEY, mViewModel.location)
+        activity?.startService(intent)
+    }
+
     /**
      * send current status of user's activity in Api
      */
@@ -346,8 +353,8 @@ class ClockTimeFragment : Fragment() {
 
         val liveData = mClockTimeViewModel.setAgentActivity(
                 AgentActivityRequest(activityType,
-                        lat = mViewModel.location?.latitude.toString(),
-                        lng = mViewModel.location?.longitude.toString()))
+                        lat = NotificationForegroundService.location?.latitude.toString(),
+                        lng = NotificationForegroundService.location?.longitude.toString()))
         liveData.observe(this, androidx.lifecycle.Observer {
             it?.ifSuccess {
                 getCurrentActivity()
@@ -358,8 +365,8 @@ class ClockTimeFragment : Fragment() {
 
 
     /**
-     * Get location using location manager
-     */
+    //     * Get location using location manager
+    //     */
     @SuppressLint("MissingPermission")
     private fun getLocation() = runWithPermissions(
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -368,7 +375,7 @@ class ClockTimeFragment : Fragment() {
         uiScope.launch {
             mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
 
-            if (mViewModel.location == null) {
+            if (NotificationForegroundService.location == null) {
                 startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
             } else {
                 if (!locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
@@ -377,31 +384,6 @@ class ClockTimeFragment : Fragment() {
             }
         }
     }
-
-    /**
-     * Update location every one minute and minimum distance is more than 50 meter
-     */
-    @SuppressLint("MissingPermission")
-    public fun updateLocation() {
-        if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
-
-            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    1000,
-                    50f,
-                    locationListener)
-
-        } else {
-            context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
-        }
-    }
-
-    /**
-     * Remove location update
-     */
-    private fun stopLocationUpdate() {
-        locationManager?.removeUpdates(locationListener)
-    }
-
 
 }
 

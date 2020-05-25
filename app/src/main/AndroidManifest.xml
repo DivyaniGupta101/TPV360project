@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <application
         android:name=".App"
@@ -18,8 +21,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.home.TransparentActivity"
-            android:theme="@style/Transparent"/>
+        <service android:name=".ui.NotificationForegroundService"/>
+
+        <activity
+            android:name=".ui.home.TransparentActivity"
+            android:theme="@style/Transparent" />
         <activity android:name=".ui.home.SettingsActivity" />
         <activity
             android:name=".ui.home.HomeActivity"
