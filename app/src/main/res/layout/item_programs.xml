@@ -112,10 +112,11 @@
                             android:layout_width="0dp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginEnd="@dimen/_8sdp"
-                            android:layout_weight="1.5"
+                            android:layout_weight="2"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="@{ @string/dollar+ item.rate}"
+                            android:text="@{ @string/dollar+ item.rate + '(' + ' '+ item.unitOfMeasureName +' '+ ')'}"
+                            android:textSize="@dimen/_10sdp"
                             tools:text="$12.49" />
 
                         <LinearLayout
@@ -141,8 +142,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:layout_marginStart="@dimen/_4sdp"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
@@ -163,8 +163,8 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:layout_marginEnd="@dimen/_4sdp"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
