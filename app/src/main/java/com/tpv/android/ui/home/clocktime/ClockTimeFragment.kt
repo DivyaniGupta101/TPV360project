@@ -72,9 +72,11 @@ class ClockTimeFragment : Fragment() {
         setupToolbar(mBinding.toolbar, title = getString(R.string.time_clock), showBackIcon = true)
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
-        getLocation()
-        getCurrentActivity()
+        if (mViewModel.location == null) {
+            getLocation()
+        }
 
+        getCurrentActivity()
 
         mBinding.btnBreak.isEnabled = false
         mBinding.btnCustomerVisit.isEnabled = false
