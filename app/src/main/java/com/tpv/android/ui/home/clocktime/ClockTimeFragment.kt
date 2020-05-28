@@ -157,24 +157,22 @@ class ClockTimeFragment : Fragment() {
     private fun setTextAndButton(view: TextView, isApiCall: Boolean = true) {
         if (!isApiCall) {
             setButtonBackground()
+            seconds = mBinding.item?.currentTime.orZero()
         }
 
         when (view.tag) {
             AppConstant.ARRIVALIN -> {
                 mBinding.btnCustomerVisit.setText(R.string.customer_visit_departure)
-                seconds = mBinding.item?.currentTime.orZero()
                 handleButtonState(AppConstant.ARRIVALIN)
                 setTimerAndApiCall(AppConstant.ARRIVALIN, isApiCall)
             }
             AppConstant.ARRIVALOUT -> {
                 mBinding.btnCustomerVisit.setText(R.string.customer_visit_arrival)
-                seconds = mBinding.item?.currentTime.orZero()
                 handleButtonState(AppConstant.ARRIVALOUT)
                 setTimerAndApiCall(AppConstant.ARRIVALOUT, isApiCall)
             }
             AppConstant.CLOCKIN -> {
                 mBinding.btnClock.setText(R.string.clock_out)
-                seconds = mBinding.item?.currentTime.orZero()
                 handleButtonState(AppConstant.CLOCKIN)
                 setTimerAndApiCall(AppConstant.CLOCKIN, isApiCall)
             }
@@ -182,7 +180,6 @@ class ClockTimeFragment : Fragment() {
                 mBinding.btnClock.setText(R.string.clock_in)
                 mBinding.btnCustomerVisit.setText(getString(R.string.customer_visit_arrival))
                 mBinding.btnBreak.setText(getString(R.string.go_on_break))
-                seconds = 0
                 handleButtonState(AppConstant.CLOCKOUT)
                 setTimerAndApiCall(AppConstant.CLOCKOUT, isApiCall)
             }
@@ -194,7 +191,6 @@ class ClockTimeFragment : Fragment() {
             }
             AppConstant.BREAKOUT -> {
                 mBinding.btnBreak.setText(R.string.go_on_break)
-                seconds = mBinding.item?.currentTime.orZero()
                 handleButtonState(AppConstant.BREAKOUT)
                 setTimerAndApiCall(AppConstant.BREAKOUT, isApiCall)
             }

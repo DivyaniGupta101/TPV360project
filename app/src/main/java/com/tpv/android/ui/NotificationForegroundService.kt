@@ -69,7 +69,7 @@ class NotificationForegroundService : Service() {
             )
         } as NotificationManager
         createChannel(NOTIFICATION_CHANNEL_ID_DEFAULT, NOTIFICATION_CHANNEL_ID_DEFAULT)
-        context.let { notificationManager.sendNotification("Clock in", it) }
+        context.let { notificationManager.sendNotification("You are currently Clocked-In", it) }
     }
 
     private fun handleCallBackOfAutoLocationUpdate() {
