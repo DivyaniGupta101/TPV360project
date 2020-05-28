@@ -2,6 +2,7 @@ package com.tpv.android.ui.home.clocktime
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.location.LocationManager
 import android.os.Bundle
@@ -362,9 +363,11 @@ class ClockTimeFragment : Fragment() {
             Manifest.permission.ACCESS_COARSE_LOCATION
     ) {
         uiScope.launch {
+            locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
             mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
 
-            if (NotificationForegroundService.location == null) {
+            if (mViewModel.location == null) {
                 startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
             } else {
                 if (!locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
