@@ -355,8 +355,8 @@ class ClockTimeFragment : Fragment() {
 
 
     /**
-    //     * Get location using location manager
-    //     */
+     * Get location using location manager
+     */
     @SuppressLint("MissingPermission")
     private fun getLocation() = runWithPermissions(
             Manifest.permission.ACCESS_FINE_LOCATION,

@@ -15,4 +15,9 @@ class HomeViewModel : com.tpv.android.network.resources.CoroutineScopedViewModel
         logoutCall()
     }
 
+    fun getCurrentActivity() = with(AppRepository) {
+        getCurrentActivityCall()
+    }
+
+
 }

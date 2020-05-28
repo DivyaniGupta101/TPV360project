@@ -1,7 +1,10 @@
 package com.tpv.android.ui.home
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -13,11 +16,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import com.livinglifetechway.k4kotlin.core.hide
-import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.show
-import com.livinglifetechway.k4kotlin.core.startActivity
+import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.databinding.setBindingView
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.BuildConfig
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivityHomeBinding
@@ -32,10 +33,12 @@ import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.NotificationForegroundService
 import com.tpv.android.ui.auth.AuthActivity
-import com.tpv.android.utils.Screenshot
-import com.tpv.android.utils.actionDialog
+import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.MenuItem
-import com.tpv.android.utils.navigateSafe
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 
 class HomeActivity : AppCompatActivity() {
@@ -51,6 +54,10 @@ class HomeActivity : AppCompatActivity() {
     lateinit var mViewModel: HomeViewModel
     var mLastSelectedItem = MenuItem.DASHBOARD.value
     private lateinit var navigationHostFragment: NavHostFragment
+    private val job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
+    private var locationManager: LocationManager? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +74,7 @@ class HomeActivity : AppCompatActivity() {
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
+        getCurrentActivity()
         setProfileData()
 
         mBinding.navMenu.menutItemList = arrayListOf(
@@ -132,6 +140,26 @@ class HomeActivity : AppCompatActivity() {
                 context.logOutApiCall()
             })
         }
+    }
+
+    private fun getCurrentActivity() {
+        getLocation()
+        val liveData = mViewModel.getCurrentActivity()
+        liveData.observe(this, Observer {
+            it.ifSuccess {
+                if (it?.isClockIn.orFalse()) {
+                    startForeGroundService()
+                }
+
+            }
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
+
+    private fun startForeGroundService() {
+        val intent = Intent(this, NotificationForegroundService::class.java)
+        intent.putExtra(NotificationForegroundService.LOCATIONKEY, mViewModel.location)
+        this.startService(intent)
     }
 
     private fun stopForeGroundService() {
@@ -224,5 +252,25 @@ class HomeActivity : AppCompatActivity() {
      * close drawer
      */
     private fun closeDrawer() = mBinding.drawerLayout.closeDrawer(GravityCompat.END)
+
+    @SuppressLint("MissingPermission")
+    private fun getLocation() = runWithPermissions(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    ) {
+        uiScope.launch {
+            locationManager = this@HomeActivity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+            mViewModel.location = this@HomeActivity.let { LocationHelper.getLastKnownLocation(it) }
+
+            if (mViewModel.location == null) {
+                startActivityForResult(Intent(this@HomeActivity, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
+            } else {
+                if (!locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
+                    this@HomeActivity.infoDialog(subTitleText = getString(R.string.msg_gps_location))
+                }
+            }
+        }
+    }
 
 }
