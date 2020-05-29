@@ -112,6 +112,10 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         selfVerificationCall(successReq)
     }
 
+    fun setTPVCallData(scheduleTPVCallRequest: ScheduleTPVCallRequest) = with(AppRepository) {
+        setTPVCall(scheduleTPVCallRequest)
+    }
+
     /**
      * Remove stored values in viewModel
      */

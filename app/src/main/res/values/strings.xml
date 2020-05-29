@@ -126,6 +126,8 @@
     <string name="MSF">MSF</string>
     <string name="code">Code</string>
     <string name="dollar">$</string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
     <string name="electric_programs">electric programs</string>
     <string name="gas_programs">gas programs</string>
     <string name="select_plan">Select Plan</string>
@@ -216,6 +218,7 @@
     <string name="urgent">Urgent</string>
     <string name="priority">Priority</string>
     <string name="select_verification_method">Select Verification Method</string>
+    <string name="select_language">Select Language</string>
     <string name="sms">SMS</string>
     <string name="voice">Voice</string>
     <string name="send_otp">Send OTP</string>
@@ -225,6 +228,7 @@
     <string name="back_from_break">Back from Break</string>
     <string name="customer_visit_arrival">Customer Visit Arrival</string>
     <string name="customer_visit_departure">Customer Visit Departure</string>
+    <string name="tpv_now">TPV Now</string>
 
 
 </resources>

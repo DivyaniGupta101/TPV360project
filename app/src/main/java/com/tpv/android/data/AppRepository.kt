@@ -242,4 +242,10 @@ object AppRepository {
             ApiClient.service.setLocation(agentLocationRequest).getResult().map { it }
         }
     }
+
+    fun CoroutineScope.setTPVCall(scheduleTPVCallRequest: ScheduleTPVCallRequest) = dataApi<CommonResponse<Any>?, APIError> {
+        fromNetwork {
+            ApiClient.service.setTPVCall(scheduleTPVCallRequest).getResult().map { it }
+        }
+    }
 }

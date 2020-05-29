@@ -107,4 +107,7 @@ interface ApiInterface {
     @GET("agent-current-activity")
     fun getCurrentActivity(): Call<CommonResponse<CurrentActivityResponse>>
 
+    @POST("schedule-tpv-call")
+    fun setTPVCall(@Body scheduleTPVCallRequest: ScheduleTPVCallRequest): Call<CommonResponse<Any>>
+
 }
