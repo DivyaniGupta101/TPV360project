@@ -20,7 +20,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 29
-        versionName "0.5.11"
+        versionName "0.6.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -70,18 +70,22 @@ android {
         NewDemo {
             dimension = 'tpv'
             applicationIdSuffix ".demo"
+            resValue "string", "app_name", "TPV360 NewDemo"
         }
         NewDev {
             dimension = 'tpv'
             applicationIdSuffix ".dev"
+            resValue "string", "app_name", "TPV360 NewDev"
         }
         TpvTest {
             dimension = 'tpv'
             applicationIdSuffix ".test"
+            resValue "string", "app_name", "TPV360 Test"
         }
         Prod {
             dimension = 'tpv'
             applicationIdSuffix ".prod"
+            resValue "string", "app_name", "TPV360 Prod"
         }
     }
 
