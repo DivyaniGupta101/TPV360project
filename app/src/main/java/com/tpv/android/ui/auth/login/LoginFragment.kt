@@ -57,8 +57,27 @@ class LoginFragment : Fragment() {
             activity?.finish()
         }
         if (BuildConfig.DEBUG) {
-            mBinding.editEmail.setText("mansi.d2d_agent+1@gmail.com")
-            mBinding.editPassword.setText("tpv@123")
+            if (BuildConfig.FLAVOR.equals("NewDevNotAllow") ||
+                    BuildConfig.FLAVOR.equals("NewDevAllow")) {
+                mBinding.editEmail.setText("mansi.d2d_agent+1@gmail.com")
+                mBinding.editPassword.setText("tpv@123")
+            }
+
+            if (BuildConfig.FLAVOR.equals("NewDemoNotAllow") ||
+                    BuildConfig.FLAVOR.equals("NewDemoAllow")) {
+                mBinding.editEmail.setText("mansi.d2d_agent+1@gmail.com")
+                mBinding.editPassword.setText("tpv@123")
+            }
+            if (BuildConfig.FLAVOR.equals("ProdNotAllow") ||
+                    BuildConfig.FLAVOR.equals("ProdAllow")) {
+                mBinding.editEmail.setText("mansi.d2d_agent+1@gmail.com")
+                mBinding.editPassword.setText("tpv@123")
+            }
+            if (BuildConfig.FLAVOR.equals("TpvTestAllow") ||
+                    BuildConfig.FLAVOR.equals("TpvTestNotAllow")) {
+                mBinding.editEmail.setText("mansi.d2d_agent+1@gmail.com")
+                mBinding.editPassword.setText("tpv@123")
+            }
 
         }
 
