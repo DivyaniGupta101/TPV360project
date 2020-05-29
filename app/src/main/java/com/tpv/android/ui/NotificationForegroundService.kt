@@ -15,11 +15,13 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavDeepLinkBuilder
 import com.google.android.gms.location.LocationCallback
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.R
 import com.tpv.android.data.AppRepository.setLocationCall
 import com.tpv.android.model.network.AgentLocationRequest
+import com.tpv.android.ui.home.HomeActivity
 import com.tpv.android.utils.infoDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -122,11 +124,19 @@ class NotificationForegroundService : Service() {
 
     fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
 
+        val pendingIntent = NavDeepLinkBuilder(context)
+                .setComponentName(HomeActivity::class.java)
+                .setGraph(R.navigation.nav_graph)
+                .setDestination(R.id.clockTimeFragment)
+                .createPendingIntent()
+
         val builder = NotificationCompat.Builder(
                 applicationContext,
                 NOTIFICATION_CHANNEL_ID_DEFAULT)
                 .setSmallIcon(R.drawable.ic_menu_white_access_time_32dp)
-                .setContentText(messageBody).setOngoing(true)
+                .setContentText(messageBody)
+                .setOngoing(true)
+                .setContentIntent(pendingIntent)
 
         startForeground(NOTIFICATION_ID, builder.build())
         notify(NOTIFICATION_ID, builder.build())
