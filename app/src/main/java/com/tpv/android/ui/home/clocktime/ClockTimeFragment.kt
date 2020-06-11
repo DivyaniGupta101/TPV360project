@@ -72,10 +72,6 @@ class ClockTimeFragment : Fragment() {
         setupToolbar(mBinding.toolbar, title = getString(R.string.time_clock), showBackIcon = true)
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
-        if (mViewModel.location == null) {
-            getLocation()
-        }
-
         getCurrentActivity()
 
         mBinding.btnBreak.isEnabled = false
@@ -172,9 +168,7 @@ class ClockTimeFragment : Fragment() {
                 setTimerAndApiCall(AppConstant.ARRIVALOUT, isApiCall)
             }
             AppConstant.CLOCKIN -> {
-                mBinding.btnClock.setText(R.string.clock_out)
-                handleButtonState(AppConstant.CLOCKIN)
-                setTimerAndApiCall(AppConstant.CLOCKIN, isApiCall)
+                getLocation(isApiCall)
             }
             AppConstant.CLOCKOUT -> {
                 mBinding.btnClock.setText(R.string.clock_in)
@@ -363,7 +357,7 @@ class ClockTimeFragment : Fragment() {
     //     * Get location using location manager
     //     */
     @SuppressLint("MissingPermission")
-    private fun getLocation() = runWithPermissions(
+    private fun getLocation(apiCall: Boolean) = runWithPermissions(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     ) {
@@ -391,6 +385,10 @@ class ClockTimeFragment : Fragment() {
                         }
                         if (mViewModel.location?.time.orZero() >= 1000) {
                             context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
+                        } else {
+                            mBinding.btnClock.setText(R.string.clock_out)
+                            handleButtonState(AppConstant.CLOCKIN)
+                            setTimerAndApiCall(AppConstant.CLOCKIN, apiCall)
                         }
                     }
                 }
