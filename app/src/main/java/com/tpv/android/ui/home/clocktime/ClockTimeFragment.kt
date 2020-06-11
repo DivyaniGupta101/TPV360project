@@ -339,22 +339,29 @@ class ClockTimeFragment : Fragment() {
      */
     private fun setAgentActivityCall(activityType: String) {
 
-        val liveData = mClockTimeViewModel.setAgentActivity(
-                AgentActivityRequest(activityType,
-                        lat = NotificationForegroundService.location?.latitude.toString(),
-                        lng = NotificationForegroundService.location?.longitude.toString()))
-        liveData.observe(this, androidx.lifecycle.Observer {
-            it?.ifSuccess {
-                getCurrentActivity()
-            }
-        })
-        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+        if (NotificationForegroundService.location != null) {
+            val liveData = mClockTimeViewModel.setAgentActivity(
+                    AgentActivityRequest(activityType,
+                            lat = NotificationForegroundService.location?.latitude.toString(),
+                            lng = NotificationForegroundService.location?.longitude.toString()))
+            liveData.observe(this, androidx.lifecycle.Observer {
+                it?.ifSuccess {
+                    getCurrentActivity()
+                }
+            })
+
+            mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
+        } else {
+            context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
+        }
+
     }
 
 
     /**
-     * Get location using location manager
-     */
+    //     * Get location using location manager
+    //     */
     @SuppressLint("MissingPermission")
     private fun getLocation() = runWithPermissions(
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -365,13 +372,30 @@ class ClockTimeFragment : Fragment() {
 
             mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
 
-            if (mViewModel.location == null) {
-                startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
+
+            if (!locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
+                context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
             } else {
-                if (!locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
-                    context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
+                if (NotificationForegroundService.location == null) {
+                    startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
+                } else {
+                    if (mViewModel.location?.time.orZero() >= 1000) {
+
+                        for (i in 1..3) {
+                            if (mViewModel.location?.time.orZero() < 1000) {
+                                break
+                            } else {
+                                startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
+                                mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
+                            }
+                        }
+                        if (mViewModel.location?.time.orZero() >= 1000) {
+                            context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
+                        }
+                    }
                 }
             }
+
         }
     }
 
