@@ -10,11 +10,9 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
-import com.tpv.android.BuildConfig
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivityTransparentBinding
 import com.tpv.android.ui.home.enrollment.dynamicform.DynamicFormFragment.Companion.REQUEST_GPS_SETTINGS
-import com.tpv.android.ui.home.enrollment.statement.StatementFragment
 import com.tpv.android.utils.Screenshot
 
 class TransparentActivity : AppCompatActivity() {
@@ -52,6 +50,12 @@ class TransparentActivity : AppCompatActivity() {
         task?.addOnSuccessListener { locationSettingsResponse ->
             setResult(Activity.RESULT_OK)
             finish()
+        }?.addOnCanceledListener {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        }?.addOnFailureListener {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
         }
 
         task?.addOnFailureListener { exception ->
@@ -80,13 +84,13 @@ class TransparentActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_GPS_SETTINGS) {
-                setResult(resultCode)
-                finish()
-            } else {
-                super.onActivityResult(requestCode, resultCode, data)
-            }
+
+        if (requestCode == REQUEST_GPS_SETTINGS) {
+            setResult(resultCode)
+            finish()
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
         }
+
     }
 }

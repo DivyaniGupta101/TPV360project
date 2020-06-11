@@ -168,7 +168,7 @@ class NotificationForegroundService : Service() {
                     locationListener)
 
         } else {
-            getLocation()
+//            getLocation()
 //            context.infoDialog(subTitleText = getString(R.string.msg_gps_location))
         }
     }

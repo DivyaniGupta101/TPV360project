@@ -30,7 +30,8 @@ import com.tpv.android.ui.NotificationForegroundService
 import com.tpv.android.ui.home.HomeViewModel
 import com.tpv.android.ui.home.TransparentActivity
 import com.tpv.android.utils.AppConstant
-import com.tpv.android.utils.LocationHelper
+import com.tpv.android.utils.LocationHelper.getLastKnownLocation
+import com.tpv.android.utils.LocationHelper.isBestLocation
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.setupToolbar
 import kotlinx.coroutines.CoroutineScope
@@ -72,6 +73,10 @@ class ClockTimeFragment : Fragment() {
         setupToolbar(mBinding.toolbar, title = getString(R.string.time_clock), showBackIcon = true)
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
+        if (mViewModel.location == null) {
+            getLocation()
+        }
+
         getCurrentActivity()
 
         mBinding.btnBreak.isEnabled = false
@@ -90,13 +95,31 @@ class ClockTimeFragment : Fragment() {
         }
 
         mBinding.btnCustomerVisit.onClick {
-            setTextAndButton(mBinding.btnCustomerVisit)
+            uiScope.launch {
+                if (isBestLocation(context, getLastKnownLocation(context))) {
+                    setTextAndButton(mBinding.btnCustomerVisit)
+                } else {
+                    context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
+                }
+            }
         }
         mBinding.btnClock.onClick {
-            setTextAndButton(mBinding.btnClock)
+            uiScope.launch {
+                if (isBestLocation(context, getLastKnownLocation(context))) {
+                    setTextAndButton(mBinding.btnClock)
+                } else {
+                    context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
+                }
+            }
         }
         mBinding.btnBreak.onClick {
-            setTextAndButton(mBinding.btnBreak)
+            uiScope.launch {
+                if (isBestLocation(context, getLastKnownLocation(context))) {
+                    setTextAndButton(mBinding.btnBreak)
+                } else {
+                    context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
+                }
+            }
         }
 
         Timer()
@@ -168,7 +191,9 @@ class ClockTimeFragment : Fragment() {
                 setTimerAndApiCall(AppConstant.ARRIVALOUT, isApiCall)
             }
             AppConstant.CLOCKIN -> {
-                getLocation(isApiCall)
+                mBinding.btnClock.setText(R.string.clock_out)
+                handleButtonState(AppConstant.CLOCKIN)
+                setTimerAndApiCall(AppConstant.CLOCKIN, isApiCall)
             }
             AppConstant.CLOCKOUT -> {
                 mBinding.btnClock.setText(R.string.clock_in)
@@ -333,22 +358,18 @@ class ClockTimeFragment : Fragment() {
      */
     private fun setAgentActivityCall(activityType: String) {
 
-        if (NotificationForegroundService.location != null) {
-            val liveData = mClockTimeViewModel.setAgentActivity(
-                    AgentActivityRequest(activityType,
-                            lat = NotificationForegroundService.location?.latitude.toString(),
-                            lng = NotificationForegroundService.location?.longitude.toString()))
-            liveData.observe(this, androidx.lifecycle.Observer {
-                it?.ifSuccess {
-                    getCurrentActivity()
-                }
-            })
 
-            mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+        val liveData = mClockTimeViewModel.setAgentActivity(
+                AgentActivityRequest(activityType,
+                        lat = NotificationForegroundService.location?.latitude.toString(),
+                        lng = NotificationForegroundService.location?.longitude.toString()))
+        liveData.observe(this, androidx.lifecycle.Observer {
+            it?.ifSuccess {
+                getCurrentActivity()
+            }
+        })
 
-        } else {
-            context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
-        }
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
 
     }
 
@@ -357,14 +378,14 @@ class ClockTimeFragment : Fragment() {
     //     * Get location using location manager
     //     */
     @SuppressLint("MissingPermission")
-    private fun getLocation(apiCall: Boolean) = runWithPermissions(
+    private fun getLocation() = runWithPermissions(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     ) {
         uiScope.launch {
             locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-            mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
+            mViewModel.location = context?.let { getLastKnownLocation(it) }
 
 
             if (!locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
@@ -373,22 +394,19 @@ class ClockTimeFragment : Fragment() {
                 if (NotificationForegroundService.location == null) {
                     startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
                 } else {
-                    if (mViewModel.location?.time.orZero() >= 1000) {
+                    val lastTime = Math.abs(mViewModel.location?.time.orZero() - System.currentTimeMillis())
+                    if (lastTime >= 1000) {
 
                         for (i in 1..3) {
                             if (mViewModel.location?.time.orZero() < 1000) {
                                 break
                             } else {
                                 startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
-                                mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
+                                mViewModel.location = context?.let { getLastKnownLocation(it) }
                             }
                         }
                         if (mViewModel.location?.time.orZero() >= 1000) {
                             context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
-                        } else {
-                            mBinding.btnClock.setText(R.string.clock_out)
-                            handleButtonState(AppConstant.CLOCKIN)
-                            setTimerAndApiCall(AppConstant.CLOCKIN, apiCall)
                         }
                     }
                 }
