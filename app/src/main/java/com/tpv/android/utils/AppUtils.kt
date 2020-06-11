@@ -1,10 +1,12 @@
 package com.tpv.android.utils
 
+import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog
@@ -105,27 +107,34 @@ fun Context.infoDialog(title: String? = getString(R.string.error),
                        setOnDismissListener: (() -> Unit)? = null,
                        setOnButtonClickListener: (() -> Unit)? = null,
                        showImageError: Boolean = true) {
-    val binding = DataBindingUtil.inflate<DialogInfoBinding>(LayoutInflater.from(this), R.layout.dialog_info, null, false)
-    val dialog = AlertDialog.Builder(this)
-            .setView(binding.root).show()
+    try {
+        val binding = DataBindingUtil.inflate<DialogInfoBinding>(LayoutInflater.from(this), R.layout.dialog_info, null, false)
+        val dialog = AlertDialog.Builder(this)
+                .setView(binding.root).show()
 
-    binding.item = DialogText(title, subTitleText, btnText, "")
-    dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-    dialog?.setCanceledOnTouchOutside(isCancelable)
+        binding.item = DialogText(title, subTitleText, btnText, "")
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.setCanceledOnTouchOutside(isCancelable)
 
-    if (showImageError) {
-        binding.imageError.show()
-    } else {
-        binding.imageError.hide()
-    }
-    dialog?.setOnDismissListener {
-        setOnDismissListener?.invoke()
+        if (showImageError) {
+            binding.imageError.show()
+        } else {
+            binding.imageError.hide()
+        }
+        dialog?.setOnDismissListener {
+            setOnDismissListener?.invoke()
+        }
+
+        binding?.btnYes?.onClick {
+            setOnButtonClickListener?.invoke()
+            dialog.dismiss()
+        }
+    } catch (e: java.lang.Exception) {
+        Log.e(ContentValues.TAG, "Dialog:shows error : ", e)
+
+
     }
 
-    binding?.btnYes?.onClick {
-        setOnButtonClickListener?.invoke()
-        dialog.dismiss()
-    }
 }
 
 fun Context.actionDialog(
