@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
+import com.livinglifetechway.k4kotlin.core.err
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
@@ -25,6 +26,7 @@ import com.tpv.android.model.network.AgentActivityRequest
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.NotificationForegroundService
 import com.tpv.android.ui.home.HomeViewModel
@@ -95,34 +97,50 @@ class ClockTimeFragment : Fragment() {
         }
 
         mBinding.btnCustomerVisit.onClick {
-            uiScope.launch {
-                if (isBestLocation(context, getLastKnownLocation(context))) {
-                    setTextAndButton(mBinding.btnCustomerVisit)
-                } else {
-                    context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
-                }
-            }
+            processButtonClick(this)
         }
         mBinding.btnClock.onClick {
-            uiScope.launch {
-                if (isBestLocation(context, getLastKnownLocation(context))) {
-                    setTextAndButton(mBinding.btnClock)
-                } else {
-                    context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
-                }
-            }
+            processButtonClick(this)
         }
         mBinding.btnBreak.onClick {
-            uiScope.launch {
-                if (isBestLocation(context, getLastKnownLocation(context))) {
-                    setTextAndButton(mBinding.btnBreak)
-                } else {
-                    context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
-                }
-            }
+            processButtonClick(this)
         }
 
         Timer()
+    }
+
+    private fun processButtonClick(buttonView: TextView) {
+        buttonView.isClickable = false
+        err("1")
+        uiScope.launch {
+            err("2")
+            locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            err("3")
+            if (!locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
+                err("4")
+                context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
+                buttonView.isClickable = true
+            } else {
+                err("5")
+                val liveData = isBestLocation(buttonView.context, getLastKnownLocation(buttonView.context))
+                err("6")
+                mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+                liveData.observe(this@ClockTimeFragment, androidx.lifecycle.Observer {
+                    it?.ifSuccess {
+                        err("7")
+                        if (it == true) {
+                            setTextAndButton(buttonView)
+                        } else {
+                            context?.infoDialog(subTitleText = getString(R.string.msg_unable_detect_location))
+                        }
+                        buttonView.isClickable = true
+                    }
+                    it?.ifFailure { _, _ ->
+                        buttonView.isClickable = true
+                    }
+                })
+            }
+        }
     }
 
     /**
@@ -394,11 +412,12 @@ class ClockTimeFragment : Fragment() {
                 if (NotificationForegroundService.location == null) {
                     startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
                 } else {
-                    val lastTime = Math.abs(mViewModel.location?.time.orZero() - System.currentTimeMillis())
+                    var lastTime = Math.abs(mViewModel.location?.time.orZero() - System.currentTimeMillis())
                     if (lastTime >= 1000) {
 
                         for (i in 1..3) {
-                            if (mViewModel.location?.time.orZero() < 1000) {
+                            lastTime = Math.abs(mViewModel.location?.time.orZero() - System.currentTimeMillis())
+                            if (lastTime < 1000) {
                                 break
                             } else {
                                 startActivityForResult(Intent(context, TransparentActivity::class.java), TransparentActivity.REQUEST_CHECK_SETTINGS)
