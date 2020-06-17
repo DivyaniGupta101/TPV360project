@@ -89,9 +89,9 @@
     <!--    Client Info Screen-->
     <fragment
         android:id="@+id/clientInfoFragment"
-        android:name="com.tpv.android.ui.salesagent.home.enrollment.clientinfo.ClientInfoFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.customerinfo.CustomerInfoFragment"
         android:label="ClientInfoFragment"
-        tools:layout="@layout/fragment_client_info">
+        tools:layout="@layout/fragment_customer_info">
         <action
             android:id="@+id/action_clientInfoFragment_to_recordingFragment"
             app:destination="@id/recordingFragment"

@@ -1,4 +1,4 @@
-package com.tpv.android.ui.salesagent.home.enrollment.clientinfo
+package com.tpv.android.ui.salesagent.home.enrollment.customerinfo
 
 
 import android.os.Bundle
@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
-import com.tpv.android.databinding.FragmentClientInfoBinding
+import com.tpv.android.databinding.FragmentCustomerInfoBinding
 import com.tpv.android.databinding.ItemProgramsBinding
 import com.tpv.android.databinding.ItemTitleProgramsBinding
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
@@ -21,15 +21,15 @@ import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
-class ClientInfoFragment : Fragment() {
-    private lateinit var mBinding: FragmentClientInfoBinding
+class CustomerInfoFragment : Fragment() {
+    private lateinit var mBinding: FragmentCustomerInfoBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var mViewGroup: ViewGroup? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_client_info, container, false)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_customer_info, container, false)
         mBinding.lifecycleOwner = this
         activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
         return mBinding.root
