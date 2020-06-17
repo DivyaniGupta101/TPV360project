@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_client"
+    app:startDestination="@id/clientDashBoardFragment">
+
+    <fragment
+        android:id="@+id/clientDashBoardFragment"
+        android:name="com.tpv.android.ui.client.ui.dashboard.ClientDashBoardFragment"
+        android:label="ClientDashBoardFragment" />
+</navigation>

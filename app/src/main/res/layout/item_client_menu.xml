@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.tpv.android.R" />
+
+        <variable
+            name="currentSelected"
+            type="String" />
+
+        <variable
+            name="menutItemList"
+            type="java.util.ArrayList&lt;com.tpv.android.model.internal.MenuItems>" />
+
+        <variable
+            name="menuItem"
+            type="com.tpv.android.utils.enums.ClientMenuItem" />
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.UserDetail" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView style="@style/MenuBGImage" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginEnd="@dimen/_26sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_4sdp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        style="@style/SlideMenuItemProfileImage"
+                        app:name="@{item.firstName + ' ' + item.lastName}"
+                        tools:src="@drawable/dummy_person" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/PrimaryNormalText"
+                            android:singleLine="true"
+                            android:text="@{item.firstName +' ' + item.lastName}"
+                            tools:text="Patrcia Davison" />
+
+                        <TextView
+                            style="@style/SecondaryNormalSmallText"
+                            android:singleLine="true"
+                            android:text="@{item.email}"
+                            tools:text="patrcia24@gmail.com" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_20sdp" />
+
+            <include
+                android:id="@+id/layoutDashboard"
+                layout="@layout/item_menu_options"
+                app:isSelected="@{currentSelected == menuItem.DASHBOARD.value }"
+                app:item="@{menutItemList[0]}" />
+
+            <include
+                android:id="@+id/layoutProfile"
+                layout="@layout/item_menu_options"
+                app:isSelected="@{currentSelected == menuItem.PROFILE.value }"
+                app:item="@{menutItemList[1]}" />
+            <include
+                android:id="@+id/layoutReports"
+                layout="@layout/item_menu_options"
+                app:isSelected="@{currentSelected == menuItem.REPORTS.value }"
+                app:item="@{menutItemList[2]}" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

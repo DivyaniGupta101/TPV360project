@@ -35,6 +35,9 @@
             android:name=".ui.auth.AuthActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.client.ui.ClientHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Splash">
