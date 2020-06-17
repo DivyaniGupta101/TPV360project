@@ -27,6 +27,7 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
 import com.tpv.android.utils.actionDialog
 import com.tpv.android.utils.enums.ClientMenuItem
+import com.tpv.android.utils.navigateSafe
 
 class ClientHomeActivity : AppCompatActivity() {
     lateinit var mBinding: ActivityClientHomeBinding
@@ -63,13 +64,13 @@ class ClientHomeActivity : AppCompatActivity() {
         mBinding.navMenu?.layoutDashboard?.parentContainer?.onClick {
             menuItemSelection(ClientMenuItem.DASHBOARD.value)
             closeDrawer()
-//            mNavController.navigateSafe(R.id.action_global_dashboardFragment)
+            mNavController.navigateSafe(R.id.action_global_clientDashBoardFragment)
         }
 
         mBinding.navMenu?.layoutProfile?.parentContainer?.onClick {
             menuItemSelection(ClientMenuItem.PROFILE.value)
             closeDrawer()
-//            mNavController.navigateSafe(R.id.action_global_profileFragment)
+            mNavController.navigateSafe(R.id.action_global_clientProfileFragment)
         }
 
         mBinding.navMenu?.layoutReports?.parentContainer?.onClick {

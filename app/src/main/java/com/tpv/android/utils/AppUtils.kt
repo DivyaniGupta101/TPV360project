@@ -206,6 +206,9 @@ fun Fragment.updateProfileInMenu() {
         is HomeActivity -> {
             (activity as HomeActivity).setProfileData()
         }
+        is ClientHomeActivity -> {
+            (activity as ClientHomeActivity).setProfileData()
+        }
     }
 }
 
