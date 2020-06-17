@@ -24,6 +24,7 @@ import com.tpv.android.databinding.DialogActionBinding
 import com.tpv.android.databinding.DialogInfoBinding
 import com.tpv.android.databinding.ToolbarBinding
 import com.tpv.android.model.internal.DialogText
+import com.tpv.android.ui.client.ui.ClientHomeActivity
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import kotlinx.android.synthetic.main.toolbar.*
 import okhttp3.MediaType
@@ -94,6 +95,19 @@ fun Fragment.setupToolbar(
                 }
             } else {
                 (activity as HomeActivity).lockSwipeModeMenu()
+                menuImage?.invisible()
+            }
+        }
+        is ClientHomeActivity -> {
+            if (showMenuIcon) {
+                menuImage?.show()
+                subTitle?.hide()
+                (activity as ClientHomeActivity).unLockSwipeModeMenu()
+                menuImage?.onClick {
+                    (activity as ClientHomeActivity).openMenu()
+                }
+            } else {
+                (activity as ClientHomeActivity).lockSwipeModeMenu()
                 menuImage?.invisible()
             }
         }
@@ -176,6 +190,10 @@ fun Fragment.setItemSelection(item: String) {
     when (activity) {
         is HomeActivity -> {
             (activity as HomeActivity).menuItemSelection(item)
+        }
+        is ClientHomeActivity ->{
+            (activity as ClientHomeActivity).menuItemSelection(item)
+
         }
     }
 }

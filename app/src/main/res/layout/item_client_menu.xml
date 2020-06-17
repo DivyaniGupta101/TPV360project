@@ -98,6 +98,12 @@
                 app:isSelected="@{currentSelected == menuItem.REPORTS.value }"
                 app:item="@{menutItemList[2]}" />
 
+            <include
+                android:id="@+id/layoutLogout"
+                layout="@layout/item_menu_options"
+                app:isSelected="@{currentSelected == menuItem.LOGOUT.value }"
+                app:item="@{menutItemList[3]}" />
+
 
         </LinearLayout>
     </ScrollView>

@@ -1,13 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <import type="com.tpv.android.model.internal.DashBoardItem" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="java.util.ArrayList" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+
+        <variable
+            name="item"
+            type="LiveData&lt;ArrayList&lt;com.tpv.android.model.internal.DashBoardItem>>" />
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorScreenBg">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/incProgressBar"
+            layout="@layout/progress_bar"
+            app:errorHandler="@{errorHandler}"
+            app:resource="@{resource}"
+            app:useBlockingProgress="@{true}"
+            tools:visibility="visible" />
+    </FrameLayout>
 </layout>
