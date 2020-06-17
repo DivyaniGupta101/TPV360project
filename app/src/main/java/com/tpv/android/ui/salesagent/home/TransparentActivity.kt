@@ -12,7 +12,6 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivityTransparentBinding
-import com.tpv.android.ui.home.enrollment.dynamicform.DynamicFormFragment.Companion.REQUEST_GPS_SETTINGS
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment.Companion.REQUEST_GPS_SETTINGS
 import com.tpv.android.utils.Screenshot
 
