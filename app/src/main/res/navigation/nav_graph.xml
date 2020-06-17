@@ -8,7 +8,7 @@
     <!--    DashBoard Screen-->
     <fragment
         android:id="@+id/dashBoardFragment"
-        android:name="com.tpv.android.ui.home.dashboard.DashBoardFragment"
+        android:name="com.tpv.android.ui.salesagent.home.dashboard.DashBoardFragment"
         android:label="DashBoardFragment"
         tools:layout="@layout/fragment_dash_board">
         <action
@@ -23,7 +23,7 @@
     <!--    Lead Listing Screen-->
     <fragment
         android:id="@+id/leadListingFragment"
-        android:name="com.tpv.android.ui.home.leadlisting.LeadListingFragment"
+        android:name="com.tpv.android.ui.salesagent.home.leadlisting.LeadListingFragment"
         android:label="LeadListingFragment"
         tools:layout="@layout/fragment_lead_listing">
         <argument
@@ -41,7 +41,7 @@
     <!--    Commodity Screen-->
     <fragment
         android:id="@+id/commodityFragment"
-        android:name="com.tpv.android.ui.home.enrollment.commodity.CommodityFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.commodity.CommodityFragment"
         android:label="PlansListingFragment"
         tools:layout="@layout/fragment_commodity">
         <action
@@ -56,7 +56,7 @@
     <!--    Plan Zipcode Screen-->
     <fragment
         android:id="@+id/plansZipcodeFragment"
-        android:name="com.tpv.android.ui.home.enrollment.planszipcode.PlansZipcodeFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment"
         android:label="PlansZipcodeFragment"
         tools:layout="@layout/fragment_plans_zipcode">
         <argument
@@ -74,7 +74,7 @@
     <!--    Program Listing Screen-->
     <fragment
         android:id="@+id/programsListingFragment"
-        android:name="com.tpv.android.ui.home.enrollment.programs.ProgramsListingFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.programs.ProgramsListingFragment"
         android:label="ProgramsListingFragment"
         tools:layout="@layout/fragment_programs_listing">
         <action
@@ -89,7 +89,7 @@
     <!--    Client Info Screen-->
     <fragment
         android:id="@+id/clientInfoFragment"
-        android:name="com.tpv.android.ui.home.enrollment.clientinfo.ClientInfoFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.clientinfo.ClientInfoFragment"
         android:label="ClientInfoFragment"
         tools:layout="@layout/fragment_client_info">
         <action
@@ -113,7 +113,7 @@
     <!--    Recording Screen-->
     <fragment
         android:id="@+id/recordingFragment"
-        android:name="com.tpv.android.ui.home.enrollment.recording.RecordingFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.recording.RecordingFragment"
         android:label="RecordingFragment"
         app:enterAnim="@anim/fragment_fade_enter"
         app:exitAnim="@anim/fragment_fade_exit"
@@ -132,7 +132,7 @@
     <!--    Statement Screen-->
     <fragment
         android:id="@+id/statementFragment"
-        android:name="com.tpv.android.ui.home.enrollment.statement.StatementFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.statement.StatementFragment"
         android:label="StatementFragment"
         tools:layout="@layout/fragment_statement">
         <action
@@ -149,7 +149,7 @@
     <!--    Success Screen -->
     <fragment
         android:id="@+id/successFragment"
-        android:name="com.tpv.android.ui.home.enrollment.success.SuccessFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.success.SuccessFragment"
         android:label="SuccessFragment">
         <action
             android:id="@+id/action_successFragment_to_dashBoardFragment"
@@ -163,7 +163,7 @@
     </fragment>
     <fragment
         android:id="@+id/leadDetailFragment"
-        android:name="com.tpv.android.ui.home.leaddetail.LeadDetailFragment"
+        android:name="com.tpv.android.ui.salesagent.home.leaddetail.LeadDetailFragment"
         android:label="LeadDetailFragment">
         <argument
             android:name="item"
@@ -173,7 +173,7 @@
     <!--    Dynamic Form Screen-->
     <fragment
         android:id="@+id/dynamicFormFragment"
-        android:name="com.tpv.android.ui.home.enrollment.dynamicform.DynamicFormFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment"
         android:label="DynamicFormFragment"
         tools:layout="@layout/fragment_dynamic_form">
         <argument
@@ -204,7 +204,7 @@
     <!--    Profile Screen-->
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.tpv.android.ui.home.profile.ProfileFragment"
+        android:name="com.tpv.android.ui.salesagent.home.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
 
@@ -256,7 +256,7 @@
         app:popUpToInclusive="false" />
     <fragment
         android:id="@+id/leadVelidationFragment"
-        android:name="com.tpv.android.ui.home.enrollment.leadvelidation.LeadValidationFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.leadvelidation.LeadValidationFragment"
         android:label="LeadVelidationFragment">
         <action
             android:id="@+id/action_leadVelidationFragment_to_clientInfoFragment"
@@ -275,7 +275,7 @@
     </fragment>
     <fragment
         android:id="@+id/supportFragment"
-        android:name="com.tpv.android.ui.home.support.SupportFragment"
+        android:name="com.tpv.android.ui.salesagent.home.support.SupportFragment"
         android:label="SupportFragment"
         tools:layout="@layout/fragment_support">
         <action
@@ -290,7 +290,7 @@
     </fragment>
     <fragment
         android:id="@+id/supportSuccessFragment"
-        android:name="com.tpv.android.ui.home.supportsuccess.SupportSuccessFragment"
+        android:name="com.tpv.android.ui.salesagent.home.supportsuccess.SupportSuccessFragment"
         android:label="SupportSuccessFragment"
         tools:layout="@layout/fragment_support_success">
         <action
@@ -305,6 +305,6 @@
     </fragment>
     <fragment
         android:id="@+id/clockTimeFragment"
-        android:name="com.tpv.android.ui.home.clocktime.ClockTimeFragment"
+        android:name="com.tpv.android.ui.salesagent.home.clocktime.ClockTimeFragment"
         android:label="ClockTimeFragment" />
 </navigation>

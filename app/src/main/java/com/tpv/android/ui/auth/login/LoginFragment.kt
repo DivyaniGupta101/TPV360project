@@ -24,7 +24,7 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
-import com.tpv.android.ui.home.HomeActivity
+import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator

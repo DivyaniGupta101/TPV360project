@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.home.enrollment.planszipcode.PlansZipcodeFragment">
+        tools:context=".ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment">
 
         <include
             android:id="@+id/toolbar"

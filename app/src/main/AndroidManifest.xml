@@ -21,14 +21,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <service android:name=".ui.NotificationForegroundService"/>
+        <service android:name=".ui.salesagent.NotificationForegroundService"/>
 
         <activity
-            android:name=".ui.home.TransparentActivity"
+            android:name="com.tpv.android.ui.salesagent.home.TransparentActivity"
             android:theme="@style/Transparent" />
-        <activity android:name=".ui.home.SettingsActivity" />
+        <activity android:name="com.tpv.android.ui.salesagent.home.SettingsActivity" />
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name="com.tpv.android.ui.salesagent.home.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

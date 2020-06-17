@@ -41,10 +41,10 @@
     </fragment>
     <fragment
         android:id="@+id/newPasswordFragment"
-        android:name="com.tpv.android.ui.home.newpassword.NewPasswordFragment"
+        android:name="com.tpv.android.ui.salesagent.home.newpassword.NewPasswordFragment"
         android:label="NewPasswordFragment" />
     <fragment
         android:id="@+id/webviewFragment"
-        android:name="com.tpv.android.ui.home.support.SupportFragment"
+        android:name="com.tpv.android.ui.salesagent.home.support.SupportFragment"
         android:label="WebviewFragment" />
 </navigation>

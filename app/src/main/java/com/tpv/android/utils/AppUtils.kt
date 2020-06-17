@@ -24,7 +24,7 @@ import com.tpv.android.databinding.DialogActionBinding
 import com.tpv.android.databinding.DialogInfoBinding
 import com.tpv.android.databinding.ToolbarBinding
 import com.tpv.android.model.internal.DialogText
-import com.tpv.android.ui.home.HomeActivity
+import com.tpv.android.ui.salesagent.home.HomeActivity
 import kotlinx.android.synthetic.main.toolbar.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody

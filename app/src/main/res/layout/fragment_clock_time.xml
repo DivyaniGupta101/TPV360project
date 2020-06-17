@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context="com.tpv.android.ui.home.clocktime.ClockTimeFragment">
+            tools:context=".ui.salesagent.home.clocktime.ClockTimeFragment">
 
             <include
                 android:id="@+id/toolbar"
