@@ -24,7 +24,9 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.ui.client.ui.ClientHomeActivity
 import com.tpv.android.ui.salesagent.home.HomeActivity
+import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator
@@ -53,8 +55,15 @@ class LoginFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         if (Pref.token != null) {
-            context.startActivity<HomeActivity>()
-            activity?.finish()
+            if (Pref.user?.accessLevel == AppConstant.CLIENT) {
+                context.startActivity<ClientHomeActivity>()
+                activity?.finish()
+            }
+            if (Pref.user?.accessLevel == AppConstant.SALESAGENT) {
+                context.startActivity<HomeActivity>()
+                activity?.finish()
+            }
+
         }
         if (BuildConfig.DEBUG) {
             if (BuildConfig.FLAVOR.equals("NewDevNotAllow") ||
@@ -75,7 +84,7 @@ class LoginFragment : Fragment() {
             }
             if (BuildConfig.FLAVOR.equals("TpvTestAllow") ||
                     BuildConfig.FLAVOR.equals("TpvTestNotAllow")) {
-                mBinding.editEmail.setText("mansi.d2d_agent+1@gmail.com")
+                mBinding.editEmail.setText("riddhi.client_admin+1@gmail.com")
                 mBinding.editPassword.setText("tpv@123")
             }
 
@@ -123,8 +132,14 @@ class LoginFragment : Fragment() {
         val liveData = mViewModel.logInApi(LoginReq(mBinding.editEmail.value, mBinding.editPassword.value))
         liveData.observe(this, Observer {
             it.ifSuccess {
-                context.startActivity<HomeActivity>()
-                activity?.finish()
+                if (it?.accessLevel == AppConstant.SALESAGENT) {
+                    context.startActivity<HomeActivity>()
+                    activity?.finish()
+                }
+                if (it?.accessLevel == AppConstant.CLIENT) {
+                    context.startActivity<ClientHomeActivity>()
+                    activity?.finish()
+                }
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
