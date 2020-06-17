@@ -52,5 +52,7 @@ object AppConstant : KotprefModel() {
     const val BREAKOUT = "break_out"
     const val ARRIVALIN = "arrival_in"
     const val ARRIVALOUT = "arrival_out"
+    const val SALESAGENT = "salesagent"
+    const val CLIENT = "client"
 
 }

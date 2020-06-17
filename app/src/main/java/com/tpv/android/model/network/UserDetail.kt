@@ -44,5 +44,7 @@ data class UserDetail(
         @SerializedName("client_name")
         var ClientName: String?,
         @SerializedName("sales_center_name")
-        var salesCenterName: String?
+        var salesCenterName: String?,
+        @SerializedName("user_type")
+        var userType: String?
 )

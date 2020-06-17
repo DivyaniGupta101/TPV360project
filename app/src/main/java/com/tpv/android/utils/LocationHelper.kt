@@ -12,7 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.LocationServices
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
-import com.tpv.android.ui.NotificationForegroundService
+import com.tpv.android.ui.salesagent.NotificationForegroundService
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import kotlin.math.abs
