@@ -24,6 +24,13 @@ enum class MenuItem(val value: String) {
     TIMECLOCK("timeclock")
 }
 
+enum class ClientMenuItem(val value: String) {
+    DASHBOARD("dashboard"),
+    PROFILE("profile"),
+    REPORTS("reports"),
+    LOGOUT("logout")
+}
+
 enum class DynamicField(val type: String) {
     FULLNAME("fullname"),
     ADDRESS("address"),
