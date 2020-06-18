@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.network.ClientReportReq" />
+            type="com.tpv.android.model.network.ClientReportResp" />
     </data>
 
     <LinearLayout

@@ -8,13 +8,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
+import com.livinglifetechway.k4kotlin.core.setItems
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClientReportsListingBinding
 import com.tpv.android.databinding.ItemClientReportsBinding
 import com.tpv.android.helper.setPagination
-import com.tpv.android.model.network.ClientReportReq
+import com.tpv.android.model.network.ClientReportResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -41,6 +42,12 @@ class ClientReportsListingFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.reports), showMenuIcon = true,
                 showBackIcon = true
         )
+        mBinding.layoutSpinnerAllClients.textTitle.text = getString(R.string.clients)
+
+        val listOfClients = mViewModel.clientLiveData.value
+        val spinnerValueList = arrayListOf("All Clients")
+        spinnerValueList.addAll(listOfClients?.map { it.name.orEmpty() }.orEmpty())
+        mBinding.layoutSpinnerAllClients.spinner.setItems(spinnerValueList as ArrayList<String>?)
         setRecyclerView()
     }
 
@@ -54,7 +61,7 @@ class ClientReportsListingFragment : Fragment() {
         mBinding.paginatedLayout.showEmptyView = mViewModel.showEmptyView
 
         LiveAdapter(mViewModel.criticalAlertReportsLiveData, BR.item)
-                .map<ClientReportReq, ItemClientReportsBinding>(R.layout.item_client_reports) {
+                .map<ClientReportResp, ItemClientReportsBinding>(R.layout.item_client_reports) {
 //                    onClick {
 //                        val id = it.binding.item?.id
 //                        Navigation.findNavController(mBinding.root).navigateSafe(

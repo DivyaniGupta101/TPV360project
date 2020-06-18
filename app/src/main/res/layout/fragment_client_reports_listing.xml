@@ -18,6 +18,7 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -28,17 +29,44 @@
                 android:id="@+id/paginated_layout"
                 layout="@layout/layout_paginated_state" />
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listReports"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingBottom="@dimen/_50sdp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                tools:listitem="@layout/item_client_reports" />
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include
+                        android:id="@+id/layoutSpinnerAllClients"
+                        layout="@layout/layout_client_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <include
+                        android:id="@+id/layoutSpinnerSalesCenter"
+                        layout="@layout/layout_client_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listReports"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_50sdp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/item_client_reports" />
+
+            </LinearLayout>
         </FrameLayout>
 
     </LinearLayout>
