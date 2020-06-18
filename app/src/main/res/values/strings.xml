@@ -124,6 +124,10 @@
     <string name="early_termination">ETF</string>
     <string name="MSF">MSF</string>
     <string name="code">Code</string>
+    <string name="date_of_submission">Date of Submission : </string>
+    <string name="alert_status">Alert Status :</string>
+    <string name="date_of_tpv">Date of TPV : </string>
+    <string name="unicode_dot">&#160;&#160;\u25CF&#160;&#160;</string>
     <string name="dollar">$</string>
     <string name="english">English</string>
     <string name="spanish">Spanish</string>

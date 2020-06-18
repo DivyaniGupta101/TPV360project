@@ -248,4 +248,19 @@ object AppRepository {
             ApiClient.service.setTPVCall(scheduleTPVCallRequest).getResult().map { it }
         }
     }
+
+    fun CoroutineScope.getCriticalAlertReportListCall(alertReportList: List<ClientReportResp>, clientReportReq: ClientReportReq): LiveData<Resource<List<ClientReportResp>, APIError>> = paginatedDataApi(alertReportList) {
+        fromNetwork {
+            ApiClient.service.getCriticalAlertReportList(clientReportReq).getResult().map {
+                shouldLoadNextPage = it?.currentPage.orZero() < it?.lastPage.orZero()
+                it?.data.orEmpty()
+            }
+        }
+    }
+
+    fun CoroutineScope.getClientsCall() = dataApi<List<ClientsResp>, APIError> {
+        fromNetwork {
+            ApiClient.service.getClients().getResult().map { it?.data.orEmpty() }
+        }
+    }
 }

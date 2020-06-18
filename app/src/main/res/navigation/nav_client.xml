@@ -31,4 +31,18 @@
         app:popExitAnim="@anim/fragment_fade_exit"
         app:popUpTo="@id/dashBoardFragment"
         app:popUpToInclusive="false" />
+
+    <action
+        android:id="@+id/action_global_clientReportsListingFragment"
+        app:destination="@+id/clientReportsListingFragment"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/fragment_fade_enter"
+        app:popExitAnim="@anim/fragment_fade_exit"
+        app:popUpTo="@id/dashBoardFragment"
+        app:popUpToInclusive="false" />
+    <fragment
+        android:id="@+id/clientReportsListingFragment"
+        android:name="com.tpv.android.ui.client.ui.reports.reportslisting.ClientReportsListingFragment"
+        android:label="ReportsListingFragment" />
 </navigation>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.ClientReportReq" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_8sdp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/mainContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_rectangle_border"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="@dimen/_8sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/PrimaryBoldText"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{item.leadId + @string/unicode_dot + item.salesagentName}"
+                        tools:text="12345006 " />
+
+
+                    <!--                    <TextView-->
+                    <!--                        style="@style/PrimaryBoldText"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_weight="1"-->
+                    <!--                        android:ellipsize="end"-->
+                    <!--                        android:maxLines="1"-->
+                    <!--                        android:text="@string/unicode_dot"-->
+                    <!--                        tools:text="@string/unicode_dot" />-->
+
+                    <!--                    <TextView-->
+                    <!--                        style="@style/PrimaryNormalText"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_weight="1"-->
+                    <!--                        android:ellipsize="end"-->
+                    <!--                        android:maxLines="1"-->
+                    <!--                        android:text="@{item.salesagentName}"-->
+                    <!--                        tools:text="Masni Kanani " />-->
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/SecondaryNormalSmallText"
+                        android:layout_weight="1"
+                        android:text="@string/date_of_submission" />
+
+                    <TextView
+                        style="@style/PrimaryNormalSmallText"
+                        android:layout_weight="2"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{item.dateOfSubmission}"
+                        tools:text="142044" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/SecondaryNormalSmallText"
+                        android:layout_weight="1.8"
+                        android:text="@string/date_of_tpv" />
+
+                    <TextView
+                        style="@style/PrimaryNormalSmallText"
+                        android:layout_weight="2"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{item.dateOfTpv}"
+                        tools:text="142044" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/PrimaryNormalText"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{item.clientName + @string/unicode_dot +item.salescenterName + @string/unicode_dot + item.salescenterLocationName}"
+                        tools:text="12345006" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/SecondaryNormalSmallText"
+                        android:text="@string/alert_status" />
+
+                    <TextView
+                        style="@style/PrimaryNormalSmallText"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:text="@{item.alertStatus}"
+                        tools:text="142044" />
+
+                    <TextView
+                        style="@style/PrimaryNormalSmallText"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{item.leadStatus}"
+                        app:leadStatus="@{item.leadStatus}"
+                        tools:text="142044" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</layout>

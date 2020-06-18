@@ -110,4 +110,12 @@ interface ApiInterface {
     @POST("schedule-tpv-call")
     fun setTPVCall(@Body scheduleTPVCallRequest: ScheduleTPVCallRequest): Call<CommonResponse<Any>>
 
+    //CriticalAlertReport
+    @POST("reports/critical-alerts")
+    fun getCriticalAlertReportList(@Body clientReportReq: ClientReportReq): Call<PaginateCommonResp<List<ClientReportResp>>>
+
+    //CriticalAlertReport
+    @POST("clients")
+    fun getClients(): Call<CommonResponse<List<ClientsResp>>>
+
 }

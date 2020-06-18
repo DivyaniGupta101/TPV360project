@@ -76,7 +76,7 @@ class ClientHomeActivity : AppCompatActivity() {
         mBinding.navMenu?.layoutReports?.parentContainer?.onClick {
             menuItemSelection(ClientMenuItem.REPORTS.value)
             closeDrawer()
-//            mNavController.navigateSafe(R.id.action_global_clockTimeFragment)
+            mNavController.navigateSafe(R.id.action_global_clientReportsListingFragment)
         }
 
 
