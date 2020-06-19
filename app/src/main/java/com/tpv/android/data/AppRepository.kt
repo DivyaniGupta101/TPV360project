@@ -263,4 +263,11 @@ object AppRepository {
             ApiClient.service.getClients().getResult().map { it?.data.orEmpty() }
         }
     }
+
+    fun CoroutineScope.getSalesCenterCall() = dataApi<List<ClientsResp>, APIError> {
+        fromNetwork {
+            ApiClient.service.getSalesCenter(Pref.user?.clientId.toString()).getResult().map { it?.data.orEmpty() }
+        }
+    }
+
 }

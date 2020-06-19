@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.livinglifetechway.k4kotlin.core.setItems
 import com.ravikoradiya.liveadapter.LiveAdapter
@@ -16,16 +17,21 @@ import com.tpv.android.databinding.FragmentClientReportsListingBinding
 import com.tpv.android.databinding.ItemClientReportsBinding
 import com.tpv.android.helper.setPagination
 import com.tpv.android.model.network.ClientReportResp
+import com.tpv.android.model.network.ClientsResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.utils.enums.ClientMenuItem
+import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 
 class ClientReportsListingFragment : Fragment() {
 
     lateinit var mBinding: FragmentClientReportsListingBinding
     lateinit var mViewModel: ClientReportsListingViewModel
-
+    var mClientList: ArrayList<ClientsResp> = ArrayList()
+    var mSalesCenterList: ArrayList<ClientsResp> = ArrayList()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
@@ -42,13 +48,41 @@ class ClientReportsListingFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.reports), showMenuIcon = true,
                 showBackIcon = true
         )
-        mBinding.layoutSpinnerAllClients.textTitle.text = getString(R.string.clients)
+        val liveData = mViewModel.getClients()
+        liveData.observe(this, Observer {
+            it?.ifSuccess { list ->
+                mBinding.layoutSpinnerAllClients.textTitle.text = getString(R.string.clients)
 
-        val listOfClients = mViewModel.clientLiveData.value
-        val spinnerValueList = arrayListOf("All Clients")
-        spinnerValueList.addAll(listOfClients?.map { it.name.orEmpty() }.orEmpty())
-        mBinding.layoutSpinnerAllClients.spinner.setItems(spinnerValueList as ArrayList<String>?)
-        setRecyclerView()
+                mClientList.addAll(list.orEmpty())
+
+                val spinnerValueList = arrayListOf("All Clients")
+                spinnerValueList.addAll(list?.map { it.name.orEmpty() }.orEmpty())
+                mBinding.layoutSpinnerAllClients.spinner.setItems(spinnerValueList as ArrayList<String>?)
+
+                getSalesCenteres()
+            }
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
+    }
+
+    private fun getSalesCenteres() {
+        val liveData = mViewModel.getSalesCenter()
+        liveData.observe(this, Observer {
+            it?.ifSuccess { list ->
+                mBinding.layoutSpinnerSalesCenter.textTitle.text = getString(R.string.sales_centers)
+
+                mSalesCenterList.addAll(list.orEmpty())
+
+                val spinnerValueList = arrayListOf("All Sales Centers")
+                spinnerValueList.addAll(list?.map { it.name.orEmpty() }.orEmpty())
+                mBinding.layoutSpinnerSalesCenter.spinner.setItems(spinnerValueList as ArrayList<String>?)
+
+                setRecyclerView()
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     private fun setRecyclerView() {
@@ -73,5 +107,10 @@ class ClientReportsListingFragment : Fragment() {
         mBinding.listReports.setPagination(mViewModel.criticalAlertReportsPaginatedResourceLiveData) { page ->
             mViewModel.getReportsList(page)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setItemSelection(ClientMenuItem.REPORTS.value)
     }
 }

@@ -114,8 +114,12 @@ interface ApiInterface {
     @POST("reports/critical-alerts")
     fun getCriticalAlertReportList(@Body clientReportReq: ClientReportReq): Call<PaginateCommonResp<List<ClientReportResp>>>
 
-    //CriticalAlertReport
+    //Clients
     @GET("clients")
     fun getClients(): Call<CommonResponse<List<ClientsResp>>>
+
+    //Sales Center
+    @GET("sales-centers")
+    fun getSalesCenter(@Query("client_id") clientId: String): Call<CommonResponse<List<ClientsResp>>>
 
 }

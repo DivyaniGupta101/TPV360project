@@ -15,6 +15,9 @@ import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClientDashBoardBinding
+import com.tpv.android.utils.enums.ClientMenuItem
+import com.tpv.android.utils.enums.MenuItem
+import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 
 
@@ -52,5 +55,10 @@ class ClientDashBoardFragment : Fragment() {
             super.onPageFinished(view, url)
             mBinding.progressBarView.hide()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setItemSelection(ClientMenuItem.DASHBOARD.value)
     }
 }

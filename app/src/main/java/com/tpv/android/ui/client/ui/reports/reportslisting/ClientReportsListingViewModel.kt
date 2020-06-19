@@ -7,7 +7,6 @@ import com.tpv.android.data.AppRepository
 import com.tpv.android.helper.asLiveData
 import com.tpv.android.model.network.ClientReportReq
 import com.tpv.android.model.network.ClientReportResp
-import com.tpv.android.model.network.ClientsResp
 import com.tpv.android.network.resources.CoroutineScopedViewModel
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -18,23 +17,18 @@ class ClientReportsListingViewModel : CoroutineScopedViewModel() {
 
     val criticalAlertReportsLiveData: LiveData<List<ClientReportResp>> = Transformations.map(criticalAlertReportsPaginatedResourceLiveData) { it.data }
 
-    private val clientResourceMutableLiveData = MutableLiveData<Resource<List<ClientsResp>, APIError>>()
-    val clientResourceLiveData = clientResourceMutableLiveData.asLiveData()
-
-    val clientLiveData: LiveData<List<ClientsResp>> = Transformations.map(clientResourceLiveData) { it.data }
-
-
     val showEmptyView: LiveData<Boolean> = Transformations.map(criticalAlertReportsLiveData) {
         it?.isEmpty()
     }
 
 
-    init {
-        getClients()
+    fun getClients() = with(AppRepository) {
+        getClientsCall()
     }
 
-    fun getClients() = with(AppRepository) {
-        getClientsCall().observeForever { clientResourceMutableLiveData.value = it }
+    fun getSalesCenter() = with(AppRepository)
+    {
+        getSalesCenterCall()
     }
 
     fun getReportsList(page: Int? = 1) = with(AppRepository) {
@@ -59,4 +53,5 @@ class ClientReportsListingViewModel : CoroutineScopedViewModel() {
     fun clearList() {
         criticalAlertReportsPaginatedResourceMutableLiveData.value = Resource.empty()
     }
+
 }
