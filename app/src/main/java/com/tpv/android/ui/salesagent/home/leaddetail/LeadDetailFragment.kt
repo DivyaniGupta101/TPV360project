@@ -214,7 +214,7 @@ class LeadDetailFragment : Fragment() {
                 mBinding.leadDetailContainer,
                 true)
 
-        binding.item = response
+        binding.item = response.label
 
     }
 

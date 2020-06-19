@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.setItems
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
@@ -23,6 +24,7 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.utils.enums.ClientMenuItem
+import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 
@@ -96,11 +98,10 @@ class ClientReportsListingFragment : Fragment() {
 
         LiveAdapter(mViewModel.criticalAlertReportsLiveData, BR.item)
                 .map<ClientReportResp, ItemClientReportsBinding>(R.layout.item_client_reports) {
-//                    onClick {
+                    onClick {
 //                        val id = it.binding.item?.id
-//                        Navigation.findNavController(mBinding.root).navigateSafe(
-//                                LeadListingFragmentDirections.actionLeadListingFragmentToLeadDetailFragment(id.orEmpty()))
-//                    }
+                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientReportsListingFragment_to_clientReportsDetailsFragment)
+                    }
                 }
                 .into(mBinding.listReports)
 

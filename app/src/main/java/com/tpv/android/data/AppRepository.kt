@@ -270,4 +270,10 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.getTimeLineCall() = dataApi<List<ClientTimeLineResp>, APIError> {
+        fromNetwork {
+            ApiClient.service.getTimeLine().getResult().map { it?.data.orEmpty() }
+        }
+    }
+
 }

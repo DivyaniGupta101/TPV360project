@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.ClientTimeLineResp" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryBoldText"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/remark"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/remark" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@{item.reason}"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryBoldText"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/date_and_time"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/date_and_time" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@{item.createdAt}"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryBoldText"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/user"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/user" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@{item.userType}"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryBoldText"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/sales_agent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@{item.agent}"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryBoldText"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/lead_status"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/lead_status" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@{item.status}"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/serviceValue"
+                style="@style/PrimaryBoldText"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/related_lead"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/related_lead" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@{item.relatedLeadIds}"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

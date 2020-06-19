@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.tpv.android.model.network.DynamicFormResp" />
+            type="String" />
     </data>
 
     <LinearLayout
@@ -19,9 +19,9 @@
 
         <TextView
             style="@style/TertiaryBoldTextWithTopSpacing"
-            android:text="@{item.label}"
+            android:text="@{item}"
             android:textAllCaps="true"
-            app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
+            app:visibleIf="@{!TextUtils.isEmpty(item)}"
             tools:text="Full name" />
 
     </LinearLayout>

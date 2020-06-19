@@ -45,9 +45,9 @@ data class Validations(
         @SerializedName("length")
         val length: Int?,
         @SerializedName("verify")
-        val verify: Boolean? ,
+        val verify: Boolean?,
         @SerializedName("regex")
-        val regex: String?  ,
+        val regex: String?,
         @SerializedName("regex_message")
         val regexMessage: String?
 

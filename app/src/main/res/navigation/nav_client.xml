@@ -44,5 +44,17 @@
     <fragment
         android:id="@+id/clientReportsListingFragment"
         android:name="com.tpv.android.ui.client.ui.reports.reportslisting.ClientReportsListingFragment"
-        android:label="ReportsListingFragment" />
+        android:label="ReportsListingFragment">
+        <action
+            android:id="@+id/action_clientReportsListingFragment_to_clientReportsDetailsFragment"
+            app:destination="@id/clientReportsDetailsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientReportsDetailsFragment"
+        android:name="com.tpv.android.ui.client.ui.reports.reportsdetail.ClientReportsDetailsFragment"
+        android:label="ClientReportsDetailsFragment" />
 </navigation>
