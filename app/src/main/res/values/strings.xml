@@ -127,6 +127,13 @@
     <string name="MSF">MSF</string>
     <string name="code">Code</string>
     <string name="date_of_submission">Date of Submission : </string>
+    <string name="agent">Agent : </string>
+    <string name="id_colon">Id : </string>
+    <string name="email_colon">Email : </string>
+    <string name="client_colon">Client : </string>
+    <string name="channel_colon">Channel : </string>
+    <string name="sales_center_colon">Sales Center : </string>
+    <string name="sales_center_location_colon">Sales Center Location : </string>
     <string name="alert_status">Alert Status :</string>
     <string name="date_of_tpv">Date of TPV : </string>
     <string name="unicode_dot">&#160;&#160;\u25CF&#160;&#160;</string>

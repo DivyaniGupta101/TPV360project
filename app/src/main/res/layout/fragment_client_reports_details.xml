@@ -52,12 +52,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
                         android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/SecondaryNormalSmallText"
-                            android:text="@string/alert_status" />
+                            style="@style/PrimaryBoldText"
+                            android:layout_width="wrap_content"
+                            android:text="@string/alert_status"
+                            app:autoSizeTextType="uniform" />
 
                         <TextView
                             style="@style/PrimaryNormalSmallText"
@@ -78,12 +83,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/SecondaryNormalSmallText"
-                            android:text="@string/alert_status" />
+                            style="@style/PrimaryBoldText"
+                            android:layout_width="wrap_content"
+                            android:text="@string/alert_status"
+                            app:autoSizeTextType="uniform" />
 
                         <TextView
                             style="@style/PrimaryNormalSmallText"
@@ -97,12 +107,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/SecondaryNormalSmallText"
-                            android:text="@string/alert_status" />
+                            style="@style/PrimaryBoldText"
+                            android:layout_width="wrap_content"
+                            android:text="@string/alert_status"
+                            app:autoSizeTextType="uniform" />
 
                         <TextView
                             style="@style/PrimaryNormalSmallText"
@@ -130,18 +145,19 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_2sdp"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/SecondaryNormalSmallText"
-                                    android:layout_weight="1"
-                                    android:text="@string/date_of_submission" />
+                                    style="@style/PrimaryBoldText"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/agent"
+                                    app:autoSizeTextType="uniform" />
 
                                 <TextView
                                     style="@style/PrimaryNormalSmallText"
-                                    android:layout_weight="2"
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_marginStart="@dimen/_8sdp"
                                     android:text="142044"
                                     tools:text="142044" />
 
@@ -150,18 +166,19 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_2sdp"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/SecondaryNormalSmallText"
-                                    android:layout_weight="1.8"
-                                    android:text="@string/date_of_tpv" />
+                                    style="@style/PrimaryBoldText"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/id_colon"
+                                    app:autoSizeTextType="uniform" />
 
                                 <TextView
                                     style="@style/PrimaryNormalSmallText"
-                                    android:layout_weight="2"
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_marginStart="@dimen/_8sdp"
                                     android:text="142044"
                                     tools:text="142044" />
 
@@ -170,18 +187,19 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_2sdp"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/SecondaryNormalSmallText"
-                                    android:layout_weight="1.8"
-                                    android:text="@string/date_of_tpv" />
+                                    style="@style/PrimaryBoldText"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/email_colon"
+                                    app:autoSizeTextType="uniform" />
 
                                 <TextView
                                     style="@style/PrimaryNormalSmallText"
-                                    android:layout_weight="2"
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_marginStart="@dimen/_8sdp"
                                     android:text="142044"
                                     tools:text="142044" />
 
@@ -207,18 +225,19 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_2sdp"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/SecondaryNormalSmallText"
-                                    android:layout_weight="1"
-                                    android:text="@string/date_of_submission" />
+                                    style="@style/PrimaryBoldText"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/client_colon"
+                                    app:autoSizeTextType="uniform" />
 
                                 <TextView
                                     style="@style/PrimaryNormalSmallText"
-                                    android:layout_weight="2"
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_marginStart="@dimen/_8sdp"
                                     android:text="142044"
                                     tools:text="142044" />
 
@@ -227,18 +246,19 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_2sdp"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/SecondaryNormalSmallText"
-                                    android:layout_weight="1.8"
-                                    android:text="@string/date_of_tpv" />
+                                    style="@style/PrimaryBoldText"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/sales_center_colon"
+                                    app:autoSizeTextType="uniform" />
 
                                 <TextView
                                     style="@style/PrimaryNormalSmallText"
-                                    android:layout_weight="2"
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_marginStart="@dimen/_8sdp"
                                     android:text="142044"
                                     tools:text="142044" />
 
@@ -247,18 +267,19 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_2sdp"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/SecondaryNormalSmallText"
-                                    android:layout_weight="1.8"
-                                    android:text="@string/date_of_tpv" />
+                                    style="@style/PrimaryBoldText"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/sales_center_location_colon"
+                                    app:autoSizeTextType="uniform" />
 
                                 <TextView
                                     style="@style/PrimaryNormalSmallText"
-                                    android:layout_weight="2"
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_marginStart="@dimen/_8sdp"
                                     android:text="142044"
                                     tools:text="142044" />
 
@@ -267,18 +288,19 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_2sdp"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/SecondaryNormalSmallText"
-                                    android:layout_weight="1.8"
-                                    android:text="@string/date_of_tpv" />
+                                    style="@style/PrimaryBoldText"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/channel_colon"
+                                    app:autoSizeTextType="uniform" />
 
                                 <TextView
                                     style="@style/PrimaryNormalSmallText"
-                                    android:layout_weight="2"
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_marginStart="@dimen/_8sdp"
                                     android:text="142044"
                                     tools:text="142044" />
 

@@ -14,6 +14,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -25,7 +27,6 @@
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:text="@string/remark"
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
                 app:autoSizeMinTextSize="@dimen/_8sdp"
@@ -55,7 +56,6 @@
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:text="@string/date_and_time"
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
                 app:autoSizeMinTextSize="@dimen/_8sdp"
@@ -85,7 +85,6 @@
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:text="@string/user"
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
                 app:autoSizeMinTextSize="@dimen/_8sdp"
@@ -115,12 +114,11 @@
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/sales_agent"
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
                 app:autoSizeMinTextSize="@dimen/_8sdp"
                 app:autoSizeTextType="uniform"
-                tools:text="@string/sales_agent"
-                android:text="@string/sales_agent" />
+                tools:text="@string/sales_agent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryNormalText"
@@ -145,7 +143,6 @@
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:text="@string/lead_status"
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
                 app:autoSizeMinTextSize="@dimen/_8sdp"
@@ -176,7 +173,6 @@
                 android:id="@+id/serviceValue"
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:text="@string/related_lead"
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
                 app:autoSizeMinTextSize="@dimen/_8sdp"
