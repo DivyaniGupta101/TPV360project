@@ -5,10 +5,6 @@
 
     <data>
 
-        <variable
-            name="item"
-            type="com.tpv.android.model.network.ClientReportResp" />
-
         <import type="com.tpv.android.R" />
 
 
@@ -68,15 +64,14 @@
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_weight="1"
                             android:ellipsize="end"
-                            android:text="@{item.alertStatus}"
+                            android:text="142044"
                             tools:text="142044" />
 
                         <TextView
                             style="@style/PrimaryNormalSmallText"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="@{item.leadStatus}"
-                            app:leadStatus="@{item.leadStatus}"
+                            android:text="142044"
                             tools:text="142044" />
                     </LinearLayout>
 
@@ -95,7 +90,7 @@
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_weight="1"
                             android:ellipsize="end"
-                            android:text="@{item.alertStatus}"
+                            android:text="142044"
                             tools:text="142044" />
                     </LinearLayout>
 
@@ -114,7 +109,7 @@
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_weight="1"
                             android:ellipsize="end"
-                            android:text="@{item.alertStatus}"
+                            android:text="142044"
                             tools:text="142044" />
                     </LinearLayout>
 
@@ -147,7 +142,7 @@
                                     android:layout_weight="2"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:text="@{item.dateOfSubmission}"
+                                    android:text="142044"
                                     tools:text="142044" />
 
                             </LinearLayout>
@@ -167,7 +162,7 @@
                                     android:layout_weight="2"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:text="@{item.dateOfTpv}"
+                                    android:text="142044"
                                     tools:text="142044" />
 
                             </LinearLayout>
@@ -187,7 +182,7 @@
                                     android:layout_weight="2"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:text="@{item.dateOfTpv}"
+                                    android:text="142044"
                                     tools:text="142044" />
 
                             </LinearLayout>
@@ -224,7 +219,7 @@
                                     android:layout_weight="2"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:text="@{item.dateOfSubmission}"
+                                    android:text="142044"
                                     tools:text="142044" />
 
                             </LinearLayout>
@@ -244,7 +239,7 @@
                                     android:layout_weight="2"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:text="@{item.dateOfTpv}"
+                                    android:text="142044"
                                     tools:text="142044" />
 
                             </LinearLayout>
@@ -264,7 +259,7 @@
                                     android:layout_weight="2"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:text="@{item.dateOfTpv}"
+                                    android:text="142044"
                                     tools:text="142044" />
 
                             </LinearLayout>
@@ -284,7 +279,7 @@
                                     android:layout_weight="2"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:text="@{item.dateOfTpv}"
+                                    android:text="142044"
                                     tools:text="142044" />
 
                             </LinearLayout>
@@ -297,10 +292,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:paddingStart="@dimen/_18sdp"
+                        android:paddingStart="@dimen/_8sdp"
                         android:paddingTop="@dimen/_4sdp"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingBottom="@dimen/_18sdp">
+                        android:paddingEnd="@dimen/_8sdp"
+                        android:paddingBottom="@dimen/_8sdp">
 
 
                     </LinearLayout>

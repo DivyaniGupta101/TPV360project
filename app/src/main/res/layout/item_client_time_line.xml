@@ -14,7 +14,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -120,7 +119,8 @@
                 app:autoSizeMaxTextSize="@dimen/_12sdp"
                 app:autoSizeMinTextSize="@dimen/_8sdp"
                 app:autoSizeTextType="uniform"
-                tools:text="@string/sales_agent" />
+                tools:text="@string/sales_agent"
+                android:text="@string/sales_agent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryNormalText"
