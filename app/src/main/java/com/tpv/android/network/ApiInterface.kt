@@ -126,4 +126,8 @@ interface ApiInterface {
     @POST("reports/critical-alerts/{id}/timeline")
     fun getTimeLine(@Path("id") id: String = "0000000635"): Call<CommonResponse<List<ClientTimeLineResp>>>
 
+    //TimeLine
+    @POST("reports/critical-alerts/{id}/details")
+    fun getClientLeadDetails(@Path("id") id: String = "0000000635"): Call<CommonResponse<ClientLeadDetailResp>>
+
 }

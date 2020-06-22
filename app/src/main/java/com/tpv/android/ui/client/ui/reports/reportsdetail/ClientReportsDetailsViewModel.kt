@@ -9,4 +9,9 @@ class ClientReportsDetailsViewModel : CoroutineScopedViewModel() {
     {
         getTimeLineCall()
     }
+
+    fun getClientLeadDetail() = with(AppRepository)
+    {
+        getClientLeadDetailsCall()
+    }
 }

@@ -77,7 +77,7 @@ object BindingAdapter {
      */
     @JvmStatic
     @BindingAdapter("leadStatus")
-    fun setLeadStatus(textView: TextView, status: String) {
+    fun setLeadStatus(textView: TextView, status: String?) {
         val context = textView.context
         when (status) {
             LeadStatus.PENDING.value -> {

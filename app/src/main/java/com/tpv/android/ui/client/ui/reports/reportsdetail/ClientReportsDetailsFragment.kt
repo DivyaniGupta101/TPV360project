@@ -9,11 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.R
-import com.tpv.android.databinding.FragmentClientReportsDetailsBinding
-import com.tpv.android.databinding.ItemClientTimeLineBinding
-import com.tpv.android.databinding.LayoutInputLabelBinding
-import com.tpv.android.databinding.LayoutOutputSeparateBinding
+import com.tpv.android.databinding.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -37,7 +35,33 @@ class ClientReportsDetailsFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.lead_details), showMenuIcon = false,
                 showBackIcon = true)
-        setTimeLine()
+        getLeadDetail()
+    }
+
+    private fun getLeadDetail() {
+        val liveData = mViewModel.getClientLeadDetail()
+        liveData.observe(this, Observer {
+            it?.ifSuccess {
+                val programList = it?.programs.orEmpty()
+                val formDetailList = it?.leadDetails.orEmpty()
+                mBinding.item = it
+                if (programList.isNotEmpty().orFalse()) {
+                    programList.forEach {
+                        setLabelField(it.commodity + " " + getString(R.string.utility))
+
+                        val binding = DataBindingUtil.inflate<ItemProgramsBinding>(layoutInflater,
+                                R.layout.item_programs,
+                                mBinding.leadDetailContainer,
+                                true)
+                        binding.item = it
+
+                    }
+
+                }
+                setTimeLine()
+            }
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     private fun setTimeLine() {
@@ -46,7 +70,7 @@ class ClientReportsDetailsFragment : Fragment() {
         liveData.observe(this, Observer {
             it?.ifSuccess { list ->
 
-                setLabelField()
+                setLabelField(getString(R.string.time_line))
                 list?.forEachIndexed { index, clientTimeLineRep ->
 
                     val binding = DataBindingUtil.inflate<ItemClientTimeLineBinding>(layoutInflater,
@@ -68,13 +92,13 @@ class ClientReportsDetailsFragment : Fragment() {
     /**
      * Inflate view for label
      */
-    private fun setLabelField() {
+    private fun setLabelField(title: String) {
         val binding = DataBindingUtil.inflate<LayoutInputLabelBinding>(layoutInflater,
                 R.layout.layout_input_label,
                 mBinding.leadDetailContainer,
                 true)
 
-        binding.item = getString(R.string.time_line)
+        binding.item = title
 
     }
 

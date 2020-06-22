@@ -31,6 +31,8 @@ data class ProgramsResp(
         var accountNumberTypeName: String?,
         @SerializedName("AccountNumberLength")
         var accountNumberLength: String?,
+        @SerializedName("commodity")
+        var commodity: String?,
         var isSelcected: Boolean? = false,
         var utilityType: String?
 

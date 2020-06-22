@@ -35,13 +35,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryNormalText"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_weight="1"
                 android:text="@{item.reason}"
-                app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_8sdp"
-                app:autoSizeTextType="uniform"
                 tools:text="@string/authorised_first_name" />
 
 
@@ -57,20 +53,13 @@
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
                 android:text="@string/date_and_time"
-                app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_8sdp"
-                app:autoSizeTextType="uniform"
                 tools:text="@string/date_and_time" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryNormalText"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_weight="1"
                 android:text="@{item.createdAt}"
-                app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_8sdp"
-                app:autoSizeTextType="uniform"
                 tools:text="@string/authorised_first_name" />
 
 
@@ -93,13 +82,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryNormalText"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_weight="1"
                 android:text="@{item.userType}"
-                app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_8sdp"
-                app:autoSizeTextType="uniform"
                 tools:text="@string/authorised_first_name" />
 
 
@@ -115,20 +100,13 @@
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
                 android:text="@string/sales_agent"
-                app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_8sdp"
-                app:autoSizeTextType="uniform"
                 tools:text="@string/sales_agent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryNormalText"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_weight="1"
                 android:text="@{item.agent}"
-                app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_8sdp"
-                app:autoSizeTextType="uniform"
                 tools:text="@string/authorised_first_name" />
 
 
@@ -144,20 +122,13 @@
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
                 android:text="@string/lead_status"
-                app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_8sdp"
-                app:autoSizeTextType="uniform"
                 tools:text="@string/lead_status" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryNormalText"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_weight="1"
-                android:text="@{item.status}"
-                app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_8sdp"
-                app:autoSizeTextType="uniform"
+                android:text="@{item.leadStatus}"
                 tools:text="@string/authorised_first_name" />
 
 
@@ -174,20 +145,13 @@
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
                 android:text="@string/related_lead"
-                app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_8sdp"
-                app:autoSizeTextType="uniform"
                 tools:text="@string/related_lead" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryNormalText"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_weight="1"
                 android:text="@{item.relatedLeadIds}"
-                app:autoSizeMaxTextSize="@dimen/_12sdp"
-                app:autoSizeMinTextSize="@dimen/_8sdp"
-                app:autoSizeTextType="uniform"
                 tools:text="@string/authorised_first_name" />
 
 

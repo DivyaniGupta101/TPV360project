@@ -276,4 +276,11 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.getClientLeadDetailsCall() = dataApi<ClientLeadDetailResp?, APIError>
+    {
+        fromNetwork {
+            ApiClient.service.getClientLeadDetails().getResult().map { it?.data }
+        }
+    }
+
 }
