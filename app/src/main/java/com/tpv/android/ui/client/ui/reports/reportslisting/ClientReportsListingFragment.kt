@@ -23,7 +23,6 @@ import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.*
-import com.tpv.android.helper.Pref
 import com.tpv.android.helper.setPagination
 import com.tpv.android.model.internal.BottomSheetItem
 import com.tpv.android.model.network.ClientReportReq
@@ -268,21 +267,33 @@ class ClientReportsListingFragment : Fragment() {
         liveData.observe(this, Observer {
             it?.ifSuccess { list ->
                 mSalesCenterList.addAll(list.orEmpty())
-                if (clientReportReq == null) {
+//                if (clientReportReq == null) {
                     val tempList = mLastSelectedSortBy.split("_")
 
-                    clientReportReq = ClientReportReq(
-                            clientId = Pref.user?.clientId,
-                            salescenterId = Pref.user?.userid,
-                            fromDate = mFirstDateOfMonth,
-                            toDate = mCurrentDateOfMonth,
-                            verificationFromDate = "",
-                            verificationToDate = "",
-                            sortBy = tempList?.minus(tempList.get(tempList.lastIndex))?.joinToString("_"),
-                            sortOrder = tempList?.get(tempList.lastIndex),
-                            searchText = "")
+                    clientReportReq =
+                            ClientReportReq(
+                                    clientId = 102,
+                                    salescenterId = "2002",
+                                    fromDate = "2020-05-05",
+                                    toDate = "2020-06-05",
+                                    verificationFromDate = "2020-05-05",
+                                    verificationToDate = "2020-06-05",
+                                    searchText = "",
+                                    sortBy = "client_name",
+                                    sortOrder = "asc"
+                            )
+//                            ClientReportReq(
+//                            clientId = Pref.user?.clientId,
+//                            salescenterId = Pref.user?.userid,
+//                            fromDate = mFirstDateOfMonth,
+//                            toDate = mCurrentDateOfMonth,
+//                            verificationFromDate = "",
+//                            verificationToDate = "",
+//                            sortBy = tempList?.minus(tempList.get(tempList.lastIndex))?.joinToString("_"),
+//                            sortOrder = tempList?.get(tempList.lastIndex),
+//                            searchText = "")
                     setRecyclerView(clientReportReq)
-                }
+//                }
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
