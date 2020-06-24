@@ -120,7 +120,7 @@ interface ApiInterface {
 
     //Sales Center
     @GET("sales-centers")
-    fun getSalesCenter(@Query("client_id") clientId: String): Call<CommonResponse<List<ClientsResp>>>
+    fun getSalesCenter(@Query("client_id") clientId: String?): Call<CommonResponse<List<ClientsResp>>>
 
     //TimeLine
     @POST("reports/critical-alerts/{id}/timeline")

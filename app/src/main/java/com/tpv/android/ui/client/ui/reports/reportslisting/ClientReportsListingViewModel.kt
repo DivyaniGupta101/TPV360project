@@ -26,9 +26,9 @@ class ClientReportsListingViewModel : CoroutineScopedViewModel() {
         getClientsCall()
     }
 
-    fun getSalesCenter() = with(AppRepository)
+    fun getSalesCenter(clientId: String?) = with(AppRepository)
     {
-        getSalesCenterCall()
+        getSalesCenterCall(clientId)
     }
 
     fun getReportsList(clientReportReq: ClientReportReq?, page: Int? = 1) = with(AppRepository) {

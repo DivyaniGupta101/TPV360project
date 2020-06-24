@@ -1,9 +1,14 @@
 package com.tpv.android.ui.client.ui.reports.reportslisting
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
@@ -17,10 +22,7 @@ import com.livinglifetechway.k4kotlin.core.setItems
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
-import com.tpv.android.databinding.BottomSheetBinding
-import com.tpv.android.databinding.FragmentClientReportsListingBinding
-import com.tpv.android.databinding.ItemBottomSheetBinding
-import com.tpv.android.databinding.ItemClientReportsBinding
+import com.tpv.android.databinding.*
 import com.tpv.android.helper.Pref
 import com.tpv.android.helper.setPagination
 import com.tpv.android.model.internal.BottomSheetItem
@@ -39,6 +41,7 @@ import com.tpv.android.utils.setupToolbar
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class ClientReportsListingFragment : Fragment() {
 
@@ -70,31 +73,103 @@ class ClientReportsListingFragment : Fragment() {
                 showBackIcon = true
         )
 
-        setBottomSheetShortOption()
-        getClientList()
+        setBottomSheetSortOption()
         getDates()
-
-        val tempList = mLastSelectedSortBy.split("_")
-
-        clientReportReq = ClientReportReq(
-                clientId = Pref.user?.clientId,
-                salescenterId = Pref.user?.userid,
-                fromDate = mFirstDateOfMonth,
-                toDate = mCurrentDateOfMonth,
-                verificationFromDate = "",
-                verificationToDate = "",
-                sortBy = tempList?.minus(tempList.get(tempList.lastIndex))?.joinToString("_"),
-                sortOrder = tempList?.get(tempList.lastIndex),
-                searchText = "")
-
-        setRecyclerView(clientReportReq)
+        getClientList()
 
         mBinding.sortByContainer.onClick {
-            handleBottomSheet()
+            handleSortByBottomSheet()
+        }
+
+        mBinding.filterContainer.onClick {
+            handleFilterBottomSheet()
         }
     }
 
-    private fun setBottomSheetShortOption() {
+    private fun handleFilterBottomSheet() {
+        val binding = DataBindingUtil.inflate<ClientBottomSheetFilterBinding>(layoutInflater, R.layout.client_bottom_sheet_filter, null, false)
+
+        context?.let {
+
+            val dialog = BottomSheetDialog(it)
+            dialog.setContentView(binding.root)
+            binding.item = getString(R.string.filter)
+
+            binding.includeDateOfSubmissionStartDateLayout.item = getString(R.string.start_date)
+            binding.includeDateOfVerificationStartDateLayout.item = getString(R.string.start_date)
+            binding.includeDateOfSubmissionEndDateLayout.item = getString(R.string.end_date)
+            binding.includeDateOfVerificationEndDateLayout.item = getString(R.string.end_date)
+            binding.includeClientLayout.item = getString(R.string.clients)
+            binding.includeSalesCenterLayout.item = getString(R.string.sales_centers)
+
+            if (mClientList?.isNotEmpty()) {
+                val spinnerValueList = arrayListOf("All")
+                spinnerValueList.addAll(mClientList.map { it.name.orEmpty() })
+                binding.includeClientLayout.spinner.setItems(spinnerValueList as ArrayList<String>?)
+            }
+            if (mSalesCenterList.isNotEmpty()) {
+                val spinnerValueList = arrayListOf("All")
+                spinnerValueList.addAll(mSalesCenterList.map { it.name.orEmpty() })
+
+                var spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.includeSalesCenterLayout.spinner.setAdapter(spinnerAdapter)
+            }
+
+            binding.includeClientLayout.spinner.onItemSelectedListener =
+                    object : OnItemSelectedListener {
+                        override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View, position: Int, id: Long) {
+                            if (position != 0) {
+                                getSalesCenters(mClientList[position - 1].id)
+                            }
+                        }
+
+                        override fun onNothingSelected(parentView: AdapterView<*>?) {
+                            // your code here
+                        }
+                    }
+
+            binding?.includeDateOfSubmissionEndDateLayout?.linerLayoutContainer?.onClick {
+
+            }
+            binding?.includeDateOfSubmissionStartDateLayout?.linerLayoutContainer?.onClick {
+                openDatePicker(binding)
+            }
+//            binding.includeDateOfVerificationEndDateLayout?.linerLayoutContainer?.onClick {
+//
+//            }
+//            binding.includeDateOfVerificationStartDateLayout?.linerLayoutContainer?.onClick {
+//
+//            }
+
+            binding.btnApply.onClick()
+            {
+                dialog.hide()
+            }
+
+            dialog.show()
+        }
+
+
+    }
+
+    private fun openDatePicker(binding: ClientBottomSheetFilterBinding) {
+        val c = Calendar.getInstance()
+
+        val mYear = c[Calendar.YEAR] // current year
+        val mMonth = c[Calendar.MONTH] // current month
+        val mDay = c[Calendar.DAY_OF_MONTH] // current day
+
+        // date picker dialog
+        // date picker dialog
+        val datePickerDialog = DatePickerDialog(context,
+                OnDateSetListener { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
+                    binding.includeDateOfSubmissionStartDateLayout.editDatePicker.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year)
+                }, mYear, mMonth, mDay)
+        datePickerDialog.show()
+    }
+
+    private fun setBottomSheetSortOption() {
         mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_ascending), SortByItem.LEADIDASC.value, false))
         mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_descending), SortByItem.LEADIDDES.value, false))
         mListBottoSheet.add(BottomSheetItem(getString(R.string.reference_id_ascending), SortByItem.REFERENCEIDASC.value, false))
@@ -132,25 +207,7 @@ class ClientReportsListingFragment : Fragment() {
         mCurrentDateOfMonth = SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time)
     }
 
-    private fun getClientList() {
-        val liveData = mViewModel.getClients()
-        liveData.observe(this, Observer {
-            it?.ifSuccess { list ->
-                mBinding.layoutSpinnerAllClients.textTitle.text = getString(R.string.clients)
-
-                mClientList.addAll(list.orEmpty())
-
-                val spinnerValueList = arrayListOf("All Clients")
-                spinnerValueList.addAll(list?.map { it.name.orEmpty() }.orEmpty())
-                mBinding.layoutSpinnerAllClients.spinner.setItems(spinnerValueList as ArrayList<String>?)
-
-                getSalesCenteres()
-            }
-        })
-        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-    }
-
-    private fun handleBottomSheet() {
+    private fun handleSortByBottomSheet() {
         val binding = DataBindingUtil.inflate<BottomSheetBinding>(layoutInflater, R.layout.bottom_sheet, null, false)
 
         context?.let {
@@ -193,24 +250,44 @@ class ClientReportsListingFragment : Fragment() {
         }
     }
 
-    private fun getSalesCenteres() {
-        val liveData = mViewModel.getSalesCenter()
+    private fun getClientList() {
+        mClientList.clear()
+        val liveData = mViewModel.getClients()
         liveData.observe(this, Observer {
             it?.ifSuccess { list ->
-                mBinding.layoutSpinnerSalesCenter.textTitle.text = getString(R.string.sales_centers)
-
-                mSalesCenterList.addAll(list.orEmpty())
-
-                val spinnerValueList = arrayListOf("All Sales Centers")
-                spinnerValueList.addAll(list?.map { it.name.orEmpty() }.orEmpty())
-                mBinding.layoutSpinnerSalesCenter.spinner.setItems(spinnerValueList as ArrayList<String>?)
-
-
+                mClientList.addAll(list.orEmpty())
+                getSalesCenters()
             }
         })
-
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
+
+    private fun getSalesCenters(id: String? = "") {
+        mSalesCenterList.clear()
+        val liveData = mViewModel.getSalesCenter(id)
+        liveData.observe(this, Observer {
+            it?.ifSuccess { list ->
+                mSalesCenterList.addAll(list.orEmpty())
+                if (clientReportReq == null) {
+                    val tempList = mLastSelectedSortBy.split("_")
+
+                    clientReportReq = ClientReportReq(
+                            clientId = Pref.user?.clientId,
+                            salescenterId = Pref.user?.userid,
+                            fromDate = mFirstDateOfMonth,
+                            toDate = mCurrentDateOfMonth,
+                            verificationFromDate = "",
+                            verificationToDate = "",
+                            sortBy = tempList?.minus(tempList.get(tempList.lastIndex))?.joinToString("_"),
+                            sortOrder = tempList?.get(tempList.lastIndex),
+                            searchText = "")
+                    setRecyclerView(clientReportReq)
+                }
+            }
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
+
 
     private fun setRecyclerView(clientReportReq: ClientReportReq?) {
         mViewModel.clearList()

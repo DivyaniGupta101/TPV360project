@@ -4,6 +4,10 @@
 
     <data>
 
+        <variable
+            name="item"
+            type="String" />
+
         <import type="android.text.TextUtils" />
 
     </data>
@@ -15,11 +19,13 @@
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_8sdp">
 
+
         <TextView
-            android:id="@+id/textTitle"
-            style="@style/TertiaryBoldTextWithTopSpacing"
-            android:textAllCaps="true"
-            tools:text="@string/address" />
+            style="@style/PrimaryNormalText"
+            android:layout_width="match_parent"
+            android:text="@{item}"
+            tools:text="142044" />
+
 
         <Spinner
             android:id="@+id/spinner"
@@ -30,6 +36,7 @@
         <View
             style="@style/Divider"
             android:layout_width="match_parent"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:background="@color/colorDarkDivider" />
 
     </LinearLayout>

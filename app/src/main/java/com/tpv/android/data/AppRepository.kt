@@ -264,9 +264,9 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.getSalesCenterCall() = dataApi<List<ClientsResp>, APIError> {
+    fun CoroutineScope.getSalesCenterCall(clientId: String?) = dataApi<List<ClientsResp>, APIError> {
         fromNetwork {
-            ApiClient.service.getSalesCenter(Pref.user?.clientId.toString()).getResult().map { it?.data.orEmpty() }
+            ApiClient.service.getSalesCenter(clientId).getResult().map { it?.data.orEmpty() }
         }
     }
 

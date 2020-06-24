@@ -126,7 +126,9 @@
     <string name="early_termination">ETF</string>
     <string name="MSF">MSF</string>
     <string name="code">Code</string>
-    <string name="date_of_submission">Date of Submission : </string>
+    <string name="date_of_submission_colon">Date of Submission : </string>
+    <string name="date_of_submission">Date of Submission</string>
+    <string name="date_of_verification">Date of Verification</string>
     <string name="agent">Agent : </string>
     <string name="id_colon">Id : </string>
     <string name="email_colon">Email : </string>
@@ -152,6 +154,10 @@
     <string name="related_lead">Related Lead : </string>
     <string name="lead_id_colon">Lead Id : </string>
     <string name="sort_by">Sort By</string>
+    <string name="filter">Filter</string>
+    <string name="select">Select</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
     <string name="lead_submission_on_colon">Lead Submission On : </string>
     <string name="lead_updated_on_colon">Lead Updated On : </string>
     <string name="time_line">Timeline</string>
