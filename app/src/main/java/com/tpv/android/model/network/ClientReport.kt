@@ -34,15 +34,15 @@ data class ClientReportReq(
         @SerializedName("from_date")
         val fromDate: String?,
         @SerializedName("page")
-        val page: Int?,
+        var page: Int? = 0,
         @SerializedName("salescenter_id")
-        val salescenterId: Int?,
+        val salescenterId: String?,
         @SerializedName("search_text")
         val searchText: String?,
         @SerializedName("sort_by")
-        val sortBy: String?,
+        var sortBy: String?,
         @SerializedName("sort_order")
-        val sortOrder: String?,
+        var sortOrder: String?,
         @SerializedName("to_date")
         val toDate: String?,
         @SerializedName("verification_from_date")

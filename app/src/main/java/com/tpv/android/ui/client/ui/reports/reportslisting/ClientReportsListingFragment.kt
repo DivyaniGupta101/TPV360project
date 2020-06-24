@@ -21,8 +21,10 @@ import com.tpv.android.databinding.BottomSheetBinding
 import com.tpv.android.databinding.FragmentClientReportsListingBinding
 import com.tpv.android.databinding.ItemBottomSheetBinding
 import com.tpv.android.databinding.ItemClientReportsBinding
+import com.tpv.android.helper.Pref
 import com.tpv.android.helper.setPagination
 import com.tpv.android.model.internal.BottomSheetItem
+import com.tpv.android.model.network.ClientReportReq
 import com.tpv.android.model.network.ClientReportResp
 import com.tpv.android.model.network.ClientsResp
 import com.tpv.android.network.error.AlertErrorHandler
@@ -30,9 +32,13 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.utils.enums.ClientMenuItem
+import com.tpv.android.utils.enums.SortByItem
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ClientReportsListingFragment : Fragment() {
 
@@ -41,7 +47,11 @@ class ClientReportsListingFragment : Fragment() {
     var mClientList: ArrayList<ClientsResp> = ArrayList()
     var mSalesCenterList: ArrayList<ClientsResp> = ArrayList()
     var mListBottoSheet: ObservableArrayList<BottomSheetItem> = ObservableArrayList()
-    var mLastSelectedSortBy = "lead id ascending"
+    var mLastSelectedSortBy = SortByItem.LEADIDASC.value
+    var mFirstDateOfMonth = ""
+    var mCurrentDateOfMonth = ""
+    var clientReportReq: ClientReportReq? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
@@ -55,40 +65,74 @@ class ClientReportsListingFragment : Fragment() {
     }
 
     private fun initialize() {
+
         setupToolbar(mBinding.toolbar, getString(R.string.reports), showMenuIcon = true,
                 showBackIcon = true
         )
 
-        mListBottoSheet.add(BottomSheetItem("Lead Id Ascending", "lead id ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Lead Id Descending", "lead id descending", false))
-        mListBottoSheet.add(BottomSheetItem("Reference Id Ascending", "reference id ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Reference Id Descending", "reference id descending", false))
-        mListBottoSheet.add(BottomSheetItem("Alert Status Ascending", "alert status ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Alert Status Descending", "alert status descending", false))
-        mListBottoSheet.add(BottomSheetItem("Lead Status Ascending", "lead status ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Lead Status Descending", "lead status descending", false))
-        mListBottoSheet.add(BottomSheetItem("Client Name Ascending", "client name ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Client Name Descending", "client name descending", false))
-        mListBottoSheet.add(BottomSheetItem("Salescenter Name Ascending", "salescenter name ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Salescenter Name Descending", "salescenter name descending", false))
-        mListBottoSheet.add(BottomSheetItem("Salesceneter Location Address Ascending", "salesceneter location address ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Salesceneter Location Address Descending", "salesceneter location address descending", false))
-        mListBottoSheet.add(BottomSheetItem("Salesagent Name Ascending", "salesagent name ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Salesagent Name Descending", "salesagent name descending", false))
-        mListBottoSheet.add(BottomSheetItem("Date Of Submission Ascending", "date of submission ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Date Of Submission Descending", "date of submission descending", false))
-        mListBottoSheet.add(BottomSheetItem("Date Of Tpv Ascending", "date of tpv ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Date Of Tpv Descending", "date of tpv descending", false))
-        mListBottoSheet.add(BottomSheetItem("Salescenter Location Name Ascending", "salescenter location name ascending", false))
-        mListBottoSheet.add(BottomSheetItem("Salescenter Location Name Descending", "salescenter location name descending", false))
+        setBottomSheetShortOption()
+        getClientList()
+        getDates()
+
+        val tempList = mLastSelectedSortBy.split("_")
+
+        clientReportReq = ClientReportReq(
+                clientId = Pref.user?.clientId,
+                salescenterId = Pref.user?.userid,
+                fromDate = mFirstDateOfMonth,
+                toDate = mCurrentDateOfMonth,
+                verificationFromDate = "",
+                verificationToDate = "",
+                sortBy = tempList?.minus(tempList.get(tempList.lastIndex))?.joinToString("_"),
+                sortOrder = tempList?.get(tempList.lastIndex),
+                searchText = "")
+
+        setRecyclerView(clientReportReq)
+
+        mBinding.sortByContainer.onClick {
+            handleBottomSheet()
+        }
+    }
+
+    private fun setBottomSheetShortOption() {
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_ascending), SortByItem.LEADIDASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_descending), SortByItem.LEADIDDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.reference_id_ascending), SortByItem.REFERENCEIDASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.reference_id_descending), SortByItem.REFERENCEIDDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.alert_status_ascending), SortByItem.ALERTSTATUSASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.alert_status_descending), SortByItem.ALERTSTATUSDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_status_ascending), SortByItem.LEADSTATUSASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_status_descending), SortByItem.LEADSTATUSDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.client_name_ascending), SortByItem.CLIENTNAMEASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.client_name_descending), SortByItem.CLIENTNAMEDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_name_ascending), SortByItem.SALESCENTERNAMEASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_name_descending), SortByItem.SALESCENTERNAMEDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.salesceneter_location_address_ascending), SortByItem.SALESCENTERLOCATIONADDRESSASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.salesceneter_location_address_descending), SortByItem.SALESCENTERLOCATIONADDRESSDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.salesagent_name_ascending), SortByItem.SALESAGENTNAMEASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.salesagent_name_descending), SortByItem.SALESAGENTNAMEDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.date_of_submission_ascending), SortByItem.DATEOFSUBMISSIONASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.date_of_submission_descending), SortByItem.DATEOFSUBMISSIONDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.date_of_tpv_ascending), SortByItem.DATEOFTPVASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.date_of_tpv_descending), SortByItem.DATEOFTPVDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_location_name_ascending), SortByItem.SALESCENTERLOCATIONNAMEASC.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_location_name_descending), SortByItem.SALESCENTERLOCATIONNAMEDES.value, false))
 
         mListBottoSheet.forEach {
             if (mLastSelectedSortBy == it.tag) {
                 it.isSelected = true
             }
         }
+    }
 
+    private fun getDates() {
+        val c = Calendar.getInstance()  // this takes current date
+        c.set(Calendar.DAY_OF_MONTH, 1)
+        mFirstDateOfMonth = SimpleDateFormat("yyyy-MM-dd").format(c.time)
+        mCurrentDateOfMonth = SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time)
+    }
 
+    private fun getClientList() {
         val liveData = mViewModel.getClients()
         liveData.observe(this, Observer {
             it?.ifSuccess { list ->
@@ -104,11 +148,6 @@ class ClientReportsListingFragment : Fragment() {
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-
-
-        mBinding.sortByContainer.onClick {
-            handleBottomSheet()
-        }
     }
 
     private fun handleBottomSheet() {
@@ -128,7 +167,6 @@ class ClientReportsListingFragment : Fragment() {
                         true)
 
                 bindingBottomSheet.item = it
-//
                 if (it.tag == mLastSelectedSortBy) {
                     bindingBottomSheet.radioContainer.isChecked = true
                 }
@@ -138,7 +176,14 @@ class ClientReportsListingFragment : Fragment() {
                     mListBottoSheet.forEach {
                         it?.isSelected = it.tag == bindingBottomSheet.item?.tag
                     }
-//                    setTitleAndRecyclerView(bindingBottomSheet.item?.tag)
+
+                    val tempList = bindingBottomSheet.item?.tag?.split("_")
+
+                    clientReportReq?.also {
+                        it.sortBy = tempList?.minus(tempList.get(tempList.lastIndex))?.joinToString("_")
+                        it.sortOrder = tempList?.get(tempList.lastIndex)
+                    }
+                    setRecyclerView(clientReportReq)
                     dialog.dismiss()
                 }
 
@@ -160,14 +205,14 @@ class ClientReportsListingFragment : Fragment() {
                 spinnerValueList.addAll(list?.map { it.name.orEmpty() }.orEmpty())
                 mBinding.layoutSpinnerSalesCenter.spinner.setItems(spinnerValueList as ArrayList<String>?)
 
-                setRecyclerView()
+
             }
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
-    private fun setRecyclerView() {
+    private fun setRecyclerView(clientReportReq: ClientReportReq?) {
         mViewModel.clearList()
         mBinding.listReports.adapter = null
         mBinding.listReports.clearOnScrollListeners()
@@ -186,7 +231,7 @@ class ClientReportsListingFragment : Fragment() {
                 .into(mBinding.listReports)
 
         mBinding.listReports.setPagination(mViewModel.criticalAlertReportsPaginatedResourceLiveData) { page ->
-            mViewModel.getReportsList(page)
+            mViewModel.getReportsList(clientReportReq, page)
         }
     }
 

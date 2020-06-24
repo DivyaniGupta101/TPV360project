@@ -252,6 +252,28 @@
     <string name="customer_visit_arrival">Customer Visit Arrival</string>
     <string name="customer_visit_departure">Customer Visit Departure</string>
     <string name="tpv_now">TPV Now</string>
+    <string name="lead_id_ascending">Lead Id Ascending</string>
+    <string name="lead_id_descending">Lead Id Descending</string>
+    <string name="reference_id_ascending">Reference Id Ascending</string>
+    <string name="reference_id_descending">Reference Id Descending</string>
+    <string name="alert_status_ascending">Alert Status Ascending</string>
+    <string name="alert_status_descending">Alert Status Descending</string>
+    <string name="lead_status_ascending">Lead Status Ascending</string>
+    <string name="lead_status_descending">Lead Status Descending</string>
+    <string name="client_name_ascending">Client Name Ascending</string>
+    <string name="client_name_descending">Client Name Descending</string>
+    <string name="salescenter_name_ascending">Salescenter Name Ascending</string>
+    <string name="salescenter_name_descending">Salescenter Name Descending</string>
+    <string name="salesceneter_location_address_ascending">Salesceneter Location Address Ascending</string>
+    <string name="salesceneter_location_address_descending">Salesceneter Location Address Descending</string>
+    <string name="salesagent_name_ascending">Salesagent Name Ascending</string>
+    <string name="salesagent_name_descending">Salesagent Name Descending</string>
+    <string name="date_of_submission_ascending">Date Of Submission Ascending</string>
+    <string name="date_of_submission_descending">Date Of Submission Descending</string>
+    <string name="date_of_tpv_ascending">Date Of Tpv Ascending</string>
+    <string name="date_of_tpv_descending">Date Of Tpv Descending</string>
+    <string name="salescenter_location_name_ascending">Salescenter Location Name Ascending</string>
+    <string name="salescenter_location_name_descending">Salescenter Location Name Descending</string>
 
 
 </resources>

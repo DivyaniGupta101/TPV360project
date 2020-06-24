@@ -31,20 +31,10 @@ class ClientReportsListingViewModel : CoroutineScopedViewModel() {
         getSalesCenterCall()
     }
 
-    fun getReportsList(page: Int? = 1) = with(AppRepository) {
-        val leadstatus = ClientReportReq(
-                clientId = 102,
-                salescenterId = 2002,
-                fromDate = "2020-05-05",
-                toDate = "2020-06-05",
-                verificationFromDate = "2020-05-05",
-                verificationToDate = "2020-06-05",
-                sortBy = "salesagent_name",
-                sortOrder = "asc",
-                page = page,
-                searchText = "")
+    fun getReportsList(clientReportReq: ClientReportReq?, page: Int? = 1) = with(AppRepository) {
+        clientReportReq?.page = page
 
-        leadstatus?.let {
+        clientReportReq?.let {
             getCriticalAlertReportListCall(criticalAlertReportsLiveData.value.orEmpty(), it)
                     .observeForever { criticalAlertReportsPaginatedResourceMutableLiveData.value = it }
         }
