@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
@@ -18,9 +18,11 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.BottomSheetBinding
 import com.tpv.android.databinding.FragmentLeadListingBinding
+import com.tpv.android.databinding.ItemBottomSheetBinding
 import com.tpv.android.databinding.ItemLeadListBinding
 import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.helper.setPagination
+import com.tpv.android.model.internal.BottomSheetItem
 import com.tpv.android.model.network.LeadResp
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -33,6 +35,7 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
 
     lateinit var mBinding: FragmentLeadListingBinding
     lateinit var mViewModel: LeadListingViewModel
+    var mListBottoSheet: ObservableArrayList<BottomSheetItem> = ObservableArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -59,6 +62,27 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
         if (mViewModel.mLastSelectedStatus.isNullOrEmpty()) {
             mViewModel.mLastSelectedStatus = arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item
         }
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.pending),
+                LeadStatus.PENDING.value, false))
+        mListBottoSheet.add(
+                BottomSheetItem(getString(R.string.verified),
+                        LeadStatus.VERIFIED.value, false))
+        mListBottoSheet.add(
+                BottomSheetItem(getString(R.string.declined),
+                        LeadStatus.DECLINED.value, false))
+        mListBottoSheet.add(
+                BottomSheetItem(getString(R.string.disconnected),
+                        LeadStatus.DISCONNECTED.value, false))
+        mListBottoSheet.add(
+                BottomSheetItem(getString(R.string.cancelled),
+                        LeadStatus.CANCELLED.value, false)
+        )
+        mListBottoSheet?.forEach {
+            if (it.tag == mViewModel.mLastSelectedStatus) {
+                it.isSelected = true
+            }
+        }
+
         setTitleAndRecyclerView(mViewModel.mLastSelectedStatus)
 
         mBinding.bottomStatusContainer.onClick {
@@ -74,32 +98,29 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
 
             val dialog = BottomSheetDialog(it)
             dialog.setContentView(binding.root)
+            binding.item = getString(R.string.leads_status)
 
-            binding.radioPending.onClick {
-                setTitleAndRecyclerView(LeadStatus.PENDING.value)
-                dialog.dismiss()
+            mListBottoSheet.forEach {
+
+                val bindingBottomSheet = DataBindingUtil.inflate<ItemBottomSheetBinding>(layoutInflater,
+                        R.layout.item_bottom_sheet,
+                        binding.bottomSheetItemContainer,
+                        true)
+                bindingBottomSheet.item = it
+
+                if (it.tag == mViewModel.mLastSelectedStatus) {
+                    bindingBottomSheet.radioContainer.isChecked = true
+                }
+
+                bindingBottomSheet.radioContainer.onClick {
+                    mListBottoSheet.forEach {
+                        it?.isSelected = it.tag == bindingBottomSheet.item?.tag
+                    }
+                    setTitleAndRecyclerView(bindingBottomSheet.item?.tag)
+                    dialog.dismiss()
+                }
+
             }
-            binding.radioVerified.onClick {
-                setTitleAndRecyclerView(LeadStatus.VERIFIED.value)
-                dialog.dismiss()
-            }
-            binding.radioDeclined.onClick {
-                setTitleAndRecyclerView(LeadStatus.DECLINED.value)
-                dialog.dismiss()
-            }
-            binding.radioDisconnected.onClick {
-                setTitleAndRecyclerView(LeadStatus.DISCONNECTED.value)
-                dialog.dismiss()
-            }
-            binding.radioCancelled.onClick {
-                setTitleAndRecyclerView(LeadStatus.CANCELLED.value)
-                dialog.dismiss()
-            }
-            // Check if any radioButton text match with mBinding.textStatus.text
-            // Then add in listOfRadioButton and then set that item as selected
-            val listOfRadioButton = ArrayList<RadioButton>()
-            binding.radioGroup.findViewsWithText(listOfRadioButton as java.util.ArrayList<View>, mBinding.textStatus.text, View.FIND_VIEWS_WITH_TEXT)
-            listOfRadioButton.get(0).isChecked = true
 
             dialog.show()
         }

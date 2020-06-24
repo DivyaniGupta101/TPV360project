@@ -1,60 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="item"
+            type="String" />
     </data>
 
-    <LinearLayout
-        android:id="@+id/bottomSheetContainer"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorScreenBg"
-        android:orientation="vertical"
-        app:behavior_hideable="true"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        android:layout_height="match_parent">
 
-        <TextView
-            style="@style/SecondaryNormalText"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingTop="@dimen/_16sdp"
-            android:text="@string/leads_status"
-            android:textAllCaps="true"
-            android:textColor="@color/colorTertiaryText" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
+        <LinearLayout
+            android:id="@+id/bottomSheetContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_16sdp">
+            android:background="@color/colorScreenBg"
+            android:orientation="vertical"
+            app:behavior_hideable="true"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-            <RadioButton
-                android:id="@+id/radioPending"
-                style="@style/PrimaryNormalText"
-                android:text="@string/pending" />
+            <TextView
+                style="@style/SecondaryNormalText"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@{item}"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText"
+                tools:text="@string/leads_status" />
 
-            <RadioButton
-                android:id="@+id/radioVerified"
-                style="@style/PrimaryNormalText"
-                android:text="@string/verified" />
-
-            <RadioButton
-                android:id="@+id/radioDeclined"
-                style="@style/PrimaryNormalText"
-                android:text="@string/declined" />
-
-            <RadioButton
-                android:id="@+id/radioDisconnected"
-                style="@style/PrimaryNormalText"
-                android:text="@string/disconnected" />
-
-            <RadioButton
-                android:id="@+id/radioCancelled"
-                style="@style/PrimaryNormalText"
-                android:text="@string/cancelled" />
-        </RadioGroup>
+            <RadioGroup
+                android:id="@+id/bottomSheetItemContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_16sdp" />
 
 
-    </LinearLayout>
+            <!--        <RadioGroup-->
+            <!--            android:id="@+id/radioGroup"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:padding="@dimen/_16sdp">-->
+
+            <!--            <RadioButton-->
+            <!--                android:id="@+id/radioPending"-->
+            <!--                style="@style/PrimaryNormalText"-->
+            <!--                android:text="@string/pending" />-->
+
+            <!--            <RadioButton-->
+            <!--                android:id="@+id/radioVerified"-->
+            <!--                style="@style/PrimaryNormalText"-->
+            <!--                android:text="@string/verified" />-->
+
+            <!--            <RadioButton-->
+            <!--                android:id="@+id/radioDeclined"-->
+            <!--                style="@style/PrimaryNormalText"-->
+            <!--                android:text="@string/declined" />-->
+
+            <!--            <RadioButton-->
+            <!--                android:id="@+id/radioDisconnected"-->
+            <!--                style="@style/PrimaryNormalText"-->
+            <!--                android:text="@string/disconnected" />-->
+
+            <!--            <RadioButton-->
+            <!--                android:id="@+id/radioCancelled"-->
+            <!--                style="@style/PrimaryNormalText"-->
+            <!--                android:text="@string/cancelled" />-->
+            <!--        </RadioGroup>-->
+
+
+        </LinearLayout>
+    </ScrollView>
 </layout>
