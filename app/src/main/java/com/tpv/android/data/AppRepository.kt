@@ -276,10 +276,10 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.getClientLeadDetailsCall() = dataApi<ClientLeadDetailResp?, APIError>
+    fun CoroutineScope.getClientLeadDetailsCall(leadId: String) = dataApi<ClientLeadDetailResp?, APIError>
     {
         fromNetwork {
-            ApiClient.service.getClientLeadDetails().getResult().map { it?.data }
+            ApiClient.service.getClientLeadDetails(leadId).getResult().map { it?.data }
         }
     }
 

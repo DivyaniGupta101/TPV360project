@@ -10,8 +10,8 @@ class ClientReportsDetailsViewModel : CoroutineScopedViewModel() {
         getTimeLineCall()
     }
 
-    fun getClientLeadDetail() = with(AppRepository)
+    fun getClientLeadDetail(leadId:String) = with(AppRepository)
     {
-        getClientLeadDetailsCall()
+        getClientLeadDetailsCall(leadId  )
     }
 }

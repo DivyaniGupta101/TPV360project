@@ -46,7 +46,9 @@ class ClientReportsDetailsFragment : Fragment() {
     }
 
     private fun getLeadDetail() {
-        val liveData = mViewModel.getClientLeadDetail()
+        val leadId = arguments?.let { ClientReportsDetailsFragmentArgs.fromBundle(it) }?.item
+
+        val liveData = mViewModel.getClientLeadDetail(leadId.orEmpty())
         liveData.observe(this, Observer {
             it?.ifSuccess {
 

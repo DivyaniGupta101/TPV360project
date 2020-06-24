@@ -301,8 +301,10 @@ class ClientReportsListingFragment : Fragment() {
         LiveAdapter(mViewModel.criticalAlertReportsLiveData, BR.item)
                 .map<ClientReportResp, ItemClientReportsBinding>(R.layout.item_client_reports) {
                     onClick {
-//                        val id = it.binding.item?.id
-                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientReportsListingFragment_to_clientReportsDetailsFragment)
+                        Navigation.findNavController(mBinding.root).navigateSafe(
+                                ClientReportsListingFragmentDirections.actionClientReportsListingFragmentToClientReportsDetailsFragment(it.binding?.item?.referenceId.toString())
+                        )
+//                        navigateSafe(R.id.action_clientReportsListingFragment_to_clientReportsDetailsFragment)
                     }
                 }
                 .into(mBinding.listReports)
