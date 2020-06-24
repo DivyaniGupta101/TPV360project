@@ -151,6 +151,7 @@
     <string name="lead_status">Lead Status : </string>
     <string name="related_lead">Related Lead : </string>
     <string name="lead_id_colon">Lead Id : </string>
+    <string name="sort_by">Sort By</string>
     <string name="lead_submission_on_colon">Lead Submission On : </string>
     <string name="lead_updated_on_colon">Lead Updated On : </string>
     <string name="time_line">Timeline</string>

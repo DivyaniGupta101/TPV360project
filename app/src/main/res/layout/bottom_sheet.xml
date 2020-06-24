@@ -10,27 +10,28 @@
             type="String" />
     </data>
 
-    <ScrollView
+
+    <LinearLayout
+        android:id="@+id/bottomSheetContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/colorScreenBg"
+        android:orientation="vertical"
+        app:behavior_hideable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <LinearLayout
-            android:id="@+id/bottomSheetContainer"
+        <TextView
+            style="@style/SecondaryNormalText"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_16sdp"
+            android:text="@{item}"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText"
+            tools:text="@string/leads_status" />
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorScreenBg"
-            android:orientation="vertical"
-            app:behavior_hideable="true"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-            <TextView
-                style="@style/SecondaryNormalText"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingTop="@dimen/_16sdp"
-                android:text="@{item}"
-                android:textAllCaps="true"
-                android:textColor="@color/colorTertiaryText"
-                tools:text="@string/leads_status" />
+            android:layout_height="match_parent">
 
             <RadioGroup
                 android:id="@+id/bottomSheetItemContainer"
@@ -39,40 +40,6 @@
                 android:orientation="vertical"
                 android:padding="@dimen/_16sdp" />
 
-
-            <!--        <RadioGroup-->
-            <!--            android:id="@+id/radioGroup"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:padding="@dimen/_16sdp">-->
-
-            <!--            <RadioButton-->
-            <!--                android:id="@+id/radioPending"-->
-            <!--                style="@style/PrimaryNormalText"-->
-            <!--                android:text="@string/pending" />-->
-
-            <!--            <RadioButton-->
-            <!--                android:id="@+id/radioVerified"-->
-            <!--                style="@style/PrimaryNormalText"-->
-            <!--                android:text="@string/verified" />-->
-
-            <!--            <RadioButton-->
-            <!--                android:id="@+id/radioDeclined"-->
-            <!--                style="@style/PrimaryNormalText"-->
-            <!--                android:text="@string/declined" />-->
-
-            <!--            <RadioButton-->
-            <!--                android:id="@+id/radioDisconnected"-->
-            <!--                style="@style/PrimaryNormalText"-->
-            <!--                android:text="@string/disconnected" />-->
-
-            <!--            <RadioButton-->
-            <!--                android:id="@+id/radioCancelled"-->
-            <!--                style="@style/PrimaryNormalText"-->
-            <!--                android:text="@string/cancelled" />-->
-            <!--        </RadioGroup>-->
-
-
-        </LinearLayout>
-    </ScrollView>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 </layout>

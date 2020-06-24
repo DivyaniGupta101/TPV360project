@@ -5,18 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.setItems
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
+import com.tpv.android.databinding.BottomSheetBinding
 import com.tpv.android.databinding.FragmentClientReportsListingBinding
+import com.tpv.android.databinding.ItemBottomSheetBinding
 import com.tpv.android.databinding.ItemClientReportsBinding
 import com.tpv.android.helper.setPagination
+import com.tpv.android.model.internal.BottomSheetItem
 import com.tpv.android.model.network.ClientReportResp
 import com.tpv.android.model.network.ClientsResp
 import com.tpv.android.network.error.AlertErrorHandler
@@ -34,6 +40,8 @@ class ClientReportsListingFragment : Fragment() {
     lateinit var mViewModel: ClientReportsListingViewModel
     var mClientList: ArrayList<ClientsResp> = ArrayList()
     var mSalesCenterList: ArrayList<ClientsResp> = ArrayList()
+    var mListBottoSheet: ObservableArrayList<BottomSheetItem> = ObservableArrayList()
+    var mLastSelectedSortBy = "lead id ascending"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
@@ -50,6 +58,37 @@ class ClientReportsListingFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.reports), showMenuIcon = true,
                 showBackIcon = true
         )
+
+        mListBottoSheet.add(BottomSheetItem("Lead Id Ascending", "lead id ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Lead Id Descending", "lead id descending", false))
+        mListBottoSheet.add(BottomSheetItem("Reference Id Ascending", "reference id ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Reference Id Descending", "reference id descending", false))
+        mListBottoSheet.add(BottomSheetItem("Alert Status Ascending", "alert status ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Alert Status Descending", "alert status descending", false))
+        mListBottoSheet.add(BottomSheetItem("Lead Status Ascending", "lead status ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Lead Status Descending", "lead status descending", false))
+        mListBottoSheet.add(BottomSheetItem("Client Name Ascending", "client name ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Client Name Descending", "client name descending", false))
+        mListBottoSheet.add(BottomSheetItem("Salescenter Name Ascending", "salescenter name ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Salescenter Name Descending", "salescenter name descending", false))
+        mListBottoSheet.add(BottomSheetItem("Salesceneter Location Address Ascending", "salesceneter location address ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Salesceneter Location Address Descending", "salesceneter location address descending", false))
+        mListBottoSheet.add(BottomSheetItem("Salesagent Name Ascending", "salesagent name ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Salesagent Name Descending", "salesagent name descending", false))
+        mListBottoSheet.add(BottomSheetItem("Date Of Submission Ascending", "date of submission ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Date Of Submission Descending", "date of submission descending", false))
+        mListBottoSheet.add(BottomSheetItem("Date Of Tpv Ascending", "date of tpv ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Date Of Tpv Descending", "date of tpv descending", false))
+        mListBottoSheet.add(BottomSheetItem("Salescenter Location Name Ascending", "salescenter location name ascending", false))
+        mListBottoSheet.add(BottomSheetItem("Salescenter Location Name Descending", "salescenter location name descending", false))
+
+        mListBottoSheet.forEach {
+            if (mLastSelectedSortBy == it.tag) {
+                it.isSelected = true
+            }
+        }
+
+
         val liveData = mViewModel.getClients()
         liveData.observe(this, Observer {
             it?.ifSuccess { list ->
@@ -66,6 +105,47 @@ class ClientReportsListingFragment : Fragment() {
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
 
+
+        mBinding.sortByContainer.onClick {
+            handleBottomSheet()
+        }
+    }
+
+    private fun handleBottomSheet() {
+        val binding = DataBindingUtil.inflate<BottomSheetBinding>(layoutInflater, R.layout.bottom_sheet, null, false)
+
+        context?.let {
+
+            val dialog = BottomSheetDialog(it)
+            dialog.setContentView(binding.root)
+            binding.item = getString(R.string.sort_by)
+
+            mListBottoSheet.forEach {
+
+                val bindingBottomSheet = DataBindingUtil.inflate<ItemBottomSheetBinding>(layoutInflater,
+                        R.layout.item_bottom_sheet,
+                        binding.bottomSheetItemContainer,
+                        true)
+
+                bindingBottomSheet.item = it
+//
+                if (it.tag == mLastSelectedSortBy) {
+                    bindingBottomSheet.radioContainer.isChecked = true
+                }
+
+                bindingBottomSheet.radioContainer.onClick {
+                    mLastSelectedSortBy = bindingBottomSheet.item?.tag.toString()
+                    mListBottoSheet.forEach {
+                        it?.isSelected = it.tag == bindingBottomSheet.item?.tag
+                    }
+//                    setTitleAndRecyclerView(bindingBottomSheet.item?.tag)
+                    dialog.dismiss()
+                }
+
+            }
+
+            dialog.show()
+        }
     }
 
     private fun getSalesCenteres() {
