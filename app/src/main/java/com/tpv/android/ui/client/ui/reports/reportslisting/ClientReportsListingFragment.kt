@@ -18,10 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
-import com.livinglifetechway.k4kotlin.core.hide
-import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.setItems
-import com.livinglifetechway.k4kotlin.core.show
+import com.livinglifetechway.k4kotlin.core.*
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -35,6 +32,7 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.enums.ClientMenuItem
 import com.tpv.android.utils.enums.SortByItem
 import com.tpv.android.utils.navigateSafe
@@ -57,8 +55,6 @@ class ClientReportsListingFragment : Fragment() {
     var mSalesCenterList: ArrayList<ClientsResp> = ArrayList()
     var mListBottoSheet: ObservableArrayList<BottomSheetItem> = ObservableArrayList()
     var mLastSelectedSortBy = SortByItem.LEADIDASC.value
-    var mFirstDateOfMonth = ""
-    var mCurrentDateOfMonth = ""
     var clientReportReq: ClientReportReq? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,8 +76,22 @@ class ClientReportsListingFragment : Fragment() {
         )
 
         setBottomSheetSortOption()
-        getDates()
         getClientList()
+
+
+        val c = Calendar.getInstance()  // this takes current date
+        c.set(Calendar.DAY_OF_MONTH, 1)
+
+        val tempList = mLastSelectedSortBy.split("_")
+
+        clientReportReq =
+                ClientReportReq(
+                        fromDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(c.time),
+                        toDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(Calendar.getInstance().time),
+                        sortBy = tempList.minus(tempList.get(tempList.lastIndex)).joinToString("_"),
+                        sortOrder = tempList.get(tempList.lastIndex)
+                )
+        setRecyclerView(clientReportReq)
 
         mBinding.sortByContainer.onClick {
             handleSortByBottomSheet()
@@ -109,17 +119,20 @@ class ClientReportsListingFragment : Fragment() {
             binding.includeSalesCenterLayout.item = getString(R.string.sales_centers)
 
 
-            val input = SimpleDateFormat("yyyy-MM-dd");
-            val output = SimpleDateFormat("dd/MM/yyyy")
+            val input = SimpleDateFormat(AppConstant.DATEFORMATE1)
+            val output = SimpleDateFormat(AppConstant.DATEFORMATE2)
             try {
-                binding.includeDateOfSubmissionStartDateLayout.editDatePicker.setText(output.format(input.parse(mFirstDateOfMonth)))
-                binding.includeDateOfSubmissionEndDateLayout.editDatePicker.setText(output.format(input.parse(mCurrentDateOfMonth)))
-
+                binding.includeDateOfSubmissionStartDateLayout.editDatePicker.setText(output.format(input.parse(clientReportReq?.fromDate)))
+                binding.includeDateOfSubmissionEndDateLayout.editDatePicker.setText(output.format(input.parse(clientReportReq?.toDate)))
+                if (clientReportReq?.verificationFromDate?.isNotEmpty().orFalse() && clientReportReq?.verificationToDate?.isNotEmpty().orFalse()) {
+                    binding.includeDateOfVerificationStartDateLayout.editDatePicker.setText(output.format(input.parse(clientReportReq?.verificationFromDate)))
+                    binding.includeDateOfVerificationEndDateLayout.editDatePicker.setText(output.format(input.parse(clientReportReq?.verificationToDate)))
+                }
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
 
-            if (mClientList?.isNotEmpty()) {
+            if (mClientList.isNotEmpty()) {
                 val spinnerValueList = arrayListOf("All")
                 spinnerValueList.addAll(mClientList.map { it.name.orEmpty() })
                 binding.includeClientLayout.spinner.setItems(spinnerValueList as ArrayList<String>?)
@@ -178,6 +191,20 @@ class ClientReportsListingFragment : Fragment() {
                         binding.includeClientLayout.textError.hide()
                         if (binding.includeSalesCenterLayout.spinner.selectedItemPosition != 0) {
                             binding.includeSalesCenterLayout.textError.hide()
+
+                            val output = SimpleDateFormat(AppConstant.DATEFORMATE1)
+                            val input = SimpleDateFormat(AppConstant.DATEFORMATE2)
+
+                            clientReportReq?.also {
+                                it.clientId = mClientList[binding.includeClientLayout.spinner.selectedItemPosition.minus(1)].id
+                                it.salescenterId = mSalesCenterList[binding.includeSalesCenterLayout.spinner.selectedItemPosition.minus(1)].id
+                                it.fromDate = output.format(input.parse(binding.includeDateOfSubmissionStartDateLayout.editDatePicker.value))
+                                it.toDate = output.format(input.parse(binding.includeDateOfSubmissionEndDateLayout.editDatePicker.value))
+                                it.verificationFromDate = output.format(input.parse(binding.includeDateOfVerificationStartDateLayout.editDatePicker.value))
+                                it.verificationToDate = output.format(input.parse(binding.includeDateOfVerificationEndDateLayout.editDatePicker.value))
+                            }
+
+                            setRecyclerView(clientReportReq)
                             dialog.hide()
                         } else {
                             binding.includeSalesCenterLayout.textError.text = ("Please select sales centers")
@@ -264,13 +291,6 @@ class ClientReportsListingFragment : Fragment() {
         }
     }
 
-    private fun getDates() {
-        val c = Calendar.getInstance()  // this takes current date
-        c.set(Calendar.DAY_OF_MONTH, 1)
-        mFirstDateOfMonth = SimpleDateFormat("yyyy-MM-dd").format(c.time)
-        mCurrentDateOfMonth = SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time)
-    }
-
     private fun handleSortByBottomSheet() {
         val binding = DataBindingUtil.inflate<BottomSheetBinding>(layoutInflater, R.layout.bottom_sheet, null, false)
 
@@ -332,33 +352,6 @@ class ClientReportsListingFragment : Fragment() {
         liveData.observe(this, Observer {
             it?.ifSuccess { list ->
                 mSalesCenterList.addAll(list.orEmpty())
-//                if (clientReportReq == null) {
-                val tempList = mLastSelectedSortBy.split("_")
-
-                clientReportReq =
-                        ClientReportReq(
-                                clientId = 102,
-                                salescenterId = "2002",
-                                fromDate = "2020-05-05",
-                                toDate = "2020-06-05",
-                                verificationFromDate = "2020-05-05",
-                                verificationToDate = "2020-06-05",
-                                searchText = "",
-                                sortBy = "client_name",
-                                sortOrder = "asc"
-                        )
-//                            ClientReportReq(
-//                            clientId = Pref.user?.clientId,
-//                            salescenterId = Pref.user?.userid,
-//                            fromDate = mFirstDateOfMonth,
-//                            toDate = mCurrentDateOfMonth,
-//                            verificationFromDate = "",
-//                            verificationToDate = "",
-//                            sortBy = tempList?.minus(tempList.get(tempList.lastIndex))?.joinToString("_"),
-//                            sortOrder = tempList?.get(tempList.lastIndex),
-//                            searchText = "")
-                setRecyclerView(clientReportReq)
-//                }
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
@@ -378,9 +371,8 @@ class ClientReportsListingFragment : Fragment() {
                 .map<ClientReportResp, ItemClientReportsBinding>(R.layout.item_client_reports) {
                     onClick {
                         Navigation.findNavController(mBinding.root).navigateSafe(
-                                ClientReportsListingFragmentDirections.actionClientReportsListingFragmentToClientReportsDetailsFragment(it.binding?.item?.referenceId.toString())
+                                ClientReportsListingFragmentDirections.actionClientReportsListingFragmentToClientReportsDetailsFragment(it.binding.item?.referenceId.toString())
                         )
-//                        navigateSafe(R.id.action_clientReportsListingFragment_to_clientReportsDetailsFragment)
                     }
                 }
                 .into(mBinding.listReports)

@@ -30,23 +30,23 @@ data class ClientReportResp(
 
 data class ClientReportReq(
         @SerializedName("client_id")
-        val clientId: Int?,
+        var clientId: String? = "",
         @SerializedName("from_date")
-        val fromDate: String?,
+        var fromDate: String?,
         @SerializedName("page")
         var page: Int? = 0,
         @SerializedName("salescenter_id")
-        val salescenterId: String?,
+        var salescenterId: String? = "",
         @SerializedName("search_text")
-        val searchText: String?,
+        val searchText: String? = "",
         @SerializedName("sort_by")
         var sortBy: String?,
         @SerializedName("sort_order")
         var sortOrder: String?,
         @SerializedName("to_date")
-        val toDate: String?,
+        var toDate: String?,
         @SerializedName("verification_from_date")
-        val verificationFromDate: String?,
+        var verificationFromDate: String? = "",
         @SerializedName("verification_to_date")
-        val verificationToDate: String?
+        var verificationToDate: String? = ""
 )
