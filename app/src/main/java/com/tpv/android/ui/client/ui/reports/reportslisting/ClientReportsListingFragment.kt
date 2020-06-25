@@ -18,8 +18,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
+import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.setItems
+import com.livinglifetechway.k4kotlin.core.show
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -38,6 +40,9 @@ import com.tpv.android.utils.enums.SortByItem
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
+import com.tpv.android.utils.validation.EmptyValidator
+import com.tpv.android.utils.validation.TextInputValidationErrorHandler
+import com.tpv.android.utils.validation.Validator
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -168,13 +173,43 @@ class ClientReportsListingFragment : Fragment() {
 
             binding.btnApply.onClick()
             {
-                dialog.hide()
+                if (isValid(binding)) {
+                    if (binding.includeClientLayout.spinner.selectedItemPosition != 0) {
+                        binding.includeClientLayout.textError.hide()
+                        if (binding.includeSalesCenterLayout.spinner.selectedItemPosition != 0) {
+                            binding.includeSalesCenterLayout.textError.hide()
+                            dialog.hide()
+                        } else {
+                            binding.includeSalesCenterLayout.textError.text = ("Please select sales centers")
+                            binding.includeSalesCenterLayout.textError.show()
+                        }
+                    } else {
+                        binding.includeClientLayout.textError.text = ("Please select clients")
+                        binding.includeClientLayout.textError.show()
+                    }
+                }
             }
-
             dialog.show()
         }
+    }
 
 
+    /**
+     * Validate input
+     */
+    private fun isValid(binding: ClientBottomSheetFilterBinding): Boolean {
+        return Validator(TextInputValidationErrorHandler()) {
+            addValidate(
+                    binding.includeDateOfVerificationStartDateLayout.editDatePicker,
+                    EmptyValidator(),
+                    getString(R.string.please_select_start_date)
+            )
+            addValidate(
+                    binding.includeDateOfVerificationEndDateLayout.editDatePicker,
+                    EmptyValidator(),
+                    getString(R.string.please_select_end_date)
+            )
+        }.validate()
     }
 
     private fun openDatePicker(editText: TextInputEditText, isFirstDateOfMonth: Boolean = false) {

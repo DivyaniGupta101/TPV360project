@@ -16,9 +16,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_16sdp"
         android:orientation="vertical"
-        android:paddingEnd="@dimen/_8sdp">
+        android:paddingEnd="@dimen/_16sdp">
 
         <TextView
             style="@style/PrimaryNormalText"
@@ -26,17 +25,17 @@
             android:text="@{item}"
             tools:text="142044" />
 
-        <FrameLayout
-            android:id="@+id/parentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputPhoneNumber"
+            style="@style/TextInputLayout"
+            app:hintEnabled="false">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textDate"
-                style="@style/AddressFormTextInputLayout"
-                android:layout_width="match_parent">
+            <FrameLayout
+                android:id="@+id/parentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editDatePicker"
@@ -47,19 +46,17 @@
                     android:focusableInTouchMode="false"
                     android:hint="@string/select"
                     android:paddingEnd="52dp" />
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageView
-                android:id="@+id/imageArrowDown"
-                android:layout_width="@dimen/_16sdp"
-                android:layout_height="@dimen/_16sdp"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:padding="@dimen/_4sdp"
-                android:src="@drawable/ic_arrow_down_white_32dp"
-                app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
-        </FrameLayout>
-
+                <ImageView
+                    android:id="@+id/imageArrowDown"
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="@dimen/_6sdp"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:src="@drawable/ic_arrow_down_white_32dp"
+                    app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
+            </FrameLayout>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </layout>

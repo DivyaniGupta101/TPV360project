@@ -39,5 +39,12 @@
             android:layout_marginEnd="@dimen/_8sdp"
             android:background="@color/colorDarkDivider" />
 
+        <TextView
+            android:id="@+id/textError"
+            style="@style/SecondaryNormalSmallText"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:textColor="@color/colorErrorText"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 </layout>
