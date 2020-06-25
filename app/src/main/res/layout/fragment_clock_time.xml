@@ -273,11 +273,10 @@
 
                     <TextView
                         android:id="@+id/textLastUpdated"
-                        style="@style/PrimaryBoldText"
+                        style="@style/PrimaryNormalSmallText"
                         android:layout_gravity="end"
                         android:maxLines="1"
-                        android:paddingEnd="@dimen/_20sdp"
-                        android:text="Working" />
+                        android:paddingEnd="@dimen/_20sdp" />
 
                 </LinearLayout>
             </ScrollView>
