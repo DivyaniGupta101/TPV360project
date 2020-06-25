@@ -272,6 +272,7 @@ class ClientReportsListingFragment : Fragment() {
     }
 
     private fun setBottomSheetSortOption() {
+        mListBottoSheet.clear()
         mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_ascending), SortByItem.LEADIDASC.value, false))
         mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_descending), SortByItem.LEADIDDES.value, false))
         mListBottoSheet.add(BottomSheetItem(getString(R.string.reference_id_ascending), SortByItem.REFERENCEIDASC.value, false))
