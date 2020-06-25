@@ -272,6 +272,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/textLastUpdated"
                         style="@style/PrimaryBoldText"
                         android:layout_gravity="end"
                         android:maxLines="1"
