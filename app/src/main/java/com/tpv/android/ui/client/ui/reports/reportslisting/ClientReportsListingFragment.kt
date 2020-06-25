@@ -141,7 +141,7 @@ class ClientReportsListingFragment : Fragment() {
                 val spinnerValueList = arrayListOf("All")
                 spinnerValueList.addAll(mSalesCenterList.map { it.name.orEmpty() })
 
-                var spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
+                val spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.includeSalesCenterLayout.spinner.setAdapter(spinnerAdapter)
             }
@@ -150,7 +150,22 @@ class ClientReportsListingFragment : Fragment() {
                     object : OnItemSelectedListener {
                         override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View, position: Int, id: Long) {
                             if (position != 0) {
-                                getSalesCenters(mClientList[position - 1].id)
+
+                                mSalesCenterList.clear()
+                                val liveData = mViewModel.getSalesCenter(mClientList[position - 1].id)
+                                liveData.observe(this@ClientReportsListingFragment, Observer {
+                                    it?.ifSuccess { list ->
+                                        mSalesCenterList.addAll(list.orEmpty())
+
+                                        val spinnerValueList = arrayListOf("All")
+                                        spinnerValueList.addAll(mSalesCenterList.map { it.name.orEmpty() })
+
+                                        val spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
+                                        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                                        binding.includeSalesCenterLayout.spinner.setAdapter(spinnerAdapter)
+                                    }
+                                })
+                                mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
                             }
                         }
 
