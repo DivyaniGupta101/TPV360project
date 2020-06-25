@@ -56,7 +56,7 @@ class ClientReportsListingFragment : Fragment() {
     var mListBottoSheet: ObservableArrayList<BottomSheetItem> = ObservableArrayList()
     var mLastSelectedSortBy = SortByItem.LEADIDASC.value
     var clientReportReq: ClientReportReq? = null
-
+    var lastSelectedPosition = 0
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
@@ -104,6 +104,31 @@ class ClientReportsListingFragment : Fragment() {
             binding.includeSalesCenterLayout.item = getString(R.string.sales_centers)
 
 
+            if (mClientList.isNotEmpty()) {
+                val spinnerValueList = arrayListOf("All")
+                spinnerValueList.addAll(mClientList.map { it.name.orEmpty() })
+                binding.includeClientLayout.spinner.setItems(spinnerValueList as ArrayList<String>?)
+                if (clientReportReq?.clientId != "") {
+                    val name = mClientList.find { it.id == clientReportReq?.clientId }?.name
+                    binding.includeClientLayout.spinner.setSelection(spinnerValueList.indexOf(name))
+                }
+
+            }
+            if (mSalesCenterList.isNotEmpty()) {
+                val spinnerValueList = arrayListOf("All")
+                spinnerValueList.addAll(mSalesCenterList.map { it.name.orEmpty() })
+
+                val spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.includeSalesCenterLayout.spinner.adapter = spinnerAdapter
+
+                if (clientReportReq?.salescenterId != "") {
+                    val name = mSalesCenterList.find { it.id == clientReportReq?.salescenterId }?.name
+                    binding.includeSalesCenterLayout.spinner.setSelection(spinnerValueList.indexOf(name))
+                }
+            }
+
+
             val input = SimpleDateFormat(AppConstant.DATEFORMATE1)
             val output = SimpleDateFormat(AppConstant.DATEFORMATE2)
             try {
@@ -113,34 +138,24 @@ class ClientReportsListingFragment : Fragment() {
                     binding.includeDateOfVerificationStartDateLayout.editDatePicker.setText(output.format(input.parse(clientReportReq?.verificationFromDate)))
                     binding.includeDateOfVerificationEndDateLayout.editDatePicker.setText(output.format(input.parse(clientReportReq?.verificationToDate)))
                 }
+
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
-
-            if (mClientList.isNotEmpty()) {
-                val spinnerValueList = arrayListOf("All")
-                spinnerValueList.addAll(mClientList.map { it.name.orEmpty() })
-                binding.includeClientLayout.spinner.setItems(spinnerValueList as ArrayList<String>?)
-            }
-            if (mSalesCenterList.isNotEmpty()) {
-                val spinnerValueList = arrayListOf("All")
-                spinnerValueList.addAll(mSalesCenterList.map { it.name.orEmpty() })
-
-                val spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
-                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.includeSalesCenterLayout.spinner.adapter = spinnerAdapter
-            }
-
             binding.includeClientLayout.spinner.onItemSelectedListener =
                     object : OnItemSelectedListener {
                         override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View, position: Int, id: Long) {
-                            updateSalesCenterInBottomSheet(binding, position)
+                            if (lastSelectedPosition != position) {
+                                lastSelectedPosition = position
+                                updateSalesCenterInBottomSheet(binding, position)
+                            }
                         }
 
                         override fun onNothingSelected(parentView: AdapterView<*>?) {
                             // your code here
                         }
                     }
+
 
             binding?.includeDateOfSubmissionEndDateLayout?.editDatePicker?.onClick {
                 openDatePicker(binding.includeDateOfSubmissionEndDateLayout.editDatePicker)
@@ -183,8 +198,13 @@ class ClientReportsListingFragment : Fragment() {
                                 it.salescenterId = mSalesCenterList[binding.includeSalesCenterLayout.spinner.selectedItemPosition.minus(1)].id
                                 it.fromDate = output.format(input.parse(binding.includeDateOfSubmissionStartDateLayout.editDatePicker.value))
                                 it.toDate = output.format(input.parse(binding.includeDateOfSubmissionEndDateLayout.editDatePicker.value))
-                                it.verificationFromDate = output.format(input.parse(binding.includeDateOfVerificationStartDateLayout.editDatePicker.value))
-                                it.verificationToDate = output.format(input.parse(binding.includeDateOfVerificationEndDateLayout.editDatePicker.value))
+                                if (binding.includeDateOfVerificationStartDateLayout.editDatePicker.value.isNotEmpty()
+                                        &&
+                                        binding.includeDateOfVerificationEndDateLayout.editDatePicker.value.isNotEmpty()) {
+                                    it.verificationFromDate = output.format(input.parse(binding.includeDateOfVerificationStartDateLayout.editDatePicker.value))
+                                    it.verificationToDate = output.format(input.parse(binding.includeDateOfVerificationEndDateLayout.editDatePicker.value))
+                                }
+
                             }
 
                             setRecyclerView(clientReportReq)
@@ -236,18 +256,29 @@ class ClientReportsListingFragment : Fragment() {
      * Validate input
      */
     private fun isValid(binding: ClientBottomSheetFilterBinding): Boolean {
-        return Validator(TextInputValidationErrorHandler()) {
-            addValidate(
-                    binding.includeDateOfVerificationStartDateLayout.editDatePicker,
-                    EmptyValidator(),
-                    getString(R.string.please_select_start_date)
-            )
-            addValidate(
-                    binding.includeDateOfVerificationEndDateLayout.editDatePicker,
-                    EmptyValidator(),
-                    getString(R.string.please_select_end_date)
-            )
-        }.validate()
+        if (binding.includeDateOfVerificationEndDateLayout.editDatePicker.value.isNotEmpty() || binding.includeDateOfVerificationStartDateLayout.editDatePicker.value.isNotEmpty()) {
+            if (binding.includeDateOfVerificationEndDateLayout.editDatePicker.value.isEmpty()) {
+                return Validator(TextInputValidationErrorHandler()) {
+
+                    addValidate(
+                            binding.includeDateOfVerificationEndDateLayout.editDatePicker,
+                            EmptyValidator(),
+                            getString(R.string.please_select_end_date)
+                    )
+                }.validate()
+            }
+            if (binding.includeDateOfVerificationStartDateLayout.editDatePicker.value.isEmpty()) {
+                return Validator(TextInputValidationErrorHandler()) {
+                    addValidate(
+                            binding.includeDateOfVerificationStartDateLayout.editDatePicker,
+                            EmptyValidator(),
+                            getString(R.string.please_select_start_date)
+                    )
+                }.validate()
+            }
+        }
+        return true
+
     }
 
     private fun openDatePicker(editText: TextInputEditText, isFirstDateOfMonth: Boolean = false) {
