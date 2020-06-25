@@ -128,30 +128,13 @@ class ClientReportsListingFragment : Fragment() {
 
                 val spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.includeSalesCenterLayout.spinner.setAdapter(spinnerAdapter)
+                binding.includeSalesCenterLayout.spinner.adapter = spinnerAdapter
             }
 
             binding.includeClientLayout.spinner.onItemSelectedListener =
                     object : OnItemSelectedListener {
                         override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View, position: Int, id: Long) {
-                            if (position != 0) {
-
-                                mSalesCenterList.clear()
-                                val liveData = mViewModel.getSalesCenter(mClientList[position - 1].id)
-                                liveData.observe(this@ClientReportsListingFragment, Observer {
-                                    it?.ifSuccess { list ->
-                                        mSalesCenterList.addAll(list.orEmpty())
-
-                                        val spinnerValueList = arrayListOf("All")
-                                        spinnerValueList.addAll(mSalesCenterList.map { it.name.orEmpty() })
-
-                                        val spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
-                                        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                                        binding.includeSalesCenterLayout.spinner.setAdapter(spinnerAdapter)
-                                    }
-                                })
-                                mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-                            }
+                            updateSalesCenterInBottomSheet(binding, position)
                         }
 
                         override fun onNothingSelected(parentView: AdapterView<*>?) {
@@ -171,16 +154,16 @@ class ClientReportsListingFragment : Fragment() {
             binding?.includeDateOfSubmissionStartDateLayout?.imageArrowDown?.onClick {
                 openDatePicker(binding.includeDateOfSubmissionStartDateLayout.editDatePicker, true)
             }
-            binding.includeDateOfVerificationStartDateLayout?.editDatePicker?.onClick {
+            binding.includeDateOfVerificationStartDateLayout.editDatePicker.onClick {
                 openDatePicker(binding.includeDateOfVerificationStartDateLayout.editDatePicker, true)
             }
-            binding.includeDateOfVerificationStartDateLayout?.imageArrowDown?.onClick {
+            binding.includeDateOfVerificationStartDateLayout.imageArrowDown.onClick {
                 openDatePicker(binding.includeDateOfVerificationStartDateLayout.editDatePicker, true)
             }
-            binding.includeDateOfVerificationEndDateLayout?.editDatePicker?.onClick {
+            binding.includeDateOfVerificationEndDateLayout.editDatePicker.onClick {
                 openDatePicker(binding.includeDateOfVerificationEndDateLayout.editDatePicker)
             }
-            binding.includeDateOfVerificationEndDateLayout?.imageArrowDown?.onClick {
+            binding.includeDateOfVerificationEndDateLayout.imageArrowDown.onClick {
                 openDatePicker(binding.includeDateOfVerificationEndDateLayout.editDatePicker)
             }
 
@@ -220,6 +203,34 @@ class ClientReportsListingFragment : Fragment() {
         }
     }
 
+    private fun updateSalesCenterInBottomSheet(binding: ClientBottomSheetFilterBinding?, position: Int) {
+
+        mSalesCenterList.clear()
+        binding?.progressBarContainer?.show()
+
+        val liveData: LiveData<Resource<List<ClientsResp>, APIError>>
+        if (position == 0) {
+            liveData = mViewModel.getSalesCenter("")
+        } else {
+            liveData = mViewModel.getSalesCenter(mClientList[position - 1].id)
+        }
+        liveData.observe(this@ClientReportsListingFragment, Observer {
+            it?.ifSuccess { list ->
+                mSalesCenterList.addAll(list.orEmpty())
+
+                val spinnerValueList = arrayListOf("All")
+                spinnerValueList.addAll(mSalesCenterList.map { it.name.orEmpty() })
+
+                val spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding?.includeSalesCenterLayout?.spinner?.setAdapter(spinnerAdapter)
+                binding?.progressBarContainer?.hide()
+            }
+        })
+
+
+    }
+
 
     /**
      * Validate input
@@ -256,7 +267,7 @@ class ClientReportsListingFragment : Fragment() {
                 OnDateSetListener { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
                     editText.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year)
                 }, mYear, mMonth, mDay)
-        datePickerDialog.datePicker.setMaxDate(System.currentTimeMillis())
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
         datePickerDialog.show()
     }
 
