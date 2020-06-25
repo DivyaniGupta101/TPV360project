@@ -85,7 +85,12 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         }
 
         mBinding.btnVerify.onClick {
-            selfVerificationApiCall()
+            if (mBinding.checkBoxEmail.isChecked || mBinding.checkBoxPhone.isChecked) {
+                selfVerificationApiCall()
+            } else {
+                context.infoDialog(subTitleText = "Please select at least one method of self verification.",
+                        showImageError = true)
+            }
         }
 
         mBinding.btnTPVNOW.onClick {
@@ -129,7 +134,12 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
             it?.ifSuccess {
                 context?.infoDialog(title = getString(R.string.success),
                         subTitleText = it?.message.orEmpty(),
-                        showImageError = false)
+                        showImageError = false, setOnButtonClickListener =
+                {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_successFragment_to_dashBoardFragment)
+
+                })
+
             }
         })
 
