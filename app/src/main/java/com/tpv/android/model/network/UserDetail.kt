@@ -46,5 +46,7 @@ data class UserDetail(
         @SerializedName("sales_center_name")
         var salesCenterName: String?,
         @SerializedName("user_type")
-        var userType: String?
+        var userType: String?,
+        @SerializedName( "dashboard_url")
+        var dashBoardURL: String?
 )

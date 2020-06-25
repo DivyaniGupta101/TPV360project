@@ -15,8 +15,8 @@ import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClientDashBoardBinding
+import com.tpv.android.helper.Pref
 import com.tpv.android.utils.enums.ClientMenuItem
-import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 
@@ -40,7 +40,7 @@ class ClientDashBoardFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.dashboard), showMenuIcon = true)
 
         mBinding.webView.webViewClient = MyWebViewClient(mBinding)
-        mBinding.webView.loadUrl("https://www.google.com/")
+        mBinding.webView.loadUrl(Pref.user?.dashBoardURL)
     }
 
     class MyWebViewClient internal constructor(binding: FragmentClientDashBoardBinding) : WebViewClient() {

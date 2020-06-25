@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_8sdp">
 
 
@@ -30,8 +29,7 @@
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_36sdp"
-            android:layout_marginStart="@dimen/_8sdp" />
+            android:layout_height="@dimen/_36sdp" />
 
         <View
             style="@style/Divider"
