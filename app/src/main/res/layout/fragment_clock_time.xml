@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.tpv.android.R" />
+
         <import type="com.tpv.android.network.resources.Resource" />
 
         <import type="com.tpv.android.network.error.ErrorHandler" />
@@ -133,12 +135,32 @@
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
 
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                        style="@style/PrimaryNormalText"
-                                        android:layout_width="wrap_content"
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/_8sdp"
-                                        android:text="Today's statistics" />
+                                        android:orientation="horizontal">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/PrimaryNormalText"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Today's statistics" />
+
+                                        <View
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_weight="1" />
+
+                                        <ImageView
+                                            android:id="@+id/imageRefresh"
+                                            android:layout_width="@dimen/_14sdp"
+                                            android:layout_height="@dimen/_14sdp"
+                                            android:layout_gravity="end"
+                                            android:src="@drawable/ic_refresh_white_32dp"
+                                            app:dynamicTintColor="@{R.color.colorAccentTint}" />
+                                    </LinearLayout>
 
                                     <LinearLayout
                                         android:layout_width="match_parent"

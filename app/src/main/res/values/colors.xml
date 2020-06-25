@@ -52,6 +52,7 @@
     <color name="colorSecondaryImageTint">@color/colorGray</color>
     <color name="colorSecondaryLightImageTint">@color/colorSecondaryLighText</color>
     <color name="colorRedImageTint">@color/colorLightRed</color>
+    <color name="colorAccentTint">@color/colorTertiaryText</color>
     <color name="colorBlackTint">@color/colorBlack</color>
 
     <!--    BackGroundColor-->
