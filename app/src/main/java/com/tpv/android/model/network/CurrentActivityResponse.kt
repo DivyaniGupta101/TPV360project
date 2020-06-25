@@ -11,6 +11,8 @@ data class CurrentActivityResponse(
         val currentTime: Int?,
         @SerializedName("total_time")
         val totalTime: String?,
+        @SerializedName("current_status")
+        val currentStatus: String?,
         @SerializedName("transit_time")
         val transitTime: String?,
         @SerializedName("working_time")

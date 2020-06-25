@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import com.livinglifetechway.k4kotlin.core.*
-import com.livinglifetechway.k4kotlin.core.androidx.toastNow
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClockTimeBinding
@@ -155,7 +154,7 @@ class ClockTimeFragment : Fragment() {
             it?.ifSuccess {
                 mBinding.item = it
                 val time = Calendar.getInstance().time.format("hh:mm a z")
-                mBinding.textLastUpdated.setText("Last")
+                mBinding.textLastUpdated.setText("Last updated at: $time")
                 setButtonSelectionFromData()
             }
         })

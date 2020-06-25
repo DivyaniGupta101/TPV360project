@@ -76,7 +76,7 @@
                         style="@style/PrimaryBoldText"
                         android:layout_gravity="center_horizontal"
                         android:maxLines="1"
-                        android:text="Working" />
+                        android:text="@{item.currentStatus}" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
