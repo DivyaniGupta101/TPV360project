@@ -31,117 +31,135 @@
 
     </data>
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorScreenBg">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@color/colorScreenBg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/toolbar"
+                    layout="@layout/toolbar" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/_62sdp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <include
+                            android:id="@+id/includeItemDashboardPending"
+                            layout="@layout/item_dashboard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:item="@{item[0]}" />
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/_32sdp"
+                            android:layout_marginEnd="@dimen/_32sdp" />
+
+                        <include
+                            android:id="@+id/includeItemDashboardVerified"
+                            layout="@layout/item_dashboard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:item="@{item[1]}" />
+
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/_32sdp"
+                            android:layout_marginEnd="@dimen/_32sdp" />
+
+                        <include
+                            android:id="@+id/includeItemDashboardDeclined"
+                            layout="@layout/item_dashboard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:item="@{item[2]}" />
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/_32sdp"
+                            android:layout_marginEnd="@dimen/_32sdp" />
+
+                        <include
+                            android:id="@+id/includeItemDashboardDisconnected"
+                            layout="@layout/item_dashboard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:item="@{item[3]}" />
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/_32sdp"
+                            android:layout_marginEnd="@dimen/_32sdp" />
+
+                        <include
+                            android:id="@+id/includeItemDashboardCancelled"
+                            layout="@layout/item_dashboard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:item="@{item[4]}" />
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/_32sdp"
+                            android:layout_marginEnd="@dimen/_32sdp" />
+
+                        <include
+                            android:id="@+id/includeItemDashboardExpired"
+                            layout="@layout/item_dashboard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:item="@{item[5]}" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/imageEnroll"
+                        style="@style/FabButton"
+                        android:layout_gravity="bottom|end"
+                        android:background="@drawable/bg_gradient_fab"
+                        android:foreground="@drawable/rounded_ripple_effect"
+                        android:src="@drawable/ic_register_white_32dp" />
+
+
+                </FrameLayout>
+
+            </LinearLayout>
 
             <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/_62sdp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <include
-                        android:id="@+id/includeItemDashboardPending"
-                        layout="@layout/item_dashboard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:item="@{item[0]}" />
-
-                    <View
-                        style="@style/Divider"
-                        android:layout_width="match_parent"
-                        android:layout_marginStart="@dimen/_32sdp"
-                        android:layout_marginEnd="@dimen/_32sdp" />
-
-                    <include
-                        android:id="@+id/includeItemDashboardVerified"
-                        layout="@layout/item_dashboard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:item="@{item[1]}" />
-
-
-                    <View
-                        style="@style/Divider"
-                        android:layout_width="match_parent"
-                        android:layout_marginStart="@dimen/_32sdp"
-                        android:layout_marginEnd="@dimen/_32sdp" />
-
-                    <include
-                        android:id="@+id/includeItemDashboardDeclined"
-                        layout="@layout/item_dashboard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:item="@{item[2]}" />
-
-                    <View
-                        style="@style/Divider"
-                        android:layout_width="match_parent"
-                        android:layout_marginStart="@dimen/_32sdp"
-                        android:layout_marginEnd="@dimen/_32sdp" />
-
-                    <include
-                        android:id="@+id/includeItemDashboardDisconnected"
-                        layout="@layout/item_dashboard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:item="@{item[3]}" />
-
-                    <View
-                        style="@style/Divider"
-                        android:layout_width="match_parent"
-                        android:layout_marginStart="@dimen/_32sdp"
-                        android:layout_marginEnd="@dimen/_32sdp" />
-
-                    <include
-                        android:id="@+id/includeItemDashboardCancelled"
-                        layout="@layout/item_dashboard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:item="@{item[4]}" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/imageEnroll"
-                    style="@style/FabButton"
-                    android:layout_gravity="bottom|end"
-                    android:background="@drawable/bg_gradient_fab"
-                    android:foreground="@drawable/rounded_ripple_effect"
-                    android:src="@drawable/ic_register_white_32dp" />
-
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-        <include
-            android:id="@+id/incProgressBar"
-            layout="@layout/progress_bar"
-            app:errorHandler="@{errorHandler}"
-            app:resource="@{resource}"
-            app:useBlockingProgress="@{true}"
-            tools:visibility="visible" />
-    </FrameLayout>
+                android:id="@+id/incProgressBar"
+                layout="@layout/progress_bar"
+                app:errorHandler="@{errorHandler}"
+                app:resource="@{resource}"
+                app:useBlockingProgress="@{true}"
+                tools:visibility="visible" />
+        </FrameLayout>
+    </ScrollView>
 </layout>

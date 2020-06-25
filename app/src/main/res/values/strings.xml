@@ -107,6 +107,7 @@
     <string name="disconnected_calls">Disconnected Calls</string>
     <string name="verified_leads">Verified Leads</string>
     <string name="cancelled_leads">Cancelled Leads</string>
+    <string name="expired_leads">Expired Leads</string>
 
 
     <!--    Labels-->

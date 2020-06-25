@@ -19,11 +19,12 @@ class DashBoardViewModel : CoroutineScopedViewModel() {
     fun getDashBoardDetail(context: Context) = with(AppRepository) {
         if (dashBoardStatusCount.isEmpty()) {
             dashBoardStatusCount = arrayListOf(
-                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_pending), context.getString(R.string.pending_leads), "-", LeadStatus.PENDING.value),
+                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_pending_80dp), context.getString(R.string.pending_leads), "-", LeadStatus.PENDING.value),
                     DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_verified), context.getString(R.string.verified_leads), "-", LeadStatus.VERIFIED.value),
                     DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_declined), context.getString(R.string.declined_leads), "-", LeadStatus.DECLINED.value),
                     DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_disconnected), context.getString(R.string.disconnected_calls), "-", LeadStatus.DISCONNECTED.value),
-                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_cancelled), context.getString(R.string.cancelled_leads), "-", LeadStatus.CANCELLED.value)
+                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_cancelled), context.getString(R.string.cancelled_leads), "-", LeadStatus.CANCELLED.value),
+                    DashBoardItem(context.getDrawable(R.drawable.ic_dashboard_expired_80dp), context.getString(R.string.expired_leads), "-", LeadStatus.EXPIRED.value)
             )
         }
         getDashBoardCall().observeForever {

@@ -12,7 +12,8 @@ enum class LeadStatus(val value: String) {
     VERIFIED("verified"),
     DECLINED("decline"),
     DISCONNECTED("hangup"),
-    CANCELLED("cancel")
+    CANCELLED("cancel"),
+    EXPIRED("expired")
 }
 
 enum class MenuItem(val value: String) {

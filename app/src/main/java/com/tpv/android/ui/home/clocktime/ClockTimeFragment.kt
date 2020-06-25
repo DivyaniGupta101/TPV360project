@@ -434,6 +434,11 @@ class ClockTimeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getCurrentActivity()
+    }
+
 }
 
 
