@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.textfield.TextInputEditText
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.setItems
 import com.ravikoradiya.liveadapter.LiveAdapter
@@ -37,6 +38,7 @@ import com.tpv.android.utils.enums.SortByItem
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -101,6 +103,17 @@ class ClientReportsListingFragment : Fragment() {
             binding.includeClientLayout.item = getString(R.string.clients)
             binding.includeSalesCenterLayout.item = getString(R.string.sales_centers)
 
+
+            val input = SimpleDateFormat("yyyy-MM-dd");
+            val output = SimpleDateFormat("dd/MM/yyyy")
+            try {
+                binding.includeDateOfSubmissionStartDateLayout.editDatePicker.setText(output.format(input.parse(mFirstDateOfMonth)))
+                binding.includeDateOfSubmissionEndDateLayout.editDatePicker.setText(output.format(input.parse(mCurrentDateOfMonth)))
+
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+
             if (mClientList?.isNotEmpty()) {
                 val spinnerValueList = arrayListOf("All")
                 spinnerValueList.addAll(mClientList.map { it.name.orEmpty() })
@@ -128,18 +141,30 @@ class ClientReportsListingFragment : Fragment() {
                         }
                     }
 
-            binding?.includeDateOfSubmissionEndDateLayout?.linerLayoutContainer?.onClick {
-
+            binding?.includeDateOfSubmissionEndDateLayout?.editDatePicker?.onClick {
+                openDatePicker(binding.includeDateOfSubmissionEndDateLayout.editDatePicker)
             }
-            binding?.includeDateOfSubmissionStartDateLayout?.linerLayoutContainer?.onClick {
-                openDatePicker(binding)
+            binding?.includeDateOfSubmissionEndDateLayout?.imageArrowDown?.onClick {
+                openDatePicker(binding.includeDateOfSubmissionEndDateLayout.editDatePicker)
             }
-//            binding.includeDateOfVerificationEndDateLayout?.linerLayoutContainer?.onClick {
-//
-//            }
-//            binding.includeDateOfVerificationStartDateLayout?.linerLayoutContainer?.onClick {
-//
-//            }
+            binding?.includeDateOfSubmissionStartDateLayout?.editDatePicker?.onClick {
+                openDatePicker(binding.includeDateOfSubmissionStartDateLayout.editDatePicker, true)
+            }
+            binding?.includeDateOfSubmissionStartDateLayout?.imageArrowDown?.onClick {
+                openDatePicker(binding.includeDateOfSubmissionStartDateLayout.editDatePicker, true)
+            }
+            binding.includeDateOfVerificationStartDateLayout?.editDatePicker?.onClick {
+                openDatePicker(binding.includeDateOfVerificationStartDateLayout.editDatePicker, true)
+            }
+            binding.includeDateOfVerificationStartDateLayout?.imageArrowDown?.onClick {
+                openDatePicker(binding.includeDateOfVerificationStartDateLayout.editDatePicker, true)
+            }
+            binding.includeDateOfVerificationEndDateLayout?.editDatePicker?.onClick {
+                openDatePicker(binding.includeDateOfVerificationEndDateLayout.editDatePicker)
+            }
+            binding.includeDateOfVerificationEndDateLayout?.imageArrowDown?.onClick {
+                openDatePicker(binding.includeDateOfVerificationEndDateLayout.editDatePicker)
+            }
 
             binding.btnApply.onClick()
             {
@@ -152,9 +177,13 @@ class ClientReportsListingFragment : Fragment() {
 
     }
 
-    private fun openDatePicker(binding: ClientBottomSheetFilterBinding) {
+    private fun openDatePicker(editText: TextInputEditText, isFirstDateOfMonth: Boolean = false) {
         val c = Calendar.getInstance()
 
+        if (isFirstDateOfMonth) {
+            c.set(Calendar.DAY_OF_MONTH, 1)
+
+        }
         val mYear = c[Calendar.YEAR] // current year
         val mMonth = c[Calendar.MONTH] // current month
         val mDay = c[Calendar.DAY_OF_MONTH] // current day
@@ -163,7 +192,7 @@ class ClientReportsListingFragment : Fragment() {
         // date picker dialog
         val datePickerDialog = DatePickerDialog(context,
                 OnDateSetListener { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
-                    binding.includeDateOfSubmissionStartDateLayout.editDatePicker.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year)
+                    editText.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year)
                 }, mYear, mMonth, mDay)
         datePickerDialog.show()
     }
@@ -268,20 +297,20 @@ class ClientReportsListingFragment : Fragment() {
             it?.ifSuccess { list ->
                 mSalesCenterList.addAll(list.orEmpty())
 //                if (clientReportReq == null) {
-                    val tempList = mLastSelectedSortBy.split("_")
+                val tempList = mLastSelectedSortBy.split("_")
 
-                    clientReportReq =
-                            ClientReportReq(
-                                    clientId = 102,
-                                    salescenterId = "2002",
-                                    fromDate = "2020-05-05",
-                                    toDate = "2020-06-05",
-                                    verificationFromDate = "2020-05-05",
-                                    verificationToDate = "2020-06-05",
-                                    searchText = "",
-                                    sortBy = "client_name",
-                                    sortOrder = "asc"
-                            )
+                clientReportReq =
+                        ClientReportReq(
+                                clientId = 102,
+                                salescenterId = "2002",
+                                fromDate = "2020-05-05",
+                                toDate = "2020-06-05",
+                                verificationFromDate = "2020-05-05",
+                                verificationToDate = "2020-06-05",
+                                searchText = "",
+                                sortBy = "client_name",
+                                sortOrder = "asc"
+                        )
 //                            ClientReportReq(
 //                            clientId = Pref.user?.clientId,
 //                            salescenterId = Pref.user?.userid,
@@ -292,7 +321,7 @@ class ClientReportsListingFragment : Fragment() {
 //                            sortBy = tempList?.minus(tempList.get(tempList.lastIndex))?.joinToString("_"),
 //                            sortOrder = tempList?.get(tempList.lastIndex),
 //                            searchText = "")
-                    setRecyclerView(clientReportReq)
+                setRecyclerView(clientReportReq)
 //                }
             }
         })

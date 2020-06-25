@@ -94,26 +94,39 @@
 
             <include
                 android:id="@+id/include_date_of_verification_start_date_layout"
-                layout="@layout/layout_client_spinner"
+                layout="@layout/layout_date_picker_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/include_date_of_verification_end_date_layout"
-                layout="@layout/layout_client_spinner"
+                layout="@layout/layout_date_picker_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/btnApply"
-            style="@style/ButtonPrimary"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="@dimen/_40sdp"
-            android:layout_marginEnd="0dp"
-            android:text="Apply" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/btnApply"
+                style="@style/ButtonPrimary"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_marginEnd="0dp"
+                android:layout_weight="1"
+                android:text="Apply" />
+        </LinearLayout>
 
     </LinearLayout>
 </layout>
