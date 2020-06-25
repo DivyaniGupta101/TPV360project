@@ -72,6 +72,12 @@
                         android:layout_marginTop="@dimen/_16sdp"
                         tools:text="1:00:25" />
 
+                    <TextView
+                        style="@style/PrimaryBoldText"
+                        android:layout_gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="Working" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -258,11 +264,20 @@
                                             tools:text="08:24" />
                                     </LinearLayout>
                                 </LinearLayout>
+
                             </LinearLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
                     </LinearLayout>
+
+                    <TextView
+                        style="@style/PrimaryBoldText"
+                        android:layout_gravity="end"
+                        android:maxLines="1"
+                        android:paddingEnd="@dimen/_20sdp"
+                        android:text="Working" />
+
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
