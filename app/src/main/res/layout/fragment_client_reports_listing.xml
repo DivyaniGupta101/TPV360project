@@ -97,7 +97,7 @@
                             android:layout_width="@dimen/_16sdp"
                             android:layout_height="@dimen/_16sdp"
                             android:rotation="180"
-                            android:src="@drawable/ic_filter_white_32dp"
+                            android:src="@drawable/ic_sort_white_32dp"
                             app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
 
                         <TextView
@@ -131,7 +131,7 @@
                             android:layout_width="@dimen/_16sdp"
                             android:layout_height="@dimen/_16sdp"
                             android:rotation="180"
-                            android:src="@drawable/ic_filter_white_32dp"
+                            android:src="@drawable/ic_filtter_white_32dp"
                             app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
 
                         <TextView
