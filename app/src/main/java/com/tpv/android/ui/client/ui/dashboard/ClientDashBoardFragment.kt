@@ -40,7 +40,9 @@ class ClientDashBoardFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.dashboard), showMenuIcon = true)
 
         mBinding.webView.webViewClient = MyWebViewClient(mBinding)
-        mBinding.webView.loadUrl(Pref.user?.dashBoardURL)
+        val token = "Bearer ${Pref.token}"
+        mBinding.webView.loadUrl(Pref.user?.dashBoardURL,
+                mapOf("Authorization" to token))
     }
 
     class MyWebViewClient internal constructor(binding: FragmentClientDashBoardBinding) : WebViewClient() {
