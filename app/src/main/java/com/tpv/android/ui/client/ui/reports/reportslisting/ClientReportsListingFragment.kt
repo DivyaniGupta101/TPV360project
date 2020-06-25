@@ -194,6 +194,7 @@ class ClientReportsListingFragment : Fragment() {
                 OnDateSetListener { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
                     editText.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year)
                 }, mYear, mMonth, mDay)
+        datePickerDialog.datePicker.setMaxDate(System.currentTimeMillis())
         datePickerDialog.show()
     }
 
