@@ -8,11 +8,11 @@ enum class Plan(val value: String) {
 }
 
 enum class LeadStatus(val value: String) {
-    PENDING("pending"),
-    VERIFIED("verified"),
-    DECLINED("decline"),
-    DISCONNECTED("hangup"),
-    CANCELLED("cancel")
+    PENDING("Pending"),
+    VERIFIED("Verified"),
+    DECLINED("Decline"),
+    DISCONNECTED("Hangup"),
+    CANCELLED("Cancel")
 }
 
 enum class MenuItem(val value: String) {

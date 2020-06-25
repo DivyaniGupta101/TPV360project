@@ -78,21 +78,6 @@ class ClientReportsListingFragment : Fragment() {
         setBottomSheetSortOption()
         getClientList()
 
-
-        val c = Calendar.getInstance()  // this takes current date
-        c.set(Calendar.DAY_OF_MONTH, 1)
-
-        val tempList = mLastSelectedSortBy.split("_")
-
-        clientReportReq =
-                ClientReportReq(
-                        fromDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(c.time),
-                        toDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(Calendar.getInstance().time),
-                        sortBy = tempList.minus(tempList.get(tempList.lastIndex)).joinToString("_"),
-                        sortOrder = tempList.get(tempList.lastIndex)
-                )
-        setRecyclerView(clientReportReq)
-
         mBinding.sortByContainer.onClick {
             handleSortByBottomSheet()
         }
@@ -367,6 +352,20 @@ class ClientReportsListingFragment : Fragment() {
         liveData.observe(this, Observer {
             it?.ifSuccess { list ->
                 mSalesCenterList.addAll(list.orEmpty())
+
+                val c = Calendar.getInstance()  // this takes current date
+                c.set(Calendar.DAY_OF_MONTH, 1)
+
+                val tempList = mLastSelectedSortBy.split("_")
+
+                clientReportReq =
+                        ClientReportReq(
+                                fromDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(c.time),
+                                toDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(Calendar.getInstance().time),
+                                sortBy = tempList.minus(tempList.get(tempList.lastIndex)).joinToString("_"),
+                                sortOrder = tempList.get(tempList.lastIndex)
+                        )
+                setRecyclerView(clientReportReq)
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>

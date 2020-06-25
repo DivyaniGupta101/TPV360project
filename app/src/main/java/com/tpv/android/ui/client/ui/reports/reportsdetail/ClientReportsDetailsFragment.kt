@@ -13,6 +13,7 @@ import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
 import com.google.gson.reflect.TypeToken
 import com.livinglifetechway.k4kotlin.core.orFalse
+import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.*
 import com.tpv.android.model.network.DynamicFormResp
@@ -346,6 +347,7 @@ class ClientReportsDetailsFragment : Fragment() {
                         setSeparateField()
                     }
                 }
+                mBinding.parentContainer.show()
             }
         })
 
