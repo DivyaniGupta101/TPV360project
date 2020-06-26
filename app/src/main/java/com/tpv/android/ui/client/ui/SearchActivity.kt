@@ -39,7 +39,9 @@ class SearchActivity : AppCompatActivity() {
 
         mBinding.editSearch.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                Pref.searchText.add(mBinding.editSearch.value)
+                if(!mBinding.editSearch.value.isNullOrBlank()) {
+                    Pref.searchText.add(mBinding.editSearch.value)
+                }
                 passValueToFragment(mBinding.editSearch.value)
                 return@setOnEditorActionListener true
             }
