@@ -76,7 +76,8 @@
                         style="@style/PrimaryBoldText"
                         android:layout_gravity="center_horizontal"
                         android:maxLines="1"
-                        android:text="@{item.currentStatus}" />
+                        android:text="@{item.currentStatus}"
+                        tools:text="working"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -144,7 +145,6 @@
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="@dimen/_8sdp"
                                         android:orientation="horizontal">
 
                                         <androidx.appcompat.widget.AppCompatTextView
