@@ -282,6 +282,7 @@
     <string name="date_of_tpv_descending">Date Of Tpv Descending</string>
     <string name="salescenter_location_name_ascending">Salescenter Location Name Ascending</string>
     <string name="salescenter_location_name_descending">Salescenter Location Name Descending</string>
+    <string name="search_here">Search here...</string>
 
 
 </resources>

@@ -2,7 +2,9 @@ package com.tpv.android.ui.client.ui.reports.reportslisting
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +34,7 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.ui.client.ui.SearchActivity
 import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.enums.ClientMenuItem
 import com.tpv.android.utils.enums.SortByItem
@@ -57,6 +60,14 @@ class ClientReportsListingFragment : Fragment() {
     var mLastSelectedSortBy = SortByItem.LEADIDASC.value
     var clientReportReq: ClientReportReq? = null
     var lastSelectedPosition = 0
+
+    companion object {
+        const val REQUEST_CODE = 11
+        const val RESULT_CODE = 12
+        const val EXTRA_KEY_SEARCH = "search"
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
@@ -84,6 +95,31 @@ class ClientReportsListingFragment : Fragment() {
 
         mBinding.filterContainer.onClick {
             handleFilterBottomSheet()
+        }
+
+        mBinding.fabSearch.onClick {
+            val intent = Intent(context, SearchActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_CODE) {
+            var value = data?.getStringExtra(EXTRA_KEY_SEARCH)
+            if(!value.isNullOrBlank()) {
+                clientReportReq?.searchText = value
+                mViewModel.clearList()
+                mViewModel.getReportsList(clientReportReq)
+                mBinding.containerSearchResultText.show()
+                mBinding.textSearchResult.text = "Showing results for" + " " + "\"${value}\""
+            }
+            mBinding.imageClose.onClick {
+                mBinding.containerSearchResultText.hide()
+                clientReportReq?.searchText = ""
+                mViewModel.clearList()
+                mViewModel.getReportsList(clientReportReq)
+            }
         }
     }
 

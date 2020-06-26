@@ -38,7 +38,7 @@ data class ClientReportReq(
         @SerializedName("salescenter_id")
         var salescenterId: String? = "",
         @SerializedName("search_text")
-        val searchText: String? = "",
+        var searchText: String? = "",
         @SerializedName("sort_by")
         var sortBy: String?,
         @SerializedName("sort_order")
