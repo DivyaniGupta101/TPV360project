@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -20,6 +18,8 @@ import com.tpv.android.helper.Pref
 import com.tpv.android.utils.enums.ClientMenuItem
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
+import okhttp3.OkHttpClient
+import okhttp3.Request
 
 
 class ClientDashBoardFragment : Fragment() {
@@ -59,6 +59,15 @@ class ClientDashBoardFragment : Fragment() {
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
             mBinding.progressBarView.hide()
+        }
+
+        override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+            view.loadUrl(request.url.toString(),mapOf("Authorization" to "Bearer ${Pref.token}"))
+            return true
+        }
+        override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
+            view.loadUrl(url.toString(),mapOf("Authorization" to "Bearer ${Pref.token}"))
+            return true
         }
     }
 
