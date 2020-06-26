@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/PrimaryBoldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:text="@{item}"
+            tools:text="12345006 " />
+
+        <View
+            style="@style/Divider"
+            android:layout_width="match_parent"
+            android:background="@color/colorDarkDivider" />
+
+
+    </LinearLayout>
+</layout>
