@@ -84,8 +84,9 @@
                                 android:layout_width="@dimen/_24sdp"
                                 android:layout_height="@dimen/_24sdp"
                                 android:layout_gravity="center"
+                                app:dynamicTintColor="@{R.color.colorGray}"
                                 android:background="?attr/selectableItemBackground"
-                                android:src="@drawable/quantum_ic_clear_grey600_24"/>
+                                android:src="@drawable/ic_close_32dp"/>
 
 
                         </LinearLayout>

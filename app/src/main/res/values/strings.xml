@@ -127,6 +127,7 @@
     <string name="MSF">MSF</string>
     <string name="code">Code</string>
     <string name="date_of_submission_colon">Date of Submission : </string>
+    <string name="date_of_sub_colon">Date of Sub : </string>
     <string name="date_of_submission">Date of Submission</string>
     <string name="date_of_verification">Date of Verification</string>
     <string name="agent">Agent : </string>

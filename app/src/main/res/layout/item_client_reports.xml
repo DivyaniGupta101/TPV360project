@@ -39,7 +39,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/PrimaryBoldText"
+                        style="@style/PrimaryNormalSmallText"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
                         android:ellipsize="end"
@@ -71,20 +71,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:orientation="horizontal">
 
                     <TextView
                         style="@style/SecondaryNormalSmallText"
-                        android:layout_weight="1"
-                        android:text="@string/date_of_submission_colon" />
+                        android:text="@string/date_of_sub_colon" />
 
                     <TextView
                         style="@style/PrimaryNormalSmallText"
                         android:layout_weight="2"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{item.dateOfSubmission}"
+                        android:text='@{" " + item.dateOfSubmission}'
                         tools:text="142044" />
 
                 </LinearLayout>
@@ -96,7 +95,6 @@
 
                     <TextView
                         style="@style/SecondaryNormalSmallText"
-                        android:layout_weight="1.8"
                         android:text="@string/date_of_tpv" />
 
                     <TextView
@@ -104,7 +102,7 @@
                         android:layout_weight="2"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{item.dateOfTpv}"
+                        android:text='@{" " + item.dateOfTpv}'
                         tools:text="142044" />
 
                 </LinearLayout>
@@ -112,12 +110,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/PrimaryNormalText"
+                        style="@style/PrimaryNormalSmallText"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
                         android:ellipsize="end"
@@ -130,7 +128,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:orientation="horizontal">
 
                     <TextView

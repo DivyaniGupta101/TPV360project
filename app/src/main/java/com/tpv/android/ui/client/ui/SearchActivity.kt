@@ -25,6 +25,14 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = setBindingView(R.layout.activity_search)
 
+        var value = intent.getStringExtra("searchText")
+
+        if (!value.isNullOrBlank()){
+            mBinding.editSearch.setText(value)
+        }
+
+        mBinding.editSearch.requestFocus()
+
         LiveAdapter(Pref.searchText.toList(), BR.item)
                 .map<String, ItemSearchBinding>(R.layout.item_search) {
                     onClick {

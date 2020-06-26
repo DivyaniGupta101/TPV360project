@@ -4,13 +4,14 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import androidx.core.text.bold
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
@@ -60,6 +61,7 @@ class ClientReportsListingFragment : Fragment() {
     var mLastSelectedSortBy = SortByItem.LEADIDASC.value
     var clientReportReq: ClientReportReq? = null
     var lastSelectedPosition = 0
+    var value: String? = null
 
     companion object {
         const val REQUEST_CODE = 11
@@ -99,6 +101,7 @@ class ClientReportsListingFragment : Fragment() {
 
         mBinding.fabSearch.onClick {
             val intent = Intent(context, SearchActivity::class.java)
+            intent.putExtra("searchText",value)
             startActivityForResult(intent, REQUEST_CODE)
         }
     }
@@ -106,15 +109,18 @@ class ClientReportsListingFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == RESULT_CODE) {
-            var value = data?.getStringExtra(EXTRA_KEY_SEARCH)
-            if(!value.isNullOrBlank()) {
+            value = data?.getStringExtra(EXTRA_KEY_SEARCH)
+            if (!value.isNullOrBlank()) {
                 clientReportReq?.searchText = value
                 mViewModel.clearList()
                 mViewModel.getReportsList(clientReportReq)
                 mBinding.containerSearchResultText.show()
-                mBinding.textSearchResult.text = "Showing results for" + " " + "\"${value}\""
+                val s = SpannableStringBuilder()
+                        .append("Showing results for" + " ").bold { append("\"${value}\"") }
+                mBinding.textSearchResult.text = s
             }
             mBinding.imageClose.onClick {
+                value = null
                 mBinding.containerSearchResultText.hide()
                 clientReportReq?.searchText = ""
                 mViewModel.clearList()
