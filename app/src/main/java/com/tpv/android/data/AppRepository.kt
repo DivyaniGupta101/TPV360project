@@ -25,6 +25,7 @@ object AppRepository {
         fromNetwork {
             ApiClient.service.logIn(loginReq).getResult().map {
                 Pref.token = it?.token
+                Pref.user = it?.data
                 it?.data
             }
         }

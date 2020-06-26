@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.databinding.DataBindingUtil
@@ -40,6 +41,8 @@ class ClientDashBoardFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.dashboard), showMenuIcon = true)
 
         mBinding.webView.webViewClient = MyWebViewClient(mBinding)
+        val webSettings: WebSettings = mBinding.webView.settings
+        webSettings.javaScriptEnabled = true
         val token = "Bearer ${Pref.token}"
         mBinding.webView.loadUrl(Pref.user?.dashBoardURL,
                 mapOf("Authorization" to token))
