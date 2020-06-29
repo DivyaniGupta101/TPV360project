@@ -41,7 +41,7 @@ class ClientDashBoardFragment : Fragment() {
         mBinding.webView.webViewClient = MyWebViewClient(mBinding)
         mBinding.webView.settings.javaScriptEnabled = true
         val token = "Bearer ${Pref.token}"
-        mBinding.webView.loadUrl(Pref.user?.dashBoardURL,
+        mBinding.webView.loadUrl(Pref.dashBoardUrl,
                 mapOf("Authorization" to token))
 
         mBinding.webView.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->

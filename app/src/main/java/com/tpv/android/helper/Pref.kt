@@ -9,6 +9,7 @@ import kotlin.collections.HashSet
 object Pref : KotprefModel() {
 
     var token by nullableStringPref()
+    var dashBoardUrl by nullableStringPref()
     var user by gsonNullablePref<UserDetail>()
     val searchText by stringSetPref{
         val set = HashSet<String>()

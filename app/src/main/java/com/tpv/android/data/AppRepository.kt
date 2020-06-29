@@ -26,6 +26,7 @@ object AppRepository {
             ApiClient.service.logIn(loginReq).getResult().map {
                 Pref.token = it?.token
                 Pref.user = it?.data
+                Pref.dashBoardUrl = it?.data?.dashBoardURL
                 it?.data
             }
         }
