@@ -22,6 +22,7 @@ class SettingsActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
 
         mBinding.switchLocationGeo.isChecked = AppConstant.GEO_LOCATION_ENABLE
+        mBinding.switchLocation.isChecked = AppConstant.CURRENT_GEO_LOCATION
 
         mBinding.toolbar.textToolbarTitle.setText(getText(R.string.setting))
         mBinding.toolbar.imageToolbarBack.show()

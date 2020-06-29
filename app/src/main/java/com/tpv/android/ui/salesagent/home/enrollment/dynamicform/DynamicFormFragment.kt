@@ -181,7 +181,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         var lat = ""
         var lng = ""
 
-        if (AppConstant.CURRENT_GEO_LOCATION) {
+        if (!AppConstant.CURRENT_GEO_LOCATION) {
             lat = latitude.toString()
             lng = longitude.toString()
         } else {
@@ -204,7 +204,6 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 agentLng = lng,
                 formId = mViewModel.planId,
                 fields = mViewModel.dynamicFormData,
-                geoLocationRadius = AppConstant.GEO_LOCATION_RADIOUS,
                 geoLocationSettingOn = AppConstant.GEO_LOCATION_ENABLE,
                 other = OtherData(programId = TextUtils.join(",", mViewModel.programList.map { it.id }),
                         zipcode = mViewModel.zipcode)))
