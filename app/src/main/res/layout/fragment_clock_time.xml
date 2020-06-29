@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.tpv.android.R" />
+
         <import type="com.tpv.android.network.resources.Resource" />
 
         <import type="com.tpv.android.network.error.ErrorHandler" />
@@ -70,6 +72,13 @@
                         android:layout_marginTop="@dimen/_16sdp"
                         tools:text="1:00:25" />
 
+                    <TextView
+                        style="@style/PrimaryBoldText"
+                        android:layout_gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="@{item.currentStatus}"
+                        tools:text="working"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -133,12 +142,31 @@
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
 
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                        style="@style/PrimaryNormalText"
-                                        android:layout_width="wrap_content"
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="@dimen/_8sdp"
-                                        android:text="Today's statistics" />
+                                        android:orientation="horizontal">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            style="@style/PrimaryNormalText"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Today's statistics" />
+
+                                        <View
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_weight="1" />
+
+                                        <ImageView
+                                            android:id="@+id/imageRefresh"
+                                            android:layout_width="@dimen/_14sdp"
+                                            android:layout_height="@dimen/_14sdp"
+                                            android:layout_gravity="end"
+                                            android:src="@drawable/ic_refresh_white_32dp"
+                                            app:dynamicTintColor="@{R.color.colorAccentTint}" />
+                                    </LinearLayout>
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
@@ -206,6 +234,13 @@
                                             tools:text="08:24" />
                                     </LinearLayout>
 
+                                    <View
+                                        style="@style/Divider"
+                                        android:layout_width="match_parent"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:background="@color/colorDarkDivider" />
+
+
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -229,11 +264,20 @@
                                             tools:text="08:24" />
                                     </LinearLayout>
                                 </LinearLayout>
+
                             </LinearLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textLastUpdated"
+                        style="@style/PrimaryNormalSmallText"
+                        android:layout_gravity="end"
+                        android:maxLines="1"
+                        android:paddingEnd="@dimen/_20sdp" />
+
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

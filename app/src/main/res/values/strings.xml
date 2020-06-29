@@ -36,6 +36,7 @@
     <string name="ok">Ok</string>
     <string name="no">No</string>
     <string name="verify">Verify</string>
+    <string name="self_verify">Self Verify</string>
     <string name="save">Save</string>
     <string name="clear">Clear</string>
     <string name="resend_otp">Resend OTP</string>
@@ -98,6 +99,7 @@
     <string name="verified">Verified</string>
     <string name="declined">Declined</string>
     <string name="disconnected">Disconnected</string>
+    <string name="expired">Expired</string>
     <string name="cancelled">Cancelled</string>
     <string name="date">Date:</string>
     <string name="time">Time:</string>
@@ -109,6 +111,7 @@
     <string name="disconnected_calls">Disconnected Calls</string>
     <string name="verified_leads">Verified Leads</string>
     <string name="cancelled_leads">Cancelled Leads</string>
+    <string name="expired_leads">Expired Leads</string>
 
 
     <!--    Labels-->
@@ -249,7 +252,7 @@
     <string name="high">High</string>
     <string name="urgent">Urgent</string>
     <string name="priority">Priority</string>
-    <string name="select_verification_method">Select Verification Method</string>
+    <string name="select_verification_method">Phone verification popup</string>
     <string name="select_language">Select Language</string>
     <string name="sms">SMS</string>
     <string name="voice">Voice</string>

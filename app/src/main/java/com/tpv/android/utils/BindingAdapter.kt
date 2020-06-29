@@ -103,6 +103,10 @@ object BindingAdapter {
                 textView.text = context?.getString(R.string.cancelled)
                 textView.setTextColor(context.color(R.color.colorCancelledText))
             }
+            LeadStatus.EXPIRED.value -> {
+                textView.text = context?.getString(R.string.expired)
+                textView.setTextColor(context.color(R.color.colorSecondaryDarkText))
+            }
         }
     }
 

@@ -5,6 +5,7 @@
     <color name="colorAccent">#1c5997</color>
 
     <color name="colorGray">#9D9D9D</color>
+    <color name="colorDarkGray">#636E72</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorLightGrey">#1A757575</color>
     <color name="colorYellow">#F0BC2D</color>
@@ -41,6 +42,7 @@
     <color name="colorTertiaryText">@color/colorAccent</color>
     <color name="colorErrorText">@color/colorLightRed</color>
     <color name="colorProfileImageText">@color/colorStaticWhite</color>
+    <color name="colorSecondaryDarkText">@color/colorDarkGray</color>
 
 
     <!--    DividerColor-->
@@ -52,6 +54,7 @@
     <color name="colorSecondaryImageTint">@color/colorGray</color>
     <color name="colorSecondaryLightImageTint">@color/colorSecondaryLighText</color>
     <color name="colorRedImageTint">@color/colorLightRed</color>
+    <color name="colorAccentTint">@color/colorTertiaryText</color>
     <color name="colorBlackTint">@color/colorBlack</color>
 
     <!--    BackGroundColor-->

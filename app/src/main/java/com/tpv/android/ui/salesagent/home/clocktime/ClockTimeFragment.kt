@@ -15,10 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
-import com.livinglifetechway.k4kotlin.core.err
-import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.orFalse
-import com.livinglifetechway.k4kotlin.core.orZero
+import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClockTimeBinding
@@ -80,6 +77,10 @@ class ClockTimeFragment : Fragment() {
         }
 
         getCurrentActivity()
+
+        mBinding.imageRefresh.onClick {
+            getCurrentActivity()
+        }
 
         mBinding.btnBreak.isEnabled = false
         mBinding.btnCustomerVisit.isEnabled = false
@@ -152,6 +153,8 @@ class ClockTimeFragment : Fragment() {
         liveData.observe(this, androidx.lifecycle.Observer {
             it?.ifSuccess {
                 mBinding.item = it
+                val time = Calendar.getInstance().time.format("hh:mm a z")
+                mBinding.textLastUpdated.setText("Last updated at: $time")
                 setButtonSelectionFromData()
             }
         })
@@ -432,6 +435,11 @@ class ClockTimeFragment : Fragment() {
             }
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getCurrentActivity()
     }
 
 }
