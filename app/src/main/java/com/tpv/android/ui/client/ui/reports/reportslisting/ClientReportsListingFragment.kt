@@ -229,7 +229,40 @@ class ClientReportsListingFragment : Fragment() {
             binding.btnApply.onClick()
             {
                 if (isValid(binding)) {
-                    if (binding.includeClientLayout.spinner.selectedItemPosition != 0) {
+                    val output = SimpleDateFormat(AppConstant.DATEFORMATE1)
+                    val input = SimpleDateFormat(AppConstant.DATEFORMATE2)
+                    var clientId:String? = null
+                    var salesCenterId:String? = null
+
+                    if (binding.includeClientLayout.spinner.selectedItemPosition == 0){
+                        clientId = ""
+                    }else{
+                        clientId = mClientList[binding.includeClientLayout.spinner.selectedItemPosition.minus(1)].id
+                    }
+
+                    if(binding.includeSalesCenterLayout.spinner.selectedItemPosition == 0){
+                        salesCenterId = ""
+                    }else{
+                        salesCenterId = mSalesCenterList[binding.includeSalesCenterLayout.spinner.selectedItemPosition.minus(1)].id
+                    }
+
+                    clientReportReq?.also {
+                        it.clientId = clientId
+                        it.salescenterId = salesCenterId
+                        it.fromDate = output.format(input.parse(binding.includeDateOfSubmissionStartDateLayout.editDatePicker.value))
+                        it.toDate = output.format(input.parse(binding.includeDateOfSubmissionEndDateLayout.editDatePicker.value))
+                        if (binding.includeDateOfVerificationStartDateLayout.editDatePicker.value.isNotEmpty()
+                                &&
+                                binding.includeDateOfVerificationEndDateLayout.editDatePicker.value.isNotEmpty()) {
+                            it.verificationFromDate = output.format(input.parse(binding.includeDateOfVerificationStartDateLayout.editDatePicker.value))
+                            it.verificationToDate = output.format(input.parse(binding.includeDateOfVerificationEndDateLayout.editDatePicker.value))
+                        }
+
+                    }
+
+                    setRecyclerView(clientReportReq)
+                    dialog.hide()
+                    /*if (binding.includeClientLayout.spinner.selectedItemPosition != 0) {
                         binding.includeClientLayout.textError.hide()
                         if (binding.includeSalesCenterLayout.spinner.selectedItemPosition != 0) {
                             binding.includeSalesCenterLayout.textError.hide()
@@ -261,7 +294,7 @@ class ClientReportsListingFragment : Fragment() {
                     } else {
                         binding.includeClientLayout.textError.text = ("Please select clients")
                         binding.includeClientLayout.textError.show()
-                    }
+                    }*/
                 }
             }
             dialog.show()
