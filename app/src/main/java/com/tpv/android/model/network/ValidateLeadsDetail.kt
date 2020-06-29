@@ -24,6 +24,10 @@ data class ValidateLeadsDetailReq(
         val agentLat: String? = "",
         @SerializedName("agent_lng")
         val agentLng: String? = "",
+        @SerializedName("_geolocation_settings_on")
+        val geoLocationSettingOn:Boolean? = false,
+        @SerializedName("_geolocation_settings_radius")
+        val geoLocationRadius: String? = "",
         @SerializedName("other")
         val other: OtherData?,
         @SerializedName("fields")
