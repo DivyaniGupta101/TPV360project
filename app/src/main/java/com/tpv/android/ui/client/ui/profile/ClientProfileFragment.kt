@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClientProfileBinding
 import com.tpv.android.helper.Pref
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.utils.enums.ClientMenuItem
 import com.tpv.android.utils.setItemSelection
@@ -37,15 +40,18 @@ class ClientProfileFragment : Fragment() {
     private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.profile), true, true)
 
+        getProfileApiCall()
+
         mBinding.item = Pref.user
 
-        getProfileApiCall()
     }
 
     private fun getProfileApiCall() {
 
-        mViewModel.getProfile().observe(viewLifecycleOwner, Observer {
+        val liveData = mViewModel.getProfile()
+        liveData.observe(viewLifecycleOwner, Observer {
             it.ifSuccess {
+                mBinding.item = Pref.user
                 updateProfileInMenu()
             }
         })
