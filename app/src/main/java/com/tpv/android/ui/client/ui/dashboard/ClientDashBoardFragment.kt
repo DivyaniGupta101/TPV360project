@@ -2,10 +2,10 @@ package com.tpv.android.ui.client.ui.dashboard
 
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.webkit.*
+import android.view.*
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -18,8 +18,6 @@ import com.tpv.android.helper.Pref
 import com.tpv.android.utils.enums.ClientMenuItem
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
-import okhttp3.OkHttpClient
-import okhttp3.Request
 
 
 class ClientDashBoardFragment : Fragment() {
@@ -41,11 +39,18 @@ class ClientDashBoardFragment : Fragment() {
         setupToolbar(mBinding.toolbar, getString(R.string.dashboard), showMenuIcon = true)
 
         mBinding.webView.webViewClient = MyWebViewClient(mBinding)
-        val webSettings: WebSettings = mBinding.webView.settings
-        webSettings.javaScriptEnabled = true
+        mBinding.webView.settings.javaScriptEnabled = true
         val token = "Bearer ${Pref.token}"
         mBinding.webView.loadUrl(Pref.user?.dashBoardURL,
                 mapOf("Authorization" to token))
+
+        mBinding.webView.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action === MotionEvent.ACTION_UP && mBinding.webView.canGoBack()) {
+                mBinding.webView.goBack()
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
     class MyWebViewClient internal constructor(binding: FragmentClientDashBoardBinding) : WebViewClient() {
@@ -62,11 +67,12 @@ class ClientDashBoardFragment : Fragment() {
         }
 
         override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-            view.loadUrl(request.url.toString(),mapOf("Authorization" to "Bearer ${Pref.token}"))
+            view.loadUrl(request.url.toString(), mapOf("Authorization" to "Bearer ${Pref.token}"))
             return true
         }
+
         override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
-            view.loadUrl(url.toString(),mapOf("Authorization" to "Bearer ${Pref.token}"))
+            view.loadUrl(url.toString(), mapOf("Authorization" to "Bearer ${Pref.token}"))
             return true
         }
     }

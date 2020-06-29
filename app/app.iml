@@ -114,9 +114,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestTpvTestAllow/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestTpvTestAllow/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestTpvTestAllow/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/kapt/TpvTestAllowDebugUnitTest" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/kaptKotlin/TpvTestAllowDebugUnitTest" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/ap_generated_sources/TpvTestAllowDebugUnitTest/out" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/kapt/TpvTestAllowDebugUnitTest" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testTpvTestAllowDebug/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testTpvTestAllowDebug/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testTpvTestAllowDebug/assets" type="java-test-resource" />
@@ -257,9 +257,9 @@
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/ProdNotAllowDebugUnitTest" />
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/NewDemoAllowDebugUnitTest" />
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/ProdAllowRelease" />
-          <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/TpvTestNotAllowDebugUnitTest" />
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/TpvTestAllowDebugUnitTest" />
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/TpvTestAllowDebugAndroidTest" />
+          <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/TpvTestNotAllowDebugUnitTest" />
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/TpvTestNotAllowDebug" />
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/TpvTestAllowDebug" />
         </CLASSES>
