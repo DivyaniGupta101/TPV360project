@@ -44,7 +44,7 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{item.leadId + @string/unicode_dot + item.salesagentName}"
+                        android:text="@{item.referenceId + @string/unicode_dot + item.salesagentName}"
                         tools:text="12345006 " />
 
 
@@ -83,7 +83,7 @@
                         android:layout_weight="2"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text='@{" " + item.dateOfSubmission}'
+                        app:reportData="@{item.dateOfSubmission}"
                         tools:text="142044" />
 
                 </LinearLayout>
@@ -102,7 +102,7 @@
                         android:layout_weight="2"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text='@{" " + item.dateOfTpv}'
+                        app:reportData="@{item.dateOfTpv}"
                         tools:text="142044" />
 
                 </LinearLayout>
@@ -140,7 +140,7 @@
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:text="@{item.alertStatus}"
+                        app:reportData="@{item.alertStatus}"
                         tools:text="142044" />
 
                     <TextView

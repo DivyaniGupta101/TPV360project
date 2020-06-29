@@ -189,14 +189,17 @@
                 app:useBlockingProgress="@{true}"
                 tools:visibility="visible" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <ImageView
                 android:id="@+id/fabSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_width="@dimen/_38sdp"
+                android:padding="@dimen/_10sdp"
                 android:layout_gravity="bottom|end"
-                android:src="@drawable/ic_search_32dp"
                 android:layout_marginBottom="@dimen/_50sdp"
-                android:layout_marginEnd="@dimen/_14sdp"/>
+                android:layout_marginEnd="@dimen/_14sdp"
+                android:background="@drawable/bg_gradient_fab"
+                android:foreground="@drawable/rounded_ripple_effect"
+                android:src="@drawable/ic_search_32dp" />
 
 
         </FrameLayout>

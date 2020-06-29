@@ -396,5 +396,15 @@ object BindingAdapter {
         }
         textView.text = address
     }
+
+    @JvmStatic
+    @BindingAdapter("reportData")
+    fun reportTextData(textView: TextView, data: String?) {
+       if (data.isNullOrEmpty()){
+           textView.setText(" " + " - ")
+       }else{
+           textView.setText(" " + data)
+       }
+    }
 }
 
