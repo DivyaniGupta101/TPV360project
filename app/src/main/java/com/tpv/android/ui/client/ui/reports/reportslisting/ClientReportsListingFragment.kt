@@ -88,6 +88,8 @@ class ClientReportsListingFragment : Fragment() {
                 showBackIcon = true
         )
 
+        mBinding.paginatedLayout.textEmpty.text = "No Reports Available"
+
         setBottomSheetSortOption()
         getClientList()
 
@@ -251,7 +253,8 @@ class ClientReportsListingFragment : Fragment() {
 
                             setRecyclerView(clientReportReq)
                             dialog.hide()
-                        } else {
+                        }
+                        else {
                             binding.includeSalesCenterLayout.textError.text = ("Please select sales centers")
                             binding.includeSalesCenterLayout.textError.show()
                         }

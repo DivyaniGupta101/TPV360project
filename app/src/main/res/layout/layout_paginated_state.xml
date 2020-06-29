@@ -35,6 +35,7 @@
             app:visibleIf="@{resource != null}">
 
             <TextView
+                android:id="@+id/textEmpty"
                 style="@style/PrimaryNormalText"
                 android:layout_gravity="center"
                 android:text="@string/no_data_found"
