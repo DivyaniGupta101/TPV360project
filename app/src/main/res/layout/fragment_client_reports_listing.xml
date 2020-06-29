@@ -121,6 +121,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="@dimen/_12sdp"
                         android:visibility="visible">
@@ -135,7 +136,7 @@
                         <TextView
                             android:id="@+id/textSortBy"
                             style="@style/SecondaryNormalText"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_marginStart="@dimen/_16sdp"
                             android:text="Sort By" />
 
@@ -155,6 +156,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="@dimen/_12sdp"
                         android:visibility="visible">
@@ -162,14 +164,13 @@
                         <ImageView
                             android:layout_width="@dimen/_16sdp"
                             android:layout_height="@dimen/_16sdp"
-                            android:rotation="180"
                             android:src="@drawable/ic_filtter_white_32dp"
                             app:dynamicTintColor="@{R.color.colorSecondaryImageTint}" />
 
                         <TextView
                             android:id="@+id/textFilter"
                             style="@style/SecondaryNormalText"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_marginStart="@dimen/_16sdp"
                             android:text="Filter" />
 
