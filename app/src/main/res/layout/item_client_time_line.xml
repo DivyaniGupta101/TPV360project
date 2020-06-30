@@ -37,7 +37,7 @@
                 style="@style/PrimaryNormalText"
                 android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:text="@{item.reason}"
+                app:reportData="@{item.reason}"
                 tools:text="@string/authorised_first_name" />
 
 
@@ -59,7 +59,7 @@
                 style="@style/PrimaryNormalText"
                 android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:text="@{item.createdAt}"
+                app:reportData="@{item.createdAt}"
                 tools:text="@string/authorised_first_name" />
 
 
@@ -84,7 +84,7 @@
                 style="@style/PrimaryNormalText"
                 android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:text="@{item.userType}"
+                app:reportData="@{item.userType}"
                 tools:text="@string/authorised_first_name" />
 
 
@@ -106,7 +106,7 @@
                 style="@style/PrimaryNormalText"
                 android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:text="@{item.agent}"
+                app:reportData="@{item.agent}"
                 tools:text="@string/authorised_first_name" />
 
 
@@ -128,7 +128,7 @@
                 style="@style/PrimaryNormalText"
                 android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:text="@{item.leadStatus}"
+                app:reportData="@{item.leadStatus}"
                 tools:text="@string/authorised_first_name" />
 
 
@@ -151,7 +151,7 @@
                 style="@style/PrimaryNormalText"
                 android:layout_width="match_parent"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:text="@{item.relatedLeadIds}"
+                app:reportData="@{item.relatedLeadIds}"
                 tools:text="@string/authorised_first_name" />
 
 

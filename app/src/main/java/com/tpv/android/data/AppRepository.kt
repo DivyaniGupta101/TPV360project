@@ -272,9 +272,9 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.getTimeLineCall() = dataApi<List<ClientTimeLineResp>, APIError> {
+    fun CoroutineScope.getTimeLineCall(id:String) = dataApi<List<ClientTimeLineResp>, APIError> {
         fromNetwork {
-            ApiClient.service.getTimeLine().getResult().map { it?.data.orEmpty() }
+            ApiClient.service.getTimeLine(id = id).getResult().map { it?.data.orEmpty() }
         }
     }
 

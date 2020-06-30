@@ -77,7 +77,7 @@ class ClientReportsDetailsFragment : Fragment() {
 
                 }
 
-                setTimeLine()
+                setTimeLine(leadId.orEmpty())
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
@@ -328,9 +328,9 @@ class ClientReportsDetailsFragment : Fragment() {
     }
 
 
-    private fun setTimeLine() {
+    private fun setTimeLine(id:String) {
 
-        val liveData = mViewModel.getClientTimeLine()
+        val liveData = mViewModel.getClientTimeLine(id)
         liveData.observe(this, Observer {
             it?.ifSuccess { list ->
 

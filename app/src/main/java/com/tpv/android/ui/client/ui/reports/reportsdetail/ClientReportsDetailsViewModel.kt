@@ -5,9 +5,9 @@ import com.tpv.android.network.resources.CoroutineScopedViewModel
 
 class ClientReportsDetailsViewModel : CoroutineScopedViewModel() {
 
-    fun getClientTimeLine() = with(AppRepository)
+    fun getClientTimeLine(id:String) = with(AppRepository)
     {
-        getTimeLineCall()
+        getTimeLineCall(id)
     }
 
     fun getClientLeadDetail(leadId:String) = with(AppRepository)
