@@ -318,8 +318,8 @@ class ClockTimeFragment : Fragment() {
     private fun setTimerAndApiCall(activityType: String, isApiCall: Boolean = true) {
         when (activityType) {
             AppConstant.BREAKIN -> {
-                isPause = true
-                running = false
+                isPause = false
+                running = true
                 if (isApiCall) {
                     setAgentActivityCall(AppConstant.BREAKIN)
                 }
