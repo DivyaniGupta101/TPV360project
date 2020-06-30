@@ -77,13 +77,14 @@
                             android:layout_width="match_parent"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_weight="1"
-                            android:text="@{item.leadData.id}"
+                            android:text="@{item.leadData.referenceId}"
                             tools:text="142044" />
 
                         <TextView
                             style="@style/PrimaryNormalSmallText"
                             android:ellipsize="end"
                             android:maxLines="1"
+                            android:textStyle="bold"
                             android:text="@{item.leadData.status}"
                             app:leadStatus="@{item.leadData.status}"
                             tools:text="142044" />

@@ -147,6 +147,7 @@
                         style="@style/PrimaryNormalSmallText"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:textStyle="bold"
                         android:text="@{item.leadStatus}"
                         app:leadStatus="@{item.leadStatus}"
                         tools:text="142044" />
