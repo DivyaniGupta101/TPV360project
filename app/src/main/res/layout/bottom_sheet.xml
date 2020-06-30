@@ -20,14 +20,43 @@
         app:behavior_hideable="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <TextView
-            style="@style/SecondaryNormalText"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
             android:paddingStart="@dimen/_16sdp"
             android:paddingTop="@dimen/_16sdp"
-            android:text="@{item}"
-            android:textAllCaps="true"
-            android:textColor="@color/colorTertiaryText"
-            tools:text="@string/leads_status" />
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SecondaryNormalText"
+                android:text="@{item}"
+                android:layout_weight="1"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText"
+                tools:text="@string/leads_status" />
+
+            <TextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A to Z" />
+
+            <Switch
+                android:id="@+id/switchSortBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_2sdp" />
+
+            <TextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:text="Z to A" />
+
+        </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

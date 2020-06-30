@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.CompoundButton
 import androidx.core.text.bold
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
@@ -58,7 +59,8 @@ class ClientReportsListingFragment : Fragment() {
     var mClientList: ArrayList<ClientsResp> = ArrayList()
     var mSalesCenterList: ArrayList<ClientsResp> = ArrayList()
     var mListBottoSheet: ObservableArrayList<BottomSheetItem> = ObservableArrayList()
-    var mLastSelectedSortBy = SortByItem.LEADIDASC.value
+    var mLastSelectedSortBy = SortByItem.LEADID.value
+    var switchIsOn:Boolean = false
     var clientReportReq: ClientReportReq? = null
     var lastSelectedPosition = 0
     var value: String? = null
@@ -84,7 +86,7 @@ class ClientReportsListingFragment : Fragment() {
 
     private fun initialize() {
 
-        setupToolbar(mBinding.toolbar, getString(R.string.reports), showMenuIcon = true,
+        setupToolbar(mBinding.toolbar, getString(R.string.critical_alert_report), showMenuIcon = true,
                 showBackIcon = true
         )
 
@@ -382,7 +384,20 @@ class ClientReportsListingFragment : Fragment() {
 
     private fun setBottomSheetSortOption() {
         mListBottoSheet.clear()
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_ascending), SortByItem.LEADIDASC.value, false))
+        mListBottoSheet.add(BottomSheetItem("Lead Id", SortByItem.LEADID.value, false))
+        mListBottoSheet.add(BottomSheetItem("Reference Id", SortByItem.REFERENCEID.value, false))
+        mListBottoSheet.add(BottomSheetItem("Alert Status", SortByItem.ALERTSTATUS.value, false))
+        mListBottoSheet.add(BottomSheetItem("Lead Status", SortByItem.LEADSTATUS.value, false))
+        mListBottoSheet.add(BottomSheetItem("Client Name", SortByItem.CLIENTNAME.value, false))
+        mListBottoSheet.add(BottomSheetItem("Salescenter Name", SortByItem.SALESCENTERNAME.value, false))
+        mListBottoSheet.add(BottomSheetItem("Salescenter Location", SortByItem.SALESCENTERLOCATIONADDRESS.value, false))
+        mListBottoSheet.add(BottomSheetItem("Salesagent Name", SortByItem.SALESAGENTNAME.value, false))
+        mListBottoSheet.add(BottomSheetItem("Date Of Submission", SortByItem.DATEOFSUBMISSION.value, false))
+        mListBottoSheet.add(BottomSheetItem("Date Of TPV", SortByItem.DATEOFTPV.value, false))
+        mListBottoSheet.add(BottomSheetItem("Salescenter Location Name", SortByItem.SALESCENTERLOCATIONNAME.value, false))
+
+
+        /*mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_ascending), SortByItem.LEADIDASC.value, false))
         mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_descending), SortByItem.LEADIDDES.value, false))
         mListBottoSheet.add(BottomSheetItem(getString(R.string.reference_id_ascending), SortByItem.REFERENCEIDASC.value, false))
         mListBottoSheet.add(BottomSheetItem(getString(R.string.reference_id_descending), SortByItem.REFERENCEIDDES.value, false))
@@ -403,7 +418,7 @@ class ClientReportsListingFragment : Fragment() {
         mListBottoSheet.add(BottomSheetItem(getString(R.string.date_of_tpv_ascending), SortByItem.DATEOFTPVASC.value, false))
         mListBottoSheet.add(BottomSheetItem(getString(R.string.date_of_tpv_descending), SortByItem.DATEOFTPVDES.value, false))
         mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_location_name_ascending), SortByItem.SALESCENTERLOCATIONNAMEASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_location_name_descending), SortByItem.SALESCENTERLOCATIONNAMEDES.value, false))
+        mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_location_name_descending), SortByItem.SALESCENTERLOCATIONNAMEDES.value, false))*/
 
         mListBottoSheet.forEach {
             if (mLastSelectedSortBy == it.tag) {
@@ -416,6 +431,16 @@ class ClientReportsListingFragment : Fragment() {
         val binding = DataBindingUtil.inflate<BottomSheetBinding>(layoutInflater, R.layout.bottom_sheet, null, false)
 
         context?.let {
+
+            binding.switchSortBy.isChecked = switchIsOn
+
+            binding.switchSortBy.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+               override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                    // do something, the isChecked will be
+                    // true if the switch is in the On position
+                   switchIsOn = isChecked
+                }
+            })
 
             val dialog = BottomSheetDialog(it)
             dialog.setContentView(binding.root)
@@ -442,8 +467,9 @@ class ClientReportsListingFragment : Fragment() {
                     val tempList = bindingBottomSheet.item?.tag?.split("_")
 
                     clientReportReq?.also {
-                        it.sortBy = tempList?.minus(tempList.get(tempList.lastIndex))?.joinToString("_")
-                        it.sortOrder = tempList?.get(tempList.lastIndex)
+                        it.sortBy = bindingBottomSheet.item?.tag
+                      //  it.sortOrder = tempList?.get(tempList.lastIndex)
+                        it.sortOrder = if (binding.switchSortBy.isChecked) "desc" else "asc"
                     }
                     setRecyclerView(clientReportReq)
                     dialog.dismiss()
@@ -477,14 +503,14 @@ class ClientReportsListingFragment : Fragment() {
                 val c = Calendar.getInstance()  // this takes current date
                 c.set(Calendar.DAY_OF_MONTH, 1)
 
-                val tempList = mLastSelectedSortBy.split("_")
+                val tempList = mLastSelectedSortBy
 
                 clientReportReq =
                         ClientReportReq(
                                 fromDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(c.time),
                                 toDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(Calendar.getInstance().time),
-                                sortBy = tempList.minus(tempList.get(tempList.lastIndex)).joinToString("_"),
-                                sortOrder = tempList.get(tempList.lastIndex)
+                                sortBy = mLastSelectedSortBy,
+                                sortOrder = if (switchIsOn) "desc" else "asc"
                         )
                 setRecyclerView(clientReportReq)
             }

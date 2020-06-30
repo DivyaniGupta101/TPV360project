@@ -9,11 +9,19 @@
             type="com.tpv.android.model.internal.BottomSheetItem" />
     </data>
 
-    <RadioButton
-        android:id="@+id/radioContainer"
-        style="@style/PrimaryNormalText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:text="@{item.title}"
-        tools:text="@string/declined" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <RadioButton
+            android:id="@+id/radioContainer"
+            style="@style/PrimaryNormalText"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:text="@{item.title}"
+            tools:text="@string/declined" />
+
+    </LinearLayout>
 </layout>

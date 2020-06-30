@@ -73,5 +73,16 @@ enum class SortByItem(val value: String) {
     SALESCENTERLOCATIONNAMEASC("salescenter_location_name_asc"),
     SALESCENTERLOCATIONNAMEDES("salescenter_location_name_desc"),
 
+    LEADID("lead_id"),
+    REFERENCEID("reference_id"),
+    ALERTSTATUS("alert_status"),
+    LEADSTATUS("lead_status"),
+    CLIENTNAME("client_name"),
+    SALESCENTERNAME("salescenter_name"),
+    SALESCENTERLOCATIONADDRESS("salesceneter_location_address"),
+    SALESAGENTNAME("salesagent_name"),
+    DATEOFSUBMISSION("date_of_submission"),
+    DATEOFTPV("date_of_tpv"),
+    SALESCENTERLOCATIONNAME("salescenter_location_name"),
 
 }

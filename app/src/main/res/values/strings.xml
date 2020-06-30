@@ -287,6 +287,7 @@
     <string name="salescenter_location_name_ascending">Salescenter Location Name Ascending</string>
     <string name="salescenter_location_name_descending">Salescenter Location Name Descending</string>
     <string name="search_here">Search here...</string>
+    <string name="critical_alert_report">Critical Alert Report</string>
 
 
 </resources>
