@@ -134,11 +134,14 @@
                     <TextView
                         android:id="@+id/btnApply"
                         style="@style/DialogCancelButton"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="0dp"
                         android:layout_marginEnd="0dp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:paddingBottom="@dimen/_6sdp"
                         android:layout_marginBottom="@dimen/_16sdp"
-                        android:layout_weight="1"
                         android:text="Apply" />
                 </LinearLayout>
             </LinearLayout>
