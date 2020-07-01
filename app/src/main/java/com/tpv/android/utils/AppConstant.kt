@@ -56,5 +56,7 @@ object AppConstant : KotprefModel() {
     const val CLIENT = "client"
     const val DATEFORMATE1 = "yyyy-MM-dd"
     const val DATEFORMATE2 = "dd/MM/yyyy"
+    const val DESC = "desc"
+    const val ASC = "asc"
 
 }

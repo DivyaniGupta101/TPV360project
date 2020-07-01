@@ -17,6 +17,7 @@ class ClientReportsListingViewModel : CoroutineScopedViewModel() {
 
     val criticalAlertReportsLiveData: LiveData<List<ClientReportResp>> = Transformations.map(criticalAlertReportsPaginatedResourceLiveData) { it.data }
 
+    var clientReportReq: ClientReportReq? = null
     val showEmptyView: LiveData<Boolean> = Transformations.map(criticalAlertReportsLiveData) {
         it?.isEmpty()
     }
@@ -31,7 +32,7 @@ class ClientReportsListingViewModel : CoroutineScopedViewModel() {
         getSalesCenterCall(clientId)
     }
 
-    fun getReportsList(clientReportReq: ClientReportReq?, page: Int? = 1) = with(AppRepository) {
+    fun getReportsList(page: Int? = 1) = with(AppRepository) {
         clientReportReq?.page = page
 
         clientReportReq?.let {

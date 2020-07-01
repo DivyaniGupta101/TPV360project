@@ -25,9 +25,9 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = setBindingView(R.layout.activity_search)
 
-        var value = intent.getStringExtra("searchText")
+        var value = intent.getStringExtra(ClientReportsListingFragment.EXTRA_KEY_SEARCH_TEXT)
 
-        if (!value.isNullOrBlank()){
+        if (!value.isNullOrBlank()) {
             mBinding.editSearch.setText(value)
         }
 
@@ -47,7 +47,7 @@ class SearchActivity : AppCompatActivity() {
 
         mBinding.editSearch.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if(!mBinding.editSearch.value.isNullOrBlank()) {
+                if (!mBinding.editSearch.value.isNullOrBlank()) {
                     Pref.searchText.add(mBinding.editSearch.value)
                 }
                 passValueToFragment(mBinding.editSearch.value)

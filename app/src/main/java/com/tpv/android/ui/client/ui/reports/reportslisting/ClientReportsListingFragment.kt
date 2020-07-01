@@ -53,22 +53,22 @@ import kotlin.collections.ArrayList
 
 
 class ClientReportsListingFragment : Fragment() {
-
     lateinit var mBinding: FragmentClientReportsListingBinding
     lateinit var mViewModel: ClientReportsListingViewModel
+
     var mClientList: ArrayList<ClientsResp> = ArrayList()
     var mSalesCenterList: ArrayList<ClientsResp> = ArrayList()
-    var mListBottoSheet: ObservableArrayList<BottomSheetItem> = ObservableArrayList()
-    var mLastSelectedSortBy = SortByItem.LEADID.value
-    var switchIsOn:Boolean = false
-    var clientReportReq: ClientReportReq? = null
-    var lastSelectedPosition = 0
-    var value: String? = null
+    var mListSortBy: ObservableArrayList<BottomSheetItem> = ObservableArrayList()
+    var mLastSelectedSortByItem = SortByItem.LEADID.value
+    var isSortByAsc: Boolean = false
+    var lastSelectedClientPosition = 0
+    var searchText: String? = null
 
     companion object {
         const val REQUEST_CODE = 11
         const val RESULT_CODE = 12
         const val EXTRA_KEY_SEARCH = "search"
+        const val EXTRA_KEY_SEARCH_TEXT = "searchText"
 
     }
 
@@ -90,7 +90,7 @@ class ClientReportsListingFragment : Fragment() {
                 showBackIcon = true
         )
 
-        mBinding.paginatedLayout.textEmpty.text = "No Reports Available"
+        mBinding.paginatedLayout.textEmpty.text = getString(R.string.no_reports_available)
 
         setBottomSheetSortOption()
         getClientList()
@@ -105,7 +105,7 @@ class ClientReportsListingFragment : Fragment() {
 
         mBinding.fabSearch.onClick {
             val intent = Intent(context, SearchActivity::class.java)
-            intent.putExtra("searchText",value)
+            intent.putExtra(EXTRA_KEY_SEARCH_TEXT, searchText)
             startActivityForResult(intent, REQUEST_CODE)
         }
     }
@@ -113,22 +113,22 @@ class ClientReportsListingFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == RESULT_CODE) {
-            value = data?.getStringExtra(EXTRA_KEY_SEARCH)
-            if (!value.isNullOrBlank()) {
-                clientReportReq?.searchText = value
+            searchText = data?.getStringExtra(EXTRA_KEY_SEARCH)
+            if (!searchText.isNullOrBlank()) {
+                mViewModel.clientReportReq?.searchText = searchText
                 mViewModel.clearList()
-                mViewModel.getReportsList(clientReportReq)
+                mViewModel.getReportsList()
                 mBinding.containerSearchResultText.show()
                 val s = SpannableStringBuilder()
-                        .append("Showing results for" + " ").bold { append("\"${value}\"") }
+                        .append(getString(R.string.showing_results_for) + " ").bold { append("\"${searchText}\"") }
                 mBinding.textSearchResult.text = s
             }
             mBinding.imageClose.onClick {
-                value = null
+                searchText = null
                 mBinding.containerSearchResultText.hide()
-                clientReportReq?.searchText = ""
+                mViewModel.clientReportReq?.searchText = ""
                 mViewModel.clearList()
-                mViewModel.getReportsList(clientReportReq)
+                mViewModel.getReportsList()
             }
         }
     }
@@ -154,8 +154,8 @@ class ClientReportsListingFragment : Fragment() {
                 val spinnerValueList = arrayListOf("All")
                 spinnerValueList.addAll(mClientList.map { it.name.orEmpty() })
                 binding.includeClientLayout.spinner.setItems(spinnerValueList as ArrayList<String>?)
-                if (clientReportReq?.clientId != "") {
-                    val name = mClientList.find { it.id == clientReportReq?.clientId }?.name
+                if (mViewModel.clientReportReq?.clientId != "") {
+                    val name = mClientList.find { it.id == mViewModel.clientReportReq?.clientId }?.name
                     binding.includeClientLayout.spinner.setSelection(spinnerValueList.indexOf(name))
                 }
 
@@ -168,8 +168,8 @@ class ClientReportsListingFragment : Fragment() {
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.includeSalesCenterLayout.spinner.adapter = spinnerAdapter
 
-                if (clientReportReq?.salescenterId != "") {
-                    val name = mSalesCenterList.find { it.id == clientReportReq?.salescenterId }?.name
+                if (mViewModel.clientReportReq?.salescenterId != "") {
+                    val name = mSalesCenterList.find { it.id == mViewModel.clientReportReq?.salescenterId }?.name
                     binding.includeSalesCenterLayout.spinner.setSelection(spinnerValueList.indexOf(name))
                 }
             }
@@ -178,11 +178,11 @@ class ClientReportsListingFragment : Fragment() {
             val input = SimpleDateFormat(AppConstant.DATEFORMATE1)
             val output = SimpleDateFormat(AppConstant.DATEFORMATE2)
             try {
-                binding.includeDateOfSubmissionStartDateLayout.editDatePicker.setText(output.format(input.parse(clientReportReq?.fromDate)))
-                binding.includeDateOfSubmissionEndDateLayout.editDatePicker.setText(output.format(input.parse(clientReportReq?.toDate)))
-                if (clientReportReq?.verificationFromDate?.isNotEmpty().orFalse() && clientReportReq?.verificationToDate?.isNotEmpty().orFalse()) {
-                    binding.includeDateOfVerificationStartDateLayout.editDatePicker.setText(output.format(input.parse(clientReportReq?.verificationFromDate)))
-                    binding.includeDateOfVerificationEndDateLayout.editDatePicker.setText(output.format(input.parse(clientReportReq?.verificationToDate)))
+                binding.includeDateOfSubmissionStartDateLayout.editDatePicker.setText(output.format(input.parse(mViewModel.clientReportReq?.fromDate)))
+                binding.includeDateOfSubmissionEndDateLayout.editDatePicker.setText(output.format(input.parse(mViewModel.clientReportReq?.toDate)))
+                if (mViewModel.clientReportReq?.verificationFromDate?.isNotEmpty().orFalse() && mViewModel.clientReportReq?.verificationToDate?.isNotEmpty().orFalse()) {
+                    binding.includeDateOfVerificationStartDateLayout.editDatePicker.setText(output.format(input.parse(mViewModel.clientReportReq?.verificationFromDate)))
+                    binding.includeDateOfVerificationEndDateLayout.editDatePicker.setText(output.format(input.parse(mViewModel.clientReportReq?.verificationToDate)))
                 }
 
             } catch (e: ParseException) {
@@ -191,8 +191,8 @@ class ClientReportsListingFragment : Fragment() {
             binding.includeClientLayout.spinner.onItemSelectedListener =
                     object : OnItemSelectedListener {
                         override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View, position: Int, id: Long) {
-                            if (lastSelectedPosition != position) {
-                                lastSelectedPosition = position
+                            if (lastSelectedClientPosition != position) {
+                                lastSelectedClientPosition = position
                                 updateSalesCenterInBottomSheet(binding, position)
                             }
                         }
@@ -233,22 +233,22 @@ class ClientReportsListingFragment : Fragment() {
                 if (isValid(binding)) {
                     val output = SimpleDateFormat(AppConstant.DATEFORMATE1)
                     val input = SimpleDateFormat(AppConstant.DATEFORMATE2)
-                    var clientId:String? = null
-                    var salesCenterId:String? = null
+                    var clientId: String? = null
+                    var salesCenterId: String? = null
 
-                    if (binding.includeClientLayout.spinner.selectedItemPosition == 0){
+                    if (binding.includeClientLayout.spinner.selectedItemPosition == 0) {
                         clientId = ""
-                    }else{
+                    } else {
                         clientId = mClientList[binding.includeClientLayout.spinner.selectedItemPosition.minus(1)].id
                     }
 
-                    if(binding.includeSalesCenterLayout.spinner.selectedItemPosition == 0){
+                    if (binding.includeSalesCenterLayout.spinner.selectedItemPosition == 0) {
                         salesCenterId = ""
-                    }else{
+                    } else {
                         salesCenterId = mSalesCenterList[binding.includeSalesCenterLayout.spinner.selectedItemPosition.minus(1)].id
                     }
 
-                    clientReportReq?.also {
+                    mViewModel.clientReportReq?.also {
                         it.clientId = clientId
                         it.salescenterId = salesCenterId
                         it.fromDate = output.format(input.parse(binding.includeDateOfSubmissionStartDateLayout.editDatePicker.value))
@@ -262,41 +262,8 @@ class ClientReportsListingFragment : Fragment() {
 
                     }
 
-                    setRecyclerView(clientReportReq)
+                    setRecyclerView()
                     dialog.hide()
-                    /*if (binding.includeClientLayout.spinner.selectedItemPosition != 0) {
-                        binding.includeClientLayout.textError.hide()
-                        if (binding.includeSalesCenterLayout.spinner.selectedItemPosition != 0) {
-                            binding.includeSalesCenterLayout.textError.hide()
-
-                            val output = SimpleDateFormat(AppConstant.DATEFORMATE1)
-                            val input = SimpleDateFormat(AppConstant.DATEFORMATE2)
-
-                            clientReportReq?.also {
-                                it.clientId = mClientList[binding.includeClientLayout.spinner.selectedItemPosition.minus(1)].id
-                                it.salescenterId = mSalesCenterList[binding.includeSalesCenterLayout.spinner.selectedItemPosition.minus(1)].id
-                                it.fromDate = output.format(input.parse(binding.includeDateOfSubmissionStartDateLayout.editDatePicker.value))
-                                it.toDate = output.format(input.parse(binding.includeDateOfSubmissionEndDateLayout.editDatePicker.value))
-                                if (binding.includeDateOfVerificationStartDateLayout.editDatePicker.value.isNotEmpty()
-                                        &&
-                                        binding.includeDateOfVerificationEndDateLayout.editDatePicker.value.isNotEmpty()) {
-                                    it.verificationFromDate = output.format(input.parse(binding.includeDateOfVerificationStartDateLayout.editDatePicker.value))
-                                    it.verificationToDate = output.format(input.parse(binding.includeDateOfVerificationEndDateLayout.editDatePicker.value))
-                                }
-
-                            }
-
-                            setRecyclerView(clientReportReq)
-                            dialog.hide()
-                        }
-                        else {
-                            binding.includeSalesCenterLayout.textError.text = ("Please select sales centers")
-                            binding.includeSalesCenterLayout.textError.show()
-                        }
-                    } else {
-                        binding.includeClientLayout.textError.text = ("Please select clients")
-                        binding.includeClientLayout.textError.show()
-                    }*/
                 }
             }
             dialog.show()
@@ -323,7 +290,7 @@ class ClientReportsListingFragment : Fragment() {
 
                 val spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding?.includeSalesCenterLayout?.spinner?.setAdapter(spinnerAdapter)
+                binding?.includeSalesCenterLayout?.spinner?.adapter = spinnerAdapter
                 binding?.progressBarContainer?.hide()
             }
         })
@@ -383,45 +350,21 @@ class ClientReportsListingFragment : Fragment() {
     }
 
     private fun setBottomSheetSortOption() {
-        mListBottoSheet.clear()
-        mListBottoSheet.add(BottomSheetItem("Lead Id", SortByItem.LEADID.value, false))
-        mListBottoSheet.add(BottomSheetItem("Reference Id", SortByItem.REFERENCEID.value, false))
-        mListBottoSheet.add(BottomSheetItem("Alert Status", SortByItem.ALERTSTATUS.value, false))
-        mListBottoSheet.add(BottomSheetItem("Lead Status", SortByItem.LEADSTATUS.value, false))
-        mListBottoSheet.add(BottomSheetItem("Client Name", SortByItem.CLIENTNAME.value, false))
-        mListBottoSheet.add(BottomSheetItem("Salescenter Name", SortByItem.SALESCENTERNAME.value, false))
-        mListBottoSheet.add(BottomSheetItem("Salescenter Location", SortByItem.SALESCENTERLOCATIONADDRESS.value, false))
-        mListBottoSheet.add(BottomSheetItem("Salesagent Name", SortByItem.SALESAGENTNAME.value, false))
-        mListBottoSheet.add(BottomSheetItem("Date Of Submission", SortByItem.DATEOFSUBMISSION.value, false))
-        mListBottoSheet.add(BottomSheetItem("Date Of TPV", SortByItem.DATEOFTPV.value, false))
-        mListBottoSheet.add(BottomSheetItem("Salescenter Location Name", SortByItem.SALESCENTERLOCATIONNAME.value, false))
+        mListSortBy.clear()
+        mListSortBy.add(BottomSheetItem(getString(R.string.lead_id), SortByItem.LEADID.value, false))
+        mListSortBy.add(BottomSheetItem(getString(R.string.reference_id), SortByItem.REFERENCEID.value, false))
+        mListSortBy.add(BottomSheetItem(getString(R.string.alert_status), SortByItem.ALERTSTATUS.value, false))
+        mListSortBy.add(BottomSheetItem(getString(R.string.lead_status), SortByItem.LEADSTATUS.value, false))
+        mListSortBy.add(BottomSheetItem(getString(R.string.client_name), SortByItem.CLIENTNAME.value, false))
+        mListSortBy.add(BottomSheetItem(getString(R.string.salescenter_name), SortByItem.SALESCENTERNAME.value, false))
+        mListSortBy.add(BottomSheetItem(getString(R.string.salescenter_location), SortByItem.SALESCENTERLOCATIONADDRESS.value, false))
+        mListSortBy.add(BottomSheetItem(getString(R.string.salesagent_name), SortByItem.SALESAGENTNAME.value, false))
+        mListSortBy.add(BottomSheetItem(getString(R.string.date_of_submission), SortByItem.DATEOFSUBMISSION.value, false))
+        mListSortBy.add(BottomSheetItem(getString(R.string.date_of_tpv), SortByItem.DATEOFTPV.value, false))
+        mListSortBy.add(BottomSheetItem(getString(R.string.salescenter_location_name), SortByItem.SALESCENTERLOCATIONNAME.value, false))
 
-
-        /*mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_ascending), SortByItem.LEADIDASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_id_descending), SortByItem.LEADIDDES.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.reference_id_ascending), SortByItem.REFERENCEIDASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.reference_id_descending), SortByItem.REFERENCEIDDES.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.alert_status_ascending), SortByItem.ALERTSTATUSASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.alert_status_descending), SortByItem.ALERTSTATUSDES.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_status_ascending), SortByItem.LEADSTATUSASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.lead_status_descending), SortByItem.LEADSTATUSDES.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.client_name_ascending), SortByItem.CLIENTNAMEASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.client_name_descending), SortByItem.CLIENTNAMEDES.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_name_ascending), SortByItem.SALESCENTERNAMEASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_name_descending), SortByItem.SALESCENTERNAMEDES.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.salesceneter_location_address_ascending), SortByItem.SALESCENTERLOCATIONADDRESSASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.salesceneter_location_address_descending), SortByItem.SALESCENTERLOCATIONADDRESSDES.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.salesagent_name_ascending), SortByItem.SALESAGENTNAMEASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.salesagent_name_descending), SortByItem.SALESAGENTNAMEDES.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.date_of_submission_ascending), SortByItem.DATEOFSUBMISSIONASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.date_of_submission_descending), SortByItem.DATEOFSUBMISSIONDES.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.date_of_tpv_ascending), SortByItem.DATEOFTPVASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.date_of_tpv_descending), SortByItem.DATEOFTPVDES.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_location_name_ascending), SortByItem.SALESCENTERLOCATIONNAMEASC.value, false))
-        mListBottoSheet.add(BottomSheetItem(getString(R.string.salescenter_location_name_descending), SortByItem.SALESCENTERLOCATIONNAMEDES.value, false))*/
-
-        mListBottoSheet.forEach {
-            if (mLastSelectedSortBy == it.tag) {
+        mListSortBy.forEach {
+            if (mLastSelectedSortByItem == it.tag) {
                 it.isSelected = true
             }
         }
@@ -432,13 +375,13 @@ class ClientReportsListingFragment : Fragment() {
 
         context?.let {
 
-            binding.switchSortBy.isChecked = switchIsOn
+            binding.switchSortBy.isChecked = isSortByAsc
 
             binding.switchSortBy.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-               override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                     // do something, the isChecked will be
                     // true if the switch is in the On position
-                   switchIsOn = isChecked
+                    isSortByAsc = isChecked
                 }
             })
 
@@ -446,7 +389,7 @@ class ClientReportsListingFragment : Fragment() {
             dialog.setContentView(binding.root)
             binding.item = getString(R.string.sort_by)
 
-            mListBottoSheet.forEach {
+            mListSortBy.forEach {
 
                 val bindingBottomSheet = DataBindingUtil.inflate<ItemBottomSheetBinding>(layoutInflater,
                         R.layout.item_bottom_sheet,
@@ -454,24 +397,24 @@ class ClientReportsListingFragment : Fragment() {
                         true)
 
                 bindingBottomSheet.item = it
-                if (it.tag == mLastSelectedSortBy) {
+                if (it.tag == mLastSelectedSortByItem) {
                     bindingBottomSheet.radioContainer.isChecked = true
                 }
 
                 bindingBottomSheet.radioContainer.onClick {
-                    mLastSelectedSortBy = bindingBottomSheet.item?.tag.toString()
-                    mListBottoSheet.forEach {
+                    mLastSelectedSortByItem = bindingBottomSheet.item?.tag.toString()
+                    mListSortBy.forEach {
                         it?.isSelected = it.tag == bindingBottomSheet.item?.tag
                     }
 
                     val tempList = bindingBottomSheet.item?.tag?.split("_")
 
-                    clientReportReq?.also {
+                    mViewModel.clientReportReq?.also {
                         it.sortBy = bindingBottomSheet.item?.tag
-                      //  it.sortOrder = tempList?.get(tempList.lastIndex)
+                        //  it.sortOrder = tempList?.get(tempList.lastIndex)
                         it.sortOrder = if (binding.switchSortBy.isChecked) "desc" else "asc"
                     }
-                    setRecyclerView(clientReportReq)
+                    setRecyclerView()
                     dialog.dismiss()
                 }
 
@@ -500,26 +443,25 @@ class ClientReportsListingFragment : Fragment() {
             it?.ifSuccess { list ->
                 mSalesCenterList.addAll(list.orEmpty())
 
-                val c = Calendar.getInstance()  // this takes current date
-                c.set(Calendar.DAY_OF_MONTH, 1)
+                if (mViewModel.clientReportReq == null) {
+                    val c = Calendar.getInstance()  // this takes current date
+                    c.set(Calendar.DAY_OF_MONTH, 1)
+                    mViewModel.clientReportReq = ClientReportReq(
+                            fromDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(c.time)
+                            , toDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(Calendar.getInstance().time)
+                            , sortBy = mLastSelectedSortByItem
+                            , sortOrder = if (isSortByAsc) AppConstant.DESC else AppConstant.ASC
+                    )
+                }
 
-                val tempList = mLastSelectedSortBy
-
-                clientReportReq =
-                        ClientReportReq(
-                                fromDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(c.time),
-                                toDate = SimpleDateFormat(AppConstant.DATEFORMATE1).format(Calendar.getInstance().time),
-                                sortBy = mLastSelectedSortBy,
-                                sortOrder = if (switchIsOn) "desc" else "asc"
-                        )
-                setRecyclerView(clientReportReq)
+                setRecyclerView()
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
 
-    private fun setRecyclerView(clientReportReq: ClientReportReq?) {
+    private fun setRecyclerView() {
         mViewModel.clearList()
         mBinding.listReports.adapter = null
         mBinding.listReports.clearOnScrollListeners()
@@ -539,7 +481,7 @@ class ClientReportsListingFragment : Fragment() {
                 .into(mBinding.listReports)
 
         mBinding.listReports.setPagination(mViewModel.criticalAlertReportsPaginatedResourceLiveData) { page ->
-            mViewModel.getReportsList(clientReportReq, page)
+            mViewModel.getReportsList(page)
         }
     }
 

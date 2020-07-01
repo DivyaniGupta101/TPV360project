@@ -95,7 +95,7 @@
 
                     <TextView
                         style="@style/SecondaryNormalSmallText"
-                        android:text="@string/date_of_tpv" />
+                        android:text="@string/date_of_tpv_colon" />
 
                     <TextView
                         style="@style/PrimaryNormalSmallText"
@@ -133,7 +133,7 @@
 
                     <TextView
                         style="@style/SecondaryNormalSmallText"
-                        android:text="@string/alert_status" />
+                        android:text="@string/alert_status_colon" />
 
                     <TextView
                         style="@style/PrimaryNormalSmallText"

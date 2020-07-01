@@ -121,8 +121,8 @@
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryBoldText"
                 android:layout_width="wrap_content"
-                android:text="@string/lead_status"
-                tools:text="@string/lead_status" />
+                android:text="@string/lead_status_colon"
+                tools:text="@string/lead_status_colon" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/PrimaryNormalText"

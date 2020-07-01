@@ -140,8 +140,8 @@
     <string name="channel_colon">Channel : </string>
     <string name="sales_center_colon">Sales Center : </string>
     <string name="sales_center_location_colon">Sales Center Location : </string>
-    <string name="alert_status">Alert Status :</string>
-    <string name="date_of_tpv">Date of TPV : </string>
+    <string name="alert_status_colon">Alert Status :</string>
+    <string name="date_of_tpv_colon">Date of TPV : </string>
     <string name="unicode_dot">&#160;&#160;\u25CF&#160;&#160;</string>
     <string name="dollar">$</string>
     <string name="english">English</string>
@@ -154,7 +154,7 @@
     <string name="remark">Remark :</string>
     <string name="date_and_time">Date &amp; Time : </string>
     <string name="sales_agent">Sales Agent : </string>
-    <string name="lead_status">Lead Status : </string>
+    <string name="lead_status_colon">Lead Status : </string>
     <string name="related_lead">Related Lead : </string>
     <string name="lead_id_colon">Lead Id : </string>
     <string name="sort_by">Sort By</string>
@@ -288,6 +288,17 @@
     <string name="salescenter_location_name_descending">Salescenter Location Name Descending</string>
     <string name="search_here">Search here...</string>
     <string name="critical_alert_report">Critical Alert Report</string>
+    <string name="lead_id">Lead Id</string>
+    <string name="reference_id">Reference Id</string>
+    <string name="alert_status">Alert Status</string>
+    <string name="lead_status">Lead Status</string>
+    <string name="salescenter_name">Salescenter Name</string>
+    <string name="salescenter_location">Salescenter Location</string>
+    <string name="salesagent_name">Salesagent Name</string>
+    <string name="date_of_tpv">Date Of TPV</string>
+    <string name="salescenter_location_name">Salescenter Location Name</string>
+    <string name="showing_results_for">Showing results for</string>
+    <string name="no_reports_available">No Reports Available</string>
 
 
 </resources>
