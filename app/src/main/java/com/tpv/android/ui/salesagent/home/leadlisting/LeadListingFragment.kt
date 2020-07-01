@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
@@ -62,6 +63,8 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
         if (mViewModel.mLastSelectedStatus.isNullOrEmpty()) {
             mViewModel.mLastSelectedStatus = arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item
         }
+
+        mListBottoSheet.clear()
         mListBottoSheet.add(BottomSheetItem(getString(R.string.pending),
                 LeadStatus.PENDING.value, false))
         mListBottoSheet.add(
@@ -76,6 +79,10 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
         mListBottoSheet.add(
                 BottomSheetItem(getString(R.string.cancelled),
                         LeadStatus.CANCELLED.value, false)
+        )
+        mListBottoSheet?.add(
+                BottomSheetItem(getString(R.string.expired),
+                        LeadStatus.EXPIRED.value, false)
         )
         mListBottoSheet?.forEach {
             if (it.tag == mViewModel.mLastSelectedStatus) {
@@ -94,6 +101,7 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
 
         val binding = DataBindingUtil.inflate<BottomSheetBinding>(layoutInflater, R.layout.bottom_sheet, null, false)
 
+        binding.filterContainer.hide()
         context?.let {
 
             val dialog = BottomSheetDialog(it)
@@ -156,6 +164,10 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
             LeadStatus.CANCELLED.value -> {
                 toolBarTitle = getString(R.string.cancelled_leads)
                 mBinding.textStatus.text = getString(R.string.cancelled)
+            }
+            LeadStatus.EXPIRED.value -> {
+                toolBarTitle = getString(R.string.expired_leads)
+                mBinding.textStatus.text = getString(R.string.expired)
             }
         }
         setupToolbar(mBinding.toolbar, toolBarTitle, showMenuIcon = false, showBackIcon = true, backIconClickListener = {

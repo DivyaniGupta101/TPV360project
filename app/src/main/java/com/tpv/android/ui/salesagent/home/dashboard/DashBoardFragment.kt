@@ -89,6 +89,13 @@ class DashBoardFragment : Fragment() {
                     ))
         }
 
+        mBinding.includeItemDashboardExpired.mainContainer.onClick {
+            mNavController.navigateSafe(DashBoardFragmentDirections
+                    .actionDashBoardFragmentToLeadListingFragment(
+                            mBinding.includeItemDashboardExpired.item?.statusType.orEmpty()
+                    ))
+        }
+
         mBinding.imageEnroll.onClick {
             mNavController.navigateSafe(R.id.action_global_commodityFragment)
         }

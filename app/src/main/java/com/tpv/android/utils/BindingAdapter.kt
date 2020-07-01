@@ -22,6 +22,7 @@ import com.tpv.android.helper.formatDate
 import com.tpv.android.network.error.ErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.utils.enums.ClientLeadStatus
 import com.tpv.android.utils.enums.LeadStatus
 import com.tpv.android.utils.textdrawable.TextDrawable
 import java.text.SimpleDateFormat
@@ -104,6 +105,33 @@ object BindingAdapter {
                 textView.setTextColor(context.color(R.color.colorCancelledText))
             }
             LeadStatus.EXPIRED.value -> {
+                textView.text = context?.getString(R.string.expired)
+                textView.setTextColor(context.color(R.color.colorSecondaryDarkText))
+            }
+            ClientLeadStatus.PENDING.value -> {
+                textView.text = context?.getString(R.string.pending)
+                textView.setTextColor(context.color(R.color.colorPendingText))
+            }
+            ClientLeadStatus.VERIFIED.value -> {
+                textView.text = context?.getString(R.string.verified)
+                textView.setTextColor(context.color(R.color.colorVerifiedText))
+            }
+
+            ClientLeadStatus.DECLINED.value -> {
+                textView.text = context?.getString(R.string.declined)
+                textView.setTextColor(context.color(R.color.colorDeclinedText))
+            }
+
+            ClientLeadStatus.DISCONNECTED.value -> {
+                textView.text = context?.getString(R.string.disconnected)
+                textView.setTextColor(context.color(R.color.colorDisconnectedText))
+            }
+
+            ClientLeadStatus.CANCELLED.value -> {
+                textView.text = context?.getString(R.string.cancelled)
+                textView.setTextColor(context.color(R.color.colorCancelledText))
+            }
+            ClientLeadStatus.EXPIRED.value -> {
                 textView.text = context?.getString(R.string.expired)
                 textView.setTextColor(context.color(R.color.colorSecondaryDarkText))
             }
@@ -400,11 +428,11 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("reportData")
     fun reportTextData(textView: TextView, data: String?) {
-       if (data.isNullOrEmpty()){
-           textView.setText(" " + " - ")
-       }else{
-           textView.setText(" " + data)
-       }
+        if (data.isNullOrEmpty()) {
+            textView.setText(" " + " - ")
+        } else {
+            textView.setText(" " + data)
+        }
     }
 }
 

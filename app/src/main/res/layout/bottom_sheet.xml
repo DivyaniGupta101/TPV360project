@@ -24,38 +24,44 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
             android:paddingStart="@dimen/_16sdp"
-            android:paddingTop="@dimen/_16sdp"
-            android:orientation="horizontal">
+            android:paddingTop="@dimen/_16sdp">
 
             <TextView
                 style="@style/SecondaryNormalText"
-                android:text="@{item}"
                 android:layout_weight="1"
+                android:text="@{item}"
                 android:textAllCaps="true"
                 android:textColor="@color/colorTertiaryText"
                 tools:text="@string/leads_status" />
 
-            <TextView
-                style="@style/PrimaryNormalText"
+            <LinearLayout
+                android:id="@+id/filterContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="A to Z" />
+                android:orientation="horizontal">
 
-            <Switch
-                android:id="@+id/switchSortBy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginEnd="@dimen/_2sdp" />
+                <TextView
+                    style="@style/PrimaryNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A to Z" />
 
-            <TextView
-                style="@style/PrimaryNormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:text="Z to A" />
+                <Switch
+                    android:id="@+id/switchSortBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_2sdp" />
 
+                <TextView
+                    style="@style/PrimaryNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:text="Z to A" />
+            </LinearLayout>
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
