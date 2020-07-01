@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
-import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.text.TextUtils
@@ -204,7 +203,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 agentLng = lng,
                 formId = mViewModel.planId,
                 fields = mViewModel.dynamicFormData,
-                geoLocationSettingOn = AppConstant.GEO_LOCATION_ENABLE,
+                geoLocationSettingOn = AppConstant.CURRENT_GEO_LOCATION,
                 other = OtherData(programId = TextUtils.join(",", mViewModel.programList.map { it.id }),
                         zipcode = mViewModel.zipcode)))
         liveData.observe(this, Observer {
@@ -509,62 +508,10 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             } else {
                 if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
                     validateCustomerDataApiCall(mViewModel.location?.latitude, mViewModel.location?.longitude)
-//                    checkRadius(mViewModel.location?.latitude, mViewModel.location?.longitude)
                 } else {
                     context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
                 }
             }
-        }
-    }
-
-    private fun checkRadius(latitude: Double?, longitude: Double?) {
-        if (AppConstant.GEO_LOCATION_ENABLE) {
-            try {
-                var lat = ""
-                var lng = ""
-                val result = FloatArray(1)
-                val response = mViewModel.dynamicFormData.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
-                when (response?.type) {
-                    DynamicField.ADDRESS.type -> {
-                        lat = response.values.get(AppConstant.LAT) as String
-                        lng = response.values.get(AppConstant.LNG) as String
-                    }
-                    DynamicField.BOTHADDRESS.type -> {
-                        lat = response.values.get(AppConstant.SERVICELAT) as String
-                        lng = response.values.get(AppConstant.SERVICELNG) as String
-                    }
-
-                }
-
-                Location.distanceBetween(lat.toDouble().orZero(),
-                        lng.toDouble().orZero(),
-                        latitude.orZero(), longitude.orZero(), result)
-
-                if (result.isNotEmpty()) {
-                    if (result[0] <= AppConstant.GEO_LOCATION_RADIOUS.toFloat()) {
-                        navigateNext()
-                    } else {
-                        context?.infoDialog(subTitleText = getString(R.string.msg_zipcode_not_match), setOnButtonClickListener = {
-
-                            var liveData: LiveData<Resource<Any?, APIError>>? = null
-                            liveData = mViewModel
-                                    .cancelLeadDetail(mViewModel.leadvelidationError?.leadTempId
-                                            ?: "0")
-                            liveData.observe(this@DynamicFormFragment, Observer {
-                                it?.ifSuccess {
-                                    mViewModel.clearSavedData()
-                                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_dashBoardFragment)
-                                }
-                            })
-
-                            mBinding.leadValidationResource = liveData as LiveData<Resource<Any, APIError>>
-                        })
-                    }
-                }
-            } catch (e: IllegalArgumentException) {
-            }
-        } else {
-            navigateNext()
         }
     }
 
@@ -594,10 +541,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 for (i in 1..3) {
                     mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
                     count += 1
-                    if (mViewModel.location != null) {
-                        checkRadius(mViewModel.location?.latitude, mViewModel.location?.longitude)
-                        break
-                    } else {
+                    if (mViewModel.location == null) {
                         if (count < 3) {
                             delay(500)
                         } else {

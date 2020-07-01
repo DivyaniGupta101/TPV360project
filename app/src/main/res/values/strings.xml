@@ -299,6 +299,7 @@
     <string name="salescenter_location_name">Salescenter Location Name</string>
     <string name="showing_results_for">Showing results for</string>
     <string name="no_reports_available">No Reports Available</string>
+    <string name="use_primary_address_as_current_location">Use primary address as current location</string>
 
 
 </resources>

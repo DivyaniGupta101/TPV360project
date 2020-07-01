@@ -21,7 +21,6 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
 
-        mBinding.switchLocationGeo.isChecked = AppConstant.GEO_LOCATION_ENABLE
         mBinding.switchLocation.isChecked = AppConstant.CURRENT_GEO_LOCATION
 
         mBinding.toolbar.textToolbarTitle.setText(getText(R.string.setting))
@@ -37,7 +36,6 @@ class SettingsActivity : AppCompatActivity() {
             if (mBinding.editLocationRadius.value.isNotEmpty()) {
                 AppConstant.GEO_LOCATION_RADIOUS = mBinding.editLocationRadius.value
             }
-            AppConstant.GEO_LOCATION_ENABLE = mBinding.switchLocationGeo.isChecked
             AppConstant.CURRENT_GEO_LOCATION = mBinding.switchLocation.isChecked
             finish()
         }
