@@ -213,7 +213,7 @@
     <string name="power_of_attorney">Power of Attorney</string>
     <string name="family_member">Family Member</string>
     <string name="other">Other</string>
-    <string name="msg_client_info">"Please review and confirm the information below is accurate..</string>
+    <string name="msg_client_info">Please review and confirm the information below is accurate.</string>
     <string name="msg_recording">I give authorization to record our conversation.</string>
     <string name="msg_forgot_password">Enter your mail address above and we will send you reset link on your mail.</string>
     <string name="tap_to_open">Tap to open</string>
