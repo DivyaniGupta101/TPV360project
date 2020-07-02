@@ -139,7 +139,9 @@
     <style name="FabButton">
         <item name="android:layout_width">@dimen/_38sdp</item>
         <item name="android:layout_height">@dimen/_38sdp</item>
-        <item name="android:layout_margin">@dimen/_16sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_16sdp</item>
+        <item name="android:layout_marginBottom">@dimen/_16sdp</item>
+        <item name="android:layout_marginStart">@dimen/_16sdp</item>
         <item name="android:padding">@dimen/_10sdp</item>
     </style>
 
