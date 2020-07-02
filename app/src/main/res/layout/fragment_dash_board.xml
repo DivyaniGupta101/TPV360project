@@ -31,23 +31,24 @@
 
     </data>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <FrameLayout
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorScreenBg">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorScreenBg">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <include
-                    android:id="@+id/toolbar"
-                    layout="@layout/toolbar" />
+                android:layout_height="match_parent">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -150,16 +151,16 @@
 
 
                 </FrameLayout>
+            </ScrollView>
 
-            </LinearLayout>
+        </LinearLayout>
 
-            <include
-                android:id="@+id/incProgressBar"
-                layout="@layout/progress_bar"
-                app:errorHandler="@{errorHandler}"
-                app:resource="@{resource}"
-                app:useBlockingProgress="@{true}"
-                tools:visibility="visible" />
-        </FrameLayout>
-    </ScrollView>
+        <include
+            android:id="@+id/incProgressBar"
+            layout="@layout/progress_bar"
+            app:errorHandler="@{errorHandler}"
+            app:resource="@{resource}"
+            app:useBlockingProgress="@{true}"
+            tools:visibility="visible" />
+    </FrameLayout>
 </layout>
