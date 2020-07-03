@@ -21,8 +21,8 @@ class LeadListingViewModel : CoroutineScopedViewModel() {
     val showEmptyView: LiveData<Boolean> = Transformations.map(leadsLiveData) {
         it?.isEmpty()
     }
-    var mLastSelectedStatus:String?=""
-
+    var mLastSelectedStatus: String? = ""
+    var mLastPosition: Int = 0
 
     fun getLeadList(leadstatus: String?, page: Int? = 1) = with(AppRepository) {
         getLeadsCall(leadsLiveData.value.orEmpty(), LeadReq(leadstatus, page = page))

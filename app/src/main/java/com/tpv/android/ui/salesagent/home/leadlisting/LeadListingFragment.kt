@@ -9,11 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orFalse
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -59,6 +61,7 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
     }
 
     private fun initialize() {
+
 
         if (mViewModel.mLastSelectedStatus.isNullOrEmpty()) {
             mViewModel.mLastSelectedStatus = arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item
@@ -184,9 +187,17 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
         mBinding.paginatedLayout.resource = mViewModel.leadsPaginatedResourceLiveData as LiveData<Resource<Any, APIError>>
         mBinding.paginatedLayout.showEmptyView = mViewModel.showEmptyView
 
+        mViewModel.leadsLiveData.observe(this, Observer {
+            if (it?.isNotEmpty().orFalse()) {
+                mBinding.listLead.scrollToPosition(mViewModel.mLastPosition)
+
+            }
+        })
         LiveAdapter(mViewModel.leadsLiveData, BR.item)
                 .map<LeadResp, ItemLeadListBinding>(R.layout.item_lead_list) {
+
                     onClick {
+                        mViewModel.mLastPosition = it.adapterPosition
                         val id = it.binding.item?.id
                         Navigation.findNavController(mBinding.root).navigateSafe(
                                 LeadListingFragmentDirections.actionLeadListingFragmentToLeadDetailFragment(id.orEmpty()))
