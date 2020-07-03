@@ -22,6 +22,7 @@ class ClientReportsListingViewModel : CoroutineScopedViewModel() {
         it?.isEmpty()
     }
 
+    var mLastPosition: Int = 0
 
     fun getClients() = with(AppRepository) {
         getClientsCall()

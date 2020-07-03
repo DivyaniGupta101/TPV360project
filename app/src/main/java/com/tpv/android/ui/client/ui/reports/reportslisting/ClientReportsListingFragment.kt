@@ -462,6 +462,13 @@ class ClientReportsListingFragment : Fragment() {
 
 
     private fun setRecyclerView() {
+
+        mViewModel.criticalAlertReportsLiveData.observe(this, Observer {
+            if (it?.isNotEmpty().orFalse()) {
+                mBinding.listReports.scrollToPosition(mViewModel.mLastPosition)
+            }
+        })
+
         mViewModel.clearList()
         mBinding.listReports.adapter = null
         mBinding.listReports.clearOnScrollListeners()
@@ -473,6 +480,7 @@ class ClientReportsListingFragment : Fragment() {
         LiveAdapter(mViewModel.criticalAlertReportsLiveData, BR.item)
                 .map<ClientReportResp, ItemClientReportsBinding>(R.layout.item_client_reports) {
                     onClick {
+                        mViewModel.mLastPosition = it.adapterPosition
                         Navigation.findNavController(mBinding.root).navigateSafe(
                                 ClientReportsListingFragmentDirections.actionClientReportsListingFragmentToClientReportsDetailsFragment(it.binding.item?.referenceId.toString())
                         )
