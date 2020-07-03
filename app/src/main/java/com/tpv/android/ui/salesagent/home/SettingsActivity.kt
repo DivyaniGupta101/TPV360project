@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
-import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivitySettingsBinding
 import com.tpv.android.utils.AppConstant
@@ -33,9 +32,6 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         mBinding.btnSubmit.onClick {
-            if (mBinding.editLocationRadius.value.isNotEmpty()) {
-                AppConstant.GEO_LOCATION_RADIOUS = mBinding.editLocationRadius.value
-            }
             AppConstant.CURRENT_GEO_LOCATION = mBinding.switchLocation.isChecked
             finish()
         }
