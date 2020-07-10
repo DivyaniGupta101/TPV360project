@@ -357,7 +357,7 @@ class ClientReportsListingFragment : Fragment() {
         mListSortBy.add(BottomSheetItem(getString(R.string.lead_status), SortByItem.LEADSTATUS.value, false))
         mListSortBy.add(BottomSheetItem(getString(R.string.client_name), SortByItem.CLIENTNAME.value, false))
         mListSortBy.add(BottomSheetItem(getString(R.string.salescenter_name), SortByItem.SALESCENTERNAME.value, false))
-        mListSortBy.add(BottomSheetItem(getString(R.string.salescenter_location), SortByItem.SALESCENTERLOCATIONADDRESS.value, false))
+//        mListSortBy.add(BottomSheetItem(getString(R.string.salescenter_location), SortByItem.SALESCENTERLOCATIONADDRESS.value, false))
         mListSortBy.add(BottomSheetItem(getString(R.string.salesagent_name), SortByItem.SALESAGENTNAME.value, false))
         mListSortBy.add(BottomSheetItem(getString(R.string.date_of_submission), SortByItem.DATEOFSUBMISSION.value, false))
         mListSortBy.add(BottomSheetItem(getString(R.string.date_of_tpv), SortByItem.DATEOFTPV.value, false))
