@@ -28,6 +28,7 @@
 
         <Spinner
             android:id="@+id/spinner"
+            style="@style/DefaultEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_36sdp" />
 
