@@ -351,7 +351,7 @@ class ClientReportsListingFragment : Fragment() {
 
     private fun setBottomSheetSortOption() {
         mListSortBy.clear()
-        mListSortBy.add(BottomSheetItem(getString(R.string.lead_id), SortByItem.LEADID.value, false))
+//        mListSortBy.add(BottomSheetItem(getString(R.string.lead_id), SortByItem.LEADID.value, false))
         mListSortBy.add(BottomSheetItem(getString(R.string.reference_id), SortByItem.REFERENCEID.value, false))
         mListSortBy.add(BottomSheetItem(getString(R.string.alert_status), SortByItem.ALERTSTATUS.value, false))
         mListSortBy.add(BottomSheetItem(getString(R.string.lead_status), SortByItem.LEADSTATUS.value, false))
