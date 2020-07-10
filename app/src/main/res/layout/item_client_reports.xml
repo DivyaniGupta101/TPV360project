@@ -53,6 +53,7 @@
                         android:maxLines="1"
                         android:text="@string/unicode_dot"
                         tools:text="@string/unicode_dot" />
+
                     <TextView
                         style="@style/SecondaryNormalSmallText"
                         android:layout_width="wrap_content"
@@ -60,7 +61,6 @@
                         android:maxLines="1"
                         android:text="@{item.salesagentName}"
                         tools:text="12345006 " />
-
 
 
                 </LinearLayout>
@@ -74,7 +74,8 @@
 
                     <TextView
                         style="@style/PrimaryNormalSmallText"
-                        android:text="@string/date_of_sub_colon" />
+                        android:text="@string/date_of_sub_colon"
+                        android:textColor="@color/colorDarkGray" />
 
                     <TextView
                         style="@style/SecondaryNormalSmallText"
@@ -93,7 +94,8 @@
 
                     <TextView
                         style="@style/PrimaryNormalSmallText"
-                        android:text="@string/date_of_tpv_colon" />
+                        android:text="@string/date_of_tpv_colon"
+                        android:textColor="@color/colorDarkGray" />
 
                     <TextView
                         style="@style/SecondaryNormalSmallText"
@@ -138,6 +140,7 @@
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_weight="1"
                         android:ellipsize="end"
+                        android:textColor="@color/colorDarkGray"
                         app:reportData="@{item.alertStatus}"
                         tools:text="142044" />
 
