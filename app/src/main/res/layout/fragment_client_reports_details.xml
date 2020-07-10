@@ -46,14 +46,14 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    tools:visibility="visible"
-                    android:visibility="gone"
                     android:id="@+id/parentContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingStart="@dimen/_4sdp"
-                    android:paddingEnd="@dimen/_4sdp">
+                    android:paddingEnd="@dimen/_4sdp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -67,13 +67,13 @@
                         android:paddingEnd="@dimen/_8sdp">
 
                         <TextView
-                            style="@style/PrimaryBoldText"
+                            style="@style/PrimaryBoldSmallText"
                             android:layout_width="wrap_content"
                             android:text="@string/lead_id_colon"
                             app:autoSizeTextType="uniform" />
 
                         <TextView
-                            style="@style/PrimaryNormalText"
+                            style="@style/PrimaryBoldSmallText"
                             android:layout_width="match_parent"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_weight="1"
@@ -84,8 +84,8 @@
                             style="@style/PrimaryNormalSmallText"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:textStyle="bold"
                             android:text="@{item.leadData.status}"
+                            android:textStyle="bold"
                             app:leadStatus="@{item.leadData.status}"
                             tools:text="142044" />
                     </LinearLayout>
@@ -102,13 +102,13 @@
                         android:paddingEnd="@dimen/_8sdp">
 
                         <TextView
-                            style="@style/PrimaryBoldText"
+                            style="@style/PrimaryBoldSmallText"
                             android:layout_width="wrap_content"
                             android:text="@string/lead_submission_on_colon"
                             app:autoSizeTextType="uniform" />
 
                         <TextView
-                            style="@style/PrimaryNormalText"
+                            style="@style/PrimaryBoldSmallText"
                             android:layout_width="match_parent"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:text="@{item.leadData.leadSubmissionOn}"
@@ -127,13 +127,13 @@
                         android:paddingEnd="@dimen/_8sdp">
 
                         <TextView
-                            style="@style/PrimaryBoldText"
+                            style="@style/PrimaryBoldSmallText"
                             android:layout_width="wrap_content"
                             android:text="@string/lead_updated_on_colon"
                             app:autoSizeTextType="uniform" />
 
                         <TextView
-                            style="@style/PrimaryNormalText"
+                            style="@style/PrimaryBoldSmallText"
                             android:layout_width="match_parent"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:text="@{item.leadData.lastUpdatedOn}"
@@ -163,13 +163,13 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/PrimaryBoldText"
+                                    style="@style/PrimaryBoldSmallText"
                                     android:layout_width="wrap_content"
                                     android:text="@string/agent"
                                     app:autoSizeTextType="uniform" />
 
                                 <TextView
-                                    style="@style/PrimaryNormalText"
+                                    style="@style/PrimaryNormalSmallText"
                                     android:layout_width="match_parent"
                                     android:layout_marginStart="@dimen/_8sdp"
                                     android:text="@{item.salesAgent.salesagentName}"
@@ -184,13 +184,13 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/PrimaryBoldText"
+                                    style="@style/PrimaryBoldSmallText"
                                     android:layout_width="wrap_content"
                                     android:text="@string/id_colon"
                                     app:autoSizeTextType="uniform" />
 
                                 <TextView
-                                    style="@style/PrimaryNormalText"
+                                    style="@style/PrimaryNormalSmallText"
                                     android:layout_width="match_parent"
                                     android:layout_marginStart="@dimen/_8sdp"
                                     android:text="@{item.salesAgent.id}"
@@ -205,13 +205,13 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/PrimaryBoldText"
+                                    style="@style/PrimaryBoldSmallText"
                                     android:layout_width="wrap_content"
                                     android:text="@string/email_colon"
                                     app:autoSizeTextType="uniform" />
 
                                 <TextView
-                                    style="@style/PrimaryNormalText"
+                                    style="@style/PrimaryNormalSmallText"
                                     android:layout_width="match_parent"
                                     android:layout_marginStart="@dimen/_8sdp"
                                     android:text="@{item.salesAgent.email}"
@@ -245,13 +245,13 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/PrimaryBoldText"
+                                    style="@style/PrimaryBoldSmallText"
                                     android:layout_width="wrap_content"
                                     android:text="@string/client_colon"
                                     app:autoSizeTextType="uniform" />
 
                                 <TextView
-                                    style="@style/PrimaryNormalText"
+                                    style="@style/PrimaryNormalSmallText"
                                     android:layout_width="match_parent"
                                     android:layout_marginStart="@dimen/_8sdp"
                                     android:text="@{item.salesAgent.clientName}"
@@ -266,13 +266,13 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/PrimaryBoldText"
+                                    style="@style/PrimaryBoldSmallText"
                                     android:layout_width="wrap_content"
                                     android:text="@string/sales_center_colon"
                                     app:autoSizeTextType="uniform" />
 
                                 <TextView
-                                    style="@style/PrimaryNormalText"
+                                    style="@style/PrimaryNormalSmallText"
                                     android:layout_width="match_parent"
                                     android:layout_marginStart="@dimen/_8sdp"
                                     android:text="@{item.salesAgent.salescenterName}"
@@ -287,13 +287,13 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/PrimaryBoldText"
+                                    style="@style/PrimaryBoldSmallText"
                                     android:layout_width="wrap_content"
                                     android:text="@string/sales_center_location_colon"
                                     app:autoSizeTextType="uniform" />
 
                                 <TextView
-                                    style="@style/PrimaryNormalText"
+                                    style="@style/PrimaryNormalSmallText"
                                     android:layout_width="match_parent"
                                     android:layout_marginStart="@dimen/_8sdp"
                                     android:text="@{item.salesAgent.salescenterLocationName}"
@@ -308,13 +308,13 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    style="@style/PrimaryBoldText"
+                                    style="@style/PrimaryBoldSmallText"
                                     android:layout_width="wrap_content"
                                     android:text="@string/channel_colon"
                                     app:autoSizeTextType="uniform" />
 
                                 <TextView
-                                    style="@style/PrimaryNormalText"
+                                    style="@style/PrimaryNormalSmallText"
                                     android:layout_width="match_parent"
                                     android:layout_marginStart="@dimen/_8sdp"
                                     android:text="@{item.salesAgent.agentType}"

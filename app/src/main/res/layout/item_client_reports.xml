@@ -34,37 +34,35 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
                         style="@style/PrimaryNormalSmallText"
-                        android:layout_width="match_parent"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{item.referenceId + @string/unicode_dot + item.salesagentName}"
+                        android:text="@{item.referenceId}"
                         tools:text="12345006 " />
 
 
-                    <!--                    <TextView-->
-                    <!--                        style="@style/PrimaryBoldText"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_weight="1"-->
-                    <!--                        android:ellipsize="end"-->
-                    <!--                        android:maxLines="1"-->
-                    <!--                        android:text="@string/unicode_dot"-->
-                    <!--                        tools:text="@string/unicode_dot" />-->
+                    <TextView
+                        style="@style/PrimaryNormalText"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/unicode_dot"
+                        tools:text="@string/unicode_dot" />
+                    <TextView
+                        style="@style/SecondaryNormalSmallText"
+                        android:layout_width="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{item.salesagentName}"
+                        tools:text="12345006 " />
 
-                    <!--                    <TextView-->
-                    <!--                        style="@style/PrimaryNormalText"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_weight="1"-->
-                    <!--                        android:ellipsize="end"-->
-                    <!--                        android:maxLines="1"-->
-                    <!--                        android:text="@{item.salesagentName}"-->
-                    <!--                        tools:text="Masni Kanani " />-->
+
+
                 </LinearLayout>
 
 
@@ -75,11 +73,11 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/SecondaryNormalSmallText"
+                        style="@style/PrimaryNormalSmallText"
                         android:text="@string/date_of_sub_colon" />
 
                     <TextView
-                        style="@style/PrimaryNormalSmallText"
+                        style="@style/SecondaryNormalSmallText"
                         android:layout_weight="2"
                         android:ellipsize="end"
                         android:maxLines="1"
@@ -94,11 +92,11 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/SecondaryNormalSmallText"
+                        style="@style/PrimaryNormalSmallText"
                         android:text="@string/date_of_tpv_colon" />
 
                     <TextView
-                        style="@style/PrimaryNormalSmallText"
+                        style="@style/SecondaryNormalSmallText"
                         android:layout_weight="2"
                         android:ellipsize="end"
                         android:maxLines="1"
@@ -132,11 +130,11 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/SecondaryNormalSmallText"
+                        style="@style/PrimaryNormalSmallText"
                         android:text="@string/alert_status_colon" />
 
                     <TextView
-                        style="@style/PrimaryNormalSmallText"
+                        style="@style/SecondaryNormalSmallText"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_weight="1"
                         android:ellipsize="end"
@@ -147,8 +145,8 @@
                         style="@style/PrimaryNormalSmallText"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textStyle="bold"
                         android:text="@{item.leadStatus}"
+                        android:textStyle="bold"
                         app:leadStatus="@{item.leadStatus}"
                         tools:text="142044" />
                 </LinearLayout>

@@ -29,6 +29,15 @@
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
     </style>
 
+    <!-- Small Bold-->
+    <style name="PrimaryBoldSmallText" parent="PrimaryNormalSmallText">
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+    </style>
+
+    <style name="SecondaryBoldSmallText" parent="SecondaryNormalSmallText">
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+    </style>
+
 
     <!--    Big Bold-->
     <style name="PrimaryBigBoldText" parent="PrimaryBoldText">
