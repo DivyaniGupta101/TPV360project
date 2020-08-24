@@ -47,7 +47,7 @@
                         <TextView
                             style="@style/SecondaryNormalSmallText"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_weight="1.5"
                             android:text="@string/id" />
 
                         <TextView
@@ -70,7 +70,7 @@
                         <TextView
                             style="@style/SecondaryNormalSmallText"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_weight="1.5"
                             android:text="@string/date" />
 
                         <TextView
@@ -93,7 +93,7 @@
                         <TextView
                             style="@style/SecondaryNormalSmallText"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_weight="1.5"
                             android:text="@string/time" />
 
                         <TextView
@@ -116,7 +116,7 @@
                         <TextView
                             style="@style/SecondaryNormalSmallText"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_weight="1.5"
                             android:text="@{@string/utility + ':'}"
                             tools:text="@string/utility" />
 
@@ -140,7 +140,7 @@
                         <TextView
                             style="@style/SecondaryNormalSmallText"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_weight="1.5"
                             android:text="@{@string/commodity + ':'}"
                             tools:text="@string/commodity" />
 
@@ -164,7 +164,7 @@
                         <TextView
                             style="@style/SecondaryNormalSmallText"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_weight="1.5"
                             android:text="@{@string/city + ':'}"
                             tools:text="@string/city" />
 
