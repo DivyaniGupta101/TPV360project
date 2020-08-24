@@ -21,6 +21,7 @@
             style="@style/TertiaryBoldTextWithTopSpacing"
             android:text="@{item}"
             android:textAllCaps="true"
+            android:textSize="@dimen/_16sdp"
             app:visibleIf="@{!TextUtils.isEmpty(item)}"
             tools:text="Full name" />
 
