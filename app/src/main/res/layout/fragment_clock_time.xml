@@ -64,20 +64,80 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textTimer"
-                        style="@style/PrimaryBigNormalText"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_16sdp"
-                        tools:text="1:00:25" />
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textHours"
+                                style="@style/PrimaryBigNormalText"
+                                android:layout_width="wrap_content" />
+
+                            <TextView
+                                style="@style/PrimaryNormalSmallText"
+                                android:layout_width="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="Hours" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textMinute"
+                                style="@style/PrimaryBigNormalText"
+                                android:layout_width="wrap_content" />
+
+                            <TextView
+                                style="@style/PrimaryNormalSmallText"
+                                android:layout_width="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="Minute" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textSecond"
+                                style="@style/PrimaryBigNormalText"
+                                android:layout_width="wrap_content" />
+
+                            <TextView
+                                style="@style/PrimaryNormalSmallText"
+                                android:layout_width="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="Second" />
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <TextView
                         style="@style/PrimaryBoldText"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:maxLines="1"
                         android:text="@{item.currentStatus}"
-                        tools:text="working"/>
+                        tools:text="working" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

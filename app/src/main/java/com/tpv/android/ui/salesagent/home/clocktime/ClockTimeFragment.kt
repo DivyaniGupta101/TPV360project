@@ -298,10 +298,12 @@ class ClockTimeFragment : Fragment() {
                 val minutes = seconds % 3600 / 60
                 val secs = seconds % 60
 
-
-                mBinding.textTimer.text = String.format(Locale.getDefault(),
-                        "%d:%02d:%02d", hours,
-                        minutes, secs)
+                mBinding.textHours.text = String.format(Locale.getDefault(),
+                        "%02d : ", hours)
+                mBinding.textMinute.text = String.format(Locale.getDefault(),
+                        "%02d : ", minutes)
+                mBinding.textSecond.text = String.format(Locale.getDefault(),
+                        "%02d", secs)
 
                 if (running) {
                     seconds++;
