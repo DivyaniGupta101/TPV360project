@@ -165,7 +165,7 @@
                         android:layout_marginEnd="0dp"
                         android:background="@drawable/button_background_state"
                         android:enabled="false"
-                        android:text="@string/next" />
+                        android:text="@string/submit" />
                 </LinearLayout>
             </ScrollView>
 
