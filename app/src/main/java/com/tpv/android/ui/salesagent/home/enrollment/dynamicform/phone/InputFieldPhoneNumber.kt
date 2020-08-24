@@ -25,6 +25,7 @@ import com.tpv.android.model.network.VerifyOTPReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
+import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
@@ -186,7 +187,7 @@ private fun Context.otpDialog(bindingDynamicForm: FragmentDynamicFormBinding,
             R.layout.dialog_otp, null, false)
 
     binding.lifecycleOwner = bindingDynamicForm.lifecycleOwner
-    binding.errorHandler = AlertErrorHandler(binding.root)
+//    binding.errorHandler = AlertErrorHandler(binding.root)
 
     binding.item = DialogText(getString(R.string.enter_otp),
             getString(R.string.resend_otp), getString(R.string.submit), getString(R.string.cancel))
@@ -206,6 +207,7 @@ private fun Context.otpDialog(bindingDynamicForm: FragmentDynamicFormBinding,
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             //Only submit button enable while otp number fill
             binding.btnSubmit.isEnabled = (start == 5 && count == 1)
+            binding.textError.hide()
         }
     })
 
@@ -249,6 +251,9 @@ private fun Context.verifyOTPApiCall(bindingInputPhone: LayoutInputPhoneNumberBi
 
                 context.handleVerifiedText(bindingInputPhone, false)
                 context.hideKeyBoard()
+            }
+            it.ifFailure { throwable, errorData ->
+                bindingOtpDialog.textError.show()
             }
         })
     }

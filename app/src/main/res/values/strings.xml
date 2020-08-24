@@ -253,6 +253,7 @@
     <string name="high">High</string>
     <string name="urgent">Urgent</string>
     <string name="priority">Priority</string>
+    <string name="invalid_otp">Invalid authentication code. Please try again.</string>
     <string name="select_verification_method">Select Verification Method</string>
     <string name="select_language">Select Language</string>
     <string name="sms">SMS</string>

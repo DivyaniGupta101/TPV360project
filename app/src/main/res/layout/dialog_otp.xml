@@ -83,6 +83,16 @@
                             app:lineWidth="@dimen/_2sdp"
                             app:viewType="line" />
 
+                        <TextView
+                            android:id="@+id/textError"
+                            style="@style/SecondaryNormalSmallText"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:text="@string/invalid_otp"
+                            android:textColor="@color/colorErrorText"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
 
                         <TextView
                             android:id="@+id/textResendOTP"
