@@ -103,7 +103,7 @@
     <string name="cancelled">Cancelled</string>
     <string name="date">Date:</string>
     <string name="time">Time:</string>
-    <string name="id">Verification ID:</string>
+    <string name="verification_id">Verification ID:</string>
 
     <!--    DashBoard-->
     <string name="pending_leads">Pending Leads</string>
@@ -291,6 +291,7 @@
     <string name="critical_alert_report">Critical Alert Report</string>
     <string name="lead_id">Lead Id</string>
     <string name="reference_id">Reference Id</string>
+    <string name="id">ID</string>
     <string name="alert_status">Alert Status</string>
     <string name="lead_status">Lead Status</string>
     <string name="salescenter_name">Salescenter Name</string>

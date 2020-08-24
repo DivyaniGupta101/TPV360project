@@ -48,7 +48,7 @@
                             style="@style/SecondaryNormalSmallText"
                             android:layout_width="0dp"
                             android:layout_weight="1.5"
-                            android:text="@string/id" />
+                            android:text="@string/verification_id" />
 
                         <TextView
                             style="@style/PrimaryBoldText"

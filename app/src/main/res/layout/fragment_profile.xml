@@ -50,12 +50,15 @@
                 <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textFullName"
                         style="@style/DefaultEditText"
                         android:background="@null"
                         android:enabled="false"
                         android:focusable="false"
-                        android:text="@{item.firstName + ' ' + item.lastName}"
                         android:textColor="@color/colorPrimaryText"
+                        app:primaryValue="@{item.firstName + ' ' + item.lastName}"
+                        app:secondaryText="@{@string/id}"
+                        app:secondaryValue="@{item.userid}"
                         tools:text="Patricia Davidson" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -80,10 +83,11 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+
                 <TextView
                     style="@style/SecondaryNormalText"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/agent_id" />
+                    android:text="@string/client_name" />
 
                 <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
@@ -93,8 +97,10 @@
                         android:enabled="false"
                         android:focusable="false"
                         android:inputType="textEmailAddress"
-                        android:text="@{item.userid}"
                         android:textColor="@color/colorPrimaryText"
+                        app:primaryValue="@{item.clientName}"
+                        app:secondaryText="@{@string/id}"
+                        app:secondaryValue="@{item.clientId}"
                         tools:text="patricia24@gmail.com" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -112,8 +118,10 @@
                         android:enabled="false"
                         android:focusable="false"
                         android:inputType="textEmailAddress"
-                        android:text="@{item.salesCenterName}"
                         android:textColor="@color/colorPrimaryText"
+                        app:primaryValue="@{item.salesCenterName}"
+                        app:secondaryText="@{@string/id}"
+                        app:secondaryValue="@{item.salescenterId}"
                         tools:text="patricia24@gmail.com" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -121,7 +129,9 @@
                 <TextView
                     style="@style/SecondaryNormalText"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/sales_center_id" />
+                    android:text="@string/sales_center_id"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
                 <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
@@ -133,14 +143,18 @@
                         android:inputType="textEmailAddress"
                         android:text="@{item.salescenterId}"
                         android:textColor="@color/colorPrimaryText"
-                        tools:text="patricia24@gmail.com" />
+                        android:visibility="gone"
+                        tools:text="patricia24@gmail.com"
+                        tools:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     style="@style/SecondaryNormalText"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/client_name" />
+                    android:text="@string/agent_id"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
                 <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
@@ -150,9 +164,11 @@
                         android:enabled="false"
                         android:focusable="false"
                         android:inputType="textEmailAddress"
-                        android:text="@{item.clientName}"
+                        android:text="@{item.userid}"
                         android:textColor="@color/colorPrimaryText"
-                        tools:text="patricia24@gmail.com" />
+                        android:visibility="gone"
+                        tools:text="patricia24@gmail.com"
+                        tools:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
