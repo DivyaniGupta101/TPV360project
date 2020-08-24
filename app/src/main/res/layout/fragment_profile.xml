@@ -126,52 +126,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/sales_center_id"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/DefaultEditText"
-                        android:background="@null"
-                        android:enabled="false"
-                        android:focusable="false"
-                        android:inputType="textEmailAddress"
-                        android:text="@{item.salescenterId}"
-                        android:textColor="@color/colorPrimaryText"
-                        android:visibility="gone"
-                        tools:text="patricia24@gmail.com"
-                        tools:visibility="visible" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/agent_id"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/DefaultEditText"
-                        android:background="@null"
-                        android:enabled="false"
-                        android:focusable="false"
-                        android:inputType="textEmailAddress"
-                        android:text="@{item.userid}"
-                        android:textColor="@color/colorPrimaryText"
-                        android:visibility="gone"
-                        tools:text="patricia24@gmail.com"
-                        tools:visibility="visible" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
