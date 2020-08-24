@@ -88,9 +88,16 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
             if (mBinding.checkBoxEmail.isChecked || mBinding.checkBoxPhone.isChecked) {
                 selfVerificationApiCall()
             } else {
-                context.infoDialog(subTitleText = "Please select at least one method of self verification.",
+                context.infoDialog(subTitleText = context?.getString(R.string.please_select_at_least_one_method).orEmpty(),
                         showImageError = true)
             }
+        }
+
+        mBinding.checkBoxEmail.setOnCheckedChangeListener { buttonView, isChecked ->
+            mBinding.btnVerify.background = context?.getDrawable(R.drawable.button_background_state);
+        }
+        mBinding.checkBoxPhone.setOnCheckedChangeListener { buttonView, isChecked ->
+            mBinding.btnVerify.background = context?.getDrawable(R.drawable.button_background_state);
         }
 
         mBinding.btnTPVNOW.onClick {
