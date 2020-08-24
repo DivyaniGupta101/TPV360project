@@ -174,7 +174,7 @@
     <string name="billing_address">Billing Address</string>
     <string name="zip_code">Zip Code</string>
     <string name="ticket_recived_msg">Your ticket has been submitted successfully.</string>
-    <string name="billing_address_msg">Is the billing address same as service address?</string>
+    <string name="billing_address_msg">Is the billing address the same as the service address?</string>
     <string name="service_address">Service Address</string>
     <string name="billing_first_name">Billing First Name</string>
     <string name="billing_middle_name">Billing Middle Name</string>
