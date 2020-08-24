@@ -52,7 +52,7 @@
 
                     <TextView
                         style="@style/PrimaryNormalText"
-                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:text="@{item.title}"
                         tools:text="@string/enter_otp" />
 
@@ -89,7 +89,7 @@
                             style="@style/SecondaryNormalText"
                             android:layout_gravity="end"
                             android:layout_marginTop="@dimen/_4sdp"
-                            android:layout_marginBottom="@dimen/_16sdp"
+                            android:layout_marginBottom="@dimen/_4sdp"
                             android:text="@{item.description}"
                             android:textColor="@color/colorTertiaryText"
                             tools:text="@string/resend_otp" />
