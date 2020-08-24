@@ -151,7 +151,10 @@ class ClientReportsListingFragment : Fragment() {
 
 
             if (mClientList.isNotEmpty()) {
-                val spinnerValueList:ArrayList<String> = ArrayList()
+                val spinnerValueList: ArrayList<String> = ArrayList()
+                if (mClientList.size != 1) {
+                    spinnerValueList.add("All");
+                }
                 spinnerValueList.addAll(mClientList.map { it.name.orEmpty() })
                 binding.includeClientLayout.spinner.setItems(spinnerValueList as ArrayList<String>?)
                 if (mViewModel.clientReportReq?.clientId != "") {
