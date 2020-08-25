@@ -17,6 +17,7 @@ import androidx.navigation.Navigation
 import com.github.gcacace.signaturepad.views.SignaturePad
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
@@ -62,7 +63,7 @@ class StatementFragment : Fragment() {
             mSignImage = mViewModel.signature
             GlideApp.with(this)
                     .asBitmap()
-                    .load(mViewModel.signature)
+                    .load(resizedBitmap())
                     .into(mBinding.imageSign)
 
             mBinding.textTapToOpen.hide()
@@ -223,11 +224,25 @@ class StatementFragment : Fragment() {
             mSignImage = binding.signatureView.transparentSignatureBitmap
             GlideApp.with(context)
                     .asBitmap()
-                    .load(mSignImage)
+                    .load(resizedBitmap())
                     .into(mBinding.imageSign)
             dialog?.dismiss()
             setButtonEnable()
         }
+    }
+
+   private fun resizedBitmap(): Bitmap? {
+        val bm = mSignImage
+        val width = bm?.width.orZero()
+        val height = bm?.height.orZero()
+        val scaleWidth = (width * 3) / width
+        val scaleHeight = (height * 3) / height
+        // create a matrix for the manipulation
+        val matrix = Matrix()
+        // resize the bit map
+        matrix.postScale(scaleWidth.toFloat(), scaleHeight.toFloat())
+        // recreate the new Bitmap
+        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false)
     }
 
     fun changeBitmapColor(sourceBitmap: Bitmap?, color: Int): Bitmap? {
