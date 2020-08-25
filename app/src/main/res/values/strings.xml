@@ -257,6 +257,9 @@
     <string name="select_verification_method">Select Verification Method</string>
     <string name="select_language">Select Language</string>
     <string name="sms">SMS</string>
+    <string name="hours">Hours</string>
+    <string name="minute">Minutes</string>
+    <string name="second">Seconds</string>
     <string name="voice">Voice</string>
     <string name="send_otp">Send OTP</string>
     <string name="clock_in">Clock IN</string>

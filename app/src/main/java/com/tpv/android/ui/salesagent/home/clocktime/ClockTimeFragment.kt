@@ -299,9 +299,9 @@ class ClockTimeFragment : Fragment() {
                 val secs = seconds % 60
 
                 mBinding.textHours.text = String.format(Locale.getDefault(),
-                        "%02d : ", hours)
+                        "%02d", hours)
                 mBinding.textMinute.text = String.format(Locale.getDefault(),
-                        "%02d : ", minutes)
+                        "%02d", minutes)
                 mBinding.textSecond.text = String.format(Locale.getDefault(),
                         "%02d", secs)
 
