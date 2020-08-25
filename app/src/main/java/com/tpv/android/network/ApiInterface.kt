@@ -128,6 +128,10 @@ interface ApiInterface {
 
     //TimeLine
     @POST("reports/critical-alerts/{id}/details")
-    fun getClientLeadDetails(@Path("id") id: String ): Call<CommonResponse<ClientLeadDetailResp>>
+    fun getClientLeadDetails(@Path("id") id: String): Call<CommonResponse<ClientLeadDetailResp>>
+
+    //ForceUpdate
+    @POST("api-version")
+    fun forceUpdate(@Body forceUpdateReq: ForceUpdateReq): Call<CommonResponse<Any>>
 
 }
