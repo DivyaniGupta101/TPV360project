@@ -21,7 +21,9 @@ import com.tpv.android.databinding.LayoutInputServiceAndBillingAddressBinding
 import com.tpv.android.helper.addressComponents
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.ui.salesagent.home.HomeActivity
+import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
@@ -149,31 +151,45 @@ fun LayoutInputServiceAndBillingAddressBinding.isValid(context: Context?): Boole
 /**
  * Get values from addressPicker and set in model class
  */
-fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFields: Place?, isServiceAddress: Boolean) {
+fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFields: Place?, isServiceAddress: Boolean, mViewModel: SetEnrollViewModel) {
 
     val binding = this
-    val addressComponent = fillAddressFields?.let { addressComponents(it) }
+    if (binding.item?.meta?.isPrimary == true) {
+        val addressComponent = fillAddressFields?.let { addressComponents(it) }
 
-    if (isServiceAddress) {
-        binding.item?.values?.set(AppConstant.SERVICEADDRESS1, addressComponent?.addressLine1.orEmpty())
-        binding.item?.values?.set(AppConstant.SERVICEADDRESS2, addressComponent?.addressLine2.orEmpty())
-        binding.item?.values?.set(AppConstant.SERVICEZIPCODE, addressComponent?.zipcode.orEmpty())
-        binding.item?.values?.set(AppConstant.SERVICELAT, addressComponent?.latitude.orEmpty())
-        binding.item?.values?.set(AppConstant.SERVICELNG, addressComponent?.longitude.orEmpty())
-        binding.item?.values?.set(AppConstant.SERVICECOUNTRY, addressComponent?.country.orEmpty())
-        binding.item?.values?.set(AppConstant.SERVICECITY, addressComponent?.city.orEmpty())
-        binding.item?.values?.set(AppConstant.SERVICESTATE, addressComponent?.state.orEmpty())
-        handleBothAddressField(binding, binding.item?.isAddressSame.orFalse())
-    } else {
-        binding.item?.values?.set(AppConstant.BILLINGADDRESS1, addressComponent?.addressLine1.orEmpty())
-        binding.item?.values?.set(AppConstant.BILLINGADDRESS2, addressComponent?.addressLine2.orEmpty())
-        binding.item?.values?.set(AppConstant.BILLINGZIPCODE, addressComponent?.zipcode.orEmpty())
-        binding.item?.values?.set(AppConstant.BILLINGLAT, addressComponent?.latitude.orEmpty())
-        binding.item?.values?.set(AppConstant.BILLINGLNG, addressComponent?.longitude.orEmpty())
-        binding.item?.values?.set(AppConstant.BILLINGCOUNTRY, addressComponent?.country.orEmpty())
-        binding.item?.values?.set(AppConstant.BILLINGCITY, addressComponent?.city.orEmpty())
-        binding.item?.values?.set(AppConstant.BILLINGSTATE, addressComponent?.state.orEmpty())
+        if (mViewModel.zipcode == addressComponent?.zipcode) {
+            if (isServiceAddress) {
+                binding.item?.values?.set(AppConstant.SERVICEADDRESS1, addressComponent?.addressLine1.orEmpty())
+                binding.item?.values?.set(AppConstant.SERVICEADDRESS2, addressComponent?.addressLine2.orEmpty())
+                binding.item?.values?.set(AppConstant.SERVICEZIPCODE, addressComponent?.zipcode.orEmpty())
+                binding.item?.values?.set(AppConstant.SERVICELAT, addressComponent?.latitude.orEmpty())
+                binding.item?.values?.set(AppConstant.SERVICELNG, addressComponent?.longitude.orEmpty())
+                binding.item?.values?.set(AppConstant.SERVICECOUNTRY, addressComponent?.country.orEmpty())
+                binding.item?.values?.set(AppConstant.SERVICECITY, addressComponent?.city.orEmpty())
+                binding.item?.values?.set(AppConstant.SERVICESTATE, addressComponent?.state.orEmpty())
+                handleBothAddressField(binding, binding.item?.isAddressSame.orFalse())
+                binding.invalidateAll()
+            }
+        } else {
+            val addressComponent = fillAddressFields?.let { addressComponents(it) }
+
+            if (!isServiceAddress) {
+                binding.item?.values?.set(AppConstant.BILLINGADDRESS1, addressComponent?.addressLine1.orEmpty())
+                binding.item?.values?.set(AppConstant.BILLINGADDRESS2, addressComponent?.addressLine2.orEmpty())
+                binding.item?.values?.set(AppConstant.BILLINGZIPCODE, addressComponent?.zipcode.orEmpty())
+                binding.item?.values?.set(AppConstant.BILLINGLAT, addressComponent?.latitude.orEmpty())
+                binding.item?.values?.set(AppConstant.BILLINGLNG, addressComponent?.longitude.orEmpty())
+                binding.item?.values?.set(AppConstant.BILLINGCOUNTRY, addressComponent?.country.orEmpty())
+                binding.item?.values?.set(AppConstant.BILLINGCITY, addressComponent?.city.orEmpty())
+                binding.item?.values?.set(AppConstant.BILLINGSTATE, addressComponent?.state.orEmpty())
+            } else {
+                binding.editBillingAddressLineOne.context.infoDialog(
+                        subTitleText = binding.editBillingCountry.context.getString(R.string.zipcode_not_match)
+                )
+            }
+        }
     }
+
     binding.invalidateAll()
 
 }

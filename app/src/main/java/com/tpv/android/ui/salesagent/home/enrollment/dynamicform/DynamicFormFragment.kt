@@ -590,7 +590,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                             when (binding) {
                                 is LayoutInputAddressBinding -> {
                                     if (binding.item?.id?.equals(id).orFalse()) {
-                                        binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) })
+                                        binding.fillAddressFields(data?.let { Autocomplete.getPlaceFromIntent(it) }, mViewModel)
                                     }
                                 }
                             }
@@ -606,7 +606,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                             when (binding) {
                                 is LayoutInputServiceAndBillingAddressBinding -> {
                                     if (binding.item?.id?.equals(id).orFalse()) {
-                                        binding.fillAddressFields(data.let { Autocomplete.getPlaceFromIntent(it) }, false)
+                                        binding.fillAddressFields(data.let { Autocomplete.getPlaceFromIntent(it) }, false, mViewModel)
                                     }
                                 }
                             }
@@ -622,7 +622,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                             when (binding) {
                                 is LayoutInputServiceAndBillingAddressBinding -> {
                                     if (binding.item?.id?.equals(id).orFalse()) {
-                                        binding.fillAddressFields(data.let { Autocomplete.getPlaceFromIntent(it) }, true)
+                                        binding.fillAddressFields(data.let { Autocomplete.getPlaceFromIntent(it) }, true, mViewModel)
                                     }
                                 }
                             }

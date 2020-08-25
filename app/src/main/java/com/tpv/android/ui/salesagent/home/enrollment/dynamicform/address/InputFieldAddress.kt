@@ -15,7 +15,9 @@ import com.tpv.android.databinding.LayoutInputAddressBinding
 import com.tpv.android.helper.addressComponents
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.ui.salesagent.home.HomeActivity
+import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
@@ -31,7 +33,6 @@ private var addressField =
 
 
 fun LayoutInputAddressBinding.setField(response: DynamicFormResp) {
-
     val binding = this
     val context = binding.editUnit.context
 
@@ -56,18 +57,28 @@ fun LayoutInputAddressBinding.setField(response: DynamicFormResp) {
 /**
  * Get value from addressPicker response and set in model class
  */
-fun LayoutInputAddressBinding.fillAddressFields(fillAddressFields: Place?) {
+fun LayoutInputAddressBinding.fillAddressFields(fillAddressFields: Place?, mViewModel: SetEnrollViewModel) {
     val binding = this
-    val addressComponent = fillAddressFields?.let { addressComponents(it) }
-    binding.item?.values?.set(AppConstant.ADDRESS1, addressComponent?.addressLine1.orEmpty())
-    binding.item?.values?.set(AppConstant.ADDRESS2, addressComponent?.addressLine2.orEmpty())
-    binding.item?.values?.set(AppConstant.ZIPCODE, addressComponent?.zipcode.orEmpty())
-    binding.item?.values?.set(AppConstant.LAT, addressComponent?.latitude.orEmpty())
-    binding.item?.values?.set(AppConstant.LNG, addressComponent?.longitude.orEmpty())
-    binding.item?.values?.set(AppConstant.COUNTRY, addressComponent?.country.orEmpty())
-    binding.item?.values?.set(AppConstant.CITY, addressComponent?.city.orEmpty())
-    binding.item?.values?.set(AppConstant.STATE, addressComponent?.state.orEmpty())
-    binding.invalidateAll()
+    if (binding.item?.meta?.isPrimary == true) {
+        val addressComponent = fillAddressFields?.let { addressComponents(it) }
+
+        if (mViewModel.zipcode == addressComponent?.zipcode.orEmpty()) {
+            binding.item?.values?.set(AppConstant.ADDRESS1, addressComponent?.addressLine1.orEmpty())
+            binding.item?.values?.set(AppConstant.ADDRESS2, addressComponent?.addressLine2.orEmpty())
+            binding.item?.values?.set(AppConstant.ZIPCODE, addressComponent?.zipcode.orEmpty())
+            binding.item?.values?.set(AppConstant.LAT, addressComponent?.latitude.orEmpty())
+            binding.item?.values?.set(AppConstant.LNG, addressComponent?.longitude.orEmpty())
+            binding.item?.values?.set(AppConstant.COUNTRY, addressComponent?.country.orEmpty())
+            binding.item?.values?.set(AppConstant.CITY, addressComponent?.city.orEmpty())
+            binding.item?.values?.set(AppConstant.STATE, addressComponent?.state.orEmpty())
+            binding.invalidateAll()
+        } else {
+            binding.editCountry.context.infoDialog(
+                    subTitleText = binding.editCountry.context.getString(R.string.zipcode_not_match)
+            )
+        }
+    }
+
 }
 
 fun LayoutInputAddressBinding.isValid(context: Context?): Boolean {
