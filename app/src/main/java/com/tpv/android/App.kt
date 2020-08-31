@@ -14,6 +14,11 @@ import com.tpv.android.helper.Pref
 import com.tpv.android.network.UnAuthorizedEventObserver
 import com.tpv.android.ui.auth.AuthActivity
 
+
+
+
+
+
 class App : Application() {
 
     var mCurrentActivity: Activity? = null
