@@ -45,16 +45,16 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/SecondaryNormalSmallText"
-                            android:maxLines="1"
-                            android:text="@{item.programName}"
-                            tools:text="Commercial &amp; Residential" />
-
-                        <TextView
                             style="@style/PrimaryBoldText"
                             android:maxLines="1"
-                            android:text="@{item.premiseTypeName}"
+                            android:text="@{item.programName}"
                             tools:text="Guaranteed Choice 24" />
+
+                        <TextView
+                            style="@style/SecondaryNormalSmallText"
+                            android:maxLines="1"
+                            android:text="@{item.premiseTypeName}"
+                            tools:text="Commercial &amp; Residential" />
 
 
                     </LinearLayout>
