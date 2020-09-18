@@ -291,4 +291,10 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.getAccountNumberRegexCall(accountNumberRegexRequest: AccountNumberRegexRequest) = dataApi<CommonResponse<List<AccountNumberRegexResp>>?, APIError> {
+        fromNetwork {
+            ApiClient.service.getAccountNumberRegex(accountNumberRegexRequest).getResult().map { it }
+        }
+    }
+
 }

@@ -47,9 +47,9 @@ data class Validations(
         @SerializedName("verify")
         val verify: Boolean?,
         @SerializedName("regex")
-        val regex: String?,
+        var regex: String?,
         @SerializedName("regex_message")
-        val regexMessage: String?
+        var regexMessage: String?
 
 )
 

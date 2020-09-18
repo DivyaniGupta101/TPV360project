@@ -12,16 +12,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.gson.reflect.TypeToken
-import com.livinglifetechway.k4kotlin.core.hide
-import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.orFalse
-import com.livinglifetechway.k4kotlin.core.show
+import com.livinglifetechway.k4kotlin.core.*
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentProgramsListingBinding
 import com.tpv.android.databinding.ItemProgramsBinding
 import com.tpv.android.model.internal.itemSelection
+import com.tpv.android.model.network.AccountNumberRegexRequest
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.ProgramsResp
 import com.tpv.android.network.error.AlertErrorHandler
@@ -39,6 +37,7 @@ class ProgramsListingFragment : Fragment() {
     private var mLastSelectedGasPosition: Int? = null
     private var mLastSelectedElectricPosition: Int? = null
     private lateinit var mViewModel: SetEnrollViewModel
+    private lateinit var mProgramListingViewModel: ProgramListingViewModel
     private var mLastSelected: ArrayList<itemSelection> = ArrayList()
 
     private var mList: ArrayList<Any> = ArrayList()
@@ -49,6 +48,7 @@ class ProgramsListingFragment : Fragment() {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_programs_listing, container, false)
         mBinding.lifecycleOwner = this
         activity?.let { this.mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
+        mProgramListingViewModel = ViewModelProviders.of(this).get(ProgramListingViewModel::class.java)
         return mBinding.root
     }
 
@@ -74,17 +74,43 @@ class ProgramsListingFragment : Fragment() {
 
         //Save ProgramDetail in viewModel
         mBinding.btnNext.onClick {
-            mViewModel.programList.clear()
-            mList.forEach {
-                if (it is ProgramsResp) {
-                    if (mLastSelected.contains(itemSelection(it.utilityId, it.id))) {
-                        mViewModel.programList.add(it)
-                    }
-                }
-            }
+            val liveData = mProgramListingViewModel.getAccountNumberRegex(
+                    AccountNumberRegexRequest(
+                            formId = mViewModel.planId,
+                            utilityId = mViewModel.selectedUtilityList.map { it.utid }.toString()
 
-            mViewModel.formPageMap = mViewModel.duplicatePageMap?.copy(object : TypeToken<DynamicFormResp>() {}.type)
-            Navigation.findNavController(mBinding.root).navigateSafe(ProgramsListingFragmentDirections.actionProgramsListingFragmentToDynamicFormFragment(1))
+                    )
+            )
+            liveData.observe(this@ProgramsListingFragment, Observer {
+                it?.ifSuccess {
+                    it?.data?.forEach { response ->
+                        for (pageNumber in 1..mViewModel.duplicatePageMap?.size.orZero().orZero()) {
+                            mViewModel.duplicatePageMap?.get(pageNumber)?.forEach { dynamicResp ->
+                                if (response.field_id == dynamicResp.id) {
+                                    dynamicResp.validations?.regexMessage = response?.regex_message
+                                    dynamicResp.validations?.regex = response?.regex
+                                }
+                            }
+                        }
+                    }
+
+                    mViewModel.programList.clear()
+                    mList.forEach {
+                        if (it is ProgramsResp) {
+                            if (mLastSelected.contains(itemSelection(it.utilityId, it.id))) {
+                                mViewModel.programList.add(it)
+                            }
+                        }
+                    }
+
+
+                    mViewModel.formPageMap = mViewModel.duplicatePageMap?.copy(object : TypeToken<DynamicFormResp>() {}.type)
+                    Navigation.findNavController(mBinding.root).navigateSafe(ProgramsListingFragmentDirections.actionProgramsListingFragmentToDynamicFormFragment(1))
+                }
+            })
+
+            mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
         }
     }
 

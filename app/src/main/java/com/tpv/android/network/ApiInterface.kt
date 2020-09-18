@@ -136,6 +136,6 @@ interface ApiInterface {
 
 
     @POST("get-account-number/regex")
-    fun getAccountNumberRegex(@Body accountNumberRequest: AccountNumberRequest): Call<CommonResponse<Any>>
+    fun getAccountNumberRegex(@Body accountNumberRegexRequest: AccountNumberRegexRequest): Call<CommonResponse<List<AccountNumberRegexResp>>>
 
 }
