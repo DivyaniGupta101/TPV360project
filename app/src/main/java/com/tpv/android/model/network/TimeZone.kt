@@ -10,3 +10,8 @@ data class TimeZone(
 //        @SerializedName("selected")
         var selected: Boolean?
 )
+
+data class TimeZoneReq(
+        @SerializedName("timezone")
+        val timezone: String
+)

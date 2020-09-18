@@ -22,6 +22,7 @@ import com.tpv.android.databinding.FragmentProfileBinding
 import com.tpv.android.databinding.ItemTimezoneBinding
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.network.TimeZone
+import com.tpv.android.model.network.TimeZoneReq
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -58,10 +59,7 @@ class ProfileFragment : Fragment() {
 
     private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.profile), true, true)
-
         mBinding.item = Pref.user
-
-
         mBinding.editTimeZone.onClick {
             getTimeZone()
         }
@@ -71,6 +69,7 @@ class ProfileFragment : Fragment() {
     private fun getTimeZone() {
         val binding = DataBindingUtil.inflate<DialogTimezoneBinding>(LayoutInflater.from(context),
                 R.layout.dialog_timezone, null, false)
+
         val dialog = AlertDialog.Builder(binding.btnCancel.context)
                 .setView(binding.root).show()
         dialog?.setCanceledOnTouchOutside(false)
@@ -80,6 +79,7 @@ class ProfileFragment : Fragment() {
         binding.errorHandler = AlertErrorHandler(mBinding.root)
         binding.lifecycleOwner = mBinding.lifecycleOwner
 
+        var selectedTimeZone = ""
         val liveData = mViewModel.getTimeZone()
         liveData.observe(this, Observer {
             it.ifSuccess {
@@ -91,6 +91,7 @@ class ProfileFragment : Fragment() {
                                     it.selected = it == holder.binding.item
                                 }
                                 binding.rvTimezone.adapter?.notifyDataSetChanged()
+                                selectedTimeZone = holder.binding.item?.timezone.orEmpty()
                             }
                         }.into(binding.rvTimezone)
             }
@@ -102,9 +103,26 @@ class ProfileFragment : Fragment() {
             dialog.hide()
         }
         binding.btnSubmit.onClick {
-            dialog.hide()
+            updateTimeZone(selectedTimeZone, dialog, binding)
         }
         dialog.show()
+    }
+
+    private fun updateTimeZone(selectedTimeZone: String, dialog: AlertDialog, binding: DialogTimezoneBinding) {
+        binding.errorHandler = AlertErrorHandler(binding.root)
+        binding.lifecycleOwner = viewLifecycleOwner
+        val livedata = mViewModel.updateTimeZone(TimeZoneReq(
+                timezone = selectedTimeZone
+        ))
+        livedata.observe(viewLifecycleOwner, Observer {
+            it?.ifSuccess {
+                dialog.hide()
+                getProfileApiCall()
+            }
+        })
+
+        binding.resource = livedata as LiveData<Resource<Any, APIError>>
+
     }
 
 

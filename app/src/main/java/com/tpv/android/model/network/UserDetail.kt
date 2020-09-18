@@ -3,50 +3,60 @@ package com.tpv.android.model.network
 import com.google.gson.annotations.SerializedName
 
 data class UserDetail(
-        @SerializedName("id")
-        var id: Int?,
-        @SerializedName("first_name")
-        var firstName: String?,
-        @SerializedName("last_name")
-        var lastName: String?,
-        @SerializedName("email")
-        var email: String?,
-        @SerializedName("userid")
-        var userid: String?,
-        @SerializedName("title")
-        var title: Any?,
-        @SerializedName("verification_code")
-        var verificationCode: String?,
-        @SerializedName("session_id")
-        var sessionId: String?,
-        @SerializedName("created_at")
-        var createdAt: String?,
-        @SerializedName("updated_at")
-        var updatedAt: String?,
-        @SerializedName("parent_id")
-        var parentId: Int?,
-        @SerializedName("client_id")
-        var clientId: String?,
-        @SerializedName("salescenter_id")
-        var salescenterId: String?,
         @SerializedName("access_level")
-        var accessLevel: String?,
-        @SerializedName("status")
-        var status: String?,
-        @SerializedName("location_id")
-        var locationId: Int?,
-        @SerializedName("last_activity")
-        var lastActivity: String?,
-        @SerializedName("deactivationreason")
-        var deactivationreason: String?,
-        @SerializedName("hire_options")
-        var hireOptions: String?,
+        val accessLevel: String?,
+        @SerializedName("agent_type")
+        val agentType: Any?,
+        @SerializedName("client_id")
+        val clientId: String?,
         @SerializedName("client_name")
-        var ClientName: String?,
+        val clientName: String?,
+        @SerializedName("created_at")
+        val createdAt: String?,
+        @SerializedName("deactivationreason")
+        val deactivationreason: Any?,
+        @SerializedName("email")
+        val email: String?,
+        @SerializedName("first_name")
+        val firstName: String?,
+        @SerializedName("full_name")
+        val fullName: String?,
+        @SerializedName("hire_options")
+        val hireOptions: Any?,
+        @SerializedName("id")
+        val id: Int?,
+        @SerializedName("is_block")
+        val isBlock: String?,
+        @SerializedName("last_activity")
+        val lastActivity: String?,
+        @SerializedName("last_name")
+        val lastName: String?,
+        @SerializedName("location_id")
+        val locationId: Int?,
+        @SerializedName("parent_id")
+        val parentId: Int?,
+        @SerializedName("phone_no")
+        val phoneNo: Any?,
+        @SerializedName("profile_picture")
+        val profilePicture: String?,
         @SerializedName("sales_center_name")
-        var salesCenterName: String?,
-        @SerializedName("user_type")
-        var userType: String?,
-        @SerializedName( "dashboard_url")
-        var dashBoardURL: String?
+        val salesCenterName: String?,
+        @SerializedName("salescenter_id")
+        val salescenterId: String?,
+        @SerializedName("session_id")
+        val sessionId: String?,
+        @SerializedName("status")
+        val status: String?,
+        @SerializedName("timezone")
+        val timezone: String?,
+        @SerializedName("title")
+        val title: Any?,
+        @SerializedName("updated_at")
+        val updatedAt: String?,
+        @SerializedName("userid")
+        val userid: String?,
+        @SerializedName("verification_code")
+        val verificationCode: String? ,
+        @SerializedName("dashboard_url")
+        val dashBoardURL: String?
 )

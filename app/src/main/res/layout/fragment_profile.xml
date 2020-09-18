@@ -141,11 +141,9 @@
                         android:enabled="true"
                         android:focusable="false"
                         android:inputType="textEmailAddress"
+                        android:text="@{item.timezone}"
                         android:textColor="@color/colorPrimaryText"
                         app:applyTint="@{@drawable/ic_edit_white_16dp}"
-                        app:primaryValue="@{item.salesCenterName}"
-                        app:secondaryText="@{@string/id}"
-                        app:secondaryValue="@{item.salescenterId}"
                         tools:text="patricia24@gmail.com" />
 
                 </com.google.android.material.textfield.TextInputLayout>

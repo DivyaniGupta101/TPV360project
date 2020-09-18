@@ -304,4 +304,13 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.updateTimeZoneCall(timeZoneReq: TimeZoneReq) = dataApi<UserDetail?, APIError> {
+        fromNetwork {
+            ApiClient.service.updateTimeZone(timeZoneReq).getResult().map {
+                Pref.user = it?.data
+                it?.data
+            }
+        }
+    }
+
 }

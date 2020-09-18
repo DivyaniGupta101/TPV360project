@@ -142,4 +142,8 @@ interface ApiInterface {
     @GET("get-timezone")
     fun getTimeZone(): Call<CommonResponse<List<TimeZone>>>
 
+    //get TimeZone
+    @POST("update-timezone")
+    fun updateTimeZone(@Body timeZoneReq: TimeZoneReq): Call<CommonResponse<UserDetail>>
+
 }
