@@ -291,7 +291,7 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter(value = ["primaryValue", "secondaryText", "secondaryValue"], requireAll = true)
 
-    fun setBracketText(editText: EditText, primaryValue: String?, secondaryText: String?, secondaryValue: String?) {
+    fun setBracketText(editText: EditText, primaryValue: String, secondaryText: String, secondaryValue: String) {
 
         editText.value = "$primaryValue ($secondaryText: $secondaryValue)"
     }
