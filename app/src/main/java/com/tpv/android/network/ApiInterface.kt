@@ -134,4 +134,8 @@ interface ApiInterface {
     @POST("api-version")
     fun forceUpdate(@Body forceUpdateReq: ForceUpdateReq): Call<CommonResponse<Any>>
 
+
+    @POST("get-account-number/regex")
+    fun getAccountNumberRegex(@Body accountNumberRequest: AccountNumberRequest): Call<CommonResponse<Any>>
+
 }
