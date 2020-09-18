@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.network.*
+import com.tpv.android.model.network.TimeZone
 import com.tpv.android.network.ApiClient
 import com.tpv.android.network.resources.*
 import com.tpv.android.network.resources.apierror.APIError
@@ -294,6 +295,12 @@ object AppRepository {
     fun CoroutineScope.getAccountNumberRegexCall(accountNumberRegexRequest: AccountNumberRegexRequest) = dataApi<CommonResponse<List<AccountNumberRegexResp>>?, APIError> {
         fromNetwork {
             ApiClient.service.getAccountNumberRegex(accountNumberRegexRequest).getResult().map { it }
+        }
+    }
+
+    fun CoroutineScope.getTimeZoneCall() = dataApi<CommonResponse<List<TimeZone>>?, APIError> {
+        fromNetwork {
+            ApiClient.service.getTimeZone().getResult().map { it }
         }
     }
 

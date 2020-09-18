@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.textfield.TextInputEditText
 import com.livinglifetechway.k4kotlin.core.androidx.color
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.orFalse
@@ -445,5 +446,18 @@ object BindingAdapter {
             textView.setText(" " + data)
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("applyTint")
+    fun setTintColor(editText: TextInputEditText, imageView: Drawable) {
+
+        imageView.setColorFilter(
+                ContextCompat.getColor(editText.context, R.color.colorMenuDarkHighLight),
+                android.graphics.PorterDuff.Mode.MULTIPLY
+        )
+
+        editText.setCompoundDrawablesWithIntrinsicBounds(null, null, imageView, null)
+    }
+
 }
 

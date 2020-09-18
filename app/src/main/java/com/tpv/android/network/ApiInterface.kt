@@ -134,8 +134,12 @@ interface ApiInterface {
     @POST("api-version")
     fun forceUpdate(@Body forceUpdateReq: ForceUpdateReq): Call<CommonResponse<Any>>
 
-
+    // Get regex message and regex
     @POST("get-account-number/regex")
     fun getAccountNumberRegex(@Body accountNumberRegexRequest: AccountNumberRegexRequest): Call<CommonResponse<List<AccountNumberRegexResp>>>
+
+    //get TimeZone
+    @POST("get-timezone")
+    fun getTimeZone(): Call<CommonResponse<List<TimeZone>>>
 
 }

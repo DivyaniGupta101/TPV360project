@@ -7,4 +7,9 @@ class ProfileViewModel : CoroutineScopedViewModel() {
     fun getProfile() = with(AppRepository) {
         getProfileDetailCall()
     }
+
+    fun getTimeZone() = with(AppRepository)
+    {
+        getTimeZoneCall()
+    }
 }
