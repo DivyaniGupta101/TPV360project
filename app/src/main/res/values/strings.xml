@@ -137,6 +137,7 @@
     <string name="id_colon">Id : </string>
     <string name="email_colon">Email : </string>
     <string name="client_colon">Client : </string>
+    <string name="client">Client</string>
     <string name="channel_colon">Channel : </string>
     <string name="sales_center_colon">Sales Center : </string>
     <string name="sales_center_location_colon">Sales Center Location : </string>

@@ -53,6 +53,7 @@ class ProfileFragment : Fragment() {
 
         mViewModel.getProfile().observe(viewLifecycleOwner, Observer {
             it.ifSuccess {
+                mBinding.item = Pref.user
                 updateProfileInMenu()
             }
         })

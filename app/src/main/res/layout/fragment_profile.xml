@@ -87,7 +87,7 @@
                 <TextView
                     style="@style/SecondaryNormalText"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/client_name" />
+                    android:text="@string/client" />
 
                 <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
@@ -108,7 +108,7 @@
                 <TextView
                     style="@style/SecondaryNormalText"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/sales_center_name" />
+                    android:text="@string/sales_centers" />
 
                 <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 

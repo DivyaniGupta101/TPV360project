@@ -12,8 +12,11 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.color
+import com.livinglifetechway.k4kotlin.core.hide
+import com.livinglifetechway.k4kotlin.core.orFalse
+import com.livinglifetechway.k4kotlin.core.orZero
+import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.helper.formatDate
 import com.tpv.android.network.error.ErrorHandler
@@ -292,8 +295,11 @@ object BindingAdapter {
     @BindingAdapter(value = ["primaryValue", "secondaryText", "secondaryValue"], requireAll = true)
 
     fun setBracketText(editText: EditText, primaryValue: String?, secondaryText: String?, secondaryValue: String?) {
+        if (primaryValue?.isNotEmpty().orFalse() && secondaryValue?.isNotEmpty().orFalse()) {
+            val text = "$primaryValue ($secondaryText : $secondaryValue)"
+            editText.setText(text)
+        }
 
-        editText.value = "${primaryValue.orEmpty()} (${secondaryText.orEmpty()}: ${secondaryValue.orEmpty()})"
     }
 
 
