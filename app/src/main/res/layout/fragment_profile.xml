@@ -131,12 +131,14 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/time_zone" />
 
+
                 <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTimeZone"
                         style="@style/DefaultEditText"
                         android:background="@null"
-                        android:enabled="false"
+                        android:enabled="true"
                         android:focusable="false"
                         android:inputType="textEmailAddress"
                         android:textColor="@color/colorPrimaryText"

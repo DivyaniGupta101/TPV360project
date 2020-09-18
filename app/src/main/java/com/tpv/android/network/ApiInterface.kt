@@ -139,7 +139,7 @@ interface ApiInterface {
     fun getAccountNumberRegex(@Body accountNumberRegexRequest: AccountNumberRegexRequest): Call<CommonResponse<List<AccountNumberRegexResp>>>
 
     //get TimeZone
-    @POST("get-timezone")
+    @GET("get-timezone")
     fun getTimeZone(): Call<CommonResponse<List<TimeZone>>>
 
 }

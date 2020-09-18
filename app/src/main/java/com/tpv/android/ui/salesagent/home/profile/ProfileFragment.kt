@@ -1,17 +1,30 @@
 package com.tpv.android.ui.salesagent.home.profile
 
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.livinglifetechway.k4kotlin.core.onClick
+import com.ravikoradiya.liveadapter.LiveAdapter
+import com.tpv.android.BR
 import com.tpv.android.R
+import com.tpv.android.databinding.DialogTimezoneBinding
 import com.tpv.android.databinding.FragmentProfileBinding
+import com.tpv.android.databinding.ItemTimezoneBinding
 import com.tpv.android.helper.Pref
+import com.tpv.android.model.network.TimeZone
+import com.tpv.android.network.error.AlertErrorHandler
+import com.tpv.android.network.resources.Resource
+import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.setItemSelection
@@ -21,6 +34,8 @@ import com.tpv.android.utils.updateProfileInMenu
 class ProfileFragment : Fragment() {
 
     lateinit var mBinding: FragmentProfileBinding
+    private var mList: ArrayList<TimeZone> = ArrayList()
+
     private lateinit var mViewModel: ProfileViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,11 +61,54 @@ class ProfileFragment : Fragment() {
 
         mBinding.item = Pref.user
 
+
+        mBinding.editTimeZone.onClick {
+            getTimeZone()
+        }
         getProfileApiCall()
     }
 
-    private fun getProfileApiCall() {
+    private fun getTimeZone() {
+        val binding = DataBindingUtil.inflate<DialogTimezoneBinding>(LayoutInflater.from(context),
+                R.layout.dialog_timezone, null, false)
+        val dialog = AlertDialog.Builder(binding.btnCancel.context)
+                .setView(binding.root).show()
+        dialog?.setCanceledOnTouchOutside(false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
+
+        binding.errorHandler = AlertErrorHandler(mBinding.root)
+        binding.lifecycleOwner = mBinding.lifecycleOwner
+
+        val liveData = mViewModel.getTimeZone()
+        liveData.observe(this, Observer {
+            it.ifSuccess {
+                LiveAdapter(it?.data, BR.item)
+                        .map<TimeZone, ItemTimezoneBinding>(R.layout.item_timezone)
+                        {
+                            onClick { holder ->
+                                it?.data?.forEach {
+                                    it.selected = it == holder.binding.item
+                                }
+                                binding.rvTimezone.adapter?.notifyDataSetChanged()
+                            }
+                        }.into(binding.rvTimezone)
+            }
+        })
+
+        binding.resource = liveData as LiveData<Resource<Any, APIError>>
+
+        binding.btnCancel.onClick {
+            dialog.hide()
+        }
+        binding.btnSubmit.onClick {
+            dialog.hide()
+        }
+        dialog.show()
+    }
+
+
+    private fun getProfileApiCall() {
         mViewModel.getProfile().observe(viewLifecycleOwner, Observer {
             it.ifSuccess {
                 mBinding.item = Pref.user
