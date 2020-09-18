@@ -293,7 +293,7 @@ object BindingAdapter {
 
     fun setBracketText(editText: EditText, primaryValue: String, secondaryText: String, secondaryValue: String) {
 
-        editText.value = "$primaryValue ($secondaryText: $secondaryValue)"
+        editText.value = "${primaryValue.orEmpty()} (${secondaryText.orEmpty()}: ${secondaryValue.orEmpty()})"
     }
 
 
