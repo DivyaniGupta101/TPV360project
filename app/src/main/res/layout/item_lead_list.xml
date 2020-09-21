@@ -51,7 +51,7 @@
                             android:text="@string/verification_id" />
 
                         <TextView
-                            style="@style/PrimaryBoldText"
+                            style="@style/PrimaryBoldSmallText"
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:layout_weight="2"
@@ -71,16 +71,17 @@
                             style="@style/SecondaryNormalSmallText"
                             android:layout_width="0dp"
                             android:layout_weight="1.5"
-                            android:text="@string/date" />
+                            android:text="@string/date_and_time"
+                            tools:text="@string/time" />
 
                         <TextView
-                            style="@style/SecondaryBoldText"
+                            style="@style/SecondaryBoldSmallText"
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:layout_weight="2"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            app:setDate="@{item.createTime}"
+                            android:text="@{item.createTime}"
                             tools:text="27/08/2018" />
                     </LinearLayout>
 
@@ -88,7 +89,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/SecondaryNormalSmallText"
@@ -111,7 +113,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/SecondaryNormalSmallText"
@@ -141,18 +144,19 @@
                             style="@style/SecondaryNormalSmallText"
                             android:layout_width="0dp"
                             android:layout_weight="1.5"
-                            android:text="@{@string/commodity + ':'}"
-                            tools:text="@string/commodity" />
+                            android:text="@{@string/city+' ' + @string/and +' '+ @string/state + ':'}"
+                            tools:text="@string/city" />
 
                         <TextView
-                            style="@style/SecondaryBoldText"
+                            style="@style/SecondaryBoldSmallText"
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:layout_weight="2"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="@{item.commodity}"
-                            tools:text="GAS" />
+                            app:city="@{item.city}"
+                            app:state="@{item.state}"
+                            tools:text="NEW YORK" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -165,20 +169,20 @@
                             style="@style/SecondaryNormalSmallText"
                             android:layout_width="0dp"
                             android:layout_weight="1.5"
-                            android:text="@{@string/city + ':'}"
-                            tools:text="@string/city" />
+                            android:text="@{@string/commodity + ':'}"
+                            tools:text="@string/commodity" />
 
                         <TextView
-                            style="@style/SecondaryBoldText"
+                            style="@style/SecondaryBoldSmallText"
                             android:layout_width="0dp"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:layout_weight="2"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            app:city="@{item.city}"
-                            app:state="@{item.state}"
-                            tools:text="NEW YORK" />
+                            android:text="@{item.commodity}"
+                            tools:text="GAS" />
                     </LinearLayout>
+
                 </LinearLayout>
 
 

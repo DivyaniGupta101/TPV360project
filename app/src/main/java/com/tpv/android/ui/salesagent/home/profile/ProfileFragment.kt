@@ -1,6 +1,7 @@
 package com.tpv.android.ui.salesagent.home.profile
 
 
+import android.Manifest
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,7 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.filepicker.captureImage
+import com.filepicker.pickFile
+import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.show
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -28,9 +34,12 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.utils.enums.MenuItem
+import com.tpv.android.utils.glide.GlideApp
 import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
+import com.tpv.android.utils.toMultipartBody
 import com.tpv.android.utils.updateProfileInMenu
+import java.io.File
 
 class ProfileFragment : Fragment() {
 
@@ -58,12 +67,78 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initialize() {
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         setupToolbar(mBinding.toolbar, getString(R.string.profile), true, true)
         mBinding.item = Pref.user
         mBinding.editTimeZone.onClick {
             getTimeZone()
         }
+        mBinding.imgCamera.onClick {
+            imagePicker()
+        }
+
+
         getProfileApiCall()
+    }
+
+    private fun imagePicker() {
+        android.app.AlertDialog.Builder(context).setItems(arrayOf("Gallery", "Camera")) { _, which ->
+            when (which) {
+                0 -> {
+                    runWithPermissions(Manifest.permission.READ_EXTERNAL_STORAGE) {
+                        pickFile {
+                            mimeType = arrayOf("image/*")
+                            onSuccess {
+                                updateProfileImage(it)
+                            }
+
+                            onLoading {
+                                mBinding.progressImageLoading.show()
+                            }
+                            onError {
+                                mBinding.progressImageLoading.hide()
+                            }
+                        }
+                    }
+                }
+                1 -> {
+                    runWithPermissions(Manifest.permission.CAMERA) {
+                        captureImage {
+                            onSuccess {
+                                updateProfileImage(it)
+                            }
+
+                            onLoading {
+                                mBinding.progressImageLoading.show()
+                            }
+                            onError {
+                                mBinding.progressImageLoading.hide()
+                            }
+                        }
+                    }
+                }
+            }
+
+        }.create().show()
+
+
+    }
+
+    private fun updateProfileImage(file: File) {
+        val liveData =
+                file.toMultipartBody("file", "image/*")?.let {
+                    mViewModel.updateProfilePhoto(
+                            mediaFile = it)
+                }
+        liveData?.observe(viewLifecycleOwner, Observer {
+            it?.ifSuccess {
+                Pref.user = it
+                GlideApp.with(this@ProfileFragment).load(file)
+                        .into(mBinding.imageProfile)
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
     private fun getTimeZone() {

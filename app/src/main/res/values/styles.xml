@@ -150,7 +150,7 @@
     <style name="ProfileImage">
         <item name="android:layout_height">@dimen/_80sdp</item>
         <item name="android:layout_width">@dimen/_80sdp</item>
-        <item name="android:layout_marginTop">@dimen/_24sdp</item>
+<!--        <item name="android:layout_marginTop">@dimen/_24sdp</item>-->
     </style>
 
 

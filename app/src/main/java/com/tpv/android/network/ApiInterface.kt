@@ -42,10 +42,6 @@ interface ApiInterface {
     @POST("getprograms")
     fun getPrograms(@Body programsReq: ProgramsReq): Call<CommonResponse<List<ProgramsResp>>>
 
-    //Save recording,signature
-    @Multipart
-    @POST("leadmedia")
-    fun saveMedia(@Part("lng") lng: RequestBody, @Part("lat") lat: RequestBody, @Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<CommonResponse<Any>>
 
     //Save Lead
     @POST("saveleaddata")
@@ -145,5 +141,15 @@ interface ApiInterface {
     //get TimeZone
     @POST("update-timezone")
     fun updateTimeZone(@Body timeZoneReq: TimeZoneReq): Call<CommonResponse<UserDetail>>
+
+    //update Photo
+    @Multipart
+    @POST("update-profile-photo")
+    fun updateProfilePhoto(@Part file: MultipartBody.Part): Call<CommonResponse<UserDetail>>
+
+    //Save recording,signature
+    @Multipart
+    @POST("leadmedia")
+    fun saveMedia(@Part("lng") lng: RequestBody, @Part("lat") lat: RequestBody, @Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<CommonResponse<Any>>
 
 }

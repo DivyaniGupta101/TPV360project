@@ -39,7 +39,14 @@ android {
 //        }
     }
     buildTypes {
+        debug {
+            resValue "string", "content_provider", "app.monimates.debug.provider"
+            resValue "string", "launcher_app_name", "Debug MoniMates"
+        }
         release {
+            resValue "string", "content_provider", "app.monimates.debug.provider"
+            resValue "string", "launcher_app_name", "Debug MoniMates"
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -144,6 +151,7 @@ dependencies {
     // ViewModel and LiveData
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
+    api project(path: ':filepicker')
     // Paging library for pagination
     implementation "androidx.paging:paging-runtime:2.1.0"
 
@@ -159,7 +167,7 @@ dependencies {
 
     // K4Kotlin Extensions for Retrofit
     implementation 'com.github.kirtan403.k4kotlin:k4kotlin-retrofit:1.0.0-beta1'
-
+    implementation 'com.github.kirtan403.k4kotlin:k4kotlin:0.6.0'
     // shared preference helper
     implementation 'com.chibatching.kotpref:kotpref:2.9.1'
     implementation 'com.chibatching.kotpref:gson-support:2.9.1'

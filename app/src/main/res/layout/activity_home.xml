@@ -29,7 +29,9 @@
         android:fitsSystemWindows="false"
         tools:openDrawer="end">
 
+
         <FrameLayout
+            android:id="@+id/homeMainContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

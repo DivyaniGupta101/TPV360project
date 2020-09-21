@@ -5,6 +5,20 @@
 
     <data>
 
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+
 
         <variable
             name="item"
@@ -23,133 +37,174 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_24sdp"
-                tools:context=".ui.salesagent.home.profile.ProfileFragment">
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_24sdp"
+                    tools:context=".ui.salesagent.home.profile.ProfileFragment">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imageProfile"
+                            style="@style/ProfileImage"
+                            android:layout_gravity="center"
+                            android:elevation="@dimen/_2sdp"
+                            app:name="@{item.firstName + ' ' + item.lastName}"
+                            tools:src="@drawable/dummy_person" />
+
+                        <ProgressBar
+                            android:id="@+id/progressImageLoading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imgCamera"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="right|bottom"
+                            android:elevation="@dimen/_2sdp"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/ic_camera_white_16dp"
+                            app:civ_circle_background_color="@color/colorAccent" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:layout_marginTop="50dp"
+                        android:text="@string/full_name" />
+
+                    <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textFullName"
+                            style="@style/DefaultEditText"
+                            android:background="@null"
+                            android:enabled="false"
+                            android:focusable="false"
+                            android:textColor="@color/colorPrimaryText"
+                            app:primaryValue="@{item.firstName + ' ' + item.lastName}"
+                            app:secondaryText="@{@string/id}"
+                            app:secondaryValue="@{item.userid}"
+                            tools:text="Patricia Davidson" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    style="@style/ProfileImage"
-                    android:layout_gravity="center"
-                    android:elevation="@dimen/_2sdp"
-                    app:name="@{item.firstName + ' ' + item.lastName}"
-                    tools:src="@drawable/dummy_person" />
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/email_address" />
 
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="50dp"
-                    android:text="@string/full_name" />
+                    <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/DefaultEditText"
+                            android:background="@null"
+                            android:backgroundTint="@color/colorAccent"
+                            android:enabled="false"
+                            android:focusable="false"
+                            android:inputType="textEmailAddress"
+                            android:text="@{item.email}"
+                            android:textColor="@color/colorPrimaryText"
+                            tools:text="patricia24@gmail.com" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textFullName"
-                        style="@style/DefaultEditText"
-                        android:background="@null"
-                        android:enabled="false"
-                        android:focusable="false"
-                        android:textColor="@color/colorPrimaryText"
-                        app:primaryValue="@{item.firstName + ' ' + item.lastName}"
-                        app:secondaryText="@{@string/id}"
-                        app:secondaryValue="@{item.userid}"
-                        tools:text="Patricia Davidson" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/email_address" />
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/client" />
 
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+                    <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/DefaultEditText"
-                        android:background="@null"
-                        android:enabled="false"
-                        android:focusable="false"
-                        android:inputType="textEmailAddress"
-                        android:text="@{item.email}"
-                        android:textColor="@color/colorPrimaryText"
-                        tools:text="patricia24@gmail.com" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/DefaultEditText"
+                            android:background="@null"
+                            android:enabled="false"
+                            android:focusable="false"
+                            android:inputType="textEmailAddress"
+                            android:textColor="@color/colorPrimaryText"
+                            app:primaryValue="@{item.clientName}"
+                            app:secondaryText="@{@string/id}"
+                            app:secondaryValue="@{item.clientId}"
+                            tools:text="patricia24@gmail.com" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/sales_centers" />
 
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/client" />
+                    <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/DefaultEditText"
+                            android:background="@null"
+                            android:enabled="false"
+                            android:focusable="false"
+                            android:inputType="textEmailAddress"
+                            android:textColor="@color/colorPrimaryText"
+                            app:primaryValue="@{item.salesCenterName}"
+                            app:secondaryText="@{@string/id}"
+                            app:secondaryValue="@{item.salescenterId}"
+                            tools:text="patricia24@gmail.com" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/DefaultEditText"
-                        android:background="@null"
-                        android:enabled="false"
-                        android:focusable="false"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/colorPrimaryText"
-                        app:primaryValue="@{item.clientName}"
-                        app:secondaryText="@{@string/id}"
-                        app:secondaryValue="@{item.clientId}"
-                        tools:text="patricia24@gmail.com" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/sales_centers" />
-
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/DefaultEditText"
-                        android:background="@null"
-                        android:enabled="false"
-                        android:focusable="false"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/colorPrimaryText"
-                        app:primaryValue="@{item.salesCenterName}"
-                        app:secondaryText="@{@string/id}"
-                        app:secondaryValue="@{item.salescenterId}"
-                        tools:text="patricia24@gmail.com" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    style="@style/SecondaryNormalText"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/time_zone" />
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/time_zone" />
 
 
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+                    <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTimeZone"
-                        style="@style/DefaultEditText"
-                        android:background="@null"
-                        android:enabled="true"
-                        android:focusable="false"
-                        android:inputType="textEmailAddress"
-                        android:text="@{item.timezone}"
-                        android:textColor="@color/colorPrimaryText"
-                        app:applyTint="@{@drawable/ic_edit_white_16dp}"
-                        tools:text="patricia24@gmail.com" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTimeZone"
+                            style="@style/DefaultEditText"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:enabled="true"
+                            android:focusable="false"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:text="@{item.timezone}"
+                            android:textColor="@color/colorPrimaryText"
+                            app:applyTint="@{@drawable/ic_edit_white_16dp}"
+                            tools:text="patricia24@gmail.com" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
-            </LinearLayout>
-        </ScrollView>
+                </LinearLayout>
+            </ScrollView>
+
+            <include
+                android:id="@+id/incProgressBar"
+                layout="@layout/progress_bar"
+                app:errorHandler="@{errorHandler}"
+                app:resource="@{resource}"
+                app:useBlockingProgress="@{true}"
+                tools:visibility="visible" />
+        </FrameLayout>
     </LinearLayout>
 </layout>

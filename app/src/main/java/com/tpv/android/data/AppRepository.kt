@@ -313,4 +313,11 @@ object AppRepository {
         }
     }
 
+    //update Profile
+    fun CoroutineScope.updateProfilePhotoCall(file: MultipartBody.Part) = dataApi<UserDetail?, APIError> {
+        fromNetwork {
+            ApiClient.service.updateProfilePhoto(file = file).getResult().map { it?.data }
+        }
+    }
+
 }

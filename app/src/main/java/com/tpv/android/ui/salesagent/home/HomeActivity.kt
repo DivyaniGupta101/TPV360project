@@ -31,8 +31,8 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
-import com.tpv.android.ui.salesagent.NotificationForegroundService
 import com.tpv.android.ui.auth.AuthActivity
+import com.tpv.android.ui.salesagent.NotificationForegroundService
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.MenuItem
 import kotlinx.coroutines.CoroutineScope
@@ -68,6 +68,9 @@ class HomeActivity : AppCompatActivity() {
         mNavController = Navigation.findNavController(this, R.id.navHostFragment)
         navigationHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         initialize()
+//        supportFragmentManager.transact {
+//            replace(R.id.homeMainContainer, FilePickerFragment())
+//        }
     }
 
     private fun initialize() {
@@ -86,7 +89,6 @@ class HomeActivity : AppCompatActivity() {
                 MenuItems(getDrawable(R.drawable.ic_menu_logout_white_32dp), getString(R.string.log_out)))
 
         mBinding.navMenu.currentSelected = mLastSelectedItem
-
 
         if (BuildConfig.DEBUG) {
             mBinding.navMenu?.textSettings?.show()
@@ -140,6 +142,7 @@ class HomeActivity : AppCompatActivity() {
                 context.logOutApiCall()
             })
         }
+
     }
 
     private fun getCurrentActivity() {
