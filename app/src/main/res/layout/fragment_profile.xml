@@ -179,7 +179,7 @@
                             android:id="@+id/editTimeZone"
                             style="@style/DefaultEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/_50sdp"
                             android:background="@null"
                             android:enabled="true"
                             android:focusable="false"

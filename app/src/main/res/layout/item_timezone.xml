@@ -9,6 +9,8 @@
     </data>
 
     <RadioButton
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
         android:id="@+id/btnRadio"
         style="@style/PrimaryNormalSmallText"
         android:layout_width="match_parent"
