@@ -149,7 +149,7 @@
                     <TextView
                         style="@style/SecondaryNormalText"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="@string/sales_centers" />
+                        android:text="@string/sales_center" />
 
                     <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
