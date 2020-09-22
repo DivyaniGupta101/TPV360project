@@ -142,14 +142,14 @@
 
                     <TextView
                         style="@style/PrimaryNormalSmallText"
-                        android:text="@string/alert_status_colon" />
+                        android:text="@string/alert_status_colon"
+                        android:textColor="@color/colorDarkGray" />
 
                     <TextView
                         style="@style/SecondaryNormalSmallText"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:textColor="@color/colorDarkGray"
                         app:reportData="@{item.alertStatus}"
                         tools:text="142044" />
 
