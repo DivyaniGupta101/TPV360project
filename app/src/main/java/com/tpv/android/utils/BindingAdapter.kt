@@ -181,14 +181,18 @@ object BindingAdapter {
      * Api error handler binding adaptor
      */
     @JvmStatic
-    @BindingAdapter(value = ["resource", "errorHandler"], requireAll = true)
-    fun handleErrors(view: View, resource: Resource<*, APIError>?, errorHandler: ErrorHandler?) {
+    @BindingAdapter(value = ["resource", "errorHandler", "showEmptyText"], requireAll = false)
+    fun handleErrors(view: View, resource: Resource<*, APIError>?, errorHandler: ErrorHandler?, isShow: Boolean = true) {
         resource?.let {
             if (resource.state == Resource.State.ERROR) {
                 if (errorHandler == null) {
                     if (view is TextView) {
                         view.text = resource.errorData?.message
-                        view.show()
+                        if (isShow) {
+                            view.show()
+                        } else {
+                            view.hide()
+                        }
                     }
                 } else {
                     view.hide()

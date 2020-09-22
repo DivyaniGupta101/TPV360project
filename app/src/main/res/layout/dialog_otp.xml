@@ -138,8 +138,8 @@
                 <include
                     android:id="@+id/incProgressBar"
                     layout="@layout/progress_bar"
-                    app:errorHandler="@{errorHandler}"
                     app:resource="@{resource}"
+                    app:showEmptyText="@{false}"
                     app:useBlockingProgress="@{true}"
                     tools:visibility="visible" />
             </FrameLayout>
