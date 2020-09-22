@@ -143,11 +143,15 @@ class ProfileFragment : Fragment() {
         val liveData = mViewModel.getTimeZone()
         liveData.observe(this, Observer {
             it.ifSuccess {
-                LiveAdapter(it?.data, BR.item)
+                val list = it?.data
+                list?.find { it.value?.trimEnd() == mBinding.item?.timezone?.trimEnd() }.apply {
+                    this?.selected = true
+                }
+                LiveAdapter(list, BR.item)
                         .map<TimeZone, ItemTimezoneBinding>(R.layout.item_timezone)
                         {
                             onClick { holder ->
-                                it?.data?.forEach {
+                                list?.forEach {
                                     it.selected = it == holder.binding.item
                                 }
                                 binding.rvTimezone.adapter?.notifyDataSetChanged()
