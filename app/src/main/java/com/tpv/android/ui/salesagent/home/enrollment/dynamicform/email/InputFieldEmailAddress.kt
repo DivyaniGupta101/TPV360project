@@ -31,7 +31,6 @@ import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
-var verifiedEmail: String? = null
 
 fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
                                             viewModel: SetEnrollViewModel,
@@ -66,7 +65,7 @@ fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             //Check if number is already verified call handleVerifiedText method
-            if (s.toString().equals(verifiedEmail)) {
+            if (s.toString().equals(viewModel.emailVerified)) {
                 context.handleVerifiedText(bindingInputEmail, false)
             } else {
                 context.handleVerifiedText(bindingInputEmail, true)
@@ -190,7 +189,7 @@ private fun Context.verifyOTPApiCall(bindingInputEmail: LayoutInputEmailAddressB
 
             it.ifSuccess {
 
-                verifiedEmail = bindingInputEmail.editText.value
+                viewModel.emailVerified = bindingInputEmail.editText.value
                 dialog.dismiss()
 
                 context.handleVerifiedText(bindingInputEmail, false)
