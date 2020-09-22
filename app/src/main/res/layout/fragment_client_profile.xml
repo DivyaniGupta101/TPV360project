@@ -5,6 +5,20 @@
 
     <data>
 
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+
         <variable
             name="item"
             type="com.tpv.android.model.network.UserDetail" />
@@ -22,23 +36,50 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_24sdp"
-                tools:context=".ui.salesagent.home.profile.ProfileFragment">
+                android:layout_height="match_parent">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        style="@style/ProfileImage"
-                        android:layout_gravity="center"
-                        android:elevation="@dimen/_2sdp"
-                        app:name="@{item.firstName + ' ' + item.lastName}"
-                        tools:src="@drawable/dummy_person" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_24sdp"
+                    tools:context=".ui.salesagent.home.profile.ProfileFragment">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imageProfile"
+                            style="@style/ProfileImage"
+                            android:layout_gravity="center"
+                            android:elevation="@dimen/_2sdp"
+                            app:name="@{item.firstName + ' ' + item.lastName}"
+                            app:url="@{item.profilePicture}"
+                            tools:src="@drawable/dummy_person" />
+
+                        <LinearLayout
+                            android:id="@+id/imgCamera"
+                            style="@style/CameraContainer"
+                            android:layout_gravity="bottom|end"
+                            android:background="@drawable/bg_round_accent"
+                            android:elevation="@dimen/_2sdp"
+                            android:gravity="center">
+
+                            <ImageView
+                                style="@style/CameraImage"
+                                android:src="@drawable/ic_camera_white_16dp" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
 
                     <TextView
                         style="@style/SecondaryNormalText"
@@ -163,9 +204,18 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    </LinearLayout>
+                </LinearLayout>
 
-        </ScrollView>
+            </ScrollView>
+
+            <include
+                android:id="@+id/incProgressBar"
+                layout="@layout/progress_bar"
+                app:errorHandler="@{errorHandler}"
+                app:resource="@{resource}"
+                app:useBlockingProgress="@{true}"
+                tools:visibility="visible" />
+        </FrameLayout>
     </LinearLayout>
 
 </layout>
