@@ -184,7 +184,7 @@
                             android:enabled="true"
                             android:focusable="false"
                             android:inputType="textMultiLine"
-                            android:maxLines="2"
+                            android:maxLines="5"
                             android:text="@{item.timezone}"
                             android:textColor="@color/colorPrimaryText"
                             app:applyTint="@{@drawable/ic_edit_white_16dp}"
