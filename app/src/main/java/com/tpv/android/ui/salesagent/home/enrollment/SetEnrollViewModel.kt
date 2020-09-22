@@ -26,6 +26,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var location: Location? = null
     var utilityList: ArrayList<Commodity> = ArrayList()
     var zipcode: String = ""
+    var emailVerified: String = ""
+    var phoneVerified: String = ""
 
     fun getDynamicForm(dynamicFormReq: DynamicFormReq) = with(AppRepository) {
         val result = getDynamicFormCall(dynamicFormReq)
@@ -131,5 +133,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         duplicatePageMap = LinkedHashMap()
         utilityList.clear()
         zipcode = ""
+        phoneVerified=""
+        emailVerified=""
     }
 }

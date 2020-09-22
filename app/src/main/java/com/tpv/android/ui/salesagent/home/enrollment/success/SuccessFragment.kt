@@ -73,16 +73,9 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         mBinding.item = mViewModel.savedLeadResp
 
-        mVerificationType.add(getString(R.string.email))
-        mVerificationType.add(getString(R.string.phone))
+//        mVerificationType.add(getString(R.string.email))
+//        mVerificationType.add(getString(R.string.phone))
 
-        mBinding.checkBoxEmail.setOnCheckedChangeListener { buttonView, isChecked ->
-            getSelectedCheckBoxValue(isChecked, buttonView)
-        }
-
-        mBinding.checkBoxPhone.setOnCheckedChangeListener { buttonView, isChecked ->
-            getSelectedCheckBoxValue(isChecked, buttonView)
-        }
 
         mBinding.btnVerify.onClick {
             if (mBinding.checkBoxEmail.isChecked || mBinding.checkBoxPhone.isChecked) {
@@ -94,10 +87,11 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         }
 
         mBinding.checkBoxEmail.setOnCheckedChangeListener { buttonView, isChecked ->
-            mBinding.btnVerify.background = context?.getDrawable(R.drawable.button_background_state);
+            getSelectedCheckBoxValue(isChecked, buttonView)
         }
+
         mBinding.checkBoxPhone.setOnCheckedChangeListener { buttonView, isChecked ->
-            mBinding.btnVerify.background = context?.getDrawable(R.drawable.button_background_state);
+            getSelectedCheckBoxValue(isChecked, buttonView)
         }
 
         mBinding.btnTPVNOW.onClick {
@@ -118,17 +112,19 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
     private fun getSelectedCheckBoxValue(isChecked: Boolean, buttonView: CompoundButton?) {
         if (isChecked) {
             mVerificationType.add(buttonView?.text.toString())
-            mBinding.btnVerify.isEnabled = true
+
 
         } else {
             if (mVerificationType.isNotEmpty()) {
                 mVerificationType.remove(mVerificationType.find { it == buttonView?.text.toString() })
             }
 
-            mBinding.btnVerify.isEnabled = mVerificationType.isNotEmpty()
-
         }
-
+        if (mVerificationType.isNotEmpty()) {
+            mBinding.btnVerify.background = context?.getDrawable(R.drawable.bg_gradient_button)
+        } else {
+            mBinding.btnVerify.background = context?.getDrawable(R.drawable.bg_button_disable)
+        }
     }
 
     private fun setTPVCallApi(language: String) {
