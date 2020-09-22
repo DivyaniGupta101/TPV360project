@@ -35,7 +35,7 @@ import com.tpv.android.utils.validation.PhoneNumberValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
-var verifiedEmail: String? = null
+var verifiedPhone: String? = null
 var countryCodeList = arrayListOf("+1")
 
 fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
@@ -75,7 +75,7 @@ fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             //Check if number is already verified call handleVerifiedText method
-            if (s.toString().equals(verifiedEmail)) {
+            if (s.toString().equals(verifiedPhone)) {
                 context.handleVerifiedText(bindingInputPhone, false)
             } else {
                 context.handleVerifiedText(bindingInputPhone, true)
@@ -246,7 +246,7 @@ private fun Context.verifyOTPApiCall(bindingInputPhone: LayoutInputPhoneNumberBi
 
             it.ifSuccess {
 
-                verifiedEmail = bindingInputPhone.editPhoneNumber.value
+                verifiedPhone = bindingInputPhone.editPhoneNumber.value
                 dialog.dismiss()
 
                 context.handleVerifiedText(bindingInputPhone, false)

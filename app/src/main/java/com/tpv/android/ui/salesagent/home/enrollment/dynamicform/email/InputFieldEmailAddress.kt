@@ -20,19 +20,18 @@ import com.tpv.android.model.internal.DialogText
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.OTPEmailReq
 import com.tpv.android.model.network.VerifyOTPEmailReq
-import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
-import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.phone.verifiedEmail
 import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
+var verifiedEmail: String? = null
 
 fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
                                             viewModel: SetEnrollViewModel,
