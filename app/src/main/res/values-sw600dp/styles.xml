@@ -47,7 +47,18 @@
     <style name="ProfileImage">
         <item name="android:layout_height">@dimen/_60sdp</item>
         <item name="android:layout_width">@dimen/_60sdp</item>
-        <item name="android:layout_marginTop">@dimen/_28sdp</item>
+        <!--        <item name="android:layout_marginTop">@dimen/_28sdp</item>-->
+    </style>
+
+    <style name="CameraContainer">
+        <item name="android:layout_height">@dimen/_20sdp</item>
+        <item name="android:layout_width">@dimen/_20sdp</item>
+    </style>
+
+    <style name="CameraImage">
+        <item name="android:layout_height">@dimen/_14sdp</item>
+        <item name="android:layout_width">@dimen/_14sdp</item>
+        <item name="android:padding">@dimen/_2sdp</item>
     </style>
 
     <style name="RecordingWaves">

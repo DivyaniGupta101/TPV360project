@@ -65,23 +65,19 @@
                             app:name="@{item.firstName + ' ' + item.lastName}"
                             tools:src="@drawable/dummy_person" />
 
-                        <ProgressBar
-                            android:id="@+id/progressImageLoading"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:visibility="gone"
-                            tools:visibility="visible" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
+                        <LinearLayout
                             android:id="@+id/imgCamera"
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:layout_gravity="right|bottom"
+                            style="@style/CameraContainer"
+                            android:layout_gravity="bottom|end"
+                            android:background="@drawable/bg_round_accent"
                             android:elevation="@dimen/_2sdp"
-                            android:padding="@dimen/_4sdp"
-                            android:src="@drawable/ic_camera_white_16dp"
-                            app:civ_circle_background_color="@color/colorAccent" />
+                            android:gravity="center">
+
+                            <ImageView
+                                style="@style/CameraImage"
+                                android:src="@drawable/ic_camera_white_16dp" />
+
+                        </LinearLayout>
 
                     </FrameLayout>
 

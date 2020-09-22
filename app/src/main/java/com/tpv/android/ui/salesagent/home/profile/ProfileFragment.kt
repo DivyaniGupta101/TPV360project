@@ -16,9 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.filepicker.captureImage
 import com.filepicker.pickFile
-import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.show
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
@@ -91,13 +89,6 @@ class ProfileFragment : Fragment() {
                             onSuccess {
                                 updateProfileImage(it)
                             }
-
-                            onLoading {
-                                mBinding.progressImageLoading.show()
-                            }
-                            onError {
-                                mBinding.progressImageLoading.hide()
-                            }
                         }
                     }
                 }
@@ -106,13 +97,6 @@ class ProfileFragment : Fragment() {
                         captureImage {
                             onSuccess {
                                 updateProfileImage(it)
-                            }
-
-                            onLoading {
-                                mBinding.progressImageLoading.show()
-                            }
-                            onError {
-                                mBinding.progressImageLoading.hide()
                             }
                         }
                     }
