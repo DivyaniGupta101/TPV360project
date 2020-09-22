@@ -63,6 +63,7 @@
                             android:layout_gravity="center"
                             android:elevation="@dimen/_2sdp"
                             app:name="@{item.firstName + ' ' + item.lastName}"
+                            app:url="@{item.profilePicture}"
                             tools:src="@drawable/dummy_person" />
 
                         <LinearLayout

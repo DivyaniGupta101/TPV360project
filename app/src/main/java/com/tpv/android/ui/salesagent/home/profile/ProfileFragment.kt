@@ -117,6 +117,7 @@ class ProfileFragment : Fragment() {
         liveData?.observe(viewLifecycleOwner, Observer {
             it?.ifSuccess {
                 Pref.user = it
+                updateProfileInMenu()
                 GlideApp.with(this@ProfileFragment).load(file)
                         .into(mBinding.imageProfile)
             }

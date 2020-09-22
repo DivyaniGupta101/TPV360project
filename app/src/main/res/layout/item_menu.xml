@@ -52,6 +52,7 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         style="@style/SlideMenuItemProfileImage"
                         app:name="@{item.firstName + ' ' + item.lastName}"
+                        app:url="@{item.profilePicture}"
                         tools:src="@drawable/dummy_person" />
 
                     <LinearLayout
@@ -104,6 +105,7 @@
                 layout="@layout/item_menu_options"
                 app:isSelected="@{currentSelected == menuItem.SUPPORT.value }"
                 app:item="@{menutItemList[3]}" />
+
             <include
                 android:id="@+id/layoutTimeClock"
                 layout="@layout/item_menu_options"
