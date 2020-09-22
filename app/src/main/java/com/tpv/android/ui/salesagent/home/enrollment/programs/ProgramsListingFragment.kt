@@ -77,7 +77,7 @@ class ProgramsListingFragment : Fragment() {
             val liveData = mProgramListingViewModel.getAccountNumberRegex(
                     AccountNumberRegexRequest(
                             formId = mViewModel.planId,
-                            utilityId = mViewModel.selectedUtilityList.map { it.utid }.toString()
+                            utilityId = mViewModel.selectedUtilityList.map { it.utid }.joinToString()
 
                     )
             )
