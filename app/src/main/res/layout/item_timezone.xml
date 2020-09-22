@@ -10,11 +10,11 @@
 
     <RadioButton
         android:id="@+id/btnRadio"
-        style="@style/PrimaryNormalText"
+        style="@style/PrimaryNormalSmallText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{item.value}"
-        android:checked="@{item.selected}"/>
+        android:checked="@{item.selected}"
+        android:text="@{item.value}" />
 
 
 </layout>
