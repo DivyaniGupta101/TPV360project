@@ -105,6 +105,15 @@
                         app:reportData="@{item.dateOfTpv}"
                         tools:text="142044" />
 
+                    <TextView
+                        style="@style/PrimaryNormalSmallText"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{item.leadStatus}"
+                        android:textStyle="bold"
+                        app:leadStatus="@{item.leadStatus}"
+                        tools:text="142044" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -144,14 +153,6 @@
                         app:reportData="@{item.alertStatus}"
                         tools:text="142044" />
 
-                    <TextView
-                        style="@style/PrimaryNormalSmallText"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{item.leadStatus}"
-                        android:textStyle="bold"
-                        app:leadStatus="@{item.leadStatus}"
-                        tools:text="142044" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
