@@ -204,7 +204,7 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.getLeadDetailCall(leadId: String?) = dataApi<List<DynamicFormResp>?, APIError> {
+    fun CoroutineScope.getLeadDetailCall(leadId: String?) = dataApi<LeadDetailResp?, APIError> {
         fromNetwork {
             ApiClient.service.getLeadDetail(leadId).getResult().map { it?.data }
         }

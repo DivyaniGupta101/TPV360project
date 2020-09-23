@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/label"
+                style="@style/SecondaryNormalTextWithTopSpacing"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/dispositions"
+                android:textColor="@color/colorTertiaryText"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/dispositions" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@{item}"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

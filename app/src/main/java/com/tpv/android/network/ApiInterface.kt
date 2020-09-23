@@ -81,7 +81,7 @@ interface ApiInterface {
 
     //LeadDetail
     @GET("leads/{id}")
-    fun getLeadDetail(@Path("id") id: String?): Call<CommonResponse<List<DynamicFormResp>>>
+    fun getLeadDetail(@Path("id") id: String?): Call<CommonResponse<LeadDetailResp>>
 
     //GetForm
     @POST("getform")

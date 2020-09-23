@@ -259,6 +259,9 @@
     <string name="high">High</string>
     <string name="urgent">Urgent</string>
     <string name="priority">Priority</string>
+    <string name="program_id">Program ID</string>
+    <string name="program">Program</string>
+    <string name="dispositions">Disposition</string>
     <string name="invalid_otp">Invalid authentication code. Please try again.</string>
     <string name="select_verification_method">Select Verification Method</string>
     <string name="select_language">Select Language</string>

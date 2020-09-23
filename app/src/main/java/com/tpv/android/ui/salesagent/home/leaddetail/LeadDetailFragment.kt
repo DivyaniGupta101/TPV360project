@@ -18,6 +18,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.*
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.Option
+import com.tpv.android.model.network.ProgramsDetail
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -58,9 +59,19 @@ class LeadDetailFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         val liveData = mViewModel.getLeadDetail(arguments?.let { LeadDetailFragmentArgs.fromBundle(it) }?.item)
         liveData.observe(this, Observer {
-            it?.ifSuccess {
-                it?.forEach { response ->
+            it?.ifSuccess {leadDetailResp->
+                leadDetailResp?.leadDeatils?.forEach { response ->
                     inflateViews(response)
+                }
+                if (leadDetailResp?.dispositions?.isNotEmpty().orFalse()) {
+                    val dispositions = leadDetailResp?.dispositions?.joinToString(separator = "\n")
+                    setDispositions(dispositions.orEmpty())
+
+                }
+                if (leadDetailResp?.programsDetails?.isNotEmpty().orFalse()) {
+                    leadDetailResp?.programsDetails?.forEach { programDetail ->
+                        setProgramDetail(programDetail)
+                    }
                 }
             }
 
@@ -112,6 +123,28 @@ class LeadDetailFragment : Fragment() {
                 setSeparateField()
             }
         }
+    }
+
+    /**
+     * Inflate view for Program Detail
+     */
+    private fun setProgramDetail(response: ProgramsDetail) {
+        val binding = DataBindingUtil.inflate<LayoutOutputProgramDetailFieldsBinding>(layoutInflater,
+                R.layout.layout_output_program_detail_fields,
+                mBinding.leadDetailContainer,
+                true)
+        binding.item = response
+    }
+
+    /**
+     * Inflate view for Program Detail
+     */
+    private fun setDispositions(response: String) {
+        val binding = DataBindingUtil.inflate<LayoutOutDispositionsBinding>(layoutInflater,
+                R.layout.layout_out_dispositions,
+                mBinding.leadDetailContainer,
+                true)
+        binding.item = response
     }
 
     /**
