@@ -164,12 +164,11 @@ class ProfileFragment : Fragment() {
         binding.resource = liveData as LiveData<Resource<Any, APIError>>
 
         binding.btnCancel.onClick {
-            dialog.hide()
+            dialog.dismiss()
         }
         binding.btnSubmit.onClick {
             updateTimeZone(selectedTimeZone, dialog, binding)
         }
-        dialog.show()
     }
 
     private fun updateTimeZone(selectedTimeZone: String, dialog: AlertDialog, binding: DialogTimezoneBinding) {
@@ -180,7 +179,7 @@ class ProfileFragment : Fragment() {
         ))
         livedata.observe(viewLifecycleOwner, Observer {
             it?.ifSuccess {
-                dialog.hide()
+                dialog.dismiss()
                 getProfileApiCall()
             }
         })
