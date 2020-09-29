@@ -139,6 +139,7 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
                         subTitleText = it?.message.orEmpty(),
                         showImageError = false, setOnButtonClickListener =
                 {
+                    mViewModel.clearSavedData()
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_successFragment_to_dashBoardFragment)
 
                 })
