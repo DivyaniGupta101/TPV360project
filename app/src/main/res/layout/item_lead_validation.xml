@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -17,14 +16,16 @@
 
         <TextView
             style="@style/PrimaryBoldText"
+            android:layout_width="match_parent"
             android:layout_marginTop="@dimen/_8sdp"
-            android:gravity="left"
+            android:gravity="center"
             android:text="@{item.title}"
+            android:textAlignment="center"
             android:textSize="@dimen/_10sdp" />
 
         <TextView
             style="@style/SecondaryNormalTextWithTopSpacing"
-            android:gravity="left"
+            android:gravity="center"
             android:text="@{item.msg}"
             android:textSize="@dimen/_10sdp" />
 
