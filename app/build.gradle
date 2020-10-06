@@ -38,19 +38,33 @@ android {
             storePassword 'Tpv360@Cp360'
         }
     }
+
     buildTypes {
         debug {
-            resValue "string", "content_provider", "app.monimates.debug.provider"
-            resValue "string", "launcher_app_name", "Debug MoniMates"
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+
+            resValue "string", "content_provider", "com.tpv360.debug.provider"
+            resValue "string", "launcher_app_name", "Debug TPV360"
+
+
+
         }
         release {
-            resValue "string", "content_provider", "app.monimates.debug.provider"
-            resValue "string", "launcher_app_name", "Debug MoniMates"
+            shrinkResources true
+            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
 
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "content_provider", "com.tpv360.provider"
+            resValue "string", "launcher_app_name", "TPV360"
+
         }
     }
+
     dataBinding.enabled = true
 
     packagingOptions {
@@ -106,25 +120,25 @@ android {
  gradle > TPVPlusAndroid > app > Tasks > build > assembleDebug
  **/
 
-//    applicationVariants.all { variant ->
-//        variant.outputs.all { output ->
-//            def type = variant.buildType.name
-//            def flavor = variant.productFlavors[0].name
-//            def screenshot = variant.productFlavors[1].name
-//            def date = new Date()
-//            def today = date.format('yyyy-MM-dd')
-//
-//            def outputDirPath = new File("${project.rootDir.absolutePath}/apks/${type}/TPVPlus-${today}/Screenshot${screenshot}")
-//            variant.packageApplicationProvider.get().outputDirectory = outputDirPath
-//
-//            output.outputFileName = "TPVPlus-${today}-${flavor}.apk"
-//        }
-//        variant.assemble.doLast {
-//            variant.outputs.each { output ->
-//                delete "${output.outputFile.parent}/output.json"
-//            }
-//        }
-//    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def type = variant.buildType.name
+            def flavor = variant.productFlavors[0].name
+            def screenshot = variant.productFlavors[1].name
+            def date = new Date()
+            def today = date.format('yyyy-MM-dd')
+
+            def outputDirPath = new File("${project.rootDir.absolutePath}/apks/${type}/TPVPlus-${today}/Screenshot${screenshot}")
+            variant.packageApplicationProvider.get().outputDirectory = outputDirPath
+
+            output.outputFileName = "TPVPlus-${today}-${flavor}.apk"
+        }
+        variant.assemble.doLast {
+            variant.outputs.each { output ->
+                delete "${output.outputFile.parent}/output.json"
+            }
+        }
+    }
 
 }
 
