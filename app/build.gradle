@@ -47,9 +47,8 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
 
-            resValue "string", "content_provider", "com.tpv360.debug.provider"
-            resValue "string", "launcher_app_name", "Debug TPV360"
-
+//            resValue "string", "content_provider", "com.tpv360.debug.provider"
+//            resValue "string", "launcher_app_name", "Debug TPV360"
 
 
         }
@@ -58,9 +57,9 @@ android {
             minifyEnabled true
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-
-            resValue "string", "content_provider", "com.tpv360.provider"
-            resValue "string", "launcher_app_name", "TPV360"
+//
+//            resValue "string", "content_provider", "com.tpv360.provider"
+//            resValue "string", "launcher_app_name", "TPV360"
 
         }
     }
@@ -79,10 +78,10 @@ android {
     flavorDimensions 'tpv', 'screenshot'
     productFlavors {
 
-//        Allow {
-//            dimension = 'screenshot'
-//            applicationIdSuffix ".allowss"
-//        }
+        Allow {
+            dimension = 'screenshot'
+            applicationIdSuffix ".allowss"
+        }
 
         NotAllow {
             dimension = 'screenshot'
@@ -103,24 +102,28 @@ android {
             applicationIdSuffix ".test"
             resValue "string", "app_name", "TPV360 Test"
         }
-        TPV360 {
-            dimension = 'tpv'
-            applicationId = "com.tpv360"
-            resValue "string", "app_name", "TPV360"
-        }
+//        TPV360 {
+//            dimension = 'tpv'
+//            applicationId = "com.tpv360"
+//            resValue "string", "app_name", "TPV360"
+//        }
         Prod {
             dimension = 'tpv'
             applicationIdSuffix ".prod"
             resValue "string", "app_name", "TPV360 Prod"
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.resValue "string", "content_provider", variant.applicationId + ".provider"
+    }
 /**
  To generate all debug builds uncomment below code block and
  execute task from
  gradle > TPVPlusAndroid > app > Tasks > build > assembleDebug
  **/
-
     applicationVariants.all { variant ->
+
         variant.outputs.all { output ->
             def type = variant.buildType.name
             def flavor = variant.productFlavors[0].name
@@ -128,10 +131,10 @@ android {
             def date = new Date()
             def today = date.format('yyyy-MM-dd')
 
-            def outputDirPath = new File("${project.rootDir.absolutePath}/apks/${type}/TPVPlus-${today}/Screenshot${screenshot}")
+            def outputDirPath = new File("${project.rootDir.absolutePath}/apks/${type}/TPV360-${today}/Screenshot${screenshot}")
             variant.packageApplicationProvider.get().outputDirectory = outputDirPath
 
-            output.outputFileName = "TPVPlus-${today}-${flavor}.apk"
+            output.outputFileName = "TPV360-${today}-${flavor}.apk"
         }
         variant.assemble.doLast {
             variant.outputs.each { output ->
