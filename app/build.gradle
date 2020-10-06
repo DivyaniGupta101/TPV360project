@@ -31,12 +31,12 @@ android {
             storeFile file('inexture-keystore-debug.jks')
             storePassword 'Inexture123?'
         }
-//        release {
-//            keyAlias 'test'
-//            keyPassword 'Test123?'-
-//            storeFile file('test_release.jks')
-//            storePassword 'Test123?'
-//        }
+        release {
+            keyAlias 'tpv360'
+            keyPassword 'Tpv360@Cp360'
+            storeFile file('release.jks')
+            storePassword 'Tpv360@Cp360'
+        }
     }
     buildTypes {
         debug {
