@@ -13,6 +13,7 @@ import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.R
 import com.tpv.android.databinding.LayoutInputAddressBinding
 import com.tpv.android.helper.addressComponents
+import com.tpv.android.model.internal.AddressComponent
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
@@ -59,25 +60,31 @@ fun LayoutInputAddressBinding.setField(response: DynamicFormResp) {
  */
 fun LayoutInputAddressBinding.fillAddressFields(fillAddressFields: Place?, mViewModel: SetEnrollViewModel) {
     val binding = this
-    if (binding.item?.meta?.isPrimary == true) {
-        val addressComponent = fillAddressFields?.let { addressComponents(it) }
+    val addressComponent = fillAddressFields?.let { addressComponents(it) }
 
+    if (binding.item?.meta?.isPrimary == true) {
         if (mViewModel.zipcode == addressComponent?.zipcode.orEmpty()) {
-            binding.item?.values?.set(AppConstant.ADDRESS1, addressComponent?.addressLine1.orEmpty())
-            binding.item?.values?.set(AppConstant.ADDRESS2, addressComponent?.addressLine2.orEmpty())
-            binding.item?.values?.set(AppConstant.ZIPCODE, addressComponent?.zipcode.orEmpty())
-            binding.item?.values?.set(AppConstant.LAT, addressComponent?.latitude.orEmpty())
-            binding.item?.values?.set(AppConstant.LNG, addressComponent?.longitude.orEmpty())
-            binding.item?.values?.set(AppConstant.COUNTRY, addressComponent?.country.orEmpty())
-            binding.item?.values?.set(AppConstant.CITY, addressComponent?.city.orEmpty())
-            binding.item?.values?.set(AppConstant.STATE, addressComponent?.state.orEmpty())
-            binding.invalidateAll()
+            bindAddressField(binding, addressComponent)
         } else {
             binding.editCountry.context.infoDialog(
-                    subTitleText = binding.editCountry.context.getString(R.string.zipcode_not_match)
-            )
+                    subTitleText = binding.editCountry.context.getString(R.string.zipcode_not_match))
         }
+    } else {
+        bindAddressField(binding, addressComponent)
     }
+
+}
+
+private fun bindAddressField(binding: LayoutInputAddressBinding, addressComponent: AddressComponent?) {
+    binding.item?.values?.set(AppConstant.ADDRESS1, addressComponent?.addressLine1.orEmpty())
+    binding.item?.values?.set(AppConstant.ADDRESS2, addressComponent?.addressLine2.orEmpty())
+    binding.item?.values?.set(AppConstant.ZIPCODE, addressComponent?.zipcode.orEmpty())
+    binding.item?.values?.set(AppConstant.LAT, addressComponent?.latitude.orEmpty())
+    binding.item?.values?.set(AppConstant.LNG, addressComponent?.longitude.orEmpty())
+    binding.item?.values?.set(AppConstant.COUNTRY, addressComponent?.country.orEmpty())
+    binding.item?.values?.set(AppConstant.CITY, addressComponent?.city.orEmpty())
+    binding.item?.values?.set(AppConstant.STATE, addressComponent?.state.orEmpty())
+    binding.invalidateAll()
 
 }
 
