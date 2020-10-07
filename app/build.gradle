@@ -70,10 +70,10 @@ android {
     flavorDimensions 'tpv', 'screenshot'
     productFlavors {
 
-//        Allow {
-//            dimension = 'screenshot'
-//            applicationIdSuffix ".allowss"
-//        }
+        Allow {
+            dimension = 'screenshot'
+            applicationIdSuffix ".allowss"
+        }
 
         NotAllow {
             dimension = 'screenshot'
@@ -106,6 +106,17 @@ android {
         }
     }
 
+    // This block is added for avoiding TPV360 with Screen shot allow variant.
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        // To check for a certain build type, use variant.buildType.name == "<buildType>"
+        if (names.contains("TPV360") && names.contains("Allow")) {
+            // Gradle ignores any variants that satisfy the conditions above.
+            setIgnore(true)
+        }
+    }
+
+    // This block is for dynamic content provider value for filePicker.
     applicationVariants.all { variant ->
         variant.resValue "string", "content_provider", variant.applicationId + ".provider"
     }
