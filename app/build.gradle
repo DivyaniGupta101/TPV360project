@@ -70,10 +70,10 @@ android {
     flavorDimensions 'tpv', 'screenshot'
     productFlavors {
 
-        Allow {
-            dimension = 'screenshot'
-            applicationIdSuffix ".allowss"
-        }
+//        Allow {
+//            dimension = 'screenshot'
+//            applicationIdSuffix ".allowss"
+//        }
 
         NotAllow {
             dimension = 'screenshot'
@@ -94,11 +94,11 @@ android {
             applicationIdSuffix ".test"
             resValue "string", "app_name", "TPV360 Test"
         }
-//        TPV360 {
-//            dimension = 'tpv'
-//            applicationId = "com.tpv360"
-//            resValue "string", "app_name", "TPV360"
-//        }
+        TPV360 {
+            dimension = 'tpv'
+            applicationId = "com.tpv360"
+            resValue "string", "app_name", "TPV360"
+        }
         Prod {
             dimension = 'tpv'
             applicationIdSuffix ".prod"
