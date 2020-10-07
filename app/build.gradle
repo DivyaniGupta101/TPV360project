@@ -44,23 +44,15 @@ android {
             debuggable true
             minifyEnabled false
             shrinkResources false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
-
-//            resValue "string", "content_provider", "com.tpv360.debug.provider"
-//            resValue "string", "launcher_app_name", "Debug TPV360"
 
 
         }
         release {
             shrinkResources true
             minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-//
-//            resValue "string", "content_provider", "com.tpv360.provider"
-//            resValue "string", "launcher_app_name", "TPV360"
-
         }
     }
 
