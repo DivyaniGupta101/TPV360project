@@ -166,10 +166,12 @@ class ClientReportsListingFragment : Fragment() {
             if (mSalesCenterList.isNotEmpty()) {
                 val spinnerValueList = arrayListOf("All")
                 spinnerValueList.addAll(mSalesCenterList.map { it.name.orEmpty() })
+                context?.let {
+                    val spinnerAdapter = ArrayAdapter<String>(it, android.R.layout.simple_spinner_item, spinnerValueList)
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    binding.includeSalesCenterLayout.spinner.adapter = spinnerAdapter
 
-                val spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
-                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.includeSalesCenterLayout.spinner.adapter = spinnerAdapter
+                }
 
                 if (mViewModel.clientReportReq?.salescenterId != "") {
                     val name = mSalesCenterList.find { it.id == mViewModel.clientReportReq?.salescenterId }?.name
@@ -290,10 +292,12 @@ class ClientReportsListingFragment : Fragment() {
 
                 val spinnerValueList = arrayListOf("All")
                 spinnerValueList.addAll(mSalesCenterList.map { it.name.orEmpty() })
+                context?.let {
+                    val spinnerAdapter = ArrayAdapter<String>(it, android.R.layout.simple_spinner_item, spinnerValueList)
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    binding?.includeSalesCenterLayout?.spinner?.adapter = spinnerAdapter
+                }
 
-                val spinnerAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerValueList)
-                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding?.includeSalesCenterLayout?.spinner?.adapter = spinnerAdapter
                 binding?.progressBarContainer?.hide()
             }
         })
@@ -344,12 +348,15 @@ class ClientReportsListingFragment : Fragment() {
 
         // date picker dialog
         // date picker dialog
-        val datePickerDialog = DatePickerDialog(context,
-                OnDateSetListener { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
-                    editText.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year)
-                }, mYear, mMonth, mDay)
-        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
-        datePickerDialog.show()
+        context?.let {
+            val datePickerDialog = DatePickerDialog(it,
+                    OnDateSetListener { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
+                        editText.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year)
+                    }, mYear, mMonth, mDay)
+            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+            datePickerDialog.show()
+        }
+
     }
 
     private fun setBottomSheetSortOption() {

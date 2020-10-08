@@ -231,7 +231,8 @@ class StatementFragment : Fragment() {
         }
     }
 
-   private fun resizedBitmap(): Bitmap? {
+    private fun resizedBitmap(): Bitmap? {
+
         val bm = mSignImage
         val width = bm?.width.orZero()
         val height = bm?.height.orZero()
@@ -242,7 +243,7 @@ class StatementFragment : Fragment() {
         // resize the bit map
         matrix.postScale(scaleWidth.toFloat(), scaleHeight.toFloat())
         // recreate the new Bitmap
-        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false)
+        return bm?.let { Bitmap.createBitmap(it, 0, 0, width, height, matrix, false) }
     }
 
     fun changeBitmapColor(sourceBitmap: Bitmap?, color: Int): Bitmap? {

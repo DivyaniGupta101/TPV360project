@@ -119,48 +119,51 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
         mBinding.textZipcode.threshold = 1
 
-        val adaptor = object : ArrayAdapter<ZipCodeResp>(context, android.R.layout.simple_selectable_list_item, ArrayList<ZipCodeResp>()) {
+        context?.let {
+            val adaptor = object : ArrayAdapter<ZipCodeResp>(it, android.R.layout.simple_selectable_list_item, ArrayList<ZipCodeResp>()) {
 
-            override fun getFilter(): Filter {
-                return object : Filter() {
+                override fun getFilter(): Filter {
+                    return object : Filter() {
 
 
-                    override fun performFiltering(constraint: CharSequence?): FilterResults {
-                        val filterResult = FilterResults()
-                        if (constraint.isNullOrBlank()) {
-                            filterResult.values = emptyList<String>()
-                            filterResult.count = 0
+                        override fun performFiltering(constraint: CharSequence?): FilterResults {
+                            val filterResult = FilterResults()
+                            if (constraint.isNullOrBlank()) {
+                                filterResult.values = emptyList<String>()
+                                filterResult.count = 0
+                                return filterResult
+                            }
+
+                            val resource = mViewModel.getZipCodeSynchronously(ZipCodeReq(constraint.toString()))
+                            resource.ifSuccess {
+
+                                mZipcodeList.clear()
+                                mZipcodeList.addAll(it.orEmpty())
+
+                                filterResult.values = it.orEmpty()
+                                filterResult.count = it?.size.orZero()
+                            }
+                            resource.ifFailure { _, _ ->
+                                filterResult.values = emptyList<String>()
+                                filterResult.count = 0
+                            }
                             return filterResult
                         }
 
-                        val resource = mViewModel.getZipCodeSynchronously(ZipCodeReq(constraint.toString()))
-                        resource.ifSuccess {
-
-                            mZipcodeList.clear()
-                            mZipcodeList.addAll(it.orEmpty())
-
-                            filterResult.values = it.orEmpty()
-                            filterResult.count = it?.size.orZero()
+                        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                            clear()
+                            results?.values?.let {
+                                addAll(it as List<ZipCodeResp>)
+                            }
                         }
-                        resource.ifFailure { _, _ ->
-                            filterResult.values = emptyList<String>()
-                            filterResult.count = 0
-                        }
-                        return filterResult
+
                     }
-
-                    override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                        clear()
-                        results?.values?.let {
-                            addAll(it as List<ZipCodeResp>)
-                        }
-                    }
-
                 }
             }
+            mBinding.textZipcode.setAdapter(adaptor)
+
         }
 
-        mBinding.textZipcode.setAdapter(adaptor)
 
         //On Click of dropdown, set selected value in editText
         //Also set that value in "lastSearchZipcode"
