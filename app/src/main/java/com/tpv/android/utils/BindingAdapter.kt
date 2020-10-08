@@ -223,7 +223,7 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter(value = ["url", "name"], requireAll = false)
     fun loadImageOrTextDrawable(image: ImageView, url: String?, name: String?) {
-        if (url.isNullOrBlank()) {
+        if (!url.isNullOrBlank()) {
 
             val letterImage: String? = name?.split(" ")?.joinToString("") { it.take(1).toUpperCase() }
             val drawable = TextDrawable.builder()
@@ -236,7 +236,8 @@ object BindingAdapter {
                     .bold()
                     .endConfig()
                     .buildRect(letterImage, image.context?.color(R.color.colorProfileImageBg).orZero())
-            image.setImageDrawable(drawable)
+//            image.setImageDrawable(drawable)
+            setImage(image, url, drawable)
         } else {
             setImage(image, url, null)
         }
