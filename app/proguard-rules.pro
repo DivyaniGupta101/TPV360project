@@ -49,7 +49,8 @@ public *;
 
 # Gson specific classes
 -dontwarn sun.misc.**
-#-keep class com.google.gson.stream.** { *; }
+-keep class com.google.gson.** { *; }
+-keep class com.google.gson.stream.** { *; }
 
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.examples.android.model.** { <fields>; }
@@ -86,7 +87,8 @@ volatile <fields>;
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.tpv.android.model.internal.** { *; }
 -keep class com.tpv.android.model.network.** { *; }
--keep class com.tpv.android.network.resources.Resource.** { *; }
+#-keep class com.tpv.android.network.resources.Resource.** { *; }
+-keep class com.tpv.android.network.resources.apierror.APIError { *; }
 
 # Prevent proguard from stripping interface information from TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
