@@ -1,5 +1,6 @@
 package com.tpv.android.utils
 
+import android.Manifest
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
@@ -114,6 +115,15 @@ fun Fragment.setupToolbar(
     }
 }
 
+fun checkPermission(): Array<String> {
+    val list: ArrayList<String> = arrayListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+        list.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+    }
+    return list.toTypedArray()
+}
+
 fun Context.infoDialog(title: String? = getString(R.string.error),
                        subTitleText: String,
                        btnText: String? = getString(R.string.ok),
@@ -191,7 +201,7 @@ fun Fragment.setItemSelection(item: String) {
         is HomeActivity -> {
             (activity as HomeActivity).menuItemSelection(item)
         }
-        is ClientHomeActivity ->{
+        is ClientHomeActivity -> {
             (activity as ClientHomeActivity).menuItemSelection(item)
 
         }

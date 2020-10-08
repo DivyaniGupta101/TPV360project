@@ -1,6 +1,5 @@
 package com.tpv.android.ui.salesagent.home.enrollment.dynamicform
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -498,7 +497,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
      * Also check gps is enabled
      * Then checkRadius else show error message
      */
-    private fun getLocation() = runWithPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION) {
+    private fun getLocation() = runWithPermissions(*checkPermission()) {
         uiScope.launch {
             mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
 

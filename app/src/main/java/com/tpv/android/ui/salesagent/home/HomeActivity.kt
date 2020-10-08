@@ -1,6 +1,5 @@
 package com.tpv.android.ui.salesagent.home
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -258,8 +257,7 @@ class HomeActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun getLocation() = runWithPermissions(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            *checkPermission()
     ) {
         uiScope.launch {
             locationManager = this@HomeActivity.getSystemService(Context.LOCATION_SERVICE) as LocationManager

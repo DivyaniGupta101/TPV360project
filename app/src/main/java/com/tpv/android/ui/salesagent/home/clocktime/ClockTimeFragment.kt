@@ -31,6 +31,7 @@ import com.tpv.android.ui.salesagent.home.TransparentActivity
 import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.LocationHelper.getLastKnownLocation
 import com.tpv.android.utils.LocationHelper.isBestLocation
+import com.tpv.android.utils.checkPermission
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.setupToolbar
 import kotlinx.coroutines.CoroutineScope
@@ -402,8 +403,7 @@ class ClockTimeFragment : Fragment() {
     //     */
     @SuppressLint("MissingPermission")
     private fun getLocation() = runWithPermissions(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            *checkPermission()
     ) {
         uiScope.launch {
             locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
