@@ -497,7 +497,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
      * Also check gps is enabled
      * Then checkRadius else show error message
      */
-    private fun getLocation() = runWithPermissions(*checkPermission()) {
+    private fun getLocation() = runWithPermissions(*getListOfLocationPermission()) {
         uiScope.launch {
             mViewModel.location = context?.let { LocationHelper.getLastKnownLocation(it) }
 

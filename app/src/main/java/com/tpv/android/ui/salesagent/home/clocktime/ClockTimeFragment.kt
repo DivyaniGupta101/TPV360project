@@ -16,8 +16,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import com.livinglifetechway.quickpermissions_kotlin.util.PermissionsUtil
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentClockTimeBinding
+import com.tpv.android.model.internal.DialogText
 import com.tpv.android.model.network.AgentActivityRequest
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -27,12 +29,9 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.NotificationForegroundService
 import com.tpv.android.ui.salesagent.home.HomeViewModel
 import com.tpv.android.ui.salesagent.home.TransparentActivity
-import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.*
 import com.tpv.android.utils.LocationHelper.getLastKnownLocation
 import com.tpv.android.utils.LocationHelper.isBestLocation
-import com.tpv.android.utils.checkPermission
-import com.tpv.android.utils.infoDialog
-import com.tpv.android.utils.setupToolbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -72,14 +71,24 @@ class ClockTimeFragment : Fragment() {
         setupToolbar(mBinding.toolbar, title = getString(R.string.time_clock), showBackIcon = true)
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
-        if (mViewModel.location == null) {
-            context?.infoDialog(title = "", subTitleText = "This dialog for information of location permission",
-                    showImageError = false, setOnButtonClickListener = {
-                getLocation()
-            })
+        if (!PermissionsUtil.hasSelfPermission(context, getListOfLocationPermission())) {
+            context?.actionDialog(
+                    texts = DialogText(title = "Location Access",
+                            description = " The app uses the location in the background when you clock in. Your live location is viewable by your manager at any time during your workday. This is to ensure you are only working in your assigned sales areas and reduces sales fraud.",
+                            negativeButtonText = getString(R.string.cancel),
+                            positiveButtonText = getString(R.string.ok)),
+                    setOnPositiveBanClickListener = {
+                        if (!PermissionsUtil.hasSelfPermission(context, getListOfLocationPermission())) {
+                            getLocation()
+                        }
+                    }
+
+            )
         }
 
+
         getCurrentActivity()
+
 
         mBinding.imageRefresh.onClick {
             getCurrentActivity()
@@ -113,7 +122,7 @@ class ClockTimeFragment : Fragment() {
         Timer()
     }
 
-    private fun processButtonClick(buttonView: TextView) {
+    private fun processButtonClick(buttonView: TextView) = runWithPermissions(*getListOfLocationPermission()) {
         buttonView.isClickable = false
         err("1")
         uiScope.launch {
@@ -374,9 +383,11 @@ class ClockTimeFragment : Fragment() {
     }
 
     private fun startForeGroundService() {
-        val intent = Intent(activity, NotificationForegroundService::class.java)
-        intent.putExtra(NotificationForegroundService.LOCATIONKEY, mViewModel.location)
-        activity?.startService(intent)
+        if (PermissionsUtil.hasSelfPermission(context, getListOfLocationPermission())) {
+            val intent = Intent(activity, NotificationForegroundService::class.java)
+            intent.putExtra(NotificationForegroundService.LOCATIONKEY, mViewModel.location)
+            activity?.startService(intent)
+        }
     }
 
     /**
@@ -404,9 +415,7 @@ class ClockTimeFragment : Fragment() {
     //     * Get location using location manager
     //     */
     @SuppressLint("MissingPermission")
-    private fun getLocation() = runWithPermissions(
-            *checkPermission()
-    ) {
+    private fun getLocation() = runWithPermissions(*getListOfLocationPermission()) {
         uiScope.launch {
             locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 

@@ -18,6 +18,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.databinding.setBindingView
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import com.livinglifetechway.quickpermissions_kotlin.util.PermissionsUtil
 import com.tpv.android.BuildConfig
 import com.tpv.android.R
 import com.tpv.android.databinding.ActivityHomeBinding
@@ -149,11 +150,10 @@ class HomeActivity : AppCompatActivity() {
         liveData.observe(this, Observer {
             it.ifSuccess {
                 if (it?.isClockIn.orFalse()) {
-                    getLocation()
-                    if(mViewModel.location != null){
-                    startForeGroundService()}
+                    if (!PermissionsUtil.hasSelfPermission(this, getListOfLocationPermission())) {
+                        getLocation()
+                    }
                 }
-
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
@@ -181,8 +181,6 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if(mViewModel.location != null){
-            startForeGroundService()}
         if (!Screenshot.allow)
             this?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
     }
@@ -259,9 +257,7 @@ class HomeActivity : AppCompatActivity() {
     private fun closeDrawer() = mBinding.drawerLayout.closeDrawer(GravityCompat.END)
 
     @SuppressLint("MissingPermission")
-    private fun getLocation() = runWithPermissions(
-            *checkPermission()
-    ) {
+    private fun getLocation() = runWithPermissions(*getListOfLocationPermission()) {
         uiScope.launch {
             locationManager = this@HomeActivity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
@@ -273,6 +269,10 @@ class HomeActivity : AppCompatActivity() {
                 if (!locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
                     this@HomeActivity.infoDialog(subTitleText = getString(R.string.msg_gps_location))
                 }
+            }
+
+            if (mViewModel.location != null) {
+                startForeGroundService()
             }
         }
     }
