@@ -73,8 +73,8 @@ class ClockTimeFragment : Fragment() {
 
         if (!PermissionsUtil.hasSelfPermission(context, getListOfLocationPermission())) {
             context?.actionDialog(
-                    texts = DialogText(title = "Location Access",
-                            description = " The app uses the location in the background when you clock in. Your live location is viewable by your manager at any time during your workday. This is to ensure you are only working in your assigned sales areas and reduces sales fraud.",
+                    texts = DialogText(title = getString(R.string.location_access),
+                            description = getString(R.string.msg_location_access),
                             negativeButtonText = getString(R.string.cancel),
                             positiveButtonText = getString(R.string.ok)),
                     setOnPositiveBanClickListener = {

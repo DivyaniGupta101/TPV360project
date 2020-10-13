@@ -95,6 +95,7 @@
     <string name="msg_gps_location">Your GPS Location seams to be off. Please turn on GPS and try again.</string>
     <string name="msg_unable_detect_location">Unable to detect location. Please try again.</string>
     <string name="msg_location">Unable to retrieve your location at this moment. Please try again later</string>
+    <string name="msg_location_access">The app uses the location in the background when you clock in. Your live location is viewable by your manager at any time during your workday. This is to ensure you are only working in your assigned sales areas and reduces sales fraud.</string>
 
 
     <!-- LeadList-->
@@ -131,6 +132,7 @@
     <string name="term">Term</string>
     <string name="early_termination">ETF</string>
     <string name="MSF">MSF</string>
+    <string name="location_access">Location Access</string>
     <string name="code">Code</string>
     <string name="date_of_submission_colon">Date of Submission : </string>
     <string name="date_of_sub_colon">Date of Sub : </string>
