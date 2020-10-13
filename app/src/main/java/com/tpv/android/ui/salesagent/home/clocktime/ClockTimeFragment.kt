@@ -1,6 +1,5 @@
 package com.tpv.android.ui.salesagent.home.clocktime
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -74,7 +73,10 @@ class ClockTimeFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
         if (mViewModel.location == null) {
-            getLocation()
+            context?.infoDialog(title = "", subTitleText = "This dialog for information of location permission",
+                    showImageError = false, setOnButtonClickListener = {
+                getLocation()
+            })
         }
 
         getCurrentActivity()

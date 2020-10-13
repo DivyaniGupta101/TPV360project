@@ -145,12 +145,13 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun getCurrentActivity() {
-        getLocation()
         val liveData = mViewModel.getCurrentActivity()
         liveData.observe(this, Observer {
             it.ifSuccess {
                 if (it?.isClockIn.orFalse()) {
-                    startForeGroundService()
+                    getLocation()
+                    if(mViewModel.location != null){
+                    startForeGroundService()}
                 }
 
             }
@@ -180,6 +181,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        if(mViewModel.location != null){
+            startForeGroundService()}
         if (!Screenshot.allow)
             this?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
     }
