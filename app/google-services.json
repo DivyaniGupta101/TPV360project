@@ -32,10 +32,10 @@
               "client_type": 3
             },
             {
-              "client_id": "153109151178-97odbifcigotdnh3o41l96qqfkgocg65.apps.googleusercontent.com",
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "INX.tpv.prod"
+                "bundle_id": "com.tpv360"
               }
             }
           ]
@@ -68,10 +68,10 @@
               "client_type": 3
             },
             {
-              "client_id": "153109151178-97odbifcigotdnh3o41l96qqfkgocg65.apps.googleusercontent.com",
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "INX.tpv.prod"
+                "bundle_id": "com.tpv360"
               }
             }
           ]
@@ -104,10 +104,10 @@
               "client_type": 3
             },
             {
-              "client_id": "153109151178-97odbifcigotdnh3o41l96qqfkgocg65.apps.googleusercontent.com",
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "INX.tpv.prod"
+                "bundle_id": "com.tpv360"
               }
             }
           ]
@@ -140,10 +140,10 @@
               "client_type": 3
             },
             {
-              "client_id": "153109151178-97odbifcigotdnh3o41l96qqfkgocg65.apps.googleusercontent.com",
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "INX.tpv.prod"
+                "bundle_id": "com.tpv360"
               }
             }
           ]
@@ -176,10 +176,10 @@
               "client_type": 3
             },
             {
-              "client_id": "153109151178-97odbifcigotdnh3o41l96qqfkgocg65.apps.googleusercontent.com",
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "INX.tpv.prod"
+                "bundle_id": "com.tpv360"
               }
             }
           ]
@@ -212,10 +212,10 @@
               "client_type": 3
             },
             {
-              "client_id": "153109151178-97odbifcigotdnh3o41l96qqfkgocg65.apps.googleusercontent.com",
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "INX.tpv.prod"
+                "bundle_id": "com.tpv360"
               }
             }
           ]
@@ -248,10 +248,10 @@
               "client_type": 3
             },
             {
-              "client_id": "153109151178-97odbifcigotdnh3o41l96qqfkgocg65.apps.googleusercontent.com",
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "INX.tpv.prod"
+                "bundle_id": "com.tpv360"
               }
             }
           ]
@@ -284,10 +284,10 @@
               "client_type": 3
             },
             {
-              "client_id": "153109151178-97odbifcigotdnh3o41l96qqfkgocg65.apps.googleusercontent.com",
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "INX.tpv.prod"
+                "bundle_id": "com.tpv360"
               }
             }
           ]
@@ -320,10 +320,10 @@
               "client_type": 3
             },
             {
-              "client_id": "153109151178-97odbifcigotdnh3o41l96qqfkgocg65.apps.googleusercontent.com",
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "INX.tpv.prod"
+                "bundle_id": "com.tpv360"
               }
             }
           ]
@@ -356,10 +356,46 @@
               "client_type": 3
             },
             {
-              "client_id": "153109151178-97odbifcigotdnh3o41l96qqfkgocg65.apps.googleusercontent.com",
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "INX.tpv.prod"
+                "bundle_id": "com.tpv360"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153109151178:android:9bb9aafa9759aa45fca333",
+        "android_client_info": {
+          "package_name": "com.tpv360.allowss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153109151178-ne1jafqru42nd3ri0gmc4jperi940d4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOh9PKEKbrSV05WRqafI4WvzTirttDC4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153109151178-ne1jafqru42nd3ri0gmc4jperi940d4n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "153109151178-aadsbpupom8fm6ru1211scd993hau8iv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tpv360"
               }
             }
           ]
