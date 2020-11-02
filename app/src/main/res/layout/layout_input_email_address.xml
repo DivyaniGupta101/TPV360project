@@ -38,10 +38,11 @@
             <TextView
                 android:id="@+id/textCopyFrom"
                 style="@style/SecondaryNormalSmallText"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:text="@string/copy_from"
-                android:textColor="@color/colorTertiaryText" />
+                android:textColor="@color/colorTertiaryText"
+                app:visibleIf="@{item.meta.isAllowCopy()==true}" />
 
         </LinearLayout>
 
