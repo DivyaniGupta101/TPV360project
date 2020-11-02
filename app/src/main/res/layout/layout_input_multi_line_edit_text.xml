@@ -37,7 +37,8 @@
 
             <TextView
                 android:id="@+id/textCopyFrom"
-                style="@style/SecondaryNormalTextWithTopSpacing"
+                style="@style/SecondaryNormalSmallText"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:text="@string/copy_from"
                 android:textColor="@color/colorTertiaryText" />
