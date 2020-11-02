@@ -26,6 +26,8 @@ data class Meta(
         val styleAsAButton: Boolean?,
         @SerializedName("is_primary")
         val isPrimary: Boolean?,
+        @SerializedName("is_allow_copy")
+        val isAllowCopy: Boolean?,
         @SerializedName("placeholder")
         val placeHolder: String?,
         @SerializedName("text")
