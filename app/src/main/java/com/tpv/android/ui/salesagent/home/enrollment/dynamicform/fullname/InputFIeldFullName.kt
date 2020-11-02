@@ -1,16 +1,23 @@
 package com.tpv.android.ui.salesagent.home.enrollment.dynamicform.fullname
 
 import android.content.Context
+import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.value
+import com.ravikoradiya.liveadapter.LiveAdapter
+import com.tpv.android.BR
 import com.tpv.android.R
+import com.tpv.android.databinding.ItemCopyTextBinding
 import com.tpv.android.databinding.LayoutInputFullNameBinding
 import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.BindingAdapter.setCombineFullName
+import com.tpv.android.utils.copyTextDialog
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
-fun LayoutInputFullNameBinding.setField(response: DynamicFormResp) {
+fun LayoutInputFullNameBinding.setField(response: DynamicFormResp, list: ArrayList<DynamicFormResp>) {
     val binding = this
     binding.item = response
 
@@ -31,6 +38,42 @@ fun LayoutInputFullNameBinding.setField(response: DynamicFormResp) {
             binding.editLastName.value = binding.editLastName.value.capitalize()
         }
     }
+
+    binding.textCopyFrom.onClick {
+        context.copyTextDialog(
+                list,
+                setBind ={
+                    setCombineFullName(
+                            holder.binding.textValue,
+                            holder.binding.item.values[AppConstant.FIRSTNAME].toString(),
+                            holder.binding.item.values[AppConstant.MIDDLENAME].toString(),
+                            holder.binding.item.values[AppConstant.LASTNAME].toString()
+                    )
+                }
+
+        )
+        setRecyclerView(list, binding)
+    }
+}
+
+fun setRecyclerView(list: java.util.ArrayList<DynamicFormResp>, binding: LayoutInputFullNameBinding) {
+    LiveAdapter(list, BR.item)
+            .map<DynamicFormResp, ItemCopyTextBinding>(R.layout.item_copy_text) {
+                onBind { holder ->
+                    setCombineFullName(
+                            holder.binding.textValue,
+                            holder.binding.item.values[AppConstant.FIRSTNAME].toString(),
+                            holder.binding.item.values[AppConstant.MIDDLENAME].toString(),
+                            holder.binding.item.values[AppConstant.LASTNAME].toString()
+                    )
+                }
+                onClick { holder ->
+                    binding.editFirstName.value = holder.binding.item?.values?.get(AppConstant.FIRSTNAME) as String
+                    binding.editMiddleName.value = holder.binding.item?.values?.get(AppConstant.MIDDLENAME) as String
+                    binding.editLastName.value = holder.binding.item?.values?.get(AppConstant.LASTNAME) as String
+                }
+
+            }
 }
 
 

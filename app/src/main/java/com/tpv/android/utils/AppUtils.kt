@@ -14,19 +14,23 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.*
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.invisible
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
+import com.ravikoradiya.liveadapter.Holder
+import com.ravikoradiya.liveadapter.LiveAdapter
+import com.tpv.android.BR
 import com.tpv.android.R
-import com.tpv.android.databinding.DialogActionBinding
-import com.tpv.android.databinding.DialogInfoBinding
-import com.tpv.android.databinding.ToolbarBinding
+import com.tpv.android.databinding.*
 import com.tpv.android.model.internal.DialogText
+import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.ui.client.ui.ClientHomeActivity
 import com.tpv.android.ui.salesagent.home.HomeActivity
+import kotlinx.android.synthetic.main.dialog_copy_text.*
 import kotlinx.android.synthetic.main.toolbar.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -162,6 +166,39 @@ fun Context.infoDialog(title: String? = getString(R.string.error),
     }
 
 }
+
+fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, setBind: (action:(Holder<ItemCopyTextBinding>) -> Unit),
+                           setClick: (() -> Unit)? = null) {
+
+    val binding = DataBindingUtil.inflate<DialogCopyTextBinding>(LayoutInflater.from(this),
+            R.layout.dialog_copy_text, null, false)
+    val dialog = AlertDialog.Builder(this)
+            .setView(binding.root).show()
+
+    LiveAdapter(list, BR.item)
+            .map<DynamicFormResp, ItemCopyTextBinding>(R.layout.item_copy_text) {
+                onBind {
+                        setBind(it).invoke()
+                }
+                onClick {
+                    setClick?.invoke()
+                    dialog.hide()
+                }
+            }.into(binding.rvCopyText)
+
+    dialog?.btnCancel?.onClick {
+        dialog.hide()
+    }
+    dialog?.imageClose?.onClick {
+        dialog.hide()
+    }
+
+    dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    dialog?.setCanceledOnTouchOutside(false)
+
+
+}
+
 
 fun Context.actionDialog(
         texts: DialogText,

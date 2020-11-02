@@ -357,9 +357,18 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 R.layout.layout_input_full_name,
                 mBinding.fieldContainer,
                 true)
-
-        binding.setField(response)
-        bindingList.add(binding)
+        val list: ArrayList<DynamicFormResp> = ArrayList()
+        if (binding.item.meta?.isAllowCopy.orFalse()) {
+            for (i in 1..totalPage) {
+                mViewModel.duplicatePageMap?.get(i).orEmpty().forEach {
+                    if (binding.item.type == it.type && binding.item.id != it.id) {
+                        list.add(it)
+                    }
+                }
+            }
+            binding.setField(response, list)
+            bindingList.add(binding)
+        }
     }
 
     /**
