@@ -164,6 +164,7 @@
     <string name="related_lead">Related Lead : </string>
     <string name="lead_id_colon">Lead Id : </string>
     <string name="sort_by">Sort By</string>
+    <string name="copy_from">Copy From</string>
     <string name="filter">Filter</string>
     <string name="select">Select</string>
     <string name="please_select_start_date">Please select start date</string>
