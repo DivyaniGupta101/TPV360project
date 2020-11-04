@@ -43,6 +43,7 @@ import java.io.FileOutputStream
 import java.lang.reflect.Type
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.LinkedHashMap
 
 /**
  * handle toolbar text and image hide/show and clickListener
@@ -168,9 +169,7 @@ fun Context.infoDialog(title: String? = getString(R.string.error),
 
 }
 
-fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFormResp
-//                           , setBind: (action:(Holder<ItemCopyTextBinding>) -> Unit),
-//                           setClick: (() -> Unit)? = null
+fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFormResp, updateView: (() -> Unit)
 ) {
 
     val binding = DataBindingUtil.inflate<DialogCopyTextBinding>(LayoutInflater.from(this),
@@ -219,10 +218,10 @@ fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFo
 
                         }
                     }
-//                        setBind(it).invoke()
                 }
                 onClick {
-                    response.values = it.binding.item?.values
+                    response.values = it.binding.item?.values?.clone() as LinkedHashMap<String, Any>
+                    updateView.invoke()
                     dialog.hide()
                 }
             }.into(binding.rvCopyText)

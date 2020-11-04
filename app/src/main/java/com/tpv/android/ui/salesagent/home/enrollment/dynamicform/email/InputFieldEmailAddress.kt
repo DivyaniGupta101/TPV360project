@@ -26,6 +26,7 @@ import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.copyTextDialog
 import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
@@ -34,7 +35,8 @@ import com.tpv.android.utils.validation.Validator
 
 fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
                                             viewModel: SetEnrollViewModel,
-                                            bindingDynamicForm: FragmentDynamicFormBinding) {
+                                            bindingDynamicForm: FragmentDynamicFormBinding,
+                                            list: ArrayList<DynamicFormResp>) {
     val bindingInputEmail = this
     val context = bindingInputEmail.textVerify.context
 
@@ -56,6 +58,17 @@ fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
         }
     }
 
+    bindingInputEmail.textCopyFrom.onClick {
+        context.copyTextDialog(
+                list = list,
+                response = response,
+                updateView =
+                {
+                    bindingInputEmail.invalidateAll()
+
+                }
+        )
+    }
     bindingInputEmail.editText.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
         }
@@ -122,8 +135,7 @@ private fun Context.generateOTPApiCall(bindingInputEmail: LayoutInputEmailAddres
  * On click of submit button call verify otp api
  * On click of resend otp call generate api
  */
-private fun Context.otpDialog(bindingInputEmail: LayoutInputEmailAddressBinding
-                              , bindingDynamicForm: FragmentDynamicFormBinding,
+private fun Context.otpDialog(bindingInputEmail: LayoutInputEmailAddressBinding, bindingDynamicForm: FragmentDynamicFormBinding,
                               viewModel: SetEnrollViewModel) {
     val context = this
 

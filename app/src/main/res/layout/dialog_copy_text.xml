@@ -43,6 +43,7 @@
                         android:layout_weight="1" />
 
                     <ImageView
+                        android:visibility="gone"
                         android:id="@+id/imageClose"
                         android:layout_width="@dimen/_24sdp"
                         android:layout_height="@dimen/_24sdp"
@@ -58,6 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_copy_text" />
 
                 <LinearLayout
