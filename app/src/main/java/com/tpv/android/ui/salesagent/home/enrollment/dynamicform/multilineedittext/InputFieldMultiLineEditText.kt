@@ -2,20 +2,34 @@ package com.tpv.android.ui.salesagent.home.enrollment.dynamicform.multilineeditt
 
 //import com.tpv.android.model.network.Values
 import android.content.Context
+import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.LayoutInputMultiLineEditTextBinding
 import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.utils.copyTextDialog
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.RegexValidInput
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
 
-fun LayoutInputMultiLineEditTextBinding.setField(response: DynamicFormResp) {
+fun LayoutInputMultiLineEditTextBinding.setField(response: DynamicFormResp, listOfCopyText: ArrayList<DynamicFormResp>) {
     val binding = this
     binding.item = response
+
+    binding.textCopyFrom.onClick {
+        context.copyTextDialog(
+                list = listOfCopyText,
+                response = response,
+                updateView =
+                {
+                    binding.invalidateAll()
+
+                }
+        )
+    }
 }
 
 
