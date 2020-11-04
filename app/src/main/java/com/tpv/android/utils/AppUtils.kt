@@ -14,14 +14,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.*
-import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.invisible
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
-import com.ravikoradiya.liveadapter.Holder
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -30,6 +28,9 @@ import com.tpv.android.model.internal.DialogText
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.ui.client.ui.ClientHomeActivity
 import com.tpv.android.ui.salesagent.home.HomeActivity
+import com.tpv.android.utils.BindingAdapter.addressCombineValues
+import com.tpv.android.utils.BindingAdapter.setCombineFullName
+import com.tpv.android.utils.enums.DynamicField
 import kotlinx.android.synthetic.main.dialog_copy_text.*
 import kotlinx.android.synthetic.main.toolbar.*
 import okhttp3.MediaType
@@ -167,8 +168,10 @@ fun Context.infoDialog(title: String? = getString(R.string.error),
 
 }
 
-fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, setBind: (action:(Holder<ItemCopyTextBinding>) -> Unit),
-                           setClick: (() -> Unit)? = null) {
+fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFormResp
+//                           , setBind: (action:(Holder<ItemCopyTextBinding>) -> Unit),
+//                           setClick: (() -> Unit)? = null
+) {
 
     val binding = DataBindingUtil.inflate<DialogCopyTextBinding>(LayoutInflater.from(this),
             R.layout.dialog_copy_text, null, false)
@@ -177,11 +180,49 @@ fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, setBind: (action:(H
 
     LiveAdapter(list, BR.item)
             .map<DynamicFormResp, ItemCopyTextBinding>(R.layout.item_copy_text) {
-                onBind {
-                        setBind(it).invoke()
+                onBind { holder ->
+                    when (response.type) {
+                        DynamicField.FULLNAME.type -> {
+                            setCombineFullName(holder.binding.textValue,
+                                    holder.binding.item?.values?.get(AppConstant.FIRSTNAME)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.MIDDLENAME)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.LASTNAME)?.toString())
+                        }
+
+                        DynamicField.TEXTBOX.type -> {
+                            holder.binding.textValue.text = holder.binding.item?.values?.get(AppConstant.VALUE).toString()
+                        }
+                        DynamicField.PHONENUMBER.type -> {
+                            holder.binding.textValue.text = holder.binding.item?.values?.get(AppConstant.VALUE).toString()
+                        }
+                        DynamicField.ADDRESS.type, DynamicField.BOTHADDRESS.type -> {
+                            if (DynamicField.ADDRESS.type == holder.binding.item?.type) {
+                                addressCombineValues(
+                                        holder.binding.textValue,
+                                        holder.binding.item?.values?.get(AppConstant.UNIT)?.toString(),
+                                        holder.binding.item?.values?.get(AppConstant.ADDRESS1)?.toString(),
+                                        holder.binding.item?.values?.get(AppConstant.ADDRESS2)?.toString(),
+                                        holder.binding.item?.values?.get(AppConstant.CITY)?.toString(),
+                                        holder.binding.item?.values?.get(AppConstant.STATE)?.toString(),
+                                        holder.binding.item?.values?.get(AppConstant.ZIPCODE)?.toString(),
+                                        holder.binding.item?.values?.get(AppConstant.COUNTRY)?.toString()
+                                )
+                            } else {
+
+                            }
+                        }
+                        DynamicField.TEXTAREA.type -> {
+                            holder.binding.textValue.text = holder.binding.item?.values?.get(AppConstant.VALUE)?.toString()
+                        }
+                        DynamicField.EMAIL.type -> {
+                            holder.binding.textValue.text = holder.binding.item?.values?.get(AppConstant.VALUE)?.toString()
+
+                        }
+                    }
+//                        setBind(it).invoke()
                 }
                 onClick {
-                    setClick?.invoke()
+                    response.values = it.binding.item?.values
                     dialog.hide()
                 }
             }.into(binding.rvCopyText)

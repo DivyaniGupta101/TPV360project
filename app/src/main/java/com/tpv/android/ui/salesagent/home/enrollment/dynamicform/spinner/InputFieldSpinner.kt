@@ -15,7 +15,7 @@ fun LayoutInputSpinnerBinding.setField(response: DynamicFormResp) {
     binding.item = response
 
     binding.item?.values = linkedMapOf(AppConstant.OPTIONS to response.meta?.options as Any)
-    val listOfOption = response.values[AppConstant.OPTIONS] as ArrayList<Option>
+    val listOfOption = response.values?.get(AppConstant.OPTIONS) as ArrayList<Option>
     val spinnerValueList = listOfOption.map { it.option.orEmpty() }
 
 

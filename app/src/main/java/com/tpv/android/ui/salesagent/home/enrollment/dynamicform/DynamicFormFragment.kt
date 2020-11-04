@@ -186,12 +186,12 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             val response = mViewModel.dynamicFormData.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
             when (response?.type) {
                 DynamicField.ADDRESS.type -> {
-                    lat = response.values.get(AppConstant.LAT) as String
-                    lng = response.values.get(AppConstant.LNG) as String
+                    lat = response.values?.get(AppConstant.LAT) as String
+                    lng = response.values?.get(AppConstant.LNG) as String
                 }
                 DynamicField.BOTHADDRESS.type -> {
-                    lat = response.values.get(AppConstant.SERVICELAT) as String
-                    lng = response.values.get(AppConstant.SERVICELNG) as String
+                    lat = response.values?.get(AppConstant.SERVICELAT) as String
+                    lng = response.values?.get(AppConstant.SERVICELNG) as String
                 }
             }
         }
@@ -358,10 +358,10 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
         val list: ArrayList<DynamicFormResp> = ArrayList()
-        if (binding.item.meta?.isAllowCopy.orFalse()) {
+        if (binding.item?.meta?.isAllowCopy.orFalse()) {
             for (i in 1..totalPage) {
                 mViewModel.duplicatePageMap?.get(i).orEmpty().forEach {
-                    if (binding.item.type == it.type && binding.item.id != it.id) {
+                    if (binding.item?.type == it.type && binding.item?.id != it.id) {
                         list.add(it)
                     }
                 }

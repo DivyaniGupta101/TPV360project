@@ -39,41 +39,12 @@ fun LayoutInputFullNameBinding.setField(response: DynamicFormResp, list: ArrayLi
         }
     }
 
-    binding.textCopyFrom.onClick {
-        context.copyTextDialog(
-                list,
-                setBind ={
-                    setCombineFullName(
-                            holder.binding.textValue,
-                            holder.binding.item.values[AppConstant.FIRSTNAME].toString(),
-                            holder.binding.item.values[AppConstant.MIDDLENAME].toString(),
-                            holder.binding.item.values[AppConstant.LASTNAME].toString()
-                    )
-                }
-
-        )
-        setRecyclerView(list, binding)
-    }
-}
-
-fun setRecyclerView(list: java.util.ArrayList<DynamicFormResp>, binding: LayoutInputFullNameBinding) {
-    LiveAdapter(list, BR.item)
-            .map<DynamicFormResp, ItemCopyTextBinding>(R.layout.item_copy_text) {
-                onBind { holder ->
-                    setCombineFullName(
-                            holder.binding.textValue,
-                            holder.binding.item.values[AppConstant.FIRSTNAME].toString(),
-                            holder.binding.item.values[AppConstant.MIDDLENAME].toString(),
-                            holder.binding.item.values[AppConstant.LASTNAME].toString()
-                    )
-                }
-                onClick { holder ->
-                    binding.editFirstName.value = holder.binding.item?.values?.get(AppConstant.FIRSTNAME) as String
-                    binding.editMiddleName.value = holder.binding.item?.values?.get(AppConstant.MIDDLENAME) as String
-                    binding.editLastName.value = holder.binding.item?.values?.get(AppConstant.LASTNAME) as String
-                }
-
-            }
+//    binding.textCopyFrom.onClick {
+//        context.copyTextDialog(
+//                list,
+//                response
+//        )
+//    }
 }
 
 

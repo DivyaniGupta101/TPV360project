@@ -31,7 +31,9 @@
                 style="@style/TertiaryBoldTextWithTopSpacing"
                 android:layout_weight="1"
                 android:text="@{item.label}"
+                android:maxLines="2"
                 android:textAllCaps="true"
+                android:layout_marginEnd="@dimen/_8sdp"
                 app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
                 tools:text="Full name" />
 
@@ -39,11 +41,9 @@
                 android:id="@+id/textCopyFrom"
                 style="@style/SecondaryNormalSmallText"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:text="@string/copy_from"
-                app:visibleIf="@{item.meta.isAllowCopy()==true}"
-                android:textColor="@color/colorTertiaryText" />
-
+                android:textColor="@color/colorTertiaryText"
+                app:visibleIf="@{item.meta.isAllowCopy}" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -7,6 +8,10 @@
         <variable
             name="item"
             type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
+            name="dynamicField"
+            type="com.tpv.android.utils.enums.DynamicField" />
     </data>
 
     <LinearLayout
@@ -15,23 +20,55 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textLabel"
-            style="@style/SecondaryNormalTextWithTopSpacing"
-            android:text="@{item.label}"
-            android:textColor="@color/colorTertiaryText"
-            tools:text="@string/middle_name" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textValue"
-            style="@style/SecondaryNormalSmallText"
+        <LinearLayout
             android:layout_width="match_parent"
-            tools:text="@string/authorised_first_name" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <View
-            style="@style/Divider"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_width="match_parent" />
+            <TextView
+                android:id="@+id/textLabel"
+                style="@style/SecondaryNormalTextWithTopSpacing"
+                android:text="@{item.label}"
+                android:textColor="@color/colorTertiaryText"
+                tools:text="@string/middle_name" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textValue"
+                style="@style/SecondaryNormalSmallText"
+                android:layout_width="match_parent"
+                tools:text="@string/authorised_first_name" />
+
+            <View
+                style="@style/Divider"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_8sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:visibleIf="@{item.type == dynamicField.BOTHADDRESS.name()}">
+
+            <TextView
+                android:id="@+id/textBillingLabel"
+                style="@style/SecondaryNormalTextWithTopSpacing"
+                android:text="@string/billing_address"
+                android:textColor="@color/colorTertiaryText"
+                tools:text="@string/middle_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textBillingValue"
+                style="@style/SecondaryNormalSmallText"
+                android:layout_width="match_parent"
+                tools:text="@string/authorised_first_name" />
+
+            <View
+                style="@style/Divider"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_8sdp" />
+
+        </LinearLayout>
     </LinearLayout>
 </layout>

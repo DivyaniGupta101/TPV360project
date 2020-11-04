@@ -27,23 +27,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textTitle"
                 style="@style/TertiaryBoldTextWithTopSpacing"
                 android:layout_weight="1"
                 android:text="@{item.label}"
+                android:maxLines="2"
                 android:textAllCaps="true"
+                android:layout_marginEnd="@dimen/_8sdp"
                 app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
                 tools:text="Full name" />
 
             <TextView
                 android:id="@+id/textCopyFrom"
                 style="@style/SecondaryNormalSmallText"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:text="@string/copy_from"
                 android:textColor="@color/colorTertiaryText"
-                app:visibleIf="@{item.meta.isAllowCopy()==true}" />
-
+                app:visibleIf="@{item.meta.isAllowCopy}" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout

@@ -7,9 +7,9 @@
 
         <import type="com.tpv.android.R" />
 
-        <variable
-            name="item"
-            type="com.tpv.android.model.internal.DialogText" />
+<!--        <variable-->
+<!--            name="item"-->
+<!--            type="com.tpv.android.model.internal.DialogText" />-->
 
     </data>
 
@@ -73,8 +73,9 @@
                         style="@style/DialogCancelButton"
                         android:layout_marginStart="0dp"
                         android:layout_marginEnd="8dp"
-                        android:text="@{item.negativeButtonText}"
                         android:visibility="invisible" />
+
+                    <!--                        android:text="@{item.negativeButtonText}"-->
 
                     <TextView
                         android:id="@+id/btnCancel"

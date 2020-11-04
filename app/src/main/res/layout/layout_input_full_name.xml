@@ -20,30 +20,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <TextView
+            style="@style/TertiaryBoldTextWithTopSpacing"
+            android:text="@{item.label}"
+            android:textAllCaps="true"
+            app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
+            tools:text="Full name" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                style="@style/TertiaryBoldTextWithTopSpacing"
-                android:layout_weight="1"
-                android:text="@{item.label}"
-                android:textAllCaps="true"
-                app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
-                tools:text="Full name" />
+<!--            <TextView-->
+<!--                style="@style/TertiaryBoldTextWithTopSpacing"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_height="@dimen/_50sdp"-->
+<!--                android:layout_width="@dimen/_100sdp"-->
+<!--                android:text="@{item.label}"-->
+<!--                android:maxLines="2"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:layout_marginEnd="@dimen/_8sdp"-->
+<!--                app:visibleIf="@{!TextUtils.isEmpty(item.label)}"-->
+<!--                tools:text="phone_number" />-->
 
-            <TextView
-                android:id="@+id/textCopyFrom"
-                style="@style/SecondaryNormalSmallText"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:text="@string/copy_from"
-                app:visibleIf="@{item.meta.isAllowCopy()==true}"
-                android:textColor="@color/colorTertiaryText" />
-        </LinearLayout>
-
+<!--            <TextView-->
+<!--                android:id="@+id/textCopyFrom"-->
+<!--                style="@style/SecondaryNormalSmallText"-->
+<!--                android:layout_marginTop="@dimen/_8sdp"-->
+<!--                android:text="@string/copy_from"-->
+<!--                android:textColor="@color/colorTertiaryText"-->
+<!--                app:visibleIf="@{item.meta.isAllowCopy}" />-->
+<!--        </LinearLayout>-->
         <TextView
             android:id="@+id/textFirstName"
             style="@style/SecondaryNormalTextWithTopSpacing"
