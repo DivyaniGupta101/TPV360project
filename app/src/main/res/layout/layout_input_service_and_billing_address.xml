@@ -22,38 +22,36 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <TextView
+            style="@style/TertiaryBoldTextWithTopSpacing"
+            android:text="@{item.label}"
+            android:textAllCaps="true"
+            app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
+            tools:text="@string/address" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:orientation="horizontal">
 
             <TextView
-                style="@style/TertiaryBoldTextWithTopSpacing"
+                style="@style/SecondaryNormalSmallText"
                 android:layout_weight="1"
-                android:text="@{item.label}"
-                android:maxLines="2"
+                android:text="@string/service_address"
                 android:textAllCaps="true"
-                android:layout_marginEnd="@dimen/_8sdp"
-                app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
-                tools:text="@string/address" />
+                android:textColor="@color/colorTertiaryText" />
 
             <TextView
-                android:id="@+id/textCopyFrom"
+                android:id="@+id/textServiceCopyText"
                 style="@style/SecondaryNormalSmallText"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_gravity="center"
                 android:text="@string/copy_from"
                 android:textColor="@color/colorTertiaryText"
                 app:visibleIf="@{item.meta.isAllowCopy}" />
         </LinearLayout>
-
-        <TextView
-            style="@style/SecondaryNormalSmallText"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:text="@string/service_address"
-            android:textAllCaps="true"
-            android:textColor="@color/colorTertiaryText" />
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputBillingAddressLineOne"
@@ -153,14 +151,28 @@
 
         </RadioGroup>
 
-        <TextView
-            style="@style/SecondaryNormalSmallText"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:text="@string/billing_address"
-            android:textAllCaps="true"
-            android:textColor="@color/colorTertiaryText" />
+            android:orientation="horizontal">
 
+            <TextView
+                style="@style/SecondaryNormalSmallText"
+                android:layout_weight="1"
+                android:text="@string/billing_address"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText" />
+
+            <TextView
+                android:id="@+id/textBillingCopyText"
+                style="@style/SecondaryNormalSmallText"
+                android:layout_gravity="center"
+                android:text="@string/copy_from"
+                android:textColor="@color/colorTertiaryText"
+                app:visibleIf="@{item.meta.isAllowCopy}" />
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputServiceAddressLineOne"

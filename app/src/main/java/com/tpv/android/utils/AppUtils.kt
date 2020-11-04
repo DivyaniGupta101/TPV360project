@@ -15,11 +15,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.*
 import com.google.gson.Gson
+import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
-import com.livinglifetechway.k4kotlin.core.hide
-import com.livinglifetechway.k4kotlin.core.invisible
-import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.show
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -194,21 +191,44 @@ fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFo
                         DynamicField.PHONENUMBER.type -> {
                             holder.binding.textValue.text = holder.binding.item?.values?.get(AppConstant.VALUE).toString()
                         }
-                        DynamicField.ADDRESS.type, DynamicField.BOTHADDRESS.type -> {
-                            if (DynamicField.ADDRESS.type == holder.binding.item?.type) {
-                                addressCombineValues(
-                                        holder.binding.textValue,
-                                        holder.binding.item?.values?.get(AppConstant.UNIT)?.toString(),
-                                        holder.binding.item?.values?.get(AppConstant.ADDRESS1)?.toString(),
-                                        holder.binding.item?.values?.get(AppConstant.ADDRESS2)?.toString(),
-                                        holder.binding.item?.values?.get(AppConstant.CITY)?.toString(),
-                                        holder.binding.item?.values?.get(AppConstant.STATE)?.toString(),
-                                        holder.binding.item?.values?.get(AppConstant.ZIPCODE)?.toString(),
-                                        holder.binding.item?.values?.get(AppConstant.COUNTRY)?.toString()
-                                )
-                            } else {
-
-                            }
+                        DynamicField.ADDRESS.type -> {
+                            holder.binding.textValue.tag = getString(R.string.address)
+                            addressCombineValues(
+                                    holder.binding.textValue,
+                                    holder.binding.item?.values?.get(AppConstant.UNIT)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.ADDRESS1)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.ADDRESS2)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.CITY)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.STATE)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.ZIPCODE)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.COUNTRY)?.toString()
+                            )
+                        }
+                        DynamicField.BOTHADDRESS.type -> {
+                            holder.binding.textLabel.text = getString(R.string.service_address)
+                            holder.binding.textLabel.tag = getString(R.string.service_address)
+                            holder.binding.textBillingLabel.tag = getString(R.string.billing_address)
+                            holder.binding.textBillingLabel.text = getString(R.string.billing_address)
+                            addressCombineValues(
+                                    holder.binding.textValue,
+                                    holder.binding.item?.values?.get(AppConstant.SERVICEUNIT)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.SERVICEADDRESS1)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.SERVICEADDRESS2)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.SERVICECITY)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.SERVICESTATE)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.SERVICEZIPCODE)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.SERVICECOUNTRY)?.toString()
+                            )
+                            addressCombineValues(
+                                    holder.binding.textBillingValue,
+                                    holder.binding.item?.values?.get(AppConstant.BILLINGUNIT)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.BILLINGADDRESS1)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.BILLINGADDRESS2)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.BILLINGCITY)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.BILLINGSTATE)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.BILLINGZIPCODE)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.BILLINGCOUNTRY)?.toString()
+                            )
                         }
                         DynamicField.TEXTAREA.type -> {
                             holder.binding.textValue.text = holder.binding.item?.values?.get(AppConstant.VALUE)?.toString()
@@ -220,7 +240,26 @@ fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFo
                     }
                 }
                 onClick {
-                    response.values = it.binding.item?.values?.clone() as LinkedHashMap<String, Any>
+                    if (response.type == it.binding.item?.type) {
+                        response.values = it.binding.item?.values?.clone() as LinkedHashMap<String, Any>
+                    }
+                    //convert to bothAddress
+                    if (response.type == DynamicField.BOTHADDRESS.name
+                            && it.binding.item?.type == DynamicField.ADDRESS.name) {
+//                        if (it?.binding.textBillingLabel.tag) {
+                        toastNow("${it.binding.textLabel.tag}")
+                        toastNow("${it.binding.textBillingLabel.tag}")
+//                        }
+//                        response.values?.get(AppConstant.UNIT) = it.binding.item?.values?.get(AppConstant)
+                    }
+                    if (response.type == DynamicField.ADDRESS.name
+                            && it.binding.item?.type == DynamicField.BOTHADDRESS.name) {
+//                        if (it?.binding.textBillingLabel.tag) {
+                        toastNow("${it.binding.textBillingLabel.tag}")
+                        toastNow("${it.binding.textBillingLabel.tag}")
+//                        }
+//                        response.values?.get(AppConstant.UNIT) = it.binding.item?.values?.get(AppConstant)
+                    }
                     updateView.invoke()
                     dialog.hide()
                 }

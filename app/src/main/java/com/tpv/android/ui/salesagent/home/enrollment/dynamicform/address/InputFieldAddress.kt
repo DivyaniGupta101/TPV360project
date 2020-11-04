@@ -18,6 +18,7 @@ import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.copyTextDialog
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
@@ -33,11 +34,22 @@ private var addressField =
                 Place.Field.LAT_LNG)
 
 
-fun LayoutInputAddressBinding.setField(response: DynamicFormResp) {
+fun LayoutInputAddressBinding.setField(response: DynamicFormResp, listOfCopyTextForAddress: ArrayList<DynamicFormResp>) {
     val binding = this
     val context = binding.editUnit.context
 
     binding.item = response
+    binding.textCopyFrom.onClick {
+        context.copyTextDialog(
+                list = listOfCopyTextForAddress,
+                response = response,
+                updateView =
+                {
+                    binding.invalidateAll()
+
+                }
+        )
+    }
 
     // AutoPlace picker
     if (!Places.isInitialized()) {

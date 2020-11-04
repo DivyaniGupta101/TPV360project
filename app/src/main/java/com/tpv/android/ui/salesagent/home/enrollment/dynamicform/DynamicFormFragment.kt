@@ -344,7 +344,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
 
-        binding.setField(response,getListOfCopyText(response))
+        binding.setField(response, getListOfCopyText(response))
         bindingList.add(binding)
     }
 
@@ -405,7 +405,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
 
-        binding.setField(response, mViewModel, mBinding,getListOfCopyText(response))
+        binding.setField(response, mViewModel, mBinding, getListOfCopyText(response))
         bindingList.add(binding)
     }
 
@@ -417,7 +417,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 R.layout.layout_input_address,
                 mBinding.fieldContainer,
                 true)
-        binding.setField(response)
+        binding.setField(response, getListOfCopyTextForAddress(response))
         bindingList.add(binding)
     }
 
@@ -429,7 +429,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 R.layout.layout_input_service_and_billing_address,
                 mBinding.fieldContainer,
                 true)
-        binding.setField(response)
+        binding.setField(response, getListOfCopyTextForAddress(response))
         bindingList.add(binding)
     }
 
@@ -442,7 +442,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
 
-        binding.setField(response,getListOfCopyText(response))
+        binding.setField(response, getListOfCopyText(response))
         bindingList.add(binding)
     }
 
@@ -581,6 +581,20 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             for (i in 1..totalPage) {
                 mViewModel.duplicatePageMap?.get(i).orEmpty().forEachIndexed { index, it ->
                     if (dynamicFormResp.type == it.type && dynamicFormResp.id != it.id) {
+                        mViewModel.duplicatePageMap?.get(i)?.get(index)?.let { it1 -> list.add(it1) }
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    private fun getListOfCopyTextForAddress(dynamicFormResp: DynamicFormResp): ArrayList<DynamicFormResp> {
+        val list: ArrayList<DynamicFormResp> = ArrayList()
+        if (dynamicFormResp.meta?.isAllowCopy.orFalse()) {
+            for (i in 1..totalPage) {
+                mViewModel.duplicatePageMap?.get(i).orEmpty().forEachIndexed { index, it ->
+                    if (dynamicFormResp.type == DynamicField.ADDRESS.name || dynamicFormResp.type == DynamicField.BOTHADDRESS.name && dynamicFormResp.id != it.id) {
                         mViewModel.duplicatePageMap?.get(i)?.get(index)?.let { it1 -> list.add(it1) }
                     }
                 }
