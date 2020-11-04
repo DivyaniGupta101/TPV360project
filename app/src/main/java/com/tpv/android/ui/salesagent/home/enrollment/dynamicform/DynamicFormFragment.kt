@@ -405,7 +405,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
 
-        binding.setField(response, mViewModel, mBinding)
+        binding.setField(response, mViewModel, mBinding,getListOfCopyText(response))
         bindingList.add(binding)
     }
 

@@ -30,6 +30,7 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.copyTextDialog
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.PhoneNumberValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
@@ -39,7 +40,8 @@ var countryCodeList = arrayListOf("+1")
 
 fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
                                            viewModel: SetEnrollViewModel,
-                                           bindingDynamicForm: FragmentDynamicFormBinding) {
+                                           bindingDynamicForm: FragmentDynamicFormBinding,
+                                           listOfCopyText: ArrayList<DynamicFormResp>) {
 
     val context = bindingDynamicForm.btnNext.context
     val bindingInputPhone = this
@@ -53,7 +55,17 @@ fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
         bindingInputPhone.textVerify.hide()
     }
     bindingInputPhone.spinnerCountryCode.setItems(countryCodeList)
+    bindingInputPhone.textCopyFrom.onClick {
+        context.copyTextDialog(
+                list = listOfCopyText,
+                response = response,
+                updateView =
+                {
+                    bindingInputPhone.invalidateAll()
 
+                }
+        )
+    }
     bindingInputPhone.textVerify.onClick {
 
         context.hideKeyBoard()
