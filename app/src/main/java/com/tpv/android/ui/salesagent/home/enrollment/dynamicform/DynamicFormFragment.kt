@@ -594,7 +594,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         if (dynamicFormResp.meta?.isAllowCopy.orFalse()) {
             for (i in 1..totalPage) {
                 mViewModel.duplicatePageMap?.get(i).orEmpty().forEachIndexed { index, it ->
-                    if (dynamicFormResp.type == DynamicField.ADDRESS.name || dynamicFormResp.type == DynamicField.BOTHADDRESS.name && dynamicFormResp.id != it.id) {
+                    if ((it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && dynamicFormResp.id != it.id) {
                         mViewModel.duplicatePageMap?.get(i)?.get(index)?.let { it1 -> list.add(it1) }
                     }
                 }

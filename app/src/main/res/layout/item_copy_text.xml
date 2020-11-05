@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -21,6 +20,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layoutService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -46,17 +46,18 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutBilling"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:visibleIf="@{item.type == dynamicField.BOTHADDRESS.name()}">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/textBillingLabel"
                 style="@style/SecondaryNormalTextWithTopSpacing"
                 android:text="@string/billing_address"
                 android:textColor="@color/colorTertiaryText"
-                tools:text="@string/middle_name" />
+                tools:text="@string/billing_address" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textBillingValue"

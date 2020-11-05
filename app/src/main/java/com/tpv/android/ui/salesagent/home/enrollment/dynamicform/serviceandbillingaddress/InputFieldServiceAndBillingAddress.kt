@@ -100,6 +100,7 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
 
     binding.textBillingCopyText.onClick {
         context.copyTextDialog(
+                isBilling = true,
                 list = listOfCopyTextForAddress,
                 response = response,
                 updateView =

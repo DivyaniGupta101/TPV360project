@@ -15,8 +15,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.*
 import com.google.gson.Gson
-import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
+import com.livinglifetechway.k4kotlin.core.hide
+import com.livinglifetechway.k4kotlin.core.invisible
+import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.show
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -166,7 +169,9 @@ fun Context.infoDialog(title: String? = getString(R.string.error),
 
 }
 
-fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFormResp, updateView: (() -> Unit)
+fun Context.copyTextDialog(
+        isBilling: Boolean = false,
+        list: ArrayList<DynamicFormResp>, response: DynamicFormResp, updateView: (() -> Unit)
 ) {
 
     val binding = DataBindingUtil.inflate<DialogCopyTextBinding>(LayoutInflater.from(this),
@@ -177,7 +182,7 @@ fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFo
     LiveAdapter(list, BR.item)
             .map<DynamicFormResp, ItemCopyTextBinding>(R.layout.item_copy_text) {
                 onBind { holder ->
-                    when (response.type) {
+                    when (holder.binding.item?.type) {
                         DynamicField.FULLNAME.type -> {
                             setCombineFullName(holder.binding.textValue,
                                     holder.binding.item?.values?.get(AppConstant.FIRSTNAME)?.toString(),
@@ -203,12 +208,46 @@ fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFo
                                     holder.binding.item?.values?.get(AppConstant.ZIPCODE)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.COUNTRY)?.toString()
                             )
+                            holder.binding.layoutService.onClick {
+                                val data = holder.binding.item?.values?.clone() as LinkedHashMap<String, Any>
+
+                                if (response.type == DynamicField.BOTHADDRESS.type) {
+
+                                    if (isBilling) {
+                                        response.values?.set(AppConstant.BILLINGUNIT, data[AppConstant.UNIT].toString())
+                                        response.values?.set(AppConstant.BILLINGADDRESS1, data[AppConstant.ADDRESS1].toString())
+                                        response.values?.set(AppConstant.BILLINGADDRESS2, data[AppConstant.ADDRESS2].toString())
+                                        response.values?.set(AppConstant.BILLINGCITY, data[AppConstant.CITY].toString())
+                                        response.values?.set(AppConstant.BILLINGSTATE, data[AppConstant.STATE].toString())
+                                        response.values?.set(AppConstant.BILLINGZIPCODE, data[AppConstant.ZIPCODE].toString())
+                                        response.values?.set(AppConstant.BILLINGCOUNTRY, data[AppConstant.COUNTRY].toString())
+                                        response.values?.set(AppConstant.BILLINGLAT, data[AppConstant.LAT].toString())
+                                        response.values?.set(AppConstant.BILLINGLNG, data[AppConstant.LNG].toString())
+
+                                    } else {
+                                        response.values?.set(AppConstant.SERVICEUNIT, data[AppConstant.UNIT].toString())
+                                        response.values?.set(AppConstant.SERVICEADDRESS1, data[AppConstant.ADDRESS1].toString())
+                                        response.values?.set(AppConstant.SERVICEADDRESS2, data[AppConstant.ADDRESS2].toString())
+                                        response.values?.set(AppConstant.SERVICECITY, data[AppConstant.CITY].toString())
+                                        response.values?.set(AppConstant.SERVICESTATE, data[AppConstant.STATE].toString())
+                                        response.values?.set(AppConstant.SERVICEZIPCODE, data[AppConstant.ZIPCODE].toString())
+                                        response.values?.set(AppConstant.SERVICECOUNTRY, data[AppConstant.COUNTRY].toString())
+                                        response.values?.set(AppConstant.SERVICELAT, data[AppConstant.LAT].toString())
+                                        response.values?.set(AppConstant.SERVICELNG, data[AppConstant.LNG].toString())
+
+                                    }
+                                } else {
+                                    response.values = data
+                                }
+                                updateView.invoke()
+                                dialog.dismiss()
+                            }
                         }
                         DynamicField.BOTHADDRESS.type -> {
                             holder.binding.textLabel.text = getString(R.string.service_address)
                             holder.binding.textLabel.tag = getString(R.string.service_address)
-                            holder.binding.textBillingLabel.tag = getString(R.string.billing_address)
-                            holder.binding.textBillingLabel.text = getString(R.string.billing_address)
+                            holder.binding.layoutBilling.tag = getString(R.string.billing_address)
+                            holder.binding.layoutBilling.show()
                             addressCombineValues(
                                     holder.binding.textValue,
                                     holder.binding.item?.values?.get(AppConstant.SERVICEUNIT)?.toString(),
@@ -229,6 +268,88 @@ fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFo
                                     holder.binding.item?.values?.get(AppConstant.BILLINGZIPCODE)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.BILLINGCOUNTRY)?.toString()
                             )
+
+                            holder.binding.layoutBilling.onClick {
+                                val data = holder.binding.item?.values?.clone() as LinkedHashMap<String, Any>
+                                if (response.type == DynamicField.ADDRESS.type) {
+                                    response.values?.set(AppConstant.UNIT, data[AppConstant.BILLINGUNIT].toString())
+                                    response.values?.set(AppConstant.ADDRESS1, data[AppConstant.BILLINGADDRESS1].toString())
+                                    response.values?.set(AppConstant.ADDRESS2, data[AppConstant.BILLINGADDRESS2].toString())
+                                    response.values?.set(AppConstant.CITY, data[AppConstant.BILLINGCITY].toString())
+                                    response.values?.set(AppConstant.STATE, data[AppConstant.BILLINGSTATE].toString())
+                                    response.values?.set(AppConstant.ZIPCODE, data[AppConstant.BILLINGZIPCODE].toString())
+                                    response.values?.set(AppConstant.COUNTRY, data[AppConstant.BILLINGCOUNTRY].toString())
+                                    response.values?.set(AppConstant.LAT, data[AppConstant.BILLINGLAT].toString())
+                                    response.values?.set(AppConstant.LNG, data[AppConstant.BILLINGLNG].toString())
+                                } else {
+                                    if (isBilling) {
+                                        response.values?.set(AppConstant.BILLINGUNIT, data[AppConstant.BILLINGUNIT].toString())
+                                        response.values?.set(AppConstant.BILLINGADDRESS1, data[AppConstant.BILLINGADDRESS1].toString())
+                                        response.values?.set(AppConstant.BILLINGADDRESS2, data[AppConstant.BILLINGADDRESS2].toString())
+                                        response.values?.set(AppConstant.BILLINGCITY, data[AppConstant.BILLINGCITY].toString())
+                                        response.values?.set(AppConstant.BILLINGSTATE, data[AppConstant.BILLINGSTATE].toString())
+                                        response.values?.set(AppConstant.BILLINGZIPCODE, data[AppConstant.BILLINGZIPCODE].toString())
+                                        response.values?.set(AppConstant.BILLINGCOUNTRY, data[AppConstant.BILLINGCOUNTRY].toString())
+                                        response.values?.set(AppConstant.BILLINGLAT, data[AppConstant.BILLINGLAT].toString())
+                                        response.values?.set(AppConstant.BILLINGLNG, data[AppConstant.BILLINGLNG].toString())
+
+
+                                    } else {
+                                        response.values?.set(AppConstant.SERVICEUNIT, data[AppConstant.BILLINGUNIT].toString())
+                                        response.values?.set(AppConstant.SERVICEADDRESS1, data[AppConstant.BILLINGADDRESS1].toString())
+                                        response.values?.set(AppConstant.SERVICEADDRESS2, data[AppConstant.BILLINGADDRESS2].toString())
+                                        response.values?.set(AppConstant.SERVICECITY, data[AppConstant.BILLINGCITY].toString())
+                                        response.values?.set(AppConstant.SERVICESTATE, data[AppConstant.BILLINGSTATE].toString())
+                                        response.values?.set(AppConstant.SERVICEZIPCODE, data[AppConstant.BILLINGZIPCODE].toString())
+                                        response.values?.set(AppConstant.SERVICECOUNTRY, data[AppConstant.BILLINGCOUNTRY].toString())
+                                        response.values?.set(AppConstant.SERVICELAT, data[AppConstant.BILLINGLAT].toString())
+                                        response.values?.set(AppConstant.SERVICELNG, data[AppConstant.BILLINGLNG].toString())
+
+                                    }
+                                }
+                                updateView.invoke()
+                                dialog.dismiss()
+                            }
+
+                            holder.binding.layoutService.onClick {
+                                val data = holder.binding.item?.values?.clone() as LinkedHashMap<String, Any>
+                                if (response.type == DynamicField.ADDRESS.type) {
+                                    response.values?.set(AppConstant.UNIT, data[AppConstant.SERVICEUNIT].toString())
+                                    response.values?.set(AppConstant.ADDRESS1, data[AppConstant.SERVICEADDRESS1].toString())
+                                    response.values?.set(AppConstant.ADDRESS2, data[AppConstant.SERVICEADDRESS2].toString())
+                                    response.values?.set(AppConstant.CITY, data[AppConstant.SERVICECITY].toString())
+                                    response.values?.set(AppConstant.STATE, data[AppConstant.SERVICESTATE].toString())
+                                    response.values?.set(AppConstant.ZIPCODE, data[AppConstant.SERVICEZIPCODE].toString())
+                                    response.values?.set(AppConstant.COUNTRY, data[AppConstant.SERVICECOUNTRY].toString())
+                                    response.values?.set(AppConstant.LAT, data[AppConstant.SERVICELAT].toString())
+                                    response.values?.set(AppConstant.LNG, data[AppConstant.SERVICELNG].toString())
+                                } else {
+                                    if (isBilling) {
+                                        response.values?.set(AppConstant.BILLINGUNIT, data[AppConstant.SERVICEUNIT].toString())
+                                        response.values?.set(AppConstant.BILLINGADDRESS1, data[AppConstant.SERVICEADDRESS1].toString())
+                                        response.values?.set(AppConstant.BILLINGADDRESS2, data[AppConstant.SERVICEADDRESS2].toString())
+                                        response.values?.set(AppConstant.BILLINGCITY, data[AppConstant.SERVICECITY].toString())
+                                        response.values?.set(AppConstant.BILLINGSTATE, data[AppConstant.SERVICESTATE].toString())
+                                        response.values?.set(AppConstant.BILLINGZIPCODE, data[AppConstant.SERVICEZIPCODE].toString())
+                                        response.values?.set(AppConstant.BILLINGCOUNTRY, data[AppConstant.SERVICECOUNTRY].toString())
+                                        response.values?.set(AppConstant.BILLINGLAT, data[AppConstant.SERVICELAT].toString())
+                                        response.values?.set(AppConstant.BILLINGLNG, data[AppConstant.SERVICELNG].toString())
+
+                                    } else {
+                                        response.values?.set(AppConstant.SERVICEUNIT, data[AppConstant.SERVICEUNIT].toString())
+                                        response.values?.set(AppConstant.SERVICEADDRESS1, data[AppConstant.SERVICEADDRESS1].toString())
+                                        response.values?.set(AppConstant.SERVICEADDRESS2, data[AppConstant.SERVICEADDRESS2].toString())
+                                        response.values?.set(AppConstant.SERVICECITY, data[AppConstant.SERVICECITY].toString())
+                                        response.values?.set(AppConstant.SERVICESTATE, data[AppConstant.SERVICESTATE].toString())
+                                        response.values?.set(AppConstant.SERVICEZIPCODE, data[AppConstant.SERVICEZIPCODE].toString())
+                                        response.values?.set(AppConstant.SERVICECOUNTRY, data[AppConstant.SERVICECOUNTRY].toString())
+                                        response.values?.set(AppConstant.SERVICELAT, data[AppConstant.SERVICELAT].toString())
+                                        response.values?.set(AppConstant.SERVICELNG, data[AppConstant.SERVICELNG].toString())
+                                    }
+                                }
+                                updateView.invoke()
+                                dialog.dismiss()
+                            }
                         }
                         DynamicField.TEXTAREA.type -> {
                             holder.binding.textValue.text = holder.binding.item?.values?.get(AppConstant.VALUE)?.toString()
@@ -243,39 +364,16 @@ fun Context.copyTextDialog(list: ArrayList<DynamicFormResp>, response: DynamicFo
                     if (response.type == it.binding.item?.type) {
                         response.values = it.binding.item?.values?.clone() as LinkedHashMap<String, Any>
                     }
-                    //convert to bothAddress
-                    if (response.type == DynamicField.BOTHADDRESS.name
-                            && it.binding.item?.type == DynamicField.ADDRESS.name) {
-//                        if (it?.binding.textBillingLabel.tag) {
-                        toastNow("${it.binding.textLabel.tag}")
-                        toastNow("${it.binding.textBillingLabel.tag}")
-//                        }
-//                        response.values?.get(AppConstant.UNIT) = it.binding.item?.values?.get(AppConstant)
-                    }
-                    if (response.type == DynamicField.ADDRESS.name
-                            && it.binding.item?.type == DynamicField.BOTHADDRESS.name) {
-//                        if (it?.binding.textBillingLabel.tag) {
-                        toastNow("${it.binding.textBillingLabel.tag}")
-                        toastNow("${it.binding.textBillingLabel.tag}")
-//                        }
-//                        response.values?.get(AppConstant.UNIT) = it.binding.item?.values?.get(AppConstant)
-                    }
                     updateView.invoke()
-                    dialog.hide()
+                    dialog.dismiss()
                 }
             }.into(binding.rvCopyText)
 
     dialog?.btnCancel?.onClick {
-        dialog.hide()
+        dialog.dismiss()
     }
-    dialog?.imageClose?.onClick {
-        dialog.hide()
-    }
-
     dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     dialog?.setCanceledOnTouchOutside(false)
-
-
 }
 
 
