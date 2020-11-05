@@ -8,7 +8,8 @@ data class CommodityResp(
         @SerializedName("formname")
         val formname: String?,
         @SerializedName("id")
-        val id: Int?
+        val id: Int?,
+        var isSelcected: Boolean? = false
 )
 
 data class Commodity(
