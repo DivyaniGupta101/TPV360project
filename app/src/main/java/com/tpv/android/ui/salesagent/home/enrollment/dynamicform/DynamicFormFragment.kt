@@ -365,7 +365,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                     }
                 }
             }
-            binding.setField(response, list)
+            binding.setField(response)
             bindingList.add(binding)
         }
     }
