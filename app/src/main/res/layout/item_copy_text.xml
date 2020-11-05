@@ -55,7 +55,6 @@
             <TextView
                 android:id="@+id/textBillingLabel"
                 style="@style/SecondaryNormalTextWithTopSpacing"
-                android:text="@string/billing_address"
                 android:textColor="@color/colorTertiaryText"
                 tools:text="@string/billing_address" />
 

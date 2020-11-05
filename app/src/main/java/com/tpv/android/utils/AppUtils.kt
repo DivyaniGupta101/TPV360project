@@ -244,9 +244,10 @@ fun Context.copyTextDialog(
                             }
                         }
                         DynamicField.BOTHADDRESS.type -> {
-                            holder.binding.textLabel.text = getString(R.string.service_address)
+                            holder.binding.textLabel.text = getString(R.string.service_address) + " (${holder.binding.item?.label})"
                             holder.binding.textLabel.tag = getString(R.string.service_address)
                             holder.binding.layoutBilling.tag = getString(R.string.billing_address)
+                            holder.binding.textBillingLabel.text = getString(R.string.billing_address) + " (${holder.binding.item?.label})"
                             holder.binding.layoutBilling.show()
                             addressCombineValues(
                                     holder.binding.textValue,
