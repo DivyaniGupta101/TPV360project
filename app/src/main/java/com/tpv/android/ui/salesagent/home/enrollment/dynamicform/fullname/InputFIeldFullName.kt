@@ -1,16 +1,18 @@
 package com.tpv.android.ui.salesagent.home.enrollment.dynamicform.fullname
 
 import android.content.Context
+import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.LayoutInputFullNameBinding
 import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.utils.copyTextDialog
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
 
-fun LayoutInputFullNameBinding.setField(response: DynamicFormResp) {
+fun LayoutInputFullNameBinding.setField(response: DynamicFormResp, listOfCopyTextForAddress: ArrayList<DynamicFormResp>) {
     val binding = this
     binding.item = response
 
@@ -30,6 +32,18 @@ fun LayoutInputFullNameBinding.setField(response: DynamicFormResp) {
         if (!hasFocus) {
             binding.editLastName.value = binding.editLastName.value.capitalize()
         }
+    }
+
+    binding.textCopyFrom.onClick {
+        context.copyTextDialog(
+                list = listOfCopyTextForAddress,
+                response = response,
+                updateView =
+                {
+                    binding.invalidateAll()
+
+                }
+        )
     }
 }
 
