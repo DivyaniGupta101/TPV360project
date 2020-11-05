@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.ProgramCustomField" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/dividerView"
+            style="@style/Divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_4sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SecondaryNormalSmallText"
+                android:layout_width="wrap_content"
+                android:text="@{item.label + ' ' + ':'+ ' '}"
+                tools:text="@string/code" />
+
+
+            <TextView
+                style="@style/PrimaryNormalSmallText"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@{item.value}"
+                tools:text="142044" />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

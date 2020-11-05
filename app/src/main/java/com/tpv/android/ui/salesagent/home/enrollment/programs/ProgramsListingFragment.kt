@@ -18,6 +18,7 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentProgramsListingBinding
 import com.tpv.android.databinding.ItemProgramsBinding
+import com.tpv.android.databinding.LayoutProgramCustomFieldBinding
 import com.tpv.android.model.internal.itemSelection
 import com.tpv.android.model.network.AccountNumberRegexRequest
 import com.tpv.android.model.network.DynamicFormResp
@@ -136,6 +137,20 @@ class ProgramsListingFragment : Fragment() {
         LiveAdapter(mList, BR.item)
                 .map<ProgramsResp, ItemProgramsBinding>(R.layout.item_programs) {
                     onBind {
+                        it.binding.customFieldsContainer.removeAllViews()
+                        it.binding.item?.costomFields?.forEachIndexed { index, programCustomField ->
+
+                            val binding = DataBindingUtil.inflate<LayoutProgramCustomFieldBinding>(layoutInflater,
+                                    R.layout.layout_program_custom_field,
+                                    it.binding.customFieldsContainer,
+                                    true)
+                            binding.item = programCustomField
+                            if (index == 0) {
+                                binding.dividerView.show()
+                            } else {
+                                binding.dividerView.hide()
+                            }
+                        }
                         if (it.binding.item?.isSelcected.orFalse()) {
                             it.binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_border)
                             it.binding.imageEnroll.show()

@@ -33,6 +33,8 @@ data class ProgramsResp(
         var accountNumberLength: String?,
         @SerializedName("commodity")
         var commodity: String?,
+        @SerializedName("custom_fields")
+        var costomFields: ArrayList<ProgramCustomField>,
         var isSelcected: Boolean? = false,
         var utilityType: String?
 
@@ -41,4 +43,12 @@ data class ProgramsResp(
 data class ProgramsReq(
         @SerializedName("utility_id")
         var utilityId: String?
+)
+
+
+data class ProgramCustomField(
+        @SerializedName("label")
+        val label: String?,
+        @SerializedName("value")
+        val value: String?
 )
