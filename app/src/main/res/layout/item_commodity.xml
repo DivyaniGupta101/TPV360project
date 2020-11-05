@@ -22,39 +22,64 @@
         android:paddingEnd="@dimen/_8sdp"
         android:paddingBottom="@dimen/_8sdp">
 
-        <com.google.android.material.card.MaterialCardView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="@dimen/_2sdp"
-            app:cardUseCompatPadding="true">
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_10sdp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/_28sdp">
+            <ImageView
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
+                android:visibility="gone"
+                app:dynamicTintColor="@{R.color.colorSecondaryImageTint}"
+                tools:src="@drawable/ic_idea_gray" />
 
-                <ImageView
-                    android:layout_width="@dimen/_36sdp"
-                    android:layout_height="@dimen/_36sdp"
-                    android:visibility="gone"
-                    app:dynamicTintColor="@{R.color.colorSecondaryImageTint}"
-                    tools:src="@drawable/ic_idea_gray" />
+            <View
+                style="@style/DividerPrimary"
+                android:visibility="gone" />
 
-                <View
-                    style="@style/DividerPrimary"
-                    android:visibility="gone" />
+            <TextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@{item.formname}"
+                tools:text="@string/dual_fuel" />
 
-                <TextView
-                    style="@style/PrimaryBoldText"
-                    android:text="@{item.formname}"
-                    tools:text="@string/dual_fuel" />
+            <ImageView
+                android:id="@+id/imageRight"
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_gradient_fab"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_right_white"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <View
+            style="@style/Divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+
+        <!--        <com.google.android.material.card.MaterialCardView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:cardCornerRadius="@dimen/_8sdp"-->
+        <!--            app:cardElevation="@dimen/_2sdp"-->
+        <!--            app:cardUseCompatPadding="true">-->
+
+        <!--        </com.google.android.material.card.MaterialCardView>-->
 
     </LinearLayout>
 </layout>

@@ -11,6 +11,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.hide
+import com.livinglifetechway.k4kotlin.onClick
+import com.livinglifetechway.k4kotlin.orFalse
+import com.livinglifetechway.k4kotlin.show
 import com.ravikoradiya.liveadapter.LiveAdapter
 import com.tpv.android.BR
 import com.tpv.android.R
@@ -33,7 +37,8 @@ class CommodityFragment : Fragment() {
     private lateinit var mViewModel: SetEnrollViewModel
     private lateinit var mViewModelCommodity: CommodityViewModel
     private var mList: ArrayList<CommodityResp> = ArrayList()
-
+    private var selectedId = ""
+    private var selectedTitle = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -54,6 +59,9 @@ class CommodityFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         getCommodityApiCall()
         setRecyclerView()
+        mBinding.btnNext.onClick {
+            getDynamicFormApiCall(selectedId, selectedTitle)
+        }
     }
 
     /**
@@ -75,8 +83,21 @@ class CommodityFragment : Fragment() {
     private fun setRecyclerView() {
         LiveAdapter(mList, BR.item)
                 .map<CommodityResp, ItemCommodityBinding>(R.layout.item_commodity) {
+                    onBind {
+                        if (it.binding.item?.isSelcected.orFalse()) {
+                            it.binding.imageRight.show()
+                        } else {
+                            it.binding.imageRight.hide()
+                        }
+                    }
                     onClick { holder ->
-                        getDynamicFormApiCall(holder.binding.item?.id.toString(), holder.binding.item?.formname)
+                        mBinding.btnNext.isEnabled = true
+                        mList.forEach {
+                            it.isSelcected = it.id == holder.binding.item?.id
+                        }
+                        selectedId = holder.binding.item?.id.toString()
+                        selectedTitle = holder.binding.item?.formname.toString()
+                        mBinding.listPlans.adapter?.notifyDataSetChanged()
                     }
                 }
                 .into(mBinding.listPlans)
