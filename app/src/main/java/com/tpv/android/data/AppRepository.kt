@@ -320,4 +320,16 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.getEnrollWithStateCall(enrollWithStateReq: EnrollWithStateReq) = dataApi<EnrollWithStateResp?, APIError> {
+        fromNetwork {
+            ApiClient.service.getEnrollWithState(enrollWithStateReq).getResult().map { it?.data }
+        }
+    }
+
+    fun CoroutineScope.getUtilityStateCall(enrollWithStateReq: EnrollWithStateReq) = dataApi<List<UtilityStateResp>?, APIError> {
+        fromNetwork {
+            ApiClient.service.getUtilityState(enrollWithStateReq).getResult().map { it?.data }
+        }
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.tpv.android.ui.salesagent.home.enrollment.planszipcode
 
 
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Filter
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
@@ -23,10 +21,7 @@ import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
 import com.tpv.android.databinding.LayoutPlanZipcodeSpinnerBinding
 import com.tpv.android.helper.OnBackPressCallBack
-import com.tpv.android.model.network.UtilityReq
-import com.tpv.android.model.network.UtilityResp
-import com.tpv.android.model.network.ZipCodeReq
-import com.tpv.android.model.network.ZipCodeResp
+import com.tpv.android.model.network.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -42,6 +37,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     private lateinit var mBinding: FragmentPlansZipcodeBinding
     private var mZipcodeList = ObservableArrayList<ZipCodeResp>()
     private var mUtilityList = ArrayList<UtilityResp>()
+    private var mStateList = ArrayList<UtilityStateResp>()
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private lateinit var mViewModel: PlansZipcodeViewModel
     private var lastSearchZipCode = ""
@@ -77,7 +73,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         return true
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun initialize() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         val toolbarTitle = arguments?.let { PlansZipcodeFragmentArgs.fromBundle(it).item }
@@ -86,22 +81,36 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             mSetEnrollViewModel.clearSavedData()
         }
 
+        mViewModel.getEnrollWithState(EnrollWithStateReq(
+                formId = mSetEnrollViewModel.planId
+        )).apply {
+            observeForever(Observer {
+                it?.ifSuccess {
+                    if (it?.isEnableEnrollByState.orFalse()) {
+                        getStateList()
+                    } else {
+                        mBinding.radioZipcode.hide()
+                    }
+                }
+            })
+        } as LiveData<Resource<Any, APIError>>
+
+
         mBinding.radioState.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 mBinding.radioZipcode.isChecked = !isChecked
-                mBinding.textZipcode.focusable = View.NOT_FOCUSABLE
+                mBinding.textZipcode.clearFocus()
             }
         }
         mBinding.radioZipcode.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 mBinding.radioState.isChecked = !isChecked
-                mBinding.textZipcode.focusable = View.FOCUSABLE
+                mBinding.textZipcode.isFocusable = true
 
             }
         }
         mBinding.textZipcode.onClick {
             mBinding.radioZipcode.isChecked = true
-
         }
         setAutoCompleterTextView()
 
@@ -109,18 +118,35 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         if (mSetEnrollViewModel.selectedUtilityList.isNotEmpty()) {
             setUtilitySpinners()
         }
-        mBinding.spinnerState.setItems(arrayListOf("a","b","c") as ArrayList<String>?)
 
         mBinding.spinnerState.onItemSelected { parent, view, position, id ->
             mBinding.radioState.isChecked = true
         }
 
 
-        mBinding.btnNext?.onClick {
+        mBinding.btnNext.onClick {
             hideKeyboard()
             setData()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
+    }
+
+    private fun getStateList() {
+        val liveData = mViewModel.getUtilityState(EnrollWithStateReq(
+                formId = mSetEnrollViewModel.planId
+        ))
+        liveData.observe(this, Observer {
+            it?.ifSuccess {
+                mStateList.clear()
+                mStateList.add(UtilityStateResp("", "Select"))
+                mStateList.addAll(it.orEmpty())
+                mBinding.spinnerState.setItems(mStateList.map { it.state } as ArrayList<String>?)
+                mBinding.containerDivider.show()
+                mBinding.containerState.show()
+            }
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
     }
 
     /**
