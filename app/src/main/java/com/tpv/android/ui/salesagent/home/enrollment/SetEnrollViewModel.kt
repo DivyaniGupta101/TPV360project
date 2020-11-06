@@ -26,6 +26,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var location: Location? = null
     var utilityList: ArrayList<Commodity> = ArrayList()
     var zipcode: String = ""
+    var selectedState: UtilityStateResp? = null
+    var selectionType: String = ""
     var emailVerified: String = ""
     var phoneVerified: String = ""
 
@@ -133,7 +135,9 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         duplicatePageMap = LinkedHashMap()
         utilityList.clear()
         zipcode = ""
-        phoneVerified=""
-        emailVerified=""
+        selectedState = null
+        phoneVerified = ""
+        emailVerified = ""
+        selectionType = ""
     }
 }

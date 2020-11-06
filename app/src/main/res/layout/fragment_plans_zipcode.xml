@@ -40,6 +40,8 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:id="@+id/containerMain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,6 +54,7 @@
                         android:src="@drawable/plan_selection_img" />
 
                     <LinearLayout
+                        android:id="@+id/containerZipcode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_50sdp"
@@ -59,6 +62,8 @@
                         android:orientation="horizontal">
 
                         <RadioButton
+                            android:visibility="gone"
+                            tools:visibility="visible"
                             android:id="@+id/radioZipcode"
                             style="@style/PrimaryNormalText"
                             android:layout_width="wrap_content"

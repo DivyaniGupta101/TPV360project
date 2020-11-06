@@ -16,7 +16,11 @@ enum class LeadStatus(val value: String) {
     EXPIRED("expired")
 }
 
-
+enum class EnrollType(val value: String)
+{
+    ZIPCODE("zipcode"),
+    STATE("state")
+}
 enum class ClientLeadStatus(val value: String) {
     PENDING("Pending"),
     VERIFIED("Verified"),

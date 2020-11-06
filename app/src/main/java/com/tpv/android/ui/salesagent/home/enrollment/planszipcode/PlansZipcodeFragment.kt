@@ -4,6 +4,7 @@ package com.tpv.android.ui.salesagent.home.enrollment.planszipcode
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -28,6 +29,7 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.enums.EnrollType
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -81,22 +83,20 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             mSetEnrollViewModel.clearSavedData()
         }
 
-        mViewModel.getEnrollWithState(EnrollWithStateReq(
-                formId = mSetEnrollViewModel.planId
-        )).apply {
-            observeForever(Observer {
-                it?.ifSuccess {
-                    if (it?.isEnableEnrollByState.orFalse()) {
-                        mBinding.containerMain.hide()
-                        mBinding.incProgressBar.progressBarView.show()
-                        getStateList()
-                    } else {
-                        mBinding.radioZipcode.hide()
-                    }
-                }
-            })
-        } as LiveData<Resource<Any, APIError>>
+        getStatusOfEnrollWithState()
+        setAutoCompleterTextView()
 
+        //Check if selectedUtilityList list available then show respective value in dropdown
+        if (mSetEnrollViewModel.selectedUtilityList.isNotEmpty()) {
+            setUtilitySpinners()
+        }
+
+        mBinding.spinnerState.setOnTouchListener { v, event ->
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                mBinding.radioState.isChecked = true
+            }
+            false
+        }
 
         mBinding.radioState.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
@@ -111,26 +111,35 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
             }
         }
-        mBinding.textZipcode.onClick {
-            mBinding.radioZipcode.isChecked = true
+        mBinding.textZipcode.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                mBinding.radioZipcode.isChecked = true
+            }
         }
-        setAutoCompleterTextView()
-
-        //Check if selectedUtilityList list available then show respective value in dropdown
-        if (mSetEnrollViewModel.selectedUtilityList.isNotEmpty()) {
-            setUtilitySpinners()
-        }
-
-        mBinding.spinnerState.onItemSelected { parent, view, position, id ->
-            mBinding.radioState.isChecked = true
-        }
-
-
         mBinding.btnNext.onClick {
             hideKeyboard()
             setData()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
+    }
+
+    private fun getStatusOfEnrollWithState() {
+        mViewModel.getEnrollWithState(EnrollWithStateReq(
+                formId = mSetEnrollViewModel.planId
+        )).apply {
+            observeForever(Observer {
+                it?.ifSuccess {
+                    if (it?.isEnableEnrollByState.orFalse()) {
+                        mBinding.containerMain.hide()
+                        mBinding.incProgressBar.progressBarView.show()
+                        getStateList()
+                    } else {
+                        mBinding.containerMain.show()
+                    }
+                }
+            })
+        } as LiveData<Resource<Any, APIError>>
+
     }
 
     private fun getStateList() {
@@ -143,8 +152,19 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 mStateList.add(UtilityStateResp("", "Select"))
                 mStateList.addAll(it.orEmpty())
                 mBinding.spinnerState.setItems(mStateList.map { it.state } as ArrayList<String>?)
+                if (mSetEnrollViewModel.selectedState != null) {
+                    mSetEnrollViewModel.selectedState?.let {
+                        mBinding.spinnerState.setSelection(mStateList.indexOf(it))
+                    }
+                }
+                if (mSetEnrollViewModel.selectionType == EnrollType.STATE.value) {
+                    mBinding.radioState.isChecked = true
+                } else {
+                    mBinding.radioZipcode.isChecked = true
+                }
                 mBinding.containerDivider.show()
                 mBinding.containerState.show()
+                mBinding.radioZipcode.show()
                 mBinding.containerMain.show()
             }
         })
@@ -158,6 +178,12 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     private fun setData() {
 
         mSetEnrollViewModel.zipcode = mBinding.textZipcode.value
+        mSetEnrollViewModel.selectedState = mStateList[mBinding.spinnerState.selectedItemPosition]
+        if (mBinding.radioState.isChecked) {
+            mSetEnrollViewModel.selectionType = EnrollType.STATE.value
+        } else {
+            mSetEnrollViewModel.selectionType = EnrollType.ZIPCODE.value
+        }
         mSetEnrollViewModel.selectedUtilityList.clear()
 
         bindingList.forEach { binding ->
