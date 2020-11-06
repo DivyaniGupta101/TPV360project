@@ -19,8 +19,8 @@ android {
         applicationId "com.tpv.android"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 41
-        versionName "0.8.7"
+        versionCode 42
+        versionName "0.8.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
