@@ -87,6 +87,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             observeForever(Observer {
                 it?.ifSuccess {
                     if (it?.isEnableEnrollByState.orFalse()) {
+                        mBinding.containerMain.hide()
+                        mBinding.incProgressBar.progressBarView.show()
                         getStateList()
                     } else {
                         mBinding.radioZipcode.hide()
@@ -143,6 +145,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 mBinding.spinnerState.setItems(mStateList.map { it.state } as ArrayList<String>?)
                 mBinding.containerDivider.show()
                 mBinding.containerState.show()
+                mBinding.containerMain.show()
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
