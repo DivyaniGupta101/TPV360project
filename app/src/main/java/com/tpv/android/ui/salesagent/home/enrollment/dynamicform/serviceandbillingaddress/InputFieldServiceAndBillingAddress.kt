@@ -185,7 +185,7 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
 
     if (binding.item?.meta?.isPrimary == true) {
         if (mViewModel.selectionType == EnrollType.STATE.value) {
-            if (mViewModel.selectedState?.state == addressComponent?.state) {
+            if (mViewModel.selectedState?.state == addressComponent?.state && addressComponent?.zipcode?.isNotBlank().orFalse()) {
                 if (isServiceAddress) {
                     bindServiceAddressField(binding, addressComponent)
                 }
