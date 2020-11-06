@@ -25,6 +25,7 @@ import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.copyTextDialog
+import com.tpv.android.utils.enums.EnrollType
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
@@ -183,19 +184,37 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
 
     if (binding.item?.meta?.isPrimary == true) {
-        if (mViewModel.zipcode == addressComponent?.zipcode) {
-            if (isServiceAddress) {
-                bindServiceAddressField(binding, addressComponent)
-            }
-        } else {
-            if (!isServiceAddress) {
-                bindBillingAddressField(binding, addressComponent)
+        if (mViewModel.selectionType == EnrollType.STATE.value) {
+            if (mViewModel.selectedState?.state == addressComponent?.state) {
+                if (isServiceAddress) {
+                    bindServiceAddressField(binding, addressComponent)
+                }
             } else {
-                binding.editBillingAddressLineOne.context.infoDialog(
-                        subTitleText = binding.editBillingCountry.context.getString(R.string.zipcode_not_match)
-                )
+                if (!isServiceAddress) {
+                    bindBillingAddressField(binding, addressComponent)
+                } else {
+                    binding.editBillingAddressLineOne.context.infoDialog(
+                            subTitleText = binding.editBillingCountry.context.getString(R.string.state_not_match)
+                    )
+                }
+            }
+
+        } else {
+            if (mViewModel.zipcode == addressComponent?.zipcode) {
+                if (isServiceAddress) {
+                    bindServiceAddressField(binding, addressComponent)
+                }
+            } else {
+                if (!isServiceAddress) {
+                    bindBillingAddressField(binding, addressComponent)
+                } else {
+                    binding.editBillingAddressLineOne.context.infoDialog(
+                            subTitleText = binding.editBillingCountry.context.getString(R.string.zipcode_not_match)
+                    )
+                }
             }
         }
+
     } else {
         if (isServiceAddress) {
             bindServiceAddressField(binding, addressComponent)
