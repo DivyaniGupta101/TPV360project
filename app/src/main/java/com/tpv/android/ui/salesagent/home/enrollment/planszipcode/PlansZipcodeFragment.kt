@@ -1,6 +1,7 @@
 package com.tpv.android.ui.salesagent.home.enrollment.planszipcode
 
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Filter
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
@@ -75,6 +77,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         return true
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initialize() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         val toolbarTitle = arguments?.let { PlansZipcodeFragmentArgs.fromBundle(it).item }
@@ -83,12 +86,35 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             mSetEnrollViewModel.clearSavedData()
         }
 
+        mBinding.radioState.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                mBinding.radioZipcode.isChecked = !isChecked
+                mBinding.textZipcode.focusable = View.NOT_FOCUSABLE
+            }
+        }
+        mBinding.radioZipcode.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                mBinding.radioState.isChecked = !isChecked
+                mBinding.textZipcode.focusable = View.FOCUSABLE
+
+            }
+        }
+        mBinding.textZipcode.onClick {
+            mBinding.radioZipcode.isChecked = true
+
+        }
         setAutoCompleterTextView()
 
         //Check if selectedUtilityList list available then show respective value in dropdown
         if (mSetEnrollViewModel.selectedUtilityList.isNotEmpty()) {
             setUtilitySpinners()
         }
+        mBinding.spinnerState.setItems(arrayListOf("a","b","c") as ArrayList<String>?)
+
+        mBinding.spinnerState.onItemSelected { parent, view, position, id ->
+            mBinding.radioState.isChecked = true
+        }
+
 
         mBinding.btnNext?.onClick {
             hideKeyboard()
