@@ -98,6 +98,10 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             false
         }
 
+        mBinding.spinnerState.onItemSelected { parent, view, position, id ->
+            mBinding.btnNext.isEnabled = position != 0
+        }
+
         mBinding.radioState.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 mBinding.radioZipcode.isChecked = !isChecked
@@ -185,7 +189,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             mSetEnrollViewModel.selectionType = EnrollType.ZIPCODE.value
         }
         mSetEnrollViewModel.selectedUtilityList.clear()
-
         bindingList.forEach { binding ->
             val utilities = mUtilityList.find { it.fullname == binding.spinner.selectedItem && it.commodityId == binding.item?.id }
             utilities?.let { mSetEnrollViewModel.selectedUtilityList.add(it) }
