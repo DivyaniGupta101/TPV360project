@@ -77,9 +77,11 @@
                     <TextView
                         style="@style/SecondaryMediumNormalText"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="@string/verification_number" />
+                        android:text="@string/verification_number"
+                        app:visibleIf="@{item.isOnCustomerCallNumber &amp;&amp; !item.phoneNumber.isEmpty()}" />
 
                     <TextView
+                        app:visibleIf="@{item.isOnCustomerCallNumber &amp;&amp; !item.phoneNumber.isEmpty()}"
                         style="@style/SecondaryMediumNormalText"
                         android:text="@{item.phoneNumber}"
                         android:textColor="@color/colorPrimaryText"
