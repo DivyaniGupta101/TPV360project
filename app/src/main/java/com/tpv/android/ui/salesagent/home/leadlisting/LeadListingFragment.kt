@@ -197,10 +197,12 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
                 .map<LeadResp, ItemLeadListBinding>(R.layout.item_lead_list) {
 
                     onClick {
-                        mViewModel.mLastPosition = it.adapterPosition
-                        val id = it.binding.item?.id
-                        Navigation.findNavController(mBinding.root).navigateSafe(
-                                LeadListingFragmentDirections.actionLeadListingFragmentToLeadDetailFragment(id.orEmpty()))
+                        if (it.binding.item.isOnLeadViewPage.orFalse()) {
+                            mViewModel.mLastPosition = it.adapterPosition
+                            val id = it.binding.item?.id
+                            Navigation.findNavController(mBinding.root).navigateSafe(
+                                    LeadListingFragmentDirections.actionLeadListingFragmentToLeadDetailFragment(id.orEmpty()))
+                        }
                     }
                 }
                 .into(mBinding.listLead)
