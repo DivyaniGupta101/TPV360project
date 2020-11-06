@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
+import com.livinglifetechway.k4kotlin.orZero
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
 import com.tpv.android.databinding.LayoutPlanZipcodeSpinnerBinding
@@ -100,6 +101,11 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
         mBinding.spinnerState.onItemSelected { parent, view, position, id ->
             mBinding.btnNext.isEnabled = position != 0
+            if (position != 0) {
+                if (mSetEnrollViewModel.selectedState != mStateList[position.orZero()]) {
+                    getUtilityListApiCall(state = mStateList[position.orZero()].state.orEmpty())
+                }
+            }
         }
 
         mBinding.radioState.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -276,8 +282,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     /**
      * Get Utilities details as per zipcode and selected planId
      */
-    private fun getUtilityListApiCall(zipcode: String) {
-        val liveData = mViewModel.getUtility(UtilityReq(zipcode = zipcode, commodity =
+    private fun getUtilityListApiCall(zipcode: String = "", state: String = "") {
+        val liveData = mViewModel.getUtility(UtilityReq(state = state, zipcode = zipcode, commodity =
         android.text.TextUtils.join(",", mSetEnrollViewModel.utilityList.map { it.id })))
         liveData.observe(this, Observer {
             it.ifSuccess {

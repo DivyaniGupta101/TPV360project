@@ -21,5 +21,7 @@ data class UtilityReq(
         @SerializedName("commodity")
         val commodity: String?,
         @SerializedName("zipcode")
-        val zipcode: String?
+        val zipcode: String?,
+        @SerializedName("state")
+        val state: String?
 )
