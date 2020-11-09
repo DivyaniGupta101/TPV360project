@@ -197,7 +197,7 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
                 .map<LeadResp, ItemLeadListBinding>(R.layout.item_lead_list) {
 
                     onClick {
-                        if (it.binding.item.isOnLeadViewPage.orFalse()) {
+                        if (it.binding.item?.isOnLeadViewPage.orFalse()) {
                             mViewModel.mLastPosition = it.adapterPosition
                             val id = it.binding.item?.id
                             Navigation.findNavController(mBinding.root).navigateSafe(
