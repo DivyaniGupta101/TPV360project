@@ -70,29 +70,31 @@
 
                     <TextView
                         style="@style/SecondaryMediumNormalText"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:text="@{item.referenceId}"
                         android:textColor="@color/colorPrimaryText"
                         tools:text="it-it-iso-1356" />
 
                     <TextView
                         style="@style/SecondaryMediumNormalText"
-                        android:layout_marginTop="@dimen/_16sdp"
                         android:text="@string/verification_number"
                         app:visibleIf="@{item.isOnCustomerCallNumber &amp;&amp; !item.phoneNumber.isEmpty()}" />
 
                     <TextView
-                        app:visibleIf="@{item.isOnCustomerCallNumber &amp;&amp; !item.phoneNumber.isEmpty()}"
                         style="@style/SecondaryMediumNormalText"
+                        android:layout_marginBottom="@dimen/_32sdp"
                         android:text="@{item.phoneNumber}"
                         android:textColor="@color/colorPrimaryText"
+                        app:visibleIf="@{item.isOnCustomerCallNumber &amp;&amp; !item.phoneNumber.isEmpty()}"
                         tools:text="it-it-iso-1356" />
 
                     <TextView
                         style="@style/PrimaryNormalText"
-                        android:layout_marginTop="@dimen/_32sdp"
+                        visibleIf="@{item.isOnSelfTPV}"
                         android:text="@string/verification_method" />
 
                     <LinearLayout
+                        visibleIf="@{item.isOnSelfTPV}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
@@ -126,9 +128,9 @@
                         <TextView
                             android:id="@+id/btnVerify"
                             style="@style/ButtonPrimary"
+                            visibleIf="@{item.isOnSelfTPV}"
                             android:layout_marginStart="0dp"
                             android:layout_marginEnd="@dimen/_8sdp"
-                            android:layout_marginBottom="0dp"
                             android:layout_weight="1"
                             android:background="@drawable/bg_button_disable"
                             android:gravity="center"
@@ -139,6 +141,7 @@
                         <TextView
                             android:id="@+id/btnTPVNOW"
                             style="@style/ButtonPrimary"
+                            visibleIf="@{item.isOnOutBoundTPV}"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_marginEnd="0dp"
                             android:layout_weight="1"
