@@ -223,24 +223,20 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter(value = ["url", "name"], requireAll = false)
     fun loadImageOrTextDrawable(image: ImageView, url: String?, name: String?) {
-        if (!url.isNullOrBlank()) {
 
-            val letterImage: String? = name?.split(" ")?.joinToString("") { it.take(1).toUpperCase() }
-            val drawable = TextDrawable.builder()
-                    .beginConfig()
-                    .height(200)
-                    .width(200)
-                    .textColor(image.context?.color(R.color.colorProfileImageText).orZero())
-                    .fontSize(56)
-                    .useFont(Typeface.DEFAULT_BOLD)
-                    .bold()
-                    .endConfig()
-                    .buildRect(letterImage, image.context?.color(R.color.colorProfileImageBg).orZero())
+        val letterImage: String? = name?.split(" ")?.joinToString("") { it.take(1).toUpperCase() }
+        val drawable = TextDrawable.builder()
+                .beginConfig()
+                .height(200)
+                .width(200)
+                .textColor(image.context?.color(R.color.colorProfileImageText).orZero())
+                .fontSize(56)
+                .useFont(Typeface.DEFAULT_BOLD)
+                .bold()
+                .endConfig()
+                .buildRect(letterImage, image.context?.color(R.color.colorProfileImageBg).orZero())
 //            image.setImageDrawable(drawable)
-            setImage(image, url, drawable)
-        } else {
-            setImage(image, url, null)
-        }
+        setImage(image, url, drawable)
     }
 
     /**
