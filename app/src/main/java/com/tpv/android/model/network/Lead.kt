@@ -20,7 +20,9 @@ data class LeadResp(
         @SerializedName("state")
         var state: String?,
         @SerializedName("disposition")
-        var disposition: String?
+        var disposition: String?,
+        @SerializedName("is_on_lead_view_page")
+        var isOnLeadViewPage: Boolean?
 
 )
 

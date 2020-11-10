@@ -8,7 +8,13 @@ data class SaveLeadsDetailResp(
         @SerializedName("reference_id")
         var referenceId: String?,
         @SerializedName("phone_number")
-        var phoneNumber: String?
+        var phoneNumber: String?,
+        @SerializedName("is_on_customer_call_number")
+        var isOnCustomerCallNumber: Boolean? ,
+        @SerializedName("is_on_self_tpv")
+        var isOnSelfTPV: Boolean?,
+        @SerializedName("is_on_outbound_tpv")
+        var isOnOutBoundTPV: Boolean?
 )
 
 data class SaveLeadsDetailReq(
