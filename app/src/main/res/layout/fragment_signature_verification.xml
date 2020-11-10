@@ -21,9 +21,6 @@
             name="errorHandler"
             type="com.tpv.android.network.error.ErrorHandler" />
 
-        <variable
-            name="item"
-            type="com.tpv.android.model.network.SaveLeadsDetailResp" />
     </data>
 
     <LinearLayout
@@ -60,7 +57,8 @@
                         android:layout_marginTop="@dimen/_16sdp"
                         android:text="@string/e_signature"
                         android:textAllCaps="true"
-                        android:textColor="@color/colorTertiaryText" />
+                        android:textColor="@color/colorTertiaryText"
+                        android:visibility="gone" />
 
                     <TextView
                         style="@style/PrimaryNormalText"
@@ -99,6 +97,7 @@
                         android:layout_marginStart="@dimen/_50sdp"
                         android:layout_marginEnd="@dimen/_50sdp"
                         android:background="@drawable/button_background_state"
+                        android:enabled="false"
                         android:gravity="center"
                         android:paddingTop="@dimen/_10sdp"
                         android:paddingBottom="@dimen/_10sdp"
@@ -119,6 +118,7 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:background="@drawable/button_background_state"
+                    android:enabled="false"
                     android:gravity="center"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"

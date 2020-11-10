@@ -82,7 +82,7 @@ class RecordingFragment : Fragment() {
 
         mBinding.textSkip.onClick {
             if (recordedFile.isNullOrEmpty()) {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
             } else {
                 //Show dialog when recording is recorded and user want to skip
                 //On Click of "Skip" button remove recording and send to next page
@@ -92,7 +92,7 @@ class RecordingFragment : Fragment() {
                         getString(R.string.cancel)),
                         setOnPositiveBanClickListener = {
                             recordedFile = ""
-                            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
+                            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
                         }
                 )
             }
@@ -103,7 +103,7 @@ class RecordingFragment : Fragment() {
                 mediaPlayer.stop()
                 mViewModel.recordingFile = recordedFile.orEmpty()
             }
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_statementFragment)
+            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
         }
 
         //While audio playing or in Pause state then set seekbar value according to it.

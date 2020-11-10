@@ -321,9 +321,9 @@ object AppRepository {
     }
 
     //send Signature Link
-    fun CoroutineScope.sendSignatureCall(sendSignatureLinkReq: SendSignatureLinkReq) = dataApi<Any?, APIError> {
+    fun CoroutineScope.sendSignatureCall(sendSignatureLinkReq: SendSignatureLinkReq) = dataApi<CommonResponse<Any>?, APIError> {
         fromNetwork {
-            ApiClient.service.sendSignatureLink(sendSignatureLinkReq).getResult().map { it?.data }
+            ApiClient.service.sendSignatureLink(sendSignatureLinkReq).getResultSync().map { it }
         }
     }
 
