@@ -7,6 +7,6 @@ data class VerifySignatureReq(
     val tmpLeadId: String?
 )
 data class VerifySignatureResponse(
-    @SerializedName("tmp_lead_id")
+    @SerializedName("is_signature_captured")
     val isVerificationSignature: Boolean?
 )

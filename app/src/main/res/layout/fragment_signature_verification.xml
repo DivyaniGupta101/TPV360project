@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <import type="com.tpv.android.R" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.SaveLeadsDetailResp" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_24sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        style="@style/PrimaryMediumBoldText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/e_signature"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTertiaryText" />
+
+                    <TextView
+                        style="@style/PrimaryNormalText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/e_signature_verification_method" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:text="@string/email"
+                            android:textColor="@color/colorBlack" />
+
+                        <CheckBox
+                            android:id="@+id/checkBoxPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:checked="false"
+                            android:text="@string/sms"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/btnSendLink"
+                        style="@style/ButtonPrimary"
+                        android:layout_marginStart="@dimen/_50sdp"
+                        android:layout_marginEnd="@dimen/_50sdp"
+                        android:background="@drawable/button_background_state"
+                        android:gravity="center"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp"
+                        android:text="@string/send_link" />
+
+                    <TextView
+                        android:id="@+id/btnCancel"
+                        style="@style/PrimaryBoldText"
+                        android:text="@string/cancel_enrollment"
+                        android:textColor="@color/colorTertiaryText" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btnSubmit"
+                    style="@style/ButtonPrimary"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:background="@drawable/button_background_state"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="@string/submit" />
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/incProgressBar"
+                layout="@layout/progress_bar"
+                app:errorHandler="@{errorHandler}"
+                app:resource="@{resource}"
+                app:useBlockingProgress="@{true}"
+                tools:visibility="visible" />
+        </FrameLayout>
+    </LinearLayout>
+</layout>
