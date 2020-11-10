@@ -158,6 +158,10 @@ interface ApiInterface {
     @POST("verify/signature")
     fun verifySignature(@Body verifySignatureReq: VerifySignatureReq): Call<CommonResponse<VerifySignatureResponse>>
 
+    //verifySignature
+    @POST("cancel-lead/{tmp-leadid}")
+    fun cancelEnrollLead(@Path("tmp-leadid") tempId: String, @Body cancelLeadReq: CancelLeadReq): Call<CommonResponse<Any>>
+
     //update Photo
     @Multipart
     @POST("update-profile-photo")

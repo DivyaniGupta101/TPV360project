@@ -334,6 +334,13 @@ object AppRepository {
         }
     }
 
+    //cancel Lead
+    fun CoroutineScope.cancelEnrollLeadCall(tempId: String, cancelLeadReq: CancelLeadReq) = dataApi<CommonResponse<Any>?, APIError> {
+        fromNetwork {
+            ApiClient.service.cancelEnrollLead(tempId, cancelLeadReq).getResult().map { it }
+        }
+    }
+
     //get status of enrollment with state
     fun CoroutineScope.getEnrollWithStateCall(enrollWithStateReq: EnrollWithStateReq) = dataApi<EnrollWithStateResp?, APIError> {
         fromNetwork {

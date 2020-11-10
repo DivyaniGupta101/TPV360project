@@ -16,10 +16,7 @@ import com.livinglifetechway.k4kotlin.onClick
 import com.livinglifetechway.k4kotlin.toastNow
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentSignatureVerificationBinding
-import com.tpv.android.model.network.OtherData
-import com.tpv.android.model.network.SaveLeadsDetailReq
-import com.tpv.android.model.network.SaveLeadsDetailResp
-import com.tpv.android.model.network.SendSignatureLinkReq
+import com.tpv.android.model.network.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -73,22 +70,43 @@ class SignatureVerificationFragment : Fragment() {
         mBinding.btnSubmit.onClick {
             saveCustomerDataApiCall()
         }
-        mBinding.btnSendLink.onClick {
-            val liveData = mViewModel.sendSignature(SendSignatureLinkReq(
-                    mode = mVerificationType.joinToString(separator = ","),
-                    tmpLeadId = mSetEnrollViewModel.leadvelidationError?.leadTempId
-            ))
-            liveData.observe(this@SignatureVerificationFragment, Observer { resources ->
-                resources?.ifSuccess {
-                    toastNow(it?.message.orEmpty())
-                    mBinding.btnSendLink.isEnabled = false
-                    mBinding.checkBoxEmail.isChecked = false
-                    mBinding.checkBoxPhone.isChecked = false
-                }
-            })
 
-            mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+        mBinding.btnCancel.onClick {
+            cancelLeadAPICall()
         }
+        mBinding.btnSendLink.onClick {
+            sendLinkAPICall()
+        }
+    }
+
+    private fun sendLinkAPICall() {
+        val liveData = mViewModel.sendSignature(SendSignatureLinkReq(
+                mode = mVerificationType.joinToString(separator = ","),
+                tmpLeadId = mSetEnrollViewModel.leadvelidationError?.leadTempId
+        ))
+        liveData.observe(this@SignatureVerificationFragment, Observer { resources ->
+            resources?.ifSuccess {
+                toastNow(it?.message.orEmpty())
+                mBinding.btnSendLink.isEnabled = false
+                mBinding.checkBoxEmail.isChecked = false
+                mBinding.checkBoxPhone.isChecked = false
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
+
+    private fun cancelLeadAPICall() {
+        val liveData = mViewModel.cancelEnrollLead(mSetEnrollViewModel.leadvelidationError?.leadTempId.orEmpty(),
+                cancelLeadReq = CancelLeadReq(source = " e-signature"))
+        liveData.observe(this, Observer {
+            it?.ifSuccess {
+                toastNow(it?.message.orEmpty())
+            }
+
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
     }
 
     private fun getSelectedCheckBoxValue(isChecked: Boolean, buttonView: CompoundButton?) {
