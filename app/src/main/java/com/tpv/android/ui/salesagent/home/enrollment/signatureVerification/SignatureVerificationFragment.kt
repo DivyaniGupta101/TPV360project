@@ -74,19 +74,20 @@ class SignatureVerificationFragment : Fragment() {
             saveCustomerDataApiCall()
         }
         mBinding.btnSendLink.onClick {
-            mViewModel.sendSignature(SendSignatureLinkReq(
+            val liveData = mViewModel.sendSignature(SendSignatureLinkReq(
                     mode = mVerificationType.joinToString(separator = ","),
                     tmpLeadId = mSetEnrollViewModel.leadvelidationError?.leadTempId
-            )).apply {
-                observeForever(Observer { resources ->
-                    resources?.ifSuccess {
-                        toastNow(it?.message.orEmpty())
-                        mBinding.btnSendLink.isEnabled = false
-                        mBinding.checkBoxEmail.isChecked = false
-                        mBinding.checkBoxPhone.isChecked = false
-                    }
-                })
-            }
+            ))
+            liveData.observe(this@SignatureVerificationFragment, Observer { resources ->
+                resources?.ifSuccess {
+                    toastNow(it?.message.orEmpty())
+                    mBinding.btnSendLink.isEnabled = false
+                    mBinding.checkBoxEmail.isChecked = false
+                    mBinding.checkBoxPhone.isChecked = false
+                }
+            })
+
+            mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
         }
     }
 
