@@ -101,7 +101,7 @@ class SignatureVerificationFragment : Fragment() {
             }
 
         }
-        mBinding.btnSendLink.isEnabled = !mVerificationType.isNotEmpty()
+        mBinding.btnSendLink.isEnabled = mVerificationType.isNotEmpty()
     }
 
     /**
