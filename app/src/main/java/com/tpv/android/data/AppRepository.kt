@@ -320,12 +320,28 @@ object AppRepository {
         }
     }
 
+    //send Signature Link
+    fun CoroutineScope.sendSignatureCall(sendSignatureLinkReq: SendSignatureLinkReq) = dataApi<Any?, APIError> {
+        fromNetwork {
+            ApiClient.service.sendSignatureLink(sendSignatureLinkReq).getResult().map { it?.data }
+        }
+    }
+
+    //verify Signature Link
+    fun CoroutineScope.verifySignatureCall(verifySignatureReq: VerifySignatureReq) = dataApi<VerifySignatureResponse?, APIError> {
+        fromNetwork {
+            ApiClient.service.verifySignature(verifySignatureReq).getResult().map { it?.data }
+        }
+    }
+
+    //get status of enrollment with state
     fun CoroutineScope.getEnrollWithStateCall(enrollWithStateReq: EnrollWithStateReq) = dataApi<EnrollWithStateResp?, APIError> {
         fromNetwork {
             ApiClient.service.getEnrollWithState(enrollWithStateReq).getResult().map { it?.data }
         }
     }
 
+    //get state list
     fun CoroutineScope.getUtilityStateCall(enrollWithStateReq: EnrollWithStateReq) = dataApi<List<UtilityStateResp>?, APIError> {
         fromNetwork {
             ApiClient.service.getUtilityState(enrollWithStateReq).getResult().map { it?.data }

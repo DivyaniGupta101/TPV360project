@@ -146,9 +146,17 @@ interface ApiInterface {
     @POST("get-form-settings")
     fun getEnrollWithState(@Body enrollWithStateReq: EnrollWithStateReq): Call<CommonResponse<EnrollWithStateResp>>
 
-    //getEnrollWithStateStatus
+    //getEnrollmentState
     @POST("get-utility-states")
     fun getUtilityState(@Body enrollWithStateReq: EnrollWithStateReq): Call<CommonResponse<List<UtilityStateResp>>>
+
+    //sendSignatureLink
+    @POST("send-signature-link")
+    fun sendSignatureLink(@Body sendSignatureLinkReq: SendSignatureLinkReq): Call<CommonResponse<Any>>
+
+    //verifySignature
+    @POST("verify/signature")
+    fun verifySignature(@Body verifySignatureReq: VerifySignatureReq): Call<CommonResponse<VerifySignatureResponse>>
 
     //update Photo
     @Multipart
