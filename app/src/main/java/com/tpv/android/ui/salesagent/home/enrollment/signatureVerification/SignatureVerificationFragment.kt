@@ -1,6 +1,8 @@
 package com.tpv.android.ui.salesagent.home.enrollment.signatureVerification
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.onClick
+import com.livinglifetechway.k4kotlin.orFalse
 import com.livinglifetechway.k4kotlin.toastNow
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentSignatureVerificationBinding
@@ -77,6 +80,29 @@ class SignatureVerificationFragment : Fragment() {
         mBinding.btnSendLink.onClick {
             sendLinkAPICall()
         }
+
+        val mainHandler = Handler(Looper.getMainLooper())
+
+        mainHandler.post(object : Runnable {
+            override fun run() {
+                verifySignatureAPICall()
+                mainHandler.postDelayed(this, 5000)
+            }
+
+            private fun verifySignatureAPICall() {
+                val liveData = mViewModel.verifySignature(verifySignatureReq = VerifySignatureReq(
+                        mSetEnrollViewModel.leadvelidationError?.leadTempId.orEmpty()
+                ))
+                liveData.observe(this@SignatureVerificationFragment, Observer {
+                    it?.ifSuccess {
+                        if (it?.isVerificationSignature.orFalse()) {
+                            mBinding.btnSubmit.isEnabled = true
+                        }
+                    }
+                })
+                mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+            }
+        })
     }
 
     private fun sendLinkAPICall() {
