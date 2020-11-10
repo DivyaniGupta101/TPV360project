@@ -10,12 +10,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentCustomerInfoBinding
 import com.tpv.android.databinding.ItemProgramsBinding
 import com.tpv.android.databinding.ItemTitleProgramsBinding
+import com.tpv.android.databinding.LayoutProgramCustomFieldBinding
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.navigateSafe
@@ -98,7 +100,20 @@ class CustomerInfoFragment : Fragment() {
             val binding = DataBindingUtil.inflate<ItemProgramsBinding>(layoutInflater, R.layout.item_programs, mBinding.infoContainer, true)
             binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_border)
             binding.item = programsResp
+            binding.customFieldsContainer.removeAllViews()
+            binding.item?.costomFields?.forEachIndexed { index, programCustomField ->
 
+                val bindingProgramCustomField = DataBindingUtil.inflate<LayoutProgramCustomFieldBinding>(layoutInflater,
+                        R.layout.layout_program_custom_field,
+                        binding.customFieldsContainer,
+                        true)
+                bindingProgramCustomField.item = programCustomField
+                if (index == 0) {
+                    bindingProgramCustomField.dividerView.show()
+                } else {
+                    bindingProgramCustomField.dividerView.hide()
+                }
+            }
         }
     }
 }
