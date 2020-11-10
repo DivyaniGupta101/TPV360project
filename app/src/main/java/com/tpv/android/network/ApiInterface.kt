@@ -142,6 +142,14 @@ interface ApiInterface {
     @POST("update-timezone")
     fun updateTimeZone(@Body timeZoneReq: TimeZoneReq): Call<CommonResponse<UserDetail>>
 
+    //getEnrollWithStateStatus
+    @POST("get-form-settings")
+    fun getEnrollWithState(@Body enrollWithStateReq: EnrollWithStateReq): Call<CommonResponse<EnrollWithStateResp>>
+
+    //getEnrollWithStateStatus
+    @POST("get-utility-states")
+    fun getUtilityState(@Body enrollWithStateReq: EnrollWithStateReq): Call<CommonResponse<List<UtilityStateResp>>>
+
     //update Photo
     @Multipart
     @POST("update-profile-photo")

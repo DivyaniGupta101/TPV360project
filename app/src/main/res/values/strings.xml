@@ -124,6 +124,8 @@
     <string name="email_address">Email Address</string>
     <string name="password">Password</string>
     <string name="zipcode">Enter Zip Code</string>
+    <string name="select_state">Select State</string>
+    <string name="or">OR</string>
     <string name="return_to_login">Return to Login</string>
     <string name="full_name">Full Name</string>
     <string name="confirm_password">Confirm Password</string>
@@ -210,6 +212,7 @@
     <string name="msg_agree_statement">I verify that I have read and agree to the terms and conditions.</string>
     <string name="account_holder_name">Account Holder Name :</string>
     <string name="zipcode_not_match">Your selected address\'s zipcode doesn\'t match with the service zipcode you entered earlier.  Please choose the correct address with the same zipcode as service zipcode</string>
+    <string name="state_not_match">Your selected address\'s state doesn\'t match with the service state you entered earlier. Please choose the correct address with the same state as service state</string>
     <string name="signature">Signature</string>
     <string name="thank_you">Thank You!</string>
     <string name="your_verification_id">Your verification ID</string>

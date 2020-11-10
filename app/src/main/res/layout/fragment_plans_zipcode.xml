@@ -40,6 +40,9 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:id="@+id/containerMain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -50,21 +53,113 @@
                         android:layout_height="@dimen/_120sdp"
                         android:src="@drawable/plan_selection_img" />
 
-
-                    <TextView
-                        style="@style/SecondaryNormalText"
-                        android:layout_marginTop="@dimen/_50sdp"
-                        android:text="@string/zipcode" />
-
-                    <com.tpv.android.utils.customview.DelayAutoCompleteTextView
-                        android:id="@+id/textZipcode"
-                        style="@style/DefaultEditText"
+                    <LinearLayout
+                        android:id="@+id/containerZipcode"
                         android:layout_width="match_parent"
-                        android:digits="@string/number_char"
-                        android:inputType="phone"
-                        android:maxLength="5" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            android:id="@+id/radioZipcode"
+                            style="@style/PrimaryNormalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:checked="true" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/SecondaryNormalText"
+                                android:text="@string/zipcode" />
+
+                            <com.tpv.android.utils.customview.DelayAutoCompleteTextView
+                                android:id="@+id/textZipcode"
+                                style="@style/DefaultEditText"
+                                android:layout_width="match_parent"
+                                android:digits="@string/number_char"
+                                android:inputType="phone"
+                                android:maxLength="5" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/containerDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        android:orientation="horizontal">
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_width="0dp"
+                            android:layout_height="2dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            style="@style/SecondaryNormalSmallText"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:text="@string/or" />
+
+                        <View
+                            style="@style/Divider"
+                            android:layout_width="0dp"
+                            android:layout_height="2dp"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:id="@+id/containerState"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioState"
+                            style="@style/PrimaryNormalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:checked="false" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/SecondaryNormalText"
+                                android:text="@string/select_state" />
+
+                            <Spinner
+                                android:id="@+id/spinnerState"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_36sdp"
+                                android:theme="@style/spinnerTheme" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:id="@+id/spinnerContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

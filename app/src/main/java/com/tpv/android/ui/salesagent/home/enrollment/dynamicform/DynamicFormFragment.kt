@@ -197,6 +197,17 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         }
 
         var liveData: LiveData<Resource<VelidateLeadsDetailResp?, APIError>>? = null
+        val response = mViewModel.dynamicFormData.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
+        var zipcode = mViewModel.zipcode
+        if (zipcode.isEmpty()) {
+            if (response?.type == DynamicField.ADDRESS.type) {
+                zipcode = response.values?.get(AppConstant.ZIPCODE).toString()
+            }
+            if (response?.type == DynamicField.BOTHADDRESS.type) {
+                zipcode = response.values?.get(AppConstant.SERVICEZIPCODE).toString()
+            }
+
+        }
         liveData = mViewModel.validateLeadDetail(ValidateLeadsDetailReq(
                 agentLat = lat,
                 agentLng = lng,
@@ -204,7 +215,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 fields = mViewModel.dynamicFormData,
                 geoLocationSettingOn = AppConstant.CURRENT_GEO_LOCATION,
                 other = OtherData(programId = TextUtils.join(",", mViewModel.programList.map { it.id }),
-                        zipcode = mViewModel.zipcode)))
+                        zipcode = zipcode)))
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.leadvelidationError = it
@@ -357,7 +368,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
 
-        binding.setField(response,getListOfCopyText(response))
+        binding.setField(response, getListOfCopyText(response))
         bindingList.add(binding)
     }
 

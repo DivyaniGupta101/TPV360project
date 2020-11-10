@@ -4,6 +4,7 @@ package com.tpv.android.ui.salesagent.home.enrollment.planszipcode
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -17,20 +18,19 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
+import com.livinglifetechway.k4kotlin.orZero
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
 import com.tpv.android.databinding.LayoutPlanZipcodeSpinnerBinding
 import com.tpv.android.helper.OnBackPressCallBack
-import com.tpv.android.model.network.UtilityReq
-import com.tpv.android.model.network.UtilityResp
-import com.tpv.android.model.network.ZipCodeReq
-import com.tpv.android.model.network.ZipCodeResp
+import com.tpv.android.model.network.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.enums.EnrollType
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -40,6 +40,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     private lateinit var mBinding: FragmentPlansZipcodeBinding
     private var mZipcodeList = ObservableArrayList<ZipCodeResp>()
     private var mUtilityList = ArrayList<UtilityResp>()
+    private var mStateList = ArrayList<UtilityStateResp>()
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private lateinit var mViewModel: PlansZipcodeViewModel
     private var lastSearchZipCode = ""
@@ -83,6 +84,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             mSetEnrollViewModel.clearSavedData()
         }
 
+        getStatusOfEnrollWithState()
         setAutoCompleterTextView()
 
         //Check if selectedUtilityList list available then show respective value in dropdown
@@ -90,11 +92,94 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             setUtilitySpinners()
         }
 
-        mBinding.btnNext?.onClick {
+        mBinding.spinnerState.setOnTouchListener { v, event ->
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                mBinding.radioState.isChecked = true
+            }
+            false
+        }
+
+        mBinding.spinnerState.onItemSelected { parent, view, position, id ->
+            mBinding.btnNext.isEnabled = position != 0
+            if (position != 0) {
+                if (mSetEnrollViewModel.selectedState != mStateList[position.orZero()]) {
+                    getUtilityListApiCall(state = mStateList[position.orZero()].state.orEmpty())
+                }
+            }
+        }
+
+        mBinding.radioState.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                mBinding.radioZipcode.isChecked = !isChecked
+                mBinding.textZipcode.clearFocus()
+            }
+        }
+        mBinding.radioZipcode.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                mBinding.radioState.isChecked = !isChecked
+                mBinding.textZipcode.isFocusable = true
+
+            }
+        }
+        mBinding.textZipcode.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                mBinding.radioZipcode.isChecked = true
+            }
+        }
+        mBinding.btnNext.onClick {
             hideKeyboard()
             setData()
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_plansZipcodeFragment_to_programsListingFragment)
         }
+    }
+
+    private fun getStatusOfEnrollWithState() {
+        mViewModel.getEnrollWithState(EnrollWithStateReq(
+                formId = mSetEnrollViewModel.planId
+        )).apply {
+            observeForever(Observer {
+                it?.ifSuccess {
+                    if (it?.isEnableEnrollByState.orFalse()) {
+                        mBinding.containerMain.hide()
+                        mBinding.incProgressBar.progressBarView.show()
+                        getStateList()
+                    } else {
+                        mBinding.containerMain.show()
+                    }
+                }
+            })
+        } as LiveData<Resource<Any, APIError>>
+
+    }
+
+    private fun getStateList() {
+        val liveData = mViewModel.getUtilityState(EnrollWithStateReq(
+                formId = mSetEnrollViewModel.planId
+        ))
+        liveData.observe(this, Observer {
+            it?.ifSuccess {
+                mStateList.clear()
+                mStateList.add(UtilityStateResp("", "Select"))
+                mStateList.addAll(it.orEmpty())
+                mBinding.spinnerState.setItems(mStateList.map { it.state } as ArrayList<String>?)
+                if (mSetEnrollViewModel.selectedState != null) {
+                    mSetEnrollViewModel.selectedState?.let {
+                        mBinding.spinnerState.setSelection(mStateList.indexOf(it))
+                    }
+                }
+                if (mSetEnrollViewModel.selectionType == EnrollType.STATE.value) {
+                    mBinding.radioState.isChecked = true
+                } else {
+                    mBinding.radioZipcode.isChecked = true
+                }
+                mBinding.containerDivider.show()
+                mBinding.containerState.show()
+                mBinding.radioZipcode.show()
+                mBinding.containerMain.show()
+            }
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
     }
 
     /**
@@ -103,8 +188,13 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     private fun setData() {
 
         mSetEnrollViewModel.zipcode = mBinding.textZipcode.value
+        mSetEnrollViewModel.selectedState = mStateList[mBinding.spinnerState.selectedItemPosition]
+        if (mBinding.radioState.isChecked) {
+            mSetEnrollViewModel.selectionType = EnrollType.STATE.value
+        } else {
+            mSetEnrollViewModel.selectionType = EnrollType.ZIPCODE.value
+        }
         mSetEnrollViewModel.selectedUtilityList.clear()
-
         bindingList.forEach { binding ->
             val utilities = mUtilityList.find { it.fullname == binding.spinner.selectedItem && it.commodityId == binding.item?.id }
             utilities?.let { mSetEnrollViewModel.selectedUtilityList.add(it) }
@@ -192,8 +282,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     /**
      * Get Utilities details as per zipcode and selected planId
      */
-    private fun getUtilityListApiCall(zipcode: String) {
-        val liveData = mViewModel.getUtility(UtilityReq(zipcode = zipcode, commodity =
+    private fun getUtilityListApiCall(zipcode: String = "", state: String = "") {
+        val liveData = mViewModel.getUtility(UtilityReq(state = state, zipcode = zipcode, commodity =
         android.text.TextUtils.join(",", mSetEnrollViewModel.utilityList.map { it.id })))
         liveData.observe(this, Observer {
             it.ifSuccess {
