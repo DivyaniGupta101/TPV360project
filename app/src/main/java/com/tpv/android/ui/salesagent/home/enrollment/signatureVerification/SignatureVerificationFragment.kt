@@ -78,28 +78,6 @@ class SignatureVerificationFragment : Fragment() {
             sendLinkAPICall()
         }
 
-        val mainHandler = Handler(Looper.getMainLooper())
-
-        mainHandler.post(object : Runnable {
-            override fun run() {
-                verifySignatureAPICall()
-                mainHandler.postDelayed(this, 5000)
-            }
-
-            private fun verifySignatureAPICall() {
-                val liveData = mViewModel.verifySignature(verifySignatureReq = VerifySignatureReq(
-                        mSetEnrollViewModel.leadvelidationError?.leadTempId.orEmpty()
-                ))
-                liveData.observe(this@SignatureVerificationFragment, Observer {
-                    it?.ifSuccess {
-                        if (it?.isVerificationSignature.orFalse()) {
-                            mBinding.btnSubmit.isEnabled = true
-                        }
-                    }
-                })
-                mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
-            }
-        })
     }
 
     private fun sendLinkAPICall() {
@@ -113,6 +91,30 @@ class SignatureVerificationFragment : Fragment() {
                 mBinding.btnSendLink.isEnabled = false
                 mBinding.checkBoxEmail.isChecked = false
                 mBinding.checkBoxPhone.isChecked = false
+
+
+                val mainHandler = Handler(Looper.getMainLooper())
+
+                mainHandler.post(object : Runnable {
+                    override fun run() {
+                        verifySignatureAPICall()
+                        mainHandler.postDelayed(this, 5000)
+                    }
+
+                    private fun verifySignatureAPICall() {
+                        mViewModel.verifySignature(verifySignatureReq = VerifySignatureReq(
+                                mSetEnrollViewModel.leadvelidationError?.leadTempId.orEmpty()
+                        )).apply {
+                            observeForever( Observer {
+                                it?.ifSuccess {
+                                    if (it?.isVerificationSignature.orFalse()) {
+                                        mBinding.btnSubmit.isEnabled = true
+                                    }
+                                }
+                            })
+                        }
+                    }
+                })
             }
         })
 
