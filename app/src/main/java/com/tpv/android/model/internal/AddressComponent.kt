@@ -8,5 +8,6 @@ data class AddressComponent(var address: String?,
                             var longitude: String?,
                             var state: String?,
                             var city: String,
-                            var country: String
+                            var country: String,
+                            var stateSortName: String
 )
