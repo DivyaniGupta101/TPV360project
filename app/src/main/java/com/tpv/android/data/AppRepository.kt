@@ -148,9 +148,9 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.cancelLeadCall(id: String) = dataApi<Any?, APIError> {
+    fun CoroutineScope.cancelLeadCall(id: String, cancelLeadReq: CancelLeadReq) = dataApi<Any?, APIError> {
         fromNetwork {
-            ApiClient.service.cancelLead(id).getResult().map { it?.data }
+            ApiClient.service.cancelEnrollLead(id, cancelLeadReq).getResult().map { it?.data }
         }
     }
 

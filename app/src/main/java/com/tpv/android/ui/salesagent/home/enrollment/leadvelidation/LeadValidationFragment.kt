@@ -16,12 +16,14 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLeadValidationBinding
 import com.tpv.android.databinding.ItemLeadValidationBinding
+import com.tpv.android.model.network.CancelLeadReq
 import com.tpv.android.model.network.LeadVelidationError
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
@@ -64,7 +66,10 @@ class LeadValidationFragment : Fragment() {
 
         mBinding.btnCancel?.onClick {
             val liveData = mViewModel.cancelLeadDetail(mViewModel.leadvelidationError?.leadTempId
-                    ?: "0")
+                    ?: "0",
+                    CancelLeadReq(
+                            source = AppConstant.ALERT
+                    ))
             liveData.observe(this@LeadValidationFragment, Observer {
                 it?.ifSuccess {
                     mViewModel.clearSavedData()

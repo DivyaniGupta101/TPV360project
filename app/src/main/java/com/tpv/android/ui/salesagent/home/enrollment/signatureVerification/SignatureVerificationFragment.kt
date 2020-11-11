@@ -25,10 +25,7 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
-import com.tpv.android.utils.navigateSafe
-import com.tpv.android.utils.setupToolbar
-import com.tpv.android.utils.toMultipartBody
-import com.tpv.android.utils.toRequestBody
+import com.tpv.android.utils.*
 import java.io.File
 
 class SignatureVerificationFragment : Fragment() {
@@ -124,7 +121,7 @@ class SignatureVerificationFragment : Fragment() {
 
     private fun cancelLeadAPICall() {
         val liveData = mViewModel.cancelEnrollLead(mSetEnrollViewModel.leadvelidationError?.leadTempId.orEmpty(),
-                cancelLeadReq = CancelLeadReq(source = " e-signature"))
+                cancelLeadReq = CancelLeadReq(source = AppConstant.E_SIGNATURE))
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 toastNow(it?.message.orEmpty())

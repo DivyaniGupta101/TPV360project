@@ -51,9 +51,9 @@ interface ApiInterface {
     @POST("check-lead-validation")
     fun validateLeadDetail(@Body validateLeadsDetailReq: ValidateLeadsDetailReq): Call<CommonResponse<VelidateLeadsDetailResp>>
 
-    //    cancel-lead/21
-    @GET("cancel-lead/{id}")
-    fun cancelLead(@Path("id") id: String?): Call<CommonResponse<Any>>
+//    //    cancel-lead/21
+//    @POST("cancel-lead/{tmp-leadid}")
+//    fun cancelLead(@Path("tmp-leadid") id: String?,@Body cancelLeadReq: CancelLeadReq): Call<CommonResponse<Any>>
 
     //Verification (email,phone)
     @POST("selfverify")
