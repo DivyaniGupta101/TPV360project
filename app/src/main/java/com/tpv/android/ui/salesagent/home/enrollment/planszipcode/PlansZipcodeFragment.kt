@@ -112,6 +112,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             if (isChecked) {
                 mBinding.radioZipcode.isChecked = !isChecked
                 mBinding.textZipcode.clearFocus()
+                mBinding.textZipcode.value = ""
+                hideViews()
             }
         }
         mBinding.radioZipcode.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -306,7 +308,12 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      * If utility list is empty then show
      */
     private fun showNoUtilityDialog() {
-        context?.infoDialog(subTitleText = getString(R.string.msg_no_utilitiy_available))
+        if (mBinding.radioState.isChecked) {
+            context?.infoDialog(subTitleText = getString(R.string.msg_no_utilitiy_available_state))
+
+        } else {
+            context?.infoDialog(subTitleText = getString(R.string.msg_no_utilitiy_available))
+        }
     }
 
     /** Show utility spinner according to selection of fuel in previous page.

@@ -84,6 +84,7 @@
     <string name="msg_log_out">Are you sure you want to log out?</string>
     <string name="msg_skip">If you skip, then your recording will be deleted</string>
     <string name="msg_no_utilitiy_available">No utilities available for selected zipcode</string>
+    <string name="msg_no_utilitiy_available_state">No utilities available for selected state</string>
     <string name="no_internet_connection_message">Network seams to be offline. Please try again later</string>
     <string name="something_went_wrong">Something went wrong. Please try again.</string>
     <string name="unknown_error">Unknown Error</string>
