@@ -27,6 +27,8 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
 import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SignatureVerificationFragment : Fragment() {
     lateinit var mBinding: FragmentSignatureVerificationBinding
@@ -88,13 +90,12 @@ class SignatureVerificationFragment : Fragment() {
         liveData.observe(this@SignatureVerificationFragment, Observer { resources ->
             resources?.ifSuccess {
                 toastNow(it?.message.orEmpty())
-                mBinding.btnSendLink.isEnabled = false
+                mVerificationType.clear()
                 mBinding.checkBoxEmail.isChecked = false
                 mBinding.checkBoxPhone.isChecked = false
 
 
                 val mainHandler = Handler(Looper.getMainLooper())
-
                 mainHandler.post(object : Runnable {
                     override fun run() {
                         verifySignatureAPICall()
@@ -102,17 +103,18 @@ class SignatureVerificationFragment : Fragment() {
                     }
 
                     private fun verifySignatureAPICall() {
-                        mViewModel.verifySignature(verifySignatureReq = VerifySignatureReq(
+                        val liveDataVerifySignature = mViewModel.verifySignature(verifySignatureReq = VerifySignatureReq(
                                 mSetEnrollViewModel.leadvelidationError?.leadTempId.orEmpty()
-                        )).apply {
-                            observeForever( Observer {
-                                it?.ifSuccess {
-                                    if (it?.isVerificationSignature.orFalse()) {
-                                        mBinding.btnSubmit.isEnabled = true
-                                    }
+                        ))
+                        liveDataVerifySignature.observeForever(Observer {
+                            it?.ifSuccess {
+                                if (it?.isVerificationSignature.orFalse()) {
+                                    mBinding.btnSubmit.isEnabled = true
+                                    mainHandler.removeCallbacks(this)
                                 }
-                            })
-                        }
+                            }
+                        })
+
                     }
                 })
             }
@@ -136,7 +138,7 @@ class SignatureVerificationFragment : Fragment() {
 
     private fun getSelectedCheckBoxValue(isChecked: Boolean, buttonView: CompoundButton?) {
         if (isChecked) {
-            mVerificationType.add(buttonView?.text.toString())
+            mVerificationType.add(buttonView?.text.toString().toLowerCase(Locale.ROOT))
 
 
         } else {
@@ -169,6 +171,9 @@ class SignatureVerificationFragment : Fragment() {
                 if (mSetEnrollViewModel.recordingFile.isNotEmpty()) {
                     saveRecordingApiCall()
                 }
+                else{
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_signatureVerificationFragment_to_successFragment)
+                }
             }
         })
 
@@ -189,7 +194,6 @@ class SignatureVerificationFragment : Fragment() {
         liveData?.observe(this, Observer {
             it?.ifSuccess {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_signatureVerificationFragment_to_successFragment)
-
             }
         })
 
