@@ -222,7 +222,7 @@
     <string name="your_verification_id">Your verification ID</string>
     <string name="verification_number">Verification Number</string>
     <string name="verification_method">Choose method of self verification :</string>
-    <string name="e_signature_verification_method">Choose method of e-signature verification :</string>
+    <string name="e_signature_verification_method">Choose method of e-signature verification</string>
     <string name="phone">Phone</string>
     <string name="back_to_dashboard">Back to Dashboard</string>
     <string name="account_holder">Account Holder</string>

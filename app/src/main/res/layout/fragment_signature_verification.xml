@@ -63,6 +63,7 @@
                     <TextView
                         style="@style/PrimaryNormalText"
                         android:layout_marginTop="@dimen/_16sdp"
+                        android:gravity="center"
                         android:text="@string/e_signature_verification_method" />
 
                     <LinearLayout

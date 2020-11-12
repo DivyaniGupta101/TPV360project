@@ -26,6 +26,7 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
+import com.tpv.android.utils.enums.DynamicField
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -161,14 +162,19 @@ class SignatureVerificationFragment : Fragment() {
      * Also check if recording is not empty then call save recording API else call save Signature API
      */
     private fun saveCustomerDataApiCall() {
-
+        var zipcode = ""
+        if (mSetEnrollViewModel.zipcode.isEmpty()) {
+            zipcode = mSetEnrollViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true }?.values?.get(AppConstant.ZIPCODE) as String
+        } else {
+            zipcode = mSetEnrollViewModel.zipcode
+        }
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
         liveData = mSetEnrollViewModel.saveLeadDetail(SaveLeadsDetailReq(
                 leadTempId = mSetEnrollViewModel.leadvelidationError?.leadTempId,
                 formId = mSetEnrollViewModel.planId,
                 fields = mSetEnrollViewModel.dynamicFormData,
                 other = OtherData(programId = TextUtils.join(",", mSetEnrollViewModel.programList.map { it.id }),
-                        zipcode = mSetEnrollViewModel.zipcode)))
+                        zipcode = zipcode)))
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mSetEnrollViewModel.savedLeadResp = it
