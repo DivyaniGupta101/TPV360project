@@ -35,7 +35,7 @@ class SignatureVerificationFragment : Fragment() {
     lateinit var mViewModel: SignatureVerificationViewModel
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private var mVerificationType: ArrayList<String> = ArrayList()
-
+    private var handler: Handler = Handler()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -80,6 +80,34 @@ class SignatureVerificationFragment : Fragment() {
             sendLinkAPICall()
         }
 
+        handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
+            override fun run() {
+                verifySignatureAPICall()
+                handler.postDelayed(this, 10000)
+            }
+
+            private fun verifySignatureAPICall() {
+                val liveDataVerifySignature = mViewModel.verifySignature(verifySignatureReq = VerifySignatureReq(
+                        mSetEnrollViewModel.leadvelidationError?.leadTempId.orEmpty()
+                ))
+                liveDataVerifySignature.observeForever(Observer {
+                    it?.ifSuccess {
+                        if (it?.isVerificationSignature.orFalse()) {
+                            mBinding.btnSubmit.isEnabled = true
+                            handler.removeCallbacks(this)
+                        }
+                    }
+                })
+
+            }
+        })
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        handler.removeCallbacksAndMessages(null)
     }
 
     private fun sendLinkAPICall() {
@@ -90,33 +118,9 @@ class SignatureVerificationFragment : Fragment() {
         liveData.observe(this@SignatureVerificationFragment, Observer { resources ->
             resources?.ifSuccess {
                 toastNow(it?.message.orEmpty())
-                mVerificationType.clear()
-                mBinding.checkBoxEmail.isChecked = false
-                mBinding.checkBoxPhone.isChecked = false
+                getSelectedCheckBoxValue(false, mBinding.checkBoxEmail)
+                getSelectedCheckBoxValue(false, mBinding.checkBoxPhone)
 
-
-                val mainHandler = Handler(Looper.getMainLooper())
-                mainHandler.post(object : Runnable {
-                    override fun run() {
-                        verifySignatureAPICall()
-                        mainHandler.postDelayed(this, 5000)
-                    }
-
-                    private fun verifySignatureAPICall() {
-                        val liveDataVerifySignature = mViewModel.verifySignature(verifySignatureReq = VerifySignatureReq(
-                                mSetEnrollViewModel.leadvelidationError?.leadTempId.orEmpty()
-                        ))
-                        liveDataVerifySignature.observeForever(Observer {
-                            it?.ifSuccess {
-                                if (it?.isVerificationSignature.orFalse()) {
-                                    mBinding.btnSubmit.isEnabled = true
-                                    mainHandler.removeCallbacks(this)
-                                }
-                            }
-                        })
-
-                    }
-                })
             }
         })
 
@@ -143,7 +147,7 @@ class SignatureVerificationFragment : Fragment() {
 
         } else {
             if (mVerificationType.isNotEmpty()) {
-                mVerificationType.remove(mVerificationType.find { it == buttonView?.text.toString() })
+                mVerificationType.remove(mVerificationType.find { it == buttonView?.text.toString().toLowerCase(Locale.ROOT) })
             }
 
         }
@@ -170,8 +174,7 @@ class SignatureVerificationFragment : Fragment() {
                 mSetEnrollViewModel.savedLeadResp = it
                 if (mSetEnrollViewModel.recordingFile.isNotEmpty()) {
                     saveRecordingApiCall()
-                }
-                else{
+                } else {
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_signatureVerificationFragment_to_successFragment)
                 }
             }
