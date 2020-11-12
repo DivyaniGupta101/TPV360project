@@ -19,6 +19,7 @@ import com.livinglifetechway.k4kotlin.orFalse
 import com.livinglifetechway.k4kotlin.toastNow
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentSignatureVerificationBinding
+import com.tpv.android.model.internal.DialogText
 import com.tpv.android.model.network.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -75,7 +76,15 @@ class SignatureVerificationFragment : Fragment() {
         }
 
         mBinding.btnCancel.onClick {
-            cancelLeadAPICall()
+            context?.actionDialog(
+                    DialogText(getString(R.string.cancel_enrollment),
+                            getString(R.string.enroll_cancel),
+                            getString(R.string.yes),
+                            getString(R.string.no)),
+                    setOnPositiveBanClickListener = {
+                        cancelLeadAPICall()
+                    }
+            )
         }
         mBinding.btnSendLink.onClick {
             sendLinkAPICall()
@@ -133,7 +142,7 @@ class SignatureVerificationFragment : Fragment() {
                 cancelLeadReq = CancelLeadReq(source = AppConstant.E_SIGNATURE))
         liveData.observe(this, Observer {
             it?.ifSuccess {
-                toastNow(it?.message.orEmpty())
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_signatureVerificationFragment_to_dashBoardFragment)
             }
 
         })
@@ -164,7 +173,7 @@ class SignatureVerificationFragment : Fragment() {
     private fun saveCustomerDataApiCall() {
         var zipcode = ""
         if (mSetEnrollViewModel.zipcode.isEmpty()) {
-            zipcode = mSetEnrollViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true }?.values?.get(AppConstant.ZIPCODE) as String
+            zipcode = mSetEnrollViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true }?.values?.get(AppConstant.SERVICEZIPCODE) as String
         } else {
             zipcode = mSetEnrollViewModel.zipcode
         }

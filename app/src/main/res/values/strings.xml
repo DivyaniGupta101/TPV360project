@@ -220,6 +220,7 @@
     <string name="signature">Signature</string>
     <string name="thank_you">Thank You!</string>
     <string name="your_verification_id">Your verification ID</string>
+    <string name="enroll_cancel">Are you sure you want to cancel?</string>
     <string name="verification_number">Verification Number</string>
     <string name="verification_method">Choose method of self verification :</string>
     <string name="e_signature_verification_method">Choose method of e-signature verification</string>
