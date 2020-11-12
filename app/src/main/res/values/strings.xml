@@ -27,6 +27,7 @@
     <string name="lead_details">Lead Details</string>
     <string name="edit">Edit</string>
     <string name="lead_enroll">Begin Enrollment</string>
+    <string name="e_signature">E-Signature</string>
 
 
     <!--    ButtonLabel-->
@@ -44,6 +45,8 @@
     <string name="clear">Clear</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="get_started">Get Started</string>
+    <string name="send_link">Send Link</string>
+    <string name="cancel_enrollment">Cancel Enrollment</string>
 
     <!--    Validation -->
     <string name="enter_email">Please enter email</string>
@@ -219,6 +222,7 @@
     <string name="your_verification_id">Your verification ID</string>
     <string name="verification_number">Verification Number</string>
     <string name="verification_method">Choose method of self verification :</string>
+    <string name="e_signature_verification_method">Choose method of e-signature verification :</string>
     <string name="phone">Phone</string>
     <string name="back_to_dashboard">Back to Dashboard</string>
     <string name="account_holder">Account Holder</string>
@@ -322,7 +326,6 @@
     <string name="showing_results_for">Showing results for</string>
     <string name="no_reports_available">No Reports Available</string>
     <string name="use_primary_address_as_current_location">Use primary address as current location</string>
-
 
 
     <string-array name="chooseimage">

@@ -51,9 +51,9 @@ interface ApiInterface {
     @POST("check-lead-validation")
     fun validateLeadDetail(@Body validateLeadsDetailReq: ValidateLeadsDetailReq): Call<CommonResponse<VelidateLeadsDetailResp>>
 
-    //    cancel-lead/21
-    @GET("cancel-lead/{id}")
-    fun cancelLead(@Path("id") id: String?): Call<CommonResponse<Any>>
+//    //    cancel-lead/21
+//    @POST("cancel-lead/{tmp-leadid}")
+//    fun cancelLead(@Path("tmp-leadid") id: String?,@Body cancelLeadReq: CancelLeadReq): Call<CommonResponse<Any>>
 
     //Verification (email,phone)
     @POST("selfverify")
@@ -146,9 +146,21 @@ interface ApiInterface {
     @POST("get-form-settings")
     fun getEnrollWithState(@Body enrollWithStateReq: EnrollWithStateReq): Call<CommonResponse<EnrollWithStateResp>>
 
-    //getEnrollWithStateStatus
+    //getEnrollmentState
     @POST("get-utility-states")
     fun getUtilityState(@Body enrollWithStateReq: EnrollWithStateReq): Call<CommonResponse<List<UtilityStateResp>>>
+
+    //sendSignatureLink
+    @POST("send-signature-link")
+    fun sendSignatureLink(@Body sendSignatureLinkReq: SendSignatureLinkReq): Call<CommonResponse<Any>>
+
+    //verifySignature
+    @POST("verify/signature")
+    fun verifySignature(@Body verifySignatureReq: VerifySignatureReq): Call<CommonResponse<VerifySignatureResponse>>
+
+    //verifySignature
+    @POST("cancel-lead/{tmp-leadid}")
+    fun cancelEnrollLead(@Path("tmp-leadid") tempId: String, @Body cancelLeadReq: CancelLeadReq): Call<CommonResponse<Any>>
 
     //update Photo
     @Multipart

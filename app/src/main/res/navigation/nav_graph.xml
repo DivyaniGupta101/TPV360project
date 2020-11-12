@@ -127,6 +127,13 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_recordingFragment_to_signatureVerificationFragment"
+            app:destination="@id/signatureVerificationFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <!--    Statement Screen-->
@@ -307,4 +314,18 @@
         android:id="@+id/clockTimeFragment"
         android:name="com.tpv.android.ui.salesagent.home.clocktime.ClockTimeFragment"
         android:label="ClockTimeFragment" />
+    <fragment
+        android:id="@+id/signatureVerificationFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.signatureVerification.SignatureVerificationFragment"
+        android:label="SignatureVerificationFragment" >
+        <action
+            android:id="@+id/action_signatureVerificationFragment_to_successFragment"
+            app:destination="@id/successFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/dashBoardFragment"
+            app:popUpToInclusive="false"/>
+    </fragment>
 </navigation>

@@ -148,9 +148,9 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.cancelLeadCall(id: String) = dataApi<Any?, APIError> {
+    fun CoroutineScope.cancelLeadCall(id: String, cancelLeadReq: CancelLeadReq) = dataApi<Any?, APIError> {
         fromNetwork {
-            ApiClient.service.cancelLead(id).getResult().map { it?.data }
+            ApiClient.service.cancelEnrollLead(id, cancelLeadReq).getResult().map { it?.data }
         }
     }
 
@@ -320,12 +320,35 @@ object AppRepository {
         }
     }
 
+    //send Signature Link
+    fun CoroutineScope.sendSignatureCall(sendSignatureLinkReq: SendSignatureLinkReq) = dataApi<CommonResponse<Any>?, APIError> {
+        fromNetwork {
+            ApiClient.service.sendSignatureLink(sendSignatureLinkReq).getResultSync().map { it }
+        }
+    }
+
+    //verify Signature Link
+    fun CoroutineScope.verifySignatureCall(verifySignatureReq: VerifySignatureReq) = dataApi<VerifySignatureResponse?, APIError> {
+        fromNetwork {
+            ApiClient.service.verifySignature(verifySignatureReq).getResult().map { it?.data }
+        }
+    }
+
+    //cancel Lead
+    fun CoroutineScope.cancelEnrollLeadCall(tempId: String, cancelLeadReq: CancelLeadReq) = dataApi<CommonResponse<Any>?, APIError> {
+        fromNetwork {
+            ApiClient.service.cancelEnrollLead(tempId, cancelLeadReq).getResult().map { it }
+        }
+    }
+
+    //get status of enrollment with state
     fun CoroutineScope.getEnrollWithStateCall(enrollWithStateReq: EnrollWithStateReq) = dataApi<EnrollWithStateResp?, APIError> {
         fromNetwork {
             ApiClient.service.getEnrollWithState(enrollWithStateReq).getResult().map { it?.data }
         }
     }
 
+    //get state list
     fun CoroutineScope.getUtilityStateCall(enrollWithStateReq: EnrollWithStateReq) = dataApi<List<UtilityStateResp>?, APIError> {
         fromNetwork {
             ApiClient.service.getUtilityState(enrollWithStateReq).getResult().map { it?.data }

@@ -56,5 +56,7 @@ object AppConstant : KotprefModel() {
     const val DATEFORMATE2 = "dd/MM/yyyy"
     const val DESC = "desc"
     const val ASC = "asc"
+    const val ALERT = "alert"
+    const val E_SIGNATURE = "e-signature"
 
 }
