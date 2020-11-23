@@ -120,7 +120,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             if (isChecked) {
                 mBinding.radioState.isChecked = !isChecked
                 mBinding.textZipcode.isFocusable = true
-
+                mBinding.spinnerState.setSelection(0)
+                hideViews()
             }
         }
         mBinding.textZipcode.setOnFocusChangeListener { v, hasFocus ->
