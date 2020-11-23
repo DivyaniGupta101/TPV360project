@@ -185,32 +185,32 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
 
     if (binding.item?.meta?.isPrimary == true) {
         if (mViewModel.selectionType == EnrollType.STATE.value) {
-            if (mViewModel.selectedState?.state == addressComponent?.stateSortName && addressComponent?.zipcode?.isNotBlank().orFalse()) {
-                if (isServiceAddress) {
+            if (isServiceAddress) {
+                if (mViewModel.selectedState?.state == addressComponent?.stateSortName && addressComponent?.zipcode?.isNotBlank().orFalse()) {
                     bindServiceAddressField(binding, addressComponent)
-                }
-            } else {
-                if (!isServiceAddress) {
-                    bindBillingAddressField(binding, addressComponent)
                 } else {
                     binding.editBillingAddressLineOne.context.infoDialog(
                             subTitleText = binding.editBillingCountry.context.getString(R.string.state_not_match)
                     )
                 }
-            }
-
-        } else {
-            if (mViewModel.zipcode == addressComponent?.zipcode) {
-                if (isServiceAddress) {
-                    bindServiceAddressField(binding, addressComponent)
-                }
             } else {
                 if (!isServiceAddress) {
                     bindBillingAddressField(binding, addressComponent)
+                }
+            }
+
+        } else {
+            if (isServiceAddress) {
+                if (mViewModel.zipcode == addressComponent?.zipcode) {
+                    bindServiceAddressField(binding, addressComponent)
                 } else {
                     binding.editBillingAddressLineOne.context.infoDialog(
                             subTitleText = binding.editBillingCountry.context.getString(R.string.zipcode_not_match)
                     )
+                }
+            } else {
+                if (!isServiceAddress) {
+                    bindBillingAddressField(binding, addressComponent)
                 }
             }
         }
@@ -245,7 +245,7 @@ private fun bindServiceAddressField(binding: LayoutInputServiceAndBillingAddress
     binding.item?.values?.set(AppConstant.SERVICECOUNTRY, addressComponent?.country.orEmpty())
     binding.item?.values?.set(AppConstant.SERVICECITY, addressComponent?.city.orEmpty())
     binding.item?.values?.set(AppConstant.SERVICESTATE, addressComponent?.state.orEmpty())
-    handleBillingAddressField(binding, binding.item?.isAddressSame.orFalse())
+//    handleBillingAddressField(binding, binding.item?.isAddressSame.orFalse())
     binding.invalidateAll()
 }
 
