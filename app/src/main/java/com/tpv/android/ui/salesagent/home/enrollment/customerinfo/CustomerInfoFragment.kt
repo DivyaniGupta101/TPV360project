@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentCustomerInfoBinding
@@ -85,7 +86,11 @@ class CustomerInfoFragment : Fragment() {
         setProgramInformation()
 
         mBinding.btnNext.onClick {
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_recordingFragment)
+            if (mViewModel.dynamicSettings?.isEnableRecording.orFalse()) {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_recordingFragment)
+            } else {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_signatureVerificationFragment)
+            }
         }
 
     }

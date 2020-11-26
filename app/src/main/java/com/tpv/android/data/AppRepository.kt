@@ -342,16 +342,16 @@ object AppRepository {
     }
 
     //get status of enrollment with state
-    fun CoroutineScope.getEnrollWithStateCall(enrollWithStateReq: EnrollWithStateReq) = dataApi<EnrollWithStateResp?, APIError> {
+    fun CoroutineScope.getEnrollWithStateCall(dynamicSettingsReq: DynamicSettingsReq) = dataApi<DynamicSettingResponse?, APIError> {
         fromNetwork {
-            ApiClient.service.getEnrollWithState(enrollWithStateReq).getResult().map { it?.data }
+            ApiClient.service.getEnrollWithState(dynamicSettingsReq).getResult().map { it?.data }
         }
     }
 
     //get state list
-    fun CoroutineScope.getUtilityStateCall(enrollWithStateReq: EnrollWithStateReq) = dataApi<List<UtilityStateResp>?, APIError> {
+    fun CoroutineScope.getUtilityStateCall(dynamicSettingsReq: DynamicSettingsReq) = dataApi<List<UtilityStateResp>?, APIError> {
         fromNetwork {
-            ApiClient.service.getUtilityState(enrollWithStateReq).getResult().map { it?.data }
+            ApiClient.service.getUtilityState(dynamicSettingsReq).getResult().map { it?.data }
         }
     }
 

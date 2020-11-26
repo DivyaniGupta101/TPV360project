@@ -144,11 +144,11 @@ interface ApiInterface {
 
     //getEnrollWithStateStatus
     @POST("get-form-settings")
-    fun getEnrollWithState(@Body enrollWithStateReq: EnrollWithStateReq): Call<CommonResponse<EnrollWithStateResp>>
+    fun getEnrollWithState(@Body dynamicSettingsReq: DynamicSettingsReq): Call<CommonResponse<DynamicSettingResponse>>
 
     //getEnrollmentState
     @POST("get-utility-states")
-    fun getUtilityState(@Body enrollWithStateReq: EnrollWithStateReq): Call<CommonResponse<List<UtilityStateResp>>>
+    fun getUtilityState(@Body dynamicSettingsReq: DynamicSettingsReq): Call<CommonResponse<List<UtilityStateResp>>>
 
     //sendSignatureLink
     @POST("send-signature-link")

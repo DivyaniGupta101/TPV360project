@@ -137,11 +137,12 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     }
 
     private fun getStatusOfEnrollWithState() {
-        mViewModel.getEnrollWithState(EnrollWithStateReq(
+        mViewModel.getEnrollWithState(DynamicSettingsReq(
                 formId = mSetEnrollViewModel.planId
         )).apply {
             observeForever(Observer {
                 it?.ifSuccess {
+                    mSetEnrollViewModel.dynamicSettings = it
                     if (it?.isEnableEnrollByState.orFalse()) {
                         mBinding.containerMain.hide()
                         mBinding.incProgressBar.progressBarView.show()
@@ -156,7 +157,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     }
 
     private fun getStateList() {
-        val liveData = mViewModel.getUtilityState(EnrollWithStateReq(
+        val liveData = mViewModel.getUtilityState(DynamicSettingsReq(
                 formId = mSetEnrollViewModel.planId
         ))
         liveData.observe(this, Observer {

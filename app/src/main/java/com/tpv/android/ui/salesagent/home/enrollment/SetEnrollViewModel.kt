@@ -27,6 +27,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var utilityList: ArrayList<Commodity> = ArrayList()
     var zipcode: String = ""
     var selectedState: UtilityStateResp? = null
+    var dynamicSettings: DynamicSettingResponse? = null
     var selectionType: String = ""
     var emailVerified: String = ""
     var phoneVerified: String = ""
@@ -82,9 +83,9 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         validateLeadDetailCall(validateDetailReq)
     }
 
-    fun cancelLeadDetail(id: String,cancelLeadReq: CancelLeadReq) = with(AppRepository)
+    fun cancelLeadDetail(id: String, cancelLeadReq: CancelLeadReq) = with(AppRepository)
     {
-        cancelLeadCall(id,cancelLeadReq)
+        cancelLeadCall(id, cancelLeadReq)
     }
 
 
@@ -135,6 +136,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         duplicatePageMap = LinkedHashMap()
         utilityList.clear()
         zipcode = ""
+        dynamicSettings = null
         selectedState = null
         phoneVerified = ""
         emailVerified = ""

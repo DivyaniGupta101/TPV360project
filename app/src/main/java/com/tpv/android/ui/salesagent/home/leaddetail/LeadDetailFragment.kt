@@ -59,13 +59,17 @@ class LeadDetailFragment : Fragment() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         val liveData = mViewModel.getLeadDetail(arguments?.let { LeadDetailFragmentArgs.fromBundle(it) }?.item)
         liveData.observe(this, Observer {
-            it?.ifSuccess {leadDetailResp->
+            it?.ifSuccess { leadDetailResp ->
                 leadDetailResp?.leadDeatils?.forEach { response ->
                     inflateViews(response)
                 }
                 if (leadDetailResp?.dispositions?.isNotEmpty().orFalse()) {
                     val dispositions = leadDetailResp?.dispositions?.joinToString(separator = "\n")
-                    setDispositions(dispositions.orEmpty())
+                    setDispositions(dispositions.orEmpty(), getString(R.string.dispositions))
+
+                }
+                if (leadDetailResp?.verificationCode?.isNotBlank().orFalse()) {
+                    setDispositions(leadDetailResp?.verificationCode.orEmpty(), getString(R.string.verificationCode))
 
                 }
                 if (leadDetailResp?.programsDetails?.isNotEmpty().orFalse()) {
@@ -73,6 +77,7 @@ class LeadDetailFragment : Fragment() {
                         setProgramDetail(programDetail)
                     }
                 }
+
             }
 
         })
@@ -139,11 +144,12 @@ class LeadDetailFragment : Fragment() {
     /**
      * Inflate view for Program Detail
      */
-    private fun setDispositions(response: String) {
+    private fun setDispositions(response: String, lable: String) {
         val binding = DataBindingUtil.inflate<LayoutOutDispositionsBinding>(layoutInflater,
                 R.layout.layout_out_dispositions,
                 mBinding.leadDetailContainer,
                 true)
+        binding.label.text = lable
         binding.item = response
     }
 

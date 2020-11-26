@@ -2,7 +2,7 @@ package com.tpv.android.ui.salesagent.home.enrollment.planszipcode
 
 import androidx.lifecycle.MutableLiveData
 import com.tpv.android.data.AppRepository
-import com.tpv.android.model.network.EnrollWithStateReq
+import com.tpv.android.model.network.DynamicSettingsReq
 import com.tpv.android.model.network.UtilityReq
 import com.tpv.android.model.network.ZipCodeReq
 import com.tpv.android.model.network.ZipCodeResp
@@ -25,11 +25,11 @@ class PlansZipcodeViewModel : CoroutineScopedViewModel() {
         getUtilityCall(utilityReq)
     }
 
-    fun getEnrollWithState(enrollWithStateReq: EnrollWithStateReq) = with(AppRepository) {
-        getEnrollWithStateCall(enrollWithStateReq)
+    fun getEnrollWithState(dynamicSettingsReq: DynamicSettingsReq) = with(AppRepository) {
+        getEnrollWithStateCall(dynamicSettingsReq)
     }
-    fun getUtilityState(enrollWithStateReq: EnrollWithStateReq) = with(AppRepository) {
-        getUtilityStateCall(enrollWithStateReq)
+    fun getUtilityState(dynamicSettingsReq: DynamicSettingsReq) = with(AppRepository) {
+        getUtilityStateCall(dynamicSettingsReq)
     }
 
     fun clearZipCodeListData() {
