@@ -9,5 +9,7 @@ data class LeadDetailResp(
         @SerializedName("leadDeatils")
         val leadDeatils: List<DynamicFormResp>?,
         @SerializedName("programsDeatils")
-        val programsDetails: List<ProgramsDetail>?
+        val programsDetails: List<ProgramsDetail>?,
+        @SerializedName("verificationCode")
+        val verificationCode: String
 )
