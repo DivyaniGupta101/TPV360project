@@ -53,12 +53,7 @@ class TransparentActivity : AppCompatActivity() {
         }?.addOnCanceledListener {
             setResult(Activity.RESULT_CANCELED)
             finish()
-        }?.addOnFailureListener {
-            setResult(Activity.RESULT_CANCELED)
-            finish()
-        }
-
-        task?.addOnFailureListener { exception ->
+        }?.addOnFailureListener { exception ->
             if (exception is ResolvableApiException) {
                 // Location settings are not satisfied, but this can be fixed
                 // by showing the user a dialog.
