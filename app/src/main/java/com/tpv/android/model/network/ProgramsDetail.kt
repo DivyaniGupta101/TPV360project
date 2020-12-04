@@ -9,5 +9,9 @@ data class ProgramsDetail(
     @SerializedName("name")
     val name: String?,
     @SerializedName("utility")
-    val utility: String?
+    val utility: String?,
+    @SerializedName("rate")
+    val rate: String?,
+    @SerializedName("utilityName")
+    val utilityName: String?
 )

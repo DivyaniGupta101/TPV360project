@@ -86,6 +86,70 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/SecondaryNormalTextWithTopSpacing"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/rate"
+                android:textColor="@color/colorTertiaryText"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/rate" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@{item.rate}"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/SecondaryNormalTextWithTopSpacing"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/utility_name"
+                android:textColor="@color/colorTertiaryText"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/utility_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/PrimaryNormalText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@{item.utilityName}"
+                app:autoSizeMaxTextSize="@dimen/_12sdp"
+                app:autoSizeMinTextSize="@dimen/_8sdp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/authorised_first_name" />
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </layout>
