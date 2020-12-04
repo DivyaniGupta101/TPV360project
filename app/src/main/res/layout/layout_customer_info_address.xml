@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textLabel"
+            style="@style/PrimaryBoldText"
+            android:paddingStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/customer_information"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textServiceAddress"
+            style="@style/PrimaryBoldText"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingStart="@dimen/_30sdp"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText"
+            android:visibility="gone"
+            tools:text="@string/service_address"
+            tools:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/textServiceAddressValue"
+            style="@style/PrimaryNormalText"
+            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:visibility="gone"
+            tools:text="Smithan"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textBillingAddress"
+            style="@style/PrimaryBoldText"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingStart="@dimen/_30sdp"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText"
+            android:visibility="gone"
+            tools:text="@string/billing_address"
+            tools:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/textBillingAddressValue"
+            style="@style/PrimaryNormalText"
+            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:visibility="gone"
+            tools:text="Smithan"
+            tools:visibility="visible" />
+
+
+    </LinearLayout>
+</layout>

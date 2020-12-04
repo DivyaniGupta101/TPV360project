@@ -15,11 +15,11 @@ import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
-import com.tpv.android.databinding.FragmentCustomerInfoBinding
-import com.tpv.android.databinding.ItemProgramsBinding
-import com.tpv.android.databinding.ItemTitleProgramsBinding
-import com.tpv.android.databinding.LayoutProgramCustomFieldBinding
+import com.tpv.android.databinding.*
+import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.BindingAdapter.addressCombineValues
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -55,20 +55,65 @@ class CustomerInfoFragment : Fragment() {
             }
         }
 
-        if (mViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true } != null) {
-            mBinding.address = mViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true }
-            mBinding.textServiceAddressValue.addTextChangedListener {
-                if (mBinding.textServiceAddressValue.text.isNotEmpty()) {
-                    mBinding.textServiceAddress.show()
-                    mBinding.textServiceAddressValue.show()
-                }
+        if (mViewModel.dynamicFormData.filter { it.type == DynamicField.BOTHADDRESS.type }.isNotEmpty()) {
+            val bothAddress: List<DynamicFormResp> = mViewModel.dynamicFormData.filter { it.type == DynamicField.BOTHADDRESS.type }
+            bothAddress.forEach {
+                val binding = DataBindingUtil.inflate<LayoutCustomerInfoAddressBinding>(layoutInflater,
+                        R.layout.layout_customer_info_address,
+                        mBinding.addressContainer,
+                        true)
+                binding.textLabel.text = it.label
+                binding.textServiceAddress.text = getString(R.string.service_address)
+                binding.textBillingAddress.text = getString(R.string.billing_address)
+                addressCombineValues(
+                        textView = binding.textServiceAddressValue,
+                        unit = it.values?.get(AppConstant.SERVICEUNIT)?.toString(),
+                        state = it.values?.get(AppConstant.SERVICESTATE)?.toString(),
+                        addressLine1 = it.values?.get(AppConstant.SERVICEADDRESS1)?.toString(),
+                        addressLine2 = it.values?.get(AppConstant.SERVICEADDRESS2)?.toString(),
+                        city = it.values?.get(AppConstant.SERVICECITY)?.toString(),
+                        country = it.values?.get(AppConstant.SERVICECOUNTRY)?.toString(),
+                        zipcode = it.values?.get(AppConstant.SERVICEZIPCODE)?.toString()
+                )
+                addressCombineValues(
+                        textView = binding.textBillingAddressValue,
+                        unit = it.values?.get(AppConstant.BILLINGUNIT)?.toString(),
+                        state = it.values?.get(AppConstant.BILLINGSTATE)?.toString(),
+                        addressLine1 = it.values?.get(AppConstant.BILLINGADDRESS1)?.toString(),
+                        addressLine2 = it.values?.get(AppConstant.BILLINGADDRESS2)?.toString(),
+                        city = it.values?.get(AppConstant.BILLINGCITY)?.toString(),
+                        country = it.values?.get(AppConstant.BILLINGCOUNTRY)?.toString(),
+                        zipcode = it.values?.get(AppConstant.BILLINGZIPCODE)?.toString()
+                )
+                binding.textLabel.show()
+                binding.textServiceAddress.show()
+                binding.textServiceAddressValue.show()
+                binding.textBillingAddress.show()
+                binding.textBillingAddressValue.show()
             }
 
-            mBinding.textBillingAddressValue.addTextChangedListener {
-                if (mBinding.textBillingAddressValue.text.isNotEmpty()) {
-                    mBinding.textBillingAddress.show()
-                    mBinding.textBillingAddressValue.show()
-                }
+        }
+        if (mViewModel.dynamicFormData.filter { it.type == DynamicField.ADDRESS.type }.isNotEmpty()) {
+            val address: List<DynamicFormResp> = mViewModel.dynamicFormData.filter { it.type == DynamicField.ADDRESS.type }
+            address.forEach {
+                val binding = DataBindingUtil.inflate<LayoutCustomerInfoAddressBinding>(layoutInflater,
+                        R.layout.layout_customer_info_address,
+                        mBinding.addressContainer,
+                        true)
+                binding.textLabel.text = it.label
+//                binding.textServiceAddress.text = getString(R.string.service_address) + " (${it.label})"
+                addressCombineValues(
+                        textView = binding.textServiceAddressValue,
+                        unit = it.values?.get(AppConstant.UNIT)?.toString(),
+                        state = it.values?.get(AppConstant.STATE)?.toString(),
+                        addressLine1 = it.values?.get(AppConstant.ADDRESS1)?.toString(),
+                        addressLine2 = it.values?.get(AppConstant.ADDRESS2)?.toString(),
+                        city = it.values?.get(AppConstant.CITY)?.toString(),
+                        country = it.values?.get(AppConstant.COUNTRY)?.toString(),
+                        zipcode = it.values?.get(AppConstant.ZIPCODE)?.toString()
+                )
+                binding.textLabel.show()
+                binding.textServiceAddressValue.show()
             }
         }
 
