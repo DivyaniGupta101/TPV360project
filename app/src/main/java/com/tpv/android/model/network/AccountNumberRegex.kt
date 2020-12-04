@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName
 data class AccountNumberRegexResp(
     val field_id: Int,
     val regex: String,
-    val regex_message: String
+    val regex_message: String,
+    @SerializedName("placeholder")
+    val placeHolder: String?
 )
 
 data class AccountNumberRegexRequest(

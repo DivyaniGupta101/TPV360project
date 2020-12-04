@@ -90,6 +90,9 @@ class ProgramsListingFragment : Fragment() {
                                 if (response.field_id == dynamicResp.id) {
                                     dynamicResp.validations?.regexMessage = response?.regex_message
                                     dynamicResp.validations?.regex = response?.regex
+                                    if (response.placeHolder?.isNotBlank().orFalse()) {
+                                        dynamicResp.meta?.placeHolder = response?.placeHolder
+                                    }
                                 }
                             }
                         }
