@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_lead_listing">
         <argument
             android:name="item"
-            app:argType="string" />
+            app:argType="com.tpv.android.model.internal.DashBoardItem" />
         <action
             android:id="@+id/action_leadListingFragment_to_leadDetailFragment"
             app:destination="@id/leadDetailFragment"

@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentDashBoardBinding
 import com.tpv.android.network.error.AlertErrorHandler
@@ -55,45 +57,60 @@ class DashBoardFragment : Fragment() {
 
 
         mBinding.includeItemDashboardPending.mainContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections
-                    .actionDashBoardFragmentToLeadListingFragment(
-                            mBinding.includeItemDashboardPending.item?.statusType.orEmpty()
-                    ))
+            mBinding.includeItemDashboardPending.item?.let {
+                mNavController.navigateSafe(DashBoardFragmentDirections
+                        .actionDashBoardFragmentToLeadListingFragment(
+                                it))
+            }
+
         }
 
         mBinding.includeItemDashboardVerified.mainContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections
-                    .actionDashBoardFragmentToLeadListingFragment(
-                            mBinding.includeItemDashboardVerified.item?.statusType.orEmpty()
-                    ))
+            mBinding.includeItemDashboardVerified.item?.let {
+                mNavController.navigateSafe(DashBoardFragmentDirections
+                        .actionDashBoardFragmentToLeadListingFragment(
+                                it))
+            }
         }
 
         mBinding.includeItemDashboardDeclined.mainContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections
-                    .actionDashBoardFragmentToLeadListingFragment(
-                            mBinding.includeItemDashboardDeclined.item?.statusType.orEmpty()
-                    ))
+            mBinding.includeItemDashboardDeclined.item?.let {
+                mNavController.navigateSafe(DashBoardFragmentDirections
+                        .actionDashBoardFragmentToLeadListingFragment(
+                                it))
+            }
         }
 
         mBinding.includeItemDashboardDisconnected.mainContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections
-                    .actionDashBoardFragmentToLeadListingFragment(
-                            mBinding.includeItemDashboardDisconnected.item?.statusType.orEmpty()
-                    ))
+            mBinding.includeItemDashboardDisconnected.item?.let {
+                mNavController.navigateSafe(DashBoardFragmentDirections
+                        .actionDashBoardFragmentToLeadListingFragment(
+                                it))
+            }
         }
 
         mBinding.includeItemDashboardCancelled.mainContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections
-                    .actionDashBoardFragmentToLeadListingFragment(
-                            mBinding.includeItemDashboardCancelled.item?.statusType.orEmpty()
-                    ))
+            mBinding.includeItemDashboardCancelled.item?.let {
+                mNavController.navigateSafe(DashBoardFragmentDirections
+                        .actionDashBoardFragmentToLeadListingFragment(
+                                it))
+            }
         }
 
         mBinding.includeItemDashboardExpired.mainContainer.onClick {
-            mNavController.navigateSafe(DashBoardFragmentDirections
-                    .actionDashBoardFragmentToLeadListingFragment(
-                            mBinding.includeItemDashboardExpired.item?.statusType.orEmpty()
-                    ))
+            mBinding.includeItemDashboardExpired.item?.let {
+                mNavController.navigateSafe(DashBoardFragmentDirections
+                        .actionDashBoardFragmentToLeadListingFragment(
+                                it))
+            }
+        }
+
+        mBinding.includeItemDashboardSelfVerified.mainContainer.onClick {
+            mBinding.includeItemDashboardSelfVerified.item?.let {
+                mNavController.navigateSafe(DashBoardFragmentDirections
+                        .actionDashBoardFragmentToLeadListingFragment(
+                                it))
+            }
         }
 
         mBinding.imageEnroll.onClick {

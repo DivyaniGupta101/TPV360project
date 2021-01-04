@@ -120,6 +120,7 @@
     <string name="verified_leads">Verified Leads</string>
     <string name="cancelled_leads">Cancelled Leads</string>
     <string name="expired_leads">Expired Leads</string>
+    <string name="self_verified_leads">Self Verified Leads</string>
 
 
     <!--    Labels-->

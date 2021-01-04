@@ -13,7 +13,8 @@ enum class LeadStatus(val value: String) {
     DECLINED("decline"),
     DISCONNECTED("hangup"),
     CANCELLED("cancel"),
-    EXPIRED("expired")
+    EXPIRED("expired"),
+    SELFVERIFIED("self-verified")
 }
 
 enum class EnrollType(val value: String)

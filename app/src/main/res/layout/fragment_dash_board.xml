@@ -138,6 +138,28 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             app:item="@{item[5]}" />
+
+                        <View
+                            style="@style/Divider"
+                            visibleIf="@{item[0].isSelfVerifiedEnable}"
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/_32sdp"
+                            android:layout_marginEnd="@dimen/_32sdp" />
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            visibleIf="@{item[0].isSelfVerifiedEnable}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <include
+                                android:id="@+id/includeItemDashboardSelfVerified"
+                                layout="@layout/item_dashboard"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:item="@{item[6]}" />
+                        </LinearLayout>
                     </LinearLayout>
                 </ScrollView>
 
