@@ -18,7 +18,7 @@ enum class LeadStatus(val value: String) {
 
 enum class EnrollType(val value: String)
 {
-    ZIPCODE("zipcode"),
+    ZIPCODE("zip"),
     STATE("state")
 }
 enum class ClientLeadStatus(val value: String) {

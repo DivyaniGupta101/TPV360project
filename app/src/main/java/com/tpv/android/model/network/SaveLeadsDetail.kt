@@ -32,5 +32,7 @@ data class OtherData(
         @SerializedName("program_id")
         val programId: String? = "",
         @SerializedName("zipcode")
-        val zipcode: String? = ""
+        val zipcode: String? = "",
+        @SerializedName("enrollment_using")
+        val enrollmentUsing: String? = ""
 )

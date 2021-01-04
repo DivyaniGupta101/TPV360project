@@ -183,7 +183,7 @@ class SignatureVerificationFragment : Fragment() {
                 formId = mSetEnrollViewModel.planId,
                 fields = mSetEnrollViewModel.dynamicFormData,
                 other = OtherData(programId = TextUtils.join(",", mSetEnrollViewModel.programList.map { it.id }),
-                        zipcode = zipcode)))
+                        zipcode = zipcode,enrollmentUsing = mSetEnrollViewModel.selectionType)))
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mSetEnrollViewModel.savedLeadResp = it

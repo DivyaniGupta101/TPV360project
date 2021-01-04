@@ -57,6 +57,8 @@ object AppConstant : KotprefModel() {
     const val DESC = "desc"
     const val ASC = "asc"
     const val ALERT = "alert"
+    const val ENROLL_STATE = "state"
+    const val ENROLL_ZIP = "zip"
     const val E_SIGNATURE = "e-signature"
 
 }
