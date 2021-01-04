@@ -11,11 +11,13 @@ data class AccountNumberRegexResp(
         @SerializedName("label")
         val label: String?,
         @SerializedName("options")
-        val option:  ArrayList<Option>?)
+        val option: ArrayList<Option>?)
 
 data class AccountNumberRegexRequest(
         @SerializedName("form_id")
         val formId: String?,
         @SerializedName("utility_id")
-        val utilityId: String?
+        val utilityId: String?,
+        @SerializedName("program_id")
+        val programId: String?
 )

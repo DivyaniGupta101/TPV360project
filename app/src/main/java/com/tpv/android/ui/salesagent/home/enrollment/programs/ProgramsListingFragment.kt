@@ -2,6 +2,7 @@ package com.tpv.android.ui.salesagent.home.enrollment.programs
 
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,10 +79,10 @@ class ProgramsListingFragment : Fragment() {
             val liveData = mProgramListingViewModel.getAccountNumberRegex(
                     AccountNumberRegexRequest(
                             formId = mViewModel.planId,
-                            utilityId = mViewModel.selectedUtilityList.map { it.utid }.joinToString()
-
+                            utilityId = mViewModel.selectedUtilityList.map { it.utid }.joinToString(),
+                            programId = TextUtils.join(",",mLastSelected.map { it.lastSelected }
                     )
-            )
+            ))
             liveData.observe(this@ProgramsListingFragment, Observer {
                 it?.ifSuccess {
                     it?.data?.forEach { response ->

@@ -64,7 +64,7 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
 
 
         if (mViewModel.mLastSelectedStatus.isNullOrEmpty()) {
-            mViewModel.mLastSelectedStatus = arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item
+            mViewModel.mLastSelectedStatus = arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item?.statusType
         }
 
         mListBottoSheet.clear()
@@ -87,6 +87,12 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
                 BottomSheetItem(getString(R.string.expired),
                         LeadStatus.EXPIRED.value, false)
         )
+        if (arguments?.let { LeadListingFragmentArgs.fromBundle(it) }?.item?.isSelfVerifiedEnable.orFalse()) {
+            mListBottoSheet?.add(
+                    BottomSheetItem(getString(R.string.self_verified_leads),
+                            LeadStatus.SELFVERIFIED.value, false)
+            )
+        }
         mListBottoSheet?.forEach {
             if (it.tag == mViewModel.mLastSelectedStatus) {
                 it.isSelected = true
@@ -171,6 +177,10 @@ class LeadListingFragment : Fragment(), OnBackPressCallBack {
             LeadStatus.EXPIRED.value -> {
                 toolBarTitle = getString(R.string.expired_leads)
                 mBinding.textStatus.text = getString(R.string.expired)
+            }
+            LeadStatus.SELFVERIFIED.value -> {
+                toolBarTitle = getString(R.string.self_verified_leads)
+                mBinding.textStatus.text = getString(R.string.self_verified_leads)
             }
         }
         setupToolbar(mBinding.toolbar, toolBarTitle, showMenuIcon = false, showBackIcon = true, backIconClickListener = {
