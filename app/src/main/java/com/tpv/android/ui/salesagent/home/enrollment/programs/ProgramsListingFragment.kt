@@ -93,6 +93,14 @@ class ProgramsListingFragment : Fragment() {
                                     if (response.placeHolder?.isNotBlank().orFalse()) {
                                         dynamicResp.meta?.placeHolder = response?.placeHolder
                                     }
+                                    if (response.label?.isNotBlank().orFalse()) {
+                                        dynamicResp.label = response?.label
+                                    }
+
+                                    if (response.option?.isNotEmpty().orFalse()) {
+                                        dynamicResp.meta?.options = response?.option
+                                    }
+
                                 }
                             }
                         }

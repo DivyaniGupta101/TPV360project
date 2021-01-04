@@ -87,6 +87,11 @@ class LoginFragment : Fragment() {
                 mBinding.editEmail.setText("riddhi.client_admin+1@gmail.com")
                 mBinding.editPassword.setText("tpv@123")
             }
+            if (BuildConfig.FLAVOR.equals("TPV360Allow") ||
+                    BuildConfig.FLAVOR.equals("TpvTestNotAllow")) {
+                mBinding.editEmail.setText("abhilash.badda+d2dapp@gmail.com")
+                mBinding.editPassword.setText("123456")
+            }
 
         }
 
