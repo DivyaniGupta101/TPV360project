@@ -40,7 +40,7 @@
     <string name="ok">Ok</string>
     <string name="no">No</string>
     <string name="verify">Verify</string>
-    <string name="self_verify">Self Verify</string>
+    <string name="self_verify">Self Verified</string>
     <string name="save">Save</string>
     <string name="clear">Clear</string>
     <string name="resend_otp">Resend OTP</string>

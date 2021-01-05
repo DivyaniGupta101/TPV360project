@@ -136,6 +136,10 @@ object BindingAdapter {
                 textView.text = context?.getString(R.string.expired)
                 textView.setTextColor(context.color(R.color.colorSecondaryDarkText))
             }
+            ClientLeadStatus.SELFVERIFIED.value -> {
+                textView.text = context?.getString(R.string.self_verify)
+                textView.setTextColor(context.color(R.color.colorPinkText))
+            }
         }
     }
 

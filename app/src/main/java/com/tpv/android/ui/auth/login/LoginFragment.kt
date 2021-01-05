@@ -125,11 +125,6 @@ class LoginFragment : Fragment() {
                     EmptyValidator(),
                     getString(R.string.enter_password)
             )
-//            addValidate(
-//                    mBinding.editEmail,
-//                    EmailValidator(),
-//                    getString(R.string.enter_valid_email)
-//            )
         }.validate()
     }
 

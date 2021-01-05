@@ -28,7 +28,8 @@ enum class ClientLeadStatus(val value: String) {
     DECLINED("Declined"),
     DISCONNECTED("Disconnected"),
     CANCELLED("Cancelled"),
-    EXPIRED("Expired")
+    EXPIRED("Expired"),
+    SELFVERIFIED("Self Verified")
 }
 
 

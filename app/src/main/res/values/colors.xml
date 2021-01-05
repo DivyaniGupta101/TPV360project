@@ -18,6 +18,7 @@
     <color name="colorLightRed">#80FF0000</color>
     <color name="colorBlack">#000000</color>
     <color name="colorStaticWhite">#ffffff</color>
+    <color name="colorPink">#E0ABD2</color>
 
 
     <color name="colorStatusBarColor">@color/colorPrimary</color>
@@ -43,6 +44,7 @@
     <color name="colorErrorText">@color/colorLightRed</color>
     <color name="colorProfileImageText">@color/colorStaticWhite</color>
     <color name="colorSecondaryDarkText">@color/colorDarkGray</color>
+    <color name="colorPinkText">@color/colorPink</color>
 
 
     <!--    DividerColor-->
