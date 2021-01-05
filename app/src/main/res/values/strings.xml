@@ -81,6 +81,7 @@
     <string name="enter_description">Please enter description</string>
     <string name="please_enter">Please enter</string>
     <string name="please_select">Please select</string>
+    <string name="please_enter_username">Please enter username</string>
 
     <!--    Info Message-->
     <string name="logout">Logout</string>
@@ -127,6 +128,9 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="welcome">Welcome!</string>
     <string name="email_address">Email Address</string>
+    <string name="user_name">Username</string>
+    <string name="email_address_agent_id_hint">Email Address / Agent Id</string>
+    <string name="password_hint">********</string>
     <string name="password">Password</string>
     <string name="zipcode">Enter Zip Code</string>
     <string name="select_state">Select State</string>

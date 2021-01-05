@@ -38,7 +38,8 @@
                 android:orientation="vertical"
                 android:padding="@dimen/_24sdp">
 
-                <ImageView style="@style/IconImage" />
+                <ImageView
+                   style="@style/IconImage" />
 
                 <TextView
                     style="@style/PrimaryBigBoldText"
@@ -63,7 +64,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editEmail"
                         style="@style/DefaultEditText"
-                        android:hint="@string/email_address_agent_id_hint" />
+                        android:defaultFocusHighlightEnabled="false"
+                        android:hint="@string/email_address_agent_id_hint"
+                        android:inputType="textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,13 +78,13 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputPassword"
                     style="@style/TextInputLayout"
+                    android:hint="@string/password_hint"
                     app:passwordToggleDrawable="@drawable/password_image_state"
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editPassword"
                         style="@style/DefaultEditText"
-                        android:hint="@string/password_hint"
                         android:inputType="textPassword" />
 
                 </com.google.android.material.textfield.TextInputLayout>

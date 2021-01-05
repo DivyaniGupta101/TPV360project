@@ -28,7 +28,6 @@ import com.tpv.android.ui.client.ui.ClientHomeActivity
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.navigateSafe
-import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
@@ -53,6 +52,8 @@ class LoginFragment : Fragment() {
 
     private fun initialize() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+        mBinding.textInputPassword.isHintEnabled = false
+        mBinding.textInputEmail.isHintEnabled = false
 
         if (Pref.token != null) {
             if (Pref.user?.accessLevel == AppConstant.CLIENT) {
@@ -117,18 +118,18 @@ class LoginFragment : Fragment() {
             addValidate(
                     mBinding.editEmail,
                     EmptyValidator(),
-                    getString(R.string.enter_email)
+                    getString(R.string.please_enter_username)
             )
             addValidate(
                     mBinding.editPassword,
                     EmptyValidator(),
                     getString(R.string.enter_password)
             )
-            addValidate(
-                    mBinding.editEmail,
-                    EmailValidator(),
-                    getString(R.string.enter_valid_email)
-            )
+//            addValidate(
+//                    mBinding.editEmail,
+//                    EmailValidator(),
+//                    getString(R.string.enter_valid_email)
+//            )
         }.validate()
     }
 
