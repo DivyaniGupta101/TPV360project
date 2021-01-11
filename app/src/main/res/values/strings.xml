@@ -177,7 +177,7 @@
     <string name="sort_by">Sort By</string>
     <string name="copy_from">Copy from</string>
     <string name="filter">Filter</string>
-    <string name="select">Select</string>
+    <string name="select_default">Select</string>
     <string name="please_select_start_date">Please select start date</string>
     <string name="please_select_end_date">Please select end date</string>
     <string name="please_select_at_least_one_method">Please select at least one method of self verification.</string>
@@ -244,6 +244,7 @@
     <string name="address_line_1">Address Line 1</string>
     <string name="address_line_2">Address Line 2</string>
     <string name="city">City</string>
+    <string name="select">Select</string>
     <string name="county">County</string>
     <string name="rate">Rate</string>
     <string name="utility_name">Utility Name</string>

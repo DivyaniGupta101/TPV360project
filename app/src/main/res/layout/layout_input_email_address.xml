@@ -59,6 +59,7 @@
                     android:layout_height="@dimen/_36sdp"
                     android:background="@drawable/bg_divider"
                     android:ellipsize="end"
+                    android:textAllCaps="@{item.meta.isAllCaps}"
                     android:hint="@{item.meta.placeHolder}"
                     android:inputType="textEmailAddress"
                     android:paddingEnd="@dimen/_60sdp"

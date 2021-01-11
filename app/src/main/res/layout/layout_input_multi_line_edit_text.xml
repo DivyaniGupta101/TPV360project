@@ -54,6 +54,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText"
+                    android:textAllCaps="@{item.meta.isAllCaps}"
                     style="@style/SquareBorderEditText"
                     android:hint="@{item.meta.placeHolder}"
                     android:text='@={item.values[key.VALUE]}' />

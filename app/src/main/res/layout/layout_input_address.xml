@@ -51,6 +51,7 @@
                 android:id="@+id/editAddressLineOne"
                 style="@style/DefaultEditText"
                 android:focusable="false"
+                android:textAllCaps="@{item.meta.isAllCaps}"
                 android:hint="@string/address_line_1"
                 android:text='@={item.values[key.ADDRESS1]}' />
         </com.google.android.material.textfield.TextInputLayout>
@@ -69,6 +70,7 @@
                     android:id="@+id/editAddressLineTwo"
                     style="@style/DefaultEditText"
                     android:hint="@string/address_line_2"
+                    android:textAllCaps="@{item.meta.isAllCaps}"
                     android:text='@={item.values[key.ADDRESS2]}' />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,6 +83,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editUnit"
                     android:visibility="gone"
+                    android:textAllCaps="@{item.meta.isAllCaps}"
                     style="@style/DefaultEditText"
                     android:digits="@string/name_char"
                     android:hint="@string/unit"
@@ -98,6 +101,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editZipcode"
                 style="@style/DefaultEditText"
+                android:textAllCaps="@{item.meta.isAllCaps}"
                 android:focusable="false"
                 android:hint="@{@string/county +','+' '+@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
                 app:county="@{item.values[key.COUNTY]}"
@@ -114,6 +118,7 @@
                 android:id="@+id/editCountry"
                 style="@style/DefaultEditText"
                 android:focusable="false"
+                android:textAllCaps="@{item.meta.isAllCaps}"
                 android:hint="@string/country"
                 android:text='@={item.values[key.COUNTRY]}' />
 

@@ -28,6 +28,8 @@ data class Meta(
         val isPrimary: Boolean?,
         @SerializedName("is_allow_copy")
         val isAllowCopy: Boolean?,
+        @SerializedName("is_auto_caps")
+        val isAllCaps: Boolean? = false,
         @SerializedName("placeholder")
         var placeHolder: String?,
         @SerializedName("text")
