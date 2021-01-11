@@ -14,7 +14,7 @@ fun addressComponents(place: Place): AddressComponent? {
      */
 
 
-    val placeComponent = AddressComponent("", "", "", "", "", "", "", "", "", "")
+    val placeComponent = AddressComponent("","", "", "", "", "", "", "", "", "", "")
 
     val addressComponents = place.addressComponents?.asList()
 
@@ -38,6 +38,7 @@ fun addressComponents(place: Place): AddressComponent? {
     placeComponent.address = place.address.orEmpty()
     placeComponent.addressLine1 = place.name.orEmpty()
     placeComponent.city = city.orEmpty()
+    placeComponent.county = addressComponents?.find { it.types.find { it == "administrative_area_level_2" } != null }?.name.orEmpty()
     placeComponent.state = addressComponents?.find { it.types.find { it == "administrative_area_level_1" } != null }?.name.orEmpty()
     placeComponent.latitude = place.latLng?.latitude.toString()
     placeComponent.longitude = place.latLng?.longitude.toString()

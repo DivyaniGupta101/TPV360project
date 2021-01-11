@@ -321,11 +321,18 @@ object BindingAdapter {
 
 
     @JvmStatic
-    @BindingAdapter("city", "state", "zipcode")
-    fun editTextCombineValues(editText: EditText, city: String, state: String, zipcode: String) {
+    @BindingAdapter("county", "city", "state", "zipcode")
+    fun editTextCombineValues(editText: EditText, county: String, city: String, state: String, zipcode: String) {
         var value: String = ""
+        if (county.isNotEmpty()) {
+            value = county
+        }
         if (city.isNotEmpty()) {
-            value = city
+            if (value.isNotEmpty()) {
+                value = "$value, $city"
+            } else {
+                value = city
+            }
         }
         if (state.isNotEmpty()) {
             if (value.isNotEmpty()) {
@@ -381,16 +388,17 @@ object BindingAdapter {
 
 
     @JvmStatic
-    @BindingAdapter(value = ["unit", "addressLine1", "addressLine2", "city", "state", "zipcode", "country"], requireAll = true)
+    @BindingAdapter(value = ["country", "unit", "addressLine1", "addressLine2", "city", "state", "zipcode", "country"], requireAll = true)
     fun addressCombineValues(textView: TextView,
+                             county: String?,
                              unit: String?, addressLine1: String?,
                              addressLine2: String?, city: String?,
                              state: String?, zipcode: String?, country: String?) {
         var address: String = ""
 
-        if (unit?.isNotEmpty().orFalse()) {
-            address = unit.orEmpty()
-        }
+//        if (unit?.isNotEmpty().orFalse()) {
+//            address = unit.orEmpty()
+//        }
 
         if (addressLine1?.isNotEmpty().orFalse()) {
             if (address.isNotEmpty()) {
@@ -405,6 +413,14 @@ object BindingAdapter {
                 address = address + ", " + addressLine2.orEmpty()
             } else {
                 address = addressLine2.orEmpty()
+            }
+        }
+
+        if (county?.isNotEmpty().orFalse()) {
+            if (address.isNotEmpty()) {
+                address = address + ", " + county.orEmpty()
+            } else {
+                address = county.orEmpty()
             }
         }
 

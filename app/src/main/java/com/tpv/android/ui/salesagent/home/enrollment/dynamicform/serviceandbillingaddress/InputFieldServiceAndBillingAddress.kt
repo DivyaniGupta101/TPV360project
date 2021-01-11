@@ -226,6 +226,7 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
 
 private fun bindBillingAddressField(binding: LayoutInputServiceAndBillingAddressBinding, addressComponent: AddressComponent?) {
     binding.item?.values?.set(AppConstant.BILLINGADDRESS1, addressComponent?.addressLine1.orEmpty())
+    binding.item?.values?.set(AppConstant.BILLINGCOUNTY, addressComponent?.county.orEmpty())
     binding.item?.values?.set(AppConstant.BILLINGADDRESS2, addressComponent?.addressLine2.orEmpty())
     binding.item?.values?.set(AppConstant.BILLINGZIPCODE, addressComponent?.zipcode.orEmpty())
     binding.item?.values?.set(AppConstant.BILLINGLAT, addressComponent?.latitude.orEmpty())
@@ -238,6 +239,7 @@ private fun bindBillingAddressField(binding: LayoutInputServiceAndBillingAddress
 
 private fun bindServiceAddressField(binding: LayoutInputServiceAndBillingAddressBinding, addressComponent: AddressComponent?) {
     binding.item?.values?.set(AppConstant.SERVICEADDRESS1, addressComponent?.addressLine1.orEmpty())
+    binding.item?.values?.set(AppConstant.SERVICECOUNTY, addressComponent?.country.orEmpty())
     binding.item?.values?.set(AppConstant.SERVICEADDRESS2, addressComponent?.addressLine2.orEmpty())
     binding.item?.values?.set(AppConstant.SERVICEZIPCODE, addressComponent?.zipcode.orEmpty())
     binding.item?.values?.set(AppConstant.SERVICELAT, addressComponent?.latitude.orEmpty())
@@ -260,6 +262,7 @@ private fun handleBillingAddressField(binding: LayoutInputServiceAndBillingAddre
 
     if (isSame) {
         binding.item?.values?.set(AppConstant.BILLINGUNIT, binding.item?.values?.getValue(AppConstant.SERVICEUNIT).toString())
+        binding.item?.values?.set(AppConstant.BILLINGCOUNTY, binding.item?.values?.getValue(AppConstant.SERVICECOUNTY).toString())
         binding.item?.values?.set(AppConstant.BILLINGADDRESS1, binding.item?.values?.getValue(AppConstant.SERVICEADDRESS1).toString())
         binding.item?.values?.set(AppConstant.BILLINGADDRESS2, binding.item?.values?.getValue(AppConstant.SERVICEADDRESS2).toString())
         binding.item?.values?.set(AppConstant.BILLINGZIPCODE, binding.item?.values?.getValue(AppConstant.SERVICEZIPCODE).toString())
@@ -272,6 +275,7 @@ private fun handleBillingAddressField(binding: LayoutInputServiceAndBillingAddre
         binding.editBillingAddressLineTwo.setTextColor(context?.color(R.color.colorSecondaryText).orZero())
     } else {
         binding.item?.values?.set(AppConstant.BILLINGUNIT, "")
+        binding.item?.values?.set(AppConstant.BILLINGCOUNTY, "")
         binding.item?.values?.set(AppConstant.BILLINGADDRESS1, "")
         binding.item?.values?.set(AppConstant.BILLINGADDRESS2, "")
         binding.item?.values?.set(AppConstant.BILLINGZIPCODE, "")

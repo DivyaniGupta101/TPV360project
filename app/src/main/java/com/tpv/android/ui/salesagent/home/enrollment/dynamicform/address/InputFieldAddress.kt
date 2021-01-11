@@ -89,6 +89,7 @@ fun LayoutInputAddressBinding.fillAddressFields(fillAddressFields: Place?, mView
 
 private fun bindAddressField(binding: LayoutInputAddressBinding, addressComponent: AddressComponent?) {
     binding.item?.values?.set(AppConstant.ADDRESS1, addressComponent?.addressLine1.orEmpty())
+    binding.item?.values?.set(AppConstant.COUNTY, addressComponent?.county.orEmpty())
     binding.item?.values?.set(AppConstant.ADDRESS2, addressComponent?.addressLine2.orEmpty())
     binding.item?.values?.set(AppConstant.ZIPCODE, addressComponent?.zipcode.orEmpty())
     binding.item?.values?.set(AppConstant.LAT, addressComponent?.latitude.orEmpty())

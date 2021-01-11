@@ -201,6 +201,7 @@ fun Context.copyTextDialog(
                             addressCombineValues(
                                     holder.binding.textValue,
                                     holder.binding.item?.values?.get(AppConstant.UNIT)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.COUNTY)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.ADDRESS1)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.ADDRESS2)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.CITY)?.toString(),
@@ -215,6 +216,7 @@ fun Context.copyTextDialog(
 
                                     if (isBilling) {
                                         response.values?.set(AppConstant.BILLINGUNIT, data[AppConstant.UNIT].toString())
+                                        response.values?.set(AppConstant.BILLINGCOUNTY, data[AppConstant.COUNTY].toString())
                                         response.values?.set(AppConstant.BILLINGADDRESS1, data[AppConstant.ADDRESS1].toString())
                                         response.values?.set(AppConstant.BILLINGADDRESS2, data[AppConstant.ADDRESS2].toString())
                                         response.values?.set(AppConstant.BILLINGCITY, data[AppConstant.CITY].toString())
@@ -226,6 +228,7 @@ fun Context.copyTextDialog(
 
                                     } else {
                                         response.values?.set(AppConstant.SERVICEUNIT, data[AppConstant.UNIT].toString())
+                                        response.values?.set(AppConstant.SERVICECOUNTY, data[AppConstant.COUNTY].toString())
                                         response.values?.set(AppConstant.SERVICEADDRESS1, data[AppConstant.ADDRESS1].toString())
                                         response.values?.set(AppConstant.SERVICEADDRESS2, data[AppConstant.ADDRESS2].toString())
                                         response.values?.set(AppConstant.SERVICECITY, data[AppConstant.CITY].toString())
@@ -252,6 +255,7 @@ fun Context.copyTextDialog(
                             addressCombineValues(
                                     holder.binding.textValue,
                                     holder.binding.item?.values?.get(AppConstant.SERVICEUNIT)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.SERVICECOUNTY)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.SERVICEADDRESS1)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.SERVICEADDRESS2)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.SERVICECITY)?.toString(),
@@ -262,6 +266,7 @@ fun Context.copyTextDialog(
                             addressCombineValues(
                                     holder.binding.textBillingValue,
                                     holder.binding.item?.values?.get(AppConstant.BILLINGUNIT)?.toString(),
+                                    holder.binding.item?.values?.get(AppConstant.BILLINGCOUNTY)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.BILLINGADDRESS1)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.BILLINGADDRESS2)?.toString(),
                                     holder.binding.item?.values?.get(AppConstant.BILLINGCITY)?.toString(),
@@ -274,6 +279,7 @@ fun Context.copyTextDialog(
                                 val data = holder.binding.item?.values?.clone() as LinkedHashMap<String, Any>
                                 if (response.type == DynamicField.ADDRESS.type) {
                                     response.values?.set(AppConstant.UNIT, data[AppConstant.BILLINGUNIT].toString())
+                                    response.values?.set(AppConstant.COUNTY, data[AppConstant.BILLINGCOUNTY].toString())
                                     response.values?.set(AppConstant.ADDRESS1, data[AppConstant.BILLINGADDRESS1].toString())
                                     response.values?.set(AppConstant.ADDRESS2, data[AppConstant.BILLINGADDRESS2].toString())
                                     response.values?.set(AppConstant.CITY, data[AppConstant.BILLINGCITY].toString())
@@ -285,6 +291,7 @@ fun Context.copyTextDialog(
                                 } else {
                                     if (isBilling) {
                                         response.values?.set(AppConstant.BILLINGUNIT, data[AppConstant.BILLINGUNIT].toString())
+                                        response.values?.set(AppConstant.BILLINGCOUNTY, data[AppConstant.BILLINGCOUNTY].toString())
                                         response.values?.set(AppConstant.BILLINGADDRESS1, data[AppConstant.BILLINGADDRESS1].toString())
                                         response.values?.set(AppConstant.BILLINGADDRESS2, data[AppConstant.BILLINGADDRESS2].toString())
                                         response.values?.set(AppConstant.BILLINGCITY, data[AppConstant.BILLINGCITY].toString())
@@ -297,6 +304,7 @@ fun Context.copyTextDialog(
 
                                     } else {
                                         response.values?.set(AppConstant.SERVICEUNIT, data[AppConstant.BILLINGUNIT].toString())
+                                        response.values?.set(AppConstant.SERVICECOUNTY, data[AppConstant.BILLINGCOUNTY].toString())
                                         response.values?.set(AppConstant.SERVICEADDRESS1, data[AppConstant.BILLINGADDRESS1].toString())
                                         response.values?.set(AppConstant.SERVICEADDRESS2, data[AppConstant.BILLINGADDRESS2].toString())
                                         response.values?.set(AppConstant.SERVICECITY, data[AppConstant.BILLINGCITY].toString())
@@ -316,6 +324,7 @@ fun Context.copyTextDialog(
                                 val data = holder.binding.item?.values?.clone() as LinkedHashMap<String, Any>
                                 if (response.type == DynamicField.ADDRESS.type) {
                                     response.values?.set(AppConstant.UNIT, data[AppConstant.SERVICEUNIT].toString())
+                                    response.values?.set(AppConstant.COUNTY, data[AppConstant.SERVICECOUNTY].toString())
                                     response.values?.set(AppConstant.ADDRESS1, data[AppConstant.SERVICEADDRESS1].toString())
                                     response.values?.set(AppConstant.ADDRESS2, data[AppConstant.SERVICEADDRESS2].toString())
                                     response.values?.set(AppConstant.CITY, data[AppConstant.SERVICECITY].toString())
@@ -327,6 +336,7 @@ fun Context.copyTextDialog(
                                 } else {
                                     if (isBilling) {
                                         response.values?.set(AppConstant.BILLINGUNIT, data[AppConstant.SERVICEUNIT].toString())
+                                        response.values?.set(AppConstant.BILLINGCOUNTY, data[AppConstant.SERVICECOUNTY].toString())
                                         response.values?.set(AppConstant.BILLINGADDRESS1, data[AppConstant.SERVICEADDRESS1].toString())
                                         response.values?.set(AppConstant.BILLINGADDRESS2, data[AppConstant.SERVICEADDRESS2].toString())
                                         response.values?.set(AppConstant.BILLINGCITY, data[AppConstant.SERVICECITY].toString())
@@ -338,6 +348,7 @@ fun Context.copyTextDialog(
 
                                     } else {
                                         response.values?.set(AppConstant.SERVICEUNIT, data[AppConstant.SERVICEUNIT].toString())
+                                        response.values?.set(AppConstant.SERVICECOUNTY, data[AppConstant.SERVICECOUNTY].toString())
                                         response.values?.set(AppConstant.SERVICEADDRESS1, data[AppConstant.SERVICEADDRESS1].toString())
                                         response.values?.set(AppConstant.SERVICEADDRESS2, data[AppConstant.SERVICEADDRESS2].toString())
                                         response.values?.set(AppConstant.SERVICECITY, data[AppConstant.SERVICECITY].toString())

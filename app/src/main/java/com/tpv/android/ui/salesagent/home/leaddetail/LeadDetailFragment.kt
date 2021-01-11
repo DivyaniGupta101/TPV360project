@@ -172,6 +172,7 @@ class LeadDetailFragment : Fragment() {
         setBillingAddress(response, binding)
 
         val unitNumber = response.values?.get(AppConstant.SERVICEUNIT) as String?
+        val county = response.values?.get(AppConstant.SERVICECOUNTY) as String?
         val addressLineOne = response.values?.get(AppConstant.SERVICEADDRESS1) as String?
         val addressLineTwo = response.values?.get(AppConstant.SERVICEADDRESS2) as String?
         val city = response.values?.get(AppConstant.SERVICECITY) as String?
@@ -180,15 +181,19 @@ class LeadDetailFragment : Fragment() {
         val country = response.values?.get(AppConstant.SERVICECOUNTRY) as String?
 
         var text = ""
-        if (unitNumber?.isNotEmpty().orFalse()) {
-            text = unitNumber + "\n"
-        }
+//        if (unitNumber?.isNotEmpty().orFalse()) {
+//            text = unitNumber + "\n"
+//        }
         if (addressLineOne?.isNotEmpty().orFalse()) {
             text += addressLineOne + "\n"
         }
 
         if (addressLineTwo?.isNotEmpty().orFalse()) {
             text += addressLineTwo + "\n"
+        }
+
+        if (county?.isNotEmpty().orFalse()) {
+            text += country + "\n"
         }
         if (city?.isNotEmpty().orFalse()) {
             text += "$city,"
@@ -211,6 +216,7 @@ class LeadDetailFragment : Fragment() {
     private fun setBillingAddress(response: DynamicFormResp, binding: LayoutOutputServiceAndBillingAddressBinding) {
 
         val unitNumber = response.values?.get(AppConstant.BILLINGUNIT) as String?
+        val county = response.values?.get(AppConstant.BILLINGCOUNTY) as String?
         val addressLineOne = response.values?.get(AppConstant.BILLINGADDRESS1) as String?
         val addressLineTwo = response.values?.get(AppConstant.BILLINGADDRESS2) as String?
         val city = response.values?.get(AppConstant.BILLINGCITY) as String?
@@ -219,9 +225,9 @@ class LeadDetailFragment : Fragment() {
         val country = response.values?.get(AppConstant.BILLINGCOUNTRY) as String?
 
         var text = ""
-        if (unitNumber?.isNotEmpty().orFalse()) {
-            text = unitNumber + "\n"
-        }
+//        if (unitNumber?.isNotEmpty().orFalse()) {
+//            text = unitNumber + "\n"
+//        }
         if (addressLineOne?.isNotEmpty().orFalse()) {
             text = text + addressLineOne + "\n"
         }
@@ -229,6 +235,10 @@ class LeadDetailFragment : Fragment() {
         if (addressLineTwo?.isNotEmpty().orFalse()) {
             text += addressLineTwo + "\n"
         }
+        if (county?.isNotEmpty().orFalse()) {
+            text = text + county + "\n"
+        }
+
         if (city?.isNotEmpty().orFalse()) {
             text += "$city,"
         }
@@ -290,6 +300,7 @@ class LeadDetailFragment : Fragment() {
                 true)
 
         val unitNumber = response.values?.get(AppConstant.UNIT) as String?
+        val county = response.values?.get(AppConstant.COUNTY) as String?
         val addressLineOne = response.values?.get(AppConstant.ADDRESS1) as String?
         val addressLineTwo = response.values?.get(AppConstant.ADDRESS2) as String?
         val city = response.values?.get(AppConstant.CITY) as String?
@@ -298,14 +309,18 @@ class LeadDetailFragment : Fragment() {
         val country = response.values?.get(AppConstant.COUNTRY) as String?
 
         var text = ""
-        if (unitNumber?.isNotEmpty().orFalse()) {
-            text = unitNumber + "\n"
-        }
+//        if (unitNumber?.isNotEmpty().orFalse()) {
+//            text = unitNumber + "\n"
+//        }
+
         if (addressLineOne?.isNotEmpty().orFalse()) {
             text += addressLineOne + "\n"
         }
         if (addressLineTwo?.isNotEmpty().orFalse()) {
             text += addressLineTwo + "\n"
+        }
+        if (county?.isNotEmpty().orFalse()) {
+            text = unitNumber + "\n"
         }
         if (city?.isNotEmpty().orFalse()) {
             text += "$city,"

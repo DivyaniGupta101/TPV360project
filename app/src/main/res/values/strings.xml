@@ -244,6 +244,7 @@
     <string name="address_line_1">Address Line 1</string>
     <string name="address_line_2">Address Line 2</string>
     <string name="city">City</string>
+    <string name="county">County</string>
     <string name="rate">Rate</string>
     <string name="utility_name">Utility Name</string>
     <string name="state">State</string>

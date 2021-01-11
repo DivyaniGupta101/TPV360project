@@ -83,7 +83,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/AddressFormTextInputLayout"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editServiceUnit"
@@ -95,7 +96,8 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text='@={item.values[key.SERVICEUNIT]}' />
+                    android:text='@={item.values[key.SERVICEUNIT]}'
+                    android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -105,8 +107,9 @@
                 android:id="@+id/editServiceZipcode"
                 style="@style/DefaultEditText"
                 android:focusable="false"
-                android:hint="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
+                android:hint="@{@string/county +','+' '+@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
                 app:city="@{item.values[key.SERVICECITY]}"
+                app:county="@{item.values[key.SERVICECOUNTY]}"
                 app:state="@{item.values[key.SERVICESTATE]}"
                 app:zipcode="@{item.values[key.SERVICEZIPCODE]}" />
 
@@ -209,7 +212,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/AddressFormTextInputLayout"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:visibility="gone">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -222,7 +226,8 @@
                     android:inputType="text"
                     android:singleLine="true"
                     android:text='@={item.values[key.BILLINGUNIT]}'
-                    android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }" />
+                    android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }"
+                    android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -234,10 +239,11 @@
                 android:ellipsize="end"
                 android:enabled="@{!item.addressSame}"
                 android:focusable="false"
-                android:hint="@{@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
+                android:hint="@{@string/county +','+' '+@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
                 android:maxLines="1"
                 android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }"
                 app:city="@{item.values[key.BILLINGCITY]}"
+                app:county="@{item.values[key.SERVICECOUNTY]}"
                 app:state="@{item.values[key.BILLINGSTATE]}"
                 app:zipcode="@{item.values[key.BILLINGZIPCODE]}" />
 

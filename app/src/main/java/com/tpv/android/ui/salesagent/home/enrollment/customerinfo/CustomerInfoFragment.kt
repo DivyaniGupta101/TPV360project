@@ -69,6 +69,7 @@ class CustomerInfoFragment : Fragment() {
                         textView = binding.textServiceAddressValue,
                         unit = it.values?.get(AppConstant.SERVICEUNIT)?.toString(),
                         state = it.values?.get(AppConstant.SERVICESTATE)?.toString(),
+                        county = it?.values?.get(AppConstant.SERVICECOUNTY)?.toString(),
                         addressLine1 = it.values?.get(AppConstant.SERVICEADDRESS1)?.toString(),
                         addressLine2 = it.values?.get(AppConstant.SERVICEADDRESS2)?.toString(),
                         city = it.values?.get(AppConstant.SERVICECITY)?.toString(),
@@ -82,6 +83,7 @@ class CustomerInfoFragment : Fragment() {
                         addressLine1 = it.values?.get(AppConstant.BILLINGADDRESS1)?.toString(),
                         addressLine2 = it.values?.get(AppConstant.BILLINGADDRESS2)?.toString(),
                         city = it.values?.get(AppConstant.BILLINGCITY)?.toString(),
+                        county = it.values?.get(AppConstant.BILLINGCOUNTY)?.toString(),
                         country = it.values?.get(AppConstant.BILLINGCOUNTRY)?.toString(),
                         zipcode = it.values?.get(AppConstant.BILLINGZIPCODE)?.toString()
                 )
@@ -109,6 +111,7 @@ class CustomerInfoFragment : Fragment() {
                         addressLine1 = it.values?.get(AppConstant.ADDRESS1)?.toString(),
                         addressLine2 = it.values?.get(AppConstant.ADDRESS2)?.toString(),
                         city = it.values?.get(AppConstant.CITY)?.toString(),
+                        county = it.values?.get(AppConstant.COUNTY)?.toString(),
                         country = it.values?.get(AppConstant.COUNTRY)?.toString(),
                         zipcode = it.values?.get(AppConstant.ZIPCODE)?.toString()
                 )
