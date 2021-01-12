@@ -7,6 +7,7 @@ import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
 import com.tpv.android.databinding.LayoutInputFullNameBinding
 import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.utils.BindingAdapter.setAllCaps
 import com.tpv.android.utils.copyTextDialog
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
@@ -15,6 +16,11 @@ import com.tpv.android.utils.validation.Validator
 fun LayoutInputFullNameBinding.setField(response: DynamicFormResp, listOfCopyTextForAddress: ArrayList<DynamicFormResp>) {
     val binding = this
     binding.item = response
+
+
+//    binding.item?.meta?.let { setAllCaps(binding.editFirstName, it) }
+//    binding.item?.meta?.isAllCaps?.let { setAllCaps(binding.editLastName, it) }
+//    binding.item?.meta?.isAllCaps?.let { setAllCaps(binding.editMiddleName, it) }
 
     binding.editFirstName.setOnFocusChangeListener { v, hasFocus ->
         if (!hasFocus) {

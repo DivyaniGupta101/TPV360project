@@ -3,6 +3,8 @@ package com.tpv.android.utils
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.InputFilter
+import android.text.InputType
+import android.text.InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -13,11 +15,8 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.textfield.TextInputEditText
+import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.color
-import com.livinglifetechway.k4kotlin.core.hide
-import com.livinglifetechway.k4kotlin.core.orFalse
-import com.livinglifetechway.k4kotlin.core.orZero
-import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.helper.formatDate
 import com.tpv.android.network.error.ErrorHandler
@@ -319,30 +318,37 @@ object BindingAdapter {
         }
     }
 
+    @JvmStatic
+        @BindingAdapter("allCaps")
+    fun setAllCaps(editText: EditText, isAllCaps: Boolean) {
+        if (isAllCaps) {
+            editText.filters = arrayOf<InputFilter>(InputFilter.AllCaps())
+        }
+    }
 
     @JvmStatic
     @BindingAdapter("county", "city", "state", "zipcode")
-    fun editTextCombineValues(editText: EditText, county: String, city: String, state: String, zipcode: String) {
-        var value: String = ""
-        if (county.isNotEmpty()) {
+    fun editTextCombineValues(editText: EditText, county: String?, city: String?, state: String?, zipcode: String?) {
+        var value: String? = ""
+        if (county?.isNotEmpty().orFalse()) {
             value = county
         }
-        if (city.isNotEmpty()) {
-            if (value.isNotEmpty()) {
+        if (city?.isNotEmpty().orFalse()) {
+            if (value?.isNotEmpty().orFalse()) {
                 value = "$value, $city"
             } else {
                 value = city
             }
         }
-        if (state.isNotEmpty()) {
-            if (value.isNotEmpty()) {
+        if (state?.isNotEmpty().orFalse()) {
+            if (value?.isNotEmpty().orFalse()) {
                 value = "$value, $state"
             } else {
                 value = state
             }
         }
-        if (zipcode.isNotEmpty()) {
-            if (value.isNotEmpty()) {
+        if (zipcode?.isNotEmpty().orFalse()) {
+            if (value?.isNotEmpty().orFalse()) {
                 value = "$value, $zipcode"
             } else {
                 value = zipcode
@@ -388,7 +394,7 @@ object BindingAdapter {
 
 
     @JvmStatic
-    @BindingAdapter(value = ["country", "unit", "addressLine1", "addressLine2", "city", "state", "zipcode", "country"], requireAll = true)
+    @BindingAdapter(value = ["county", "unit", "addressLine1", "addressLine2", "city", "state", "zipcode", "country"], requireAll = true)
     fun addressCombineValues(textView: TextView,
                              county: String?,
                              unit: String?, addressLine1: String?,

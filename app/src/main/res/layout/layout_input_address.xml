@@ -28,11 +28,11 @@
 
             <TextView
                 style="@style/TertiaryBoldTextWithTopSpacing"
-                android:layout_weight="1"
-                android:text="@{item.label}"
-                android:maxLines="2"
-                android:textAllCaps="true"
                 android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:text="@{item.label}"
+                android:textAllCaps="true"
                 app:visibleIf="@{!TextUtils.isEmpty(item.label)}"
                 tools:text="@string/address" />
 
@@ -51,7 +51,6 @@
                 android:id="@+id/editAddressLineOne"
                 style="@style/DefaultEditText"
                 android:focusable="false"
-                android:textAllCaps="@{item.meta.isAllCaps}"
                 android:hint="@string/address_line_1"
                 android:text='@={item.values[key.ADDRESS1]}' />
         </com.google.android.material.textfield.TextInputLayout>
@@ -70,27 +69,27 @@
                     android:id="@+id/editAddressLineTwo"
                     style="@style/DefaultEditText"
                     android:hint="@string/address_line_2"
-                    android:textAllCaps="@{item.meta.isAllCaps}"
-                    android:text='@={item.values[key.ADDRESS2]}' />
+                    android:inputType="textCapCharacters"
+                    android:text='@={item.values[key.ADDRESS2]}'
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/AddressFormTextInputLayout"
-                android:visibility="gone"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:visibility="gone">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editUnit"
-                    android:visibility="gone"
-                    android:textAllCaps="@{item.meta.isAllCaps}"
                     style="@style/DefaultEditText"
                     android:digits="@string/name_char"
                     android:hint="@string/unit"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:text='@={item.values[key.UNIT]}' />
+                    android:text='@={item.values[key.UNIT]}'
+                    android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -101,11 +100,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editZipcode"
                 style="@style/DefaultEditText"
-                android:textAllCaps="@{item.meta.isAllCaps}"
                 android:focusable="false"
                 android:hint="@{@string/county +','+' '+@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
-                app:county="@{item.values[key.COUNTY]}"
                 app:city="@{item.values[key.CITY]}"
+                app:county="@{item.values[key.COUNTY]}"
                 app:state="@{item.values[key.STATE]}"
                 app:zipcode="@{item.values[key.ZIPCODE]}"
                 tools:hint="City, State, Zipcode" />
@@ -118,7 +116,6 @@
                 android:id="@+id/editCountry"
                 style="@style/DefaultEditText"
                 android:focusable="false"
-                android:textAllCaps="@{item.meta.isAllCaps}"
                 android:hint="@string/country"
                 android:text='@={item.values[key.COUNTRY]}' />
 

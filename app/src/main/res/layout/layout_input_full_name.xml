@@ -60,9 +60,9 @@
                 style="@style/DefaultEditText"
                 android:digits="@string/string_char"
                 android:imeOptions="actionNext"
-                android:textAllCaps="@{item.meta.isAllCaps}"
                 android:inputType="textCapSentences"
                 android:singleLine="true"
+                app:allCaps = "@{item.meta.isAllCaps}"
                 android:text='@={item.values[key.FIRSTNAME]}' />
 
 
@@ -83,9 +83,9 @@
                 style="@style/DefaultEditText"
                 android:digits="@string/string_char"
                 android:imeOptions="actionNext"
-                android:textAllCaps="@{item.meta.isAllCaps}"
                 android:inputType="textCapSentences"
                 android:singleLine="true"
+                app:allCaps = "@{item.meta.isAllCaps}"
                 android:text='@={item.values[key.MIDDLENAME]}' />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -105,9 +105,9 @@
                 style="@style/DefaultEditText"
                 android:digits="@string/string_char"
                 android:imeOptions="actionNext"
-                android:textAllCaps="@{item.meta.isAllCaps}"
                 android:inputType="textCapSentences"
                 android:singleLine="true"
+                app:allCaps = "@{item.meta.isAllCaps}"
                 android:text='@={item.values[key.LASTNAME]}' />
 
         </com.google.android.material.textfield.TextInputLayout>

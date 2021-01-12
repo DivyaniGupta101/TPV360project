@@ -18,6 +18,7 @@ import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.AppConstant
+import com.tpv.android.utils.BindingAdapter.setAllCaps
 import com.tpv.android.utils.copyTextDialog
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.validation.EmptyValidator
@@ -39,6 +40,12 @@ fun LayoutInputAddressBinding.setField(response: DynamicFormResp, listOfCopyText
     val context = binding.editUnit.context
 
     binding.item = response
+    binding.item?.meta?.isAllCaps?.orFalse()?.let { setAllCaps(binding.editAddressLineOne, it) }
+    binding.item?.meta?.isAllCaps?.orFalse()?.let { setAllCaps(binding.editAddressLineTwo, it) }
+    binding.item?.meta?.isAllCaps?.orFalse()?.let { setAllCaps(binding.editCountry, it) }
+    binding.item?.meta?.isAllCaps?.orFalse()?.let { setAllCaps(binding.editZipcode, it) }
+    binding.item?.meta?.isAllCaps?.orFalse()?.let { setAllCaps(binding.editUnit, it) }
+
     binding.textCopyFrom.onClick {
         context.copyTextDialog(
                 list = listOfCopyTextForAddress,
