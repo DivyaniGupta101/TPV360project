@@ -96,7 +96,7 @@
                             android:hint="@{item.meta.placeHolder}"
                             android:inputType="phone"
                             android:maxLength="10"
-                            android:textAllCaps="@{item.meta.isAllCaps}"
+                            app:allCaps = "@{item.meta.isAllCaps}"
                             android:paddingEnd="52dp"
                             android:text='@={item.values[key.VALUE]}'
                             app:editTextMaxLength="@{item.validations.length}" />

@@ -29,7 +29,7 @@ data class Meta(
         @SerializedName("is_allow_copy")
         val isAllowCopy: Boolean?,
         @SerializedName("is_auto_caps")
-        val isAllCaps: Boolean = true,
+        val isAllCaps: Boolean?,
         @SerializedName("placeholder")
         var placeHolder: String?,
         @SerializedName("text")

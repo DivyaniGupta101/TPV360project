@@ -55,7 +55,7 @@
                 style="@style/DefaultEditText"
                 android:hint="@{item.meta.placeHolder}"
                 android:text='@={item.values[key.VALUE]}'
-                android:textAllCaps="@{item.meta.isAllCaps}"
+                app:allCaps = "@{item.meta.isAllCaps}"
                 app:editTextMaxLength="@{item.validations.length}" />
 
         </com.google.android.material.textfield.TextInputLayout>
