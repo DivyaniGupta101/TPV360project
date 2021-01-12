@@ -63,6 +63,7 @@ import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.serviceandbilli
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.serviceandbillingaddress.setField
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.singlelineedittext.isValid
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.singlelineedittext.setField
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.spinner.isValid
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.spinner.setField
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
@@ -274,6 +275,9 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 view.isValid(context)
             }
             is LayoutInputEmailAddressBinding -> {
+                view.isValid(context)
+            }
+            is LayoutInputSpinnerBinding -> {
                 view.isValid(context)
             }
             else -> {

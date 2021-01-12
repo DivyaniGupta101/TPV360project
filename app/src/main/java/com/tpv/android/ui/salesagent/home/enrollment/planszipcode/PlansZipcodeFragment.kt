@@ -163,7 +163,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mStateList.clear()
-                mStateList.add(UtilityStateResp("", "Select"))
+                mStateList.add(UtilityStateResp("", context?.getString(R.string.select_default)))
                 mStateList.addAll(it.orEmpty())
                 mBinding.spinnerState.setItems(mStateList.map { it.state } as ArrayList<String>?)
                 if (mSetEnrollViewModel.selectedState != null) {

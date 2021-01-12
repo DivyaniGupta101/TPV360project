@@ -1,9 +1,8 @@
 package com.tpv.android.ui.salesagent.home.enrollment.dynamicform.spinner
 
-import com.livinglifetechway.k4kotlin.core.onItemSelected
-import com.livinglifetechway.k4kotlin.core.orFalse
-import com.livinglifetechway.k4kotlin.core.orZero
-import com.livinglifetechway.k4kotlin.core.setItems
+import android.content.Context
+import com.livinglifetechway.k4kotlin.core.*
+import com.tpv.android.R
 import com.tpv.android.databinding.LayoutInputSpinnerBinding
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.Option
@@ -16,7 +15,9 @@ fun LayoutInputSpinnerBinding.setField(response: DynamicFormResp) {
 
     binding.item?.values = linkedMapOf(AppConstant.OPTIONS to response.meta?.options as Any)
     val listOfOption = response.values?.get(AppConstant.OPTIONS) as ArrayList<Option>
-    val spinnerValueList = listOfOption.map { it.option.orEmpty() }
+    val spinnerValueList: ArrayList<String> = arrayListOf(this.spinner.context.getString(R.string.select_default))
+
+    spinnerValueList.addAll(listOfOption.map { it.option.orEmpty() })
 
 
     binding.spinner?.setItems(spinnerValueList as ArrayList<String>?)
@@ -29,9 +30,27 @@ fun LayoutInputSpinnerBinding.setField(response: DynamicFormResp) {
 
     binding.spinner?.onItemSelected { parent, view, position, id ->
         listOfOption.forEachIndexed { index, option ->
-            option.selected = (index == position)
+            option.selected = (option.option == binding.spinner.selectedItem)
         }
 
+    }
+
+}
+
+fun LayoutInputSpinnerBinding.isValid(context: Context?): Boolean {
+    val binding = this
+    return if (binding.item?.validations?.required.orFalse()) {
+        if (binding.item?.meta?.options?.filter { it.selected == true }?.isNotEmpty().orFalse()) {
+            binding.textError.hide()
+            true
+        } else {
+            val errorMessage = context?.getString(R.string.please_select) + " " + binding.item?.label?.toLowerCase()
+            binding.textError.text = errorMessage
+            binding.textError.show()
+            false
+        }
+    } else {
+        return true
     }
 
 }
