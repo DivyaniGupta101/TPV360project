@@ -6,7 +6,9 @@ data class VelidateLeadsDetailResp(
         @SerializedName("lead_temp_id")
         var leadTempId: String?,
         @SerializedName("errors")
-        val errors: List<LeadVelidationError>
+        val errors: List<LeadVelidationError> ,
+        @SerializedName("validations_errors")
+        val validationsError: List<String>
 )
 
 

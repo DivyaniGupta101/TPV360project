@@ -162,11 +162,22 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
     }
 
     private fun navigateNext() {
-        if (mViewModel.leadvelidationError?.errors.isNullOrEmpty()) {
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
+        if (mViewModel.leadvelidationError?.validationsError?.isNotEmpty().orFalse()) {
+            var description = ""
+
+            mViewModel.leadvelidationError?.validationsError?.forEach {
+                description = description + it + "\n"
+            }
+            context?.infoDialog(subTitleText = description)
+
         } else {
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_leadVelidationFragment)
+            if (mViewModel.leadvelidationError?.errors.isNullOrEmpty()) {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
+            } else {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_leadVelidationFragment)
+            }
         }
+
     }
 
     /**
