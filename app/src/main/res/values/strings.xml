@@ -190,7 +190,7 @@
     <string name="authorised_last_name">Authorised Last Name</string>
     <string name="email">Email</string>
     <string name="billing_address">Billing Address</string>
-    <string name="zip_code">Zip Code</string>
+    <string name="zip_code">ZipCode</string>
     <string name="ticket_recived_msg">Your ticket has been submitted successfully.</string>
     <string name="billing_address_msg">Is the billing address the same as the service address?</string>
     <string name="service_address">Service Address</string>

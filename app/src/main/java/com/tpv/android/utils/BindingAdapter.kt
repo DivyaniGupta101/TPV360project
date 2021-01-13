@@ -328,8 +328,8 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("county", "city", "state", "zipcode")
-    fun editTextCombineValues(editText: EditText, county: String?, city: String?, state: String?, zipcode: String?) {
+    @BindingAdapter("county", "city")
+    fun editTextCombineValues(editText: EditText, county: String?, city: String?) {
         var value: String? = ""
 
         if (city?.isNotEmpty().orFalse()) {
@@ -346,6 +346,15 @@ object BindingAdapter {
                 value = county
             }
         }
+
+        editText.setText(value)
+    }
+
+    @JvmStatic
+    @BindingAdapter("country", "state", "zipcode")
+    fun combineCountryStateZipcodeValues(editText: EditText, country: String?, state: String?, zipcode: String?) {
+        var value: String? = ""
+
         if (state?.isNotEmpty().orFalse()) {
             if (value?.isNotEmpty().orFalse()) {
                 value = "$value, $state"
@@ -358,6 +367,14 @@ object BindingAdapter {
                 value = "$value, $zipcode"
             } else {
                 value = zipcode
+            }
+        }
+
+        if (country?.isNotEmpty().orFalse()) {
+            if (value?.isNotEmpty().orFalse()) {
+                value = "$value, $country"
+            } else {
+                value = country
             }
         }
         editText.setText(value)

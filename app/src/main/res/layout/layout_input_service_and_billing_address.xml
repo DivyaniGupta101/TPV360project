@@ -110,12 +110,10 @@
                 android:id="@+id/editServiceZipcode"
                 style="@style/DefaultEditText"
                 android:focusable="false"
-                android:hint="@{@string/city + ',' + ' ' +@string/county + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
+                android:hint="@{@string/city + ',' + ' ' +@string/county }"
                 app:allCaps="@{item.meta.isAllCaps}"
                 app:city="@{item.values[key.SERVICECITY]}"
-                app:county="@{item.values[key.SERVICECOUNTY]}"
-                app:state="@{item.values[key.SERVICESTATE]}"
-                app:zipcode="@{item.values[key.SERVICEZIPCODE]}" />
+                app:county="@{item.values[key.SERVICECOUNTY]}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,9 +123,11 @@
                 android:id="@+id/editServiceCountry"
                 style="@style/DefaultEditText"
                 android:focusable="false"
-                android:hint="@string/country"
-                android:text='@={item.values[key.SERVICECOUNTRY]}'
-                app:allCaps="@{item.meta.isAllCaps}" />
+                android:hint="@{@string/state + ',' + ' ' + @string/zip_code+ ',' + ' '+ @string/country}"
+                app:allCaps="@{item.meta.isAllCaps}"
+                app:country="@{item.values[key.SERVICECOUNTRY]}"
+                app:state="@{item.values[key.SERVICESTATE]}"
+                app:zipcode="@{item.values[key.SERVICEZIPCODE]}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,14 +247,12 @@
                 android:ellipsize="end"
                 android:enabled="@{!item.addressSame}"
                 android:focusable="false"
-                android:hint="@{@string/city + ',' + ' ' +@string/county + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
+                android:hint="@{@string/city + ',' + ' ' +@string/county}"
                 android:maxLines="1"
                 android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }"
                 app:allCaps="@{item.meta.isAllCaps}"
                 app:city="@{item.values[key.BILLINGCITY]}"
-                app:county="@{item.values[key.SERVICECOUNTY]}"
-                app:state="@{item.values[key.BILLINGSTATE]}"
-                app:zipcode="@{item.values[key.BILLINGZIPCODE]}" />
+                app:county="@{item.values[key.BILLINGCOUNTY]}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -266,10 +264,12 @@
                 style="@style/DefaultEditText"
                 android:enabled="@{!item.addressSame}"
                 android:focusable="false"
-                android:hint="@string/country"
-                android:text='@={item.values[key.BILLINGCOUNTRY]}'
+                android:hint="@{@string/state + ',' + ' ' + @string/zip_code+ ',' + ' '+ @string/country}"
                 android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }"
-                app:allCaps="@{item.meta.isAllCaps}" />
+                app:allCaps="@{item.meta.isAllCaps}"
+                app:country="@{item.values[key.BILLINGCOUNTRY]}"
+                app:state="@{item.values[key.BILLINGSTATE]}"
+                app:zipcode="@{item.values[key.BILLINGZIPCODE]}" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
