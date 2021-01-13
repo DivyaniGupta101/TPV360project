@@ -239,7 +239,7 @@ private fun bindBillingAddressField(binding: LayoutInputServiceAndBillingAddress
 
 private fun bindServiceAddressField(binding: LayoutInputServiceAndBillingAddressBinding, addressComponent: AddressComponent?) {
     binding.item?.values?.set(AppConstant.SERVICEADDRESS1, addressComponent?.addressLine1.orEmpty())
-    binding.item?.values?.set(AppConstant.SERVICECOUNTY, addressComponent?.country.orEmpty())
+    binding.item?.values?.set(AppConstant.SERVICECOUNTY, addressComponent?.county.orEmpty())
     binding.item?.values?.set(AppConstant.SERVICEADDRESS2, addressComponent?.addressLine2.orEmpty())
     binding.item?.values?.set(AppConstant.SERVICEZIPCODE, addressComponent?.zipcode.orEmpty())
     binding.item?.values?.set(AppConstant.SERVICELAT, addressComponent?.latitude.orEmpty())
