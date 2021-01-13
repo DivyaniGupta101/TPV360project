@@ -257,7 +257,7 @@ private fun bindServiceAddressField(binding: LayoutInputServiceAndBillingAddress
  */
 private fun handleBillingAddressField(binding: LayoutInputServiceAndBillingAddressBinding, isSame: Boolean) {
 
-    val context = binding.editBillingUnit.context
+    val context = binding.editBillingAddressLineOne.context
     binding.item?.isAddressSame = isSame
 
     if (isSame) {
