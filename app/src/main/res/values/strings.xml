@@ -243,6 +243,7 @@
     <string name="leads_status">Leads Status</string>
     <string name="address_line_1">Address Line 1</string>
     <string name="address_line_2">Address Line 2</string>
+    <string name="address_line_2_msg">Apartment, suite, unit, building, floor, etc. (optional)</string>
     <string name="city">City</string>
     <string name="select">Select</string>
     <string name="county">County</string>

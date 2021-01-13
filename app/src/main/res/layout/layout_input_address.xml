@@ -69,7 +69,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editAddressLineTwo"
                     style="@style/DefaultEditText"
-                    android:hint="@string/address_line_2"
+                    android:hint="@string/address_line_2_msg"
                     app:allCaps = "@{item.meta.isAllCaps}"
                     android:inputType="textCapCharacters"
                     android:text='@={item.values[key.ADDRESS2]}'

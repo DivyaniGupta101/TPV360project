@@ -60,10 +60,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editServiceAddressLineOne"
                 style="@style/DefaultEditText"
-                app:allCaps = "@{item.meta.isAllCaps}"
                 android:focusable="false"
                 android:hint="@string/address_line_1"
-                android:text='@={item.values[key.SERVICEADDRESS1]}' />
+                android:text='@={item.values[key.SERVICEADDRESS1]}'
+                app:allCaps="@{item.meta.isAllCaps}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -78,9 +78,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editServiceAddressLineTwo"
                     style="@style/DefaultEditText"
-                    android:hint="@string/address_line_2"
-                    app:allCaps = "@{item.meta.isAllCaps}"
-                    android:text='@={item.values[key.SERVICEADDRESS2]}' />
+                    android:hint="@string/address_line_2_msg"
+                    android:text='@={item.values[key.SERVICEADDRESS2]}'
+                    app:allCaps="@{item.meta.isAllCaps}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -94,13 +94,13 @@
                     android:digits="@string/name_char"
                     android:ellipsize="end"
                     android:hint="@string/unit"
-                    app:allCaps = "@{item.meta.isAllCaps}"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:text='@={item.values[key.SERVICEUNIT]}'
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:allCaps="@{item.meta.isAllCaps}" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -110,8 +110,8 @@
                 android:id="@+id/editServiceZipcode"
                 style="@style/DefaultEditText"
                 android:focusable="false"
-                app:allCaps = "@{item.meta.isAllCaps}"
                 android:hint="@{@string/county +','+' '+@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
+                app:allCaps="@{item.meta.isAllCaps}"
                 app:city="@{item.values[key.SERVICECITY]}"
                 app:county="@{item.values[key.SERVICECOUNTY]}"
                 app:state="@{item.values[key.SERVICESTATE]}"
@@ -126,8 +126,8 @@
                 style="@style/DefaultEditText"
                 android:focusable="false"
                 android:hint="@string/country"
-                app:allCaps = "@{item.meta.isAllCaps}"
-                android:text='@={item.values[key.SERVICECOUNTRY]}' />
+                android:text='@={item.values[key.SERVICECOUNTRY]}'
+                app:allCaps="@{item.meta.isAllCaps}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -191,10 +191,10 @@
                 style="@style/DefaultEditText"
                 android:enabled="@{!item.addressSame}"
                 android:focusable="false"
-                app:allCaps = "@{item.meta.isAllCaps}"
                 android:hint="@string/address_line_1"
                 android:text='@={item.values[key.BILLINGADDRESS1]}'
-                android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }" />
+                android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }"
+                app:allCaps="@{item.meta.isAllCaps}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -209,11 +209,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editBillingAddressLineTwo"
                     style="@style/DefaultEditText"
-                    app:allCaps = "@{item.meta.isAllCaps}"
                     android:enabled="@{!item.addressSame}"
-                    android:hint="@string/address_line_2"
+                    android:hint="@string/address_line_2_msg"
                     android:text='@={item.values[key.BILLINGADDRESS2]}'
-                    android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }" />
+                    android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }"
+                    app:allCaps="@{item.meta.isAllCaps}" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -231,11 +231,11 @@
                     android:hint="@string/unit"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    app:allCaps = "@{item.meta.isAllCaps}"
                     android:singleLine="true"
                     android:text='@={item.values[key.BILLINGUNIT]}'
                     android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:allCaps="@{item.meta.isAllCaps}" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -249,8 +249,8 @@
                 android:focusable="false"
                 android:hint="@{@string/county +','+' '+@string/city + ',' + ' '+ @string/state + ',' + ' ' + @string/zip_code}"
                 android:maxLines="1"
-                app:allCaps = "@{item.meta.isAllCaps}"
                 android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }"
+                app:allCaps="@{item.meta.isAllCaps}"
                 app:city="@{item.values[key.BILLINGCITY]}"
                 app:county="@{item.values[key.SERVICECOUNTY]}"
                 app:state="@{item.values[key.BILLINGSTATE]}"
@@ -267,9 +267,9 @@
                 android:enabled="@{!item.addressSame}"
                 android:focusable="false"
                 android:hint="@string/country"
-                app:allCaps = "@{item.meta.isAllCaps}"
                 android:text='@={item.values[key.BILLINGCOUNTRY]}'
-                android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }" />
+                android:textColor="@{item.addressSame ? @color/colorSecondaryText : @color/colorPrimaryText }"
+                app:allCaps="@{item.meta.isAllCaps}" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
