@@ -192,11 +192,11 @@ class LeadDetailFragment : Fragment() {
             text += addressLineTwo + "\n"
         }
 
-        if (county?.isNotEmpty().orFalse()) {
-            text += country + "\n"
-        }
         if (city?.isNotEmpty().orFalse()) {
             text += "$city,"
+        }
+        if (county?.isNotEmpty().orFalse()) {
+            text += county + "\n"
         }
         if (state?.isNotEmpty().orFalse()) {
             text += "$state,"
@@ -235,12 +235,12 @@ class LeadDetailFragment : Fragment() {
         if (addressLineTwo?.isNotEmpty().orFalse()) {
             text += addressLineTwo + "\n"
         }
-        if (county?.isNotEmpty().orFalse()) {
-            text = text + county + "\n"
-        }
 
         if (city?.isNotEmpty().orFalse()) {
             text += "$city,"
+        }
+        if (county?.isNotEmpty().orFalse()) {
+            text += county + "\n"
         }
         if (state?.isNotEmpty().orFalse()) {
             text += "$state,"
@@ -319,11 +319,12 @@ class LeadDetailFragment : Fragment() {
         if (addressLineTwo?.isNotEmpty().orFalse()) {
             text += addressLineTwo + "\n"
         }
-        if (county?.isNotEmpty().orFalse()) {
-            text = unitNumber + "\n"
-        }
+
         if (city?.isNotEmpty().orFalse()) {
             text += "$city,"
+        }
+        if (county?.isNotEmpty().orFalse()) {
+            text += county + "\n"
         }
         if (state?.isNotEmpty().orFalse()) {
             text += "$state,"
