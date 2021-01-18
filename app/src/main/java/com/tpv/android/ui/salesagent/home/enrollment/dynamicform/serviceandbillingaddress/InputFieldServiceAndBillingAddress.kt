@@ -139,6 +139,88 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
             }
         }
     })
+
+    binding.editServiceCountry.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (binding.item?.meta?.isAllCaps.orFalse()) {
+                updateCapitalizeValue(AppConstant.SERVICECITY)
+                updateCapitalizeValue(AppConstant.SERVICECOUNTY)
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+        private fun updateCapitalizeValue(key: String) {
+            binding.item?.values?.set(key, (binding.item?.values?.get(key) as String).toUpperCase(Locale.ROOT))
+        }
+
+    })
+    binding.editServiceZipcode.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (binding.item?.meta?.isAllCaps.orFalse()) {
+                updateCapitalizeValue(AppConstant.SERVICEZIPCODE)
+                updateCapitalizeValue(AppConstant.SERVICECOUNTRY)
+                updateCapitalizeValue(AppConstant.SERVICESTATE)
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+        private fun updateCapitalizeValue(key: String) {
+            binding.item?.values?.set(key, (binding.item?.values?.get(key) as String).toUpperCase(Locale.ROOT))
+        }
+
+    })
+
+    binding.editBillingCountry.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (binding.item?.meta?.isAllCaps.orFalse()) {
+                updateCapitalizeValue(AppConstant.BILLINGCITY)
+                updateCapitalizeValue(AppConstant.BILLINGCOUNTY)
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+        private fun updateCapitalizeValue(key: String) {
+            binding.item?.values?.set(key, (binding.item?.values?.get(key) as String).toUpperCase(Locale.ROOT))
+        }
+
+    })
+    binding.editBillingZipcode.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (binding.item?.meta?.isAllCaps.orFalse()) {
+                updateCapitalizeValue(AppConstant.BILLINGZIPCODE)
+                updateCapitalizeValue(AppConstant.BILLINGCOUNTRY)
+                updateCapitalizeValue(AppConstant.BILLINGSTATE)
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+        private fun updateCapitalizeValue(key: String) {
+            binding.item?.values?.set(key, (binding.item?.values?.get(key) as String).toUpperCase(Locale.ROOT))
+        }
+
+    })
+
+
 }
 
 fun LayoutInputServiceAndBillingAddressBinding.isValid(context: Context?): Boolean {

@@ -1,6 +1,8 @@
 package com.tpv.android.ui.salesagent.home.enrollment.dynamicform.address
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import com.google.android.libraries.places.api.Places
@@ -72,6 +74,47 @@ fun LayoutInputAddressBinding.setField(response: DynamicFormResp, listOfCopyText
     binding.editZipcode.onClick {
         context.openPlacePicker(binding)
     }
+
+    binding.editCountry.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (binding.item?.meta?.isAllCaps.orFalse()) {
+                updateCapitalizeValue(AppConstant.CITY)
+                updateCapitalizeValue(AppConstant.COUNTY)
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+        private fun updateCapitalizeValue(key: String) {
+            binding.item?.values?.set(key, (binding.item?.values?.get(key) as String).toUpperCase(Locale.ROOT))
+        }
+
+    })
+    binding.editZipcode.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (binding.item?.meta?.isAllCaps.orFalse()) {
+                updateCapitalizeValue(AppConstant.ZIPCODE)
+                updateCapitalizeValue(AppConstant.COUNTRY)
+                updateCapitalizeValue(AppConstant.STATE)
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+        private fun updateCapitalizeValue(key: String) {
+            binding.item?.values?.set(key, (binding.item?.values?.get(key) as String).toUpperCase(Locale.ROOT))
+        }
+
+    })
+
 }
 
 /**
