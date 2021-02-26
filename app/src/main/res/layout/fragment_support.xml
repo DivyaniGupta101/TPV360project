@@ -69,6 +69,19 @@
                             android:textColor="@color/colorPrimaryText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        style="@style/SecondaryNormalText"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/email_address" />
+
+                    <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editEmail"
+                            style="@style/DefaultEditText"
+                            android:textColor="@color/colorPrimaryText" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         style="@style/SecondaryNormalText"
