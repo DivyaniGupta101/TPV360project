@@ -300,7 +300,7 @@
     <string name="back_from_break">Back from Break</string>
     <string name="customer_visit_arrival">Customer Visit Arrival</string>
     <string name="customer_visit_departure">Customer Visit Departure</string>
-    <string name="tpv_now">TPV Now</string>
+    <string name="tpv_now">Live Agent TPV</string>
     <string name="lead_id_ascending">Lead Id Ascending</string>
     <string name="lead_id_descending">Lead Id Descending</string>
     <string name="reference_id_ascending">Reference Id Ascending</string>

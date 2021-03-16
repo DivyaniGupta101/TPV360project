@@ -32,6 +32,7 @@ import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
+import kotlinx.android.synthetic.main.fragment_success.*
 
 class SuccessFragment : Fragment(), OnBackPressCallBack {
 
@@ -39,6 +40,9 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
     lateinit var mViewModel: SetEnrollViewModel
     private var mVerificationType: ArrayList<String> = ArrayList()
 
+    companion object onback{
+        var Onback:Boolean=false
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -72,6 +76,15 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         mBinding.item = mViewModel.savedLeadResp
+        if(mViewModel.savedLeadResp?.isOnOutBoundTPV ==true){
+            Onback=true
+            textBackToDashBoard.isEnabled=false
+
+        }else{
+            Onback=false
+            textBackToDashBoard.isEnabled=true
+
+        }
 
 //        mVerificationType.add(getString(R.string.email))
 //        mVerificationType.add(getString(R.string.phone))
