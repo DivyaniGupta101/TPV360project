@@ -246,6 +246,7 @@ class HomeActivity : AppCompatActivity() {
             closeDrawer()
         } else {
             val fragment = navigationHostFragment.childFragmentManager.fragments.first()
+
             if(SuccessFragment.Onback==true ){
                 toastNow("Please Complete the Process Of Live TPV Agent")
             }else{

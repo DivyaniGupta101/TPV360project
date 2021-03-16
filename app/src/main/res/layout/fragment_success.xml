@@ -154,8 +154,8 @@
 
                     <TextView
                         android:id="@+id/textBackToDashBoard"
-                        style="@style/PrimaryBoldText"
                         android:text="@string/back_to_dashboard"
+                        style="@style/PrimaryBoldText"
                         android:textColor="@color/colorTertiaryText" />
                 </LinearLayout>
 
