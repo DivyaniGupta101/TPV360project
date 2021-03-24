@@ -3,20 +3,15 @@ package com.filepicker
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.filepicker.camera.CaptureImage
 import com.filepicker.camera.CaptureVideo
 import com.filepicker.file.PickFile
 import com.filepicker.file.PickMultipleFile
-import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import java.io.File
-import java.net.URI
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -29,15 +24,22 @@ class FilePickerFragment : Fragment(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private var mPickFileStatus: FilePicker.PickFileStatuses? = null
-    private var mPickMultipleFileStatus: FilePicker.PickFileMultipleStatuses? = null
-    private var mImageCaptureStatus: FilePicker.ImageCaptureStatuses? = null
-    private var mVideoCaptureStatus: FilePicker.VideoCaptureStatuses? = null
-    private var lastPickerRequest: Int = -11
-
     companion object {
+        private var mPickFileStatus: FilePicker.PickFileStatuses? = null
+        private var mPickMultipleFileStatus: FilePicker.PickFileMultipleStatuses? = null
+        private var mImageCaptureStatus: FilePicker.ImageCaptureStatuses? = null
+        private var mVideoCaptureStatus: FilePicker.VideoCaptureStatuses? = null
 
-        fun newInstance() = FilePickerFragment()
+        fun newInstance(fileStatuses: FilePicker.FileStatuses): FilePickerFragment {
+            when (fileStatuses) {
+                is FilePicker.PickFileStatuses -> mPickFileStatus = fileStatuses
+                is FilePicker.PickFileMultipleStatuses -> mPickMultipleFileStatus = fileStatuses
+                is FilePicker.ImageCaptureStatuses -> mImageCaptureStatus = fileStatuses
+                is FilePicker.VideoCaptureStatuses -> mVideoCaptureStatus = fileStatuses
+            }
+
+            return FilePickerFragment()
+        }
 
         const val REQ_FILE = 113
         const val REQ_MULTIPLE_FILE = 114
@@ -53,15 +55,6 @@ class FilePickerFragment : Fragment(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         job = Job()
-    }
-
-    fun updateFileStatuses(fileStatuses: FilePicker.FileStatuses) {
-        when (fileStatuses) {
-            is FilePicker.PickFileStatuses -> mPickFileStatus = fileStatuses
-            is FilePicker.PickFileMultipleStatuses -> mPickMultipleFileStatus = fileStatuses
-            is FilePicker.ImageCaptureStatuses -> mImageCaptureStatus = fileStatuses
-            is FilePicker.VideoCaptureStatuses -> mVideoCaptureStatus = fileStatuses
-        }
     }
 
     fun pickFile() {
@@ -93,32 +86,15 @@ class FilePickerFragment : Fragment(), CoroutineScope {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQ_FILE -> {
-                    lastPickerRequest = requestCode
-                    startCroppingActivity(data?.data)
-                }
-                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
-                    val result = CropImage.getActivityResult(data)
-                    if (lastPickerRequest == REQ_FILE) {
-                        if (resultCode == Activity.RESULT_OK) {
-                            mPickFileStatus?.onSuccess?.invoke(File(URI.create(result.uri.toString())))
-                        } else {
-                            pickFileObj?.onActivityResult(result.originalUri) { file ->
-                                mPickFileStatus?.onSuccess?.invoke(file)
-                            }
-                        }
-                    } else if (lastPickerRequest == REQ_CAPTURE_IMAGE) {
-                        if (resultCode == Activity.RESULT_OK) {
-                            mImageCaptureStatus?.onSuccess?.invoke(File(URI.create(result.uri.toString())))
-                        } else {
-                            captureImageObj?.onActivityResult { file ->
-                                mImageCaptureStatus?.onSuccess?.invoke(file)
-                            }
-                        }
+                    pickFileObj?.onActivityResult(data) { file ->
+                        mPickFileStatus?.onSuccess?.invoke(file)
                     }
                 }
+
                 REQ_CAPTURE_IMAGE -> {
-                    lastPickerRequest = requestCode
-                    startCroppingActivity(captureImageObj?.photoUri)
+                    captureImageObj?.onActivityResult { file ->
+                        mImageCaptureStatus?.onSuccess?.invoke(file)
+                    }
                 }
 
                 REQ_CAPTURE_VIDEO -> {
@@ -139,17 +115,6 @@ class FilePickerFragment : Fragment(), CoroutineScope {
             mImageCaptureStatus?.onError?.invoke()
             mVideoCaptureStatus?.onError?.invoke()
             mPickMultipleFileStatus?.onError?.invoke()
-        }
-    }
-
-    private fun startCroppingActivity(uri: Uri?) {
-        context?.let {
-            CropImage.activity(uri)
-                .setAspectRatio(1, 1)
-                .setFixAspectRatio(true)
-                .setAllowFlipping(false)
-                .setCropShape(CropImageView.CropShape.RECTANGLE)
-                .start(it, this)
         }
     }
 

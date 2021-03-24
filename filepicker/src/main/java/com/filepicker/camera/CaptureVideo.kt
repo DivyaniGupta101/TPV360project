@@ -45,10 +45,7 @@ class CaptureVideo(private val fragment: Fragment) {
                              * so captured image will write into that uri path
                              */
                             takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
-                            fragment.startActivityForResult(
-                                takeVideoIntent,
-                                FilePickerFragment.REQ_CAPTURE_VIDEO
-                            )
+                            fragment.startActivityForResult(takeVideoIntent, FilePickerFragment.REQ_CAPTURE_VIDEO)
                         }
                     }
                 }

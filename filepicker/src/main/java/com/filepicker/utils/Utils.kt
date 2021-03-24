@@ -79,10 +79,10 @@ fun Context.openFile(file: File) {
     val openFile = Intent(Intent.ACTION_VIEW)
     openFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     openFile.data =
-        FileProvider.getUriForFile(
-            this,
-            "com.filepicker.provider", file
-        )
+            FileProvider.getUriForFile(
+                this,
+                "com.filepicker.provider", file
+            )
     try {
         startActivity(openFile)
     } catch (e: ActivityNotFoundException) {

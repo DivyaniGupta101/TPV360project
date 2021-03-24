@@ -1,7 +1,6 @@
 package com.filepicker.file
 
 import android.content.Intent
-import android.net.Uri
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.filepicker.FilePicker
@@ -38,8 +37,8 @@ class PickFile(
         }
     }
 
-    fun onActivityResult(data: Uri?, function: (file: File) -> Unit) {
-        data?.let { uri ->
+    fun onActivityResult(data: Intent?, function: (file: File) -> Unit) {
+        data?.data?.let { uri ->
 
             val context = fragment.context
 
@@ -62,9 +61,7 @@ class PickFile(
                 val filePath = "media/files"
 
                 val fileName =
-                    if (context?.getFileName(uri).orEmpty().isEmpty()) "FILE" else context?.getFileName(
-                        uri
-                    ).orEmpty()
+                    if (context?.getFileName(uri).orEmpty().isEmpty()) "FILE" else context?.getFileName(uri).orEmpty()
 
                 val destination =
                     context?.createFile(

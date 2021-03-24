@@ -5,7 +5,6 @@ import android.net.Uri
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import com.filepicker.BuildConfig
 import com.filepicker.FilePickerFragment
 import com.filepicker.utils.createFile
 import java.io.File
@@ -18,7 +17,6 @@ import java.io.IOException
 class CaptureImage(private val fragment: Fragment) {
 
     var photoFile: File? = null
-    var photoUri: Uri? = null
 
 
     /**
@@ -37,25 +35,17 @@ class CaptureImage(private val fragment: Fragment) {
                         }
                         // Continue only if the File was successfully created
                         photoFile?.also { file ->
-                            photoUri = FileProvider.getUriForFile(
+                            val photoURI: Uri = FileProvider.getUriForFile(
                                 ctx,
-                                if (BuildConfig.DEBUG) {
-                                    "app.monimates.debug.provider"
-                                } else {
-                                    "app.monimates.provider"
-                                }
-                                ,
+                                "com.filepicker.provider",
                                 file
                             )
                             /**
                              * create file and generate uri with that file and pass it to the intent
                              * so captured image will write into that uri path
                              */
-                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                            fragment.startActivityForResult(
-                                takePictureIntent,
-                                FilePickerFragment.REQ_CAPTURE_IMAGE
-                            )
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                            fragment.startActivityForResult(takePictureIntent, FilePickerFragment.REQ_CAPTURE_IMAGE)
                         }
                     }
                 }
