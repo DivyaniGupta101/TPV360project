@@ -29,6 +29,7 @@ import com.tpv.android.utils.setupToolbar
 import com.tpv.android.utils.validation.EmptyValidator
 import com.tpv.android.utils.validation.TextInputValidationErrorHandler
 import com.tpv.android.utils.validation.Validator
+import kotlinx.android.synthetic.main.fragment_support.*
 
 /**
  * A simple [Fragment] subclass.
@@ -76,7 +77,7 @@ class SupportFragment : Fragment() {
     private fun createTicketCall() {
         val liveData = mViewModel.getTicket(
                 ticketReq = TicketReq(description = mBinding.editDescription.value,
-                        email = Pref.user?.email,
+                        email = mBinding.editEmail.value,
                         subject = mBinding.editSubject.value,
                         priority = mBinding.spinner.selectedItemPosition + 1))
         liveData.observe(this@SupportFragment, Observer {
@@ -100,6 +101,11 @@ class SupportFragment : Fragment() {
                     mBinding.editSubject,
                     EmptyValidator(),
                     context?.getString(R.string.enter_subject)
+            )
+            addValidate(
+                    mBinding.editEmail,
+                    EmptyValidator(),
+                    context?.getString(R.string.enter_email)
             )
             addValidate(
                     mBinding.editDescription,
