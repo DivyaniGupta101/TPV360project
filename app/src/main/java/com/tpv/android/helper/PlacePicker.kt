@@ -1,5 +1,6 @@
 package com.tpv.android.helper
 
+import android.util.Log
 import com.google.android.libraries.places.api.model.Place
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.model.internal.AddressComponent
@@ -43,6 +44,7 @@ fun addressComponents(place: Place): AddressComponent? {
     placeComponent.latitude = place.latLng?.latitude.toString()
     placeComponent.longitude = place.latLng?.longitude.toString()
     placeComponent.zipcode = addressComponents?.find { it.types.find { it == "postal_code" } != null }?.name.orEmpty()
+    Log.e("placezipcode",placeComponent.zipcode)
     placeComponent.country = addressComponents?.find { it.types.find { it == "country" } != null }?.name.orEmpty()
     placeComponent.stateSortName = addressComponents?.find { it.types.find { it == "administrative_area_level_1" } != null }?.shortName.orEmpty()
     return placeComponent

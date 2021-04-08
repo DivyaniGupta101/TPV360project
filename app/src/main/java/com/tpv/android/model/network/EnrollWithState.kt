@@ -12,5 +12,9 @@ data class DynamicSettingResponse(
         @SerializedName("is_enable_enroll_by_state")
         val isEnableEnrollByState: Boolean?,
         @SerializedName("is_enable_recording")
-        val isEnableRecording: Boolean?
+        val isEnableRecording: Boolean?,
+        @SerializedName("is_enable_enroll_by_zip")
+        val isEnableEnrollByZip: Boolean?
+
+
 )

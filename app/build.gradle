@@ -83,11 +83,13 @@ android {
             applicationIdSuffix ".demo"
             resValue "string", "app_name", "TPV360 NewDemo"
         }
+
         NewDev {
             dimension = 'tpv'
             applicationIdSuffix ".dev"
             resValue "string", "app_name", "TPV360 NewDev"
         }
+
         TpvTest {
             dimension = 'tpv'
             applicationIdSuffix ".test"

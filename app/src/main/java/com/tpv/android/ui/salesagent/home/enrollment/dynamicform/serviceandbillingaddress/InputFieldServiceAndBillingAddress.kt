@@ -5,6 +5,7 @@ package com.tpv.android.ui.salesagent.home.enrollment.dynamicform.serviceandbill
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import com.google.android.libraries.places.api.Places
@@ -17,6 +18,7 @@ import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.orZero
 import com.livinglifetechway.k4kotlin.core.value
 import com.tpv.android.R
+import com.tpv.android.databinding.FragmentDynamicFormBinding
 import com.tpv.android.databinding.LayoutInputServiceAndBillingAddressBinding
 import com.tpv.android.helper.addressComponents
 import com.tpv.android.model.internal.AddressComponent
@@ -40,9 +42,9 @@ private var addressField =
                 Place.Field.ADDRESS_COMPONENTS,
                 Place.Field.ADDRESS,
                 Place.Field.LAT_LNG)
+var selectedState = ""
 
-
-fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormResp, listOfCopyTextForAddress: ArrayList<DynamicFormResp>) {
+fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormResp,listOfCopyTextForAddress: ArrayList<DynamicFormResp>) {
 
     val binding = this
     val context = binding.editBillingAddressLineOne.context
@@ -88,6 +90,9 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
     }
 
     binding.textServiceCopyText.onClick {
+        Log.e("textcopyservicetext","textservicecopytext")
+        Log.e("list",listOfCopyTextForAddress.toString())
+        Log.e("response",response.toString())
         context.copyTextDialog(
                 list = listOfCopyTextForAddress,
                 response = response,
@@ -98,6 +103,8 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
                 }
         )
     }
+
+
 
     binding.textBillingCopyText.onClick {
         context.copyTextDialog(
@@ -264,13 +271,30 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
 
     val binding = this
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
+    Log.e("zipcodevalue", mViewModel.selectedState.toString())
+    Log.e("selectiontype", mViewModel.selectionType.toString())
+    Log.e("enrolltype", EnrollType.STATE.value)
+    Log.e("addresscomponent", addressComponent?.zipcode)
+    Log.e("addresscomponentzipcode", addressComponent?.state.toString())
+    Log.e("statesortname", addressComponent?.stateSortName.toString())
+    Log.e("selectedstate", selectedState)
+
 
     if (binding.item?.meta?.isPrimary == true) {
+        Log.e("meta", binding.item?.meta?.isPrimary.toString())
+
         if (mViewModel.selectionType == EnrollType.STATE.value) {
+            Log.e("slectiontype", EnrollType.STATE.value)
             if (isServiceAddress) {
-                if (mViewModel.selectedState?.state == addressComponent?.stateSortName && addressComponent?.zipcode?.isNotBlank().orFalse()) {
+                Log.e("serviceaddress", isServiceAddress.toString())
+
+                if (selectedState== addressComponent?.stateSortName) {
                     bindServiceAddressField(binding, addressComponent)
-                } else {
+                    Log.e("zipcode", addressComponent.zipcode.isNullOrEmpty().orFalse().toString())
+
+                }
+                    else {
+                    Log.e("zipcodeelse", addressComponent?.zipcode.isNullOrEmpty().orFalse().toString())
                     binding.editBillingAddressLineOne.context.infoDialog(
                             subTitleText = binding.editBillingCountry.context.getString(R.string.state_not_match)
                     )
@@ -381,6 +405,7 @@ private fun Context.openPlacePicker(binding: LayoutInputServiceAndBillingAddress
 
         if (isServiceAddress) {
             HomeActivity.SERVICE_ADDRESS_REQUEST_CODE = HomeActivity.SERVICE_ADDRESS_REQUEST_CODE + binding.item?.id.orZero()
+            Log.e("service address","service address")
             binding.root.findFragment<Fragment>().startActivityForResult(intent, HomeActivity.SERVICE_ADDRESS_REQUEST_CODE)
         } else {
             HomeActivity.BILLING_ADDRESS_REQUEST_CODE = HomeActivity.BILLING_ADDRESS_REQUEST_CODE + binding.item?.id.orZero()

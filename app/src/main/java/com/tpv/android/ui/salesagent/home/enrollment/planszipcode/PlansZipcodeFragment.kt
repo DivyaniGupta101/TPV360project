@@ -1,8 +1,10 @@
 package com.tpv.android.ui.salesagent.home.enrollment.planszipcode
 
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -19,6 +21,7 @@ import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.k4kotlin.orZero
+import com.livinglifetechway.k4kotlin.show
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentPlansZipcodeBinding
 import com.tpv.android.databinding.LayoutPlanZipcodeSpinnerBinding
@@ -30,6 +33,7 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.serviceandbillingaddress.selectedState
 import com.tpv.android.utils.enums.EnrollType
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe
@@ -45,6 +49,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     private lateinit var mViewModel: PlansZipcodeViewModel
     private var lastSearchZipCode = ""
     val bindingList: ObservableArrayList<LayoutPlanZipcodeSpinnerBinding> = ObservableArrayList()
+    var  state:Boolean = false
 
     private val mHandler = Handler()
 
@@ -101,6 +106,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
         mBinding.spinnerState.onItemSelected { parent, view, position, id ->
             mBinding.btnNext.isEnabled = position != 0
+
             if (position != 0) {
                 if (mSetEnrollViewModel.selectedState != mStateList[position.orZero()]) {
                     getUtilityListApiCall(state = mStateList[position.orZero()].state.orEmpty())
@@ -143,13 +149,29 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             observeForever(Observer {
                 it?.ifSuccess {
                     mSetEnrollViewModel.dynamicSettings = it
-                    if (it?.isEnableEnrollByState.orFalse()) {
+                    mBinding.incProgressBar.progressBarView.show()
+
+                   if (it?.isEnableEnrollByState.orFalse() && it?.isEnableEnrollByZip==false) {
+                      Log.e("ifenablebystate", it?.isEnableEnrollByState.orFalse().toString())
+                       Log.e("ifenablebyzip", it?.isEnableEnrollByZip.orFalse().toString())
                         mBinding.containerMain.hide()
-                        mBinding.incProgressBar.progressBarView.show()
-                        getStateList()
-                    } else {
-                        mBinding.containerMain.show()
-                    }
+                       getStateList()
+                       state=true
+
+                         getStateList()
+                       } else if(it?.isEnableEnrollByZip.orFalse() && it?.isEnableEnrollByState==false) {
+                           mBinding.containerZipcode.show()
+                          Log.e("elseenablebystate", it?.isEnableEnrollByState.orFalse().toString())
+                          Log.e("elseenablebyzip", it?.isEnableEnrollByZip.orFalse().toString())
+                       }else if(it?.isEnableEnrollByState.orFalse() && it?.isEnableEnrollByZip.orFalse()){
+                           mBinding.containerZipcode.show()
+                           mBinding.containerState.show()
+                           mBinding.containerDivider.show()
+                           getStateList()
+                           state=true
+                        }
+
+
                 }
             })
         } as LiveData<Resource<Any, APIError>>
@@ -173,10 +195,10 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 }
                 if (mSetEnrollViewModel.selectionType == EnrollType.STATE.value) {
                     mBinding.radioState.isChecked = true
+                    Log.e("radiostate",mBinding.radioState.isChecked.toString())
                 } else {
                     mBinding.radioZipcode.isChecked = true
                 }
-                mBinding.containerDivider.show()
                 mBinding.containerState.show()
                 mBinding.radioZipcode.show()
                 mBinding.containerMain.show()
@@ -190,9 +212,18 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      * Set value in viewModel for further use.
      */
     private fun setData() {
-
+        Log.e("value",state.toString())
         mSetEnrollViewModel.zipcode = mBinding.textZipcode.value
-        mSetEnrollViewModel.selectedState = mStateList[mBinding.spinnerState.selectedItemPosition]
+        if(state==true){
+            mSetEnrollViewModel.selectedState = mStateList[mBinding.spinnerState.selectedItemPosition]
+            Log.e("response",mStateList.get(mBinding.spinnerState.selectedItemPosition).state)
+            selectedState= mStateList.get(mBinding.spinnerState.selectedItemPosition).state.toString()
+            Log.e("selectedstate", selectedState)
+        }
+
+
+
+
         if (mBinding.radioState.isChecked) {
             mSetEnrollViewModel.selectionType = EnrollType.STATE.value
         } else {

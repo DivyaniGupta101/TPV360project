@@ -1,6 +1,7 @@
 package com.tpv.android.ui.salesagent.home.enrollment.dynamicform.fullname
 
 import android.content.Context
+import android.util.Log
 import com.livinglifetechway.k4kotlin.core.onClick
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.value
@@ -41,6 +42,7 @@ fun LayoutInputFullNameBinding.setField(response: DynamicFormResp, listOfCopyTex
     }
 
     binding.textCopyFrom.onClick {
+
         context.copyTextDialog(
                 list = listOfCopyTextForAddress,
                 response = response,

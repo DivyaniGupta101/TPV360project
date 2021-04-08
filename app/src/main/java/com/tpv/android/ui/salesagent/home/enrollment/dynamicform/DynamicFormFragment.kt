@@ -7,6 +7,7 @@ import android.content.IntentSender
 import android.location.LocationManager
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -211,12 +212,16 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         var liveData: LiveData<Resource<VelidateLeadsDetailResp?, APIError>>? = null
         val response = mViewModel.dynamicFormData.find { (it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && it.meta?.isPrimary == true }
         var zipcode = mViewModel.zipcode
+        Log.e("postalzipcode",zipcode)
+
         if (zipcode.isEmpty()) {
             if (response?.type == DynamicField.ADDRESS.type) {
                 zipcode = response.values?.get(AppConstant.ZIPCODE).toString()
+
             }
             if (response?.type == DynamicField.BOTHADDRESS.type) {
                 zipcode = response.values?.get(AppConstant.SERVICEZIPCODE).toString()
+
             }
 
         }
@@ -384,6 +389,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 true)
 
         binding.setField(response, getListOfCopyText(response))
+        Log.e("fullname",getListOfCopyText(response).toString())
         bindingList.add(binding)
     }
 
@@ -436,6 +442,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
         binding.setField(response, getListOfCopyTextForAddress(response))
+
         bindingList.add(binding)
     }
 
@@ -448,6 +455,8 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
         binding.setField(response, getListOfCopyTextForAddress(response))
+        Log.e("serviceaddress",getListOfCopyTextForAddress(response).toString())
+
         bindingList.add(binding)
     }
 
@@ -596,10 +605,19 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
     private fun getListOfCopyText(dynamicFormResp: DynamicFormResp): ArrayList<DynamicFormResp> {
         val list: ArrayList<DynamicFormResp> = ArrayList()
         if (dynamicFormResp.meta?.isAllowCopy.orFalse()) {
+            Log.e("dynamicformcopylist",dynamicFormResp.meta?.isAllowCopy.orFalse().toString())
+            Log.e("dynamicresponse",dynamicFormResp.toString())
+
             for (i in 1..totalPage) {
                 mViewModel.duplicatePageMap?.get(i).orEmpty().forEachIndexed { index, it ->
                     if (dynamicFormResp.type == it.type && dynamicFormResp.id != it.id) {
                         mViewModel.duplicatePageMap?.get(i)?.get(index)?.let { it1 -> list.add(it1) }
+                        Log.e("listaddressfullname",list.toString())
+                        Log.e("listaddressfullname",it.type)
+                        Log.e("dynamicid",dynamicFormResp.id.toString())
+                        Log.e("id",it.id.toString())
+
+
                     }
                 }
             }
@@ -610,10 +628,17 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
     private fun getListOfCopyTextForAddress(dynamicFormResp: DynamicFormResp): ArrayList<DynamicFormResp> {
         val list: ArrayList<DynamicFormResp> = ArrayList()
         if (dynamicFormResp.meta?.isAllowCopy.orFalse()) {
+            Log.e("dynamicresponseaddress",dynamicFormResp.toString())
+            Log.e("id",dynamicFormResp.id.toString())
+
             for (i in 1..totalPage) {
                 mViewModel.duplicatePageMap?.get(i).orEmpty().forEachIndexed { index, it ->
-                    if ((it.type == DynamicField.ADDRESS.type || it.type == DynamicField.BOTHADDRESS.type) && dynamicFormResp.id != it.id) {
+                    Log.e("itid",dynamicFormResp.id.toString())
+
+                    if (DynamicField.BOTHADDRESS.type ==it.type  ||  DynamicField.ADDRESS.type ==it.type) {
                         mViewModel.duplicatePageMap?.get(i)?.get(index)?.let { it1 -> list.add(it1) }
+                        Log.e("listaddress",list.toString())
+
                     }
                 }
             }
@@ -674,6 +699,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                             when (binding) {
                                 is LayoutInputServiceAndBillingAddressBinding -> {
                                     if (binding.item?.id?.equals(id).orFalse()) {
+                                        Log.e("dynamic",mViewModel.zipcode)
                                         binding.fillAddressFields(data.let { Autocomplete.getPlaceFromIntent(it) }, true, mViewModel)
                                     }
                                 }

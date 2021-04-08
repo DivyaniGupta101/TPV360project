@@ -1,6 +1,8 @@
 package com.tpv.android.ui.salesagent.home.enrollment.success
 
 
+
+
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -62,10 +64,12 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         super.onResume()
     }
 
-
     /**
+
      * On click of backButton remove stored Data
      */
+
+
     override fun handleOnBackPressed(): Boolean {
         mViewModel.clearSavedData()
         return true
@@ -80,10 +84,13 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         if(mViewModel.savedLeadResp?.isOnOutBoundTPV ==true){
             Onback=true
             textBackToDashBoard.isEnabled=false
+            textBackToDashBoard.setTextColor(resources.getColor(R.color.colorDarkGray))
 
         }else{
             Onback=false
             textBackToDashBoard.isEnabled=true
+            textBackToDashBoard.setTextColor(resources.getColor(R.color.colorTertiaryText))
+
 
         }
 

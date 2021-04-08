@@ -1,6 +1,7 @@
 package com.tpv.android.network
 
 import android.util.Base64
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.tpv.android.BuildConfig
 import com.tpv.android.helper.Pref
@@ -61,6 +62,9 @@ object ApiClient {
                     request = newBuilder.build()
                 }
             } catch (e: Exception) {
+
+                Log.e("responserror",e.toString())
+
             }
 
             val response = it.proceed(request)

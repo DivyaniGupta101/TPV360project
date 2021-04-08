@@ -156,7 +156,7 @@
                         android:id="@+id/textBackToDashBoard"
                         android:text="@string/back_to_dashboard"
                         style="@style/PrimaryBoldText"
-                        android:textColor="@color/colorTertiaryText" />
+                        />
                 </LinearLayout>
 
             </ScrollView>

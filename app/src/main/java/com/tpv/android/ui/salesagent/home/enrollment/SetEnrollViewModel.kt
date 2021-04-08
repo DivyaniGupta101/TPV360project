@@ -2,6 +2,7 @@ package com.tpv.android.ui.salesagent.home.enrollment
 
 import android.graphics.Bitmap
 import android.location.Location
+import android.util.Log
 import com.tpv.android.data.AppRepository
 import com.tpv.android.model.network.*
 import com.tpv.android.network.resources.CoroutineScopedViewModel

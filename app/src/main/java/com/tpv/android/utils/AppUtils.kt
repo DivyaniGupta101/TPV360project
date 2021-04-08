@@ -171,8 +171,10 @@ fun Context.infoDialog(title: String? = getString(R.string.error),
 
 fun Context.copyTextDialog(
         isBilling: Boolean = false,
+
         list: ArrayList<DynamicFormResp>, response: DynamicFormResp, updateView: (() -> Unit)
 ) {
+    Log.e("lisstin",list.toString())
 
     val binding = DataBindingUtil.inflate<DialogCopyTextBinding>(LayoutInflater.from(this),
             R.layout.dialog_copy_text, null, false)
@@ -197,6 +199,7 @@ fun Context.copyTextDialog(
                             holder.binding.textValue.text = holder.binding.item?.values?.get(AppConstant.VALUE).toString()
                         }
                         DynamicField.ADDRESS.type -> {
+                            Log.e("address","address")
                             holder.binding.textValue.tag = getString(R.string.address)
                             addressCombineValues(
                                     holder.binding.textValue,
@@ -211,8 +214,10 @@ fun Context.copyTextDialog(
                             )
                             holder.binding.layoutService.onClick {
                                 val data = holder.binding.item?.values?.clone() as LinkedHashMap<String, Any>
+                                Log.e("addressclone","addressclone")
 
                                 if (response.type == DynamicField.BOTHADDRESS.type) {
+                                    Log.e("bothaddress","bothaddress")
 
                                     if (isBilling) {
                                         response.values?.set(AppConstant.BILLINGUNIT, data[AppConstant.UNIT].toString())
@@ -227,6 +232,8 @@ fun Context.copyTextDialog(
                                         response.values?.set(AppConstant.BILLINGLNG, data[AppConstant.LNG].toString())
 
                                     } else {
+                                        Log.e("serviceunit","serviceunit")
+
                                         response.values?.set(AppConstant.SERVICEUNIT, data[AppConstant.UNIT].toString())
                                         response.values?.set(AppConstant.SERVICECOUNTY, data[AppConstant.COUNTY].toString())
                                         response.values?.set(AppConstant.SERVICEADDRESS1, data[AppConstant.ADDRESS1].toString())
@@ -376,6 +383,8 @@ fun Context.copyTextDialog(
                     if (response.type == it.binding.item?.type) {
                         response.values = it.binding.item?.values?.clone() as LinkedHashMap<String, Any>
                     }
+                    Log.e("responsedialog",response.type)
+
                     updateView.invoke()
                     dialog.dismiss()
                 }
