@@ -221,9 +221,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             Log.e("selectedstate", selectedState)
         }
 
-
-
-
         if (mBinding.radioState.isChecked) {
             mSetEnrollViewModel.selectionType = EnrollType.STATE.value
         } else {
