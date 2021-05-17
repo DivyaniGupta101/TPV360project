@@ -3,6 +3,7 @@ package com.tpv.android.ui.salesagent.home.enrollment.dynamicform.address
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import com.google.android.libraries.places.api.Places
@@ -123,6 +124,7 @@ fun LayoutInputAddressBinding.setField(response: DynamicFormResp, listOfCopyText
 fun LayoutInputAddressBinding.fillAddressFields(fillAddressFields: Place?, mViewModel: SetEnrollViewModel) {
     val binding = this
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
+
 
     if (binding.item?.meta?.isPrimary == true) {
         if (mViewModel.zipcode == addressComponent?.zipcode.orEmpty()) {

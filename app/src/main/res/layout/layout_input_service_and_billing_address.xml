@@ -122,7 +122,6 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editServiceCountry"
                 style="@style/DefaultEditText"
-                android:focusable="false"
                 android:hint="@{@string/state + ',' + ' ' + @string/zip_code+ ',' + ' '+ @string/country}"
                 app:allCaps="@{item.meta.isAllCaps}"
                 app:country="@{item.values[key.SERVICECOUNTRY]}"

@@ -1,3 +1,4 @@
+
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
@@ -19,109 +20,114 @@ android {
         applicationId "com.tpv.android"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 54
-        versionName "0.9.5"
+        versionCode 58
+        versionName "0.9.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    signingConfigs {
-        debug {
-            keyAlias 'inexture'
-            keyPassword 'Inexture123?'
-            storeFile file('inexture-keystore-debug.jks')
-            storePassword 'Inexture123?'
+        signingConfigs {
+            debug {
+                keyAlias 'inexture'
+                keyPassword 'Inexture123?'
+                storeFile file('inexture-keystore-debug.jks')
+                storePassword 'Inexture123?'
+            }
+            release {
+                keyAlias 'tpv360'
+                keyPassword 'Tpv360@Cp360'
+                storeFile file('release.jks')
+                storePassword 'Tpv360@Cp360'
+            }
         }
-        release {
-            keyAlias 'tpv360'
-            keyPassword 'Tpv360@Cp360'
-            storeFile file('release.jks')
-            storePassword 'Tpv360@Cp360'
-        }
-    }
-  buildTypes {
-        debug {
-            debuggable true
-            minifyEnabled false
-            shrinkResources false
-            signingConfig signingConfigs.debug
+        buildTypes {
+            debug {
+                debuggable true
+                minifyEnabled false
+                shrinkResources false
+                signingConfig signingConfigs.debug
 
 
-        }
-        release {
-            shrinkResources true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-        }
-    }
+            }
+            release {
+                shrinkResources true
+                minifyEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
 
-    dataBinding.enabled = true
-
-    packagingOptions {
-        pickFirst("META-INF/atomicfu.kotlin_module")
-        //https://github.com/Kotlin/kotlinx.coroutines/issues/1064
-    }
-
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
-    flavorDimensions 'tpv', 'screenshot'
-    productFlavors {
-
-        Allow {
-            dimension = 'screenshot'
-            applicationIdSuffix ".allowss"
+            }
         }
 
-        NotAllow {
-            dimension = 'screenshot'
+        dataBinding.enabled = true
+
+        packagingOptions {
+            pickFirst("META-INF/atomicfu.kotlin_module")
+            //https://github.com/Kotlin/kotlinx.coroutines/issues/1064
         }
 
-        NewDemo {
-            dimension = 'tpv'
-            applicationIdSuffix ".demo"
-            resValue "string", "app_name", "TPV360 NewDemo"
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
+        }
+        flavorDimensions 'tpv', 'screenshot'
+        productFlavors {
+
+            Allow {
+                dimension = 'screenshot'
+                applicationIdSuffix ".allowss"
+
+            }
+
+            NotAllow {
+                dimension = 'screenshot'
+            }
+
+            NewDemo {
+                dimension = 'tpv'
+                applicationIdSuffix ".demo"
+                resValue "string", "app_name", "TPV360 NewDemo"
+            }
+            NewDev {
+                dimension = 'tpv'
+                applicationIdSuffix ".dev"
+                resValue "string", "app_name", "TPV360 NewDev"
+
+            }
+            TpvTest {
+                dimension = 'tpv'
+                applicationIdSuffix ".test"
+                resValue "string", "app_name", "TPV360 Test"
+
+            }
+            TPV360 {
+                dimension = 'tpv'
+                applicationId = "com.tpv360"
+                resValue "string", "app_name", "TPV360 App"
+            }
+            Prod {
+                dimension = 'tpv'
+                applicationIdSuffix ".prod"
+                resValue "string", "app_name", "TPV360 Prod"
+            }
         }
 
-        NewDev {
-            dimension = 'tpv'
-            applicationIdSuffix ".dev"
-            resValue "string", "app_name", "TPV360 NewDev"
+        // This block is added for avoiding TPV360 with Screen shot allow variant.
+        variantFilter { variant ->
+            def names = variant.flavors*.name
+
+            // To check for a certain build type, use variant.buildType.name == "<buildType>"
+            if (names.contains("TPV360") && names.contains("Allow")) {
+                setIgnore(true)
+
+                // Gradle ignores any variants that satisfy the conditions above.
+            }
         }
 
-        TpvTest {
-            dimension = 'tpv'
-            applicationIdSuffix ".test"
-            resValue "string", "app_name", "TPV360 Test"
+        // This block is for dynamic content provider value for filePicker.
+        applicationVariants.all { variant ->
+            variant.resValue "string", "content_provider", variant.applicationId + ".provider"
         }
-        TPV360 {
-            dimension = 'tpv'
-            applicationId = "com.tpv360"
-            resValue "string", "app_name", "TPV360 App"
-        }
-        Prod {
-            dimension = 'tpv'
-            applicationIdSuffix ".prod"
-            resValue "string", "app_name", "TPV360 Prod"
-        }
-    }
 
-    // This block is added for avoiding TPV360 with Screen shot allow variant.
-//    variantFilter { variant ->
-//        def names = variant.flavors*.name
-//        // To check for a certain build type, use variant.buildType.name == "<buildType>"
-//        if (names.contains("TPV360") && names.contains("Allow")) {
-//            // Gradle ignores any variants that satisfy the conditions above.
-//            setIgnore(true)
-//        }
-//    }
-
-    // This block is for dynamic content provider value for filePicker.
-    applicationVariants.all { variant ->
-        variant.resValue "string", "content_provider", variant.applicationId + ".provider"
-    }
 /**
+ *
  To generate all debug builds uncomment below code block and
  execute task from
  gradle > TPVPlusAndroid > app > Tasks > build > assembleDebug
@@ -136,7 +142,8 @@ android {
 //            def today = date.format('yyyy-MM-dd')
 //
 //            def outputDirPath = new File("${project.rootDir.absolutePath}/apks/${type}/TPV360-${today}/Screenshot${screenshot}")
-//            variant.packageApplicationProvider.get().outputDirectory = outputDirPath
+//            variant.packageApplicationProvider.get().outputDirectory =
+
 //
 //            output.outputFileName = "TPV360-${today}-${flavor}.apk"
 //        }
@@ -146,90 +153,92 @@ android {
 //            }
 //        }
 //    }
+//
+    }
 
-}
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+        implementation 'androidx.appcompat:appcompat:1.1.0'
+        implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+        implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+        implementation 'androidx.navigation:navigation-fragment:2.1.0'
+        implementation 'androidx.navigation:navigation-ui:2.1.0'
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.navigation:navigation-fragment:2.1.0'
-    implementation 'androidx.navigation:navigation-ui:2.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
+        // design
+        implementation 'com.google.android.material:material:1.0.0'
 
-    // design
-    implementation 'com.google.android.material:material:1.0.0'
+        // android-kotlin utils
+        implementation 'com.github.kirtan403.k4kotlin:k4kotlin-core:1.0.0-beta1'
+        implementation 'com.github.kirtan403.k4kotlin:k4kotlin-androidx:1.0.0-beta1'
+        implementation 'com.github.kirtan403.k4kotlin:k4kotlin-databinding:1.0.0-beta1'
 
-    // android-kotlin utils
-    implementation 'com.github.kirtan403.k4kotlin:k4kotlin-core:1.0.0-beta1'
-    implementation 'com.github.kirtan403.k4kotlin:k4kotlin-androidx:1.0.0-beta1'
-    implementation 'com.github.kirtan403.k4kotlin:k4kotlin-databinding:1.0.0-beta1'
+        // image loading
+        implementation 'com.github.bumptech.glide:glide:4.9.0'
+        kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
-    // image loading
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+        // ViewModel and LiveData
+        implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
-    // ViewModel and LiveData
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+        api project(path: ':filepicker')
+        // Paging library for pagination
+        implementation "androidx.paging:paging-runtime:2.1.0"
 
-    api project(path: ':filepicker')
-    // Paging library for pagination
-    implementation "androidx.paging:paging-runtime:2.1.0"
+        // navigation fragments
+        implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-beta01'
+        implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-beta01'
 
-    // navigation fragments
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-beta01'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-beta01'
+        //Retrofit for network call
+        implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+        implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+        implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+        implementation 'com.google.code.gson:gson:2.8.5'
 
-    //Retrofit for network call
-    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
-    implementation 'com.google.code.gson:gson:2.8.5'
+        // K4Kotlin Extensions for Retrofit
+        implementation 'com.github.kirtan403.k4kotlin:k4kotlin-retrofit:1.0.0-beta1'
+        implementation 'com.github.kirtan403.k4kotlin:k4kotlin:0.6.0'
+        // shared preference helper
+        implementation 'com.chibatching.kotpref:kotpref:2.9.1'
+        implementation 'com.chibatching.kotpref:gson-support:2.9.1'
+        implementation 'com.chibatching.kotpref:initializer:2.9.1'
+        //image compression
+        implementation 'id.zelory:compressor:3.0.0'
 
-    // K4Kotlin Extensions for Retrofit
-    implementation 'com.github.kirtan403.k4kotlin:k4kotlin-retrofit:1.0.0-beta1'
-    implementation 'com.github.kirtan403.k4kotlin:k4kotlin:0.6.0'
-    // shared preference helper
-    implementation 'com.chibatching.kotpref:kotpref:2.9.1'
-    implementation 'com.chibatching.kotpref:gson-support:2.9.1'
-    implementation 'com.chibatching.kotpref:initializer:2.9.1'
+        // coroutines for async programming
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
+        implementation 'com.intuit.sdp:sdp-android:1.0.6'
 
+        // for recycler view adapter with live data support
+        implementation 'com.github.RaviKoradiya:LiveAdapter:1.2.3'
 
-    // coroutines for async programming
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
-    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+        //circle imageView
+        implementation 'de.hdodenhof:circleimageview:3.0.1'
 
-    // for recycler view adapter with live data support
-    implementation 'com.github.RaviKoradiya:LiveAdapter:1.2.3'
+        //Quick Permission
+        implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.0'
 
-    //circle imageView
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
+        //Signature Pad
+        implementation 'com.github.gcacace:signature-pad:1.2.1'
+        implementation 'com.github.naman14:TAndroidLame:1.1'
+        api project(path: ':waveform')
 
-    //Quick Permission
-    implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.0'
+        //OTP view
+        implementation 'com.chaos.view:pinview:1.4.3'
 
-    //Signature Pad
-    implementation 'com.github.gcacace:signature-pad:1.2.1'
-    implementation 'com.github.naman14:TAndroidLame:1.1'
-    api project(path: ':waveform')
+        // location services for place picker
+        implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    //OTP view
-    implementation 'com.chaos.view:pinview:1.4.3'
+        //Place picker dep
+        implementation 'com.google.android.libraries.places:places:2.1.0'
 
-    // location services for place picker
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
+        // Recommended: Add the Firebase SDK for Google Analytics.
+        implementation 'com.google.firebase:firebase-analytics:17.5.0'
 
-    //Place picker dep
-    implementation 'com.google.android.libraries.places:places:2.1.0'
+        // Add the Firebase SDK for Crashlytics.
+        implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
 
-    // Recommended: Add the Firebase SDK for Google Analytics.
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
-
-    // Add the Firebase SDK for Crashlytics.
-    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
 }

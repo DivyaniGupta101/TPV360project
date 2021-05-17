@@ -1,6 +1,7 @@
 package com.tpv.android.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -16,6 +17,7 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
+
 
 
 class SplashActivity : AppCompatActivity() {
@@ -43,6 +45,7 @@ class SplashActivity : AppCompatActivity() {
             it?.ifSuccess {
                 startActivity<AuthActivity>()
                 finish()
+
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>

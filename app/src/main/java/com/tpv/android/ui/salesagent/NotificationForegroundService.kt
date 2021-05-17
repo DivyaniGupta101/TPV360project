@@ -112,6 +112,8 @@ class NotificationForegroundService : Service() {
         uiScope.launch {
             this.setLocationCall(AgentLocationRequest(lat = location?.latitude.toString(), lng =
             location?.longitude.toString()))
+
+
         }
     }
 
@@ -166,6 +168,8 @@ class NotificationForegroundService : Service() {
                     1000,
                     50f,
                     locationListener)
+
+
 
         } else {
 //            getLocation()

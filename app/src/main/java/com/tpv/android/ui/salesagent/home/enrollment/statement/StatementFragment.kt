@@ -4,6 +4,7 @@ package com.tpv.android.ui.salesagent.home.enrollment.statement
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.github.gcacace.signaturepad.views.SignaturePad
 import com.livinglifetechway.k4kotlin.core.hide
@@ -33,6 +35,8 @@ import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.glide.GlideApp
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.launch
 import java.io.File
 
 
@@ -41,6 +45,8 @@ class StatementFragment : Fragment() {
     private lateinit var mBinding: FragmentStatementBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var mSignImage: Bitmap? = null
+    private var is_image:Boolean=false
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -57,6 +63,8 @@ class StatementFragment : Fragment() {
     }
 
     private fun initialize() {
+        mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
 
         if (mViewModel.signature != null && mViewModel.isAgreeWithCondition) {
@@ -117,19 +125,34 @@ class StatementFragment : Fragment() {
      * Also check if recording is not empty then call save recording API else call save Signature API
      */
     private fun saveCustomerDataApiCall() {
-
+        if(mViewModel.upload_imagefile.isNotEmpty()){
+            is_image=true
+        }else{
+            is_image=false
+        }
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
         liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
                 leadTempId = mViewModel.leadvelidationError?.leadTempId,
                 formId = mViewModel.planId,
                 fields = mViewModel.dynamicFormData,
+                billingimage = is_image,
                 other = OtherData(programId = android.text.TextUtils.join(",", mViewModel.programList.map { it.id }),
                         zipcode = mViewModel.zipcode)))
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.savedLeadResp = it
-                if (mViewModel.recordingFile.isNotEmpty()) {
+                if (mViewModel.recordingFile.isNotEmpty() && mViewModel.upload_imagefile.isNotEmpty()) {
                     saveRecordingApiCall()
+                    lifecycleScope.launch {
+                        val compressedImageFile = mViewModel.file_uploaded?.let {
+                            it1 -> context?.let {
+                            it2 -> Compressor.compress(it2, it1)
+                        }
+                        }
+                        compressedImageFile?.let { it1 ->
+                            saveBillingImageApiCall(it1)
+                        }
+                    }
                 } else {
                     saveSignatureApiCall()
                 }
@@ -143,6 +166,20 @@ class StatementFragment : Fragment() {
      * Save recording file
      * And on success callBack call saveSinature API
      */
+    private fun saveBillingImageApiCall(file: File) {
+        val liveData = File(mViewModel.upload_imagefile).toMultipartBody("media", "image/*")?.let {
+            mViewModel.saveBillingImage(leadId = mViewModel.savedLeadResp?.id.toRequestBody(),
+                    mediaFile = it, lng = mViewModel.location?.longitude.toString().toRequestBody(),
+                    lat = mViewModel.location?.latitude.toString().toRequestBody())
+        }
+        liveData?.observe(this, Observer {
+            it?.ifSuccess {
+                saveSignatureApiCall()
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
     private fun saveRecordingApiCall() {
         val liveData =
                 File(mViewModel.recordingFile).toMultipartBody("media", "audio/*")?.let {

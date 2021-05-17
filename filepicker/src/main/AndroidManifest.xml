@@ -4,7 +4,7 @@
     <application>
         <provider
                 android:name="com.filepicker.fileProvider.FilePickerFileProvider"
-                android:authorities="com.filepicker.provider"
+                 android:authorities="@string/content_provider"
                 android:exported="false"
                 android:grantUriPermissions="true">
             <meta-data

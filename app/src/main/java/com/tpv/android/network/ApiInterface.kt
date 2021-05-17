@@ -172,4 +172,9 @@ interface ApiInterface {
     @POST("leadmedia")
     fun saveMedia(@Part("lng") lng: RequestBody, @Part("lat") lat: RequestBody, @Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<CommonResponse<Any>>
 
+   //save billing image
+    @Multipart
+    @POST("leadmediabilling")
+    fun savebillingimage(@Part("lng") lng: RequestBody, @Part("lat") lat: RequestBody, @Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<CommonResponse<Any>>
+
 }

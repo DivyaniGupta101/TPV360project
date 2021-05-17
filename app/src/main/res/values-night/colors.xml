@@ -15,4 +15,8 @@
     <color name="colorLightBlack">#41000000</color>
     <color name="colorLightRed">#80FF0000</color>
     <color name="colorBlack">#ffffff</color>
+    <color name="colorlightblue">#F2F5FA</color>
+    <color name="colorshadowblue">#F0F3F8</color>
+
+
 </resources>

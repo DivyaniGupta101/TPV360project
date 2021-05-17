@@ -2,9 +2,11 @@ package com.tpv.android.ui.salesagent.home.profile
 
 
 import android.Manifest
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import com.filepicker.captureImage
 import com.filepicker.pickFile
 import com.livinglifetechway.k4kotlin.core.onClick
@@ -37,13 +40,18 @@ import com.tpv.android.utils.setItemSelection
 import com.tpv.android.utils.setupToolbar
 import com.tpv.android.utils.toMultipartBody
 import com.tpv.android.utils.updateProfileInMenu
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.calculateInSampleSize
+import id.zelory.compressor.compressFormat
+import kotlinx.coroutines.launch
 import java.io.File
+import java.nio.file.FileSystems.getDefault
+
 
 class ProfileFragment : Fragment() {
 
     lateinit var mBinding: FragmentProfileBinding
     private var mList: ArrayList<TimeZone> = ArrayList()
-
     private lateinit var mViewModel: ProfileViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -79,34 +87,45 @@ class ProfileFragment : Fragment() {
         getProfileApiCall()
     }
 
-    private fun imagePicker() {
-        android.app.AlertDialog.Builder(context).setItems(arrayOf("Gallery", "Camera")) { _, which ->
-            when (which) {
-                0 -> {
-                    runWithPermissions(Manifest.permission.READ_EXTERNAL_STORAGE) {
-                        pickFile {
-                            mimeType = arrayOf("image/*")
-                            onSuccess {
-                                updateProfileImage(it)
+    private fun imagePicker() =
+            android.app.AlertDialog.Builder(context).setItems(arrayOf("Gallery", "Camera")) { _, which ->
+                when (which) {
+                    0 -> {
+                        runWithPermissions(Manifest.permission.READ_EXTERNAL_STORAGE) {
+                            pickFile {
+                                mimeType = arrayOf("image/*")
+                                onSuccess {
+                                    lifecycleScope.launch {
+                                        val compressedImageFile = context?.let { it1 -> Compressor.compress(it1.applicationContext, it)
+                                        }
+                                        compressedImageFile?.let { it1 -> updateProfileImage(it1)
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    1 -> {
+                        runWithPermissions(Manifest.permission.CAMERA) {
+                            captureImage {
+                                onSuccess {
+                                    lifecycleScope.launch {
+                                      val compressedImageFile = context?.let { it1 -> Compressor.compress(it1.applicationContext, it) }
+                                        compressedImageFile?.let { it1 -> updateProfileImage(it1)
+
+                                        }
+
+
+                                    }
+
+                                }
                             }
                         }
                     }
                 }
-                1 -> {
-                    runWithPermissions(Manifest.permission.CAMERA) {
-                        captureImage {
-                            onSuccess {
-                                updateProfileImage(it)
-                            }
-                        }
-                    }
-                }
-            }
 
-        }.create().show()
-
-
-    }
+            }.create().show()
 
     private fun updateProfileImage(file: File) {
         val liveData =
@@ -198,3 +217,5 @@ class ProfileFragment : Fragment() {
         })
     }
 }
+
+

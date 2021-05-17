@@ -35,11 +35,13 @@ class CaptureImage(private val fragment: Fragment) {
                         }
                         // Continue only if the File was successfully created
                         photoFile?.also { file ->
-                            val photoURI: Uri = FileProvider.getUriForFile(
-                                ctx,
-                                "com.filepicker.provider",
-                                file
-                            )
+                            val photoURI = FileProvider.getUriForFile(ctx, ctx.getPackageName().toString() + ".provider", file)
+
+//                            val photoURI: Uri = FileProvider.getUriForFile(
+//                                ctx,
+//                                "com.filepicker.provider",
+//                                file
+//                            )
                             /**
                              * create file and generate uri with that file and pass it to the intent
                              * so captured image will write into that uri path

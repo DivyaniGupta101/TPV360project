@@ -108,6 +108,15 @@
             app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/programsListingFragment"
             app:popUpToInclusive="false" />
+
+        <action
+            android:id="@+id/action_clientInfoFragment_to_uploadbillimageFragment"
+            app:destination="@id/uploadbillimageFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            />
         <action
             android:id="@+id/action_clientInfoFragment_to_signatureVerificationFragment"
             app:destination="@id/signatureVerificationFragment"
@@ -136,6 +145,40 @@
             app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_recordingFragment_to_signatureVerificationFragment"
+            app:destination="@id/signatureVerificationFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+
+        <action
+            android:id="@+id/action_recordingFragment_to_uploadbillimageFragment"
+            app:destination="@id/uploadbillimageFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+    <!--    Bill upload images Screen-->
+    <fragment
+        android:id="@+id/uploadbillimageFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.uploadbillimage.UploadbillImageFragment"
+        android:label="UploadBillImageFragment"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/fragment_fade_enter"
+        app:popExitAnim="@anim/fragment_fade_exit"
+        tools:layout="@layout/fragment_image_upload">
+        <action
+            android:id="@+id/action_uploadbilling_fragment_to_statementFragment"
+            app:destination="@id/statementFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_uploadbilling_fragment_to_signatureVerificationFragment"
             app:destination="@id/signatureVerificationFragment"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit"

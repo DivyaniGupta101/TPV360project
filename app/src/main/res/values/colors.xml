@@ -19,6 +19,8 @@
     <color name="colorBlack">#000000</color>
     <color name="colorStaticWhite">#ffffff</color>
     <color name="colorPink">#E0ABD2</color>
+    <color name="colorlightblue">#F2F5FA</color>
+    <color name="colorshadowblue">#F0F3F8</color>
 
 
     <color name="colorStatusBarColor">@color/colorPrimary</color>

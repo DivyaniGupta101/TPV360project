@@ -236,6 +236,8 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.leadvelidationError = it
+                Log.e("zipcode",zipcode)
+                Log.e("fields",mViewModel.dynamicFormData.toString())
                 navigateNext()
             }
         })
@@ -442,6 +444,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
         binding.setField(response, getListOfCopyTextForAddress(response))
+        Log.e("adddressresponse",response.toString())
 
         bindingList.add(binding)
     }
@@ -579,7 +582,9 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                         if (count < 3) {
                             delay(500)
                         } else {
-                            context?.infoDialog(subTitleText = getString(R.string.msg_location))
+                            context?.infoDialog(subTitleText =
+
+                            getString(R.string.msg_location))
                         }
                     }
                 }
@@ -633,7 +638,6 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
             for (i in 1..totalPage) {
                 mViewModel.duplicatePageMap?.get(i).orEmpty().forEachIndexed { index, it ->
-                    Log.e("itid",dynamicFormResp.id.toString())
 
                     if (DynamicField.BOTHADDRESS.type ==it.type  ||  DynamicField.ADDRESS.type ==it.type) {
                         mViewModel.duplicatePageMap?.get(i)?.get(index)?.let { it1 -> list.add(it1) }
@@ -699,7 +703,6 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                             when (binding) {
                                 is LayoutInputServiceAndBillingAddressBinding -> {
                                     if (binding.item?.id?.equals(id).orFalse()) {
-                                        Log.e("dynamic",mViewModel.zipcode)
                                         binding.fillAddressFields(data.let { Autocomplete.getPlaceFromIntent(it) }, true, mViewModel)
                                     }
                                 }

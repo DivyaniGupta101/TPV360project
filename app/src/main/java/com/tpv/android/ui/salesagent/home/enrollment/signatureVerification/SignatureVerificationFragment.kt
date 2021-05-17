@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.onClick
 import com.livinglifetechway.k4kotlin.orFalse
@@ -28,6 +30,9 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
+import com.tpv.android.utils.glide.GlideApp
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -38,6 +43,8 @@ class SignatureVerificationFragment : Fragment() {
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
     private var mVerificationType: ArrayList<String> = ArrayList()
     private var handler: Handler = Handler()
+    private var is_image:Boolean=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -142,6 +149,7 @@ class SignatureVerificationFragment : Fragment() {
                 cancelLeadReq = CancelLeadReq(source = AppConstant.E_SIGNATURE))
         liveData.observe(this, Observer {
             it?.ifSuccess {
+                mSetEnrollViewModel.clearSavedData()
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_signatureVerificationFragment_to_dashBoardFragment)
             }
 
@@ -177,19 +185,46 @@ class SignatureVerificationFragment : Fragment() {
         } else {
             zipcode = mSetEnrollViewModel.zipcode
         }
+        if(mSetEnrollViewModel.upload_imagefile.isNotEmpty()){
+            is_image=true
+        }else{
+            is_image=false
+        }
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
         liveData = mSetEnrollViewModel.saveLeadDetail(SaveLeadsDetailReq(
                 leadTempId = mSetEnrollViewModel.leadvelidationError?.leadTempId,
                 formId = mSetEnrollViewModel.planId,
                 fields = mSetEnrollViewModel.dynamicFormData,
+                billingimage = is_image,
                 other = OtherData(programId = TextUtils.join(",", mSetEnrollViewModel.programList.map { it.id }),
                         zipcode = zipcode,enrollmentUsing = mSetEnrollViewModel.selectionType)))
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mSetEnrollViewModel.savedLeadResp = it
-                if (mSetEnrollViewModel.recordingFile.isNotEmpty()) {
+                if (mSetEnrollViewModel.recordingFile.isNotEmpty() && mSetEnrollViewModel.upload_imagefile.isNotEmpty()) {
                     saveRecordingApiCall()
+                    lifecycleScope.launch {
+                        val compressedImageFile = mSetEnrollViewModel.file_uploaded?.let {
+                            it1 -> context?.let {
+                            it2 -> Compressor.compress(it2, it1)
+
+
+                            }
+                        }
+                        compressedImageFile?.let { it1 -> saveBillingImageApiCall(it1) }
+                    }
                 } else {
+                    if(mSetEnrollViewModel.upload_imagefile.isNotEmpty()){
+                        lifecycleScope.launch {
+                            val compressedImageFile = mSetEnrollViewModel.file_uploaded?.let {
+                                it1 -> context?.let {
+                                it2 -> Compressor.compress(it2, it1)
+                            }
+                            }
+                            compressedImageFile?.let { it1 -> saveBillingImageApiCall(it1) }
+                        }
+                    }
+
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_signatureVerificationFragment_to_successFragment)
                 }
             }
@@ -208,14 +243,32 @@ class SignatureVerificationFragment : Fragment() {
                     mSetEnrollViewModel.saveMedia(leadId = mSetEnrollViewModel.savedLeadResp?.id.toRequestBody(),
                             mediaFile = it, lng = mSetEnrollViewModel.location?.longitude.toString().toRequestBody(),
                             lat = mSetEnrollViewModel.location?.latitude.toString().toRequestBody())
+
                 }
         liveData?.observe(this, Observer {
             it?.ifSuccess {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_signatureVerificationFragment_to_successFragment)
+
             }
         })
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
 
+
+    private fun saveBillingImageApiCall(file: File) {
+        val liveData = File(mSetEnrollViewModel.upload_imagefile).toMultipartBody("media", "image/*")?.let {
+            mSetEnrollViewModel.saveBillingImage(leadId = mSetEnrollViewModel.savedLeadResp?.id.toRequestBody(),
+                    mediaFile = it, lng = mSetEnrollViewModel.location?.longitude.toString().toRequestBody(),
+                    lat = mSetEnrollViewModel.location?.latitude.toString().toRequestBody())
+        }
+        liveData?.observe(this, Observer {
+            it?.ifSuccess {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_signatureVerificationFragment_to_successFragment)
+
+            }
+        })
+
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
 }

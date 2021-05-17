@@ -1,6 +1,7 @@
 <resources>
     <!--    Toolbar Title-->
     <string name="dashboard">Dashboard</string>
+    <string name="billupload">Upload Picture</string>
     <string name="profile">Profile</string>
     <string name="start_enrollment">Begin Enrollment</string>
     <string name="reports">Reports</string>
@@ -37,6 +38,7 @@
     <string name="proceed">Proceed</string>
     <string name="submit">Submit</string>
     <string name="next">Next</string>
+    <string name="reshot">Reshot</string>
     <string name="ok">Ok</string>
     <string name="no">No</string>
     <string name="verify">Verify</string>
@@ -87,6 +89,7 @@
     <string name="logout">Logout</string>
     <string name="msg_log_out">Are you sure you want to log out?</string>
     <string name="msg_skip">If you skip, then your recording will be deleted</string>
+    <string name="msg_skip_image">If you skip, then your Image will be deleted</string>
     <string name="msg_no_utilitiy_available">No utilities available for selected zipcode</string>
     <string name="msg_no_utilitiy_available_state">No utilities available for selected state</string>
     <string name="no_internet_connection_message">Network seams to be offline. Please try again later</string>

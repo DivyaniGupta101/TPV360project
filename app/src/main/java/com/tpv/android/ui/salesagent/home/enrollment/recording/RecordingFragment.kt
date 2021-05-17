@@ -7,6 +7,7 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,18 +72,23 @@ class RecordingFragment : Fragment() {
 
         setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, backIconClickListener = {
             if (recordedFile?.isNotEmpty().orFalse()) {
+
                 mediaPlayer.stop()
             }
         })
 
-        mBinding.checkRecording?.onClick {
+        mBinding.checkRecording.onClick {
             handleNextButton()
         }
 
 
         mBinding.textSkip.onClick {
             if (recordedFile.isNullOrEmpty()) {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                if (mViewModel.dynamicSettings?.isEnableImageUpload.orFalse()) {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
+                } else {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                }
             } else {
                 //Show dialog when recording is recorded and user want to skip
                 //On Click of "Skip" button remove recording and send to next page
@@ -92,7 +98,11 @@ class RecordingFragment : Fragment() {
                         getString(R.string.cancel)),
                         setOnPositiveBanClickListener = {
                             recordedFile = ""
-                            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                            if (mViewModel.dynamicSettings?.isEnableImageUpload.orFalse()) {
+                                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
+                            } else {
+                                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                            }
                         }
                 )
             }
@@ -102,8 +112,14 @@ class RecordingFragment : Fragment() {
             if (recordedFile?.isNotEmpty().orFalse()) {
                 mediaPlayer.stop()
                 mViewModel.recordingFile = recordedFile.orEmpty()
+                Log.e("value","value")
             }
-            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+
+            if (mViewModel.dynamicSettings?.isEnableImageUpload.orFalse()) {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
+            } else {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+            }
         }
 
         //While audio playing or in Pause state then set seekbar value according to it.
@@ -151,7 +167,6 @@ class RecordingFragment : Fragment() {
             mediaPlayer.prepare()
             mBinding.seekbarAudio.progress = 0
             mBinding.seekbarAudio.max = mediaPlayer.duration - (mediaPlayer.duration % 1000)
-
             isAudioPause = false
             mBinding.chronometer.stop()
             mBinding.seekbarAudio.progress = 0
@@ -205,7 +220,7 @@ class RecordingFragment : Fragment() {
     }
 
     private fun handleNextButton() {
-        mBinding.btnNext.isEnabled = (recordedFile?.isNotEmpty().orFalse() && mBinding.checkRecording.isChecked)
+        mBinding.btnNext.isEnabled = (recordedFile?.isNotEmpty().orFalse() && mBinding.checkRecording.isChecked && mViewModel.dynamicSettings?.isEnableImageUpload.orFalse())
     }
 
     /**

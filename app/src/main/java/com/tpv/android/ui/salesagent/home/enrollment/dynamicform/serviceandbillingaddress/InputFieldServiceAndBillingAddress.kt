@@ -73,11 +73,11 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
     }
 
     binding.editServiceZipcode.onClick {
-        context.openPlacePicker(binding, true)
+//        context.openPlacePicker(binding, true)
     }
 
     binding.editServiceCountry.onClick {
-        context.openPlacePicker(binding, true)
+//        context.openPlacePicker(binding, true)
     }
 
     binding.radioYes.onClick {
@@ -244,6 +244,8 @@ fun LayoutInputServiceAndBillingAddressBinding.isValid(context: Context?): Boole
             addValidate(
                     binding.editServiceAddressLineOne,
                     EmptyValidator(),
+
+
                     context?.getString(R.string.enter_service_address)
             )
 
@@ -271,30 +273,19 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
 
     val binding = this
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
-    Log.e("zipcodevalue", mViewModel.selectedState.toString())
-    Log.e("selectiontype", mViewModel.selectionType.toString())
-    Log.e("enrolltype", EnrollType.STATE.value)
-    Log.e("addresscomponent", addressComponent?.zipcode)
-    Log.e("addresscomponentzipcode", addressComponent?.state.toString())
-    Log.e("statesortname", addressComponent?.stateSortName.toString())
-    Log.e("selectedstate", selectedState)
-
+    Log.e("addresscomponent",addressComponent.toString())
+    Log.e("filladdress",fillAddressFields.toString())
 
     if (binding.item?.meta?.isPrimary == true) {
         Log.e("meta", binding.item?.meta?.isPrimary.toString())
 
         if (mViewModel.selectionType == EnrollType.STATE.value) {
-            Log.e("slectiontype", EnrollType.STATE.value)
             if (isServiceAddress) {
-                Log.e("serviceaddress", isServiceAddress.toString())
-
-                if (selectedState== addressComponent?.stateSortName) {
+                if (selectedState== addressComponent?.stateSortName && addressComponent?.zipcode?.isNotBlank().orFalse()) {
                     bindServiceAddressField(binding, addressComponent)
-                    Log.e("zipcode", addressComponent.zipcode.isNullOrEmpty().orFalse().toString())
 
                 }
                     else {
-                    Log.e("zipcodeelse", addressComponent?.zipcode.isNullOrEmpty().orFalse().toString())
                     binding.editBillingAddressLineOne.context.infoDialog(
                             subTitleText = binding.editBillingCountry.context.getString(R.string.state_not_match)
                     )
@@ -405,7 +396,6 @@ private fun Context.openPlacePicker(binding: LayoutInputServiceAndBillingAddress
 
         if (isServiceAddress) {
             HomeActivity.SERVICE_ADDRESS_REQUEST_CODE = HomeActivity.SERVICE_ADDRESS_REQUEST_CODE + binding.item?.id.orZero()
-            Log.e("service address","service address")
             binding.root.findFragment<Fragment>().startActivityForResult(intent, HomeActivity.SERVICE_ADDRESS_REQUEST_CODE)
         } else {
             HomeActivity.BILLING_ADDRESS_REQUEST_CODE = HomeActivity.BILLING_ADDRESS_REQUEST_CODE + binding.item?.id.orZero()

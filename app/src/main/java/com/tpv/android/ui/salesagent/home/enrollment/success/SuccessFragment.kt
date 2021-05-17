@@ -72,12 +72,12 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
 
     override fun handleOnBackPressed(): Boolean {
         mViewModel.clearSavedData()
+
         return true
     }
 
     private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.success))
-
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         mBinding.item = mViewModel.savedLeadResp
 

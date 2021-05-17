@@ -10,6 +10,7 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.utils.enums.DynamicField
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.File
 
 class SetEnrollViewModel : CoroutineScopedViewModel() {
 
@@ -31,7 +32,10 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var dynamicSettings: DynamicSettingResponse? = null
     var selectionType: String = ""
     var emailVerified: String = ""
+    var upload_imagefile:String=""
+    var file_uploaded:File?=null
     var phoneVerified: String = ""
+
 
     fun getDynamicForm(dynamicFormReq: DynamicFormReq) = with(AppRepository) {
         val result = getDynamicFormCall(dynamicFormReq)
@@ -94,6 +98,10 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         saveMediaCall(lat = lat, lng = lng, leadId = leadId, mediaFile = mediaFile)
     }
 
+    fun saveBillingImage(lng: RequestBody, lat: RequestBody, leadId: RequestBody, mediaFile: MultipartBody.Part) = with(AppRepository) {
+        savebilling(lat = lat, lng = lng, leadId = leadId, mediaFile = mediaFile)
+    }
+
     fun generateOTP(otpReq: OTPReq) = with(AppRepository) {
         generateOTPCall(otpReq)
     }
@@ -131,6 +139,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         programList.clear()
         savedLeadResp = null
         recordingFile = ""
+        upload_imagefile=""
         isAgreeWithCondition = false
         signature = null
         formPageMap = LinkedHashMap()

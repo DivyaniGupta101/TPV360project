@@ -7,6 +7,7 @@ data class SaveLeadsDetailResp(
         var id: String?,
         @SerializedName("reference_id")
         var referenceId: String?,
+
         @SerializedName("phone_number")
         var phoneNumber: String?,
         @SerializedName("is_on_customer_call_number")
@@ -24,6 +25,8 @@ data class SaveLeadsDetailReq(
         val formId: String? = "",
         @SerializedName("other")
         val other: OtherData?,
+        @SerializedName("is_billing_image_available")
+        val billingimage: Boolean?,
         @SerializedName("fields")
         val fields: List<DynamicFormResp>
 )

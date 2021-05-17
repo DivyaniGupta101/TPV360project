@@ -76,6 +76,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         initialize()
     }
 
+
+
     override fun handleOnBackPressed(): Boolean {
         mSetEnrollViewModel.clearSavedData()
         return true
@@ -93,9 +95,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         setAutoCompleterTextView()
 
         //Check if selectedUtilityList list available then show respective value in dropdown
-        if (mSetEnrollViewModel.selectedUtilityList.isNotEmpty()) {
-            setUtilitySpinners()
-        }
+
 
         mBinding.spinnerState.setOnTouchListener { v, event ->
             if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -212,15 +212,14 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      * Set value in viewModel for further use.
      */
     private fun setData() {
-        Log.e("value",state.toString())
         mSetEnrollViewModel.zipcode = mBinding.textZipcode.value
+        Log.e("planszipcodefragment",mSetEnrollViewModel.zipcode)
         if(state==true){
             mSetEnrollViewModel.selectedState = mStateList[mBinding.spinnerState.selectedItemPosition]
             Log.e("response",mStateList.get(mBinding.spinnerState.selectedItemPosition).state)
             selectedState= mStateList.get(mBinding.spinnerState.selectedItemPosition).state.toString()
             Log.e("selectedstate", selectedState)
         }
-
         if (mBinding.radioState.isChecked) {
             mSetEnrollViewModel.selectionType = EnrollType.STATE.value
         } else {

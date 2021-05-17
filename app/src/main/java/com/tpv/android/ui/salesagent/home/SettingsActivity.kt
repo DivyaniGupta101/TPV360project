@@ -19,7 +19,6 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
-
         mBinding.switchLocation.isChecked = AppConstant.CURRENT_GEO_LOCATION
 
         mBinding.toolbar.textToolbarTitle.setText(getText(R.string.setting))

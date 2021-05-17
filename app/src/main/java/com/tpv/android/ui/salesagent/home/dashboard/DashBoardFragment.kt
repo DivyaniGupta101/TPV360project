@@ -51,6 +51,7 @@ class DashBoardFragment : Fragment() {
         getDashBoardDetailApiCall()
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+        mBinding.marqueeMsg.isSelected=true
 
         mBinding.item = mViewModel.dashBoardCount
 

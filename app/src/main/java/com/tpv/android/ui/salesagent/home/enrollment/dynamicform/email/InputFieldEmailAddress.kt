@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -41,6 +42,7 @@ fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
     val context = bindingInputEmail.textVerify.context
 
     bindingInputEmail.item = response
+
 
     if (bindingInputEmail.item?.validations?.verify.orFalse()) {
         bindingInputEmail.textVerify.show()
@@ -93,6 +95,7 @@ fun LayoutInputEmailAddressBinding.isValid(context: Context?): Boolean {
     val binding = this
 
     return if (binding.item?.validations?.required.orFalse()) {
+        Log.e("validations", binding.item?.validations?.required.orFalse().toString())
         Validator(TextInputValidationErrorHandler()) {
             addValidate(
                     binding.editText,
@@ -107,6 +110,7 @@ fun LayoutInputEmailAddressBinding.isValid(context: Context?): Boolean {
             )
         }.validate()
     } else {
+        Log.e("validation_else","validation_else")
         return true
     }
 }

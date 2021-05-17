@@ -44,7 +44,6 @@ class CustomerInfoFragment : Fragment() {
     }
 
     private fun initialize() {
-
         if (mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true } != null) {
             mBinding.item = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
             mBinding.textNameValue.addTextChangedListener {
@@ -136,6 +135,8 @@ class CustomerInfoFragment : Fragment() {
         mBinding.btnNext.onClick {
             if (mViewModel.dynamicSettings?.isEnableRecording.orFalse()) {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_recordingFragment)
+            } else  if (mViewModel.dynamicSettings?.isEnableImageUpload.orFalse()) {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_uploadbillimageFragment)
             } else {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_signatureVerificationFragment)
             }

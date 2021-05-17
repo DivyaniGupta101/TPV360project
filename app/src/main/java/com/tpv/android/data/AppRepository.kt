@@ -161,6 +161,13 @@ object AppRepository {
         }
     }
 
+    //save billingimage
+    fun CoroutineScope.savebilling(lng: RequestBody, lat: RequestBody, leadId: RequestBody, mediaFile: MultipartBody.Part) = dataApi<Any?, APIError> {
+        fromNetwork {
+            ApiClient.service.savebillingimage(lat = lat, lng = lng, leadid = leadId, mediaFile = mediaFile).getResult().map { it?.data }
+        }
+    }
+
     //Verification (email,Phone)
     fun CoroutineScope.selfVerificationCall(successReq: SuccessReq) = dataApi<Any?, APIError> {
         fromNetwork {
