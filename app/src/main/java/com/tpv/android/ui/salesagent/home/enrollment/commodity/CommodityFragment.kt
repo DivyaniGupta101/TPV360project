@@ -2,6 +2,7 @@ package com.tpv.android.ui.salesagent.home.enrollment.commodity
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,11 +23,14 @@ import com.tpv.android.databinding.FragmentCommodityBinding
 import com.tpv.android.databinding.ItemCommodityBinding
 import com.tpv.android.model.network.CommodityResp
 import com.tpv.android.model.network.DynamicFormReq
+import com.tpv.android.model.network.RequestCustomer
+import com.tpv.android.model.network.TmpDataItem
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setItemSelection
@@ -38,7 +42,13 @@ class CommodityFragment : Fragment() {
     private lateinit var mViewModelCommodity: CommodityViewModel
     private var mList: ArrayList<CommodityResp> = ArrayList()
     private var selectedId = ""
-    private var selectedTitle = ""
+
+
+    companion object{
+        var selectedTitle = ""
+        var selectedid_multienrollement=""
+        var selectedtitle_multienrollement=""
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -57,6 +67,7 @@ class CommodityFragment : Fragment() {
     private fun initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.lead_enroll), showBackIcon = true, showMenuIcon = true)
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+
         getCommodityApiCall()
         setRecyclerView()
         mBinding.btnNext.onClick {
@@ -96,6 +107,9 @@ class CommodityFragment : Fragment() {
                             it.isSelcected = it.id == holder.binding.item?.id
                         }
                         selectedId = holder.binding.item?.id.toString()
+                        Log.e("selectedid",selectedId)
+                        selectedid_multienrollement=selectedId
+                        selectedtitle_multienrollement= selectedTitle
                         selectedTitle = holder.binding.item?.formname.toString()
                         mBinding.listPlans.adapter?.notifyDataSetChanged()
                     }
@@ -107,16 +121,23 @@ class CommodityFragment : Fragment() {
      * Get dynamic form
      */
     private fun getDynamicFormApiCall(id: String, title: String?) {
-        val liveData = mViewModel.getDynamicForm(DynamicFormReq(formId = id))
+        val liveData = mViewModel.getDynamicForm(mViewModel.addenrollement,DynamicFormReq(formId = id))
         liveData.observe(this, Observer {
             it.ifSuccess {
                 mViewModel.utilityList.addAll(mList.find { it.id.toString() == id }?.commodities.orEmpty())
+                Log.e("utilitylist",mViewModel.upload_imagefile.toString())
                 mViewModel.planId = id
+                Log.e("mViewModelpalnid",mViewModel.planId)
                 Navigation.findNavController(mBinding.root).navigateSafe(CommodityFragmentDirections.actionCommodityFragmentToPlansZipcodeFragment(title.orEmpty()))
             }
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
+
+
+
+
+
 
     override fun onResume() {
         super.onResume()

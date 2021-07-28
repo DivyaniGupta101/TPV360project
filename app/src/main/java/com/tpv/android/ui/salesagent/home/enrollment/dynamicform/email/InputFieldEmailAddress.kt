@@ -27,6 +27,7 @@ import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 import com.tpv.android.utils.copyTextDialog
 import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator
@@ -42,6 +43,8 @@ fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
     val context = bindingInputEmail.textVerify.context
 
     bindingInputEmail.item = response
+
+
 
 
     if (bindingInputEmail.item?.validations?.verify.orFalse()) {

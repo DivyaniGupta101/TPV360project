@@ -42,6 +42,16 @@ interface ApiInterface {
     @POST("getprograms")
     fun getPrograms(@Body programsReq: ProgramsReq): Call<CommonResponse<List<ProgramsResp>>>
 
+    //gasprogram
+    @FormUrlEncoded
+    @POST("getgasprograms")
+    fun getgasPrograms(@Field("utility_id") utilityid:String): Call<ResponseGasUtility>
+
+    //getelectricprogram
+    @FormUrlEncoded
+    @POST("getelectricprograms")
+    fun getelectricprogram(@Field("utility_id") utilityid:String,@Field("reward") reward:String): Call<ResponseElectricProgram>
+
 
     //Save Lead
     @POST("saveleaddata")
@@ -85,7 +95,7 @@ interface ApiInterface {
 
     //GetForm
     @POST("getform")
-    fun getDynamicForm(@Body dynamicFormReq: DynamicFormReq): Call<CommonResponse<List<DynamicFormResp>>>
+    fun getDynamicForm(@Query("addEnrollment") addenrollement:Boolean,@Body dynamicFormReq: DynamicFormReq): Call<CommonResponse<List<DynamicFormResp>>>
 
     //Get Commodity
     @GET("clients/{id}/forms")
@@ -177,4 +187,23 @@ interface ApiInterface {
     @POST("leadmediabilling")
     fun savebillingimage(@Part("lng") lng: RequestBody, @Part("lat") lat: RequestBody, @Part("leadid") leadid: RequestBody, @Part mediaFile: MultipartBody.Part): Call<CommonResponse<Any>>
 
+   //showing message
+    @GET("app-message")
+    fun messagevalue(@Query("client_id") clientId: String?): Call<ResponseAppMessaging>
+
+    //enrollement type
+    @GET("enrollment-type")
+    fun enrollementype(@Query("enrollment_type") enrollmenttype: String?,@Query("client_id") clientId: String?): Call<EnrollementType>
+
+
+    //getcustomerinformation
+     @POST("show-multi-enrollment-forms")
+     fun getcustomerinformation(@Body temp_lead_id:RequestCustomer):Call<ResponseCustomerInformation>
+
+    @POST("get-image-upload-settings")
+    fun getimage(@Body utilityid:Requentutilityid):Call<ResponseImage>
+
+    //cancel enrollement
+    @POST("cancel-enrollment")
+    fun cancelenrollement(@Query("tmp_lead_id") temp_lead_id:String?):Call<ResponseCancelEnrollement>
 }

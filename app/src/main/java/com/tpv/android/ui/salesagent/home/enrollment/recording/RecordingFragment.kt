@@ -24,18 +24,21 @@ import com.livinglifetechway.k4kotlin.core.show
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentRecordingBinding
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.internal.DialogText
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 import com.tpv.android.utils.actionDialog
 import com.tpv.android.utils.audio.AudioDataReceivedListener
 import com.tpv.android.utils.audio.RecordingThread
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
+import kotlinx.android.synthetic.main.fragment_image_upload.view.*
 import java.io.File
 
 
-class RecordingFragment : Fragment() {
+class RecordingFragment : Fragment(), OnBackPressCallBack {
 
     private lateinit var mBinding: FragmentRecordingBinding
     private lateinit var mViewModel: SetEnrollViewModel
@@ -84,11 +87,20 @@ class RecordingFragment : Fragment() {
 
         mBinding.textSkip.onClick {
             if (recordedFile.isNullOrEmpty()) {
-                if (mViewModel.dynamicSettings?.isEnableImageUpload.orFalse()) {
-                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
-                } else {
-                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                if(mViewModel.dynamicSettings?.le_client_enrollment_type.orFalse()){
+                    if (DynamicFormFragment.image_upload==1) {
+                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
+                    } else {
+                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                    }
+                }else{
+                    if (mViewModel.is_image_upload.orFalse()) {
+                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
+                    }else {
+                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                    }
                 }
+
             } else {
                 //Show dialog when recording is recorded and user want to skip
                 //On Click of "Skip" button remove recording and send to next page
@@ -98,10 +110,18 @@ class RecordingFragment : Fragment() {
                         getString(R.string.cancel)),
                         setOnPositiveBanClickListener = {
                             recordedFile = ""
-                            if (mViewModel.dynamicSettings?.isEnableImageUpload.orFalse()) {
-                                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
-                            } else {
-                                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                            if(mViewModel.dynamicSettings?.le_client_enrollment_type.orFalse()){
+                                if (DynamicFormFragment.image_upload==1) {
+                                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
+                                } else {
+                                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                                }
+                            }else{
+                                if (mViewModel.is_image_upload.orFalse()) {
+                                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
+                                }else {
+                                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                                }
                             }
                         }
                 )
@@ -115,10 +135,18 @@ class RecordingFragment : Fragment() {
                 Log.e("value","value")
             }
 
-            if (mViewModel.dynamicSettings?.isEnableImageUpload.orFalse()) {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
-            } else {
-                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+            if(mViewModel.dynamicSettings?.le_client_enrollment_type.orFalse()){
+                if (DynamicFormFragment.image_upload==1) {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
+                } else {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                }
+            }else{
+                if (mViewModel.is_image_upload.orFalse()) {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
+                }else {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
+                }
             }
         }
 
@@ -220,7 +248,7 @@ class RecordingFragment : Fragment() {
     }
 
     private fun handleNextButton() {
-        mBinding.btnNext.isEnabled = (recordedFile?.isNotEmpty().orFalse() && mBinding.checkRecording.isChecked && mViewModel.dynamicSettings?.isEnableImageUpload.orFalse())
+        mBinding.btnNext.isEnabled = (recordedFile?.isNotEmpty().orFalse() && mBinding.checkRecording.isChecked )
     }
 
     /**
@@ -366,5 +394,9 @@ class RecordingFragment : Fragment() {
                 mBinding.redSpeakerImage.show()
             }
         }
+    }
+
+    override fun handleOnBackPressed(): Boolean {
+        return true
     }
 }

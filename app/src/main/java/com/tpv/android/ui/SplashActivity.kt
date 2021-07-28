@@ -17,12 +17,14 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
-
+import java.net.Inet6Address
+import java.net.NetworkInterface
 
 
 class SplashActivity : AppCompatActivity() {
     lateinit var mBinding: ActivitySplashBinding
     private lateinit var mViewModel: SplashViewModel
+    private var ipv4:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +38,10 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
-    private fun initialize() {
 
+
+
+    private fun initialize() {
         val liveData = mViewModel.forceUpdate(ForceUpdateReq(
                 appVersion = BuildConfig.VERSION_CODE
         ))
@@ -50,5 +54,11 @@ class SplashActivity : AppCompatActivity() {
         })
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
+
+
+
+
+
+
 }
 

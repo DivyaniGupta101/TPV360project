@@ -11,6 +11,8 @@ data class DynamicFormResp(
         var label: String?,
         @SerializedName("meta")
         val meta: Meta?,
+        @SerializedName("multiple_enrollment")
+        val mutipleEnrollment: Int,
         @SerializedName("validations")
         val validations: Validations?,
         @SerializedName("values")
@@ -33,7 +35,9 @@ data class Meta(
         @SerializedName("placeholder")
         var placeHolder: String?,
         @SerializedName("text")
-        val text: String?
+        val text: String?,
+        @SerializedName("is_multienrollment")
+        val is_multienrollment: Boolean?
 )
 
 data class Option(

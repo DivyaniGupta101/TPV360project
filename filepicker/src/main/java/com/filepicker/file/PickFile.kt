@@ -18,7 +18,7 @@ import java.io.InputStream
 
 
 class PickFile(
-    private val fragment: Fragment
+        private val fragment: Fragment
 ) {
     fun dispatchPickFileIntent(mFileStatus: FilePicker.PickFileStatuses?) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
@@ -52,23 +52,23 @@ class PickFile(
                     }
                 } catch (e: Exception) {
                     Toast.makeText(
-                        context?.applicationContext,
-                        "Error in picking file, Please try again",
-                        Toast.LENGTH_SHORT
+                            context?.applicationContext,
+                            "Error in picking file, Please try again",
+                            Toast.LENGTH_SHORT
                     ).show()
                 }
 
                 val filePath = "media/files"
 
                 val fileName =
-                    if (context?.getFileName(uri).orEmpty().isEmpty()) "FILE" else context?.getFileName(uri).orEmpty()
+                        if (context?.getFileName(uri).orEmpty().isEmpty()) "FILE" else context?.getFileName(uri).orEmpty()
 
                 val destination =
-                    context?.createFile(
-                        filePath,
-                        fileName.substringBeforeLast("."),
-                        fileName.substringAfterLast(".")
-                    )
+                        context?.createFile(
+                                filePath,
+                                fileName.substringBeforeLast("."),
+                                fileName.substringAfterLast(".")
+                        )
 
                 destination?.let { file ->
                     withContext(Dispatchers.IO) {

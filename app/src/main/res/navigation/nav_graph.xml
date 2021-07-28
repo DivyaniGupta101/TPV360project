@@ -69,6 +69,13 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_plansZipcodeFragment_to_gasListingFragment"
+            app:destination="@id/gasListingFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <!--    Program Listing Screen-->
@@ -84,14 +91,51 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/electricListingFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment"
+        android:label="ElectricListingFragment"
+        tools:layout="@layout/fragment_gas_electric_listing">
+        <action
+            android:id="@+id/action_programsListingFragment_to_dynamicFormFragment"
+            app:destination="@id/dynamicFormFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/gasListingFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.programs.GasListingFragment"
+        android:label="GasListingFragment"
+        tools:layout="@layout/fragment_gas_electric_listing">
+        <action
+            android:id="@+id/action_programsListingFragment_to_electriclistingfragment"
+            app:destination="@id/electricListingFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+
+
+
+
     </fragment>
 
     <!--    Client Info Screen-->
     <fragment
         android:id="@+id/clientInfoFragment"
-        android:name="com.tpv.android.ui.salesagent.home.enrollment.customerinfo.CustomerInfoFragment"
+        android:name="com.tpv.android.ui.salesagent.home.enrollment.customerinfo.CustomerInfoFragmentNew"
         android:label="ClientInfoFragment"
-        tools:layout="@layout/fragment_customer_info">
+        tools:layout="@layout/fragment_customer_info_new">
         <action
             android:id="@+id/action_clientInfoFragment_to_recordingFragment"
             app:destination="@id/recordingFragment"
@@ -236,6 +280,9 @@
         <argument
             android:name="item"
             app:argType="integer" />
+
+
+
         <action
             android:id="@+id/action_dynamicFormFragment_self"
             app:destination="@id/dynamicFormFragment"
@@ -256,7 +303,11 @@
         <action
             android:id="@+id/action_dynamicFormFragment_to_leadVelidationFragment"
             app:destination="@id/leadVelidationFragment" />
+        <action
+            android:id="@+id/action_dynamicFormFragment1_to_planzipcode"
+            app:destination="@id/plansZipcodeFragment" />
     </fragment>
+
 
     <!--    Profile Screen-->
     <fragment
@@ -345,6 +396,7 @@
             app:popUpTo="@id/dashBoardFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/supportSuccessFragment"
         android:name="com.tpv.android.ui.salesagent.home.supportsuccess.SupportSuccessFragment"

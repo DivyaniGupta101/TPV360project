@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
+            name="address"
+            type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
+            name="accountNumber"
+            type="com.tpv.android.model.network.DynamicFormResp" />
+
+        <variable
+            name="key"
+            type="com.tpv.android.utils.AppConstant" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textCustomerName"
+            style="@style/PrimaryBoldText"
+            android:paddingStart="@dimen/_16sdp"
+            android:text="@string/customer_information"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/textNameValue"
+            style="@style/PrimaryNormalText"
+            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:visibility="gone"
+            app:firstName="@{item.values[key.FIRSTNAME]}"
+            app:lastName="@{item.values[key.LASTNAME]}"
+            app:middleName="@{item.values[key.MIDDLENAME]}"
+            tools:text="Smithan"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/addressContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/textAccountNumber"
+            style="@style/PrimaryBoldText"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:text="@string/account_number"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/textAccountNumberValue"
+            style="@style/PrimaryNormalText"
+            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{accountNumber.values[key.VALUE]}"
+            android:visibility="gone"
+            tools:text="Smithan"
+            tools:visibility="visible" />
+
+
+        <TextView
+            style="@style/PrimaryBoldText"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:text="@string/plan_information"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTertiaryText" />
+
+        <LinearLayout
+            android:id="@+id/infoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textLabel"
+                style="@style/PrimaryBoldText"
+                android:paddingStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/customer_information"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textServiceAddress"
+                style="@style/PrimaryBoldText"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_30sdp"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText"
+                android:visibility="gone"
+                tools:text="@string/service_address"
+                tools:visibility="visible" />
+
+
+            <TextView
+                android:id="@+id/textServiceAddressValue"
+                style="@style/PrimaryNormalText"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:visibility="gone"
+                tools:text="Smithan"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textBillingAddress"
+                style="@style/PrimaryBoldText"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_30sdp"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText"
+                android:visibility="gone"
+                tools:text="@string/billing_address"
+                tools:visibility="visible" />
+
+
+            <TextView
+                android:id="@+id/textBillingAddressValue"
+                style="@style/PrimaryNormalText"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:visibility="gone"
+                tools:text="Smithan"
+                tools:visibility="visible" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

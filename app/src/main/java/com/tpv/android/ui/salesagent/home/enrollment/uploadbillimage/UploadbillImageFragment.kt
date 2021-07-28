@@ -27,12 +27,14 @@ import com.livinglifetechway.k4kotlin.toastNow
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentImageUploadBinding
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.internal.DialogText
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.MenuItem
 import com.tpv.android.utils.glide.GlideApp
@@ -44,7 +46,7 @@ import java.io.File
 import java.util.jar.Manifest
 
 
-class UploadbillImageFragment : Fragment() {
+class UploadbillImageFragment : Fragment(), OnBackPressCallBack {
 
      lateinit var mBinding: FragmentImageUploadBinding
      lateinit var mSetEnrollViewModel: SetEnrollViewModel
@@ -83,7 +85,8 @@ class UploadbillImageFragment : Fragment() {
 
     private fun  initialize() {
         setupToolbar(mBinding.toolbar, getString(R.string.billupload), false, true)
-        if (mSetEnrollViewModel.dynamicSettings?.isEnableImageUploadMandatory.orFalse()) {
+
+        if (mSetEnrollViewModel.is_image_upload_mandatory.orFalse()) {
             mBinding.textSkip.isEnabled=false
         }else{
             mBinding.textSkip.isEnabled=true
@@ -105,21 +108,32 @@ class UploadbillImageFragment : Fragment() {
             handleNextButton()
         }
 
+        if(mSetEnrollViewModel.dynamicSettings?.le_client_enrollment_type.orFalse()){
+            if (DynamicFormFragment.image_upload==1) {
+               mBinding.textSkip.visibility=View.GONE
+            }
+        }
+
         mBinding.uploadImage.onClick {
             runWithPermissions(android.Manifest.permission.CAMERA) {
                 captureImage {
                     onSuccess {
-                        Log.e("file",it.path)
-                        GlideApp.with(context).load(it.path).into(mBinding.billImage)
-                        mBinding.uploadImageConstraint.visibility = View.VISIBLE
-                        mBinding.uploadImage.visibility = View.GONE
-                        mBinding.overlayImage.visibility = View.VISIBLE
-                        mBinding.overlayText.visibility = View.VISIBLE
-                        save_image = it.path
-                        savefile_upload = it
-                        mSetEnrollViewModel.file_uploaded = savefile_upload
-                        mSetEnrollViewModel.upload_imagefile = save_image
+                       try {
+                           mBinding.uploadImageConstraint.visibility = View.VISIBLE
+                           mBinding.uploadImage.visibility = View.GONE
+                           mBinding.overlayImage.visibility = View.VISIBLE
+                           mBinding.overlayText.visibility = View.VISIBLE
+                           save_image = it.path
+                           savefile_upload = it
+                           mSetEnrollViewModel.file_uploaded = savefile_upload
+                           mSetEnrollViewModel.upload_imagefile = save_image
+                           GlideApp.with(this@UploadbillImageFragment).load(it.path).into(mBinding.billImage)
+                       }catch (e: Exception){
+                           GlideApp.with(context).load(it.path).into(mBinding.billImage)
+
+                       }
                         handleNextButton()
+
 
                     }
                 }
@@ -133,11 +147,18 @@ class UploadbillImageFragment : Fragment() {
             runWithPermissions(android.Manifest.permission.CAMERA) {
                 captureImage {
                     onSuccess {
-                        GlideApp.with(this@UploadbillImageFragment).load(it.path).into(mBinding.billImage)
-                        save_image = it.path
-                        savefile_upload = it
-                        mSetEnrollViewModel.file_uploaded = savefile_upload
-                        mSetEnrollViewModel.upload_imagefile = save_image
+                        try {
+                            save_image = it.path
+                            savefile_upload = it
+                            mSetEnrollViewModel.file_uploaded = savefile_upload
+                            mSetEnrollViewModel.upload_imagefile = save_image
+                            GlideApp.with(this@UploadbillImageFragment).load(it.path).into(mBinding.billImage)
+
+                        }catch (e:Exception){
+                            GlideApp.with(context).load(it.path).into(mBinding.billImage)
+
+                        }
+
 
                     }
                 }
@@ -179,5 +200,9 @@ class UploadbillImageFragment : Fragment() {
     private fun handleNextButton() {
         mBinding.btnNext.isEnabled = (mSetEnrollViewModel.upload_imagefile?.isNotEmpty() && mBinding.checkbox.isChecked)
 
+    }
+
+    override fun handleOnBackPressed(): Boolean {
+        return true
     }
 }

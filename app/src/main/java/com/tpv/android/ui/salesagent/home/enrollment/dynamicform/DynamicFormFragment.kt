@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -22,18 +23,16 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.gson.reflect.TypeToken
+import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
-import com.livinglifetechway.k4kotlin.core.onClick
-import com.livinglifetechway.k4kotlin.core.orFalse
-import com.livinglifetechway.k4kotlin.core.orZero
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import com.ravikoradiya.liveadapter.LiveAdapter
+import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.*
 import com.tpv.android.helper.OnBackPressCallBack
-import com.tpv.android.model.network.DynamicFormResp
-import com.tpv.android.model.network.OtherData
-import com.tpv.android.model.network.ValidateLeadsDetailReq
-import com.tpv.android.model.network.VelidateLeadsDetailResp
+import com.tpv.android.model.internal.itemSelection
+import com.tpv.android.model.network.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -41,6 +40,10 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.TransparentActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.commodity.CommodityFragment
+import com.tpv.android.ui.salesagent.home.enrollment.commodity.CommodityFragment.Companion.selectedTitle
+import com.tpv.android.ui.salesagent.home.enrollment.customerinfo.CustomerInfoFragment
+import com.tpv.android.ui.salesagent.home.enrollment.customerinfo.CustomerInfoFragmentNew
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.address.fillAddressFields
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.address.isValid
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.address.setField
@@ -66,35 +69,46 @@ import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.singlelineeditt
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.singlelineedittext.setField
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.spinner.isValid
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.spinner.setField
+import com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment
+import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
+import com.tpv.android.ui.salesagent.home.enrollment.programs.GasListingFragment
+import com.tpv.android.ui.salesagent.home.leaddetail.LeadDetailFragment
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
+import com.tpv.android.utils.enums.MultienrollementDynamicField
+import com.tpv.android.utils.enums.Plan
+import kotlinx.android.synthetic.main.fragment_dynamic_form.*
 import kotlinx.coroutines.*
 
 class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
     companion object {
         var REQUEST_GPS_SETTINGS = 1234
+        var image_upload:Int?=null
+        var button_nextclicked:Boolean=false
+        var temp_lead_id:String=""
+        var show_addenrollment_button:Int?=null
+        var back_pressed:Boolean=false
     }
-
+    private var mlistcommodity: ArrayList<CommodityResp> = ArrayList()
     private lateinit var mBinding: FragmentDynamicFormBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var bindingList: ArrayList<Any> = ArrayList()
     private var totalPage: Int = 1
     private var hasNext: Boolean = false
     private var currentPage = 1
-
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
-
     private var locationManager: LocationManager? = null
+
+
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dynamic_form, container, false)
-
         mBinding.lifecycleOwner = this
         activity?.let { mViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
-
         return mBinding.root
     }
 
@@ -104,12 +118,74 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
     }
 
     override fun handleOnBackPressed(): Boolean {
-        saveOldData()
+        if(mViewModel.utilityList.size>1){
+            back_pressed=true
+
+        }
+//        mViewModel.selectedUtilityList.clear()
+        mViewModel.add_enrollement_value=mViewModel.secondclick
         return true
     }
 
     fun initialize() {
+        if(mViewModel.secondclick==true){
+           mViewModel.add_enrollement=false
+        }
+        mBinding.addEnrollement.onClick {
+            GasListingFragment.button_preesed=false
+            ElectricListingFragment.onback=false
+            if(mViewModel.first_tmp_lead.isEmpty()){
+                mViewModel.parent_id="0"
+            }else{
+                mViewModel.parent_id=mViewModel.first_tmp_lead
+            }
+           mViewModel.add_enrollement=true
+            mViewModel.addenrollement=true
+            if(mViewModel.secondclick==true) {
+                mViewModel.dynamicFormData.clear()
+                val validList: ArrayList<Boolean> = ArrayList()
+                bindingList.forEach { view ->
+                    validList.add(checkValid(view))
+                }
+                if (!validList.contains(false)) {
+                    mViewModel.formPageMap?.set(currentPage, mViewModel.duplicatePageMap?.copy(object : TypeToken<DynamicFormResp>() {}.type)?.get(currentPage).orEmpty())
+                    if (hasNext) {
+                        currentPage += 1
+                        Navigation.findNavController(mBinding.root).navigateSafe(DynamicFormFragmentDirections.actionDynamicFormFragmentSelf(currentPage))
 
+                    } else {
+                        mViewModel.dynamicFormData.clear()
+                        for (key in 1..mViewModel.formPageMap?.size.orZero()) {
+                            mViewModel.dynamicFormData.addAll(mViewModel.formPageMap?.get(key).orEmpty())
+                            mViewModel.dynamicFormDatanew.addAll(mViewModel.dynamicFormData);
+                        }
+                        getLocation()
+                    }
+                }
+            }else {
+                val validList: ArrayList<Boolean> = ArrayList()
+                bindingList.forEach { view ->
+                    validList.add(checkValid(view))
+                }
+                if (!validList.contains(false)) {
+                    mViewModel.formPageMap?.set(currentPage, mViewModel.duplicatePageMap?.copy(object : TypeToken<DynamicFormResp>() {}.type)?.get(currentPage).orEmpty())
+
+                    if (hasNext) {
+                        currentPage += 1
+                        Navigation.findNavController(mBinding.root).navigateSafe(DynamicFormFragmentDirections.actionDynamicFormFragmentSelf(currentPage))
+
+                    } else {
+                        mViewModel.dynamicFormData.clear()
+                        for (key in 1..mViewModel.formPageMap?.size.orZero()) {
+                            mViewModel.dynamicFormData.addAll(mViewModel.formPageMap?.get(key).orEmpty())
+                            mViewModel.dynamicFormDatanew.addAll(mViewModel.dynamicFormData);
+                        }
+                        getLocation()
+                    }
+                }
+
+            }
+        }
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
@@ -119,8 +195,21 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_dashBoardFragment)
         }
 
+
+
         currentPage = arguments?.let { DynamicFormFragmentArgs.fromBundle(it) }?.item.orZero()
         totalPage = mViewModel.duplicatePageMap?.size.orZero()
+        show_addenrollment_button=mViewModel.multienrollementbutton
+        if(currentPage==totalPage && mViewModel.multienrollementbutton==1){
+            mBinding.btnNext.setText("Submit")
+            mBinding.addEnrollement.visibility=View.VISIBLE
+        }else{
+            mBinding.addEnrollement.visibility=View.GONE
+        }
+
+
+
+
 
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true, backIconClickListener = {
             saveOldData()
@@ -133,35 +222,61 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             currentPage < totalPage.orZero()
         }
 
+
+
+
+
         //Inflate all the views
         inflateViews()
 
         mBinding.btnNext.onClick {
-
             hideKeyboard()
-
-            val validList: ArrayList<Boolean> = ArrayList()
-            bindingList.forEach { view ->
-                validList.add(checkValid(view))
+            if(mViewModel.first_tmp_lead.isEmpty()){
+                mViewModel.parent_id="0"
+            }else{
+                mViewModel.parent_id=mViewModel.first_tmp_lead
             }
 
-            //Check if all validation is true then check have next page then
-            //Load this page again else sent to client info screen
-            if (!validList.contains(false)) {
-                mViewModel.formPageMap?.set(currentPage, mViewModel.duplicatePageMap?.copy(object : TypeToken<DynamicFormResp>() {}.type)?.get(currentPage).orEmpty())
-                if (hasNext) {
-                    currentPage += 1
-                    Navigation.findNavController(mBinding.root).navigateSafe(DynamicFormFragmentDirections.actionDynamicFormFragmentSelf(currentPage))
+            if(mViewModel.customerback==true || mViewModel.leadvalidationbackpressed==true){
+                if (mViewModel.leadvelidationError?.errors.isNullOrEmpty()) {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
                 } else {
+                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_leadVelidationFragment)
+                }
+            }else{
+                button_nextclicked=true
+                if(mViewModel.add_enrollement==true){
                     mViewModel.dynamicFormData.clear()
-                    for (key in 1..mViewModel.formPageMap?.size.orZero()) {
-                        mViewModel.dynamicFormData.addAll(mViewModel.formPageMap?.get(key).orEmpty())
+                }
+                val validList: ArrayList<Boolean> = ArrayList()
+                bindingList.forEach { view ->
+                    validList.add(checkValid(view))
+                }
+
+                if (!validList.contains(false)) {
+                    mViewModel.formPageMap?.set(currentPage, mViewModel.duplicatePageMap?.copy(object : TypeToken<DynamicFormResp>() {}.type)?.get(currentPage).orEmpty())
+                    if (hasNext) {
+                        currentPage += 1
+                        Navigation.findNavController(mBinding.root).navigateSafe(DynamicFormFragmentDirections.actionDynamicFormFragmentSelf(currentPage))
+
+                    } else {
+                        mViewModel.dynamicFormData.clear()
+                        for (key in 1..mViewModel.formPageMap?.size.orZero()) {
+                            mViewModel.dynamicFormData.addAll(mViewModel.formPageMap?.get(key).orEmpty())
+                            Log.e("dynamicformdata",mViewModel.dynamicFormData.toString())
+                        }
+
+                        getLocation()
                     }
-                    getLocation()
                 }
             }
+
         }
+
     }
+
+
+
 
     private fun navigateNext() {
         if (mViewModel.leadvelidationError?.validationsError?.isNotEmpty().orFalse()) {
@@ -188,6 +303,8 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
      * On success of saveCustomerDataApiCall api, call saveContract API
      * Also check if recording is not empty then call save recording API else call save Signature API
      */
+
+
     private fun validateCustomerDataApiCall(latitude: Double?, longitude: Double?) {
         var lat = ""
         var lng = ""
@@ -225,22 +342,78 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             }
 
         }
-        liveData = mViewModel.validateLeadDetail(ValidateLeadsDetailReq(
-                agentLat = lat,
-                agentLng = lng,
-                formId = mViewModel.planId,
-                fields = mViewModel.dynamicFormData,
-                geoLocationSettingOn = AppConstant.CURRENT_GEO_LOCATION,
-                other = OtherData(programId = TextUtils.join(",", mViewModel.programList.map { it.id }),
-                        zipcode = zipcode)))
-        liveData.observe(this, Observer {
-            it?.ifSuccess {
-                mViewModel.leadvelidationError = it
-                Log.e("zipcode",zipcode)
-                Log.e("fields",mViewModel.dynamicFormData.toString())
-                navigateNext()
-            }
-        })
+
+        if( mViewModel.programid.isEmpty()){
+            liveData = mViewModel.validateLeadDetail(ValidateLeadsDetailReq(
+                    agentLat = lat,
+                    agentLng = lng,
+                    parent_id =mViewModel.parent_id,
+                    formId = mViewModel.planId,
+                    fields = mViewModel.dynamicFormData,
+                    geoLocationSettingOn = AppConstant.CURRENT_GEO_LOCATION,
+                    other = OtherData(programId = TextUtils.join(",", mViewModel.programList.map { it.id }),
+                            zipcode = zipcode)))
+            liveData.observe(this, Observer {
+                it?.ifSuccess {
+                    mViewModel.leadvelidationError = it
+                    temp_lead_id= it?.leadTempId.toString();
+                    if(mViewModel.counter==0){
+                        mViewModel.first_tmp_lead=it?.leadTempId.toString()
+                        mViewModel.parent_id=mViewModel.first_tmp_lead
+                        Log.e("firsttemoleadit",mViewModel.first_tmp_lead)
+                    }
+                    mViewModel.counter++
+
+                    mViewModel.mList.add(temp_lead_id)
+                    if(mViewModel.add_enrollement==true){
+                        getDynamicFormApiCall(CommodityFragment.selectedid_multienrollement, CommodityFragment.selectedid_multienrollement)
+                        val bundle = bundleOf("item" to CommodityFragment.selectedTitle)
+                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment1_to_planzipcode, bundle)
+                        mViewModel.selectedUtilityList.clear()
+
+//                        validateCustomerDataApiCall(mViewModel.location?.latitude, mViewModel.location?.longitude)
+                    }else if(button_nextclicked==true){
+                        navigateNext()
+                    }
+
+                }
+            })
+        }else{
+            liveData = mViewModel.validateLeadDetail(ValidateLeadsDetailReq(
+                    agentLat = lat,
+                    agentLng = lng,
+                    parent_id = mViewModel.parent_id,
+                    formId = mViewModel.planId,
+                    fields = mViewModel.dynamicFormData,
+                    geoLocationSettingOn = AppConstant.CURRENT_GEO_LOCATION,
+                    other = OtherData(mViewModel.programid, zipcode = zipcode)))
+            liveData.observe(this, Observer {
+                it?.ifSuccess {
+                    mViewModel.leadvelidationError = it
+                    temp_lead_id= it?.leadTempId.toString();
+                    mViewModel.mList.add(temp_lead_id)
+                    if(mViewModel.counter==0){
+                        mViewModel.first_tmp_lead=it?.leadTempId.toString()
+                        mViewModel.parent_id=mViewModel.first_tmp_lead
+
+                    }
+                    mViewModel.counter++
+
+                    if(mViewModel.add_enrollement==true){
+                        getDynamicFormApiCall(CommodityFragment.selectedid_multienrollement, CommodityFragment.selectedid_multienrollement)
+                        val bundle = bundleOf("item" to CommodityFragment.selectedTitle)
+//                        mViewModel.selectedUtilityList.clear()
+                        Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment1_to_planzipcode, bundle)
+//                        validateCustomerDataApiCall(mViewModel.location?.latitude, mViewModel.location?.longitude)
+                    }else if(button_nextclicked==true){
+                        navigateNext()
+                    }
+
+                }
+            })
+        }
+
+
 
         mBinding.leadValidationResource = liveData as LiveData<Resource<Any, APIError>>
     }
@@ -294,12 +467,13 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
     }
 
+
+
+
     /**
      * Inflate different view on basis of type
      */
     private fun inflateViews() {
-
-        //Handle page indicator view
         for (pageNumber in 1..totalPage.orZero()) {
             val binding = DataBindingUtil.inflate<LayoutHighlightIndicatorBinding>(layoutInflater,
                     R.layout.layout_highlight_indicator,
@@ -307,54 +481,63 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                     true)
             binding.currentPage = currentPage
             binding.pageNumber = pageNumber
+
         }
 
 
-        mViewModel.duplicatePageMap?.get(currentPage)?.forEach { response ->
-            when (response.type) {
-                DynamicField.FULLNAME.type -> {
-                    setFieldsOfFullName(response)
-                }
-                DynamicField.TEXTBOX.type -> {
-                    setFieldsOfSinglLineEditText(response)
-                }
-                DynamicField.EMAIL.type -> {
-                    setFieldsOfEmailAddress(response)
-                }
-                DynamicField.PHONENUMBER.type -> {
-                    setFieldsOfPhoneNumber(response)
-                }
-                DynamicField.HEADING.type -> {
-                    setFieldsOfHeading(response)
-                }
-                DynamicField.LABEL.type -> {
-                    setFieldsOfLabel(response)
-                }
-                DynamicField.ADDRESS.type -> {
-                    setFieldsOfAddress(response)
-                }
-                DynamicField.BOTHADDRESS.type -> {
-                    setFieldOfBillingAndServiceAddress(response)
-                }
-                DynamicField.TEXTAREA.type -> {
-                    setFieldOfMultiLineEditText(response)
-                }
-                DynamicField.RADIO.type -> {
-                    setFieldOfRadioButton(response)
-                }
-                DynamicField.CHECKBOX.type -> {
-                    setFieldOfCheckBox(response)
-                }
-                DynamicField.SELECTBOX.type -> {
-                    setFieldOfSpinner(response)
-                }
-                DynamicField.TEXT.type -> {
-                    setFieldOfMessageInfo(response)
+            mViewModel.duplicatePageMap?.get(currentPage)?.forEach { response ->
+
+                when (response.type) {
+                    DynamicField.FULLNAME.type -> {
+                        setFieldsOfFullName(response)
+                    }
+
+                    DynamicField.TEXTBOX.type -> {
+                        setFieldsOfSinglLineEditText(response)
+                    }
+                    DynamicField.EMAIL.type -> {
+                        setFieldsOfEmailAddress(response)
+                    }
+                    DynamicField.PHONENUMBER.type -> {
+                        setFieldsOfPhoneNumber(response)
+                    }
+                    DynamicField.HEADING.type -> {
+                        setFieldsOfHeading(response)
+                    }
+                    DynamicField.LABEL.type -> {
+                        setFieldsOfLabel(response)
+                    }
+                    DynamicField.ADDRESS.type -> {
+                        setFieldsOfAddress(response)
+                    }
+                    DynamicField.BOTHADDRESS.type -> {
+                        setFieldOfBillingAndServiceAddress(response)
+                    }
+                    DynamicField.TEXTAREA.type -> {
+                        setFieldOfMultiLineEditText(response)
+                    }
+                    DynamicField.RADIO.type -> {
+                        setFieldOfRadioButton(response)
+                    }
+                    DynamicField.CHECKBOX.type -> {
+                        setFieldOfCheckBox(response)
+                    }
+                    DynamicField.SELECTBOX.type -> {
+                        setFieldOfSpinner(response)
+                    }
+                    DynamicField.TEXT.type -> {
+                        setFieldOfMessageInfo(response)
+                    }
                 }
             }
+
         }
 
-    }
+
+
+
+
+
 
     /**
      * Inflate email address view
@@ -430,7 +613,6 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 R.layout.layout_input_phone_number,
                 mBinding.fieldContainer,
                 true)
-
         binding.setField(response, mViewModel, mBinding, getListOfCopyText(response))
         bindingList.add(binding)
     }
@@ -444,7 +626,6 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
         binding.setField(response, getListOfCopyTextForAddress(response))
-        Log.e("adddressresponse",response.toString())
 
         bindingList.add(binding)
     }
@@ -458,8 +639,6 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
         binding.setField(response, getListOfCopyTextForAddress(response))
-        Log.e("serviceaddress",getListOfCopyTextForAddress(response).toString())
-
         bindingList.add(binding)
     }
 
@@ -497,7 +676,6 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 R.layout.layout_input_check_box,
                 mBinding.fieldContainer,
                 true)
-
         binding.setField(response)
         bindingList.add(binding)
 
@@ -512,7 +690,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
 
-        binding.setField(response)
+        binding.setField(response,mViewModel)
         bindingList.add(binding)
     }
 
@@ -610,17 +788,11 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
     private fun getListOfCopyText(dynamicFormResp: DynamicFormResp): ArrayList<DynamicFormResp> {
         val list: ArrayList<DynamicFormResp> = ArrayList()
         if (dynamicFormResp.meta?.isAllowCopy.orFalse()) {
-            Log.e("dynamicformcopylist",dynamicFormResp.meta?.isAllowCopy.orFalse().toString())
-            Log.e("dynamicresponse",dynamicFormResp.toString())
 
             for (i in 1..totalPage) {
                 mViewModel.duplicatePageMap?.get(i).orEmpty().forEachIndexed { index, it ->
                     if (dynamicFormResp.type == it.type && dynamicFormResp.id != it.id) {
                         mViewModel.duplicatePageMap?.get(i)?.get(index)?.let { it1 -> list.add(it1) }
-                        Log.e("listaddressfullname",list.toString())
-                        Log.e("listaddressfullname",it.type)
-                        Log.e("dynamicid",dynamicFormResp.id.toString())
-                        Log.e("id",it.id.toString())
 
 
                     }
@@ -633,15 +805,12 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
     private fun getListOfCopyTextForAddress(dynamicFormResp: DynamicFormResp): ArrayList<DynamicFormResp> {
         val list: ArrayList<DynamicFormResp> = ArrayList()
         if (dynamicFormResp.meta?.isAllowCopy.orFalse()) {
-            Log.e("dynamicresponseaddress",dynamicFormResp.toString())
-            Log.e("id",dynamicFormResp.id.toString())
 
             for (i in 1..totalPage) {
                 mViewModel.duplicatePageMap?.get(i).orEmpty().forEachIndexed { index, it ->
 
                     if (DynamicField.BOTHADDRESS.type ==it.type  ||  DynamicField.ADDRESS.type ==it.type) {
                         mViewModel.duplicatePageMap?.get(i)?.get(index)?.let { it1 -> list.add(it1) }
-                        Log.e("listaddress",list.toString())
 
                     }
                 }
@@ -714,4 +883,20 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             }
         }
     }
+
+
+
+
+
+    private fun getDynamicFormApiCall(id: String, title: String?) {
+        val liveData = mViewModel.getDynamicForm(mViewModel.addenrollement,DynamicFormReq(formId = id))
+        liveData.observe(this, Observer {
+            it.ifSuccess {
+                mViewModel.utilityList.addAll(mlistcommodity.find { it.id.toString() == id }?.commodities.orEmpty())
+                mViewModel.planId = id
+            }
+        })
+        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+    }
 }
+

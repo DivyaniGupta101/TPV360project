@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tpv.android.R
 import com.tpv.android.data.AppRepository
+import com.tpv.android.helper.Pref
 import com.tpv.android.model.internal.DashBoardItem
+import com.tpv.android.model.network.ResponseAppMessaging
 import com.tpv.android.network.resources.CoroutineScopedViewModel
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.utils.enums.LeadStatus
@@ -15,6 +17,7 @@ class DashBoardViewModel : CoroutineScopedViewModel() {
     private val dashBoardCountMutableLiveData = MutableLiveData<ArrayList<DashBoardItem>>()
     val dashBoardCount: LiveData<ArrayList<DashBoardItem>> = dashBoardCountMutableLiveData
     var dashBoardStatusCount: ArrayList<DashBoardItem> = ArrayList()
+
 
     fun getDashBoardDetail(context: Context) = with(AppRepository) {
 
@@ -47,5 +50,11 @@ class DashBoardViewModel : CoroutineScopedViewModel() {
         }
         dashBoardCountMutableLiveData.value = dashBoardStatusCount
     }
+
+
+    fun setmessagevalue(clientid: String?)= with(AppRepository){
+        savemessage(clientid)
+    }
+
 
 }

@@ -20,8 +20,8 @@ android {
         applicationId "com.tpv.android"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 58
-        versionName "0.9.9"
+        versionCode 60
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
         signingConfigs {
@@ -72,7 +72,8 @@ android {
 
             Allow {
                 dimension = 'screenshot'
-                applicationIdSuffix ".allowss"
+                applicationIdSuffix
+
 
             }
 

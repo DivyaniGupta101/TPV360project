@@ -66,6 +66,23 @@ enum class DynamicField(val type: String) {
     TEXT("text")
 }
 
+enum class MultienrollementDynamicField(val type: Boolean) {
+    FULLNAME(true),
+    ADDRESS(true),
+    TEXTBOX(true),
+    TEXTAREA(true),
+    RADIO(true),
+    CHECKBOX(true),
+    SELECTBOX(true),
+    SEPARATE(true),
+    HEADING(true),
+    LABEL(true),
+    PHONENUMBER(true),
+    EMAIL(true),
+    BOTHADDRESS(true),
+    TEXT(true)
+}
+
 enum class SortByItem(val value: String) {
     LEADIDASC("lead_id_asc"),
     LEADIDDES("lead_id_desc"),

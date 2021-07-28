@@ -7,7 +7,6 @@ data class SaveLeadsDetailResp(
         var id: String?,
         @SerializedName("reference_id")
         var referenceId: String?,
-
         @SerializedName("phone_number")
         var phoneNumber: String?,
         @SerializedName("is_on_customer_call_number")
@@ -21,6 +20,8 @@ data class SaveLeadsDetailResp(
 data class SaveLeadsDetailReq(
         @SerializedName("lead_tmp_id")
         var leadTempId: String?,
+        @SerializedName("agent_ipaddress")
+        var agent_ipaddress : String?,
         @SerializedName("form_id")
         val formId: String? = "",
         @SerializedName("other")

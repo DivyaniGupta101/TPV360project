@@ -23,6 +23,7 @@ import com.livinglifetechway.k4kotlin.core.orZero
 import com.tpv.android.R
 import com.tpv.android.databinding.DialogSignatureBinding
 import com.tpv.android.databinding.FragmentStatementBinding
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.internal.DialogText
 import com.tpv.android.model.network.OtherData
 import com.tpv.android.model.network.SaveLeadsDetailReq
@@ -31,6 +32,8 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.ui.SplashActivity
+import com.tpv.android.ui.salesagent.home.dashboard.DashBoardFragment
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
@@ -38,14 +41,19 @@ import com.tpv.android.utils.glide.GlideApp
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
 import java.io.File
+import java.net.InetAddress
+import java.net.NetworkInterface
+import java.util.*
 
 
-class StatementFragment : Fragment() {
+class StatementFragment : Fragment(), OnBackPressCallBack {
 
     private lateinit var mBinding: FragmentStatementBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var mSignImage: Bitmap? = null
     private var is_image:Boolean=false
+
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -62,18 +70,17 @@ class StatementFragment : Fragment() {
         initialize()
     }
 
+
+
     private fun initialize() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
-
         setupToolbar(mBinding.toolbar, getString(R.string.statement), showBackIcon = true)
-
         if (mViewModel.signature != null && mViewModel.isAgreeWithCondition) {
             mSignImage = mViewModel.signature
             GlideApp.with(this)
                     .asBitmap()
                     .load(resizedBitmap())
                     .into(mBinding.imageSign)
-
             mBinding.textTapToOpen.hide()
             mBinding.checkContract.isChecked = mViewModel.isAgreeWithCondition
             setButtonEnable()
@@ -132,8 +139,9 @@ class StatementFragment : Fragment() {
         }
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
         liveData = mViewModel.saveLeadDetail(SaveLeadsDetailReq(
-                leadTempId = mViewModel.leadvelidationError?.leadTempId,
+                leadTempId = mViewModel.parent_id,
                 formId = mViewModel.planId,
+                agent_ipaddress = DashBoardFragment.sAddr,
                 fields = mViewModel.dynamicFormData,
                 billingimage = is_image,
                 other = OtherData(programId = android.text.TextUtils.join(",", mViewModel.programList.map { it.id }),
@@ -147,7 +155,7 @@ class StatementFragment : Fragment() {
                         val compressedImageFile = mViewModel.file_uploaded?.let {
                             it1 -> context?.let {
                             it2 -> Compressor.compress(it2, it1)
-                        }
+                         }
                         }
                         compressedImageFile?.let { it1 ->
                             saveBillingImageApiCall(it1)
@@ -294,6 +302,12 @@ class StatementFragment : Fragment() {
         }
         return resultBitmap;
     }
+
+    override fun handleOnBackPressed(): Boolean {
+        return true
+    }
+
+
 }
 
 

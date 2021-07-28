@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/month_rate"
+        style="@style/SecondaryNormalSmallText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true" />
+
+
+    <TextView
+        android:id="@+id/reward_name"
+        style="@style/PrimaryNormalSmallText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/reward_code"
+        style="@style/PrimaryNormalSmallText"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:singleLine="true" />
+</LinearLayout>
+

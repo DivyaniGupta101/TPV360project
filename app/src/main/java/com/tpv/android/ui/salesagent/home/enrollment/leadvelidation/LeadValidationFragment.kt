@@ -16,6 +16,7 @@ import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentLeadValidationBinding
 import com.tpv.android.databinding.ItemLeadValidationBinding
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.network.CancelLeadReq
 import com.tpv.android.model.network.LeadVelidationError
 import com.tpv.android.network.error.AlertErrorHandler
@@ -27,10 +28,12 @@ import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
 
-class LeadValidationFragment : Fragment() {
+class LeadValidationFragment : Fragment(), OnBackPressCallBack {
     private lateinit var mBinding: FragmentLeadValidationBinding
     private lateinit var mViewModel: SetEnrollViewModel
     private var mViewGroup: ViewGroup? = null
+    companion object{
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -88,5 +91,10 @@ class LeadValidationFragment : Fragment() {
 
     private fun navigateToInfo() {
         Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_leadVelidationFragment_to_clientInfoFragment)
+    }
+
+    override fun handleOnBackPressed(): Boolean {
+        mViewModel.leadvalidationbackpressed=true
+        return true
     }
 }

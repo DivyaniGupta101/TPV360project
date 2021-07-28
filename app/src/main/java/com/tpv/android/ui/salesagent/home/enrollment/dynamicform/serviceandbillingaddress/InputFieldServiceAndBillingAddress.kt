@@ -43,6 +43,8 @@ private var addressField =
                 Place.Field.ADDRESS,
                 Place.Field.LAT_LNG)
 var selectedState = ""
+var zipcodevalue=""
+
 
 fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormResp,listOfCopyTextForAddress: ArrayList<DynamicFormResp>) {
 
@@ -284,8 +286,9 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
                 if (selectedState== addressComponent?.stateSortName && addressComponent?.zipcode?.isNotBlank().orFalse()) {
                     bindServiceAddressField(binding, addressComponent)
 
-                }
-                    else {
+                } else {
+                    zipcodevalue=editServiceAddressLineTwo.text.toString()
+                    Log.e("zipcodevalue", zipcodevalue)
                     binding.editBillingAddressLineOne.context.infoDialog(
                             subTitleText = binding.editBillingCountry.context.getString(R.string.state_not_match)
                     )
@@ -397,9 +400,12 @@ private fun Context.openPlacePicker(binding: LayoutInputServiceAndBillingAddress
         if (isServiceAddress) {
             HomeActivity.SERVICE_ADDRESS_REQUEST_CODE = HomeActivity.SERVICE_ADDRESS_REQUEST_CODE + binding.item?.id.orZero()
             binding.root.findFragment<Fragment>().startActivityForResult(intent, HomeActivity.SERVICE_ADDRESS_REQUEST_CODE)
+            Log.e("Serviceaddreess","serviceaddress")
         } else {
             HomeActivity.BILLING_ADDRESS_REQUEST_CODE = HomeActivity.BILLING_ADDRESS_REQUEST_CODE + binding.item?.id.orZero()
             binding.root.findFragment<Fragment>().startActivityForResult(intent, HomeActivity.BILLING_ADDRESS_REQUEST_CODE)
+            Log.e("Serviceaddreess","serviceaddress")
+
         }
     }
 }

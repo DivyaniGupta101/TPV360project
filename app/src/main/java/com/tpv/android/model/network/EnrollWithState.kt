@@ -18,8 +18,13 @@ data class DynamicSettingResponse(
         @SerializedName("is_enable_image_upload")
         val isEnableImageUpload: Boolean?,
         @SerializedName("is_enable_image_upload_mandatory")
-        val isEnableImageUploadMandatory: Boolean?
-
+        val isEnableImageUploadMandatory: Boolean?,
+        @SerializedName("kiwi_enable_image_upload")
+        val kiwi_enable_image_upload: Boolean?,
+        @SerializedName("le_client_enrollment_type")
+        val le_client_enrollment_type: Boolean?,
+        @SerializedName("is_enable_duel_fuel_mandatory")
+        val is_enable_duel_fuel_mandatory: Boolean?
 
 
 )

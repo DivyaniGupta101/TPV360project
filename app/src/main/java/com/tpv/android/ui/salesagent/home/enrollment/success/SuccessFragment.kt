@@ -30,6 +30,8 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
+import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
 import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe
@@ -99,6 +101,8 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
 
 
         mBinding.btnVerify.onClick {
+            DynamicFormFragment.back_pressed=false
+            ElectricListingFragment.onback=false
             if (mBinding.checkBoxEmail.isChecked || mBinding.checkBoxPhone.isChecked) {
                 selfVerificationApiCall()
             } else {
@@ -116,11 +120,15 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         }
 
         mBinding.btnTPVNOW.onClick {
+            DynamicFormFragment.back_pressed=false
+            ElectricListingFragment.onback=false
             selectLanguageDialog()
         }
 
         mBinding.textBackToDashBoard.onClick {
             mViewModel.clearSavedData()
+            DynamicFormFragment.back_pressed=false
+            ElectricListingFragment.onback=false
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_successFragment_to_dashBoardFragment)
         }
     }
@@ -177,6 +185,7 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.clearSavedData()
+//                DynamicFormFragment.back_pressed=false
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_successFragment_to_dashBoardFragment)
             }
         })
@@ -209,14 +218,20 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
 
         binding?.btnSms?.onClick {
             selectedMethod = AppConstant.EN
+
+
+
         }
 
         binding?.btnVoice?.onClick {
             selectedMethod = AppConstant.ES
+
+
         }
 
         binding?.btnCancel?.onClick {
             dialog?.dismiss()
+
         }
         binding?.btnSubmit?.onClick {
             dialog?.dismiss()

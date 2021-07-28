@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken
 import com.livinglifetechway.k4kotlin.core.orFalse
 import com.tpv.android.R
 import com.tpv.android.databinding.*
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.model.network.Option
 import com.tpv.android.model.network.ProgramsDetail
@@ -27,7 +28,7 @@ import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.setupToolbar
 
-class LeadDetailFragment : Fragment() {
+class LeadDetailFragment : Fragment(), OnBackPressCallBack {
 
     private lateinit var mBinding: FragmentLeadDetailBinding
     private lateinit var mViewModel: LeadDetailViewModel
@@ -390,6 +391,10 @@ class LeadDetailFragment : Fragment() {
 
         response.leadDetailText = text
         binding.item = response
+    }
+
+    override fun handleOnBackPressed(): Boolean {
+        return true
     }
 
 }

@@ -1,5 +1,6 @@
 package com.tpv.android.ui.salesagent.home.enrollment.signatureVerification
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,7 +9,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.CompoundButton
+import android.widget.Spinner
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -16,28 +21,33 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import com.livinglifetechway.k4kotlin.onClick
-import com.livinglifetechway.k4kotlin.orFalse
-import com.livinglifetechway.k4kotlin.toastNow
+import com.livinglifetechway.k4kotlin.*
+import com.livinglifetechway.k4kotlin.core.onItemSelected
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentSignatureVerificationBinding
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.internal.DialogText
 import com.tpv.android.model.network.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
+import com.tpv.android.ui.SplashActivity
+import com.tpv.android.ui.salesagent.home.dashboard.DashBoardFragment
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
+import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.glide.GlideApp
 import id.zelory.compressor.Compressor
+import kotlinx.android.synthetic.main.fragment_signature_verification.*
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SignatureVerificationFragment : Fragment() {
+class SignatureVerificationFragment : Fragment(), OnBackPressCallBack {
     lateinit var mBinding: FragmentSignatureVerificationBinding
     lateinit var mViewModel: SignatureVerificationViewModel
     private lateinit var mSetEnrollViewModel: SetEnrollViewModel
@@ -55,19 +65,34 @@ class SignatureVerificationFragment : Fragment() {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_signature_verification, container, false)
         mBinding.lifecycleOwner = this
         mViewModel = ViewModelProviders.of(this).get(SignatureVerificationViewModel::class.java)
-        activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java) }
+        activity?.let { mSetEnrollViewModel = ViewModelProviders.of(it).get(SetEnrollViewModel::class.java)
+        }
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initalize()
     }
 
     private fun initalize() {
-
+        Log.e("mViewModelpalnid",mSetEnrollViewModel.planId)
         setupToolbar(mBinding.toolbar, getString(R.string.e_signature))
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
+        if(mSetEnrollViewModel.dynamicSettings?.le_client_enrollment_type.orFalse()){
+                if (DynamicFormFragment.image_upload==1) {
+                setupToolbar(mBinding.toolbar, "Confirm Enrollement")
+                mBinding.heading.text="Please submit to proceed the enrollment"
+                    mBinding.heading.textSize=resources.getDimension(R.dimen._5sdp)
+                mBinding.checkBoxPhone.visibility=View.GONE
+                mBinding.checkBoxEmail.visibility=View.GONE
+                mBinding.btnSubmit.isEnabled=true
+                mBinding.btnSendLink.visibility=View.GONE
+            }
+
+
+        }
 
         mBinding.checkBoxEmail.setOnCheckedChangeListener { buttonView, isChecked ->
             getSelectedCheckBoxValue(isChecked, buttonView)
@@ -78,11 +103,14 @@ class SignatureVerificationFragment : Fragment() {
         }
 
 
+
+
         mBinding.btnSubmit.onClick {
             saveCustomerDataApiCall()
         }
 
         mBinding.btnCancel.onClick {
+
             context?.actionDialog(
                     DialogText(getString(R.string.cancel_enrollment),
                             getString(R.string.enroll_cancel),
@@ -106,7 +134,7 @@ class SignatureVerificationFragment : Fragment() {
 
             private fun verifySignatureAPICall() {
                 val liveDataVerifySignature = mViewModel.verifySignature(verifySignatureReq = VerifySignatureReq(
-                        mSetEnrollViewModel.leadvelidationError?.leadTempId.orEmpty()
+                        mSetEnrollViewModel.parent_id
                 ))
                 liveDataVerifySignature.observeForever(Observer {
                     it?.ifSuccess {
@@ -122,26 +150,29 @@ class SignatureVerificationFragment : Fragment() {
 
     }
 
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         handler.removeCallbacksAndMessages(null)
     }
 
     private fun sendLinkAPICall() {
+
         val liveData = mViewModel.sendSignature(SendSignatureLinkReq(
                 mode = mVerificationType.joinToString(separator = ","),
-                tmpLeadId = mSetEnrollViewModel.leadvelidationError?.leadTempId
+                tmpLeadId = mSetEnrollViewModel.parent_id
         ))
-        liveData.observe(this@SignatureVerificationFragment, Observer { resources ->
+           liveData.observe(this@SignatureVerificationFragment, Observer { resources ->
             resources?.ifSuccess {
-                toastNow(it?.message.orEmpty())
                 getSelectedCheckBoxValue(false, mBinding.checkBoxEmail)
                 getSelectedCheckBoxValue(false, mBinding.checkBoxPhone)
+                toastNow(it?.message.orEmpty())
 
             }
         })
 
-        mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
+
     }
 
     private fun cancelLeadAPICall() {
@@ -150,6 +181,8 @@ class SignatureVerificationFragment : Fragment() {
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mSetEnrollViewModel.clearSavedData()
+                ElectricListingFragment.onback=false
+                DynamicFormFragment.back_pressed=false
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_signatureVerificationFragment_to_dashBoardFragment)
             }
 
@@ -161,8 +194,6 @@ class SignatureVerificationFragment : Fragment() {
     private fun getSelectedCheckBoxValue(isChecked: Boolean, buttonView: CompoundButton?) {
         if (isChecked) {
             mVerificationType.add(buttonView?.text.toString().toLowerCase(Locale.ROOT))
-
-
         } else {
             if (mVerificationType.isNotEmpty()) {
                 mVerificationType.remove(mVerificationType.find { it == buttonView?.text.toString().toLowerCase(Locale.ROOT) })
@@ -191,13 +222,27 @@ class SignatureVerificationFragment : Fragment() {
             is_image=false
         }
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
-        liveData = mSetEnrollViewModel.saveLeadDetail(SaveLeadsDetailReq(
-                leadTempId = mSetEnrollViewModel.leadvelidationError?.leadTempId,
-                formId = mSetEnrollViewModel.planId,
-                fields = mSetEnrollViewModel.dynamicFormData,
-                billingimage = is_image,
-                other = OtherData(programId = TextUtils.join(",", mSetEnrollViewModel.programList.map { it.id }),
-                        zipcode = zipcode,enrollmentUsing = mSetEnrollViewModel.selectionType)))
+        if( mSetEnrollViewModel.programid.isEmpty()){
+            liveData = mSetEnrollViewModel.saveLeadDetail(SaveLeadsDetailReq(
+                    leadTempId = mSetEnrollViewModel.parent_id,
+                    formId = mSetEnrollViewModel.planId,
+                    agent_ipaddress = DashBoardFragment.sAddr,
+                    fields = mSetEnrollViewModel.dynamicFormData,
+                    billingimage = is_image,
+                    other = OtherData(programId = TextUtils.join(",", mSetEnrollViewModel.programList.map { it.id }),
+                            zipcode = zipcode,enrollmentUsing = mSetEnrollViewModel.selectionType)))
+        }else{
+
+            liveData = mSetEnrollViewModel.saveLeadDetail(SaveLeadsDetailReq(
+                    leadTempId = mSetEnrollViewModel.parent_id,
+                    formId = mSetEnrollViewModel.planId,
+                    agent_ipaddress = DashBoardFragment.sAddr,
+                    fields = mSetEnrollViewModel.dynamicFormData,
+                    billingimage = is_image,
+                    other = OtherData(programId = mSetEnrollViewModel.programid,
+                            zipcode = zipcode,enrollmentUsing = mSetEnrollViewModel.selectionType)))
+        }
+
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mSetEnrollViewModel.savedLeadResp = it
@@ -271,4 +316,15 @@ class SignatureVerificationFragment : Fragment() {
 
         mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
     }
+
+    override fun handleOnBackPressed(): Boolean {
+        mSetEnrollViewModel.customerback=true
+        return true
+    }
+
+
 }
+
+
+
+

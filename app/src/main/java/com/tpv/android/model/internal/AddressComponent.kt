@@ -11,4 +11,6 @@ data class AddressComponent(var address: String?,
                             var city: String,
                             var country: String,
                             var stateSortName: String
+
+
 )

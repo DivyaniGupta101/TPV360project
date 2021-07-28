@@ -1,5 +1,13 @@
 <resources>
     <!--    Toolbar Title-->
+
+
+    <string-array name="Select">
+        <item>Select</item>
+        <item>On Device</item>
+        <item>No Signature</item>
+        <item>E signature</item>
+    </string-array>
     <string name="dashboard">Dashboard</string>
     <string name="billupload">Upload Picture</string>
     <string name="profile">Profile</string>
@@ -31,6 +39,7 @@
     <string name="e_signature">E-Signature</string>
 
 
+
     <!--    ButtonLabel-->
     <string name="cancel">Cancel</string>
     <string name="skip_btn">Skip</string>
@@ -42,13 +51,14 @@
     <string name="ok">Ok</string>
     <string name="no">No</string>
     <string name="verify">Verify</string>
-    <string name="self_verify">Self Verified</string>
+    <string name="self_verify">Self Verify</string>
     <string name="save">Save</string>
     <string name="clear">Clear</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="get_started">Get Started</string>
     <string name="send_link">Send Link</string>
     <string name="cancel_enrollment">Cancel Enrollment</string>
+    <string name="delete_enrollment">Delete Enrollment</string>
 
     <!--    Validation -->
     <string name="enter_email">Please enter email</string>
@@ -229,7 +239,9 @@
     <string name="thank_you">Thank You!</string>
     <string name="your_verification_id">Your verification ID</string>
     <string name="enroll_cancel">Are you sure you want to cancel?</string>
-    <string name="verification_number">Verification Number</string>
+    <string name="enroll_delete">Are you sure you want to Delete?</string>
+
+    <string name="verification_number">TPV Number</string>
     <string name="verification_method">Choose method of self verification :</string>
     <string name="e_signature_verification_method">Choose method of e-signature verification: </string>
     <string name="phone">Phone</string>

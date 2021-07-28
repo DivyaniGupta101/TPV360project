@@ -30,6 +30,7 @@ import com.tpv.android.databinding.ItemTimezoneBinding
 import com.tpv.android.helper.Pref
 import com.tpv.android.model.network.TimeZone
 import com.tpv.android.model.network.TimeZoneReq
+import com.tpv.android.model.network.UserDetail
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError

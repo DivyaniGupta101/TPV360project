@@ -2,10 +2,7 @@ package com.tpv.android.ui.salesagent.home.enrollment.planszipcode
 
 import androidx.lifecycle.MutableLiveData
 import com.tpv.android.data.AppRepository
-import com.tpv.android.model.network.DynamicSettingsReq
-import com.tpv.android.model.network.UtilityReq
-import com.tpv.android.model.network.ZipCodeReq
-import com.tpv.android.model.network.ZipCodeResp
+import com.tpv.android.model.network.*
 import com.tpv.android.network.resources.CoroutineScopedViewModel
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
@@ -31,6 +28,8 @@ class PlansZipcodeViewModel : CoroutineScopedViewModel() {
     fun getUtilityState(dynamicSettingsReq: DynamicSettingsReq) = with(AppRepository) {
         getUtilityStateCall(dynamicSettingsReq)
     }
+
+
 
     fun clearZipCodeListData() {
         currentZipCodeCallMutableLiveData.value = Resource.empty()

@@ -2,9 +2,11 @@ package com.tpv.android.ui.salesagent.home.enrollment.customerinfo
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,8 +18,11 @@ import com.livinglifetechway.k4kotlin.core.orFalse
 import com.livinglifetechway.k4kotlin.core.show
 import com.tpv.android.R
 import com.tpv.android.databinding.*
+import com.tpv.android.helper.OnBackPressCallBack
 import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.model.network.RequestCustomer
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.BindingAdapter.addressCombineValues
 import com.tpv.android.utils.enums.DynamicField
@@ -44,6 +49,7 @@ class CustomerInfoFragment : Fragment() {
     }
 
     private fun initialize() {
+        Log.e("dynamicformdata",mViewModel.dynamicFormData.toString())
         if (mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true } != null) {
             mBinding.item = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
             mBinding.textNameValue.addTextChangedListener {
@@ -135,9 +141,11 @@ class CustomerInfoFragment : Fragment() {
         mBinding.btnNext.onClick {
             if (mViewModel.dynamicSettings?.isEnableRecording.orFalse()) {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_recordingFragment)
-            } else  if (mViewModel.dynamicSettings?.isEnableImageUpload.orFalse()) {
+            } else  if (DynamicFormFragment.image_upload==1) {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_uploadbillimageFragment)
-            } else {
+            } else  if (mViewModel.is_image_upload.orFalse()) {
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_uploadbillimageFragment)
+            }else {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_signatureVerificationFragment)
             }
         }
@@ -150,7 +158,6 @@ class CustomerInfoFragment : Fragment() {
 
             val titleBinding = DataBindingUtil.inflate<ItemTitleProgramsBinding>(layoutInflater, R.layout.item_title_programs, mBinding.infoContainer, true)
             titleBinding.item = mViewModel.selectedUtilityList.find { it.utid.toString() == programsResp.utilityId }?.commodity
-
             val binding = DataBindingUtil.inflate<ItemProgramsBinding>(layoutInflater, R.layout.item_programs, mBinding.infoContainer, true)
             binding.mainContainer.background = context?.getDrawable(R.drawable.bg_rectangle_border)
             binding.item = programsResp
@@ -170,4 +177,8 @@ class CustomerInfoFragment : Fragment() {
             }
         }
     }
+
+
+
+
 }

@@ -83,7 +83,7 @@ class FilePickerFragment : Fragment(), CoroutineScope {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK ) {
             when (requestCode) {
                 REQ_FILE -> {
                     pickFileObj?.onActivityResult(data) { file ->

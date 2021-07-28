@@ -13,6 +13,7 @@
 
         <import type="com.tpv.android.model.internal.DashBoardItem" />
 
+
         <import type="androidx.lifecycle.LiveData" />
 
         <import type="java.util.ArrayList" />
@@ -28,6 +29,12 @@
         <variable
             name="item"
             type="LiveData&lt;ArrayList&lt;com.tpv.android.model.internal.DashBoardItem>>" />
+
+        <variable
+            name="item1"
+            type="com.tpv.android.model.network.ResponseAppMessaging" />
+
+
 
     </data>
 
@@ -70,6 +77,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:freezesText="true"
+                            android:visibility="gone"
                             android:gravity="center_horizontal"
                             android:marqueeRepeatLimit="marquee_forever"
                             android:scrollHorizontally="true"
@@ -78,9 +86,9 @@
                             android:shadowDx="1.5"
                             android:shadowDy="1.3"
                             android:textSize="@dimen/_14sdp"
-                            android:layout_marginTop="@dimen/_14sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
                             android:shadowRadius="1.6"
-                            android:text="Simple application that shows how to use marquee, with a long text" />
+                            />
 
                         <include
                             android:id="@+id/includeItemDashboardPending"

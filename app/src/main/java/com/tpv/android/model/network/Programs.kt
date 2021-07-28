@@ -36,6 +36,7 @@ data class ProgramsResp(
         @SerializedName("custom_fields")
         var costomFields: ArrayList<ProgramCustomField>,
         var isSelcected: Boolean? = false,
+        var isSelected_second:Boolean?=false,
         var utilityType: String?
 
 )

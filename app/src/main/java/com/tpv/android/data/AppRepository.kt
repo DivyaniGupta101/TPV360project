@@ -86,6 +86,21 @@ object AppRepository {
         }
     }
 
+    fun CoroutineScope.getgasprograms(utilityid: String) = dataApi<ResponseGasUtility?, APIError>
+    {
+        fromNetwork {
+            ApiClient.service.getgasPrograms(utilityid).getResult().map { it }
+        }
+    }
+
+
+    fun CoroutineScope.getelectricprogram(utilityid: String,rewardname:String) = dataApi<ResponseElectricProgram?, APIError>
+    {
+        fromNetwork {
+            ApiClient.service.getelectricprogram(utilityid,rewardname).getResult().map { it }
+        }
+    }
+
     //ProgramsList
     fun CoroutineScope.getProgramsCall(utilityList: ArrayList<UtilityResp>) = dataApi<List<Any>, APIError>
     {
@@ -176,6 +191,12 @@ object AppRepository {
     }
 
 
+    fun CoroutineScope.savemessage(clientId: String?)=dataApi<ResponseAppMessaging?,APIError> {
+        fromNetwork {
+            ApiClient.service.messagevalue(clientId).getResultSync().map { it }
+        }
+    }
+
     //Generate OTP For Phone Number
     fun CoroutineScope.generateOTPCall(otpReq: OTPReq) = dataApi<Any?, APIError> {
         fromNetwork {
@@ -189,6 +210,29 @@ object AppRepository {
             ApiClient.service.verifyOtp(verifyOTPReq).getResult().map { it?.data }
         }
     }
+
+
+    //customer information
+    fun CoroutineScope.getcustomerinformation(temp_leadid:RequestCustomer)=dataApi<ResponseCustomerInformation?,APIError> {
+        fromNetwork {
+            ApiClient.service.getcustomerinformation(temp_leadid).getResult().map { it }
+        }
+    }
+    //Enrollementtype
+    fun CoroutineScope.getenrollmenttype(enrollementtype:String?,clientId: String?) = dataApi<EnrollementType?, APIError> {
+        fromNetwork {
+            ApiClient.service.enrollementype(enrollementtype,clientId).getResult().map { it }
+        }
+    }
+
+    //cancel enrollement
+    fun CoroutineScope.getcancelenrollement(temp_leadid : String?)=dataApi<ResponseCancelEnrollement?,APIError> {
+        fromNetwork {
+            ApiClient.service.cancelenrollement(temp_leadid).getResult().map { it }
+        }
+    }
+
+
 
     //Generate OTP For Email
     fun CoroutineScope.generateEmailOTPCall(otpEmailReq: OTPEmailReq) = dataApi<Any?, APIError> {
@@ -217,9 +261,9 @@ object AppRepository {
         }
     }
 
-    fun CoroutineScope.getDynamicFormCall(dynamicFormReq: DynamicFormReq) = dataApi<List<DynamicFormResp>?, APIError> {
+    fun CoroutineScope.getDynamicFormCall(addenrollement:Boolean,dynamicFormReq: DynamicFormReq) = dataApi<List<DynamicFormResp>?, APIError> {
         fromNetwork {
-            ApiClient.service.getDynamicForm(dynamicFormReq).getResult().map { it?.data }
+            ApiClient.service.getDynamicForm(addenrollement,dynamicFormReq).getResult().map { it?.data }
         }
     }
 
@@ -280,6 +324,9 @@ object AppRepository {
         }
     }
 
+
+
+
     fun CoroutineScope.getTimeLineCall(id: String) = dataApi<List<ClientTimeLineResp>, APIError> {
         fromNetwork {
             ApiClient.service.getTimeLine(id = id).getResult().map { it?.data.orEmpty() }
@@ -327,6 +374,9 @@ object AppRepository {
         }
     }
 
+
+
+
     //send Signature Link
     fun CoroutineScope.sendSignatureCall(sendSignatureLinkReq: SendSignatureLinkReq) = dataApi<CommonResponse<Any>?, APIError> {
         fromNetwork {
@@ -359,6 +409,12 @@ object AppRepository {
     fun CoroutineScope.getUtilityStateCall(dynamicSettingsReq: DynamicSettingsReq) = dataApi<List<UtilityStateResp>?, APIError> {
         fromNetwork {
             ApiClient.service.getUtilityState(dynamicSettingsReq).getResult().map { it?.data }
+        }
+    }
+
+    fun CoroutineScope.getimagevalue(utilityid: Requentutilityid) = dataApi<ResponseImage?, APIError> {
+        fromNetwork {
+            ApiClient.service.getimage(utilityid).getResult().map { it }
         }
     }
 

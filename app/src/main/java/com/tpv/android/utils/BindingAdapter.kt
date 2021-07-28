@@ -221,6 +221,7 @@ object BindingAdapter {
         }
     }
 
+
     /**
      * binding adapter for show name's letter in image while url is blank or null
      */
@@ -511,5 +512,15 @@ object BindingAdapter {
         editText.setCompoundDrawablesWithIntrinsicBounds(null, null, imageView, null)
     }
 
+
+    @JvmStatic
+    @BindingAdapter("messageData")
+    fun setmessage(textView: TextView, data: String?) {
+        if (data.isNullOrEmpty()) {
+            textView.setText("")
+        } else {
+            textView.setText(data)
+        }
+    }
 }
 
