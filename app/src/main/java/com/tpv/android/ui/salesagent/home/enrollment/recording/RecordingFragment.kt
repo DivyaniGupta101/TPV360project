@@ -16,6 +16,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager.*
+import androidx.recyclerview.widget.RecyclerView
 import com.livinglifetechway.k4kotlin.core.androidx.alert
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.onClick
@@ -50,6 +53,9 @@ class RecordingFragment : Fragment(), OnBackPressCallBack {
     var AUDIO_STOP = 1
     var RECORD_START = 2
     var RECORD_STOP = 3
+    var list:ArrayList<String> = ArrayList()
+    var newlist:ArrayList<String> = ArrayList()
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -71,11 +77,14 @@ class RecordingFragment : Fragment(), OnBackPressCallBack {
     }
 
     private fun initialize() {
-        mBinding.item = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
-
+//        mBinding.item = mViewModel.dynamicFormData.find { it.type == DynamicField.FULLNAME.type && it.meta?.isPrimary == true }
+//        list.add("Demo First Question1")
+//        mBinding.questionRecyclerView.setHasFixedSize(true)
+//        mBinding.questionRecyclerView.layoutManager= LinearLayoutManager(context, HORIZONTAL,false)
+//        var adapter=RecordingAdapter(list)
+//        mBinding.questionRecyclerView.adapter=adapter
         setupToolbar(mBinding.toolbar, getString(R.string.recording), showBackIcon = true, backIconClickListener = {
             if (recordedFile?.isNotEmpty().orFalse()) {
-
                 mediaPlayer.stop()
             }
         })
@@ -83,6 +92,15 @@ class RecordingFragment : Fragment(), OnBackPressCallBack {
         mBinding.checkRecording.onClick {
             handleNextButton()
         }
+//        mBinding.questionNext.onClick {
+//            list.clear()
+//            list.add("Demo Second Question2")
+//            mBinding.questionRecyclerView.layoutManager= LinearLayoutManager(context, HORIZONTAL,false)
+//            var adapter=RecordingAdapter(list)
+//            mBinding.questionRecyclerView.adapter=adapter
+//
+//        }
+
 
 
         mBinding.textSkip.onClick {

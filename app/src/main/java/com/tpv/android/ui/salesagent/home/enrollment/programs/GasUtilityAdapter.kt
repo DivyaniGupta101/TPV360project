@@ -25,7 +25,6 @@ open class GasUtilityAdapter(val list:ArrayList<GasdataItem>, val listener:Onite
 
     val context: Context? =null
     var last_selected=-1
-    var new_postion:Int?=null
 
     companion object{
     }
@@ -58,25 +57,26 @@ open class GasUtilityAdapter(val list:ArrayList<GasdataItem>, val listener:Onite
         val adapter=CustomFieldAdapter(customlist)
         holder.custom_adapter.adapter=adapter
         holder.main_container.setOnClickListener(View.OnClickListener {
+            listener.onclick(position)
             if(ElectricListingFragment.onback==true){
-                Log.e("onmainclick","onmainclick")
                 if(last_selected!=position){
                     last_selected=position
                     list[last_selected].is_selected="true"
                     GasListingFragment.positon=last_selected
                     notifyDataSetChanged()
-                    listener.onclick(position)
 
                 }
+
             }else{
                 if(last_selected!=position){
                     last_selected=position
+                    notifyItemChanged(last_selected)
                     list[last_selected].is_selected="true"
                     GasListingFragment.positon=last_selected
                     notifyDataSetChanged()
-                    listener.onclick(position)
 
                 }
+
             }
 
 

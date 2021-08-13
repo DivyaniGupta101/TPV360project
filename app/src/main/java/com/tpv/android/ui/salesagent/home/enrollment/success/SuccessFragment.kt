@@ -31,7 +31,9 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
+import com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment
 import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
+import com.tpv.android.ui.salesagent.home.enrollment.programs.GasListingFragment
 import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe
@@ -103,6 +105,15 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         mBinding.btnVerify.onClick {
             DynamicFormFragment.back_pressed=false
             ElectricListingFragment.onback=false
+            PlansZipcodeFragment.gasutility_id=""
+            PlansZipcodeFragment.electric_utitlityid=""
+            PlansZipcodeFragment.add_enrollementbutton_clicked=false
+            GasListingFragment.reward_name=""
+            GasListingFragment.gasid=""
+            PlansZipcodeFragment.leclient=false
+            ElectricListingFragment.electricid=""
+            GasListingFragment.selectedid.clear()
+            GasListingFragment.selectedvalue=false
             if (mBinding.checkBoxEmail.isChecked || mBinding.checkBoxPhone.isChecked) {
                 selfVerificationApiCall()
             } else {
@@ -122,6 +133,15 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         mBinding.btnTPVNOW.onClick {
             DynamicFormFragment.back_pressed=false
             ElectricListingFragment.onback=false
+            PlansZipcodeFragment.gasutility_id=""
+            PlansZipcodeFragment.electric_utitlityid=""
+            GasListingFragment.reward_name=""
+            GasListingFragment.gasid=""
+            ElectricListingFragment.electricid=""
+            PlansZipcodeFragment.add_enrollementbutton_clicked=false
+            GasListingFragment.selectedid.clear()
+            PlansZipcodeFragment.leclient=false
+            GasListingFragment.selectedvalue=false
             selectLanguageDialog()
         }
 
@@ -129,6 +149,15 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
             mViewModel.clearSavedData()
             DynamicFormFragment.back_pressed=false
             ElectricListingFragment.onback=false
+            PlansZipcodeFragment.gasutility_id=""
+            PlansZipcodeFragment.electric_utitlityid=""
+            GasListingFragment.reward_name=""
+            GasListingFragment.gasid=""
+            ElectricListingFragment.electricid=""
+            GasListingFragment.selectedid.clear()
+            PlansZipcodeFragment.leclient=false
+            GasListingFragment.selectedvalue=false
+            PlansZipcodeFragment.add_enrollementbutton_clicked=false
             Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_successFragment_to_dashBoardFragment)
         }
     }

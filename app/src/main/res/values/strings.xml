@@ -221,6 +221,8 @@
     <string name="plan_information">Plan Information</string>
     <string name="verify_customer_information">Verify Customer Information</string>
     <string name="record_again">Record Again</string>
+    <string name="question">Questions</string>
+
     <string name="personal_details">Personal Details</string>
     <string name="electric_details">Electric Details</string>
     <string name="gas_details">Gas Details</string>

@@ -108,11 +108,6 @@ class UploadbillImageFragment : Fragment(), OnBackPressCallBack {
             handleNextButton()
         }
 
-        if(mSetEnrollViewModel.dynamicSettings?.le_client_enrollment_type.orFalse()){
-            if (DynamicFormFragment.image_upload==1) {
-               mBinding.textSkip.visibility=View.GONE
-            }
-        }
 
         mBinding.uploadImage.onClick {
             runWithPermissions(android.Manifest.permission.CAMERA) {

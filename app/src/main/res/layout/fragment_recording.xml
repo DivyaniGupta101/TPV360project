@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/_40sdp">
+                        android:layout_marginTop="@dimen/_20sdp">
 
                         <ImageView
                             android:id="@+id/graySpeakerImage"
@@ -177,7 +177,37 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:text="@string/record_again" />
+
+
                     </LinearLayout>
+                    <TextView
+                        style="@style/PrimaryBoldText"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"
+                        android:textColor="@color/colorTertiaryText"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="@string/question" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:id="@+id/question_recycler_view"
+                        tools:listitem="@layout/question_adapter"
+                        android:layout_height="wrap_content">
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/question_next"
+                        android:enabled="true"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        android:textColor="@color/quantum_black_100"
+                        android:text="@string/next" />
+
                 </LinearLayout>
 
                 <TextView

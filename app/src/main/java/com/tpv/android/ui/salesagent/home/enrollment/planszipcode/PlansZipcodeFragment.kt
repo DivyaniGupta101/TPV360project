@@ -20,8 +20,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.livinglifetechway.k4kotlin.*
 import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
+import com.livinglifetechway.k4kotlin.core.hide
+import com.livinglifetechway.k4kotlin.core.onClick
+import com.livinglifetechway.k4kotlin.core.orFalse
+import com.livinglifetechway.k4kotlin.core.value
 import com.livinglifetechway.k4kotlin.onItemSelected
 import com.livinglifetechway.k4kotlin.orZero
 import com.livinglifetechway.k4kotlin.setItems
@@ -42,6 +47,7 @@ import com.tpv.android.ui.salesagent.home.enrollment.commodity.CommodityFragment
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.serviceandbillingaddress.selectedState
 import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
+import com.tpv.android.ui.salesagent.home.enrollment.programs.GasListingFragment
 import com.tpv.android.utils.enums.EnrollType
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe
@@ -72,6 +78,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
          var gasutility_id:String=""
          var electric_utitlityid:String=""
          var  Onnext:Boolean = false
+         var add_enrollementbutton_clicked=false
+         var leclient:Boolean?=false
 
 
         private const val TEXT_CHANGE_DELAY = 200L
@@ -89,6 +97,11 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
+        if(mSetEnrollViewModel.add_enrollement==true || mSetEnrollViewModel.custome_toolbar_clicked==true){
+            add_enrollementbutton_clicked=true
+            mBinding.toolbar.imageToolbarBack.isEnabled=false
+            Log.e("clicked", add_enrollementbutton_clicked.toString())
+        }
 
 
 
@@ -98,10 +111,9 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
 
     override fun handleOnBackPressed(): Boolean {
-        
 
-        mSetEnrollViewModel.clearSavedData()
-        return true
+           mSetEnrollViewModel.clearSavedData()
+           return true
     }
 
     private fun initialize() {
@@ -110,10 +122,12 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
             val toolbarTitle = arguments?.let { PlansZipcodeFragmentArgs.fromBundle(it).item }
 
-            setupToolbar(mBinding.toolbar, toolbarTitle.orEmpty(), showBackIcon = true) {
-             mSetEnrollViewModel.clearSavedData()
+            setupToolbar(mBinding.toolbar, toolbarTitle.orEmpty(), showBackIcon = true,backIconClickListener = {
+                mSetEnrollViewModel.clearSavedData()
 
-        }
+            })
+
+
 
 
         getStatusOfEnrollWithState()
@@ -130,10 +144,14 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
 
         mBinding.spinnerState.onItemSelected { parent, view, position, id ->
             mBinding.btnNext.isEnabled = position != 0
+            mSetEnrollViewModel.utility_list.clear()
             mSetEnrollViewModel.selected_stateposition=mStateList[position.orZero()].state.orEmpty()
             Log.e("selected_statefirst",mSetEnrollViewModel.selected_stateposition)
+            mSetEnrollViewModel.state_id=mStateList[position.orZero()].id.orEmpty()
+            Log.e("id",mSetEnrollViewModel.state_id)
             if (position != 0) {
                 if (mSetEnrollViewModel.selectedState != mStateList[position.orZero()]) {
+                    mUtilityList.clear()
                     getUtilityListApiCall(state = mStateList[position.orZero()].state.orEmpty())
                 }
            }
@@ -162,7 +180,16 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         }
         mBinding.btnNext.onClick {
             hideKeyboard()
+            GasListingFragment.gasid=""
+            Log.e("gasid",GasListingFragment.gasid)
+            ElectricListingFragment.electricid=""
+            GasListingFragment.selectedid.clear()
+            mSetEnrollViewModel.programid=""
             setData()
+            if(DynamicFormFragment.back_pressed==true){
+                DynamicFormFragment.back_pressed=false
+            }
+
             if(mSetEnrollViewModel.add_enrollement==true){
                   mSetEnrollViewModel.secondclick=true
                 if (mSetEnrollViewModel.utilityList.size>1){
@@ -211,6 +238,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
             observeForever(Observer {
                 it?.ifSuccess {
                     mSetEnrollViewModel.dynamicSettings = it
+                    leclient=it?.le_client_enrollment_type.orFalse()
+                    Log.e("lecliednt", leclient.toString())
                     mBinding.incProgressBar.progressBarView.show()
                    if (it?.isEnableEnrollByState.orFalse() && it?.isEnableEnrollByZip==false) {
                         mBinding.containerMain.hide()
@@ -255,6 +284,15 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                         getUtilityListApiCall(mSetEnrollViewModel.selected_zipcode,mSetEnrollViewModel.selected_stateposition)
 
                     }
+                }else if(mSetEnrollViewModel.customerback==true || DynamicFormFragment.back_pressed==true){
+                    mBinding.textZipcode.setText(mSetEnrollViewModel.selected_zipcode)
+                    mBinding.textZipcode.isEnabled=false
+                    mBinding.spinnerState.isEnabled=false
+                    mBinding.radioState.isClickable=false
+                    mBinding.radioZipcode.isClickable=false
+                    mBinding.textZipcode.setTextColor(resources.getColor(R.color.colorDarkGray))
+                    getUtilityListApiCall(mSetEnrollViewModel.selected_zipcode,mSetEnrollViewModel.selected_stateposition)
+
                 }
                 if (mSetEnrollViewModel.selectedState != null) {
                     mSetEnrollViewModel.selectedState?.let {
@@ -357,6 +395,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         //On Click of dropdown, set selected value in editText
         //Also set that value in "lastSearchZipcode"
         mBinding.textZipcode.setOnItemClickListener { parent, view, position, id ->
+            mSetEnrollViewModel.utility_list.clear()
             lastSearchZipCode = mZipcodeList[position].zipcode.orEmpty()
             mBinding.textZipcode.value = lastSearchZipCode
             mBinding.textZipcode.setSelection(lastSearchZipCode.length)
@@ -477,6 +516,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
     private fun hideViews() {
         mBinding.spinnerContainer.removeAllViews()
         mBinding.btnNext.isEnabled = false
+
     }
 
 

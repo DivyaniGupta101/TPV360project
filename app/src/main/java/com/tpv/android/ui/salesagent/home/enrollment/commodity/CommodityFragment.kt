@@ -125,9 +125,7 @@ class CommodityFragment : Fragment() {
         liveData.observe(this, Observer {
             it.ifSuccess {
                 mViewModel.utilityList.addAll(mList.find { it.id.toString() == id }?.commodities.orEmpty())
-                Log.e("utilitylist",mViewModel.upload_imagefile.toString())
                 mViewModel.planId = id
-                Log.e("mViewModelpalnid",mViewModel.planId)
                 Navigation.findNavController(mBinding.root).navigateSafe(CommodityFragmentDirections.actionCommodityFragmentToPlansZipcodeFragment(title.orEmpty()))
             }
         })

@@ -28,6 +28,7 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
+import com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment
 import com.tpv.android.utils.copyTextDialog
 import com.tpv.android.utils.validation.EmailValidator
 import com.tpv.android.utils.validation.EmptyValidator
@@ -96,27 +97,53 @@ fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
 
 fun LayoutInputEmailAddressBinding.isValid(context: Context?): Boolean {
     val binding = this
+    if(PlansZipcodeFragment.leclient==true){
+        if (DynamicFormFragment.image_upload == 1) {
 
-    return if (binding.item?.validations?.required.orFalse()) {
-        Log.e("validations", binding.item?.validations?.required.orFalse().toString())
-        Validator(TextInputValidationErrorHandler()) {
-            addValidate(
-                    binding.editText,
-                    EmptyValidator(),
-                    context?.getString(R.string.enter_email)
+        } else {
+            Validator(TextInputValidationErrorHandler()) {
+                addValidate(
+                        binding.editText,
+                        EmptyValidator(),
+                        context?.getString(R.string.enter_email)
 
-            )
-            addValidate(
-                    binding.editText,
-                    EmailValidator(),
-                    context?.getString(R.string.enter_valid_email)
-            )
-        }.validate()
-    } else {
-        Log.e("validation_else","validation_else")
-        return true
+                )
+                addValidate(
+                        binding.editText,
+                        EmailValidator(),
+                        context?.getString(R.string.enter_valid_email)
+                )
+            }.validate()
+        }
+    }else{
+        Log.e("else","else")
+        return if (binding.item?.validations?.required.orFalse()) {
+            Log.e("validations", binding.item?.validations?.required.orFalse().toString())
+            Validator(TextInputValidationErrorHandler()) {
+                addValidate(
+                        binding.editText,
+                        EmptyValidator(),
+                        context?.getString(R.string.enter_email)
+
+                )
+                addValidate(
+                        binding.editText,
+                        EmailValidator(),
+                        context?.getString(R.string.enter_valid_email)
+                )
+            }.validate()
+        }
+        else {
+            Log.e("validations", binding.item?.validations?.required.orFalse().toString())
+            return true
+        }
     }
+    return true
 }
+
+
+
+
 
 /**
  * Generate otp on this email

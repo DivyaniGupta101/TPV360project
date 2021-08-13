@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.*
 import com.google.gson.Gson
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
+import com.livinglifetechway.k4kotlin.core.androidx.toast
 import com.livinglifetechway.k4kotlin.core.hide
 import com.livinglifetechway.k4kotlin.core.invisible
 import com.livinglifetechway.k4kotlin.core.onClick
@@ -28,6 +29,9 @@ import com.tpv.android.model.internal.DialogText
 import com.tpv.android.model.network.DynamicFormResp
 import com.tpv.android.ui.client.ui.ClientHomeActivity
 import com.tpv.android.ui.salesagent.home.HomeActivity
+import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.customerinfo.CustomerInfoFragment
+import com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment
 import com.tpv.android.utils.BindingAdapter.addressCombineValues
 import com.tpv.android.utils.BindingAdapter.setCombineFullName
 import com.tpv.android.utils.enums.DynamicField
@@ -73,9 +77,13 @@ fun Fragment.setupToolbar(
     if (showBackIcon) {
         backImage?.show()
         backImage?.onClick {
-            hideKeyboard()
-            backIconClickListener?.invoke()
-            Navigation.findNavController(toolbarContainer.root).navigateUp()
+                hideKeyboard()
+                backIconClickListener?.invoke()
+                Navigation.findNavController(toolbarContainer.root).navigateUp()
+
+
+
+
         }
     } else {
         backImage?.hide()

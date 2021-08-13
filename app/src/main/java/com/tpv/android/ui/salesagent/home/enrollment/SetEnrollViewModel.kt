@@ -17,7 +17,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
 
     var planId: String = ""
     var leadvalidationbackpressed:Boolean=false
-
     var selectedUtilityList: ArrayList<UtilityResp> = ArrayList()
     var programList: ArrayList<ProgramsResp> = ArrayList()
     var savedLeadResp: SaveLeadsDetailResp? = null
@@ -34,7 +33,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var leadvelidationError: VelidateLeadsDetailResp? = null
     var location: Location? = null
     var utilityList: ArrayList<Commodity> = ArrayList()
-    var zipcode: String = ""
     var selectedState: UtilityStateResp? = null
     var dynamicSettings: DynamicSettingResponse? = null
     var selectionType: String = ""
@@ -44,6 +42,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var phoneVerified: String = ""
     var selected_stateposition:String=""
     var selected_zipcode:String=""
+    var state_id:String=""
     var multienrollementbutton:Int?=null
     var addenrollement:Boolean=false
     var list: ArrayList<DynamicFormResp> = ArrayList()
@@ -61,6 +60,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var first_tmp_lead:String=""
     var counter:Int=0
     var parent_id:String=""
+    var zipcode:String=""
+    var custome_toolbar_clicked=false
 
 
 
@@ -230,6 +231,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         counter=0
         first_tmp_lead=""
         parent_id=""
+        custome_toolbar_clicked=false
+        state_id=""
         leadvalidationbackpressed=false
     }
 }

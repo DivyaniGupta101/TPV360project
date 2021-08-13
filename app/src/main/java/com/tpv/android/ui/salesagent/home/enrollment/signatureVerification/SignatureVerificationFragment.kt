@@ -77,7 +77,6 @@ class SignatureVerificationFragment : Fragment(), OnBackPressCallBack {
     }
 
     private fun initalize() {
-        Log.e("mViewModelpalnid",mSetEnrollViewModel.planId)
         setupToolbar(mBinding.toolbar, getString(R.string.e_signature))
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
         if(mSetEnrollViewModel.dynamicSettings?.le_client_enrollment_type.orFalse()){

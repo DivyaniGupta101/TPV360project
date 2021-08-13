@@ -33,6 +33,7 @@ import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
 import com.tpv.android.ui.salesagent.NotificationForegroundService
+import com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment
 import com.tpv.android.ui.salesagent.home.enrollment.success.SuccessFragment
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.MenuItem
@@ -246,9 +247,17 @@ class HomeActivity : AppCompatActivity() {
             closeDrawer()
         } else {
             val fragment = navigationHostFragment.childFragmentManager.fragments.first()
-            if(SuccessFragment.Onback==true ){
+            if(SuccessFragment.Onback==true ) {
                 toastNow("Please Complete the Process Of Live TPV Agent")
-            }else{
+            }else if(PlansZipcodeFragment.add_enrollementbutton_clicked==true){
+                if(fragment is PlansZipcodeFragment){
+
+                }else{
+                    if ((fragment is OnBackPressCallBack)) fragment.handleOnBackPressed()
+                    super.onBackPressed()
+                }
+
+            } else{
                 if ((fragment is OnBackPressCallBack)) fragment.handleOnBackPressed()
                 super.onBackPressed()
             }

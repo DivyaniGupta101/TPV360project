@@ -1,6 +1,10 @@
 package com.tpv.android.utils.validation
 
 import android.widget.EditText
+import com.tpv.android.model.network.DynamicFormResp
+import com.tpv.android.model.network.DynamicSettingResponse
+import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 
 
 /**

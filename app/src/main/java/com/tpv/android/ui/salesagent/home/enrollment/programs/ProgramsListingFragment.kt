@@ -66,8 +66,16 @@
         private fun initialize() {
             mBinding.errorHandler = AlertErrorHandler(mBinding.root)
 
-            setupToolbar(mBinding.toolbar, getString(R.string.select_plan), showBackIcon = true)
-            getimage(mViewModel.utility_list)
+            setupToolbar(mBinding.toolbar, getString(R.string.select_plan), showBackIcon = true,backIconClickListener = {
+                mViewModel.selectedUtilityList.clear()
+            })
+            if(mViewModel.zipcode.isEmpty()){
+                getimage(mViewModel.utility_list,mViewModel.state_id,"")
+
+            }else{
+                getimage(mViewModel.utility_list,"",mViewModel.zipcode)
+
+            }
             //If mList is empty then getPrograms from api and then set in recyclerView else only set in recyclerView
             if (mList.isEmpty()) {
                 getProgramsApiCall()
@@ -153,8 +161,8 @@
             mBinding.resource = liveData as LiveData<Resource<Any, APIError>>
         }
 
-        private fun  getimage(list:ArrayList<String>){
-            val liveData=mViewModel.getimageupload(Requentutilityid(list))
+        private fun  getimage(list:ArrayList<String>,stateid:String,zipcode:String){
+            val liveData=mViewModel.getimageupload(Requentutilityid(list,state_id = stateid,zipcode = zipcode))
             liveData.observe(this, Observer {
                 it.ifSuccess {
                     mViewModel.is_image_upload=it?.imageUpload?.isEnableImageUpload

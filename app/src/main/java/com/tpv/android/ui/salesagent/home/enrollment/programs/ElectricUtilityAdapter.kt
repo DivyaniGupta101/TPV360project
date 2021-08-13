@@ -53,7 +53,6 @@ open class ElectricUtilityAdapter(val list:ArrayList<ElectricdataItem>, val list
         holder.custom_adapter.adapter=adapter
         holder.main_container.setOnClickListener(View.OnClickListener {
             if(DynamicFormFragment.back_pressed==true ){
-                Log.e("onmainclick","onmainclick")
                 if(last_selected!=position){
                     last_selected=position
                     list[last_selected].is_selected="true"

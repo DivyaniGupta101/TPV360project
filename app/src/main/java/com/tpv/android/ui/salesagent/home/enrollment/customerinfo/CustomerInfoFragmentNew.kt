@@ -38,6 +38,7 @@ import com.tpv.android.utils.setupToolbar
 import kotlinx.android.synthetic.main.customer_info_adapter.*
 import kotlinx.android.synthetic.main.fragment_customer_info_new.*
 import kotlinx.android.synthetic.main.fragment_success.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class CustomerInfoFragmentNew : Fragment() , OnBackPressCallBack,CustomerInformationAdapter.Onitemclicklistener {
     private lateinit var mBinding: FragmentCustomerInfoNewBinding
@@ -69,7 +70,16 @@ class CustomerInfoFragmentNew : Fragment() , OnBackPressCallBack,CustomerInforma
 
     private fun initialize() {
         mBinding.errorHandler = AlertErrorHandler(mBinding.root)
-        setupToolbar(mBinding.toolbar, getString(R.string.verify_customer_information), showBackIcon = true)
+        setupToolbar(mBinding.toolbar, getString(R.string.verify_customer_information), showBackIcon = true,backIconClickListener = {
+            if(mViewModel.addenrollement==true){
+                mViewModel.custome_toolbar_clicked=true
+
+            }
+            mViewModel.customerback=true
+            mViewModel.add_enrollement_value=mViewModel.secondclick
+
+        })
+
         getcustomerinformation(mViewModel.mList)
         mBinding.btnNext.onClick {
                if(mViewModel.dynamicSettings?.le_client_enrollment_type.orFalse()){
@@ -101,7 +111,6 @@ class CustomerInfoFragmentNew : Fragment() , OnBackPressCallBack,CustomerInforma
         liveData.observe(this, Observer {
             it.ifSuccess {
                 mViewModel.templeaddetails= it?.tmpData as ArrayList<TmpDataItem>
-                Log.e("data",mViewModel.templeaddetails.size.toString())
 
                     adapter=CustomerInformationAdapter(mViewModel.templeaddetails,this)
                     customer_information.adapter=adapter
@@ -115,8 +124,13 @@ class CustomerInfoFragmentNew : Fragment() , OnBackPressCallBack,CustomerInforma
 
     override fun handleOnBackPressed(): Boolean {
         mViewModel.customerback=true
+        Log.e("backpressed",DynamicFormFragment.back_pressed.toString())
         mViewModel.add_enrollement_value=mViewModel.secondclick
         Log.e("addenrollement",mViewModel.add_enrollement_value.toString())
+        if(mViewModel.addenrollement==true){
+            mViewModel.custome_toolbar_clicked=true
+
+        }
         initialize()
         return true
     }
@@ -130,12 +144,8 @@ class CustomerInfoFragmentNew : Fragment() , OnBackPressCallBack,CustomerInforma
                 for(i in 0 until mViewModel.mList.size){
                     if(temp_leadid.equals(mViewModel.mList.get(i))){
                         mViewModel.mList.remove(temp_leadid)
-                        Log.e("tmplist",mViewModel.mList.toString())
                     }
                 }
-
-
-
             }
         })
 

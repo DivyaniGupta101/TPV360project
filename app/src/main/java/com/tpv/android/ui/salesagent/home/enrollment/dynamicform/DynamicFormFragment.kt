@@ -89,6 +89,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         var temp_lead_id:String=""
         var show_addenrollment_button:Int?=null
         var back_pressed:Boolean=false
+
     }
     private var mlistcommodity: ArrayList<CommodityResp> = ArrayList()
     private lateinit var mBinding: FragmentDynamicFormBinding
@@ -100,6 +101,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
     private var locationManager: LocationManager? = null
+
 
 
 
@@ -122,7 +124,10 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             back_pressed=true
 
         }
-//        mViewModel.selectedUtilityList.clear()
+        if(mViewModel.addenrollement==true){
+            mViewModel.custome_toolbar_clicked=true
+
+        }
         mViewModel.add_enrollement_value=mViewModel.secondclick
         return true
     }
@@ -133,15 +138,22 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
         }
         mBinding.addEnrollement.onClick {
             GasListingFragment.button_preesed=false
+            PlansZipcodeFragment.leclient=false
             ElectricListingFragment.onback=false
             if(mViewModel.first_tmp_lead.isEmpty()){
                 mViewModel.parent_id="0"
             }else{
                 mViewModel.parent_id=mViewModel.first_tmp_lead
             }
-           mViewModel.add_enrollement=true
-            mViewModel.addenrollement=true
-            if(mViewModel.secondclick==true) {
+
+             mViewModel.add_enrollement=true
+             mViewModel.addenrollement=true
+            if(mViewModel.customerback==true){
+                mViewModel.customerback=false
+                val bundle = bundleOf("item" to CommodityFragment.selectedTitle)
+                Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment1_to_planzipcode, bundle)
+                mViewModel.selectedUtilityList.clear()
+               }else if(mViewModel.secondclick==true) {
                 mViewModel.dynamicFormData.clear()
                 val validList: ArrayList<Boolean> = ArrayList()
                 bindingList.forEach { view ->
@@ -212,6 +224,15 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
 
         setupToolbar(mBinding.toolbar, getString(R.string.customer_data), showBackIcon = true, backIconClickListener = {
+            if(mViewModel.utilityList.size>1){
+                back_pressed=true
+
+            }
+            if(mViewModel.addenrollement==true){
+                mViewModel.custome_toolbar_clicked=true
+
+            }
+            mViewModel.add_enrollement_value=mViewModel.secondclick
             saveOldData()
         })
 
@@ -237,13 +258,6 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mViewModel.parent_id=mViewModel.first_tmp_lead
             }
 
-            if(mViewModel.customerback==true || mViewModel.leadvalidationbackpressed==true){
-                if (mViewModel.leadvelidationError?.errors.isNullOrEmpty()) {
-                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
-                } else {
-                    Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_leadVelidationFragment)
-                }
-            }else{
                 button_nextclicked=true
                 if(mViewModel.add_enrollement==true){
                     mViewModel.dynamicFormData.clear()
@@ -271,7 +285,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 }
             }
 
-        }
+
 
     }
 
@@ -360,7 +374,6 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                     if(mViewModel.counter==0){
                         mViewModel.first_tmp_lead=it?.leadTempId.toString()
                         mViewModel.parent_id=mViewModel.first_tmp_lead
-                        Log.e("firsttemoleadit",mViewModel.first_tmp_lead)
                     }
                     mViewModel.counter++
 
@@ -370,8 +383,8 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                         val bundle = bundleOf("item" to CommodityFragment.selectedTitle)
                         Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment1_to_planzipcode, bundle)
                         mViewModel.selectedUtilityList.clear()
+                        GasListingFragment.selectedvalue=false
 
-//                        validateCustomerDataApiCall(mViewModel.location?.latitude, mViewModel.location?.longitude)
                     }else if(button_nextclicked==true){
                         navigateNext()
                     }
@@ -403,6 +416,15 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                         getDynamicFormApiCall(CommodityFragment.selectedid_multienrollement, CommodityFragment.selectedid_multienrollement)
                         val bundle = bundleOf("item" to CommodityFragment.selectedTitle)
 //                        mViewModel.selectedUtilityList.clear()
+                        mViewModel.programid=""
+                        GasListingFragment.gasid=""
+                        ElectricListingFragment.electricid=""
+                        GasListingFragment.selectedid.clear()
+                        mViewModel.selectedUtilityList.clear()
+                        PlansZipcodeFragment.gasutility_id=""
+                        PlansZipcodeFragment.electric_utitlityid=""
+                        GasListingFragment.reward_name=""
+                        mViewModel.utility_list.clear()
                         Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment1_to_planzipcode, bundle)
 //                        validateCustomerDataApiCall(mViewModel.location?.latitude, mViewModel.location?.longitude)
                     }else if(button_nextclicked==true){
@@ -722,7 +744,16 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 //   createLocationRequest()
             } else {
                 if (locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER).orFalse()) {
-                    validateCustomerDataApiCall(mViewModel.location?.latitude, mViewModel.location?.longitude)
+                    if(mViewModel.customerback==true || mViewModel.leadvalidationbackpressed==true){
+                        if (mViewModel.leadvelidationError?.errors.isNullOrEmpty()) {
+                            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_clientInfoFragment)
+                        } else {
+                            Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_dynamicFormFragment_to_leadVelidationFragment)
+                        }
+                    }else{
+                        validateCustomerDataApiCall(mViewModel.location?.latitude, mViewModel.location?.longitude)
+
+                    }
                 } else {
                     context?.infoDialog(subTitleText = getString(R.string.msg_gps_location))
                 }
@@ -760,9 +791,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                         if (count < 3) {
                             delay(500)
                         } else {
-                            context?.infoDialog(subTitleText =
-
-                            getString(R.string.msg_location))
+                            context?.infoDialog(subTitleText = getString(R.string.msg_location))
                         }
                     }
                 }
