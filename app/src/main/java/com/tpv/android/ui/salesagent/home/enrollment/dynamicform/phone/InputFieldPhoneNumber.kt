@@ -31,10 +31,7 @@ import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.copyTextDialog
-import com.tpv.android.utils.validation.EmptyValidator
-import com.tpv.android.utils.validation.PhoneNumberValidator
-import com.tpv.android.utils.validation.TextInputValidationErrorHandler
-import com.tpv.android.utils.validation.Validator
+import com.tpv.android.utils.validation.*
 
 var countryCodeList = arrayListOf("+1")
 
@@ -79,6 +76,11 @@ fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
 
     bindingInputPhone.editPhoneNumber.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
+            if (s.toString().equals(viewModel.phoneVerified)) {
+                context.handleVerifiedText(bindingInputPhone, false)
+            } else {
+                context.handleVerifiedText(bindingInputPhone, true)
+            }
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -86,11 +88,7 @@ fun LayoutInputPhoneNumberBinding.setField(response: DynamicFormResp,
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             //Check if number is already verified call handleVerifiedText method
-            if (s.toString().equals(viewModel.phoneVerified)) {
-                context.handleVerifiedText(bindingInputPhone, false)
-            } else {
-                context.handleVerifiedText(bindingInputPhone, true)
-            }
+
         }
     })
 
@@ -157,7 +155,21 @@ fun LayoutInputPhoneNumberBinding.isValid(context: Context?): Boolean {
 
         }.validate()
     } else {
-        return true
+        if(bindingInputPhone.editPhoneNumber.text?.toString()?.isNotEmpty()==true){
+            Validator(TextInputValidationErrorHandler()) {
+                addValidate(
+                        bindingInputPhone.editPhoneNumber,
+                        PhoneNumberValidator(),
+                        context?.getString(R.string.enter_valid_phone_number)
+                )
+
+            }.validate()
+
+        }else{
+            return true
+
+        }
+
     }
 }
 
@@ -282,9 +294,12 @@ private fun Context.handleVerifiedText(bindingInputPhone: LayoutInputPhoneNumber
         bindingInputPhone.textVerify.setText(R.string.verify)
         bindingInputPhone.textVerify.setTextColor(context.color(R.color.colorTertiaryText).orZero())
     } else {
-        bindingInputPhone.textVerify.isEnabled = false
-        bindingInputPhone.textVerify.setText(R.string.verified)
-        bindingInputPhone.textVerify.setTextColor(context.color(R.color.colorVerifiedText).orZero())
+        if(bindingInputPhone.editPhoneNumber.text.toString().isNumeric()){
+            bindingInputPhone.textVerify.isEnabled = false
+            bindingInputPhone.textVerify.setText(R.string.verified)
+            bindingInputPhone.textVerify.setTextColor(context.color(R.color.colorVerifiedText).orZero())
+        }
+
     }
 }
 

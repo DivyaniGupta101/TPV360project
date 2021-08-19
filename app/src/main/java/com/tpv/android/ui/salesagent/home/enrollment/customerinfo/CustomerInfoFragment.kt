@@ -141,7 +141,7 @@ class CustomerInfoFragment : Fragment() {
         mBinding.btnNext.onClick {
             if (mViewModel.dynamicSettings?.isEnableRecording.orFalse()) {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_recordingFragment)
-            } else  if (DynamicFormFragment.image_upload==1) {
+            } else  if (mViewModel.image_upload==1) {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_uploadbillimageFragment)
             } else  if (mViewModel.is_image_upload.orFalse()) {
                 Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_clientInfoFragment_to_uploadbillimageFragment)

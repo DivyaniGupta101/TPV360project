@@ -106,7 +106,7 @@ class RecordingFragment : Fragment(), OnBackPressCallBack {
         mBinding.textSkip.onClick {
             if (recordedFile.isNullOrEmpty()) {
                 if(mViewModel.dynamicSettings?.le_client_enrollment_type.orFalse()){
-                    if (DynamicFormFragment.image_upload==1) {
+                    if (mViewModel.image_upload==1) {
                         Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
                     } else {
                         Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)
@@ -129,7 +129,7 @@ class RecordingFragment : Fragment(), OnBackPressCallBack {
                         setOnPositiveBanClickListener = {
                             recordedFile = ""
                             if(mViewModel.dynamicSettings?.le_client_enrollment_type.orFalse()){
-                                if (DynamicFormFragment.image_upload==1) {
+                                if (mViewModel.image_upload==1) {
                                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_uploadbillimageFragment)
                                 } else {
                                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_recordingFragment_to_signatureVerificationFragment)

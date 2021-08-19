@@ -30,10 +30,7 @@ import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 import com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment
 import com.tpv.android.utils.copyTextDialog
-import com.tpv.android.utils.validation.EmailValidator
-import com.tpv.android.utils.validation.EmptyValidator
-import com.tpv.android.utils.validation.TextInputValidationErrorHandler
-import com.tpv.android.utils.validation.Validator
+import com.tpv.android.utils.validation.*
 
 
 fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
@@ -77,6 +74,11 @@ fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
     }
     bindingInputEmail.editText.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
+            if (s.toString().equals(viewModel.emailVerified)) {
+                context.handleVerifiedText(bindingInputEmail, false)
+            } else {
+                context.handleVerifiedText(bindingInputEmail, true)
+            }
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -84,11 +86,7 @@ fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             //Check if number is already verified call handleVerifiedText method
-            if (s.toString().equals(viewModel.emailVerified)) {
-                context.handleVerifiedText(bindingInputEmail, false)
-            } else {
-                context.handleVerifiedText(bindingInputEmail, true)
-            }
+
         }
     })
 
@@ -97,10 +95,8 @@ fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
 
 fun LayoutInputEmailAddressBinding.isValid(context: Context?): Boolean {
     val binding = this
-    if(PlansZipcodeFragment.leclient==true){
-        if (DynamicFormFragment.image_upload == 1) {
-
-        } else {
+   return if(PlansZipcodeFragment.leclient==true){
+        if (DynamicFormFragment.image_upload == 0) {
             Validator(TextInputValidationErrorHandler()) {
                 addValidate(
                         binding.editText,
@@ -114,9 +110,24 @@ fun LayoutInputEmailAddressBinding.isValid(context: Context?): Boolean {
                         context?.getString(R.string.enter_valid_email)
                 )
             }.validate()
+        } else {
+            if(binding.editText.text?.toString()?.isNotEmpty()==true){
+                Validator(TextInputValidationErrorHandler()) {
+                    addValidate(
+                            binding.editText,
+                            EmailValidator(),
+                            context?.getString(R.string.enter_valid_email)
+                    )
+                }.validate()
+
+            }else{
+                return true
+
+            }
+
+
         }
     }else{
-        Log.e("else","else")
         return if (binding.item?.validations?.required.orFalse()) {
             Log.e("validations", binding.item?.validations?.required.orFalse().toString())
             Validator(TextInputValidationErrorHandler()) {
@@ -134,11 +145,23 @@ fun LayoutInputEmailAddressBinding.isValid(context: Context?): Boolean {
             }.validate()
         }
         else {
-            Log.e("validations", binding.item?.validations?.required.orFalse().toString())
-            return true
+            if(binding.editText.text?.toString()?.isNotEmpty()==true){
+                Validator(TextInputValidationErrorHandler()) {
+                    addValidate(
+                            binding.editText,
+                            EmailValidator(),
+                            context?.getString(R.string.enter_valid_email)
+                    )
+                }.validate()
+
+            }else{
+                return true
+
+            }
+//            Log.e("validations", binding.item?.validations?.required.orFalse().toString())
+//            return true
         }
     }
-    return true
 }
 
 
@@ -261,9 +284,12 @@ private fun Context.handleVerifiedText(bindingInputEmail: LayoutInputEmailAddres
         bindingInputEmail.textVerify.setText(R.string.verify)
         bindingInputEmail.textVerify.setTextColor(context.color(R.color.colorTertiaryText).orZero())
     } else {
-        bindingInputEmail.textVerify.isEnabled = false
-        bindingInputEmail.textVerify.setText(R.string.verified)
-        bindingInputEmail.textVerify.setTextColor(context.color(R.color.colorVerifiedText).orZero())
+        if(bindingInputEmail.editText.text.toString().isEmailValid()){
+            bindingInputEmail.textVerify.isEnabled = false
+            bindingInputEmail.textVerify.setText(R.string.verified)
+            bindingInputEmail.textVerify.setTextColor(context.color(R.color.colorVerifiedText).orZero())
+        }
+
     }
 }
 

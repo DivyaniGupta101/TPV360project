@@ -21,12 +21,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <service android:name=".ui.salesagent.NotificationForegroundService" />
-
-
 
             <provider
                 android:name="androidx.core.content.FileProvider"

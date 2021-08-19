@@ -154,8 +154,6 @@ class ProfileFragment : Fragment() {
                 .setView(binding.root).show()
         dialog?.setCanceledOnTouchOutside(false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-
         binding.errorHandler = AlertErrorHandler(mBinding.root)
         binding.lifecycleOwner = mBinding.lifecycleOwner
 

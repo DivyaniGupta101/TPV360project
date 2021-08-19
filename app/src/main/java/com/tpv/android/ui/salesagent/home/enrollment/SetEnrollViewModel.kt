@@ -23,6 +23,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var recordingFile: String = ""
     var isAgreeWithCondition: Boolean = false
     var signature: Bitmap? = null
+    var image_upload:Int?=null
+
     var add_enrollement:Boolean?=null
     var mList: ArrayList<String> = ArrayList()
     var templeaddetails: ArrayList<TmpDataItem> = ArrayList()
@@ -228,6 +230,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         addenrollement=false
         electric_list.clear()
         dynamicFormData.clear()
+        image_upload=null
         counter=0
         first_tmp_lead=""
         parent_id=""

@@ -105,6 +105,7 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         mBinding.btnVerify.onClick {
             DynamicFormFragment.back_pressed=false
             ElectricListingFragment.onback=false
+            DynamicFormFragment.image_upload=null
             PlansZipcodeFragment.gasutility_id=""
             PlansZipcodeFragment.electric_utitlityid=""
             PlansZipcodeFragment.add_enrollementbutton_clicked=false
@@ -138,6 +139,8 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
             GasListingFragment.reward_name=""
             GasListingFragment.gasid=""
             ElectricListingFragment.electricid=""
+            DynamicFormFragment.image_upload=null
+
             PlansZipcodeFragment.add_enrollementbutton_clicked=false
             GasListingFragment.selectedid.clear()
             PlansZipcodeFragment.leclient=false
@@ -148,6 +151,8 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
         mBinding.textBackToDashBoard.onClick {
             mViewModel.clearSavedData()
             DynamicFormFragment.back_pressed=false
+            DynamicFormFragment.image_upload=null
+
             ElectricListingFragment.onback=false
             PlansZipcodeFragment.gasutility_id=""
             PlansZipcodeFragment.electric_utitlityid=""

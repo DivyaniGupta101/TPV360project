@@ -39,6 +39,7 @@ import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.HomeActivity
 import com.tpv.android.ui.salesagent.home.TransparentActivity
+import com.tpv.android.ui.salesagent.home.dashboard.DashBoardFragment
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.salesagent.home.enrollment.commodity.CommodityFragment
 import com.tpv.android.ui.salesagent.home.enrollment.commodity.CommodityFragment.Companion.selectedTitle
@@ -361,6 +362,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             liveData = mViewModel.validateLeadDetail(ValidateLeadsDetailReq(
                     agentLat = lat,
                     agentLng = lng,
+                    agent_ipaddress = DashBoardFragment.sAddr,
                     parent_id =mViewModel.parent_id,
                     formId = mViewModel.planId,
                     fields = mViewModel.dynamicFormData,
@@ -395,6 +397,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
             liveData = mViewModel.validateLeadDetail(ValidateLeadsDetailReq(
                     agentLat = lat,
                     agentLng = lng,
+                    agent_ipaddress = DashBoardFragment.sAddr,
                     parent_id = mViewModel.parent_id,
                     formId = mViewModel.planId,
                     fields = mViewModel.dynamicFormData,
@@ -555,12 +558,6 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
         }
 
-
-
-
-
-
-
     /**
      * Inflate email address view
      */
@@ -623,6 +620,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 mBinding.fieldContainer,
                 true)
 
+
         binding.setField(response.label.orEmpty())
         bindingList.add(binding)
     }
@@ -635,8 +633,10 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                 R.layout.layout_input_phone_number,
                 mBinding.fieldContainer,
                 true)
-        binding.setField(response, mViewModel, mBinding, getListOfCopyText(response))
-        bindingList.add(binding)
+
+            binding.setField(response, mViewModel, mBinding, getListOfCopyText(response))
+            bindingList.add(binding)
+
     }
 
     /**

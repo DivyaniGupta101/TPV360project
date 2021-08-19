@@ -22,6 +22,8 @@ data class LeadVelidationError(
 data class ValidateLeadsDetailReq(
         @SerializedName("form_id")
         val formId: String? = "",
+        @SerializedName("agent_ipaddress")
+        var agent_ipaddress : String?,
         @SerializedName("parent_id")
         val parent_id: String? = "",
         @SerializedName("agent_lat")

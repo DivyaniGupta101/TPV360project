@@ -71,6 +71,10 @@ class CommodityFragment : Fragment() {
         getCommodityApiCall()
         setRecyclerView()
         mBinding.btnNext.onClick {
+            mViewModel.add_enrollement=false
+            mViewModel.customerback=false
+            DynamicFormFragment.back_pressed=false
+            mViewModel.custome_toolbar_clicked=false
             getDynamicFormApiCall(selectedId, selectedTitle)
         }
     }

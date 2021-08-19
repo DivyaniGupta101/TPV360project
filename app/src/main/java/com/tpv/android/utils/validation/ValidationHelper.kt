@@ -99,7 +99,8 @@ class RegexValidInput(private val regex: String?) : Validate {
  * Simple EmailValidator to validate input email is valid or not
  */
 class EmailValidator : Validate {
-    override fun isValid(s: String): Boolean = s.isEmailValid()
+    override fun isValid(s: String): Boolean =
+            s.isEmailValid()
 }
 
 /**

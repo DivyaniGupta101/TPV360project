@@ -121,6 +121,8 @@ class UploadbillImageFragment : Fragment(), OnBackPressCallBack {
                            save_image = it.path
                            savefile_upload = it
                            mSetEnrollViewModel.file_uploaded = savefile_upload
+                           Log.e("image",mSetEnrollViewModel.file_uploaded.toString())
+
                            mSetEnrollViewModel.upload_imagefile = save_image
                            GlideApp.with(this@UploadbillImageFragment).load(it.path).into(mBinding.billImage)
                        }catch (e: Exception){

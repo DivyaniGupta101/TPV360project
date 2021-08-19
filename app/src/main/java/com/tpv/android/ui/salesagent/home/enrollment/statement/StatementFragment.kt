@@ -149,18 +149,10 @@ class StatementFragment : Fragment(), OnBackPressCallBack {
         liveData.observe(this, Observer {
             it?.ifSuccess {
                 mViewModel.savedLeadResp = it
-                if (mViewModel.recordingFile.isNotEmpty() && mViewModel.upload_imagefile.isNotEmpty()) {
+                if (mViewModel.recordingFile.isNotEmpty() || mViewModel.upload_imagefile.isNotEmpty()) {
                     saveRecordingApiCall()
-                    lifecycleScope.launch {
-                        val compressedImageFile = mViewModel.file_uploaded?.let {
-                            it1 -> context?.let {
-                            it2 -> Compressor.compress(it2, it1)
-                         }
-                        }
-                        compressedImageFile?.let { it1 ->
-                            saveBillingImageApiCall(it1)
-                        }
-                    }
+                    mViewModel.file_uploaded?.let { it1 -> saveBillingImageApiCall(it1) }
+
                 } else {
                     saveSignatureApiCall()
                 }

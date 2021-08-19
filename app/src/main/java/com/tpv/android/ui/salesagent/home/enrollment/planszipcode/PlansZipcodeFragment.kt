@@ -239,7 +239,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 it?.ifSuccess {
                     mSetEnrollViewModel.dynamicSettings = it
                     leclient=it?.le_client_enrollment_type.orFalse()
-                    Log.e("lecliednt", leclient.toString())
                     mBinding.incProgressBar.progressBarView.show()
                    if (it?.isEnableEnrollByState.orFalse() && it?.isEnableEnrollByZip==false) {
                         mBinding.containerMain.hide()
@@ -274,6 +273,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                 mStateList.addAll(it.orEmpty())
                 mBinding.spinnerState.setItems(mStateList.map { it.state } as ArrayList<String>?)
                 if (mSetEnrollViewModel.add_enrollement == true) {
+                    Log.e("if","if")
                     if (mSetEnrollViewModel.selected_stateposition != null || mSetEnrollViewModel.selected_zipcode!=null) {
                         mBinding.textZipcode.setText(mSetEnrollViewModel.selected_zipcode)
                         mBinding.textZipcode.isEnabled=false
@@ -284,7 +284,8 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
                         getUtilityListApiCall(mSetEnrollViewModel.selected_zipcode,mSetEnrollViewModel.selected_stateposition)
 
                     }
-                }else if(mSetEnrollViewModel.customerback==true || DynamicFormFragment.back_pressed==true){
+                }else if(mSetEnrollViewModel.customerback==true || DynamicFormFragment.back_pressed==true || mSetEnrollViewModel.custome_toolbar_clicked==true){
+
                     mBinding.textZipcode.setText(mSetEnrollViewModel.selected_zipcode)
                     mBinding.textZipcode.isEnabled=false
                     mBinding.spinnerState.isEnabled=false
@@ -423,6 +424,7 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
      * Get Utilities details as per zipcode and selected planId
      */
     private fun getUtilityListApiCall(zipcode: String = "", state: String = "") {
+        mUtilityList.clear()
         val liveData = mViewModel.getUtility(UtilityReq(state = state, zipcode = zipcode, commodity =
         android.text.TextUtils.join(",", mSetEnrollViewModel.utilityList.map { it.id })))
         liveData.observe(this, Observer {
@@ -530,7 +532,6 @@ class PlansZipcodeFragment : Fragment(), OnBackPressCallBack {
         val liveData = mSetEnrollViewModel.getDynamicForm(mSetEnrollViewModel.addenrollement,DynamicFormReq(formId = id))
         liveData.observe(this, Observer {
             it.ifSuccess {
-                Log.e("addenrollementbutton",it.toString())
                 mSetEnrollViewModel.utilityList.addAll(mlistcommodity.find { it.id.toString() == id }?.commodities.orEmpty())
                 mSetEnrollViewModel.planId = id
             }

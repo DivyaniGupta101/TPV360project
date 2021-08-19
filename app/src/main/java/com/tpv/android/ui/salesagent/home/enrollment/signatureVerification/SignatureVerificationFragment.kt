@@ -13,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
 import android.widget.Spinner
+import androidx.core.net.toUri
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -247,26 +248,16 @@ class SignatureVerificationFragment : Fragment(), OnBackPressCallBack {
                 mSetEnrollViewModel.savedLeadResp = it
                 if (mSetEnrollViewModel.recordingFile.isNotEmpty() && mSetEnrollViewModel.upload_imagefile.isNotEmpty()) {
                     saveRecordingApiCall()
-                    lifecycleScope.launch {
-                        val compressedImageFile = mSetEnrollViewModel.file_uploaded?.let {
-                            it1 -> context?.let {
-                            it2 -> Compressor.compress(it2, it1)
+                    Log.e("if","if")
+                    mSetEnrollViewModel.file_uploaded?.let { it1 -> saveBillingImageApiCall(it1) }
 
-
-                            }
-                        }
-                        compressedImageFile?.let { it1 -> saveBillingImageApiCall(it1) }
-                    }
                 } else {
                     if(mSetEnrollViewModel.upload_imagefile.isNotEmpty()){
-                        lifecycleScope.launch {
-                            val compressedImageFile = mSetEnrollViewModel.file_uploaded?.let {
-                                it1 -> context?.let {
-                                it2 -> Compressor.compress(it2, it1)
-                            }
-                            }
-                            compressedImageFile?.let { it1 -> saveBillingImageApiCall(it1) }
-                        }
+                        saveRecordingApiCall()
+                        Log.e("else","else")
+                        mSetEnrollViewModel.file_uploaded?.let { it1 -> saveBillingImageApiCall(it1) }
+
+
                     }
 
                     Navigation.findNavController(mBinding.root).navigateSafe(R.id.action_signatureVerificationFragment_to_successFragment)
@@ -284,7 +275,7 @@ class SignatureVerificationFragment : Fragment(), OnBackPressCallBack {
     private fun saveRecordingApiCall() {
         val liveData =
                 File(mSetEnrollViewModel.recordingFile).toMultipartBody("media", "audio/*")?.let {
-                    mSetEnrollViewModel.saveMedia(leadId = mSetEnrollViewModel.savedLeadResp?.id.toRequestBody(),
+                    mSetEnrollViewModel.saveMedia(leadId = mSetEnrollViewModel.parent_id.toRequestBody(),
                             mediaFile = it, lng = mSetEnrollViewModel.location?.longitude.toString().toRequestBody(),
                             lat = mSetEnrollViewModel.location?.latitude.toString().toRequestBody())
 
