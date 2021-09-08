@@ -26,12 +26,9 @@ import com.google.gson.reflect.TypeToken
 import com.livinglifetechway.k4kotlin.core.*
 import com.livinglifetechway.k4kotlin.core.androidx.hideKeyboard
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
-import com.ravikoradiya.liveadapter.LiveAdapter
-import com.tpv.android.BR
 import com.tpv.android.R
 import com.tpv.android.databinding.*
 import com.tpv.android.helper.OnBackPressCallBack
-import com.tpv.android.model.internal.itemSelection
 import com.tpv.android.model.network.*
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
@@ -42,9 +39,6 @@ import com.tpv.android.ui.salesagent.home.TransparentActivity
 import com.tpv.android.ui.salesagent.home.dashboard.DashBoardFragment
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.salesagent.home.enrollment.commodity.CommodityFragment
-import com.tpv.android.ui.salesagent.home.enrollment.commodity.CommodityFragment.Companion.selectedTitle
-import com.tpv.android.ui.salesagent.home.enrollment.customerinfo.CustomerInfoFragment
-import com.tpv.android.ui.salesagent.home.enrollment.customerinfo.CustomerInfoFragmentNew
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.address.fillAddressFields
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.address.isValid
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.address.setField
@@ -71,13 +65,8 @@ import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.singlelineeditt
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.spinner.isValid
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.spinner.setField
 import com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment
-import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
-import com.tpv.android.ui.salesagent.home.enrollment.programs.GasListingFragment
-import com.tpv.android.ui.salesagent.home.leaddetail.LeadDetailFragment
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
-import com.tpv.android.utils.enums.MultienrollementDynamicField
-import com.tpv.android.utils.enums.Plan
 import kotlinx.android.synthetic.main.fragment_dynamic_form.*
 import kotlinx.coroutines.*
 

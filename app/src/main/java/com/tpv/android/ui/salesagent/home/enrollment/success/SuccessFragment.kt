@@ -32,8 +32,6 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 import com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment
-import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
-import com.tpv.android.ui.salesagent.home.enrollment.programs.GasListingFragment
 import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe

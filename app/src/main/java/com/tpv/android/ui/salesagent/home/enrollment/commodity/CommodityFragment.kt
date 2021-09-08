@@ -23,8 +23,6 @@ import com.tpv.android.databinding.FragmentCommodityBinding
 import com.tpv.android.databinding.ItemCommodityBinding
 import com.tpv.android.model.network.CommodityResp
 import com.tpv.android.model.network.DynamicFormReq
-import com.tpv.android.model.network.RequestCustomer
-import com.tpv.android.model.network.TmpDataItem
 import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError

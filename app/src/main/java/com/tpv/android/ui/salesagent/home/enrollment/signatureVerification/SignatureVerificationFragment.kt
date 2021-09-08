@@ -1,6 +1,5 @@
 package com.tpv.android.ui.salesagent.home.enrollment.signatureVerification
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,21 +8,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.CompoundButton
-import android.widget.Spinner
-import androidx.core.net.toUri
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.livinglifetechway.k4kotlin.*
-import com.livinglifetechway.k4kotlin.core.onItemSelected
 import com.tpv.android.R
 import com.tpv.android.databinding.FragmentSignatureVerificationBinding
 import com.tpv.android.helper.OnBackPressCallBack
@@ -33,17 +25,12 @@ import com.tpv.android.network.error.AlertErrorHandler
 import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
-import com.tpv.android.ui.SplashActivity
 import com.tpv.android.ui.salesagent.home.dashboard.DashBoardFragment
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
-import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
-import com.tpv.android.utils.glide.GlideApp
-import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.fragment_signature_verification.*
-import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
