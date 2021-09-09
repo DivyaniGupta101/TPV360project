@@ -28,6 +28,7 @@ import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.dashboard.DashBoardFragment
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
+import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
 import kotlinx.android.synthetic.main.fragment_signature_verification.*

@@ -42,6 +42,8 @@ import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.salesagent.home.enrollment.commodity.CommodityFragment
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.serviceandbillingaddress.selectedState
+import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
+import com.tpv.android.ui.salesagent.home.enrollment.programs.GasListingFragment
 import com.tpv.android.utils.enums.EnrollType
 import com.tpv.android.utils.infoDialog
 import com.tpv.android.utils.navigateSafe

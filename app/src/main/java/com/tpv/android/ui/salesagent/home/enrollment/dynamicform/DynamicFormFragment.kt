@@ -65,6 +65,8 @@ import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.singlelineeditt
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.spinner.isValid
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.spinner.setField
 import com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment
+import com.tpv.android.ui.salesagent.home.enrollment.programs.ElectricListingFragment
+import com.tpv.android.ui.salesagent.home.enrollment.programs.GasListingFragment
 import com.tpv.android.utils.*
 import com.tpv.android.utils.enums.DynamicField
 import kotlinx.android.synthetic.main.fragment_dynamic_form.*

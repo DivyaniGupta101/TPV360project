@@ -11,6 +11,7 @@ import com.tpv.android.R
 import com.tpv.android.model.network.*
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
 import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
+import kotlinx.android.synthetic.main.custom_field_adapter.view.*
 
 
 open class CustomFieldAdapter(val list:ArrayList<GasCustomFieldsItem>):RecyclerView.Adapter<CustomFieldAdapter.ViewHolder>() {

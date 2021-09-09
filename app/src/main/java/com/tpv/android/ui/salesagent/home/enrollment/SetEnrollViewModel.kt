@@ -24,7 +24,8 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var isAgreeWithCondition: Boolean = false
     var signature: Bitmap? = null
     var image_upload:Int?=null
-
+    var gas_commodityd_id:String=""
+    var electric_commodityd_id:String=""
     var add_enrollement:Boolean?=null
     var mList: ArrayList<String> = ArrayList()
     var templeaddetails: ArrayList<TmpDataItem> = ArrayList()
@@ -42,6 +43,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var upload_imagefile:String=""
     var file_uploaded:File?=null
     var phoneVerified: String = ""
+
     var selected_stateposition:String=""
     var selected_zipcode:String=""
     var state_id:String=""
@@ -64,7 +66,7 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
     var parent_id:String=""
     var zipcode:String=""
     var custome_toolbar_clicked=false
-
+    var commodity_id:ArrayList<String> =ArrayList()
 
 
 
@@ -236,6 +238,9 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         parent_id=""
         custome_toolbar_clicked=false
         state_id=""
+        gas_commodityd_id=""
+        electric_commodityd_id=""
         leadvalidationbackpressed=false
+        commodity_id.clear()
     }
 }
