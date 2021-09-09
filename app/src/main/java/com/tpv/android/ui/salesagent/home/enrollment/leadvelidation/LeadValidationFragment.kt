@@ -1,6 +1,7 @@
 package com.tpv.android.ui.salesagent.home.enrollment.leadvelidation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.tpv.android.network.resources.Resource
 import com.tpv.android.network.resources.apierror.APIError
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.salesagent.home.enrollment.SetEnrollViewModel
+import com.tpv.android.ui.salesagent.home.enrollment.dynamicform.DynamicFormFragment
 import com.tpv.android.utils.AppConstant
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
@@ -59,7 +61,14 @@ class LeadValidationFragment : Fragment(), OnBackPressCallBack {
             getString(R.string.enroll_triggered_alerts)
         }
 
-        setupToolbar(mBinding.toolbar, "Alert!", showBackIcon = true)
+        setupToolbar(mBinding.toolbar, "Alert!", showBackIcon = true,backIconClickListener = {
+            if(mViewModel.addenrollement==true){
+                mViewModel.custome_toolbar_clicked=true
+
+            }
+            mViewModel.customerback=true
+            mViewModel.add_enrollement_value=mViewModel.secondclick
+        })
 
         mBinding.title = title
 
@@ -94,7 +103,14 @@ class LeadValidationFragment : Fragment(), OnBackPressCallBack {
     }
 
     override fun handleOnBackPressed(): Boolean {
-        mViewModel.leadvalidationbackpressed=true
+        mViewModel.customerback=true
+        Log.e("backpressed", DynamicFormFragment.back_pressed.toString())
+        mViewModel.add_enrollement_value=mViewModel.secondclick
+        Log.e("addenrollement",mViewModel.add_enrollement_value.toString())
+        if(mViewModel.addenrollement==true){
+            mViewModel.custome_toolbar_clicked=true
+
+        }
         return true
     }
 }

@@ -134,7 +134,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/AddressFormTextInputLayout"
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/editzipcodetextinput"
             >
 
@@ -297,7 +297,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/AddressFormTextInputLayout"
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/billing_zipcode_textinputlayout">
 
             <com.google.android.material.textfield.TextInputEditText
