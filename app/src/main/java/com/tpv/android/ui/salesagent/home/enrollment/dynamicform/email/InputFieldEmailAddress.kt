@@ -95,7 +95,7 @@ fun LayoutInputEmailAddressBinding.setField(response: DynamicFormResp,
 
 fun LayoutInputEmailAddressBinding.isValid(context: Context?): Boolean {
     val binding = this
-   return if(PlansZipcodeFragment.leclient==true){
+   return if(DynamicFormFragment.image_upload!=null){
         if (DynamicFormFragment.image_upload == 0) {
             Validator(TextInputValidationErrorHandler()) {
                 addValidate(
