@@ -35,7 +35,6 @@ import com.tpv.android.utils.actionDialog
 import com.tpv.android.utils.enums.DynamicField
 import com.tpv.android.utils.navigateSafe
 import com.tpv.android.utils.setupToolbar
-import kotlinx.android.synthetic.main.customer_info_adapter.*
 import kotlinx.android.synthetic.main.fragment_customer_info_new.*
 import kotlinx.android.synthetic.main.fragment_success.*
 import kotlinx.android.synthetic.main.toolbar.*

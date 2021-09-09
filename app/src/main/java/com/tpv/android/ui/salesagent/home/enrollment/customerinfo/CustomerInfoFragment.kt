@@ -155,7 +155,6 @@ class CustomerInfoFragment : Fragment() {
     private fun setProgramInformation() {
         mViewModel.programList.forEach { programsResp ->
 
-
             val titleBinding = DataBindingUtil.inflate<ItemTitleProgramsBinding>(layoutInflater, R.layout.item_title_programs, mBinding.infoContainer, true)
             titleBinding.item = mViewModel.selectedUtilityList.find { it.utid.toString() == programsResp.utilityId }?.commodity
             val binding = DataBindingUtil.inflate<ItemProgramsBinding>(layoutInflater, R.layout.item_programs, mBinding.infoContainer, true)
