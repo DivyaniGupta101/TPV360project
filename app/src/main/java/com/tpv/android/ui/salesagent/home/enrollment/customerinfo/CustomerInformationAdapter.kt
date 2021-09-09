@@ -33,6 +33,12 @@ import kotlinx.android.synthetic.main.customer_info_adapter.view.*
         val programlist= list.get(position).programDetail as List<ProgramDetailItem>
         val program_adapter=UtilityProgramAdapter(programlist)
         holder.person_name.text= list.get(position).firstName+" "+list.get(position)?.middleInitial+" "+list.get(position)?.lastName
+        if(list.get(position).firstName!=null  && list.get(position).middleInitial!=null && list.get(position).lastName!=null){
+            holder.person_name.visibility= View.VISIBLE
+        }else{
+            holder.person_name.visibility= View.GONE
+
+        }
         if(list.get(position).accountNumber!=null){
             holder.account_number.text=list.get(position).accountNumber
             holder.account_number.visibility=View.VISIBLE
@@ -41,15 +47,24 @@ import kotlinx.android.synthetic.main.customer_info_adapter.view.*
             holder.account_number.visibility=View.GONE
             holder.textaccountnumber.visibility=View.GONE
         }
-//        if(list.get(position).serviceAddress1!=null){
-//            holder.service_address.visibility=View.GONE
-//            holder.text_serviceaddress.visibility=View.GONE
-//        }else{
-//            holder.service_address.visibility=View.VISIBLE
-//            holder.text_serviceaddress.visibility=View.VISIBLE
-//
-//
-//        }
+        if(list.get(position).serviceAddress1!=null){
+            holder.service_address.visibility=View.VISIBLE
+            holder.text_serviceaddress.visibility=View.VISIBLE
+        }else{
+            holder.service_address.visibility=View.GONE
+            holder.text_serviceaddress.visibility=View.GONE
+
+
+        }
+        if(list.get(position).billingAddress1!=null){
+            holder.billing_address.visibility=View.VISIBLE
+            holder.text_billingaddress.visibility=View.VISIBLE
+        }else{
+            holder.billing_address.visibility=View.GONE
+            holder.text_billingaddress.visibility=View.GONE
+
+
+        }
         if(list.get(position).serviceAddress2.equals("")){
             var address:String=list.get(position)?.serviceAddress1+", "+list.get(position)?.city+", "+list.get(position)?.county+", "+list.get(position)?.state+", "+list.get(position)?.zipcode+", "+list.get(position)?.serviceCountry
             holder.service_address.text=address
@@ -89,6 +104,7 @@ import kotlinx.android.synthetic.main.customer_info_adapter.view.*
          val textaccountnumber=view.textAccountNumber
          val image_click=view.delete_enrollement
          val text_serviceaddress=view.textServiceAddress
+         val text_billingaddress=view.textBillingAddress
 
 
     }
