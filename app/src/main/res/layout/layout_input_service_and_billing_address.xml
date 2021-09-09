@@ -104,7 +104,8 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/AddressFormTextInputLayout">
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AddressFormTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editServiceZipcode"
@@ -117,7 +118,8 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/AddressFormTextInputLayout">
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AddressFormTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editServiceCountry"
@@ -129,6 +131,25 @@
                 app:zipcode="@{item.values[key.SERVICEZIPCODE]}" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AddressFormTextInputLayout"
+            android:visibility="visible"
+            android:id="@+id/editzipcodetextinput"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editServicezipcode"
+                style="@style/DefaultEditText"
+                android:inputType="number"
+                android:maxLength="6"
+                android:hint="@string/zip_code"
+                android:text='@={item.values[key.SERVICEZIPCODE]}'
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             style="@style/SecondaryNormalTextWithTopSpacing"
@@ -256,7 +277,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/AddressFormTextInputLayout">
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AddressFormTextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editBillingCountry"
@@ -269,6 +291,22 @@
                 app:country="@{item.values[key.BILLINGCOUNTRY]}"
                 app:state="@{item.values[key.BILLINGSTATE]}"
                 app:zipcode="@{item.values[key.BILLINGZIPCODE]}" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AddressFormTextInputLayout"
+            android:visibility="visible"
+            android:id="@+id/billing_zipcode_textinputlayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBillingzipcode"
+                style="@style/DefaultEditText"
+                android:enabled="@{!item.addressSame}"
+                android:focusable="false"
+                android:hint="@string/zip_code"
+                android:text="@{item.values[key.BILLINGZIPCODE]}" />
 
 
         </com.google.android.material.textfield.TextInputLayout>

@@ -2,7 +2,24 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
 
+        <import type="com.tpv.android.network.resources.Resource" />
+
+        <import type="com.tpv.android.network.error.ErrorHandler" />
+
+        <import type="com.tpv.android.network.resources.apierror.APIError" />
+
+        <import type="com.tpv.android.R" />
+
+        <variable
+            name="resource"
+            type="androidx.lifecycle.LiveData&lt;Resource&lt;Object,APIError>>" />
+
+        <variable
+            name="errorHandler"
+            type="com.tpv.android.network.error.ErrorHandler" />
+    </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -207,8 +224,16 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/btnNext" />
+                    <include
+                        android:id="@+id/incProgressBar"
+                        layout="@layout/progress_bar"
+                        app:errorHandler="@{errorHandler}"
+                        app:resource="@{resource}"
+                        app:useBlockingProgress="@{true}"
+                        tools:visibility="visible" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </ScrollView>
 
