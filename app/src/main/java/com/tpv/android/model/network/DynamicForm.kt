@@ -64,5 +64,7 @@ data class Validations(
 data class DynamicFormReq(
         @SerializedName("form_id")
         val formId: String?
+//        @SerializedName("commodity_id")
+//         val commodity_id: List<String?>? = null
 
 )
