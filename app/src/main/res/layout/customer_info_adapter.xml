@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="items"
+            type="com.tpv.android.model.network.ResponseCustomerInformation" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardBackgroundColor="@color/colorWhite"
+        android:layout_margin="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:id="@+id/delete_enrollement"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:src="@drawable/ic_baseline_cancel_24">
+
+            </ImageView>
+                <TextView
+                    android:id="@+id/textCustomerName"
+                    style="@style/PrimaryBoldText"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:text="@string/customer_information"
+                    android:textAllCaps="true"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:textColor="@color/colorTertiaryText"
+                    />
+
+            <TextView
+                android:id="@+id/textNameValue"
+                style="@style/PrimaryNormalText"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:maxLines="1"
+                 />
+
+            <LinearLayout
+                android:id="@+id/addressContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/textAccountNumber"
+                style="@style/PrimaryBoldText"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_30sdp"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText"
+                android:text="@string/account_number"
+                android:visibility="gone"
+
+                />
+
+
+            <TextView
+                android:id="@+id/textAccountNumberValue"
+                style="@style/PrimaryNormalText"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:visibility="gone"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:ellipsize="end"
+                android:maxLines="1"
+               />
+
+            <TextView
+                android:id="@+id/textServiceAddress"
+                style="@style/PrimaryBoldText"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_30sdp"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText"
+                android:text="@string/service_address"
+                />
+
+
+            <TextView
+                android:id="@+id/textServiceAddressValue"
+                style="@style/PrimaryNormalText"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+
+                android:layout_marginEnd="@dimen/_16sdp"
+                />
+
+            <TextView
+                android:id="@+id/textBillingAddress"
+                style="@style/PrimaryBoldText"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_30sdp"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText"
+                android:text="@string/billing_address"
+               />
+
+
+            <TextView
+                android:id="@+id/textBillingAddressValue"
+                style="@style/PrimaryNormalText"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:ellipsize="end"
+
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                />
+
+
+            <TextView
+                style="@style/PrimaryBoldText"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:text="@string/plan_information"
+                android:textAllCaps="true"
+                android:textColor="@color/colorTertiaryText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/program_details"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_12sdp"
+                tools:listitem="@layout/item_programs_adapter"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</layout>
