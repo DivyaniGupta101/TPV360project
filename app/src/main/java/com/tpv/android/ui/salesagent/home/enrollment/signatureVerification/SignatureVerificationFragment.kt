@@ -91,8 +91,6 @@ class SignatureVerificationFragment : Fragment(), OnBackPressCallBack {
         }
 
 
-
-
         mBinding.btnSubmit.onClick {
             saveCustomerDataApiCall()
         }
