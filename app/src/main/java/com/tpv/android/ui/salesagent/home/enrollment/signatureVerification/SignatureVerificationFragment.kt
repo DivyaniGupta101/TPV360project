@@ -236,13 +236,11 @@ class SignatureVerificationFragment : Fragment(), OnBackPressCallBack {
                 mSetEnrollViewModel.savedLeadResp = it
                 if (mSetEnrollViewModel.recordingFile.isNotEmpty() && mSetEnrollViewModel.upload_imagefile.isNotEmpty()) {
                     saveRecordingApiCall()
-                    Log.e("if","if")
                     mSetEnrollViewModel.file_uploaded?.let { it1 -> saveBillingImageApiCall(it1) }
 
                 } else {
                     if(mSetEnrollViewModel.upload_imagefile.isNotEmpty()){
                         saveRecordingApiCall()
-                        Log.e("else","else")
                         mSetEnrollViewModel.file_uploaded?.let { it1 -> saveBillingImageApiCall(it1) }
 
 
@@ -263,7 +261,7 @@ class SignatureVerificationFragment : Fragment(), OnBackPressCallBack {
     private fun saveRecordingApiCall() {
         val liveData =
                 File(mSetEnrollViewModel.recordingFile).toMultipartBody("media", "audio/*")?.let {
-                    mSetEnrollViewModel.saveMedia(leadId = mSetEnrollViewModel.parent_id.toRequestBody(),
+                    mSetEnrollViewModel.saveMedia(leadId = mSetEnrollViewModel.savedLeadResp?.id.toRequestBody(),
                             mediaFile = it, lng = mSetEnrollViewModel.location?.longitude.toString().toRequestBody(),
                             lat = mSetEnrollViewModel.location?.latitude.toString().toRequestBody())
 

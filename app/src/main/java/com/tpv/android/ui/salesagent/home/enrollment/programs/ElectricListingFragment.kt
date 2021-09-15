@@ -126,11 +126,9 @@
 
                 if(electricid?.isNotEmpty()){
                     mViewModel.programid=android.text.TextUtils.join(",",GasListingFragment.selectedid.plus(electricid))
-                    Log.e("if",mViewModel.programid)
 
                 }else{
                     mViewModel.programid=android.text.TextUtils.join(",",GasListingFragment.selectedid)
-                    Log.e("else",mViewModel.programid)
                 }
                 if( mViewModel.programid.isEmpty()){
                     toastNow("Please Select at least One Utility")

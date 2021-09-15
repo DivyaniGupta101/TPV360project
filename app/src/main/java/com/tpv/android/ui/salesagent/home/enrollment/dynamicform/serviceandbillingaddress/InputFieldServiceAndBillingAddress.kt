@@ -71,6 +71,7 @@ fun LayoutInputServiceAndBillingAddressBinding.setField(response: DynamicFormRes
     }
 
     binding.editServiceAddressLineOne.onClick {
+        Log.e("selectiontype", selectedState.toString())
         context.openPlacePicker(binding, true)
     }
 
@@ -275,20 +276,19 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
 
     val binding = this
     val addressComponent = fillAddressFields?.let { addressComponents(it) }
-    Log.e("addresscomponent",addressComponent.toString())
-    Log.e("filladdress",fillAddressFields.toString())
+
 
     if (binding.item?.meta?.isPrimary == true) {
         Log.e("meta", binding.item?.meta?.isPrimary.toString())
 
         if (mViewModel.selectionType == EnrollType.STATE.value) {
+            Log.e("addresscomponent",addressComponent.toString())
+
             if (isServiceAddress) {
                 if (selectedState== addressComponent?.stateSortName && addressComponent?.zipcode?.isNotBlank().orFalse()) {
                     bindServiceAddressField(binding, addressComponent)
 
                 } else {
-                    zipcodevalue=editServiceAddressLineTwo.text.toString()
-                    Log.e("zipcodevalue", zipcodevalue)
                     binding.editBillingAddressLineOne.context.infoDialog(
                             subTitleText = binding.editBillingCountry.context.getString(R.string.state_not_match)
                     )
@@ -301,6 +301,8 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
 
         } else {
             if (isServiceAddress) {
+                Log.e("addresscomponent",addressComponent.toString())
+
                 if (mViewModel.zipcode == addressComponent?.zipcode) {
                     bindServiceAddressField(binding, addressComponent)
                 } else {
@@ -317,8 +319,12 @@ fun LayoutInputServiceAndBillingAddressBinding.fillAddressFields(fillAddressFiel
 
     } else {
         if (isServiceAddress) {
+            Log.e("addresscomponent",addressComponent.toString())
+            Log.e("selectiontype",mViewModel.selectionType )
             bindServiceAddressField(binding, addressComponent)
         } else {
+            Log.e("addresscomponent",addressComponent.toString())
+            Log.e("selectiontype",mViewModel.selectionType )
             bindBillingAddressField(binding, addressComponent)
         }
     }

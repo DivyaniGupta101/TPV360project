@@ -77,7 +77,6 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
         val result = getDynamicFormCall(addenrollement,dynamicFormReq)
         result.observeForever {
             it.ifSuccess {
-                Log.e("dynamicformresponse",it.toString())
                 if(add_enrollement==true){
                     list.clear()
                     duplicatePageMap?.clear()
@@ -103,11 +102,14 @@ class SetEnrollViewModel : CoroutineScopedViewModel() {
                         } else {
                             list.add(dynamicFormResp)
                         }
+                        Log.e("dynamicformresponse",dynamicFormResp.toString())
 
                     } else {
                         list.add(dynamicFormResp)
                         if (index == it.size.minus(1)) {
                             duplicatePageMap?.put(page, list)
+                            Log.e("dynamicformresponse",dynamicFormResp.toString())
+
 
                         }
 

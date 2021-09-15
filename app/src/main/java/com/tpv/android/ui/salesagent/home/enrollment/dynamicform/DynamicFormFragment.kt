@@ -176,6 +176,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
 
                     if (hasNext) {
                         currentPage += 1
+
                         Navigation.findNavController(mBinding.root).navigateSafe(DynamicFormFragmentDirections.actionDynamicFormFragmentSelf(currentPage))
 
                     } else {
@@ -183,6 +184,7 @@ class DynamicFormFragment : Fragment(), OnBackPressCallBack {
                         for (key in 1..mViewModel.formPageMap?.size.orZero()) {
                             mViewModel.dynamicFormData.addAll(mViewModel.formPageMap?.get(key).orEmpty())
                             mViewModel.dynamicFormDatanew.addAll(mViewModel.dynamicFormData);
+
                         }
                         getLocation()
                     }

@@ -195,7 +195,6 @@ interface ApiInterface {
     @GET("enrollment-type")
     fun enrollementype(@Query("enrollment_type") enrollmenttype: String?,@Query("client_id") clientId: String?): Call<EnrollementType>
 
-
     //getcustomerinformation
      @POST("show-multi-enrollment-forms")
      fun getcustomerinformation(@Body temp_lead_id:RequestCustomer):Call<ResponseCustomerInformation>
