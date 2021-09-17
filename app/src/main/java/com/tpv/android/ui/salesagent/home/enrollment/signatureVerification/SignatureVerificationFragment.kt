@@ -196,6 +196,7 @@ class SignatureVerificationFragment : Fragment(), OnBackPressCallBack {
      * Also check if recording is not empty then call save recording API else call save Signature API
      */
     private fun saveCustomerDataApiCall() {
+
         var zipcode = ""
         if (mSetEnrollViewModel.zipcode.isEmpty()) {
             zipcode = mSetEnrollViewModel.dynamicFormData.find { it.type == DynamicField.BOTHADDRESS.type && it.meta?.isPrimary == true }?.values?.get(AppConstant.SERVICEZIPCODE) as String
