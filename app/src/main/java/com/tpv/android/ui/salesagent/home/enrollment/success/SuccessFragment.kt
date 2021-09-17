@@ -152,7 +152,6 @@ class SuccessFragment : Fragment(), OnBackPressCallBack {
             mViewModel.clearSavedData()
             DynamicFormFragment.back_pressed=false
             DynamicFormFragment.image_upload=null
-
             ElectricListingFragment.onback=false
             PlansZipcodeFragment.gasutility_id=""
             PlansZipcodeFragment.electric_utitlityid=""

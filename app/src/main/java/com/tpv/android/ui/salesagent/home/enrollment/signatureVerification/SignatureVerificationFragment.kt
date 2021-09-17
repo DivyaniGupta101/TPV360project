@@ -207,6 +207,7 @@ class SignatureVerificationFragment : Fragment(), OnBackPressCallBack {
         }else{
             is_image=false
         }
+        mBinding.btnSubmit.isEnabled=false
         var liveData: LiveData<Resource<SaveLeadsDetailResp?, APIError>>? = null
         if( mSetEnrollViewModel.programid.isEmpty()){
             liveData = mSetEnrollViewModel.saveLeadDetail(SaveLeadsDetailReq(

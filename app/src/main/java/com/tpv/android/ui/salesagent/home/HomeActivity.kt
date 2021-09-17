@@ -33,6 +33,7 @@ import com.tpv.android.network.resources.extensions.ifFailure
 import com.tpv.android.network.resources.extensions.ifSuccess
 import com.tpv.android.ui.auth.AuthActivity
 import com.tpv.android.ui.salesagent.NotificationForegroundService
+import com.tpv.android.ui.salesagent.home.dashboard.DashBoardFragment
 import com.tpv.android.ui.salesagent.home.enrollment.planszipcode.PlansZipcodeFragment
 import com.tpv.android.ui.salesagent.home.enrollment.success.SuccessFragment
 import com.tpv.android.utils.*
@@ -252,7 +253,10 @@ class HomeActivity : AppCompatActivity() {
             }else if(PlansZipcodeFragment.add_enrollementbutton_clicked==true){
                 if(fragment is PlansZipcodeFragment){
 
-                }else{
+                }else if(fragment is DashBoardFragment){
+                    finish()
+
+                } else{
                     if ((fragment is OnBackPressCallBack)) fragment.handleOnBackPressed()
                     super.onBackPressed()
                 }
